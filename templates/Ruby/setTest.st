@@ -1,0 +1,3 @@
+setTest(ranges) ::= <<
+<ranges; separator=" || ">
+>>

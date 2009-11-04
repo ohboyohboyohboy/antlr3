@@ -1,0 +1,7 @@
+BaseRecognizer
+  #match(type, follow) 
+      - changed from match(input, type, follow)
+      - calls current_input_symbol() # not current_input_symbol(input)
+      - calls recover_from_mismatched_token(type, follow)
+      - raises BacktrackingFailsed
+  

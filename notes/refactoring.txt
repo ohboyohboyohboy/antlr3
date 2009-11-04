@@ -1,0 +1,50 @@
+== refactoring issues =======
+
+* #already_parsed_rule in recognizer classes (should be already_parsed_rule?)
+
+
+*********************** FOCUS ****************************************
+
+[TO-DO LIST]
+  - I really hate the default BaseRecognizer#emit_error_message(message)
+
+
+=====================================================================================================
+                                            [DONE]
+=====================================================================================================
+
+[CURRENT TASK]
+  * factor out the @token_names variable in parser classes
+
+[SUBTASKS]
+  * look for all references to ``token_names'' within the library
+  * carefully refactor references to it to either fetch the name
+    from the token itself or try to use the token_names reader
+    variable that is included in all generated recognizers
+  * look for other references to @token_names within the STG
+    templates and update them in the same fashion as I've done
+    for Lexer classes
+  * run the tests and see if anything is broken as a result
+
+[CHANGES MADE IN THE PROCESS]
+  ->  BaseRecognizer:
+    1. method signature change : #display_recognition_error(token_names, e)
+      * now #display_recognition_error(e)
+      * updated call in report_error
+    3. method signature change : #error_message(token_names, e)
+      message = error_message(e)
+  -> also updated code for Parser, Lexer, and TreeParser in a simillar fashion
+
+=> VERIFIED CHANGES VIA TESTS
+
+--------------------------------------------------------------------------------------------------------
+[CURRENT TASK]
+  - what's up with BR#to_strings?
+
+[SUBTASKS]
+
+[CHANGES MADE IN THE PROCESS]
+  - it wasn't used by anything as best as I can tell
+  - it was just a sloppy function that takes a single
+    array of tokens and converts them to text
+  - I went ahead and just trashed it

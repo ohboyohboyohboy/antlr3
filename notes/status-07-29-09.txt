@@ -1,0 +1,21 @@
+specific tasks to do:
+
+expanding through the Java debug runtime library
+
+    [x] BlankDebugEventListener            c Debug::BlankEventListener
+    [x] DebugEventHub                      c Debug::EventHub
+    [x] DebugEventListener                 m Debug::EventListener
+    [ ] DebugEventRepeater                
+    [x] DebugEventSocketProxy              c Debug::EventSocketProxy
+    [x] DebugParser                        m Debug::ParserEvents
+    [x] DebugTokenStream                   m Debug::TokenStream
+    [x] DebugTreeAdaptor                   m Debug::TreeAdaptor
+    [x] DebugTreeNodeStream                m Debug::TreeNodeStream
+    [x] DebugTreeParser                    m Debug::ParserEvents
+    [ ] ParseTreeBuilder                   
+    [x] Profiler                           c Debug::Profiler
+    [ ] RemoteDebugEventSocketListener     
+    [x] TraceDebugEventListener            c Debug::TraceEventListener
+    [x] Tracer                             c Debug::RuleTracer
+
+

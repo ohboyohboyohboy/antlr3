@@ -1,0 +1,15 @@
+* define_token_type
+  -> define_token?
+  -> single hash call instead of many individual calls?
+
+* @token scope?
+
+* look/peek -> look/peek
+
+
+
+
+
+===========
+
+:id! symbolized as %s(id!)

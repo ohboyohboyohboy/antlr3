@@ -1,0 +1,15 @@
+for each grammar:
+  * name
+  * type
+  * dependencies
+  * if compilation skipped?
+    - cached status info
+  * else
+    - command used
+    - successful?
+    - errors
+    - warnings
+    - generated files
+  * compilation information:
+  * generated files
+  

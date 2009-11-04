@@ -1,0 +1,46 @@
++---------------------------------+-----------------------------+
+| Ruby                            | Java                        |
++---------------------------------+-----------------------------+
+| BaseRecognizer                  | BaseRecognizer              |
+| Bug                             | ---                         |
+| CharacterStream                 | CharStream                  |
+| CommonToken                     | CommonToken                 |
+| CommonTokenStream               | CommonTokenStream           |
+| Constants                       | ---                         |
+| DFA                             | DFA                         |
+| Error                           | ---                         |
+| Error::BacktrackingFailed       | ---                         |
+| Error::EarlyExit                | EarlyExitException          |
+| Error::FailedPredicate          | FailedPredicateException    |
+| Error::MismatchedNotSet         | MismatchedNotSetException   |
+| Error::MismatchedRange          | MismatchedRangeException    |
+| Error::MismatchedSet            | MismatchedSetException      |
+| Error::MismatchedToken          | MismatchedTokenException    |
+| Error::MismatchedTreeNode       | MismatchedTreeNodeException |
+| Error::MissingToken             | MissingTokenException       |
+| Error::NoViableAlternative      | NoViableAltException        |
+| Error::RecognitionError         | RecognitionException        |
+| Error::RewriteCardinalityError  | RewriteCardinalityException |
+| Error::RewriteEarlyExit         | RewriteEarlyExitException   |
+| Error::RewriteEmptyStream       | RewriteEmptyStreamException |
+| Error::TreeInconsistency        | ---                         |
+| Error::UnwantedToken            | UnwantedTokenException      |
+| FileStream                      | ANTLRFileStream             |
+| Lexer                           | Lexer                       |
+| Lexer::FilterMode               | ---                         |
+| Parser                          | Parser                      |
+| RecognizerSharedState           | RecognizerSharedState       |
+| RewriteOperation                | ---                         |
+| RewriteOperations               | ---                         |
+| RewriteOperations::Delete       | ---                         |
+| RewriteOperations::InsertBefore | ---                         |
+| RewriteOperations::Replace      | ---                         |
+| Stream                          | IntStream                   |
+| StringStream                    | ANTLRStringStream           |
+| Token                           | Token                       |
+| TokenFactory                    | TokenSource                 |
+| TokenRewriteStream              | TokenRewriteStream          |
+| TokenScheme                     | ---                         |
+| TokenSource                     | TokenSource                 |
+| TokenStream                     | TokenStream                 |
++---------------------------------+-----------------------------+

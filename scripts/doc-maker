@@ -1,0 +1,18 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+=begin      ::about::
+author:     Kyle Yetter <kcy5b@yahoo.com>
+created on: October 18, 2009
+purpose:    utility script
+summary:    convert textile-based documentation files to HTML
+=end
+
+Ruby.project ||= 'antlr3'
+Ruby.project.setup_extras
+require 'doc-utils'
+
+
+for f in ARGV
+  convert(f)
+end

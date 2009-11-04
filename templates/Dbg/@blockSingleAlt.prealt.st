@@ -1,0 +1,3 @@
+
+
+@blockSingleAlt.prealt() ::= "<enterAlt(n={1})>"

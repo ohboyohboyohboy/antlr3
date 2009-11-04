@@ -1,0 +1,25 @@
+05/04/2009
+
+status:
+  - at the start, i ported everything from notes/python/initial-version
+    to ruby
+  - after discovering a significantly updated version of the python
+    runtime packaged with ANTLR 3.1.3, i spent several days examining
+    diffs, making updates to the API, and adding the new features
+    provided in the newer version
+  - i then spent a few days porting MOST of the python unit tests in
+    notes/python/current-suit/unittest to ruby Test::Unit unit
+    tests, all of which are found in test/test-*.rb
+  - I added the rake task test:all to run the tests
+  - I've been piping the test results to log/test-results.log
+  - I've fixed most of the errors that have come up during tests,
+    but right now I still need to keep clearing the tests until
+    it's all clean
+
+to do still:
+  - finish correcting test errors until clean
+  - examine the API and see if there's a more sensible way to organize it (refactor)
+  - update tests accordingly and clear them out
+  - write the ruby StringTemplate groups so antlr will make proper output
+    - may require study of ANTLR extending
+  - add documentation

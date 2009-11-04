@@ -1,0 +1,29 @@
+all modes:
+  Ruby
+
+plain debug:
+  Ruby
+  Dbg
+
+ast building parsers:
+  Ruby
+  AST
+  ASTParser
+
+ast rewriting tree parsers:
+  Ruby
+  AST
+  ASTTreeParser
+
+debugging ast building parsers:
+  Ruby
+  AST
+  ASTParser
+  ASTDbg
+
+debugging ast rewriting tree parsers:
+  Ruby
+  Dbg
+  AST
+  ASTTreeParser
+  ASTDbg

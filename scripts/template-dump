@@ -1,0 +1,8 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+establish :standard
+Dir.chdir( __DIR__ / '..' )
+system("python ./scripts/template-dump.py templates scratch/group-yaml") or fail("template-dump.py failed")
+Dir.chdir( 'scratch/group-yaml' )
+exec("ruby ./study.rb")

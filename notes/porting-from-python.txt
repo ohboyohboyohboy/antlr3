@@ -1,0 +1,19 @@
+notes:
+  - I've called both LA and LT references "look_ahead"
+    - from what i can tell, LA is used in some streams and LT is used in token streams
+  - they tend to call the position in line "charPositionInLine"
+    - i call it 'column'
+  - they call 's' state,
+    - i call it 'state'
+  - they call current characters 'c'
+    - i call it 'char'
+  - generally, I call anything in the form of getBlahBlahBlah 'blah_blah_blah' -- assuming its an attribute
+  - however, i've come across a few things where they take an argument, and I don't know what the method
+    does though my hunch is that 'getText(token)' would better be written as 'text_of(token)'
+  - so far, i've stuck with the attribute convention, though, even when there's arguments
+  
+RecognitionException -- made some assumptions about other classes
+
+ them                 | me
+======================+==============================
+NoViableAltException  | NoViableAlternative

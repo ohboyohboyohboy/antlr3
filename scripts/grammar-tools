@@ -1,0 +1,869 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+Ruby.setup(
+  :project => 'antlr3',
+  :monitor => false,
+  :record => false
+)
+establish 'cli-main'
+establish 'standard'
+
+project.setup_extras
+require 'ANTLRv3Grammar'
+
+ACTION_TOKENS = %w(
+  ARG RET T__72 ACTION SEMPRED SYN_SEMPRED GATED_SEMPRED
+).freeze
+
+
+include ANTLRv3Grammar::TokenData
+
+Main do
+  
+  description(<<-END)
+    grammar-tools provides a number of commands which may
+    be used to study and manipulate ANTLR Version 3
+    grammar files.
+  END
+  author 'Kyle Yetter <kcy5b@yahoo.com>'
+  version '1.0.0'
+  
+  mixin :input do
+    if $stdin.tty?
+      argument(:grammar_file) do
+        synopsis('grammar-file.g')
+        description("path of the grammar file to use as input")
+        required
+        arity(1)
+      end
+    end
+    
+    def grammar_source
+      @grammar_source ||= begin
+        stdin.tty? ? File.read(params[:grammar_file].value) : stdin.read
+      end
+    end
+    
+    def file_name
+      stdin.tty? ? params[:grammar_file].value : '$stdin'
+    end
+    
+    def lexer
+      @lexer ||= begin
+        input = ANTLR3::StringStream.new(grammar_source, :file => file_name)
+        lexer = ANTLRv3Grammar::Lexer.new(input)
+        lexer.instance_variable_set(:@logger, self.logger)
+        def lexer.emit_error_message(msg)
+          @logger.error { "grammar lexical error: " << msg }
+        end
+        lexer
+      end
+    end
+    
+    def token_stream
+      @token_stream ||= ANTLR3::CommonTokenStream.new(lexer)
+    end
+    
+    def parser
+      @parser ||= begin
+        parser = ANTLRv3Grammar::Parser.new(token_stream)
+        parser.instance_variable_set(:@logger, self.logger)
+        def parser.emit_error_message(msg)
+          @logger.error { "grammar parsing error: " << msg }
+        end
+        parser
+      end
+    end
+    
+    def grammar_tree
+      @grammar_tree ||= parser.grammar_def.tree
+    end
+    
+    def grammar_sexp
+      ANTLRv3Grammar.convert_to_sexp(grammar_tree)
+    end
+    
+    def action_ranges
+      @action_ranges ||= begin
+        grammar_tree.select { |node| node.text == '@' }.map { |node|
+          node.token_range }.tap { |list| list.uniq! }.sort_by { |r| [r.begin, r.end] }
+      end
+    end
+    
+    def node_source(node)
+      token_slice = token_stream[node.token_range]
+      grammar_source[(token_slice[0].start)..(token_slice[-1].stop)]
+    end
+    
+    def option_node
+      @option_node ||= begin
+        grammar_tree.children.find { |child| child.name == 'OPTIONS' }
+      end
+    end
+    
+    def grammar_options
+      @grammar_options ||= begin
+        opts = Hash.new
+        if node = option_node
+          for child in node.children
+            opts[child[0].text] = child[1].text
+          end
+        end
+        opts
+      end
+    end
+    
+    def grammar_option_text
+      text = "options {"
+      body = grammar_options.map { |pair| "%s = %s;" % pair }.join("\n  ")
+      if body.count("\n") == 1
+        text << " " << body << " }"
+      else
+        text << "\n  " << body << "\n}"
+      end
+      return(text)
+    end
+    
+    def action_node?(node)
+      ACTION_TOKENS.include?(node.name) and return true
+    end
+    def rules
+      @rules ||= begin
+        rules = {}
+        grammar_tree.walk do |node|
+          if node.type == RULE
+            rules[node[0].text] = node
+          end
+        end
+        rules
+      end
+    end
+    def rule_names
+      rules.keys.compact.sort
+    end
+  end
+  mixin :rewrite do
+    mixin :input
+    
+    option('output', 'o') do
+      arity(1)
+    end
+    if $stdin.tty?
+      # only possible when a file name is provided (not when read from $stdin)
+      option('in-place') do
+        description("write the output directly to the input path")
+      end
+    end
+    
+    class Rewrite
+      def conflict!(existing, requested)
+        raise RangeError,
+        "rewrite action %p conflicts with action %p due to overlapping token ranges" %
+        [requested, existing]
+      end
+      
+      def initialize(name, stream)
+        @name = name.to_s
+        @stream = stream
+        @program = @stream.program(name)
+        @stream.tokens.each_with_index do |t, i|
+          t.index == i or
+            $stderr.puts("mismatched token index: %p -> should be %p, not %p" % [t, i, t.index])
+        end
+      end
+      
+      def delete(*items)
+        opts = Hash === items.last ? items.pop : nil
+        for item in items
+          case item
+          when ANTLR3::Token then
+            index = item.index and index >= 0 and register(:delete, index, index)
+          when ANTLR3::Tree
+            range = node_range(item)
+            register(:delete, range.begin, range.end)
+          when Integer then register(:delete, item, item)
+          when Range then register(:delete, item.begin, item.end)
+          when String then delete { |t| t.text == item }
+          when Regexp then delete { |t| t.text =~ item }
+          when Symbol then
+            type = item.to_s.downcase
+            delete { |t| t.name.downcase == type }
+          end
+        end
+        block_given? and for token in @tokens
+          yield(token) and delete(token)
+        end
+        return(self)
+      end
+      
+      def register(operation, *arguments)
+        @program.send(operation, *arguments)
+      end
+      
+      def tokens(*args)
+        @stream[*args]
+      end
+      
+      def replace(item = nil, text = nil, opts = nil, &block)
+        if item.nil? and block_given?
+          
+          for token in @tokens
+            replacement = yield(token) and replace(token, replacement)
+          end
+          
+        elsif item
+          
+          replacement = block_given? ? block  : text
+          
+          case item
+          when ANTLR3::Token then
+            index = item.index and index >= 0 and register(:replace, index, index, replacement)
+          when ANTLR3::Tree
+            range = node_range(item, opts)
+            register(:replace, range.begin, range.end, replacement)
+          when Integer then register(:replace, item, item, replacement)
+          when Range then register(:replace, item.begin, item.end, replacement)
+          when String then replace { |t| t.text == item ? replacement : nil }
+          when Regexp then replace { |t| item =~ t.text ? replacement : nil }
+          when Symbol then
+            type = item.to_s.downcase
+            replace { |t| t.name.downcase == type ? replacement : nil }
+          end
+          
+        end
+        return(self)
+      end
+      
+      def node_range(node, opts)
+        range = node.token_range
+        if opts
+          opts[:leading_whitespace] and pre = tokens[range.begin - 1] and
+          pre.name == 'WS' and range = (range.begin - 1)..(range.end)
+          opts[:trailing_whitespace] and post = tokens[range.end + 1] and
+          post.name == 'WS' and range = (range.begin)..(range.end + 1)
+        end
+        return(range)
+      end
+      
+      
+      def insert_before(item = nil, text = nil, &block)
+        if item.nil? and block_given?
+          
+          for token in @tokens
+            insertion = yield(token) and insert_before(token, insertion)
+          end
+          
+        elsif item
+          
+          insertion = block_given? ? block  : text
+          
+          case item
+          when ANTLR3::Token then
+            index = item.index and index >= 0 and register(:insert_before, index, insertion)
+          when ANTLR3::Tree
+            index = item.start_index
+            register(:insert_before, index, insertion)
+          when Integer then register(:insert_before, item, insertion)
+          when Range then register(:insert_before, item.begin, insertion)
+          when String then insert_before { |t| t.text == item ? insertion : nil }
+          when Regexp then insert_before { |t| item =~ t.text ? insertion : nil }
+          when Symbol then
+            type = item.to_s.downcase
+            insert_before { |t| t.name.downcase == type ? insertion : nil }
+          end
+          
+        end
+        return(self)
+      end
+
+      def insert_after(item = nil, text = nil, &block)
+        if item.nil? and block_given?
+          
+          for token in @tokens
+            insertion = yield(token) and insert_after(token, insertion)
+          end
+          
+        elsif item
+          
+          insertion = block_given? ? block  : text
+          
+          case item
+          when ANTLR3::Token then
+            index = item.index and index >= 0 and register(:insert_after, index, insertion)
+          when ANTLR3::Tree
+            index = item.stop_index
+            register(:insert_after, index, insertion)
+          when Integer then register(:insert_after, item, insertion)
+          when Range then register(:insert_after, item.end, insertion)
+          when String then insert_after { |t| t.text == item ? insertion : nil }
+          when Regexp then insert_after { |t| item =~ t.text ? insertion : nil }
+          when Symbol then
+            type = item.to_s.downcase
+            insert_after { |t| t.name.downcase == type ? insertion : nil }
+          end
+          
+        end
+        return(self)
+      end
+      
+      def rewrite
+        @program.execute
+      end
+      alias to_s rewrite
+    end
+    
+    def rewrite(name = 'default')
+      rw = Rewrite.new(name, token_stream)
+      if block_given?
+        yield(rw)
+        return(rw.rewrite)
+      else return(rw)
+      end
+    end
+    
+    def token_stream
+      @token_stream ||= ANTLR3::TokenRewriteStream.new(lexer)
+    end
+    def write_output
+      if $stdin.tty? and params['in-place'].given?
+        path = file_name
+        backup(path) do
+          open(path, 'w') { |f| yield(f) }
+        end
+      elsif params[:output].given?
+        open(params[:output].value, 'w') { |f| yield(f) }
+      else yield(stdout)
+      end
+    end
+    
+    
+    def backup(path)
+      backup_path = path + '.backup'
+      info { "attempting to back up #{path} to #{backup_path}" }
+      File.rename(path, backup_path)
+      info { "wrote back up copy of #{path} to #{backup_path}" }
+      block_given? and begin
+        yield
+      rescue Exception => e
+        if test(?f, backup_path)
+          error { "attempting to restore #{path} from #{backup_path} due to error" }
+          File.rename(backup_path, path)
+        else
+          error { "cannot restore #{path} from back up as #{backup_path} does not exist" }
+        end
+        raise e
+      end
+    end
+  end
+  
+  mixin :colors do
+    option 'color' do
+      argument_required
+      synopsis('--color=COLOR')
+      description(<<-END)
+        specify either a color name or an HTML-style hex RGB color code
+        a foreground/background color pair may be specified with the
+        syntax [FG]:[BG]
+      END
+      
+      cast do |value|
+        colors = value.split(':', -1)
+        colors[0, 2]
+      end
+      
+      arity(1)
+      default('red')
+    end
+    
+    def plain_colors
+      @plain_colors ||= begin
+        require 'string/ansi'
+        Hash[String::ANSIEscapes::COLORS.map { |name, escape| [name.to_s, escape] }]
+      rescue LoadError
+        {}
+      end
+    end
+    
+    def named_colors
+      @named_colors ||= begin
+        gem :color rescue nil
+        require 'color'
+        color_map = Hash.new do |h,k|
+          if k.is_a?(::String) and k = k.dup.downcase!
+            h[k]
+          else h[k.to_s]
+          end
+        end
+        Color::RGB.constants.each do |name|
+          value = Color::RGB.const_get(name)
+          value.is_a?(Color::RGB) or next
+          color_map[name.downcase] = value
+        end
+        color_map
+      rescue LoadError
+        {}
+      end
+    end
+    
+    def named_color(name)
+      name = name.to_s.downcase
+      named_colors[name]
+    end
+    
+    def plain_color(name)
+      name = name.to_s
+      plain_colors[name]
+    end
+    
+    def fg(name)
+      if color = plain_color(name)
+        color
+      elsif color = (named_color(name) || Color::RGB.from_html(name) rescue nil)
+        "\e[38;2;#{color.red.round};#{color.green.round};#{color.blue.round}m"
+      else ''
+      end
+    end
+    
+    def bg(name)
+      if color = plain_color("on_#{name}")
+        color
+      elsif color = (named_color(name) || Color::RGB.from_html(name) rescue nil)
+        "\e[48;2;#{color.red.round};#{color.green.round};#{color.blue.round}m"
+      else
+        ''
+      end
+    end
+    
+    def color_text(text, f = params[:color].value[0], b = params[:color].value[1])
+      fg(f) + bg(b) + text.to_s + "\e[0m"
+    end
+    
+  end
+  mode :show do
+    mixin :input
+    
+    mode :tree do
+      run do
+        require 'pp'
+        printer = PP.new(stdout, screen_width - 2, $/) do |n|
+          '  ' * n
+        end
+        printer.guard_inspect_key do
+          printer.pp(grammar_tree)
+        end
+        printer.flush
+        stdout.puts('')
+      end
+    end
+    
+    mode :rules do
+      option('lexer') do
+        description("only list lexer rule names")
+      end
+      option('parser') do
+        description("only list parser rule names")
+      end
+      option('plain') do
+        description("print the names in a plain list with one name per line")
+      end
+      
+      def run
+        if params['lexer'].given?
+          list_names("lexer rules", lexer_rules)
+        elsif params['parser'].given?
+          list_names("parser rules", parser_rules)
+        else
+          list_names("lexer rules", lexer_rules)
+          list_names("parser rules", parser_rules)
+        end
+      end
+      
+      def list_names(title, rules)
+        unless rules.empty?
+          if params['plain'].given?
+            puts(rules)
+          else
+            leading = '  '
+            w = (screen_width * 0.8).round
+            puts("===[#{title}]".ljust(w, '='), '')
+            list = Text::ColumnList.new(rules, :width_limit => w - leading.length)
+            puts(list.render.gsub(/^/, leading), '')
+          end
+        end
+      end
+      
+      def lexer_rules
+        @lexer_rules ||= rule_names.grep(/^[A-Z]/)
+      end
+      
+      def parser_rules
+        @parser_rules ||= rule_names - lexer_rules
+      end
+      
+    end
+    
+    mode :rule do
+      argument :names do
+        arity(-2)
+        description("name of the rule to display")
+      end
+      
+      def run
+        for name in params[:names].values
+          if node = rules[name.to_s]
+            puts node_source(node), ''
+          else
+            error {
+              "unable to locate a rule declaration named #{name} in the grammar source"
+            }
+          end
+        end
+      end
+      
+    end
+    
+    mode :sexp do
+      option :indent do
+        validate { |i| i >= 0 }
+        cast(:integer)
+        default(2)
+      end
+      
+      option :width do
+        validate { |i| i > 0 }
+        cast(:integer)
+        default((screen_width*0.9).round)
+      end
+      
+      def run
+        require 'pp'
+        indent = params[:indent].value
+        @printer = PrettyPrint.new($stdout, params[:width].value) do |n|
+          ' ' * (n * indent)
+        end
+        dump(grammar_sexp)
+        @printer.flush
+        $stdout.puts("\n")
+      end
+      
+      def dump(node)
+        @printer.group(1, 's(', ')') do
+          @printer.text(node.shift.inspect)
+          @printer.breakable(' ') unless node.empty?
+          while child = node.shift
+            case child
+            when Sexp then
+              dump(child)
+            when String
+              text = child.inspect
+              w = count_characters(text)
+              @printer.text(text, w)
+            else
+              @printer.text(child.inspect)
+            end
+            @printer.breakable(' ') unless node.empty?
+          end
+        end
+      end
+      
+      def count_characters(text)
+        cursor = 0
+        nbytes = text.length
+        count = 0
+        while cursor < nbytes
+          delta =
+            case text[cursor]
+            when 0...128 then 1
+            when 192...224 then 2
+            when 224...240 then 3
+            end
+          count += 1
+          cursor += delta
+        end
+        return(count)
+      end
+      
+    end
+    
+    run { help! }
+  end
+
+  mode :alter do
+    description(<<-END)
+      commands for rewriting and refactoring various
+      aspects of a grammar file
+    END
+    
+    mode :rename do
+      mixin :rewrite
+      
+      argument :rule_name do
+        description("the current name of the rule to rename")
+      end
+      
+      argument :new_name do
+        description("the new name of the rule")
+      end
+      
+      def run
+        old_name = params[:rule_name].value
+        new_name = params[:new_name].value
+        
+        renamed = rewrite do |prog|
+          grammar_tree.walk do |node|
+            node =
+              case node.type
+              when RULE_REF, TOKEN_REF then node
+              when RULE     then node[0]
+              else next
+              end
+            node.token.index == -1 and node.token.index = node.start_index
+            name_token = node.token
+            if name_token.text == old_name
+              prog.replace(name_token, new_name)
+            end
+          end
+        end
+        
+        write_output { |f| f.write(renamed) }
+      end
+    end
+    
+    mode :strip do
+      mixin :rewrite
+      
+      @@TOKENS_TO_STRIP = %w(
+        ARG RET T__72 ACTION SEMPRED SYN_SEMPRED GATED_SEMPRED
+      ).freeze
+      
+      def run
+        stripped = rewrite do |rw|
+          grammar_tree.walk do |node|
+            if token = node.token and @@TOKENS_TO_STRIP.include?(token.name)
+              rw.delete(node)
+            end
+          end
+        end
+        write_output { |f| f.write(stripped) }
+      end
+      
+    end
+    
+    mode :stylize do
+      synopsis("transform ANTLR grammars into an appropriate form for Ruby code generation")
+      description(<<-END.here_indent!)
+      | Takes an ANTLR grammar file that is written for code generation in a language
+      | like Java, and prepares sets it up for ruby code generation. This is done
+      | by:
+      |   * converting CamelCase parser rule names and references to the Ruby
+      |     stylistic convention of snake_case names
+      |   * comments out all language-specific action portions of the grammar
+      |     so they may be located and tailored. The action comments
+      |     are in the format /* action -> __EXISTING_CODE__ */
+      |   * modifies (or adds if necessary) the language option of the grammar
+      |     to Ruby
+      END
+      mixin :rewrite
+      
+      option('keep-actions', 'A') do
+        description("don't comment out actions")
+      end
+      
+      option("keep-names", 'N') do
+        description("don't convert CamelCase names to snake_case")
+      end
+      
+      option("language") do
+        argument_required
+        description("set the target language in the grammar options")
+        default("Ruby")
+      end
+      
+      def run
+        tree = grammar_tree
+        tree.set_unknown_token_boundaries
+        tasks = []
+        params['keep-actions'].given? or tasks << lambda do |r, n|
+          if action_node?(n)
+            tokens = token_stream[n.token_range]
+            for tk in tokens
+              tk.text =~ /\*\// and r.replace(tk, tk.text.gsub(/\*\//,'*\\/'))
+            end
+            head, tail = tokens.first, tokens.last
+            r.insert_before(head, '/* action -> ')
+            r.insert_after(tail, ' */')
+            n.prune
+          end
+        end
+        params['keep-names'].given? or tasks << lambda do |r, n|
+          n =
+            case n.type
+            when ANTLRv3Grammar::TokenData::RULE_REF then n
+            when ANTLRv3Grammar::TokenData::RULE     then n[0]
+            else next
+            end
+          n.token.index == -1 and n.token.index = n.start_index
+          name_token = n.token
+          text = name_token.text
+          r.replace(name_token, text.snakecase) unless text =~ /^[A-Z]/
+        end
+        language = params['language'].value
+        
+        stylized = rewrite do |prog|
+          tree.walk do |node|
+            for task in tasks do task.call(prog, node) end
+          end
+          
+          grammar_options['language'] = language
+          if node = option_node
+            prog.replace(node, grammar_option_text)
+          else
+            i = tree[0].stop_index  # the token index of the grammar name
+            begin i += 1 end until token_stream[i].text == ';'
+            prog.insert_after(token_stream[i], "\n#{grammar_option_text}\n")
+          end
+        end
+        
+        write_output { |f| f.write(stylized) }
+      end
+    end
+    
+    def run
+      help!
+    end
+  end
+  
+  mode :highlight do
+    mode :actions do
+      mixin :input
+      mixin :colors
+      
+      def run
+        for token in token_stream
+          if ACTION_TOKENS.include?(token.name) || action_ranges.any? { |r| r === token.index }
+            print(color_text(token.text))
+          else
+            print(token.text)
+          end
+        end
+      end
+    end
+    
+    mode :colors do
+      mixin :colors
+      
+      run do
+        names = (plain_colors.keys | named_colors.keys).sort
+        list(names)
+      end
+    end
+
+  end
+  
+  mode :compile do
+    option 'output-directory', 'o' do
+      argument_required
+      arity(1)
+      validate do |pt|
+        test(?d, File.dirname(pt))
+      end
+      default('.')
+    end
+    
+    option :force, 'f' do
+      description(<<-END.here_flow!)
+      | force compilation even if an up-to-date target source exists
+      END
+    end
+    
+    option :debug, 'd' do
+      description(<<-END.here_flow!)
+      | compile the grammar with the -debug switch
+      END
+    end
+    
+    if $stdin.tty?
+      argument(:grammar_file) do
+        required
+        arity(1)
+      end
+    end
+    
+    def run
+      Ruby.project.test_mode!
+      self.class.send(:include, PrettyException)
+      
+      output_directory = params['output-directory'].value
+      
+      @grammar =
+        if $stdin.tty?
+          Grammar.new(params[:grammar_file].value, :output_directory => output_directory)
+        else
+          Grammar.inline($<.read, :output_directory => output_directory)
+        end
+      
+      @grammar.debug_st = true
+      
+      @grammar.force_compilation if params[:force].given?
+      @grammar.debug = true if params[:debug].given?
+      compile
+    end
+    
+    def compile
+      unless @grammar.stale?
+        puts "---> the grammar's targets need no updating; doing nothing"
+        puts "     (to force compilation, use the --force option)"
+        exit
+      end
+      
+      puts '---> compiling the grammar and converting the resulting ST Markup'
+      
+      result = @grammar.compile
+      
+      unless result.succeeded?
+        $stderr.puts '!!!! compilation failed !!!!'
+        $stderr.puts ''
+        e = Grammar::CompilationFailure.new(result)
+        pretty_error(e) rescue nil
+        $stderr.puts(e)
+        exit_failure
+      end
+      
+      errors_seen = false
+      for target in @grammar.target_files
+        puts "---> checking #{target.path}"
+        begin
+          target.load
+        rescue Exception => e
+          errors_seen = true
+          $stderr.puts("!!!! #{target.path} has problems !!!!")
+          $stderr.puts ''
+          begin
+            pretty_error(e)
+            $stderr.puts e
+          rescue => pe
+            $stderr.puts("!!!! note: failed to gussy up the error report due to an exception #{pe.inspect}")
+            $stderr.puts ''
+            $stderr.puts "#{e.class}: #{e.message}"
+            $stderr.puts(e.backtrace)
+            $stderr.puts ''
+          end
+        end
+      end
+      if errors_seen
+        exit_failure
+      else
+        puts "**** OK, it compiled without any apparent problems ****"
+        puts ''
+        exit
+      end
+    end
+    
+  end
+  
+  
+  def run
+    help!
+  end
+  
+end

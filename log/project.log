@@ -1,0 +1,643 @@
+# Logfile created on Sun Aug 09 13:58:55 -0400 2009 by /
+W, [2009-08-09T13:58:55.136581 #11480]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T13:58:55.291379 #11480]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T14:06:52.828229 #13401]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T14:06:52.876271 #13401]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T14:59:40.880223 #18892]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T14:59:41.022997 #18892]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T15:10:26.830989 #22251]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T15:10:26.857633 #22251]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T15:19:20.278949 #24760]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T15:19:20.315890 #24760]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T15:20:29.781047 #25484]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T15:20:29.821864 #25484]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T15:28:47.384792 #27624]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T15:28:47.422478 #27624]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T15:38:39.687871 #30540]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T15:38:39.719866 #30540]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T15:42:57.940448 #31572]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T15:42:57.969687 #31572]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T18:59:18.397307 #18362]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T18:59:18.690050 #18362]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T22:03:12.877807 #4225]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T22:03:12.983525 #4225]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-09T23:22:06.292453 #10330]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-09T23:22:06.314361 #10330]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-10T02:52:31.388965 #31246]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-10T02:52:31.699283 #31246]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-10T03:00:29.542121 #2846]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-10T03:00:29.583189 #2846]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-10T04:49:44.428147 #15241]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-10T04:49:44.468597 #15241]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-10T05:04:47.134616 #20467]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-10T05:04:47.157579 #20467]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-10T07:29:14.459662 #3314]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-10T07:29:14.548190 #3314]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-10T07:32:47.670220 #4451]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-10T07:32:47.725826 #4451]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-10T09:55:04.480528 #19564]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-10T09:55:04.716866 #19564]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-11T04:40:33.172942 #23645]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-11T04:40:33.558129 #23645]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-11T04:43:22.003499 #23943]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-11T04:43:22.035842 #23943]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-11T14:56:30.097500 #23507]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-11T14:56:30.458498 #23507]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-11T15:08:30.022489 #28223]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-11T15:08:30.072841 #28223]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T20:01:51.706881 #1515]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T20:01:51.763486 #1515]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T20:45:00.091122 #9044]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T20:45:00.109638 #9044]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:02:04.984845 #12415]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:02:05.022941 #12415]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:03:09.637858 #12478]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:03:09.653654 #12478]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:04:38.778010 #12582]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:04:38.812320 #12582]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:07:57.353262 #12880]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:07:57.386723 #12880]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:13:53.928234 #13531]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:13:53.964144 #13531]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:14:19.869612 #13589]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:14:19.883681 #13589]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:16:50.013617 #13899]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:16:50.032086 #13899]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:17:56.058020 #14138]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:17:56.070558 #14138]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:18:11.111950 #14178]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:18:11.127869 #14178]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:18:56.369711 #14268]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:18:56.414791 #14268]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:34:27.591321 #16319]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:34:27.609470 #16319]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:58:05.406052 #22024]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:58:05.444721 #22024]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T21:58:14.493537 #22066]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T21:58:14.558687 #22066]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-15T23:33:21.719172 #2845]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-15T23:33:21.879633 #2845]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T00:07:02.889030 #5597]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T00:07:02.912609 #5597]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T01:09:15.991173 #11338]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T01:09:16.022051 #11338]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T01:09:19.681306 #11358]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T01:09:19.707414 #11358]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T01:18:56.664957 #15289]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T01:18:56.699842 #15289]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T01:19:02.765579 #15357]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T01:19:02.790645 #15357]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T06:05:41.824811 #19753]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T06:05:42.092467 #19753]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T06:09:25.064886 #20109]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T06:09:25.104250 #20109]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T06:09:32.421843 #20128]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T06:09:32.489056 #20128]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T06:10:27.228574 #20712]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T06:10:27.244185 #20712]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T06:10:33.310673 #20731]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T06:10:33.335933 #20731]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T06:14:40.822413 #20946]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T06:14:40.838061 #20946]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T06:14:45.410271 #20965]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T06:14:45.471597 #20965]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-16T07:16:22.546579 #28624]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-16T07:16:22.864459 #28624]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-18T18:57:02.336410 #13261]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-18T18:57:02.707706 #13261]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-18T18:57:18.327467 #13348]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-18T18:57:18.415694 #13348]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-18T22:03:31.601229 #6137]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-18T22:03:31.951440 #6137]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-18T22:03:42.093727 #6158]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-18T22:03:42.157945 #6158]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-18T23:40:08.111949 #14635]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-18T23:40:08.143310 #14635]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-18T23:40:13.889357 #14654]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-18T23:40:13.951149 #14654]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:03:07.584014 #16668]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:03:07.598810 #16668]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:03:20.333675 #16690]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:03:20.417631 #16690]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:14:26.899901 #20846]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:14:26.945171 #20846]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:14:40.276348 #20910]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:14:40.343328 #20910]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:17:33.219970 #21416]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:17:33.258907 #21416]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:18:00.660117 #21436]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:18:00.669793 #21436]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:18:57.247664 #21455]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:18:57.266955 #21455]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:19:00.341748 #21475]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:19:00.408873 #21475]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:19:31.737194 #21503]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:19:31.771869 #21503]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:19:33.843517 #21522]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:19:33.908902 #21522]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:20:20.669114 #22051]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:20:20.704089 #22051]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T00:20:22.743107 #22070]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T00:20:22.808093 #22070]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T01:05:34.591615 #29706]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T01:05:34.637583 #29706]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T01:05:45.234697 #29746]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T01:05:45.280676 #29746]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T03:22:40.039392 #10043]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T03:22:40.371918 #10043]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T03:29:05.922041 #10482]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T03:29:05.949773 #10482]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T03:31:16.682774 #10957]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T03:31:16.718784 #10957]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T03:32:27.712797 #11138]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T03:32:27.743083 #11138]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T03:32:55.306006 #11192]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T03:32:55.315586 #11192]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T03:33:35.921417 #11244]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T03:33:35.932030 #11244]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T03:33:45.864746 #11264]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T03:33:45.875088 #11264]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T03:34:00.324361 #11302]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T03:34:00.338409 #11302]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T03:34:03.516549 #11321]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T03:34:03.527688 #11321]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T03:49:02.882821 #12203]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T03:49:02.910865 #12203]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T04:09:26.288459 #14584]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T04:09:26.321687 #14584]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T04:09:55.204113 #14623]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T04:09:55.214685 #14623]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T04:10:08.793381 #15224]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T04:10:08.878750 #15224]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T04:28:10.323180 #21407]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T04:28:10.335364 #21407]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T04:28:18.703205 #21429]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T04:28:18.783659 #21429]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T04:44:56.457914 #24373]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T04:44:56.517982 #24373]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T04:48:13.526960 #25021]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T04:48:13.572795 #25021]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T05:15:03.237698 #28716]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T05:15:03.323236 #28716]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T05:15:08.173386 #28735]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T05:15:08.206161 #28735]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T05:15:12.860551 #28754]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T05:15:12.897982 #28754]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T05:15:23.397951 #28777]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T05:15:23.418116 #28777]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T05:15:31.016898 #28796]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T05:15:31.069333 #28796]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T05:15:40.270506 #28816]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T05:15:40.330480 #28816]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T05:15:54.903968 #28862]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T05:15:54.962843 #28862]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T05:16:05.053015 #28887]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T05:16:05.069127 #28887]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T05:16:16.806390 #28967]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T05:16:16.877496 #28967]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T06:22:29.816355 #4418]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T06:22:30.441788 #4418]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T06:22:41.999587 #4469]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T06:22:42.026665 #4469]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T06:31:46.419921 #5379]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T06:31:46.663161 #5379]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T06:32:09.338453 #5458]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T06:32:09.426476 #5458]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T07:16:46.399763 #9761]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T07:16:46.770334 #9761]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T07:16:57.094266 #9780]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T07:16:57.164965 #9780]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T08:03:42.667847 #14889]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T08:03:42.869731 #14889]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T08:03:49.900850 #14908]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T08:03:49.947148 #14908]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T08:30:30.418594 #21593]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T08:30:30.746812 #21593]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T08:30:32.535763 #21596]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T08:30:32.664786 #21596]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T08:30:33.288493 #21600]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T08:30:33.326718 #21600]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T08:30:33.831524 #21603]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T08:30:33.857659 #21603]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T08:30:34.096323 #21606]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T08:30:34.114767 #21606]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T08:30:34.359077 #21609]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T08:30:34.378260 #21609]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T08:30:59.634677 #21701]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T08:30:59.673407 #21701]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-19T17:03:01.231834 #28838]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-19T17:03:01.557462 #28838]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T09:23:43.388865 #13046]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T09:23:43.568300 #13046]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T09:32:26.692153 #13971]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T09:32:26.729241 #13971]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T09:32:49.173133 #13995]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T09:32:49.185774 #13995]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T09:39:12.533803 #14500]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T09:39:12.548545 #14500]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T09:42:03.020398 #14939]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T09:42:03.058088 #14939]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T15:32:37.422369 #15225]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T15:32:37.756938 #15225]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T15:32:38.283973 #15235]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T15:32:38.311348 #15235]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T15:59:29.643840 #21184]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T15:59:29.651239 #21184]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T17:06:50.684885 #29828]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T17:06:50.739396 #29828]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T17:09:29.526284 #30302]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T17:09:29.539203 #30302]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T17:19:12.731002 #31688]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T17:19:12.746567 #31688]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T20:19:27.948797 #12898]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T20:19:27.984825 #12898]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T20:19:34.189626 #12920]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T20:19:34.278825 #12920]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T20:29:51.210894 #13789]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T20:29:51.253688 #13789]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T20:58:10.538783 #15797]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T20:58:10.560128 #15797]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T21:00:21.073085 #16489]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T21:00:21.154421 #16489]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T21:10:55.618745 #17226]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T21:10:55.695817 #17226]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T21:22:35.888848 #19682]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T21:22:35.909126 #19682]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T21:22:50.791355 #19704]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTTreeParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T21:22:50.876863 #19704]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T21:51:55.403333 #23355]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T21:51:55.464730 #23355]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T22:06:06.219700 #24759]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T22:06:06.253086 #24759]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-20T22:06:10.849971 #24781]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-20T22:06:10.914371 #24781]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-21T00:07:18.997176 #3064]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-21T00:07:19.149326 #3064]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-21T00:20:35.696930 #4585]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-21T00:20:35.744070 #4585]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-21T20:49:14.950078 #16812]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-21T20:49:15.085717 #16812]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-21T20:55:29.440847 #17937]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-21T20:55:29.493874 #17937]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-21T21:32:32.692003 #20889]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-21T21:32:32.705514 #20889]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-21T22:05:24.341277 #23752]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-21T22:05:24.353446 #23752]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T08:17:50.536849 #26562]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T08:17:50.581684 #26562]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T08:17:50.854041 #26566]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T08:17:50.866628 #26566]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T08:17:51.161182 #26570]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T08:17:51.174226 #26570]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T08:17:51.450335 #26574]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T08:17:51.468438 #26574]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T08:17:51.748068 #26578]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T08:17:51.769220 #26578]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T08:18:05.381411 #26605]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T08:18:05.414895 #26605]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T08:35:27.890104 #31215]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T08:35:27.925203 #31215]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T08:43:08.698048 #2233]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T08:43:08.733569 #2233]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T08:48:57.999663 #3193]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T08:48:58.037225 #3193]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T09:00:52.991645 #6944]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T09:00:53.005845 #6944]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T09:00:53.770035 #6952]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T09:00:53.784339 #6952]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T09:00:54.063993 #6956]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T09:00:54.077539 #6956]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T09:00:54.370037 #6960]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T09:00:54.383059 #6960]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T09:00:54.663188 #6964]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T09:00:54.674969 #6964]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T09:00:54.959699 #6968]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T09:00:54.972041 #6968]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T09:01:03.303575 #6989]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T09:01:03.340699 #6989]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T09:34:44.923866 #14872]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T09:34:44.966328 #14872]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T10:27:29.274264 #22837]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T10:27:29.304952 #22837]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T12:55:52.870139 #6521]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T12:55:52.916037 #6521]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T12:57:44.834138 #6700]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T12:57:44.868890 #6700]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T13:14:14.218873 #12178]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T13:14:14.234981 #12178]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T13:14:32.921614 #12203]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T13:14:32.961379 #12203]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T13:37:56.667398 #14511]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T13:37:56.700451 #14511]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T14:50:31.909912 #24463]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T14:50:31.922173 #24463]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T14:55:44.532086 #24753]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T14:55:44.561763 #24753]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T14:58:11.710235 #24878]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T14:58:11.740392 #24878]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T15:00:22.375711 #26029]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T15:00:22.392607 #26029]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T16:30:45.792921 #1255]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T16:30:45.809059 #1255]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T16:55:37.490784 #3560]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T16:55:37.502601 #3560]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T17:04:31.651962 #5285]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T17:04:31.715726 #5285]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T17:04:41.842589 #5307]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T17:04:41.866195 #5307]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T17:09:23.113714 #5788]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T17:09:23.129226 #5788]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T17:09:29.225343 #5812]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T17:09:29.265364 #5812]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T19:13:55.371990 #19569]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T19:13:55.401098 #19569]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T19:44:06.653338 #22082]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T19:44:06.685451 #22082]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T20:43:23.911491 #27403]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T20:43:23.982801 #27403]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T20:43:42.860731 #27430]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T20:43:42.889056 #27430]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T20:43:48.262842 #27456]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T20:43:48.292500 #27456]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T20:45:01.482017 #27600]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T20:45:01.505183 #27600]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T20:47:19.914461 #27856]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T20:47:19.958674 #27856]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T21:49:59.109258 #358]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T21:49:59.138014 #358]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T22:42:20.627715 #10699]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T22:42:20.657582 #10699]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T22:42:20.930759 #10703]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T22:42:20.943334 #10703]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T22:42:21.334350 #10707]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T22:42:21.348515 #10707]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T22:42:21.624415 #10712]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T22:42:21.643564 #10712]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T22:42:21.933397 #10716]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T22:42:21.950257 #10716]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T22:42:31.690893 #10755]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T22:42:31.765959 #10755]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T23:15:26.649877 #14331]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T23:15:26.684367 #14331]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-25T23:26:17.941324 #15478]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-25T23:26:17.974716 #15478]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-26T00:00:46.847771 #18417]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-26T00:00:46.878492 #18417]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-27T10:18:02.147222 #13987]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-27T10:18:02.406749 #13987]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-27T13:07:58.259924 #31060]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-27T13:07:58.383701 #31060]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-30T11:21:05.880244 #18272]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-30T11:21:06.100834 #18272]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-30T17:32:27.462023 #5257]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-30T17:32:27.600324 #5257]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-30T17:33:18.402046 #5437]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-30T17:33:18.434573 #5437]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-30T17:40:30.657758 #6524]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-30T17:40:30.700275 #6524]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-31T15:56:34.686247 #14881]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-31T15:56:34.868615 #14881]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-31T15:58:27.498651 #15007]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-31T15:58:27.539626 #15007]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-31T17:38:01.314722 #24501]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-31T17:38:01.341421 #24501]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-31T17:38:01.652992 #24505]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-31T17:38:01.665796 #24505]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-31T17:38:02.101780 #24527]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-31T17:38:02.121081 #24527]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-31T17:38:02.579855 #24585]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-31T17:38:02.592992 #24585]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-31T17:38:02.878417 #24589]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-31T17:38:02.895191 #24589]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-31T17:38:23.098566 #24612]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-31T17:38:23.132476 #24612]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-08-31T17:51:28.516620 #29471]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-08-31T17:51:28.555410 #29471]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-03T09:34:40.099057 #13115]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-03T09:34:40.153189 #13115]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-03T09:45:20.386750 #14060]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-03T09:45:20.401854 #14060]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-03T09:53:32.543580 #14834]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-03T09:53:32.555032 #14834]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-03T09:59:04.229094 #15539]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-03T09:59:04.244988 #15539]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-03T10:00:54.667332 #16743]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-03T10:00:54.689374 #16743]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:14:33.494914 #11667]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:14:33.618751 #11667]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:14:34.263397 #11672]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:14:34.275955 #11672]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:14:34.826606 #11676]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:14:34.841280 #11676]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:14:35.376269 #11681]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:14:35.484932 #11681]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:14:36.967926 #11686]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTTreeParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:14:37.001148 #11686]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:17:37.431646 #14128]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:17:37.443310 #14128]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:17:38.056926 #14132]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:17:38.083947 #14132]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:17:39.261394 #14137]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:17:39.286501 #14137]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:17:40.331969 #14142]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:17:40.365127 #14142]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:17:41.337071 #14147]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:17:41.375548 #14147]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:17:42.854284 #14152]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTTreeParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:17:42.867423 #14152]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:21:04.261384 #16556]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:21:04.273712 #16556]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:21:04.699954 #16560]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:21:04.711831 #16560]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:21:05.340294 #16565]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:21:05.351479 #16565]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:21:05.991266 #16569]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:21:06.017615 #16569]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:21:06.556033 #16574]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:21:06.571525 #16574]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-04T07:21:07.784054 #16579]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-04T07:21:07.800743 #16579]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T17:57:54.044242 #18283]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T17:57:54.257736 #18283]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T17:58:04.604220 #18302]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T17:58:04.630821 #18302]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T19:06:47.783288 #29869]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T19:06:47.811134 #29869]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T19:07:00.171399 #29898]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T19:07:00.207838 #29898]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T19:34:32.503819 #2983]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T19:34:32.541561 #2983]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T19:35:28.724206 #3418]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T19:35:28.737449 #3418]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T22:30:10.098785 #27492]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Dbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T22:30:10.132647 #27492]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T22:30:19.005795 #27515]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T22:30:19.047526 #27515]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T22:33:31.422649 #28181]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T22:33:31.435311 #28181]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T22:37:56.877904 #28684]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T22:37:56.912153 #28684]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T22:39:46.424699 #29236]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T22:39:46.466568 #29236]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T22:43:30.150464 #30224]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T22:43:30.191966 #30224]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T22:46:31.488774 #30698]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T22:46:31.552577 #30698]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T22:48:16.870681 #31058]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T22:48:16.887230 #31058]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T23:03:10.389867 #306]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T23:03:10.424802 #306]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T23:07:01.065892 #825]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T23:07:01.101135 #825]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T23:14:02.219189 #1825]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T23:14:02.232481 #1825]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T23:19:48.553743 #2430]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T23:19:48.569178 #2430]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T23:23:40.210374 #3347]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T23:23:40.249986 #3347]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T23:26:35.826189 #3981]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T23:26:35.859257 #3981]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T23:33:45.897663 #5271]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T23:33:45.923039 #5271]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T23:38:35.091734 #5867]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T23:38:35.140277 #5867]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-06T23:42:21.615121 #6808]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-06T23:42:21.674598 #6808]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T02:21:19.917625 #26703]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T02:21:20.052001 #26703]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T04:05:57.029815 #7345]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T04:05:57.128655 #7345]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T04:09:46.266003 #7832]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T04:09:46.307064 #7832]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T04:10:44.712317 #8894]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T04:10:44.727238 #8894]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T04:11:47.668880 #9149]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T04:11:47.713795 #9149]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T04:13:48.424685 #9430]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T04:13:48.447278 #9430]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T04:21:19.688387 #11234]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T04:21:19.778726 #11234]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T04:54:27.710379 #16440]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T04:54:27.754982 #16440]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T04:57:48.356778 #16702]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T04:57:48.377367 #16702]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T04:58:51.455413 #16992]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T04:58:51.502161 #16992]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T04:59:46.670230 #17097]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T04:59:46.708193 #17097]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T05:00:35.862712 #18385]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T05:00:35.941662 #18385]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T05:03:12.599160 #18572]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T05:03:12.659677 #18572]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T05:04:44.276314 #18685]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T05:04:44.289908 #18685]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T05:07:45.281788 #18973]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T05:07:45.313068 #18973]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T05:20:14.990536 #21316]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T05:20:15.413852 #21316]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T10:57:09.618629 #32290]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T10:57:09.754216 #32290]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-07T10:57:11.272839 #32303]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-07T10:57:11.286027 #32303]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-18T18:52:23.507119 #12989]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-18T18:52:23.612605 #12989]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-19T16:00:49.948800 #15844]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-19T16:00:50.051717 #15844]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-19T16:02:05.100855 #15950]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-19T16:02:05.114002 #15950]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-19T16:07:29.682588 #16332]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-19T16:07:29.698949 #16332]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-19T18:45:23.887815 #3858]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-19T18:45:23.944850 #3858]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-19T22:25:58.703524 #26759]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-19T22:25:58.777392 #26759]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-19T22:35:48.453213 #27537]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-19T22:35:48.467102 #27537]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-19T22:38:37.793326 #27706]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-19T22:38:37.808867 #27706]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-19T22:40:03.682120 #28249]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-19T22:40:03.700254 #28249]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T06:46:15.516681 #17759]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T06:46:15.618028 #17759]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T06:54:11.560936 #21059]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T06:54:11.602475 #21059]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T06:58:27.954169 #22376]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T06:58:27.996947 #22376]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T07:00:41.300749 #23567]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T07:00:41.334360 #23567]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T07:07:07.790390 #23850]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T07:07:07.825931 #23850]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T07:09:12.493403 #24100]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T07:09:12.524869 #24100]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T07:12:13.208948 #24711]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T07:12:13.242963 #24711]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T16:30:06.118734 #4298]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T16:30:06.195291 #4298]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T16:36:24.431055 #5226]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T16:36:24.467981 #5226]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T16:44:51.058755 #6027]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T16:44:51.095324 #6027]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T16:56:10.334177 #7308]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T16:56:10.399824 #7308]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-22T16:58:37.023156 #7384]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-22T16:58:37.041111 #7384]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T07:50:12.430426 #15909]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T07:50:12.580455 #15909]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T07:50:19.134662 #15931]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T07:50:19.172334 #15931]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T08:04:01.484096 #20580]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T08:04:01.513996 #20580]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T08:17:47.546192 #24479]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T08:17:47.575775 #24479]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T08:18:58.567772 #24644]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T08:18:58.579404 #24644]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T08:35:04.067670 #29650]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T08:35:04.099816 #29650]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T08:42:47.905697 #30676]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T08:42:47.923042 #30676]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T08:43:36.603629 #30731]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T08:43:36.616780 #30731]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T08:45:07.987681 #30891]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T08:45:08.005187 #30891]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T08:46:06.518727 #30945]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T08:46:06.535545 #30945]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T08:49:30.955960 #31011]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T08:49:30.975552 #31011]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T12:03:15.306383 #20790]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T12:03:15.454675 #20790]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T12:03:22.387159 #20840]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T12:03:22.424529 #20840]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T12:04:21.779038 #20893]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T12:04:21.802386 #20893]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T12:09:09.720331 #21310]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T12:09:09.735004 #21310]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T12:11:33.280158 #21880]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T12:11:33.292327 #21880]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-24T12:26:19.457359 #22816]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-24T12:26:19.493033 #22816]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-09-25T17:53:41.036324 #18199]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-09-25T17:53:41.136832 #18199]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-02T01:38:38.066153 #17478]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-02T01:38:38.228846 #17478]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-03T07:51:21.707040 #21997]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-03T07:51:21.766002 #21997]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-03T07:51:22.102254 #22001]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-03T07:51:22.116274 #22001]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-03T07:51:22.496333 #22006]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-03T07:51:22.508619 #22006]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-03T07:51:22.819903 #22010]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-03T07:51:22.832370 #22010]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-03T07:51:23.153162 #22014]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-03T07:51:23.167390 #22014]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-03T07:51:23.513967 #22019]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-03T07:51:23.526707 #22019]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-03T07:51:24.807943 #22032]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTParser.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-03T07:51:24.820390 #22032]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-12T15:32:50.990679 #30248]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-12T15:32:51.401312 #30248]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-12T16:22:45.119287 #2037]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/ASTDbg.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-12T16:22:45.225544 #2037]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-12T19:30:42.723583 #22351]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/AST.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar")
+I, [2009-10-12T19:30:43.044248 #22351]  INFO -- : updated ANTLR jar /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.1.3.jar
+W, [2009-10-16T17:55:48.378550 #20877]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.2.jar")
+W, [2009-10-16T17:56:56.522620 #21035]  WARN -- : template "/home/kyle/lib/ruby/projects/antlr3/templates/Ruby.stg" modified more recently than the ANTLR jar ("/home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.2.jar")

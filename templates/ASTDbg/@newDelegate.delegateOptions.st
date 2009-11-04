@@ -1,0 +1,3 @@
+
+
+@newDelegate.delegateOptions() ::= ", :adaptor => adaptor"

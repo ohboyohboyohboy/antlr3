@@ -1,0 +1,27 @@
+- status 04/28/2009
+  - i have finished the full initial port from the runtime library
+    i have stored in /usr/lib/python2.5
+  - i found out that the more recent runtime library at
+    ~/lib/packages/antlr-3.1.3/runtime/Python has a lot more
+    stuff and has some major changes
+  - I started re-tailoring the library to reflect the changes
+    made in the more recent version
+  - i've updated/checked:
+    - constants.py
+    - exceptions.py
+  - i've started
+    - recognizers.py
+  * i stopped at the __init__ in BaseRecognizer, where it starts
+    checking runtime version
+
+to do still:
+  - finish updating to the current runtime
+  - write the generator templates
+  - model unit tests after the current runtime unit tests
+  - try it out
+
+some other issues I'm aware of:
+  - i've messed up the whole LA/LT/LB thing, calling it
+    'look_ahead' when they often mean different things --
+    ya gotta go back and check out how it was done
+  

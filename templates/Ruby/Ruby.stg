@@ -1,0 +1,290 @@
+group Ruby implements ANTLRCore;
+
+/******************************************************************************
+ *********************  M A J O R   C O M P O N E N T S  **********************
+ ******************************************************************************/
+ 
+<%= outputFile.st %>
+<%= tokenDataModule.st %>
+<%= rootGrammarOutputFile.st %>
+<%= delegateGrammarOutputFile.st %>
+<%= delegateGrammarModuleHead.st %>
+<%= delegateGrammarModuleTail.st %>
+<%= parser.st %>
+
+
+<%= treeParser.st %>
+<%= parserBody.st %>
+<%= parserConstructor.st %>
+
+
+/* * * * * * * * * * * * * R U L E   M E T H O D S * * * * * * * * * * * * */
+
+<%= synpredRule.st %>
+
+
+<%= rule.st %>
+<%= delegateRule.st %>
+<%= recognizerClassName.st %>
+<%= initializeDirectDelegate.st %>
+<%= initializeDelegator.st %>
+<%= altSwitchCase.st %>
+<%= blockBody.st %>
+<%= catch.st %>
+<%= closureBlockLoop.st %>
+<%= delegateName.st %>
+<%= element.st %>
+<%= execForcedAction.st %>
+<%= globalAttributeScopeClass.st %>
+<%= globalAttributeScopeStack.st %>
+<%= noRewrite.st %>
+<%= parameterScope.st %>
+<%= positiveClosureBlockLoop.st %>
+<%= returnScope.st %>
+<%= returnStructName.st %>
+<%= ruleAttributeScopeClass.st %>
+<%= ruleAttributeScopeStack.st %>
+<%= ruleBacktrackFailure.st %>
+<%= ruleBody.st %>
+<%= ruleReturnValue.st %>
+<%= ruleDeclarations.st %>
+<%= ruleLabelDef.st %>
+<%= ruleLabelDefs.st %>
+<%= traceIn.st %>
+<%= traceOut.st %>
+<%= ruleCleanUp.st %>
+<%= ruleMemoization.st %>
+<%= ruleScopeSetUp.st %>
+<%= ruleScopeCleanUp.st %>
+<%= memoize.st %>
+
+
+<%= methodCall.st %>
+<%= actionGate.st %>
+
+
+<%= block.st %>
+
+
+<%= ruleBlock.st %>
+<%= ruleBlockSingleAlt.st %>
+
+
+<%= blockSingleAlt.st %>
+
+
+<%= positiveClosureBlock.st %>
+<%= positiveClosureBlockSingleAlt.st %>
+
+
+<%= closureBlock.st %>
+<%= closureBlockSingleAlt.st %>
+
+
+<%= optionalBlock.st %>
+<%= optionalBlockSingleAlt.st %>
+
+
+<%= alt.st %>
+
+
+<%= tokenRef.st %>
+
+
+<%= tokenRefAndListLabel.st %>
+<%= addToList.st %>
+<%= listLabel.st %>
+
+
+<%= matchSet.st %>
+<%= matchSetAndListLabel.st %>
+<%= matchRuleBlockSet.st %>
+<%= wildcard.st %>
+<%= wildcardAndListLabel.st %>
+
+
+<%= ruleRef.st %>
+
+
+<%= ruleRefAndListLabel.st %>
+
+
+<%= tree.st %>
+
+
+<%= validateSemanticPredicate.st %>
+<%= dfaState.st %>
+
+
+<%= dfaOptionalBlockState.st %>
+
+
+<%= dfaLoopbackState.st %>
+
+
+<%= dfaAcceptState.st %>
+
+
+<%= dfaEdge.st %>
+
+
+<%= dfaStateSwitch.st %>
+<%= dfaOptionalBlockStateSwitch.st %>
+<%= dfaLoopbackStateSwitch.st %>
+<%= dfaEdgeSwitch.st %>
+
+
+<%= dfaDecision.st %>
+
+
+<%= cyclicDFA.st %>
+<%= specialStateTransitionMethod.st %>
+<%= cyclicDFASynpred.st %>
+<%= cyclicDFAInit.st %>
+
+
+<%= cyclicDFAState.st %>
+
+
+/*
+line_<decisionNumber>_<stateNumber> = input.line
+col_<decisionNumber>_<stateNumber> = input.column
+----
+input.column = col_<decisionNumber>_<stateNumber>
+input.line   = line_<decisionNumber>_<stateNumber>
+*/
+
+<%= cyclicDFAEdge.st %>
+
+
+<%= eotDFAEdge.st %>
+<%= andPredicates.st %>
+<%= orPredicates.st %>
+<%= notPredicate.st %>
+<%= evalPredicate.st %>
+<%= evalSynPredicate.st %>
+<%= lookaheadTest.st %>
+
+
+<%= isolatedLookaheadTest.st %>
+<%= lookaheadRangeTest.st %>
+<%= isolatedLookaheadRangeTest.st %>
+<%= setTest.st %>
+<%= parameterAttributeRef.st %>
+<%= parameterSetAttributeRef.st %>
+<%= scopeAttributeRef.st %>
+<%= scopeSetAttributeRef.st %>
+
+
+<%= isolatedDynamicScopeRef.st %>
+
+
+<%= ruleLabelRef.st %>
+<%= returnAttributeRef.st %>
+<%= returnSetAttributeRef.st %>
+
+
+<%= tokenLabelRef.st %>
+
+
+<%= listLabelRef.st %>
+<%= tokenLabelPropertyRef_text.st %>
+<%= tokenLabelPropertyRef_type.st %>
+<%= tokenLabelPropertyRef_line.st %>
+<%= tokenLabelPropertyRef_pos.st %>
+<%= tokenLabelPropertyRef_channel.st %>
+<%= tokenLabelPropertyRef_index.st %>
+<%= tokenLabelPropertyRef_tree.st %>
+<%= ruleLabelPropertyRef_start.st %>
+<%= ruleLabelPropertyRef_stop.st %>
+<%= ruleLabelPropertyRef_tree.st %>
+<%= ruleLabelPropertyRef_text.st %>
+<%= ruleLabelPropertyRef_st.st %>
+
+
+
+<%= lexerSynpred.st %>
+<%= lexer.st %>
+<%= lexerRuleLabelDefs.st %>
+
+
+<%= lexerRule.st %>
+
+
+<%= lexerRuleLabel.st %>
+<%= lexerRuleLabelPropertyRef_line.st %>
+<%= lexerRuleLabelPropertyRef_type.st %>
+<%= lexerRuleLabelPropertyRef_pos.st %>
+<%= lexerRuleLabelPropertyRef_channel.st %>
+<%= lexerRuleLabelPropertyRef_index.st %>
+<%= lexerRuleLabelPropertyRef_text.st %>
+
+
+<%= tokensRule.st %>
+<%= lexerRulePropertyRef_text.st %>
+<%= lexerRulePropertyRef_type.st %>
+<%= lexerRulePropertyRef_line.st %>
+<%= lexerRulePropertyRef_pos.st %>
+
+
+<%= lexerRulePropertyRef_index.st %>
+<%= lexerRulePropertyRef_channel.st %>
+<%= lexerRulePropertyRef_start.st %>
+<%= lexerRulePropertyRef_stop.st %>
+
+
+<%= lexerRuleRef.st %>
+
+
+<%= lexerRuleRefAndListLabel.st %>
+
+
+<%= wildcardChar.st %>
+<%= wildcardCharListLabel.st %>
+
+
+<%= charRef.st %>
+
+
+<%= charRangeRef.st %>
+<%= filteringNextToken.st %>
+<%= filteringActionGate.st %>
+
+
+<%= lexerStringRef.st %>
+
+
+<%= lexerMatchEOF.st %>
+
+
+<%= rulePropertyRef_start.st %>
+
+
+<%= rulePropertyRef_stop.st %>
+
+
+<%= rulePropertyRef_tree.st %>
+
+
+<%= rulePropertyRef_text.st %>
+
+
+<%= rulePropertyRef_st.st %>
+<%= ruleSetPropertyRef_tree.st %>
+<%= ruleSetPropertyRef_st.st %>
+
+
+<%= execAction.st %>
+<%= codeFileExtension.st %>
+<%= true.st %>
+<%= false.st %>
+<%= action.st %>
+<%= autoloadDelegates.st %>
+<%= delegateLexerRule.st %>
+<%= rootClassName.st %>
+<%= grammarClassName.st %>
+<%= newDelegate.st %>
+<%= placeAction.st %>
+
+
+

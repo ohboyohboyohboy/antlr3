@@ -1,0 +1,86 @@
+07/24/2009
+
+status:
+  
+  - all python source has been ported to ruby
+  
+  - almost all of the 50+ tests have been implemented in Ruby
+  
+  - a whole bunch of test utilities have been written and placed in test/lib
+    -> most useful tools are in test/lib/test-tools.rb, including:
+       * Grammar: 
+            a facade class that manages an ANTLR grammar file, 
+            which may be used to invoke ANTLR to compile the file
+            if its target files are out of date, check the basic
+            syntax and runtime health of the targets, and 
+            load the target files
+      * InlineGrammar: 
+            allows you to write an ANTLR grammar in a Ruby file
+            and handle it in the same fashion as using the Grammar
+            class to manage a grammar file
+      * STMarkup:
+            when you compile a grammar with the flag ``-XdbgST'',
+            the target script files will contain a rough, XML-like
+            markup with tag pairs indicating the group and name of the
+            String Template used to generate the contained source code.
+            The purpose of this class is to parse the marked-up source
+            code, convert it to plain ruby by removing the tags, build
+            a database of information about the tag structure, and
+            serialize it, embedded in the source file so it can be
+            deserialized and queried for debugging the source code
+            generation
+    -> lib/test/integration-test-helpers.rb contains a custom RSpec
+       implementation for grammar source-code generation testing
+  
+  - StringTemplate source has been completely written and specified for:
+    -> core lexer / parser generation (Ruby.stg)
+    -> AST-constructing parser generation (AST.stg, ASTParser.stg)
+    -> tree parser generation (ASTTreeParser.stg)
+
+current activity:
+
+  - since the Python Debug.stg does not seem to be complete at this point,
+    I'm studying the native Java Debugging classes and ST group.
+  
+  - Using the Java implementation as a model, I'm trying to add a few
+    classes to the debugging module -- in particular, Profiler. Afterward,
+    I'll need to write Dbg.stg in a way that is sensbile for Ruby
+
+to do:
+
+  - finish writing Dbg.stg and debugging classes
+  
+  - write 059, the debugging testing
+  
+  - make sure the ANTLR3::Main module is finished up
+  
+  - figure out if it's worth the bother to implement ST (I honestly think
+    ST is really lousy and restrictive for general-purpose use)
+  
+  - address implementation concerns / refactor
+  
+  - revisit unit testing
+  
+  - work on the documentation
+  
+  - clean the whole project and prepare it for packaging
+  
+concerns:
+  
+  - I don't like how complicated Token name-extract is right now
+    -> study ANTLR and see if it's even necessary to use integer
+       token types instead of Symbols 
+    -> are token types grouped into ranges and sequences in 
+       generated code for parsers?
+
+  - The way I have the general namespace-structure of generated
+    code is kind of messed up right now
+    -> ideally, I would like a grammar to map to a module, which
+       would contain a Lexer, Parser, and/or TreeParser class
+    -> since ANTLR's really targetted for Java and Python,
+       the restrictions on grammar naming and file names makes
+       this more akward and difficult
+  
+  - there are quite a few methods that have names or implementations
+    that seem to conflict with ruby coding conventions
+

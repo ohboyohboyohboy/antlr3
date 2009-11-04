@@ -1,0 +1,47 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Building ANTLR Grammar Tool
+[INFO]    task-segment: [install]
+[INFO] ------------------------------------------------------------------------
+[INFO] [buildnumber:create {execution: default}]
+[INFO] Storing buildNumber: Nov 03, 2009 05:18:21 at timestamp: 1257243501192
+[INFO] [antlr:generate {execution: default}]
+[INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/antlr.g
+[INFO] The grammar is already generated.
+[INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/codegen.g
+[INFO] The grammar is already generated.
+[INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/antlr.print.g
+[INFO] The grammar is already generated.
+[INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/assign.types.g
+[INFO] The grammar is already generated.
+[INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/buildnfa.g
+[INFO] The grammar is already generated.
+[INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/define.g
+[INFO] The grammar is already generated.
+[INFO] [antlr3:antlr {execution: default}]
+[INFO] ANTLR: Processing source directory /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr3
+Grammar org/antlr/grammar/v3/ANTLRv3.g is up to date - build skipped
+Grammar org/antlr/grammar/v3/ActionAnalysis.g is up to date - build skipped
+Grammar org/antlr/grammar/v3/ANTLRv3Tree.g is up to date - build skipped
+Grammar org/antlr/grammar/v3/ActionTranslator.g is up to date - build skipped
+[INFO] [resources:resources]
+[INFO] Using default encoding to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Compiling 1 source file to /home/kyle/lib/ruby/projects/antlr3/package/tool/target/classes
+[INFO] [resources:testResources]
+[INFO] Using default encoding to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] Not compiling test sources
+[INFO] [surefire:test]
+[INFO] Tests are skipped.
+[INFO] [jar:jar]
+[INFO] Building jar: /home/kyle/lib/ruby/projects/antlr3/package/tool/target/antlr-3.2.jar
+[INFO] [install:install]
+[INFO] Installing /home/kyle/lib/ruby/projects/antlr3/package/tool/target/antlr-3.2.jar to /home/kyle/.m2/repository/org/antlr/antlr/3.2/antlr-3.2.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 22 seconds
+[INFO] Finished at: Tue Nov 03 05:18:35 EST 2009
+[INFO] Final Memory: 18M/33M
+[INFO] ------------------------------------------------------------------------

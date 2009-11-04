@@ -1,0 +1,201 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+Ruby.setup_environment(
+  :project => 'antlr3',
+  :load_gems => true
+)
+project.setup_extras
+establish 'cli-main'
+require 'string/ansi'
+require 'part'
+require 'highline'
+
+Main do
+  part(:groups) do read_only
+    default do
+      Hash.new do |h,k|
+        file = template_files[k] and h[k] = StringTemplate::Group.load(file)
+      end
+    end
+  end
+  
+  part(:template_files) do read_only
+    default do
+      Ruby.project.template_files.inject({}) do |h, file|
+        h[File.basename(file, '.stg')] = file
+      end
+    end
+  end
+  
+  def group(name)
+    groups[name.to_s]
+  end
+  
+  def load_markup(file)
+    STMarkup.load(file)
+  end
+  
+  mode :convert do
+    argument :files do
+      arity(-2)
+    end
+    
+    run do
+      for file in params[:files].values
+        STMarkup.convert_file(file)
+      end
+    end
+  end
+  
+  ############################################################################
+  ########################## Code Formatting Helpers #########################
+  ############################################################################
+  
+  mixin :formatting do
+    def highlight(source)
+      source.yellow
+    end
+    def format_plain(source)
+      source.bright_black
+    end
+    def title_bar(text, width = screen_width)
+      text.to_s.ljust(width).white.on_black
+    end
+    
+    def separator(pattern = '- ', width = screen_width)
+      bar = pattern * (width / pattern.length)
+      leftover = width % pattern.length
+      bar << pattern[0...leftover]
+    end
+    
+    def number(block, start, digits = 5)
+      format = " %#{digits}i | ".freeze
+      n = start
+      block.gsub(/^/) { format % (n += 1) }
+    end
+    
+    def pretty_code(node)
+      code, start_line = node.source_code_context(1)
+      head, body, tail = code.split("\xFF", 3)
+      code = ''
+      code << head.split("\n").map! { |line| format_plain(line) }.join("\n")
+      code << body.split("\n").map! { |line| highlight(line) }.join("\n")
+      code << tail.split("\n").map! { |line| format_plain(line) }.join("\n")
+      return(number(code, start_line))
+    end
+  end
+
+  ############################################################################
+  ############################### Command: list ##############################
+  ############################################################################
+  
+  mode :match do
+    mixin :formatting
+    
+    option('limit', 'l') do
+      argument_required
+      description("the maximum number of template matches to display")
+      cast(:integer)
+      default(-1)
+    end
+    
+    argument(:name_expression) do
+      arity(1)
+      description('The full name of a template (i.e. Group.templateName)')
+    end
+    argument(:files) do
+      description('Ruby source code files with embedded String Template markup data')
+      arity(-1)
+    end
+    
+    
+    def run
+      (limit = params[:limit].value) == 0 and return
+      @matches = 0
+      template = params[:name_expression].value
+      markup_files = params[:files].values
+      
+      catch(:limit) do
+        for file in markup_files
+          @file_displayed = false
+          markup = STMarkup.load(file) rescue next
+          
+          for node in markup.index
+            node =~ template and begin
+              @matches += 1
+              display(node)
+            end
+            @matches == limit and throw(:limit)
+          end
+        end
+      end
+    end
+    
+    def display(node)
+      puts(@file_displayed ? separator : title_bar(node.file))
+      @file_displayed = true
+      puts(pretty_code(node))
+    end
+    
+  end
+  
+  ############################################################################
+  ############################# Command: coverage ############################
+  ############################################################################
+  
+  mode :tree do
+    argument :file do
+      arity(1)
+      description('a ruby source code file with embedded String Template markup data')
+      cast do |path|
+        begin STMarkup.load(path)
+        rescue => e; raise ArgumentError, "failed to load ST markup from #{path} -- received error #{e}\n#{e.backtrace}"
+        end
+      end
+    end
+    
+    option('line', 'l') do
+      argument_required
+      description("line number or a range start..finish (or start...finish)")
+      arity(1)
+      cast do |num|
+        case num
+        when /^(\d+)\.\.\.(\d+)$/ then $1.to_i...$2.to_i
+        when /^(\d+)\.\.(\d+)$/ then $1.to_i..$2.to_i
+        when /^\d+$/
+          i = num.to_i
+          i..i
+        else
+          raise ArgumentError, "line number argument is not a valid integer or integer range"
+        end
+      end
+    end
+    
+    def run
+      require 'core/range'
+      markup = params[:file].value
+      range = params[:line].value || markup.top.line_span
+      rows = []
+      markup.top.walk do |node|
+        node.root? and next
+        span = node.line_span
+        span.overlap?(range) and rows << [(' ' * (node.depth - 1)) << node.tag,
+          node.start.to_s, node.finish.to_s]
+      end
+      unless rows.empty?
+        table = Text::Table.new(rows) do |t, c1, c2, c3|
+          c1.title = 'Tag Tree'
+          c2.title = 'Start'
+          c3.title = 'End'
+        end
+        puts(table)
+      end
+    end
+    
+  end
+  
+  def run
+    help!
+  end
+  
+end

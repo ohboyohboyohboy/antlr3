@@ -1,0 +1,11 @@
+
+I. Basic Testing
+
+for each sample grammar:
+  * run ANTLR to generate ruby code
+    -> if it returns severe errors, fail
+  * run syntax check on each generated file
+    -> if any return error status, fail
+  * run ruby on the file to see if it has any severe semantic
+    errors that cause load failure
+    -> fail if error status on any

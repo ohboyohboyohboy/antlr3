@@ -1,0 +1,15 @@
+group Strawberry : Vanilla implements Flavored, Comparable;
+
+topTemplate(a, b = "letter b", c) ::= <<
+strawberry flavored text
+>>
+
+templateAlias ::= topTemplate
+
+@scoped.template() ::= "inline text"
+
+typeMap ::= [
+    "key1"  : "value1",
+    "key2"  : "value2",
+    default : "default_value"
+]

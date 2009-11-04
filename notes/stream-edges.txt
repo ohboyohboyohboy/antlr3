@@ -1,0 +1,6 @@
+Stream Edge Behavior
+=================================
+
+TYPE               peek: <-start  end->  look: <-start  end->
+String Streams             nil    EOF            nil    nil
+Token Streams                

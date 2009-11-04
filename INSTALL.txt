@@ -1,0 +1,51 @@
+Unfortunately, since this implementation of ANTLR for ruby is not part of the official ANTLR distribution, the ANTLR program must be patched and rebuilt to use the code in this gem. Below is an attempt at a step-by-step procedure for using this code.
+
+STEP 1 -> download the current ANTLR source bundle from
+   
+    http://antlr.org/download.html
+    
+    The current version of the tool (as this tutorial was written) is 3.2, and
+    the source code package is located at 
+    
+    http://antlr.org/download/antlr-3.2.tar.gz
+    
+STEP 2 -> unpack the source distribution in a convenient directory
+
+    cd ~/path/to/source
+    tar xvzf antlr-3.2.tar.gz
+    cd antlr-3.2
+
+STEP 2 1/2 -> if you do not have Maven installed on your system:
+    
+    read the INSTALL file located in the root of the 
+    source distribution and follow the instructions 
+    for installing the Maven build tool on your system
+    
+    after installation, from the source package's top directory, execute:
+    
+    mvn -N install
+
+STEP 3 -> replace the package's ruby-related source with the source provided
+          with this gem
+    
+    below, path/to/gem is the path to the top directory of the antlr3 gem
+    (/var/lib/gems/1.8/gems/antlr3-1.0.0 on my system), and the current
+    working directory is assumed to be the top-level folder of the
+    source distribution
+    
+    cp path/to/gem/templates/*.stg ./tool/src/main/resources/org/antlr/codegen/templates/Ruby/
+    cp path/to/gem/java/RubyTarget.java ./tool/src/main/java/org/antlr/codegen/
+
+STEP 4 -> build the ANTLR jar
+
+    mvn -Dmaven.test.skip=true
+
+STEP 5 -> locate the ANTLR jar and integrate it into your system
+
+The build should produce a final java JAR package located at
+
+    ./tool/target/antlr-3.2.jar (substitude 3.2 for whatever version built)
+
+Copy it to a sensible place on your system where java libraries are stored, and add the path to the JAR to your CLASSPATH environmental variable. Afterward, ANTLR can be run with the command:
+
+    java org.antlr.Tool

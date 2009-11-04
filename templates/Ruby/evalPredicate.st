@@ -1,0 +1,3 @@
+
+
+evalPredicate(pred,description) ::= "(<pred>)"

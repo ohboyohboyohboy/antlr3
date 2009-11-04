@@ -1,0 +1,121 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+require 'environments/cli-main'
+require 'util/kde/klipper-dbus'
+
+module Template
+  Group = Struct.new(:file, :name, :members) do
+    def initialize(file)
+      super(file, nil, [])
+      $current_group = self
+    end
+  end
+
+  Template = Struct.new(:group, :name, :line, :parameters, :body) do
+    def initialize(*args)
+      super($current_group, *args)
+      $current_group.members.push(self) if $current_group
+    end
+  end
+end
+
+STRING = /"(?:(?:[^\\"]|\\"|\\.)*?)"/
+ID = /(?:@?\w+\.)?\w+/
+PARAMETER = /#{ID}(?:\s*\=\s*(?:#{STRING}|.*?))?/m
+PARAMETER_LIST = /\((?:#{PARAMETER}\s*,\s*)*#{PARAMETER}?\)/
+TEMPLATE_TEXT = /"(?:(?:[^\\"]+|\\"|\\.)*?)"|<<.+?>>|(?:@?\w+\.)?\w+/m
+TEMPLATE_DECLARATION = /(\w+)\s*(#{PARAMETER_LIST}?)\s*::=\s*(#{TEMPLATE_TEXT})/m
+
+Main do
+  mixin(:template) do
+    option('file', 'f') do
+      description("the string template group file to read")
+      arity(-2)
+      #validate { |f| test(?f, f) and f }
+    end
+    option('clipboard', 'c') do
+      description("copy the output to the clipboard")
+    end
+    
+    def setup
+      read_source
+      @data = @files.map { |f, src| parse(f, src) }
+    end
+    def read_source
+      @files = {}
+      params[:file].given? and begin
+        params[:file].values.each do |f|
+          @files[f] = File.read(f) rescue next
+        end
+      end
+      $stdin.tty? or @files['<stdin>'] = $stdin.read
+    end
+    
+    def parse(file, source)
+      group = Template::Group.new(file)
+      source =~ /^\s*group (\w+)/ and group.name = $1
+      line = 1
+      while source =~ TEMPLATE_DECLARATION
+        source = $'
+        line += $`.count("\n")
+        template = Template::Template.new($1, line)
+        template.body = $3
+        unless (list = $2).empty?
+          list[0] = list[-1] = ''
+          template.parameters = list.strip.split(/\s*,\s*/)
+        end
+      end
+      return group
+    end
+    
+  end
+  
+  mode(:list) do
+    mixin(:template)
+    
+    def run
+      setup
+      @data.each do |group|
+        puts "--[#{group.file}: #{group.name}]".ljust(80,'-')
+        group.members.each { |m| puts "  * #{m.name}" }
+      end
+    end
+  end
+  
+  mode(:show) do
+    mixin(:template)
+    argument(:names) do
+      description("template name")
+      arity(-2)
+    end
+    
+    def run
+      setup
+      templates = @data.map { |group| group.members }.flatten!
+      results = []
+      params[:names].values.each do |name|
+        for template in templates
+          if template.name == name
+            results << ("/**** #{name} -> line #{template.line} ".ljust(79, '*') << '/')
+            if template.parameters
+              results << ('%s(%s) ::= %s' % [template.name, template.parameters.join(', '), template.body])
+            else
+              results << ('%s ::= %s' % [template.name, template.body])
+            end
+          end
+        end
+      end
+      output = results.join("\n")
+      params[:clipboard].given? and Klipper.clipboard_contents = output
+      puts(output)
+      
+    end
+  end
+  
+  
+  def run
+    help!
+  end
+  
+end

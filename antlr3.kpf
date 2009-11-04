@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="5be56ac0-1433-012c-c49c-001d09370161" kpf_version="4" name="antlr3">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<file id="0fe1e481-be89-466c-97bf-d9d37c0a10a3" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="constants.rb" url="lib/antlr3/constants.rb">
+</file>
+<file id="2087d7ee-c9f5-4f2c-8179-e6d282c8c236" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="tree-wizard.rb" url="lib/antlr3/tree-wizard.rb">
+</file>
+<file id="233b8b5d-9863-4f59-8a73-7b4dd35b1969" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="tokens.rb" url="lib/antlr3/tokens.rb">
+</file>
+<file id="47b19e6a-94d9-4b6c-bb4e-730fe06c5f76" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="antlr3.rb" url="lib/antlr3.rb">
+</file>
+<file id="4a333b29-fa80-4119-a828-a7b1c0c3123b" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="debug.rb" url="lib/antlr3/debug.rb">
+</file>
+<file id="742bfb64-f9b0-4358-907e-cc949d57ab18" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="recognizers.rb" url="lib/antlr3/recognizers.rb">
+</file>
+<file id="76250dc5-d456-4016-91af-f880108d747b" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="dot-tree-generator.rb" url="lib/antlr3/dot-tree-generator.rb">
+</file>
+<file id="8c59b954-f29b-4892-86c1-4fb14b75c60e" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="main.rb" url="lib/antlr3/main.rb">
+</file>
+<file id="a9321eb9-09e8-48d7-9b37-9f7b5e5573e3" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="streams.rb" url="lib/antlr3/streams.rb">
+</file>
+<file id="be5e910c-b841-407e-89b4-6c690cc05a26" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="dfa.rb" url="lib/antlr3/dfa.rb">
+</file>
+<file id="c2b0994d-c292-4e8a-8b62-d3f80ab71083" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="exceptions.rb" url="lib/antlr3/exceptions.rb">
+</file>
+<file id="d6da65fc-1c81-41c2-858f-6ea097d1cd0e" idref="346b38c4-035f-4921-99d2-8b9d0551793f" name="tree.rb" url="lib/antlr3/tree.rb">
+</file>
+<folder id="346b38c4-035f-4921-99d2-8b9d0551793f" idref="5be56ac0-1433-012c-c49c-001d09370161" name="antlr lib (ruby)">
+</folder>
+<folder id="8c939098-484a-40b2-97a8-8e248db461e8" idref="5be56ac0-1433-012c-c49c-001d09370161" name="snippets">
+</folder>
+<livefolder id="9ca3c464-1857-441a-9660-71971485da38" idref="5be56ac0-1433-012c-c49c-001d09370161" name="code-browse" url="code-browse">
+</livefolder>
+<command cwd="" doNotOpenOutputWindow="0" env="PATH=/home/kyle/lib/ruby/projects/antlr3/scripts\nRUBY_PROJECT=antlr3" id="aaee0987-28f7-4233-a1aa-87b63ca58fd4" idref="5be56ac0-1433-012c-c49c-001d09370161" insertOutput="0" keyboard_shortcut="Ctrl+_" name="st-extract tree --line %L %F" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
+st-extract tree --line %L %F</command>
+<folder id="c2acb775-8295-48e5-9bef-37ec8b7af6ca" idref="5be56ac0-1433-012c-c49c-001d09370161" name="rake">
+</folder>
+<folder id="c7bc5dc8-77e2-404a-8621-0d873a5ec51d" idref="5be56ac0-1433-012c-c49c-001d09370161" name="STs">
+</folder>
+<folder id="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" idref="5be56ac0-1433-012c-c49c-001d09370161" name="file-tree">
+</folder>
+<file id="0193cda7-5054-4a84-b635-c88754470085" idref="60b9d2be-1949-480b-b9bb-44538ccf1505" name="AST.stg" url="templates/AST.stg">
+</file>
+<file id="84178293-cf54-4e5e-939e-ba103f9922eb" idref="60b9d2be-1949-480b-b9bb-44538ccf1505" name="ASTParser.stg" url="templates/ASTParser.stg">
+</file>
+<file id="897562a4-dc65-418e-85cb-23d2747e27ee" idref="60b9d2be-1949-480b-b9bb-44538ccf1505" name="ASTTreeParser.stg" url="templates/ASTTreeParser.stg">
+</file>
+<file id="99f48adc-1a12-44a1-88f4-be99c68115fe" idref="60b9d2be-1949-480b-b9bb-44538ccf1505" name="ASTDbg.stg" url="templates/ASTDbg.stg">
+</file>
+<file id="a3b9cc49-dc23-4127-9ceb-184b6016f1e7" idref="60b9d2be-1949-480b-b9bb-44538ccf1505" name="Ruby.stg" url="templates/Ruby.stg">
+</file>
+<file id="aaf9887c-d275-42b8-a01b-a17452b41115" idref="60b9d2be-1949-480b-b9bb-44538ccf1505" name="ANTLRCore.sti" url="templates/ANTLRCore.sti">
+</file>
+<file id="b3706680-2975-45ec-ab05-01a7e83db140" idref="60b9d2be-1949-480b-b9bb-44538ccf1505" name="Python.stg" url="notes/templates/Python/Python.stg">
+</file>
+<file id="f0aa5fb2-2106-4d98-896b-c20a0ca895eb" idref="60b9d2be-1949-480b-b9bb-44538ccf1505" name="Perl5.stg" url="notes/templates/Perl5/Perl5.stg">
+</file>
+<snippet id="985fb501-700c-4d10-af8e-4086d18873b5" idref="8c939098-484a-40b2-97a8-8e248db461e8" indent_relative="false" keyboard_shortcut="Meta+," name="ast_test" set_selection="false">
+ast_test :input =&gt; '[[%tabstop:TEXT]]', :rule =&gt; :[[%tabstop:RULE]], :ast =&gt; '([[%tabstop:TREE]])'!@#_currentPos!@#_anchor</snippet>
+<command cwd="%p" doNotOpenOutputWindow="0" env="RUBY_PROJECT=antlr3" id="321a2a05-a813-4fc8-9ef6-eed2f85ae1c8" idref="c2acb775-8295-48e5-9bef-37ec8b7af6ca" insertOutput="0" keyboard_shortcut="" name="run all tests" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
+rake test</command>
+<file id="138ca927-2ac5-4ea5-8e9f-6183f0221d8d" idref="c7bc5dc8-77e2-404a-8621-0d873a5ec51d" name="Python.stg" url="notes/templates/Python/Python.stg">
+</file>
+<file id="18402bce-3311-4459-a49d-7a2a3a2094c8" idref="c7bc5dc8-77e2-404a-8621-0d873a5ec51d" name="AST.stg" url="templates/AST.stg">
+</file>
+<file id="76977eb3-5789-4346-8515-e7aedaff7b36" idref="c7bc5dc8-77e2-404a-8621-0d873a5ec51d" name="Ruby.stg" url="templates/Ruby.stg">
+</file>
+<file id="8e270d74-8f79-4920-bc52-80ebcea5d8af" idref="c7bc5dc8-77e2-404a-8621-0d873a5ec51d" name="ANTLRCore.sti" url="templates/ANTLRCore.sti">
+</file>
+<file id="b3f8b309-d0f8-47d1-988b-c80fbf176a17" idref="c7bc5dc8-77e2-404a-8621-0d873a5ec51d" name="ASTDbg.stg" url="templates/ASTDbg.stg">
+</file>
+<file id="d43575a1-8e7f-4d3a-a38e-1a1fd533f894" idref="c7bc5dc8-77e2-404a-8621-0d873a5ec51d" name="C.stg" url="notes/templates/C/C.stg">
+</file>
+<file id="d67c9a4d-aaf8-4c0f-8214-69c314bbc488" idref="c7bc5dc8-77e2-404a-8621-0d873a5ec51d" name="ASTTreeParser.stg" url="templates/ASTTreeParser.stg">
+</file>
+<file id="d9e528c5-5099-4bfa-befc-548ddfd956ab" idref="c7bc5dc8-77e2-404a-8621-0d873a5ec51d" name="ASTParser.stg" url="templates/ASTParser.stg">
+</file>
+<file id="f4bfa959-77cb-4f25-9f16-1ea0aabfdcc2" idref="c7bc5dc8-77e2-404a-8621-0d873a5ec51d" name="Perl5.stg" url="notes/templates/Perl5/Perl5.stg">
+</file>
+<file id="0928fb80-c157-4f75-96f5-273ff8ba444e" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name=".bzrignore" url=".bzrignore">
+</file>
+<livefolder id="0e0d2a5e-5ab5-46db-90ca-375bd858144c" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="test" url="test">
+</livefolder>
+<livefolder id="0f1e2ecb-643a-4d05-9643-df105ccd839f" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="doc" url="doc">
+</livefolder>
+<livefolder id="2528b288-ba7a-4716-ac91-63b237735528" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="bin" url="bin">
+</livefolder>
+<file id="3a8cd549-144f-4558-9239-611cc8366335" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="History.txt" url="History.txt">
+</file>
+<livefolder id="40ab9172-e684-47eb-ad76-11e94f12cdad" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="java" url="java">
+</livefolder>
+<file id="4d4487c5-794f-4a5a-a6f3-7d311ce6cd43" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="typescript" url="typescript">
+</file>
+<livefolder id="4fb26450-3a29-4263-84a8-a9c4888a562c" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="package" url="package">
+</livefolder>
+<file id="6c76d577-eb26-43b2-b3b2-2f62fb406654" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="README.txt" url="README.txt">
+</file>
+<livefolder id="7268e73d-4397-4c08-9eb1-ec887fc4190b" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name=".tasks" url=".tasks">
+</livefolder>
+<livefolder id="759e7c90-b144-49a1-ba52-42193db7391d" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="config" url="config">
+</livefolder>
+<livefolder id="7a8c91bd-e04a-4542-bd2a-78945f870a1d" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="scratch" url="scratch">
+</livefolder>
+<livefolder id="88a14ecf-899f-4058-b732-a1a530494ee0" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="templates" url="templates">
+</livefolder>
+<ProjectRef id="ae29c234-2799-46a2-b48e-9c50a11759bf" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="antlr3.kpf" url="antlr3.kpf">
+</ProjectRef>
+<file id="d8bd4afd-ab35-4994-9998-d77ce911e355" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name=".tdldb" url=".tdldb">
+</file>
+<livefolder id="e5142788-f118-465c-9e50-8cb80654ad29" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="notes" url="notes">
+</livefolder>
+<livefolder id="e793254a-1eae-4303-8fa6-4bb1383bd709" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="scripts" url="scripts">
+</livefolder>
+<livefolder id="ee7a097f-d02e-466c-87e5-3c2adb542120" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="log" url="log">
+</livefolder>
+<file id="f12c8fa2-0565-4ff5-9dd7-96a341813dcf" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name=".juju.log" url=".juju.log">
+</file>
+<livefolder id="f6fff8fb-9843-4a3b-ab8f-1a7ba2f2f90b" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="lib" url="lib">
+</livefolder>
+<file id="fb0c6bde-021b-4d6c-8ec9-a3b9712debbb" idref="ca2ff8d9-ae4f-4098-a30c-84aa8167d997" name="Rakefile" url="Rakefile">
+</file>
+<preference-set idref="5be56ac0-1433-012c-c49c-001d09370161">
+  <string id="import_exclude_matches">*.*~;*.bak;*.tmp;CVS;.#*;*.pyo;*.pyc;.svn;*%*;tmp*.html;.DS_Store;.bzr</string>
+  <string id="import_include_matches"></string>
+  <boolean id="import_live">0</boolean>
+  <boolean id="import_recursive">0</boolean>
+  <string id="import_type">makeFlat</string>
+  <string id="rubyExtraPaths"></string>
+</preference-set>
+</project>

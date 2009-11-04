@@ -1,0 +1,54 @@
+grammar_file                     | "Grammar File"
+parser_class                     | "Parser Class"
+top_rule                         | "Profiled Rule"
+
+rule_invocations                 | "Number of Rule Invocations"
+guessing_rule_invocations        | "Number of ``Guessing'' Invocations"
+rule_invocation_depth            | "Deepest Level of Invocation"
+
+"Memoization Cache"
+memoization_cache_entries        | "Cache Entries"
+memoization_cache_hits           | "Cache Hits"
+memoization_cache_misses         | "Cache Misses"
+
+"Token and Character Data"
+
+
+"Execution Events"
+semantic_predicates              | "Number of Semantic Predicates"
+syntactic_predicates             | "Number of Syntactic Predicates"
+reported_errors                  | "Number of Errors Reported"
+
+
+"%s Decisions"
+
+
+fixed_looks                 | "Fixed Lookaheads"
+cyclic_looks                | "Cyclic Lookaheads"
+syntactic_predicate_looks   | "Syntactic Predicate Lookaheads"
+
+
+ANTLR Rule Invocation Profile
+
+
++------------------------------------------------------------------------------+
+|                               ANTLR Rule Profile                             |
++------------------------------------------------------------------------------+
+|  Generated at __time__                                                       |
+|  Profiled __rule__ in class __class__                                        |
+|  Rule source generated from __grammar_file__                                 |
++------------------------------------------------------------------------------+
+|                                    
+
+
+Rule Invocations
+  
+  +--------------------------------+-----+
+  | Total Invocations              | 500 |
+  +--------------------------------+-----+
+  | ``Guessing'' Invocations       |  40 |
+  +--------------------------------+-----+
+  | Deepest Level of Invocation    |   8 |
+  +--------------------------------+-----+
+  
+
