@@ -42,6 +42,8 @@ Namespace for all debugging-related class and module definitions.
 
 module Debug
 
+DEFAULT_PORT = 49100
+
 # since there are many components to the debug-mode
 # section of the antlr3 runtime library, most of which
 # are not used simultaneously, debug.rb contains the
@@ -138,6 +140,16 @@ switch.
 =end
 module ParserEvents
   include ANTLR3::Error
+  
+  def self.included(klass)
+    super
+    if klass.is_a?(::Class)
+      def klass.debug?
+        true
+      end
+    end
+  end
+  
   
   attr_reader :debug_listener
   

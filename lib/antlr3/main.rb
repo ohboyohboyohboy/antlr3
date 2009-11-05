@@ -83,22 +83,22 @@ module Options
       | a string to use as direct input to the recognizer
       END
       
-      o.on('-I', '--interactive', doc(<<-END)) { @interactive = true }
+      o.on( '-I', '--interactive', doc( <<-END ) ) { @interactive = true }
       | run an interactive session with the recognizer
       END
       
-      o.on('--profile', Util.tidy( <<-END.chomp!) ) { @profile = true }
+      o.on( '--profile', doc( <<-END.chomp! ) ) { @profile = true }
       | profile code execution using the standard profiler library
       END
       
-      o.on('--ruby-prof', doc(<<-END1), doc(<<-END2)) { @ruby_prof = true }
-      | profile code execution using the faster ruby-prof
-      END1
-      | (requires rubygems with the ruby-prof gem)
-      END2
+      #o.on('--ruby-prof', doc(<<-END1), doc(<<-END2)) { @ruby_prof = true }
+      #| profile code execution using the faster ruby-prof
+      #END1
+      #| (requires rubygems with the ruby-prof gem)
+      #END2
     end
     
-    setup_options(oparser)
+    setup_options( oparser )
     return oparser.parse(argv)
   end
   
@@ -107,7 +107,7 @@ module Options
     # overridable hook to modify / append options
   end
   
-  def doc(description_string)
+  def doc( description_string )
     description_string.chomp!
     description_string.gsub!(/^ *\| ?/,'')
     description_string.gsub!(/\s+/,' ')
@@ -215,38 +215,38 @@ class Main
     recognize(stream)
   end
   
-  def load_ruby_prof
-    require 'ruby-prof'
-  rescue LoadError
-    attempt('rubygems', doc(<<-END)) { require 'rubygems' }
-    | * failed to load the rubygems library:
-    |   - ensure rubygems is in installed
-    |   - make sure it is in this script's load path
-    END
-    attempt('ruby-prof', doc(<<-END)) { gem 'ruby-prof' }
-    | * could not active the ruby-prof gem via ``gem "ruby-prof"''
-    |   - ensure the ruby-prof gem is installed
-    |   - it can be installed using the shell command
-    |     ``sudo gem install ruby-prof''
-    END
-    attempt('ruby-prof', doc(<<-END)) { require 'ruby-prof' }
-    | * activated the ruby-prof gem, but subsequently failed to
-    |   load the ruby-prof library
-    |   - check for problems with the gem
-    |   - try restoring it to its initial install condition
-    |     using the shell command
-    |     ``sudo gem pristine ruby-prof''
-    END
-  end
+  #def load_ruby_prof
+  #  require 'ruby-prof'
+  #rescue LoadError
+  #  attempt('rubygems', doc(<<-END)) { require 'rubygems' }
+  #  | * failed to load the rubygems library:
+  #  |   - ensure rubygems is in installed
+  #  |   - make sure it is in this script's load path
+  #  END
+  #  attempt('ruby-prof', doc(<<-END)) { gem 'ruby-prof' }
+  #  | * could not active the ruby-prof gem via ``gem "ruby-prof"''
+  #  |   - ensure the ruby-prof gem is installed
+  #  |   - it can be installed using the shell command
+  #  |     ``sudo gem install ruby-prof''
+  #  END
+  #  attempt('ruby-prof', doc(<<-END)) { require 'ruby-prof' }
+  #  | * activated the ruby-prof gem, but subsequently failed to
+  #  |   load the ruby-prof library
+  #  |   - check for problems with the gem
+  #  |   - try restoring it to its initial install condition
+  #  |     using the shell command
+  #  |     ``sudo gem pristine ruby-prof''
+  #  END
+  #end
   
-  def load_prof
-    attempt('profiler', doc(<<-END), 1) { require 'profiler' }
-    | * failed to load the profiler library from the
-    |   ruby standard library
-    |   - ensure it is installed
-    |   - check that it is in this script's load path
-    END
-  end
+  #def load_prof
+  #  attempt('profiler', doc(<<-END), 1) { require 'profiler' }
+  #  | * failed to load the profiler library from the
+  #  |   ruby standard library
+  #  |   - ensure it is installed
+  #  |   - check that it is in this script's load path
+  #  END
+  #end
   
   def attempt(lib, message = nil, exit_status = nil)
     yield
@@ -392,45 +392,65 @@ class ParserMain < Main
     @lexer_class_name = options[:lexer_class_name]
     @lexer_class      = options[:lexer_class]
     @parser_class     = parser_class
+    @parser_rule = options[:parser_rule]
+    if @debug = (@parser_class.debug? rescue false)
+      @port = options.fetch(:port, ANTLR3::Debug::DEFAULT_PORT)
+      @log  = options.fetch(:log, @error)
+    end
   end
   
   def setup_options(opt)
-    opt.on('--lexer-name CLASS_NAME') { |val|
+    super
+    opt.on('--lexer-name CLASS_NAME', "name of the lexer class to use") { |val|
       @lexer_class_name = val
       @lexer_class = nil
     }
-    opt.on('--lexer-file PATH_TO_LIBRARY') { |val|
+    opt.on('--lexer-file PATH_TO_LIBRARY', "path to library defining the lexer class") { |val|
       begin
         test(?f, val) ? load(val) : require(val)
       rescue LoadError
         warn("unable to load the library specified by --lexer-file: #{$!}")
       end
     }
-    opt.on('--rule NAME') { |val| @parser_rule = val }
+    opt.on('--rule NAME', "name of the parser rule to execute") { |val| @parser_rule = val }
+    if @debug
+      opt.on('--port NUMBER', Integer, "port number to use for the debug socket") do |number|
+        @port = number
+      end
+      opt.on('--log PATH', "path of file to use to record socket activity",
+             "(stderr by default)" ) do |path|
+        @log = open(path, 'w')
+      end
+    end
   end
   
   def setup
     unless @lexer_class ||= fetch_class(@lexer_class_name)
       if @lexer_class_name
-        fail("unable to locate the lexer class ``#{@lexer_class_name}''")
+        fail("unable to locate the lexer class ``#@lexer_class_name''")
       else
         unless @lexer_class = @parser_class.associated_lexer
           fail(doc(<<-END))
-            no lexer class has been specified with the --lexer-name option
-            and #{@parser_class} does not appear to have an associated
-            lexer class
+          | no lexer class has been specified with the --lexer-name option
+          | and #@parser_class does not appear to have an associated
+          | lexer class
           END
         end
       end
     end
-    fail("a parser rule name must be specified via --rule NAME") unless @parser_rule
+    @parser_rule ||= @parser_class.default_rule or
+      fail("a parser rule name must be specified via --rule NAME")
   end
   
   def recognize(in_stream)
     parser_options = {}
+    if @debug
+      parser_options[:port] = @port
+      parser_options[:log] = @log
+    end
     lexer = @lexer_class.new( in_stream )
     token_stream = CommonTokenStream.new( lexer )
-    parser = @parser_class.new( token_stream )
+    parser = @parser_class.new( token_stream, parser_options )
     result = parser.send( @parser_rule ) and present( result )
   end
   
@@ -465,9 +485,14 @@ class WalkerMain < Main
     @lexer_class  = options[:lexer_class]
     @parser_class_name = options[:parser_class_name]
     @parser_class = options[:parser_class]
+    if @debug = (@parser_class.debug? rescue false)
+      @port = options.fetch(:port, ANTLR3::Debug::DEFAULT_PORT)
+      @log  = options.fetch(:log, @error)
+    end
   end
   
   def setup_options(opt)
+    super
     opt.on('--lexer-name CLASS_NAME') { |val| @lexer_class_name = val }
     opt.on('--lexer-file PATH_TO_LIBRARY') { |val|
       begin
@@ -476,7 +501,6 @@ class WalkerMain < Main
         warn("unable to load the library specified by --lexer-file: #{$!}")
       end
     }
-    opt.on('--rule NAME') { |val| @parser_rule = val }
     opt.on('--parser-name CLASS_NAME') { |val| @parser_class_name = val }
     opt.on('--parser-file PATH_TO_LIBRARY') { |val|
       begin
@@ -487,7 +511,18 @@ class WalkerMain < Main
     }
     opt.on('--parser-rule NAME') { |val| @parser_rule = val }
     opt.on('--rule NAME') { |val| @walker_rule = val }
+    
+    if @debug
+      opt.on('--port NUMBER', Integer, "port number to use for the debug socket") do |number|
+        @port = number
+      end
+      opt.on('--log PATH', "path of file to use to record socket activity",
+             "(stderr by default)" ) do |path|
+        @log = open(path, 'w')
+      end
+    end
   end
+  
   # TODO: finish the Main modules
   def setup
     unless @lexer_class ||= fetch_class(@lexer_class_name)
@@ -499,6 +534,11 @@ class WalkerMain < Main
   end
   
   def recognize(in_stream)
+    walker_options = {}
+    if @debug
+      walker_options[:port] = @port
+      walker_options[:log] = @log
+    end
     @lexer = @lexer_class.new(in_stream)
     @token_stream = ANTLR3::CommonTokenStream.new(@lexer)
     @parser = @parser_class.new(@token_stream)
@@ -506,7 +546,7 @@ class WalkerMain < Main
       result.respond_to?(:tree) or fail("Parser did not return an AST for rule #@parser_rule")
       @node_stream = ANTLR3::CommonTreeNodeStream.new(result.tree)
       @node_stream.token_stream = @token_stream
-      @walker = @walker_class.new(@node_stream)
+      @walker = @walker_class.new(@node_stream, walker_options)
       if result = @walker.send(@walker_rule)
         out = result.tree.inspect rescue result.inspect
         puts(out)

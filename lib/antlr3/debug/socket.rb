@@ -5,7 +5,7 @@ require 'socket'
 
 module ANTLR3
 module Debug
-DEFAULT_PORT = 49100
+
 
 =begin rdoc ANTLR3::Debug::EventSocketProxy
 
@@ -19,21 +19,21 @@ be kept in sync.  New events must be handled on both sides of socket.
 class EventSocketProxy
   include EventListener
   
+  SOCKET_ADDR_PACK = 'snCCCCa8'.freeze
+  
   def initialize(recognizer, options = {})
     super()
     @grammar_file_name = recognizer.grammar_file_name
     @adaptor = options[:adaptor]
     @port = options[:port] || DEFAULT_PORT
-    @log_socket = options[:log]
+    @log = options[:log]
     @socket = nil
     @connection = nil
   end
   
-  def log(message, *interpolation_arguments)
-    @log_socket and @log_socket.printf(message, *interpolation_arguments)
+  def log!(message, *interpolation_arguments)
+    @log and @log.printf(message, *interpolation_arguments)
   end
-  
-  SOCKET_ADDR_PACK = 'snCCCCa8'.freeze
   
   def handshake
     unless @socket
@@ -42,11 +42,11 @@ class EventSocketProxy
         @socket.setsockopt( Socket::SOL_SOCKET, Socket::SO_REUSEADDR, 1 )
         @socket.bind(Socket.pack_sockaddr_in( @port, '' ))
         @socket.listen(1)
-        log("waiting for incoming connection on port %i\n", @port)
+        log!("waiting for incoming connection on port %i\n", @port)
         
         @connection, addr = @socket.accept
         port, host = Socket.unpack_sockaddr_in(addr)
-        log("Accepted connection from %s:%s\n", host, port)
+        log!("Accepted connection from %s:%s\n", host, port)
         
         @connection.setsockopt(Socket::SOL_TCP, Socket::TCP_NODELAY, 1)
         
@@ -54,10 +54,10 @@ class EventSocketProxy
         write('grammar %p', @grammar_file_name)
         ack
       rescue IOError => error
-        log("handshake failed due to an IOError:\n")
-        log("  %s: %s", error.class, error.message)
-        log("  Backtrace: ")
-        log("  - %s", error.backtrace.join("\n  - "))
+        log!("handshake failed due to an IOError:\n")
+        log!("  %s: %s", error.class, error.message)
+        log!("  Backtrace: ")
+        log!("  - %s", error.backtrace.join("\n  - "))
         @connection and @connection.close
         @socket and @socket.close
         @socket = nil
@@ -69,19 +69,23 @@ class EventSocketProxy
   
   def write(message, *interpolation_arguments)
     message << ?\n
-    log("---> #{message}", *interpolation_arguments)
+    log!("---> #{message}", *interpolation_arguments)
     @connection.printf(message, *interpolation_arguments)
     @connection.flush
   end
   
   def ack
     line = @connection.readline
-    log("<--- %s", line)
+    log!("<--- %s", line)
+    line
   end
   
   def transmit(event, *interpolation_arguments)
     write(event, *interpolation_arguments)
     ack()
+  rescue IOError
+    @connection.close
+    raise
   end
   
   def commence
@@ -255,27 +259,36 @@ over an IP socket.
 
 =end
 class RemoteEventSocketListener < ::Thread
-  attr_accessor :listener
+  autoload :StringIO, 'stringio'
+  ESCAPE_MAP = Hash.new { |h, k| k }
+  ESCAPE_MAP.update(
+    ?n => ?\n, ?t => ?\t, ?a => ?\a, ?b => ?\b, ?e => ?\e,
+    ?f => ?\f, ?r => ?\r, ?v => ?\v
+  )
+  
   attr_reader :host, :port
   
-  def initialize(listener, host, port)
+  def initialize( options = {} )
     @listener = listener
-    @host = host
-    @port = port
+    @host = options.fetch( :host, 'localhost' )
+    @port = options.fetch( :port, DEFAULT_PORT )
+    @buffer = StringIO.new
     super do
-      sleep
-      TCPSocket.open(@host, @port) do |socket|
-        @socket = socket
+      connect do
         handshake
+        loop do
+          yield( read_event )
+        end
       end
     end
   end
+  
+private
   
   def handshake
     @version = @socket.readline.split("\t")[-1]
     @grammar_file = @socket.readline.split("\t")[-1]
     ack
-    @listener.commence
   end
   
   def ack
@@ -283,14 +296,12 @@ class RemoteEventSocketListener < ::Thread
     @socket.flush
   end
   
-  def open_connection
-    @socket = TCPSocket.open(@host, @port)
-  end
-  
   def unpack_event(event)
-    event.nil? and return(nil)
+    event.nil? and raise( StopIteration )
+    event.chomp!
     name, *elements = event.split("\t",-1)
     name = name.to_sym
+    name == :terminate and raise StopIteration
     elements.map! do |elem|
       elem.empty? and next(nil)
       case elem
@@ -298,15 +309,50 @@ class RemoteEventSocketListener < ::Thread
       when /^\d+\.\d+$/ then Float(elem)
       when /^true$/ then true
       when /^false$/ then false
-      when /^".*"$/ then 
+      when /^"(.*)"$/ then parse_string($1)
       end
+    end
+    elements.unshift(name)
+    return( elements )
+  end
+  
+  def read_event
+    event = @socket.readline or raise( StopIteration )
+    ack
+    return unpack_event( event )
+  end
+  
+  def connect
+    TCPSocket.open(@host, @port) do |socket|
+      @socket = socket
+      yield
     end
   end
   
-  def dispatch(event)
-    name, *params = event.split("\t",-1)
+  def parse_string( string )
+    @buffer.string = string
+    @buffer.rewind
+    out = ''
+    until @buffer.eof?
+      case c = @buffer.getc
+      when ?\\                    # escape
+        nc = @buffer.getc
+        out << 
+          if nc.between?( ?0, ?9 )  # octal integer
+            @buffer.ungetc( nc )
+            @buffer.read( 3 ).to_i( 8 ).chr
+          elsif nc == ?x
+            @buffer.read( 2 ).to_i( 16 ).chr
+          else
+            ESCAPE_MAP[ nc ]
+          end
+      else
+        out << c
+      end
+    end
+    return out
   end
   
-end
+end # class RemoteEventSocketListener
 end # module Debug
 end # module ANTLR3

@@ -259,6 +259,10 @@ class BaseRecognizer
       @default_rule ||= rules.first
     end
     
+    def debug?
+      return false
+    end
+    
     def token_class
       @token_class ||= begin
         self::Token            rescue
