@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # 
-# generated using ANTLR Version: 3.2 Oct 27, 2009 04:48:59
+# generated using ANTLR Version: 3.2 Nov 04, 2009 19:38:44
 # input grammar file: ./test/benchmark/DebugDFA/DebugDFA.g
-# generated at: 2009-10-28 23:39:44
+# generated at: 2009-11-08 17:25:32
 
 this_directory = File.expand_path( File.dirname( __FILE__ ) )
 $:.unshift( this_directory ) unless $:.include?( this_directory )
@@ -47,7 +47,7 @@ module DebugDFA
 
     include TokenData
 
-    generated_using("./test/benchmark/DebugDFA/DebugDFA.g", "3.2 Oct 27, 2009 04:48:59")
+    generated_using("./test/benchmark/DebugDFA/DebugDFA.g", "3.2 Nov 04, 2009 19:38:44")
 
     def initialize(input, options = {})
       super(input, options)
@@ -304,9 +304,7 @@ module DebugDFA
     TOKENS_FOLLOWING_BANG_IN_c_50 = Set[1]
 
   end # class Parser < ANTLR3::Parser
+
+  at_exit { Parser.main(ARGV) } if __FILE__ == $0
 end
 
-if __FILE__ == $0 and ARGV.first != '--'
-  main = ANTLR3::Main::ParserMain.new(DebugDFA::Parser, :lexer_class_name => "DebugDFA::Lexer")
-  main.execute(ARGV)
-end

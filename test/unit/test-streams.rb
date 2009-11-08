@@ -158,17 +158,27 @@ class TestStringStream < Test::Unit::TestCase
   def test_rewind_last
     @stream.seek(4)
 
-    marker = @stream.mark()
-    @stream.consume()
-    @stream.consume()
+    marker = @stream.mark
+    @stream.consume
+    @stream.consume
 
-    @stream.rewind()
+    @stream.rewind
     @stream.mark_depth.should == 1
     @stream.index.should == 4
     @stream.line.should == 2
     @stream.column.should == 1
     @stream.peek(1).should == ?e
     
+  end
+
+  def test_through
+    @stream.through( 2 ).should == 'oh'
+    @stream.through( -2 ).should == ''
+    @stream.seek( 5 )
+    @stream.through( 0 ).should == ''
+    @stream.through( 1 ).should == 'y'
+    @stream.through( -2 ).should == 'he'
+    @stream.through( 5 ).should == "y!\n"
   end
   
   def test_rewind_nested

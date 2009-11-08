@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # 
-# generated using ANTLR Version: 3.2 Oct 27, 2009 04:48:59
+# generated using ANTLR Version: 3.2 Nov 04, 2009 19:38:44
 # input grammar file: ./test/benchmark/DebugDFA/DebugDFA.g
-# generated at: 2009-10-28 23:39:44
+# generated at: 2009-11-08 17:25:32
 
 this_directory = File.expand_path( File.dirname( __FILE__ ) )
 $:.unshift( this_directory ) unless $:.include?( this_directory )
@@ -35,7 +35,7 @@ module DebugDFA
     include TokenData
 
     begin
-      generated_using('./test/benchmark/DebugDFA/DebugDFA.g', '3.2 Oct 27, 2009 04:48:59')
+      generated_using('./test/benchmark/DebugDFA/DebugDFA.g', '3.2 Nov 04, 2009 19:38:44')
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -245,9 +245,7 @@ module DebugDFA
     end
 
   end # class Lexer < ANTLR3::Lexer
+
+  at_exit { Lexer.main(ARGV) } if __FILE__ == $0
 end
 
-if __FILE__ == $0 and ARGV.first != '--'
-  main = ANTLR3::Main::LexerMain.new(DebugDFA::Lexer)
-  main.execute(ARGV)
-end

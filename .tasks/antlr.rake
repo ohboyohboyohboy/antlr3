@@ -102,7 +102,8 @@ $antlr_jar = $project.java("antlr-full-#{$antlr_version}.jar")
 # when any change to the templates or the RubyTarget.java class
 # have been made
 
-if Rake::Task[$package_ruby_target].needed?
+if Rake::Task[$package_ruby_target].needed? or not test(?f, $antlr_jar)
+  # a full maven build is required
   
   file $antlr_package_jar => [$package_ruby_target, *$package_template_files] do
     cd $build_root do
@@ -119,6 +120,8 @@ if Rake::Task[$package_ruby_target].needed?
   end
 
 else
+  # this is a quick shortcut if a full recompile isn't needed
+  # - just add the templates to the current jar
   
   file $antlr_package_jar => $package_template_files do
     test(?d, '.build-temp') or mkdir('.build-temp')

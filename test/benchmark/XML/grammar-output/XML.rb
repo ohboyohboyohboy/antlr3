@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # 
-# generated using ANTLR Version: 3.2 Oct 27, 2009 04:48:59
+# generated using ANTLR Version: 3.2 Nov 04, 2009 19:38:44
 # input grammar file: ./test/benchmark/XML/XML.g
-# generated at: 2009-10-28 23:39:39
+# generated at: 2009-11-08 17:25:27
 
 this_directory = File.expand_path( File.dirname( __FILE__ ) )
 $:.unshift( this_directory ) unless $:.include?( this_directory )
@@ -39,7 +39,7 @@ module XML
     include TokenData
 
     begin
-      generated_using('./test/benchmark/XML/XML.g', '3.2 Oct 27, 2009 04:48:59')
+      generated_using('./test/benchmark/XML/XML.g', '3.2 Nov 04, 2009 19:38:44')
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -1504,9 +1504,7 @@ module XML
 
     end
   end # class Lexer < ANTLR3::Lexer
+
+  at_exit { Lexer.main(ARGV) } if __FILE__ == $0
 end
 
-if __FILE__ == $0 and ARGV.first != '--'
-  main = ANTLR3::Main::LexerMain.new(XML::Lexer)
-  main.execute(ARGV)
-end

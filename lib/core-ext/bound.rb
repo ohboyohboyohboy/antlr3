@@ -1,4 +1,4 @@
-module Comparable
+class Integer
 
   # Returns the lower of self or x.
   #

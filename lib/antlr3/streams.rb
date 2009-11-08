@@ -456,6 +456,18 @@ class StringStream
     c = @data[index] and c.chr
   end
   
+  #
+  # return a substring around the stream cursor at a distance +k+
+  # if <tt>k >= 0</tt>, return the next k characters
+  # if <tt>k < 0</tt>, return the previous <tt>|k|</tt> characters
+  # 
+  def through(k)
+    if k >= 0 then @data[ @position, k ] else
+      start = (@position + k).at_least( 0 ) # start cannot be negative or index will wrap around
+      @data[ start ... @position ]
+    end
+  end
+  
   # operator style look-ahead
   alias >> look
   
@@ -526,10 +538,16 @@ class StringStream
     return self
   end
   
+  #
+  # the total number of markers currently in existence
+  # 
   def mark_depth
     @markers.length
   end
   
+  #
+  # the last marker value created by a call to #mark
+  # 
   def last_marker
     @markers.length - 1
   end
@@ -550,20 +568,33 @@ class StringStream
   #       attributes of the stream will probably be incorrect
   # 
   def seek(index)
-    if index <= @position
-      @position = index
-      return
+    index = index.bound( 0, @data.length )  # ensures index is within the stream's range
+    if index > @position
+      skipped = through( index - @position )
+      if lc = skipped.count("\n") and lc.zero?
+        @column += skipped.length
+      else
+        @line += lc
+        @column = skipped.length - skipped.rindex("\n") - 1
+      end
     end
-    consume() while @position < index
+    @position = index
+    return nil
   end
   
-  def inspect(before_chars = 3, after_chars = 6)
-    start = @position - before_chars
-    before = start <= 0 ? @data[0, @position].inspect : '... ' << @data[start...@position].inspect
+  # 
+  # customized object inspection that shows:
+  # * the stream class
+  # * the stream's location in <tt>index / line:column</tt> format
+  # * +before_chars+ characters before the cursor (6 characters by default)
+  # * +after_chars+ characters after the cursor (10 characters by default)
+  # 
+  def inspect(before_chars = 6, after_chars = 10)
+    before = through( -before_chars ).inspect
+    @position - before_chars > 0 and before.insert(0, '... ')
     
-    finish = @position + after_chars
-    after = finish >= @data.length ? @data[@position .. -1].inspect :
-            @data[@position, after_chars].inspect << ' ...'
+    after = through( after_chars ).inspect
+    @position + after_chars + 1 < @data.length and after << ' ...'
     
     location = "#@position / line #@line:#@column"
     "#<#{self.class}: #{before} | #{after} @ #{location}>"

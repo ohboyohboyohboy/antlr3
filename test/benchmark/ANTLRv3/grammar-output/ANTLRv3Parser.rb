@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # 
-# generated using ANTLR Version: 3.2 Oct 27, 2009 04:48:59
+# generated using ANTLR Version: 3.2 Nov 04, 2009 19:38:44
 # input grammar file: ./test/benchmark/ANTLRv3/ANTLRv3.g
-# generated at: 2009-10-28 23:39:46
+# generated at: 2009-11-08 17:25:34
 
 this_directory = File.expand_path( File.dirname( __FILE__ ) )
 $:.unshift( this_directory ) unless $:.include?( this_directory )
@@ -102,7 +102,7 @@ module ANTLRv3
 
     include TokenData
 
-    generated_using("./test/benchmark/ANTLRv3/ANTLRv3.g", "3.2 Oct 27, 2009 04:48:59")
+    generated_using("./test/benchmark/ANTLRv3/ANTLRv3.g", "3.2 Nov 04, 2009 19:38:44")
 
     def initialize(input, options = {})
       super(input, options)
@@ -8412,9 +8412,7 @@ module ANTLRv3
     TOKENS_FOLLOWING_rewrite_tree_alternative_IN_synpred2_ANTLRv3_2630 = Set[1]
 
   end # class Parser < ANTLR3::Parser
+
+  at_exit { Parser.main(ARGV) } if __FILE__ == $0
 end
 
-if __FILE__ == $0 and ARGV.first != '--'
-  main = ANTLR3::Main::ParserMain.new(ANTLRv3::Parser, :lexer_class_name => "ANTLRv3::Lexer")
-  main.execute(ARGV)
-end
