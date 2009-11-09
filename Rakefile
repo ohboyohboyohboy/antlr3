@@ -1,5 +1,8 @@
 #!/usr/bin/ruby
 # encoding: utf-8
+
+
+
 unless defined?(Ruby)
   warn("overriding bare environment")
   t = File.expand_path('~/lib/ruby')

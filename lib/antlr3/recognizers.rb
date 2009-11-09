@@ -934,7 +934,20 @@ class Lexer < BaseRecognizer
     end
     return @grammar_home::Parser rescue nil
   end
-  
+
+  def self.associated_parser
+    @associated_parser ||= begin
+      @grammar_home and @grammar_home::Parser
+    rescue NameError
+      grammar_name = @grammar_home.name.split("::").last
+      begin
+        require "#{grammar_name}Parser"
+        @grammar_home::Parser
+      rescue LoadError, NameError
+      end
+    end
+  end
+
   def initialize(input, options = {})
     super(options)
     @input =
@@ -1097,6 +1110,8 @@ class Lexer < BaseRecognizer
     @input.consume
   end
   
+  private
+  
   def trace_in(rule_name, rule_index)
     if symbol = @input.look and symbol != EOF then symbol = symbol.inspect
     else symbol = '<EOF>' end
@@ -1111,7 +1126,6 @@ class Lexer < BaseRecognizer
     super(rule_name, rule_index, input_symbol)
   end
   
-  private
   def create_token(&b)
     if block_given? then super(&b)
     else
@@ -1174,26 +1188,24 @@ class Parser < BaseRecognizer
   end
   
   def self.associated_lexer
-    @grammar_home and @grammar_home::Lexer
-  rescue NameError
-    grammar_name = @grammar_home.name.split("::").last
-    begin
-      require "#{grammar_name}Lexer"
-    rescue LoadError => e
-      return nil
+    @associated_lexer ||= begin
+      @grammar_home and @grammar_home::Lexer
+    rescue NameError
+      grammar_name = @grammar_home.name.split("::").last
+      begin
+        require "#{grammar_name}Lexer"
+        @grammar_home::Lexer
+      rescue LoadError, NameError
+      end
     end
-    return @grammar_home::Lexer rescue nil
   end
   
   def initialize(input, options = {})
     super(options)
     @input = nil
     reset
-    @input =
-      case input
-      when TokenSource then CommonTokenStream.new(input)
-      else input
-      end
+    input = cast_input( input, options ) unless TokenStream === input
+    @input = input
   end
   
   def current_input_symbol
@@ -1227,6 +1239,8 @@ class Parser < BaseRecognizer
   def source_name
     @input.source_name
   end
+
+private
   
   def trace_in(rule_name, rule_index)
     super(rule_name, rule_index, @input.look.inspect)
@@ -1235,6 +1249,32 @@ class Parser < BaseRecognizer
   def trace_out(rule_name, rule_index)
     super(rule_name, rule_index, @input.look.inspect)
   end
+  
+  def cast_input( input, options )
+    case input
+    when TokenSource then CommonTokenStream.new( input, options )
+    when IO, String
+      if lexer_class = self.class.associated_lexer
+        CommonTokenStream.new( lexer_class.new( input, options ), options )
+      else
+        raise ArgumentError, Util.tidy( <<-END, true )
+        | unable to automatically convert input #{ input.inspect }
+        | to a ANTLR3::TokenStream object as #{ self.class }
+        | does not appear to have an associated lexer class
+        END
+      end
+    else
+      # assume it's a stream if it at least implements peek and consume
+      unless input.respond_to?( :peek ) and input.respond_to?( :consume )
+        raise ArgumentError, Util.tidy(<<-END, true)
+        | #{ self.class } requires a token stream as input, but
+        | #{ input.inspect } was provided
+        END
+      end
+      input
+    end
+  end
+  
 end
 
 end
