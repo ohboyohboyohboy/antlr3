@@ -1,0 +1,73 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+__DIR__ = File.dirname( __FILE__ )
+load File.join( __DIR__, 'script-helper.rb' )
+
+require 'string-template'
+
+Main do
+  mode(:unzip) do
+    argument(:file) do
+      description("The stg file to break up into parts")
+      validate { |pt| pt =~ /\.stg$/i }
+      arity(1)
+    end
+    
+    option('directory', 'd') do
+      description("The directory to put the output")
+      argument_required
+      validate do |pt|
+        if test(?e, pt) and not test(?d, pt)
+          fail("%s is not a directory", pt)
+        elsif not test(?d, pt) then Dir.mkdir( pt )
+        end
+      end
+    end
+    
+    option( 'quiet', 'q' ) do
+      description( "do not print information to stdout/stderr" )
+      argument_optional
+      arity(-1)
+    end
+    
+    def run
+      opts = {}
+      opts[ :verbose ] = params[ :quiet ].given? ? false : true
+      opts[ :output_directory ] = params[ :directory ].value
+      file = params[ :file ].value
+      
+      StringTemplate::Zip.unzip( file, opts )
+    end
+  end
+  
+  mode(:zip) do
+    argument(:directory) do
+      description("The template directory containing the *.st files")
+      validate { |pt| test(?d, pt) }
+    end
+    
+    option( 'quiet', 'q' ) do
+      description( "do not print information to stdout/stderr" )
+      argument_optional
+      arity(-1)
+    end
+    
+    def run
+      template_directory = params[ :directory ].value
+      name = File.basename( template_directory )
+      opts = {}
+      opts[ :template_directory ] = template_directory
+      opts[ :verbose ] = params[ :quiet ].given? ? false : true
+      
+      manifest = template_directory / name + '.stg'
+      
+      StringTemplate::Zip.zip( manifest, opts )
+    end
+  end
+  
+  def run
+    help!
+  end
+  
+end

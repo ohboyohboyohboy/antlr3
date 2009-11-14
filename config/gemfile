@@ -1,0 +1,29 @@
+# main is a command-line app builder library used in the scripts
+gem "main"
+
+# console based user interface utilities
+gem 'highline'
+
+# a big bag of bric-a-brac 
+gem "facets"
+
+# antlr tests use a rspec environment with a test/unit structure
+gem "rspec"
+
+# code coverage
+gem "rcov"
+
+# fast code profiling
+gem "ruby-prof"
+
+# textile markup for documentation
+gem "RedCloth"
+
+# where the gem libs go
+bundle_path '../vendor/gems'
+
+# where the gem executables go
+bin_path '../vendor/bin'
+
+# turns off rubygems in code
+disable_rubygems

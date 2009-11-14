@@ -4,24 +4,30 @@
 [INFO]    task-segment: [install]
 [INFO] ------------------------------------------------------------------------
 [INFO] [buildnumber:create {execution: default}]
-[INFO] Storing buildNumber: Nov 04, 2009 19:38:44 at timestamp: 1257381524949
+[INFO] Storing buildNumber: Nov 13, 2009 19:33:13 at timestamp: 1258158793940
 [INFO] [antlr:generate {execution: default}]
 [INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/antlr.g
+[INFO] The grammar is already generated.
 [INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/codegen.g
+[INFO] The grammar is already generated.
 [INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/antlr.print.g
+[INFO] The grammar is already generated.
 [INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/assign.types.g
+[INFO] The grammar is already generated.
 [INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/buildnfa.g
+[INFO] The grammar is already generated.
 [INFO] Using Antlr grammar: /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr2/org/antlr/grammar/v2/define.g
+[INFO] The grammar is already generated.
 [INFO] [antlr3:antlr {execution: default}]
 [INFO] ANTLR: Processing source directory /home/kyle/lib/ruby/projects/antlr3/package/tool/src/main/antlr3
-org/antlr/grammar/v3/ANTLRv3.g
-org/antlr/grammar/v3/ActionAnalysis.g
-org/antlr/grammar/v3/ANTLRv3Tree.g
-org/antlr/grammar/v3/ActionTranslator.g
+Grammar org/antlr/grammar/v3/ANTLRv3.g is up to date - build skipped
+Grammar org/antlr/grammar/v3/ActionAnalysis.g is up to date - build skipped
+Grammar org/antlr/grammar/v3/ANTLRv3Tree.g is up to date - build skipped
+Grammar org/antlr/grammar/v3/ActionTranslator.g is up to date - build skipped
 [INFO] [resources:resources]
 [INFO] Using default encoding to copy filtered resources.
 [INFO] [compiler:compile]
-[INFO] Compiling 105 source files to /home/kyle/lib/ruby/projects/antlr3/package/tool/target/classes
+[INFO] Compiling 1 source file to /home/kyle/lib/ruby/projects/antlr3/package/tool/target/classes
 [INFO] [resources:testResources]
 [INFO] Using default encoding to copy filtered resources.
 [INFO] [compiler:testCompile]
@@ -35,7 +41,7 @@ org/antlr/grammar/v3/ActionTranslator.g
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESSFUL
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 31 seconds
-[INFO] Finished at: Wed Nov 04 19:39:08 EST 2009
-[INFO] Final Memory: 22M/48M
+[INFO] Total time: 23 seconds
+[INFO] Finished at: Fri Nov 13 19:33:28 EST 2009
+[INFO] Final Memory: 18M/33M
 [INFO] ------------------------------------------------------------------------

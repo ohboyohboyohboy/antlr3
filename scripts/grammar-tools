@@ -1,21 +1,12 @@
 #!/usr/bin/ruby
 # encoding: utf-8
-Ruby.setup(
-  :project => 'antlr3',
-  :monitor => false,
-  :record => false
-)
-establish 'cli-main'
-establish 'standard'
-
-project.setup_extras
+__DIR__ = File.dirname( __FILE__ )
+load File.join( __DIR__, 'script-helper.rb' )
 require 'ANTLRv3Grammar'
 
 ACTION_TOKENS = %w(
   ARG RET T__72 ACTION SEMPRED SYN_SEMPRED GATED_SEMPRED
 ).freeze
-
-
 include ANTLRv3Grammar::TokenData
 
 Main do
@@ -127,6 +118,7 @@ Main do
     def action_node?(node)
       ACTION_TOKENS.include?(node.name) and return true
     end
+    
     def rules
       @rules ||= begin
         rules = {}
@@ -138,16 +130,20 @@ Main do
         rules
       end
     end
+    
     def rule_names
       rules.keys.compact.sort
     end
+    
   end
+  
   mixin :rewrite do
     mixin :input
     
     option('output', 'o') do
       arity(1)
     end
+    
     if $stdin.tty?
       # only possible when a file name is provided (not when read from $stdin)
       option('in-place') do
@@ -324,6 +320,7 @@ Main do
     def token_stream
       @token_stream ||= ANTLR3::TokenRewriteStream.new(lexer)
     end
+    
     def write_output
       if $stdin.tty? and params['in-place'].given?
         path = file_name
@@ -356,103 +353,23 @@ Main do
     end
   end
   
-  mixin :colors do
-    option 'color' do
-      argument_required
-      synopsis('--color=COLOR')
-      description(<<-END)
-        specify either a color name or an HTML-style hex RGB color code
-        a foreground/background color pair may be specified with the
-        syntax [FG]:[BG]
-      END
-      
-      cast do |value|
-        colors = value.split(':', -1)
-        colors[0, 2]
-      end
-      
-      arity(1)
-      default('red')
-    end
-    
-    def plain_colors
-      @plain_colors ||= begin
-        require 'string/ansi'
-        Hash[String::ANSIEscapes::COLORS.map { |name, escape| [name.to_s, escape] }]
-      rescue LoadError
-        {}
-      end
-    end
-    
-    def named_colors
-      @named_colors ||= begin
-        gem :color rescue nil
-        require 'color'
-        color_map = Hash.new do |h,k|
-          if k.is_a?(::String) and k = k.dup.downcase!
-            h[k]
-          else h[k.to_s]
-          end
-        end
-        Color::RGB.constants.each do |name|
-          value = Color::RGB.const_get(name)
-          value.is_a?(Color::RGB) or next
-          color_map[name.downcase] = value
-        end
-        color_map
-      rescue LoadError
-        {}
-      end
-    end
-    
-    def named_color(name)
-      name = name.to_s.downcase
-      named_colors[name]
-    end
-    
-    def plain_color(name)
-      name = name.to_s
-      plain_colors[name]
-    end
-    
-    def fg(name)
-      if color = plain_color(name)
-        color
-      elsif color = (named_color(name) || Color::RGB.from_html(name) rescue nil)
-        "\e[38;2;#{color.red.round};#{color.green.round};#{color.blue.round}m"
-      else ''
-      end
-    end
-    
-    def bg(name)
-      if color = plain_color("on_#{name}")
-        color
-      elsif color = (named_color(name) || Color::RGB.from_html(name) rescue nil)
-        "\e[48;2;#{color.red.round};#{color.green.round};#{color.blue.round}m"
-      else
-        ''
-      end
-    end
-    
-    def color_text(text, f = params[:color].value[0], b = params[:color].value[1])
-      fg(f) + bg(b) + text.to_s + "\e[0m"
-    end
-    
-  end
+  
   mode :show do
     mixin :input
     
     mode :tree do
-      run do
-        require 'pp'
+      def run
         printer = PP.new(stdout, screen_width - 2, $/) do |n|
           '  ' * n
         end
+        
         printer.guard_inspect_key do
           printer.pp(grammar_tree)
         end
+        
         printer.flush
-        stdout.puts('')
+        
+        puts('')
       end
     end
     
@@ -860,7 +777,6 @@ Main do
     end
     
   end
-  
   
   def run
     help!

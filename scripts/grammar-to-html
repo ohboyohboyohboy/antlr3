@@ -1,30 +1,23 @@
 #!/usr/bin/env ruby-script
 # encoding: utf-8
 
-Ruby.setup(
-  :project => 'antlr3',
-  :load_gems => true
-)
+__DIR__ = File.dirname( __FILE__ )
+load File.join( __DIR__, 'script-helper.rb' )
 
-establish 'cli-optparse'
-require 'antlr3'
-project.test_mode!
-require 'antlr-highlighter'
+require 'highlight'
 
-$out_dir = '.'
-$auto_name = false
-OptionParser.new do |op|
-  op.on('--[no-]auto', "write output to NAME.html instead of $stdout, where NAME is the grammar's name") do |b|
-    $auto_name = b
+Main do
+  
+  argument :grammar_file do
+    description( "path to an ANTLR v3 grammar file" )
+    validate { |f| test(?f, f) }
+    arity(1)
   end
-  op.on('--directory=DIR', "if using auto_name, write output file to directory DIR") do |dir|
-    $out_dir = dir
+  
+  def run
+    grammar_file = params[ :grammar_file ].value
+    highlight = Highlight::Languages::ANTLR.load( grammar_file )
+    puts highlight.full_document
   end
-end.parse(ARGV)
-
-high = $stdin.tty? ? ANTLRHighlighter.load(ARGV.shift) : ANTLRHighlighter.new($stdin.read)
-if $auto_name
-  high.write_to_file($out_dir)
-else
-  high.full_document($stdout)
+  
 end

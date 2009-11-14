@@ -7,7 +7,7 @@ class Project
   COMMON_DIRECTORIES = %w(
     app bin config db lib tasks .tasks doc log spec scratch scripts
   )
-
+  
   attr_reader :name
   
   def initialize(path, name = nil, &b)

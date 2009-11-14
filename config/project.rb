@@ -1,111 +1,217 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 
-autoload :Logger, 'logger'
+require 'fileutils'
+require 'delegate'
 
-antlr_version = '3.2'
-register :functional_tests, 'test/functional'
-register :templates, 'templates'
-register :java, 'java'
-register :package, 'package'
-register :language_templates, 'notes/templates'
-register :unit_tests, 'test/unit'
-register :extra_lib, 'utility'
-register :package_templates, 'package/tool/src/main/resources/org/antlr/codegen/templates/Ruby'
-register :package_target_classes, 'package/tool/src/main/java/org/antlr/codegen'
-register :rake_helpers, 'utility/rake-helpers'
+class Hash
+  def rekey
+    Hash[ map { |k, v| [ yield(k), v ] } ]
+  end
+end
 
-setting :antlr_version, antlr_version
-setting :template_files, templates!('*.stg')
-setting :antlr_jar, path("java/antlr-full-#{antlr_version}.jar")
-
-customize do
-  # create a new logger in the $base/log directory
-  def open_log(name)
-    log = Logger.new self.log(name.to_s + '.log')
-    block_given? or return log
-    result = yield(log)
-    log.close rescue nil
-    return result
-  end
+class Project < DelegateClass( Hash )
+  COMMON_DIRECTORIES = %w(
+    app bin config db doc ext lib tasks
+    doc log spec scratch scripts test vendor
+  )
   
-  def setup_extras
-    defined?(@test_setup) or @test_setup = nil
-    unless @test_setup
-      activate
-      globalize(:extra_lib)
-      @test_setup = true
-      require 'test-tools'
-    end
-  end
+  attr_accessor :paths
   
-  def functional_test!
-    setup_extras
-    require 'grammar-output-test'
-  end
-  
-  def jar_current?
-    template_files.each do |file|
-      unless test(?<, file, antlr_jar)
-        open_log('project') { |log| log.warn(
-          "template %p modified more recently than the ANTLR jar (%p)" %
-          [file, antlr_jar]
-        )}
-        return false
+  def initialize(base, config = {})
+    config = config.rekey { |k| k.to_sym }
+    
+    config[ :base ] = base = File.expand_path(base.to_s).freeze
+    config[ :name ] ||= File.basename( base )
+    
+    paths = config.delete( :paths ) || {}
+    # setup common project directories
+    Dir.chdir( base ) do
+      for dir in COMMON_DIRECTORIES
+        test( ?d, dir ) and paths[ dir ] ||= dir
       end
     end
-    return true
-  end
-  
-  def copy_files(glob, target_directory)
-    test(?d, target_directory) or
-      raise("nonexistent target directory %p" % target_directory)
     
-    target_paths = []
-    for file in Dir[glob]
-      stat = File.stat(file)
-      block_size = stat.blksize
-      target = File.join(target_directory, File.basename(file))
-      open(file, 'rb') do |src| open(target, 'wb') do |dest|
-        while block = src.read(block_size) do dest.write(block) end
-      end end
-      target_paths << target
-    end
-    return target_paths
-  end
-  
-  def update_jar
-    jar_current? or update_jar!
-  end
-  
-  def update_jar!
-    midway_directory =
-      path('package/tool/src/main/resources/org/antlr/codegen/templates/Ruby')
-    template_files.each { |file| copy_files(file, midway_directory) }
+    @paths = Paths.new( self, base, paths )
     
-    Dir.chdir path('package/tool/src/main/resources') do
-      system("fastjar -uf #{antlr_jar} org/antlr/codegen/templates/Ruby/*.stg 2>&1 > /dev/null")
+    super( config )
+    
+    for dir in fetch( :load_path, [] )
+      $:.unshift @paths.path( dir )
     end
     
-    open_log("project") do |log|
-      log.info "updated ANTLR jar #{antlr_jar}"
+    for glob in fetch( :load, [] )
+      load! glob
     end
     
+    for lib in fetch( :require, [] )
+      require lib
+    end
+    
+    block_given? and yield( self )
   end
+  
+  for m in %w([] fetch)
+    class_eval(<<-END, __FILE__, __LINE__ + 1)
+      def #{m}(name, *args, &b); expand( super( name.to_sym, *args, &b ) ); end
+    END
+  end
+  
+  for m in %w([]= store)
+    class_eval(<<-END, __FILE__, __LINE__ + 1)
+      def #{m}(name, *args, &b); super( name.to_sym, *args, &b ); end
+    END
+  end
+  
+  def error!( message, *args )
+    message = expand( sprintf(message.to_s, *args) )
+    raise Project::Error, message, caller
+  end
+  
+  def warn!( message, *args )
+    warn( expand( sprintf( message.to_s, *args ) ) )
+  end
+  
+  def method_missing( method, *args )
+    if has_key?( method.to_sym ) then self[ method ]
+    elsif @paths.respond_to?( method ) then @paths.send( method, *args )
+    elsif method.to_s =~ /^(\w+)=/ then store( $1, *args )
+    elsif method.to_s =~ /^\w+/ then nil
+    else super
+    end
+  end
+  
+  # recusively expand a project setting
+  # note: this may cause an infinite loop if there's a dependency loop between variables
+  def expand( value )
+    case value
+    when Array then expand_array( value )
+    when Hash then expand_hash( value )
+    when String then expand_string( value )
+    when Paths then value.path
+    else value
+    end
+  end
+  
+  def load!( path_glob )
+    for lib in @paths.path!( path_glob )
+      load( lib )
+    end
+  end
+  
+  def customize(*args, &block)
+    meta = class << self; self; end
+    meta.class_eval(*args, &block)
+    return self
+  end
+  
+private
+  
+  def expand_hash( hash )
+    expanded = {}
+    for key, value in hash
+      expanded[ key ] = expand( value )
+    end
+    return expanded
+  end
+  
+  def expand_array( array )
+    array.map { |v| expand( v ) }
+  end
+  
+  def expand_string( value )
+    value.gsub %r| \$ \( ([\w\.]+) \) |x do
+      expand( $1.split('.').inject( self )  { |rec, prop| rec.send( prop ) } )
+    end
+  end
+  
 end
 
-$project = self
-
-unless defined?(Kernel::CLASS_PATH)
-  require 'rbconfig'
-  path_sep = Config::CONFIG['PATH_SEPARATOR'] || ':'
-  if current_class_path = ENV['CLASSPATH']
-    current_class_path = current_class_path.split(path_sep)
-  else current_class_path = []
-  end
-  current_class_path.unshift($project.antlr_jar)
+class Project::Paths
+  attr_accessor :base, :project
   
-  Kernel::CLASS_PATH = current_class_path
-  ENV['CLASSPATH'] = current_class_path.join(path_sep)
+  def initialize( project, base, path_map )
+    @project = project
+    @base = File.expand_path( base.to_s )
+    @definitions = {}
+    
+    for name, value in path_map
+      self[ name ] = value
+    end
+  end
+  
+  def []( var )
+    @definitions[ var.to_sym ]
+  end
+  
+  def []=( name, value )
+    case value
+    when self.class, Hash
+      new_child( name, value )
+    else
+      new_path_member( name, value.to_s )
+    end
+  end
+  
+  def path( *args )
+    @project.expand( File.join( @base, *args ) )
+  end
+  
+  def path?( *args )
+    test( ?e, path( *args ) )
+  end
+  
+  def path!( *args )
+    Dir[ path( *args ) ]
+  end
+  
+private
+  
+  def new_path_member( name, value )
+    meta_eval( <<-END, __FILE__, __LINE__ + 1 )
+      def #{name}( *args )
+        path( @definitions.fetch( :#{name} ), *args )
+      end
+      
+      def #{name}?( *args )
+        path?( @definitions.fetch( :#{name} ), *args )
+      end
+      
+      def #{name}!( *args )
+        path!( @definitions.fetch( :#{name} ), *args )
+      end
+    END
+    
+    @definitions[ name.to_sym ] = value
+  end
+  
+  def new_child( name, map )
+    meta_eval( <<-END, __FILE__, __LINE__ + 1 )
+      def #{name}( *args )
+        pt = @definitions.fetch( :#{name} )
+        if args.empty? then pt
+        elsif args.first.is_a?( Symbol ) then pt.send( *args )
+        else pt.path( *args )
+        end
+      end
+    END
+    
+    if self.class === map
+      map.project = @project
+    else
+      map = map.rekey { |k| k.to_sym }
+      base = ( b = map.delete :base ) ? path( b ) : @base
+      map = self.class.new @project, base, map
+    end
+    
+    @definitions[ name.to_sym ] = map
+  end
+  
+  def meta_eval( src, file, line )
+    meta = class << self; self; end
+    meta.class_eval( src, file, line )
+  end
+  
 end
 
+class Project::Error < StandardError; end

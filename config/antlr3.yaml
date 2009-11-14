@@ -1,0 +1,67 @@
+---
+name: antlr3
+author: Kyle Yetter
+email: kcy5b@yahoo.com
+antlr_version: "3.2"
+
+# important paths in the project tree
+paths:
+  java: java
+  antlr:
+    jar: java/antlr-full-$(antlr_version).jar
+    temp: .java-build
+    lib: package/lib
+    tool: package/tool
+    tool_jar: package/tool/target/antlr-$(antlr_version).jar
+    templates: package/tool/src/main/resources/org/antlr/codegen/templates
+    targets: package/tool/src/main/java/org/antlr/codegen
+  rake: dev-lib/tasks
+  templates: templates
+  bundler:
+    lib: vendor/bundler/lib
+    environment: vendor/gems/environment.rb
+    config: config/gemfile
+    top: vendor/bundler
+lib_jars:
+  - antlr-2.7.7.jar
+  - antlr-runtime-$(antlr_version).jar
+  - stringtemplate-$(antlr_version).jar
+
+package_files:
+  include:
+    - lib/**/*.rb
+    - test/unit/**/*
+    - test/functional/*/*.rb
+    - templates/*.stg
+    - samples/Cpp.g
+    - samples/ANTLRv3Grammar.g
+    - Rakefile
+    - *.txt
+    - java/antlr-full-$(antlr_version).jar
+    - java/*.java
+  exclude:
+    - lib/antlr3/token/*.rb
+
+# basic environment setup
+load:
+  - dev-lib/core-ext/**/*.rb
+load_path:
+  - lib
+  - dev-lib
+require:
+  - pp
+
+# these are required after the gem-neutral environment is established
+# via $project.load_environment
+environment_require:
+  - facets/string/tab
+  - facets/string/snakecase
+  - facets/string/camelcase
+  - facets/module/module_load
+  - facets/module/modspace
+  - facets/class_extend
+  - facets/array/pad
+  - facets/comparable/bound
+  - facets/progressbar
+  - ansi-color
+  

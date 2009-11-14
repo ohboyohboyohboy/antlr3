@@ -1,0 +1,112 @@
+
+.<%= language %> {
+    width: 100%;
+}
+.<%= language %> table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.<%= language %> table .line_number {
+    border-right: 1px solid black;
+    border-left:  0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 2%;
+}
+
+.<%= language %> table .odd {
+    background-color: #E8C681;
+}
+
+.<%= language %> table .even {
+    background-color: #E8D2A7;
+}
+
+.<%= language %> pre {
+    margin: 0px;
+    padding: 0px;
+    font-size: 12pt;
+}
+
+.<%= language %> table .code {
+    margin: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #f0f3f3;
+}
+
+.<%= language %> pre {
+    margin: 0px;
+    padding: 0px;  
+}
+
+.<%= language %> .kp { color: #006699 } /* Keyword.Pseudo */
+.<%= language %> .mf { color: #FF6600 } /* Literal.Number.Float */
+.<%= language %> .kr { color: #006699; font-weight: bold } /* Keyword.Reserved */
+.<%= language %> .kt { color: #007788; font-weight: bold } /* Keyword.Type */
+.<%= language %> .cm { color: #0099FF; font-style: italic } /* Comment.Multiline */
+.<%= language %> .vc { color: #003333 } /* Name.Variable.Class */
+.<%= language %> .mo { color: #FF6600 } /* Literal.Number.Oct */
+.<%= language %> .s2 { color: #CC3300 } /* Literal.String.Double */
+.<%= language %> .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.<%= language %> .vg { color: #003333 } /* Name.Variable.Global */
+.<%= language %> .vi { color: #003333 } /* Name.Variable.Instance */
+.<%= language %> .mh { color: #FF6600 } /* Literal.Number.Hex */
+.<%= language %> .mi { color: #FF6600 } /* Literal.Number.Integer */
+.<%= language %> .kc { color: #006699; font-weight: bold } /* Keyword.Constant */
+.<%= language %> .kd { color: #006699; font-weight: bold } /* Keyword.Declaration */
+.<%= language %> .il { color: #FF6600 } /* Literal.Number.Integer.Long */
+.<%= language %> .cp { color: #009999 } /* Comment.Preproc */
+.<%= language %> .o { color: #555555 } /* Operator */
+.<%= language %> .cs { color: #0099FF; font-weight: bold; font-style: italic } /* Comment.Special */
+.<%= language %> .gt { color: #99CC66 } /* Generic.Traceback */
+.<%= language %> .gu { color: #003300; font-weight: bold } /* Generic.Subheading */
+.<%= language %> .gp { color: #000099; font-weight: bold } /* Generic.Prompt */
+.<%= language %> .gr { color: #FF0000 } /* Generic.Error */
+.<%= language %> .gs { font-weight: bold } /* Generic.Strong */
+.<%= language %> .sx { color: #CC3300 } /* Literal.String.Other */
+.<%= language %> .s { color: #CC3300 } /* Literal.String */
+.<%= language %> .w { color: #bbbbbb } /* Text.Whitespace */
+.<%= language %> .gd { background-color: #FFCCCC; border: 1px solid #CC0000 } /* Generic.Deleted */
+.<%= language %> .ge { font-style: italic } /* Generic.Emph */
+.<%= language %> .k { color: #006699; font-weight: bold } /* Keyword */
+.<%= language %> .m { color: #FF6600 } /* Literal.Number */
+.<%= language %> .s1 { color: #CC3300 } /* Literal.String.Single */
+.<%= language %> .go { color: #AAAAAA } /* Generic.Output */
+.<%= language %> .gh { color: #003300; font-weight: bold } /* Generic.Heading */
+.<%= language %> .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.<%= language %> .nc { color: #00AA88; font-weight: bold } /* Name.Class */
+.<%= language %> .nb { color: #336666 } /* Name.Builtin */
+.<%= language %> .na { color: #330099 } /* Name.Attribute */
+.<%= language %> .nf { color: #CC00FF } /* Name.Function */
+.<%= language %> .ne { color: #CC0000; font-weight: bold } /* Name.Exception */
+.<%= language %> .nd { color: #9999FF } /* Name.Decorator */
+.<%= language %> .sr { color: #33AAAA } /* Literal.String.Regex */
+.<%= language %> .ss { color: #FFCC33 } /* Literal.String.Symbol */
+.<%= language %> .no { color: #336600 } /* Name.Constant */
+.<%= language %> .nn { color: #00CCFF; font-weight: bold } /* Name.Namespace */
+.<%= language %> .nl { color: #9999FF } /* Name.Label */
+.<%= language %> .sh { color: #CC3300 } /* Literal.String.Heredoc */
+.<%= language %> .si { color: #AA0000 } /* Literal.String.Interpol */
+.<%= language %> .nv { color: #003333 } /* Name.Variable */
+.<%= language %> .nt { color: #330099; font-weight: bold } /* Name.Tag */
+.<%= language %> .c1 { color: #0099FF; font-style: italic } /* Comment.Single */
+.<%= language %> .sb { color: #CC3300 } /* Literal.String.Backtick */
+.<%= language %> .sc { color: #CC3300 } /* Literal.String.Char */
+.<%= language %> .sd { color: #CC3300; font-style: italic } /* Literal.String.Doc */
+.<%= language %> .se { color: #CC3300; font-weight: bold } /* Literal.String.Escape */
+.<%= language %> .bp { color: #336666 } /* Name.Builtin.Pseudo */
+.<%= language %> .c { color: #0099FF; font-style: italic } /* Comment */
+.<%= language %> .gi { background-color: #CCFFCC; border: 1px solid #00CC00 } /* Generic.Inserted */
+.<%= language %> .err { color: #AA0000; background-color: #FFAAAA } /* Error */

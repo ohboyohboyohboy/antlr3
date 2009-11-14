@@ -97,23 +97,6 @@ antlr3/dot.rb::
 
 module ANTLR3
 
-  # :stopdoc:
-  #
-  # The version of the ANTLR tool used while designing and
-  # testing the current version of this library
-  ANTLR_MAJOR_VERSION = 3
-  ANTLR_MINOR_VERSION = 2
-  ANTLR_PATCH_VERSION = 0
-  ANTLR_VERSION = [ANTLR_MAJOR_VERSION, ANTLR_MINOR_VERSION, ANTLR_PATCH_VERSION].freeze
-  ANTLR_VERSION_STRING = ANTLR_VERSION.join('.').freeze
-  
-  # The version data for the current state the library itself
-  MAJOR_VERSION = 1
-  MINOR_VERSION = 1
-  PATCH_VERSION = 3
-  VERSION = [MAJOR_VERSION, MINOR_VERSION, PATCH_VERSION]
-  VERSION_STRING = VERSION.join('.').freeze
-  
   LIBRARY_PATH  = ::File.expand_path(::File.dirname(__FILE__))
   # :startdoc:
   
@@ -191,7 +174,6 @@ module ANTLR3
   autoload :Profile, 'antlr3/profile'
   autoload :DOT, 'antlr3/dot'
   autoload :InteractiveStringStream, 'antlr3/streams/interactive'
-  autoload :InteractiveStringStream, 'antlr3/streams/interactive'
   
   $LOAD_PATH.include?(library_path) or $LOAD_PATH.unshift(library_path)
   
@@ -201,6 +183,7 @@ module ANTLR3
 end  # module ANTLR3
 
 require 'set'
+require 'antlr3/version'
 require 'antlr3/constants'
 require 'antlr3/util'
 require 'antlr3/error'
