@@ -1,20 +1,20 @@
-ANTLR Version 3 for Ruby
+ANTLR 3 for Ruby
     by Kyle Yetter (kcy5b@yahoo.com)
     http://antlr3.rubyforge.org
 
 == DESCRIPTION:
 
-Fully-featured ruby parser generation for ANTLR version 3.
+Fully-featured ANTLR 3 parser generation for Ruby.
 
 ANTLR (ANother Tool for Language Recognition) is a tool that is used to generate
-code for performing a variety of language recognition tasks, such as lexing,
-parsing, abstract syntax tree generation and manipulation, and tree structure
-recognition. The tool operates simillarly to other parser generators, taking in
-a grammar file written in the special ANTLR metalanguage and outputting source
-code that implements desired functionality.
+code for performing a variety of language recognition tasks: lexing, parsing,
+abstract syntax tree construction and manipulation, tree structure recognition,
+and input translation. The tool operates simillarly to other parser generators,
+taking in a grammar specification written in the special ANTLR metalanguage and
+producing source code that implements the recognition functionality.
 
 While the tool itself is implemented in Java, it has an extensible design that
-allows for code generation in foreign programming languages. To implement an
+allows for code generation in other programming languages. To implement an
 ANTLR language target, a developer may supply a set of templates written in the
 StringTemplate (http://www.stringtemplate.org) language.
 
@@ -28,48 +28,85 @@ generators.
 This gem packages together a complete implementation of the majority of features
 ANTLR provides for other language targets, such as Java and Python. It contains:
 
-* StringTemplate target templates for Ruby (which you must manually integrate
-  into your local ANTLR package)
-* A RubyTarget java class which also must be manually integrated compiled into   
-  your local ANTLR package
-* a runtime library that collects classes used throughout generated ruby code
-* some extra utilities for working with ANTLR grammars
+* A customized version of the latest ANTLR program, bundling all necessary
+  java code and templates for producing fully featured language recognition
+  in ruby code
+
+* a ruby runtime library that collects classes used throughout the code that
+  ANTLR generates
+  
+* a wrapper script, `antlr4ruby', which executes the ANTLR command line tool
+  after ensuring the ANTLR jar is java's class path
 
 == FEATURES
 
--> generates ruby code capable of:
+1. generates ruby code capable of:
    * lexing text input
    * parsing lexical output and responding with arbitrary actions 
    * constructing Abstract Syntax Trees (ASTs)
    * parsing AST structure and responding with arbitrary actions
-  * translating input source to some desired output format
+   * translating input source to some desired output format
 
--> this package serves to be a powerful assistance when writing ruby source code
-   intended for performing tasks like:
+2. This package can serve as a powerful assistant when performing tasks
+   such as:
    * code compilation
    * source code highlighting and formatting
    * domain-specific language implementation
    * source code extraction and analysis
+
+== USAGE
+
+1. Write an ANTLR grammar specification for a language
+
+   grammar SomeLanguage;
    
+   options {
+     language = Ruby;    // <- this option must be set to Ruby
+     output   = AST;
+   }
+   
+   top: expr ( ',' expr )*
+      ;
+    
+   and so on...
+   
+
+2. Run the ANTLR tool with the antlr4ruby command to generate output:
+   
+   antlr4ruby SomeLanguage.g
+   # creates:
+   #   SomeLanguageParser.rb
+   #   SomeLanguageLexer.rb
+   #   SomeLanguage.g
+
+3. Try out the results directly, if you like:
+
+  # see how the lexer tokenizes some input
+  ruby SomeLanguageLexer.rb < path/to/source-code.xyz
+  
+  # check whether the parser successfully matches some input
+  ruby SomeLanguageParser.rb --rule=top < path/to/source-code.xyz
+
+-> Read up on the package documentation for more specific details
+   about loading the recognizers and using their class definitions
+
 == ISSUES
 
-* I wrote this target implementation independently; it is a replacement for the
-ruby target that comes bundled with ANTLR. As a consequence, to use this target
-and the runtime libraries, the code generation templates must be manually
-integrated into your ANTLR package (see instructions below)
+* Currently, there are a few nuanced ways in which using the ruby output differs
+  from the conventions and examples covered in the ANTLR standard documentation.
+  I am still working on documenting these details.
 
-* while the target is intended to be complete, I do not provide any
-implementation of the template-construction mode available for Java and Python
-targets. While I'm interested in having this capability, I have not implemented
-it yet because ANTLR forces you to use its StringTemplate templating language.
-Thus, I would have to port the StringTemplate library to Ruby and write a target
-for ST parser generation. I would prefer to permit template generation that uses
-ruby's standard ERB templating library.
+* While the target is intended to be complete, I do not provide any
+  implementation of the template-construction mode available for Java and Python
+  targets. While I'm interested in having this capability, I have not implemented
+  it yet because ANTLR forces you to use its StringTemplate templating language.
+  Thus, I would have to port the StringTemplate library to Ruby and write a target
+  for ST parser generation. I would prefer to permit template generation that uses
+  ruby's standard ERB templating library.
 
-== INSTALL:
-
-Please read INSTALL.txt for detailed instructions for integrating this
-code-generation target with an ANTLR installation.
+* So far, this has only been tested on Linux with ruby 1.8.7 and ruby 1.9.1.
+  I'm currently working on verifying behavior on other systems and with
+  slightly older versions of ruby. 
 
 == LICENSE
 

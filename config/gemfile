@@ -5,10 +5,9 @@ gem "main"
 gem 'highline'
 
 # a big bag of bric-a-brac 
-gem "facets"
+gem "facets", "2.7.0"
 
-gem 'rake'
-gem 'hoe'
+gem 'rake', "0.8.7"
 
 # antlr tests use a rspec environment with a test/unit structure
 gem "rspec"
