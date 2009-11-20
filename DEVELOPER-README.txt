@@ -6,10 +6,9 @@
 - git
 - ruby 1.8.7
 - ruby 1.9.1 (optional)
+- java
 
 == ANTLR jar build process
 
-- java
-- fastjar
-- maven
-
+- javac
+- fastjar or jar

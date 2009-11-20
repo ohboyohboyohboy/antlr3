@@ -7,19 +7,37 @@ require 'ANTLRv3Grammar'
 ACTION_TOKENS = %w(
   ARG RET T__72 ACTION SEMPRED SYN_SEMPRED GATED_SEMPRED
 ).freeze
+
 include ANTLRv3Grammar::TokenData
 
 Main do
-  
+  author 'Kyle Yetter <kcy5b@yahoo.com>'
+  version '1.0.0'
   description(<<-END)
     grammar-tools provides a number of commands which may
     be used to study and manipulate ANTLR Version 3
     grammar files.
   END
-  author 'Kyle Yetter <kcy5b@yahoo.com>'
-  version '1.0.0'
   
-  mixin :input do
+  option( 'verbose', 'V' ) do
+    description "display info-level program log messages"
+  end
+  
+  option( 'debug', 'D' ) do
+    description "display debug-level program log messages"
+  end
+  
+  def setup
+    logger.level = 
+      case
+      when params[ :debug ].given? then Logger::DEBUG
+      when params[ :verbose ].given? then Logger::INFO
+      else Logger::WARN
+      end
+  end
+  
+  mixin :GrammarInput do
+    
     if $stdin.tty?
       argument(:grammar_file) do
         synopsis('grammar-file.g')
@@ -40,15 +58,9 @@ Main do
     end
     
     def lexer
-      @lexer ||= begin
-        input = ANTLR3::StringStream.new(grammar_source, :file => file_name)
-        lexer = ANTLRv3Grammar::Lexer.new(input)
-        lexer.instance_variable_set(:@logger, self.logger)
-        def lexer.emit_error_message(msg)
-          @logger.error { "grammar lexical error: " << msg }
-        end
-        lexer
-      end
+      @lexer ||= setup_recognizer(
+        ANTLRv3Grammar::Lexer.new( grammar_source, :file => file_name )
+      )
     end
     
     def token_stream
@@ -56,22 +68,16 @@ Main do
     end
     
     def parser
-      @parser ||= begin
-        parser = ANTLRv3Grammar::Parser.new(token_stream)
-        parser.instance_variable_set(:@logger, self.logger)
-        def parser.emit_error_message(msg)
-          @logger.error { "grammar parsing error: " << msg }
-        end
-        parser
-      end
+      @parser ||= setup_recognizer(
+        ANTLRv3Grammar::Parser.new( token_stream )
+      )
     end
     
     def grammar_tree
-      @grammar_tree ||= parser.grammar_def.tree
-    end
-    
-    def grammar_sexp
-      ANTLRv3Grammar.convert_to_sexp(grammar_tree)
+      @grammar_tree ||= begin
+        info { "parsing #{ file_name } and building the grammar AST" }
+        parser.grammar_def.tree
+      end
     end
     
     def action_ranges
@@ -88,7 +94,7 @@ Main do
     
     def option_node
       @option_node ||= begin
-        grammar_tree.children.find { |child| child.name == 'OPTIONS' }
+        grammar_tree.children.find { |child| child.type == OPTIONS }
       end
     end
     
@@ -132,24 +138,78 @@ Main do
     end
     
     def rule_names
-      rules.keys.compact.sort
+      list = rules.keys
+      list.compact!
+      list.sort!
+    end
+    
+    def setup_recognizer( r )
+      r.instance_exec( logger ) do | log |
+        @log = log
+        
+        def self.emit_error_message( message )
+          @log.error { message }
+        end
+        
+      end
+      
+      return( r )
     end
     
   end
   
-  mixin :rewrite do
-    mixin :input
-    
+  mixin :GrammarOutput do
     option('output', 'o') do
+      description "the file path to write output ( written to stdout by default )"
       arity(1)
     end
     
     if $stdin.tty?
-      # only possible when a file name is provided (not when read from $stdin)
-      option('in-place') do
-        description("write the output directly to the input path")
+      option( 'in-place', 'i' ) do
+        description( "modify the input file in place after backing up the file" )
       end
     end
+    
+    def write_output
+      if $stdin.tty? and params['in-place'].given?
+        path = file_name
+        backup!(path) do
+          open(path, 'w') { |f| yield(f) }
+        end
+      elsif params[:output].given?
+        open(params[:output].value, 'w') { |f| yield(f) }
+      else yield(stdout)
+      end
+    end
+    
+    def backup!(path)
+      info { "attempting to back up #{path} to #{backup_path}" }
+      File.rename(path, backup_path)
+      info { "wrote back up copy of #{path} to #{backup_path}" }
+      block_given? and begin
+        yield
+      rescue Exception => e
+        restore!( path )
+        raise e
+      end
+    end
+    
+    def restore!( path )
+      backup_path = path + '.backup'
+      if test(?f, backup_path)
+        error { "attempting to restore #{path} from #{backup_path} due to error" }
+        File.rename(backup_path, path)
+      else
+        error { "cannot restore #{path} from back up as #{backup_path} does not exist" }
+      end
+    end
+      
+    
+  end
+  
+  mixin :GrammarRewrite do
+    mixin :GrammarOutput
+    mixin :GrammarInput
     
     class Rewrite
       def conflict!(existing, requested)
@@ -271,16 +331,13 @@ Main do
         end
         return(self)
       end
-
+  
       def insert_after(item = nil, text = nil, &block)
         if item.nil? and block_given?
-          
           for token in @tokens
             insertion = yield(token) and insert_after(token, insertion)
           end
-          
         elsif item
-          
           insertion = block_given? ? block  : text
           
           case item
@@ -321,45 +378,83 @@ Main do
       @token_stream ||= ANTLR3::TokenRewriteStream.new(lexer)
     end
     
-    def write_output
-      if $stdin.tty? and params['in-place'].given?
-        path = file_name
-        backup(path) do
-          open(path, 'w') { |f| yield(f) }
-        end
-      elsif params[:output].given?
-        open(params[:output].value, 'w') { |f| yield(f) }
-      else yield(stdout)
+  end
+
+  
+  mixin :TextFormatting do
+    def initialize
+      require 'text'
+      @width = (stdout.screen_width * 0.9).round
+      @indent = 0
+      super
+    end
+    
+    def leading_space
+      ' ' * @indent
+    end
+    
+    def print_line( line )
+      stdout.print( leading_space )
+      stdout.puts( line )
+    end
+    
+    def puts( text )
+      for line in text.split( $/, -1 )
+        print_line( line )
       end
     end
     
-    
-    def backup(path)
-      backup_path = path + '.backup'
-      info { "attempting to back up #{path} to #{backup_path}" }
-      File.rename(path, backup_path)
-      info { "wrote back up copy of #{path} to #{backup_path}" }
-      block_given? and begin
-        yield
-      rescue Exception => e
-        if test(?f, backup_path)
-          error { "attempting to restore #{path} from #{backup_path} due to error" }
-          File.rename(backup_path, path)
-        else
-          error { "cannot restore #{path} from back up as #{backup_path} does not exist" }
-        end
-        raise e
-      end
+    def indent( spaces = 2 )
+      @indent += spaces; @width -= spaces
+      yield
+    ensure
+      @indent -= spaces; @width += spaces
     end
+    
+    def column_list( items )
+      puts(
+        Text::ColumnList.new( items, :width_limit => @width ).render
+      )
+    end
+    
+    def table( title_row, *rows )
+      t = Text::Table.new( rows ) do | table |
+        table.title_row = title_row
+        block_given? and yield( table )
+      end
+      
+      t.width > @width and t.width = @width
+      puts( t.render )
+    end
+    
+    def title_bar( title )
+      bar = "===[ #{ title } ]".ljust( @width, '=' )
+      puts( bar )
+    end
+    
+    def blank
+      print_line( '' )
+    end
+    
   end
   
-  
   mode :show do
-    mixin :input
+    description( <<-END.here_indent! )
+    | a set of commands that may be used to display
+    | various aspects of an ANTLR grammar specification
+    END
     
     mode :tree do
+      description( <<-END.here_indent! )
+      | print the abstract syntax tree that was extracted
+      | from the grammar during parsing
+      END
+      
+      mixin :GrammarInput
+      
       def run
-        printer = PP.new(stdout, screen_width - 2, $/) do |n|
+        setup
+        printer = PP.new(stdout, stdout.screen_width - 2, $/) do |n|
           '  ' * n
         end
         
@@ -369,25 +464,48 @@ Main do
         
         printer.flush
         
-        puts('')
+        stdout.puts('')
       end
     end
     
     mode :rules do
-      option('lexer') do
+      description( <<-END.here_indent! )
+      | list the names of the rules defined within a grammar
+      END
+      
+      mixin :GrammarInput
+      mixin :TextFormatting
+      
+      option('lexer', 'L') do
         description("only list lexer rule names")
       end
-      option('parser') do
+      
+      option('parser', 'P') do
         description("only list parser rule names")
       end
-      option('plain') do
+      
+      option('plain', 'p') do
         description("print the names in a plain list with one name per line")
       end
       
+      for opt in %w( lexer parser plain )
+        class_eval( <<-END, __FILE__, __LINE__ + 1 )
+          def #{ opt }?
+            params[ :#{ opt } ].given?
+          end
+        END
+      end
+      
       def run
-        if params['lexer'].given?
+        setup
+        
+        lexer_rules, parser_rules = rule_names.partition do |rule|
+          rule =~ /^[A-Z]/
+        end
+        
+        if lexer?
           list_names("lexer rules", lexer_rules)
-        elsif params['parser'].given?
+        elsif parser?
           list_names("parser rules", parser_rules)
         else
           list_names("lexer rules", lexer_rules)
@@ -397,122 +515,69 @@ Main do
       
       def list_names(title, rules)
         unless rules.empty?
-          if params['plain'].given?
-            puts(rules)
+          if plain?
+            puts rules.join( $/ )
           else
-            leading = '  '
-            w = (screen_width * 0.8).round
-            puts("===[#{title}]".ljust(w, '='), '')
-            list = Text::ColumnList.new(rules, :width_limit => w - leading.length)
-            puts(list.render.gsub(/^/, leading), '')
+            title_bar( "#{ file_name }: #{title}" )
+            indent do
+              blank
+              column_list( rules )
+              blank
+            end
           end
         end
       end
       
-      def lexer_rules
-        @lexer_rules ||= rule_names.grep(/^[A-Z]/)
-      end
-      
-      def parser_rules
-        @parser_rules ||= rule_names - lexer_rules
-      end
-      
     end
     
-    mode :rule do
+    mode 'rule-source' do
+      description( <<-END.here_indent! )
+      | extract and print one or more rule definitions contained
+      | within a grammar
+      END
+      mixin :GrammarInput
+      
       argument :names do
         arity(-2)
         description("name of the rule to display")
       end
       
       def run
+        setup
+        
         for name in params[:names].values
           if node = rules[name.to_s]
             puts node_source(node), ''
           else
-            error {
-              "unable to locate a rule declaration named #{name} in the grammar source"
-            }
+            error { (<<-END.here_flow!) }
+            | unable to locate a rule declaration named #{name}
+            | in the grammar source
+            END
           end
         end
       end
-      
-    end
-    
-    mode :sexp do
-      option :indent do
-        validate { |i| i >= 0 }
-        cast(:integer)
-        default(2)
-      end
-      
-      option :width do
-        validate { |i| i > 0 }
-        cast(:integer)
-        default((screen_width*0.9).round)
-      end
-      
-      def run
-        require 'pp'
-        indent = params[:indent].value
-        @printer = PrettyPrint.new($stdout, params[:width].value) do |n|
-          ' ' * (n * indent)
-        end
-        dump(grammar_sexp)
-        @printer.flush
-        $stdout.puts("\n")
-      end
-      
-      def dump(node)
-        @printer.group(1, 's(', ')') do
-          @printer.text(node.shift.inspect)
-          @printer.breakable(' ') unless node.empty?
-          while child = node.shift
-            case child
-            when Sexp then
-              dump(child)
-            when String
-              text = child.inspect
-              w = count_characters(text)
-              @printer.text(text, w)
-            else
-              @printer.text(child.inspect)
-            end
-            @printer.breakable(' ') unless node.empty?
-          end
-        end
-      end
-      
-      def count_characters(text)
-        cursor = 0
-        nbytes = text.length
-        count = 0
-        while cursor < nbytes
-          delta =
-            case text[cursor]
-            when 0...128 then 1
-            when 192...224 then 2
-            when 224...240 then 3
-            end
-          count += 1
-          cursor += delta
-        end
-        return(count)
-      end
-      
     end
     
     run { help! }
   end
 
-  mode :alter do
-    description(<<-END)
-      commands for rewriting and refactoring various
-      aspects of a grammar file
+  mode :modify do
+    description( <<-END.here_indent! )
+    | commands for rewriting and refactoring various
+    | aspects of a grammar file
     END
     
     mode :rename do
-      mixin :rewrite
+      description( <<-END.here_indent! )
+      | change the name of a rule in a grammar and update
+      | references to the rule in other grammar rules.
+      | 
+      | NOTE: this does not make any attempt to update
+      | possible references to rules within language-specific
+      | action blocks.
+      END
+      
+      mixin :GrammarRewrite
       
       argument :rule_name do
         description("the current name of the rule to rename")
@@ -523,6 +588,7 @@ Main do
       end
       
       def run
+        setup
         old_name = params[:rule_name].value
         new_name = params[:new_name].value
         
@@ -547,28 +613,33 @@ Main do
     end
     
     mode :strip do
-      mixin :rewrite
+      description( <<-END.here_indent! )
+      | print the grammar with all language-specific
+      | action symbols removed
+      END
+      mixin :GrammarRewrite
       
-      @@TOKENS_TO_STRIP = %w(
-        ARG RET T__72 ACTION SEMPRED SYN_SEMPRED GATED_SEMPRED
-      ).freeze
+      TOKENS_TO_STRIP = [
+        ARG, RET, T__72, ACTION, SEMPRED,
+        SYN_SEMPRED, GATED_SEMPRED
+      ]
       
       def run
+        setup
         stripped = rewrite do |rw|
           grammar_tree.walk do |node|
-            if token = node.token and @@TOKENS_TO_STRIP.include?(token.name)
-              rw.delete(node)
+            if token = node.token and TOKENS_TO_STRIP.include?( token.type )
+              rw.delete( node )
             end
           end
         end
         write_output { |f| f.write(stripped) }
       end
-      
     end
     
     mode :stylize do
       synopsis("transform ANTLR grammars into an appropriate form for Ruby code generation")
-      description(<<-END.here_indent!)
+      description( <<-END.here_indent! )
       | Takes an ANTLR grammar file that is written for code generation in a language
       | like Java, and prepares sets it up for ruby code generation. This is done
       | by:
@@ -580,7 +651,7 @@ Main do
       |   * modifies (or adds if necessary) the language option of the grammar
       |     to Ruby
       END
-      mixin :rewrite
+      mixin :GrammarRewrite
       
       option('keep-actions', 'A') do
         description("don't comment out actions")
@@ -597,33 +668,41 @@ Main do
       end
       
       def run
+        setup
         tree = grammar_tree
         tree.set_unknown_token_boundaries
+        
         tasks = []
-        params['keep-actions'].given? or tasks << lambda do |r, n|
-          if action_node?(n)
-            tokens = token_stream[n.token_range]
-            for tk in tokens
-              tk.text =~ /\*\// and r.replace(tk, tk.text.gsub(/\*\//,'*\\/'))
+        unless params['keep-actions'].given?
+          tasks << lambda do |r, n|
+            if action_node?(n)
+              tokens = token_stream[n.token_range]
+              for tk in tokens
+                tk.text =~ /\*\// and r.replace(tk, tk.text.gsub(/\*\//,'*\\/'))
+              end
+              head, tail = tokens.first, tokens.last
+              r.insert_before(head, '/* action -> ')
+              r.insert_after(tail, ' */')
+              n.prune
             end
-            head, tail = tokens.first, tokens.last
-            r.insert_before(head, '/* action -> ')
-            r.insert_after(tail, ' */')
-            n.prune
           end
         end
-        params['keep-names'].given? or tasks << lambda do |r, n|
-          n =
-            case n.type
-            when ANTLRv3Grammar::TokenData::RULE_REF then n
-            when ANTLRv3Grammar::TokenData::RULE     then n[0]
-            else next
-            end
-          n.token.index == -1 and n.token.index = n.start_index
-          name_token = n.token
-          text = name_token.text
-          r.replace(name_token, text.snakecase) unless text =~ /^[A-Z]/
+        
+        unless params[ 'keep-names' ].given?
+          tasks << lambda do |r, n|
+            n =
+              case n.type
+              when ANTLRv3Grammar::TokenData::RULE_REF then n
+              when ANTLRv3Grammar::TokenData::RULE     then n[0]
+              else next
+              end
+            n.token.index == -1 and n.token.index = n.start_index
+            name_token = n.token
+            text = name_token.text
+            r.replace(name_token, text.snakecase) unless text =~ /^[A-Z]/
+          end
         end
+        
         language = params['language'].value
         
         stylized = rewrite do |prog|
@@ -645,141 +724,25 @@ Main do
       end
     end
     
-    def run
-      help!
-    end
+    run { help! }
   end
-  
-  mode :highlight do
-    mode :actions do
-      mixin :input
-      mixin :colors
+  mode :format do
+    description( <<-END.here_indent! )
+    | a set of commands for converting ANTLR grammar input
+    | to another presentational format, such as HTML
+    END
+    
+    mode :html do
+      mixin :GrammarInput
       
       def run
-        for token in token_stream
-          if ACTION_TOKENS.include?(token.name) || action_ranges.any? { |r| r === token.index }
-            print(color_text(token.text))
-          else
-            print(token.text)
-          end
-        end
+        setup
+        require 'highlight'
+        h = Highlight::Languages::ANTLR.new( grammar_source, :file => file_name )
+        stdout.puts( h.full_document )
       end
     end
-    
-    mode :colors do
-      mixin :colors
-      
-      run do
-        names = (plain_colors.keys | named_colors.keys).sort
-        list(names)
-      end
-    end
-
   end
   
-  mode :compile do
-    option 'output-directory', 'o' do
-      argument_required
-      arity(1)
-      validate do |pt|
-        test(?d, File.dirname(pt))
-      end
-      default('.')
-    end
-    
-    option :force, 'f' do
-      description(<<-END.here_flow!)
-      | force compilation even if an up-to-date target source exists
-      END
-    end
-    
-    option :debug, 'd' do
-      description(<<-END.here_flow!)
-      | compile the grammar with the -debug switch
-      END
-    end
-    
-    if $stdin.tty?
-      argument(:grammar_file) do
-        required
-        arity(1)
-      end
-    end
-    
-    def run
-      Ruby.project.test_mode!
-      self.class.send(:include, PrettyException)
-      
-      output_directory = params['output-directory'].value
-      
-      @grammar =
-        if $stdin.tty?
-          Grammar.new(params[:grammar_file].value, :output_directory => output_directory)
-        else
-          Grammar.inline($<.read, :output_directory => output_directory)
-        end
-      
-      @grammar.debug_st = true
-      
-      @grammar.force_compilation if params[:force].given?
-      @grammar.debug = true if params[:debug].given?
-      compile
-    end
-    
-    def compile
-      unless @grammar.stale?
-        puts "---> the grammar's targets need no updating; doing nothing"
-        puts "     (to force compilation, use the --force option)"
-        exit
-      end
-      
-      puts '---> compiling the grammar and converting the resulting ST Markup'
-      
-      result = @grammar.compile
-      
-      unless result.succeeded?
-        $stderr.puts '!!!! compilation failed !!!!'
-        $stderr.puts ''
-        e = Grammar::CompilationFailure.new(result)
-        pretty_error(e) rescue nil
-        $stderr.puts(e)
-        exit_failure
-      end
-      
-      errors_seen = false
-      for target in @grammar.target_files
-        puts "---> checking #{target.path}"
-        begin
-          target.load
-        rescue Exception => e
-          errors_seen = true
-          $stderr.puts("!!!! #{target.path} has problems !!!!")
-          $stderr.puts ''
-          begin
-            pretty_error(e)
-            $stderr.puts e
-          rescue => pe
-            $stderr.puts("!!!! note: failed to gussy up the error report due to an exception #{pe.inspect}")
-            $stderr.puts ''
-            $stderr.puts "#{e.class}: #{e.message}"
-            $stderr.puts(e.backtrace)
-            $stderr.puts ''
-          end
-        end
-      end
-      if errors_seen
-        exit_failure
-      else
-        puts "**** OK, it compiled without any apparent problems ****"
-        puts ''
-        exit
-      end
-    end
-    
-  end
-  
-  def run
-    help!
-  end
-  
+  run { help! }
 end

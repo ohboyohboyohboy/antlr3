@@ -6,7 +6,6 @@ require 'text'
 module Text
   class ColumnList
     SizeToken = Struct.new(:length, :index) do
-      protected
       def <=>(o)
         self.length <=> o.length
       end
@@ -79,6 +78,7 @@ module Text
           end
         end
       @tokens.sort!.reverse!
+      
       @width_limit = options.fetch( :width_limit ) { $stdout.screen_width }
       @column_spacing = options.fetch( :column_spacing, 2 )
       @number_of_columns = options.fetch( :columns ) { optimize_width }

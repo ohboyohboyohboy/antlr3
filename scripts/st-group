@@ -7,6 +7,142 @@ load File.join( __DIR__, 'script-helper.rb' )
 require 'string-template'
 
 Main do
+  
+  mixin :Completion do
+    def complete( description, names, partial)
+      matches = names.select { |name| name.start_with?( partial ) }
+      case matches.length
+      when 0
+        return( nil )
+      when 1 then return( matches.first )
+      else
+        ambiguous_completion!( description, matches, partial )
+      end
+    end
+    
+    def ambiguous_completion!( description, matches, partial )
+      require 'text'
+      stderr.puts( <<-END.here_flow! )
+      | cannot unambiguously complete partial #{ description }
+      | #{ partial.inspect }
+      END
+      stderr.puts Text::ColumnList.new(
+        matches, :width_limit => (stderr.screen_width * 0.8).round
+      ).render
+      
+      exit( 1 )
+    end
+    
+  end
+  
+  mixin :STGInput do
+    mixin :Completion
+    
+    if $stdin.tty?
+      argument(:file) do
+        description("the path to a string template group file")
+        arity(1)
+      end
+    end
+    
+    def file_name
+      $stdin.tty? ? params[ :file ].value : '(stdin)'
+    end
+    
+    def group
+      @group ||=
+        if stdin.tty?
+          StringTemplate::Group.load( params[ :file ].value )
+        else
+          StringTemplate::Group.parse( stdin.read, "(stdin)" )
+        end
+    end
+    
+    def template_names
+      @group.templates.keys.sort
+    end
+    
+    def template( name )
+      templates = @group.templates
+      templates.fetch( name ) do
+        if c = complete( 'template name', templates.keys, name )
+          return templates[ c ]
+        else
+          stderr.puts( <<-END.here_indent! )
+          | failed to locate a template named #{ name.inspect }
+          | in #{ file_name }
+          END
+          exit( 1 )
+        end
+      end
+    end
+    
+    def type_map_names
+      @group.type_maps.keys.sort
+    end
+  end
+  
+
+  
+  mixin :TextFormatting do
+    def initialize
+      require 'text'
+      @width = (stdout.screen_width * 0.9).round
+      @indent = 0
+      super
+    end
+    
+    def leading_space
+      ' ' * @indent
+    end
+    
+    def print_line( line )
+      stdout.print( leading_space )
+      stdout.puts( line )
+    end
+    
+    def puts( text )
+      for line in text.split( $/, -1 )
+        print_line( line )
+      end
+    end
+    
+    def indent( spaces = 2 )
+      @indent += spaces; @width -= spaces
+      yield
+    ensure
+      @indent -= spaces; @width += spaces
+    end
+    
+    def column_list( items )
+      puts(
+        Text::ColumnList.new( items, :width_limit => @width ).render
+      )
+    end
+    
+    def table( title_row, *rows )
+      t = Text::Table.new( rows ) do | table |
+        table.title_row = title_row
+        block_given? and yield( table )
+      end
+      
+      t.width > @width and t.width = @width
+      puts( t.render )
+    end
+    
+    def title_bar( title )
+      bar = "===[ #{ title } ]".ljust( @width, '=' )
+      puts( bar )
+    end
+    
+    def blank
+      print_line( '' )
+    end
+    
+  end
+  
+
+  
   mode(:unzip) do
     argument(:file) do
       description("The stg file to break up into parts")
@@ -66,8 +202,62 @@ Main do
     end
   end
   
-  def run
-    help!
+  mode :info do
+    description( <<-END.here_indent! )
+    | display name information about the definitions contained
+    | within a string template group file
+    END
+    
+    mixin :STGInput
+    mixin :TextFormatting
+    
+    def run
+      puts( "group #{ group.name }" )
+      indent do
+        group.supergroup and puts( "supergroup: #{ group.supergroup }" )
+        group.interfaces.empty? or
+          puts( "implements: #{ group.interfaces.join(', ') }")
+      end
+      blank
+      
+      unless (names = template_names).empty?
+        puts( "templates:" )
+        indent do
+          column_list( names )
+        end
+        blank
+      end
+      
+      unless (names = type_map_names).empty?
+        puts( "type maps:" )
+        indent do
+          column_list( names )
+        end
+        blank
+      end
+    end
+
   end
   
+  mode :show do
+    description( <<-END.here_indent! )
+    | extract and print a single template definition from
+    | a string template group file
+    END
+    
+    mixin :STGInput
+    
+    argument :template_name do
+      description "the name of the template to display"
+      arity 1
+    end
+    
+    def run
+      stdout.puts(
+        template( params[ :template_name ].value ).source
+      )
+    end
+  end
+  
+  run { help! }
 end
