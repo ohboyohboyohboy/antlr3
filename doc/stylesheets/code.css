@@ -1,0 +1,163 @@
+.ANTLR3 {
+    width: 100%;
+}
+.ANTLR3 table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.ANTLR3 table .line_number {
+    border-right: 1px solid black;
+    border-left:  0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 2%;
+}
+
+.ANTLR3 table .odd {
+    background-color: #E8C681;
+}
+
+.ANTLR3 table .even {
+    background-color: #E8D2A7;
+}
+
+.ANTLR3 pre {
+    margin: 0px;
+    padding: 0px;
+    font-size: 12pt;
+}
+
+.ANTLR3 table .code {
+    margin: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #0B0A0A;
+    color: white;
+}
+
+.ANTLR3 pre {
+    margin: 0px;
+    padding: 0px;  
+}
+
+
+.ANTLR3 .keyword {
+    color: #ffaa00;
+    font-weight: bold;
+}
+
+.ANTLR3 .comment {
+    color: #60606d;
+}
+
+.ANTLR3 .action {
+    color: #f92672;
+}
+
+.ANTLR3 .at {
+    color: #f6f080;
+}
+
+.ANTLR3 .char_literal {
+    color: #a9e448;
+}
+
+.ANTLR3 .operator {
+    color: #E8B4B4;
+    font-size: 1.05em;
+    font-weight: bold;
+}
+.ANTLR3 .punctuation {
+    color: #E8B4B4;
+    font-weight: bold;
+}
+
+
+.ANTLR3 .options {
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.ANTLR3 a:link {
+    text-decoration: none;
+}
+.ANTLR3 a:visited {
+    text-decoration: none;
+}
+.ANTLR3 a:hover {
+    outline-style: dotted;
+    outline-color: #f92672;
+    outline-width: thin;
+}
+
+
+.ANTLR3 .rule_ref {
+    color: #f4ffff;
+}
+.ANTLR3 .rule_decl {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #0E97FF;
+}
+
+.ANTLR3 .label {
+    color: #A2A2B7;
+}
+
+.ANTLR3 .string_literal {
+    color: #a9e448;
+}
+
+.ANTLR3 .token_ref {
+    color: #f4ffff;
+}
+
+.ANTLR3 .bad_ref {
+    border-bottom: dotted 1px red;
+}
+
+.ANTLR3 .action_name {
+    color: #f92672;
+}
+
+.ANTLR3 .action_scope {
+    color: #f92672;
+    font-weight: bold;
+}
+
+.ANTLR3 .action_ref {
+    color: #ff7474;
+    font-weight: bold;
+}
+
+.ANTLR3 .scope_name {
+    color: #ffaa00;
+    font-weight: bold;
+}
+
+.ANTLR3 .tokens {
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.ANTLR3 .sempred {
+    
+}
+
+.ANTLR3 .ws {
+    
+}
+

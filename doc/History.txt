@@ -1,0 +1,57 @@
+h1(update). 2009-10-19 Kyle Yetter  <kcy5b@yahoo.com>
+
+h2(major). moved FilterMode
+
+* since <tt>ANTLR3::Lexer::FilterMode</tt> is only necessary in lexers that specify filter=true, I moved it out of antlr3/recognizers.rb to its own file, antlr3/modes/filter.rb.
+
+* the FilterMode module is no longer in the Lexer namespace, but in the broader ANTLR3 namespace ... i.e. module ANTLR3::Lexer::FilterMode ==> module ANTLR3::FilterMode
+
+* I added an autoload entry to the ANTLR3 module in antlr3.rb for FilterMode, thus the module is autoloaded as needed whenever the constant ANTLR3::FilterMode is referenced
+
+|\2. MODIFIED                                                       |
+| lib/antlr3/recognizers.rb  | removed Lexer::FilterMode definition |
+| lib/antlr3.rb              | added autoload :FilterMode entry     |
+|\2. CREATED                                                        |
+| lib/antlr3/modes/filter.rb | contains FilterMode module extracted from recognizers.rb |
+
+h2(major). new module ASTBuilder
+  
+* created a new module, ANTLR3::ASTBuilder
+* all tree-building recognizers (parsers and tree parsers with the output=AST option) include this module
+* provides a way to test a recognizer to see if it is an AST-building recognizer (rec.is_a?(ANTLR3::ASTBuilder)) and it also added a number of methods to help clean up generated AST-parser code
+
+|\2. MODIFIED                                                       |
+| lib/antlr3.rb              | added the usual autoload entry for ASTBuilder |
+| templates/AST.stg          | added ``include ANTLR3::ASTBuilder'' to automatically include the module on all AST-output recognizers |
+|\2. CREATED                                                        |
+| lib/antlr3/modes/ast-builder.rb | defined new module ANTLR3::ASTBuilder |
+  
+h2(major). refactored debug and profile modes
+  
+* began process of organizing/cleaning-up the ANTLR3::Debug module (in file lib/antlr3/debug.rb), which contains all runtime support code and features for --debug and --profile option code output.
+* extracted profiling-oriented classes and modules from the Debug module and moved them to a new file, lib/antlr3/profile.rb.
+* since usually you're only using one particular type of Debug::EventListener at a time, I moved the six or so different EventListener classes out of Debug and into their own respective files in the antlr3/debug directory
+* since tree-oriented debugging hooks (Debug::TreeAdaptor and such) are only necessary for tree-oriented code, and thus are not part of the essential core, I moved the tree-related event modules out of Debug and into a separate file, lib/antlr3/tree/debug.rb
+* debug.rb now only defines the core EventListener interface module and the event-hook modules ParserEvents, TokenStream, and the expanded RecognizerSharedState class
+* as with most classes that aren't loaded by default in the runtime library, I strategically placed autoload statements in appropriate modules to autoload any of the Debug modules and classes I yanked out of the debug.rb, so there shouldn't be any need for extra 'require' statements to use the classes
+
+|\2. MODIFIED                                                       |
+| lib/antlr3/debug.rb | removed definitions: EventSocketProxy, RemoteEventSocketListener, TraceEventListener, RuleTracer, EventHub, TreeNodeStream, TreeAdaptor, ParserProfilingEvents, Profiler, Profiler::Profile, Profiler::DataSet |
+|\2. CREATED                                                        |
+| lib/antlr3/debug/event-hub.rb | new home for Debug::EventHub |
+| lib/antlr3/debug/record-event-listener.rb | new home for Debug::RecordEventListener |
+| lib/antlr3/debug/rule-tracer.rb | new home for Debug::RuleTracer |
+| lib/antlr3/debug/socket.rb | new home for Debug::EventSocketProxy and Debug::RemoteEventSocketListener |
+| lib/antlr3/debug/trace-event-listener.rb | new home for Debug::TraceEventListener |
+| lib/antlr3/profile.rb | new profile-oriented module, Profile, contains former debug classes Profile, ProfileEvents, and Profiler |
+| lib/antlr3/tree/debug.rb | new home for Debug::TreeAdaptor and Debug::TreeNodeStream |
+
+h2(minor). moved most of the core-extension code to new Util module
+
+* as handy as it is to add new functions to core classes, I moved most of the code in the core-extension directory to the new slightly-nebulous, catch-all dumping ground modules, ANTLR3::Util and ANTLR3::ClassMacros. String and Module methods defined in the extensions were only used in a small handful of places and thus it seemed intrusive to polute the core classes with these utility methods for little payoff.
+* ANTLR classes now extend ANTLR3::ClassMacros when necessary. It defines 'abstract' to easily create abstract methods. It also provides a new method, #shared_attribute, which defines an attribute accessor with a writer
+
+h1(update). 2009-10-14 Kyle Yetter  <kcy5b@yahoo.com>
+
+h2(major). Initial Release: Birthday!
+

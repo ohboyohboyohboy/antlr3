@@ -1,72 +1,115 @@
 #!/usr/bin/ruby
 
-require 'facets/array/pad'
-require 'facets/array/conjoin'
 require 'facets/string/align'
 require 'facets/string/fold'
 require 'facets/string/words'
 
-class Text::Table
+# assumptions:
+#   String#block_height & String#block_width
+
+
+module Text
+class Table
   ALIGNMENTS = [:left, :right, :center]
-  DEFAULT_ALIGNMENT = :left
-  TEXT_CAST = Proc.new { |v| v.nil? ? v : v.to_s }
   
-  class Column
-    def self.text(name, default_text = nil, &block)
-      part(name) do
-        cast(&TEXT_CAST)
-        default_text and default { default_text.dup }
-        on_change(&block)
-      end
+  DEFAULT_SEGMENTS = {
+    :fill => '-',
+    :joint => '-+-',
+    :row_joint => ' | ',
+    :edges => %w(+- -+),
+    :row_edges => [ '| ', ' |' ]
+  }
+  
+  Segments = Struct.new( :head, :title_row, :title_divider, :row, :row_divider, :foot ) do
+    def self.default_filling
+      fill = DEFAULT_SEGMENTS[ :fill ].dup
+      new( fill, nil, fill, nil, fill, fill )
     end
     
-    def self.shared_text(name, default_text = nil)
-      [:left, :right].each do |side|
-        method_name = :"#{side}_#{name}"
-        variable = :"@#{method_name}"
-        if side == :left
-          text(method_name, default_text) do
-            col = previous_column and
-              col.update_text(:right, name, instance_variable_get(variable))
-          end
-        else
-          text(method_name, default_text) do
-            col = next_column and
-              col.update_text(:left, name, instance_variable_get(variable))
-          end
+    def self.default_joints
+      joint = DEFAULT_SEGMENTS[ :joint ]
+      row_joint = DEFAULT_SEGMENTS[ :row_joint ]
+      new( joint, row_joint, joint, row_joint, joint, joint )
+    end
+    
+    def self.default_left_edge
+      edge = DEFAULT_SEGMENTS[ :edges ].first.dup
+      row_edge = DEFAULT_SEGMENTS[ :row_edges ].first.dup
+      new( edge, row_edge, edge, row_edge, edge, edge )
+    end
+    
+    def self.default_right_edge
+      edge = DEFAULT_SEGMENTS[ :edges ].last.dup
+      row_edge = DEFAULT_SEGMENTS[ :row_edges ].last.dup
+      new( edge, row_edge, edge, row_edge, edge, edge )
+    end
+      
+    
+    def mask( inclusion_settings )
+      masked = self.class.new
+      each_pair do | name, text |
+        if text and inclusion_settings[ name ]
+          masked[ name ] = text
         end
       end
+      return( masked )
     end
-
-
-    attr_reader :table, :index
-    part(:width) do
-      validate { |v| v > 0 }
-      cast { |v| Integer(v) }
-      default do
-        cells = title ? [title, *self.cells] : self.cells
-        cells.map { |cell| convert(cell).block_width }.max
-      end
-    end
-    part(:alignment) do
-      cast { |v| v.to_sym }
-      validate { |v| ALIGNMENTS.include?(v) }
-      default { DEFAULT_ALIGNMENT }
-    end
-    toggle_part(:wrap, false)
-    toggle_part(:flow, true)
-
-    text(:title)
-    shared_text(:row_joint, ' | ')
-    shared_text(:head_joint, '-+-')
-    shared_text(:foot_joint, '-+-')
-    shared_text(:title_divider_joint, '-+-')
-    shared_text(:row_divider_joint, '-+-')
     
-    text(:head_fill, '-')
-    text(:foot_fill, '-')
-    text(:title_divider_fill, '-')
-    text(:row_divider_fill, '-')
+    def width( inclusion_mask = nil )
+      inclusion_mask and return( self.mask( inclusion_mask ).width )
+      return( map { |text| text ? text.to_s.length : 0 }.max )
+    end
+    
+    def normalize( inclusion_mask = nil )
+      
+    end
+    
+  end
+  
+  class Column
+    
+    def initialize( table, index, options = {} )
+      @table = table
+      @index = index
+      @filling = options[ :filling ] || Segments.default_filling
+      @left_side = options[ :left_side ] || Segments.default_joints
+      @right_side = options[ :right_side ] || Segments.default_joints
+      @converter = nil
+      @wrap = false
+      @flow = true
+      @alignment = :left
+      @width = nil
+      @fixed_width = options[ :width ]
+    end
+    
+    def title
+      @table.title_row[ @index ].to_s
+    end
+    
+    def title=( text )
+      @table.title_row[ @index ] = text.to_s
+    end
+    
+    def spawn!
+      self.class.new( @table, @index + 1, :left_side => @right_side )
+    end
+    
+    def left_side
+      first? ? @table.left_edge : @left_side
+    end
+    
+    def right_side
+      last? ? @table.right_edge : @right_side
+    end
+    
+    attr_reader :table, :index, :filling
+    attr_accessor :alignment
+    
+    for m in %w(wrap flow)
+      attr_accessor( m )
+      alias_method( "#{m}?", m )
+      undef_method( m )
+    end
     
     def converter(method = nil, &block)
       case
@@ -77,218 +120,241 @@ class Text::Table
       return(@converter)
     end
     
-    def initialize(table, index)
-      @table = table
-      @index = index
-    end
-    alias :configure :instance_eval
     def cells
-      table.rows.map { |row| row[index] }
-    end
-    def previous_column
-      index.zero? ? nil : table.columns[index.pred]
-    end
-    def next_column
-      columns = table.columns
-      index.succ == columns.length ? nil : columns[index.succ]
-    end
-    def first?
-      index.zero?
-    end
-    def last?
-      index.succ == table.columns.length
-    end
-    def prepare(cell_text)
-      cell_text = convert(cell_text)
-      if wrap?
-        flow? and cell_text = cell_text.fold
-        cell_text = cell_text.word_wrap(width)
-      end
-      cell_text.split(/\n/).map! do |line|
-        line.align(alignment, width)
-      end.join("\n")
-    end
-    def fill_text(text)
-      fill = text * (width.to_f / text.length).ceil
-      fill[0...width]
+      @table.rows.collect { |row| row.at( @index ) }
     end
     
-    def left_width
-      width = left_row_joint.length rescue 0
-      @table.head? && left_head_joint and w = left_head_joint.length and width < w and width = w
-      @table.foot? && left_foot_joint and w = left_foot_joint.length and width < w and width = w
-      @table.title_row? && @table.title_divider? && left_title_divider_joint and
-        w = left_title_divider_joint.length and width < w and width = w
-      @table.row_divider? && row_divider_joint and w = row_divider_joint.length and width < w and width = w
-      return(width)
+    def previous_column
+      @index.zero? ? nil : @table.columns[ @index - 1 ]
     end
-    def right_width
-      width = right_row_joint.length rescue 0
-      @table.head? && right_head_joint and w = right_head_joint.length and width < w and width = w
-      @table.foot? && right_foot_joint and w = right_foot_joint.length and width < w and width = w
-      @table.title_row? && @table.title_divider? && right_title_divider_joint and
-        w = right_title_divider_joint.length and width < w and width = w
-      @table.row_divider? && row_divider_joint and w = row_divider_joint.length and width < w and width = w
-      return(width)
+    
+    def next_column
+      @table.columns[ @index + 1 ]
     end
-    protected
+    
+    def first?
+      @index.zero?
+    end
+    
+    def last?
+      @index == (table.columns.length - 1)
+    end
+    
+    def reset
+      @width = nil
+    end
+    
+    def prepare( cell_text )
+      @width ||= width
+      cell_text = convert(cell_text)
+      if @wrap
+        @flow and cell_text = cell_text.fold
+        cell_text = cell_text.word_wrap(@width)
+      end
+      cell_text.split( $/ ).map! do |line|
+        line.align( @alignment, width )
+      end.join( $/ )
+    end
+    
+    def fill_text( text )
+      text.is_a?( Symbol ) and text = @filling[ text ]
+      text = text.to_s
+      repetitions, remainder = width.divmod( text.length )
+      return( text * repetitions << text[0, remainder] )
+    end
+    
+    def width=( w )
+      @fixed_width = w.to_i.at_least( 0 )
+    end
+    
+    def width
+      @fixed_width || calculate_width
+    end
+    
+  protected
+    
+    def calculate_width
+      cells =
+        @table.rows.map do |row|
+          convert( row.at( @index ) ).block_width
+        end
+      cells << convert( title ).block_width
+      return( cells.max )
+    end
+    
     def convert(object)
       text =
-        case converter
+        case @converter
         when nil then object
         when String, Symbol then object.send(converter)
         when Proc then converter.call(object)
         end
       return(text.to_s)
     end
-
-    def update_text(side, name, text)
-      instance_variable_set(:"@#{side}_#{name}", text)
-    end
+    
   end
+  
   class Row < ::Array
-    def initialize(table, content)
-      super(content)
-      @table = table
+    def pad!( length, value = '' )
+      fill( value, self.length, length - self.length)
     end
     
-    def render(stripe_mask = nil)
-      columns = @table.columns
+    def render(table, type, stripe_mask = nil)
+      columns = table.columns
       pad!(columns.length, '')
       
-      cells = zip(columns).map do |object, column|
+      cells = self.zip(columns).map! do |object, column|
         column.prepare(object)
       end
+      
       height = cells.map { |cell| cell.block_height }.max
-      cells = cells.zip(columns).map do |cell, column|
-        cell.split(/\n/).tap { |lines| lines.pad!(height, column.fill_text(' ')) }
+      lines = cells.zip(columns).map! do |cell, column|
+        lines = cell.split( $/ )
+        lines.length < height and
+          lines.fill( column.fill_text(' '), lines.length, height - lines.length )
+        lines 
       end.transpose
-      lines = cells.map do |line_parts|
-        line = '' << @table.left_row_edge
-        columns.zip(line_parts).each do |column, part|
-          line << part
-          column.last? or line << column.right_row_joint
+      
+      lines.map! do | line_cells |
+        line = '' << table.left_edge[ type ].to_s
+        columns.zip(line_cells) do | column, line_cell |
+          line << line_cell << column.right_side[ type ].to_s
         end
-        line << @table.right_row_edge
+        line
       end
-      stripe_mask and lines.map! { |line| stripe_mask % line }
-      lines.join("\n")
+      lines.map! { |line| stripe_mask % line } if stripe_mask
+      lines.join( $/ )
     end
     
   end
-  
-  def self.text(name, default_text = nil, &block)
-    part(name) do
-      cast(&TEXT_CAST)
-      default_text and default { default_text.dup }
-      on_change(&block)
-    end
-  end
-  
-  
-  
-  
-  text(:left_head_edge, '+-')
-  text(:right_head_edge, '-+')
-  text(:left_row_edge, '| ')
-  text(:right_row_edge, ' |')
-  text(:left_row_divider_edge, '+-')
-  text(:right_row_divider_edge, '-+')
-  text(:right_title_divider_edge, '-+')
-  text(:left_title_divider_edge, '+-')
-  text(:left_foot_edge, '+-')
-  text(:right_foot_edge, '-+')
   
   def self.[](*rows)
     new(*rows)
   end
   
-  attr_reader :rows, :columns
-  toggle_part(:head, true)
-  toggle_part(:foot, true)
-  toggle_part(:row_divider, false)
-  def title_row?
-    defined?(@title_row) or @title_row = @columns.any? { |c| c.title }
-    return(@title_row)
-  end
-  def title_divider?
-    defined?(@title_divider) or @title_divider = title_row?
-    return @title_divider
-  end
-  attr_writer :title_row, :title_divider
-  
-  def each_column
-    block_given? or return(enum_for(:each_column))
-    columns.each do |column|
-      yield(column)
-    end
-  end
-  def each_row
-    block_given? or return(enum_for(:each_row))
-    rows.each do |row|
-      yield(row)
-    end
-  end
-  part(:stripe_masks) do
-    cast { |v| v.to_a }
-    validate { |v| v.length > 1 }
-  end
-  
   def initialize(rows, options = {}, &block)
     @columns = []
     @rows = []
-    rows.each { |row| push(row) }
-    block_given? and yield(self, *@columns)
+    @title_row = Row.new
+    @included_sections = Segments.new( true, nil, nil, true, false, true )
+    @left_edge = Segments.default_left_edge
+    @right_edge = Segments.default_right_edge
+    @stripe_masks = nil
+    for row in rows
+      push row
+    end
+    
+    block_given? and yield(self)
+    
+    @included_sections.title_row.nil? and
+      @included_sections.title_row = ! @title_row.empty?
+    @included_sections.title_divider.nil? and
+      @included_sections.title_divider = @included_sections.title_row
   end
   
-  %w(push unshift <<).each do |meth|
-    class_eval(<<-END)
-      def #{meth}(*rows)
-        rows.each do |row|
-          expand_columns(row.length)
-          @rows.#{meth}(Row.new(self, row))
-        end
+  attr_reader :included_sections, :title_row, :right_edge, :left_edge, :rows, :columns
+  attr_accessor :stripe_masks
+  
+  def title_row=( titles )
+    @title_row = Row.new( titles.to_a )
+  end
+  
+  for section in Segments.members
+    class_eval( <<-END, __FILE__, __LINE__ + 1 )
+      def enable_#{ section }
+        @included_sections.#{ section } = true
+      end
+      
+      def disable_#{ section }
+        @included_sections.#{ section } = false
+      end
+      
+      def include_#{ section }?
+        @included_sections.#{ section }
       end
     END
   end
   
-  def insert(index, *rows)
+  for meth in %w(push unshift)
+    class_eval(<<-END, __FILE__, __LINE__ + 1)
+      def #{meth}(*rows)
+        ncols = @columns.length
+        rows = rows.map do |row|
+          row = Row.new( row.to_a )
+          case row.length <=> ncols
+          when 1 then expand_columns( row.length )
+          when -1 then row.pad!( ncols )
+          end
+          row
+        end
+        @rows.#{ meth }( *rows )
+        return self
+      end
+    END
+  end
+  
+  def insert( index, *rows )
+    ncols = @columns.length
     rows = rows.map do |row|
-      expand_columns(row.length)
-      Row.new(self, row.pad(column_count, ''))
+      row = Row.new( row.to_a )
+      case row.length <=> ncols
+      when 1 then expand_columns( row.length )
+      when -1 then row.pad!( ncols )
+      end
+      row
     end
     @rows.insert(index, *rows)
   end
   
-  def render
-    first_column = @columns.last
-    last_column = @columns.last
-    out = ''
-    head? and out << render_skeleton(:head)
-    if title_row?
-      title = Row.new(self, @columns.map { |col| col.title })
-      out << title.render << "\n"
-      title_divider? and out << render_skeleton(:title_divider)
+  def render( out = '' )
+    new_line = $/.to_s
+    include_head? and out << render_skeleton(:head)
+    
+    if include_title_row?
+      out << @title_row.render( self, :title_row ) << new_line
+      include_title_divider? and out << render_skeleton(:title_divider)
     end
-    body =
-      if stripes = stripe_masks
-        @rows.each_slice(stripes.length).map do |row_slice|
-          row_slice.zip(stripes).map { |row, stripe| row.render(stripe) }
-        end.flatten
+    
+    row_divider = 
+      if include_row_divider?
+        new_line + render_skeleton( :row_divider )
       else
-        @rows.map { |row| row.render }
+        new_line
       end
-    joint = row_divider? ? "\n" << render_skeleton(:row_divider) : "\n"
-    out << body.join(joint) << "\n"
-    foot? and out << render_skeleton(:foot)
-    return(out)
+    
+    stripe = nil
+    last_index = @rows.length - 1
+    @rows.each_with_index do | row, index |
+      @stripe_masks and stripe = @stripe_masks[ index % @stripe_masks.length ]
+      out << row.render( self, :row, stripe )
+      out << row_divider unless index == last_index
+    end
+    out << new_line
+    include_foot? and out << render_skeleton( :foot )
+    
+    for column in @columns
+      column.reset   # reset width calculation
+    end
+    
+    return( out )
+  end
+  
+  def each_column
+    block_given? or return enum_for(:each_column)
+    for column in columns
+      yield(column)
+    end
+  end
+  
+  def each_row
+    block_given? or return enum_for(:each_row)
+    for row in rows
+      yield(row)
+    end
   end
   
   alias :to_s :render
-  def column_count
-    @columns.length
-  end
-  
+
   def width=(w)
     current_width = self.width
     case w <=> current_width
@@ -312,53 +378,31 @@ class Text::Table
   end
   
   def width
-    core_width = @columns.inject(0) { |w, c| w + c.width }
-    core_width += @columns[1..-1].inject(0) { |w, c| w + c.left_width }
-    core_width + left_width + right_width
-  end
-  
-  def left_width
-    width = left_row_edge.length rescue 0
-    head? && left_head_edge and w = left_head_edge.length and width < w and width = w
-    foot? && left_foot_edge and w = left_foot_edge.length and width < w and width = w
-    title_row? && title_divider? && left_title_divider_edge and
-      w = left_title_divider_edge.length and width < w and width = w
-    row_divider? && row_divider_edge and w = row_divider_edge.length and width < w and width = w
-    return(width)
-  end
-  
-  def right_width
-    width = right_row_edge.length rescue 0
-    head? && right_head_edge and w = right_head_edge.length and width < w and width = w
-    foot? && right_foot_edge and w = right_foot_edge.length and width < w and width = w
-    title_row? && title_divider? && right_title_divider_edge and
-      w = right_title_divider_edge.length and width < w and width = w
-    row_divider? && row_divider_edge and w = row_divider_edge.length and width < w and width = w
-    return(width)
-  end
-  
-  private
-  def render_skeleton(section)
-    left_edge = :"left_#{section}_edge"
-    right_edge = :"right_#{section}_edge"
-
-    left_joint = :"left_#{section}_joint"
-    right_joint = :"right_#{section}_joint"
-
-    fill = :"#{section}_fill"
-
-    first_column = @columns.first
-    
-    out = '' << self.send(left_edge) << first_column.fill_text(first_column.send(fill))
-    @columns[1..-1].each do |column|
-      out << column.send(left_joint) << (column.fill_text(column.send(fill)))
+    w = @left_edge.width( @included_sections )
+    @columns.inject( w ) do | w, col |
+      w + col.width + col.right_side.width( @included_sections )
     end
-    out << self.send(right_edge) << "\n"
+  end
+  
+private
+
+  def render_skeleton(section, out = '')
+    first, last = @columns.first, @columns.last
+    out << @left_edge[ section ].to_s
+    for column in @columns
+      out << column.fill_text( section )
+      out << column.right_side[ section ].to_s
+    end
+    return( out << $/.to_s )
   end
   
   def expand_columns(new_size)
-    new_size > @columns.length and @columns.length.upto(new_size.pred) do |index|
-      @columns.push(Column.new(self, index))
+    new_size.zero? and return
+    @columns.empty? and @columns << Column.new( self, 0 )
+    c = @columns.last
+    while new_size > @columns.length
+      @columns << (c = c.spawn!)
     end
   end
+end
 end

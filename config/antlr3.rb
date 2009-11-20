@@ -1,38 +1,35 @@
 #!/usr/bin/ruby
 # encoding: utf-8
-
-require 'yaml'
-
-__DIR__ = File.expand_path( File.dirname( __FILE__ ) )  # $top/config
-config_file = File.join( __DIR__, 'antlr3.yaml' )       # $top/config/project.yaml
-project_top = File.dirname( __DIR__ )                   # $top
-config = YAML.load_file( config_file )
-
+__DIR__ = File.dirname( __FILE__ )
+project_top = File.dirname( __DIR__ )
 load File.join( __DIR__, 'project.rb' )
 
-
-$project = Project.new( project_top, config ).customize do
-  
+$project = Project.load( project_top, 'config/antlr3.yaml' ) do
   # load external rake task setup script from the
   # project's rake library directory
-  def load_task( name )
-    path = paths.rake( "#{name}.rake" )
-    src = File.read( path )
-    eval( src, TOPLEVEL_BINDING, path, 1 )
+  def load_task( *name )
+    load( rake_tasks( *name ) << '.rake' )
   end
   
   def run_bundler
     script = path('scripts', 'gem-bundle.rb')
     system %(ruby '#{script}')
-    return $?
+  end
+  
+  def program_available?( name )
+    system_path.find { |d| test( ?x, d / name ) }
+  end
+  
+  def system_path
+    ENV.read( 'PATH', Array )
   end
   
   def bundler_initialized?
-    paths.bundler.lib?
+    bundler.lib?
   end
   
   def bundler_missing!
-    dir = File.relative_path( paths.bundler.top, base )
+    dir = File.relative_path( bundler.top, base )
     error!(<<-END.here_indent!, dir, dir)
     | Unable to load the project environment -- cannot locate bundler library
     | 
@@ -49,30 +46,36 @@ $project = Project.new( project_top, config ).customize do
     | Afterward, the full bundler library should appear within %s.
     | To complete the development environment set up, run:
     | 
-    |   rake update_gems
+    |   rake dev:setup
     | 
     END
   end
   
+  
   def bundler_environment_missing!
-    file = File.relative_path( paths.bundler.environment, base )
+    file = File.relative_path( bundler.environment, base )
     error!( <<-END.here_indent!, file )
     | Unable to locate bundler gem environment at %s
     | To create this file, run:
-    |
-    |    rake update_gems
+    | 
+    |    rake dev:setup
     | 
     END
   end
   
-  def bundler
-    paths.bundler
+  def description
+    @description ||= begin
+      readme = File.read( path( 'README.txt' ) )
+      md = readme.match( /== DESCRIPTION:(.+?)\n== /m ) or
+        fail( "can't find a description section in README.txt" )
+      md[1].strip
+    end
   end
   
   def load_environment
     @load_environment ||= begin
       verify_environment
-      load( paths.bundler.environment )
+      load( bundler.environment )
       
       for lib in environment_require
         require lib
@@ -82,9 +85,43 @@ $project = Project.new( project_top, config ).customize do
     end
   end
   
+  def gem_specification
+    require 'rubygems'
+    spec_fields = %w(
+      name author email has_rdoc rubyforge_project summary
+      version description required_ruby_version
+    )
+    Gem::Specification.new do | spec |
+      for field in spec_fields
+        value = self.send( field )
+        spec.send( "#{field}=", value )
+      end
+      
+      spec.files = package_files.to_a
+      spec.test_files = unit_tests.to_a + functional_tests.to_a
+      
+      spec.executables.push( *executables )
+      spec.requirements.push( *requirements )
+      
+      for dep in development_dependencies
+        Array === dep or dep = [ dep ]
+        spec.add_development_dependency( *dep )
+      end
+      
+    end
+  end
+  
+  def shell_escape( text )
+    if text.empty? then "''"
+    else
+      text.gsub( /([^A-Za-z0-9_\-.,:\/@\n])/n ) { '\\' << $1 }.
+        gsub( /\n/, "'\n'" )
+    end
+  end
+  
   def verify_environment
-    bundler_initialized? or bundler_missing!
-    paths.bundler.environment? or bundler_environment_missing!
+    bundler.lib? or bundler_missing!
+    bundler.environment? or bundler_environment_missing!
   end
   
   def setup?
@@ -93,5 +130,9 @@ $project = Project.new( project_top, config ).customize do
   rescue Project::Error
     return false
   end
-  
 end
+
+$project.jar_command = %w( fastjar jar ).find do | cmd |
+  $project.program_available? cmd
+end
+

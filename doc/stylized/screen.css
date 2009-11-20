@@ -1,0 +1,272 @@
+@charset "utf-8";
+
+/*
+Design by NodeThirtyThree <http://www.nodethirtythree.com>
+Published by Free CSS Templates <http://www.freecsstemplates.org/>
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #FFFFFF url(images/img01.gif) repeat-x;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #4A5157;
+}
+
+h1, h2, h3 {
+	text-transform: lowercase;
+	color: #292929;
+}
+
+h1 {
+	letter-spacing: -1px;
+	font-size: 30px;
+}
+
+h2 {
+	font-size: 24px;
+	color: #292929;
+}
+
+h3 {
+	font-size: 13px;
+	color: #292929;
+}
+
+p, ul, ol {
+	margin-bottom: 2em;
+	text-align: justify;
+	line-height: 200%;
+}
+
+p {
+}
+
+ul {
+}
+
+ol {
+}
+
+a {
+	color: #FF0000;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+img {
+	border: none;
+}
+
+img.left {
+}
+
+img.right {
+}
+
+.tn img {
+	border: 8px solid #F5F5F5;
+}
+
+hr {
+	display: none;
+}
+
+/* Logo */
+
+#logo {
+	width: 874px;
+	height: 147px;
+	margin: 0 auto;
+}
+
+#logo h1 {
+	float: left;
+	padding: 70px 37px 0 0;
+	height: 54px;
+	background: url(images/img02.gif) no-repeat 100% 63px;
+	font-size: 38px;
+	font-weight: normal;
+	letter-spacing: -2px;
+}
+
+#logo h2 {
+	float: right;
+	padding: 98px 0 0 0;
+	text-transform: lowercase;
+	font-weight: normal;
+	font-size: 16px;
+	color: #FFFFFF;
+}
+
+#logo a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+/* Menu */
+
+#menu {
+	width: 919px;
+	height: 50px;
+	margin: 0 auto;
+}
+
+#menu ul {
+	margin: 0;
+	padding: 10px 0 0 0;
+	list-style: none;
+	line-height: normal;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	height: 25px;
+	margin: 0 10px;
+	padding: 5px 20px 0 20px;
+	text-transform: lowercase;
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+#menu a:hover {
+	text-decoration: underline;
+}
+
+#menu .active a {
+	background: #EC0000 url(images/img03.gif) repeat-x left bottom;
+}
+
+/* Page */
+
+#bg {
+	background: url(images/img04.gif) no-repeat center top;
+}
+
+#page {
+	width: 918px;
+	margin: 0 auto;
+}
+
+/* Content */
+
+#content {
+	float: left;
+	width: 625px;
+	padding: 0 0 0 24px;
+}
+
+#content h1 {
+	margin: 45px 0 20px 0;
+	padding-left: 33px;
+	background: url(images/img07.gif) no-repeat left center;
+}
+
+#content .content {
+	padding-left: 32px;
+}
+
+/* Posts */
+
+.post h1.title {
+	margin: 45px 0 20px 0;
+	padding-left: 33px;
+	background: url(images/img07.gif) no-repeat left center;
+}
+
+.post h2.title {
+	margin: 40px 0 25px 0;
+	padding-left: 33px;
+	background: url(images/img07.gif) no-repeat left center;
+}
+
+.post .title a {
+	text-decoration: none;
+	color: #292929;
+}
+
+.post .entry {
+	padding-left: 32px;
+}
+
+.post ul, .post ol {
+	margin-left: 3em;
+}
+
+.post ul {
+	list-style-type: square;
+}
+
+.post ol {
+	list-style-type: decimal;
+}
+
+/* Sidebar */
+
+#sidebar {
+	float: right;
+	width: 214px;
+	padding: 0 1px 0 0;
+}
+
+#sidebar a {
+	color: #4A5157;
+}
+
+.box {
+}
+
+.box .title {
+	height: 27px;
+	padding: 6px 0 0 34px;
+	background: #C80000 url(images/img05.gif) no-repeat;
+	text-transform: lowercase;
+	font-size: 17px;
+	color: #FFFFFF;
+}
+
+.box .content {
+	padding: 26px;
+	background: url(images/img06.gif) repeat-x;
+}
+
+.box ul {
+	list-style: none;
+	line-height: normal;
+}
+
+.box ul li {
+	margin-bottom: 13px;
+	font-size: 12px;
+}
+
+.box small {
+	font-size: 10px;
+	color: #808C96;
+}
+
+/* Footer */
+
+#footer {
+	padding: 35px 0;
+	background: url(images/img08.gif) no-repeat center top;
+	font-size: 12px;
+}
+
+#footer p {
+	text-align: center;
+}

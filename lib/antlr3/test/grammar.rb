@@ -68,7 +68,7 @@ class Grammar
     @path = path.to_s
     @source = prepare_source(File.read(@path))
     @output_directory = options.fetch(:output_directory, '.')
-    
+    @verbose = options.fetch( :verbose, $VERBOSE )
     study
     build_dependencies
     
@@ -79,7 +79,7 @@ class Grammar
   ######## ATTRIBUTES AND ATTRIBUTE-ISH METHODS ####################
   ##################################################################
   attr_reader :type, :name, :source
-  attr_accessor :output_directory
+  attr_accessor :output_directory, :verbose
   
   def lexer_class_name
     self.name + "::Lexer"
@@ -165,6 +165,7 @@ class Grammar
   def compile!(options = {})
     command = build_command(options)
     
+    blab( command )
     output = IO.popen(command) do |pipe|
       pipe.read
     end
@@ -193,6 +194,15 @@ private
   def post_compile(options)
     # do nothing for now
   end
+  
+  def blab( string, *args )
+    $stderr.printf( string + "\n", *args ) if @verbose
+  end
+  
+  def default_antlr_jar
+    ENV[ 'ANTLR_JAR' ] || ANTLR3.antlr_jar
+  end
+  
   def compilation_failure!(command, status, output)
     for f in target_files
       test(?f, f) and File.delete(f)
@@ -223,7 +233,8 @@ private
   
   def build_command(options)
     parts = %w(java)
-    jar_path = options[:antlr_jar] and parts.push('-cp', jar_path)
+    jar_path = options.fetch( :antlr_jar, default_antlr_jar )
+    parts.push('-cp', jar_path)
     parts << 'org.antlr.Tool'
     parts.push('-fo', output_directory)
     options[:profile] and parts << '-profile'
@@ -255,6 +266,7 @@ class Grammar::InlineGrammar < Grammar
     @host_file = File.expand_path(options[:file] || host.file)
     @host_line = (options[:line] || host.line)
     @output_directory = options.fetch(:output_directory, File.dirname(@host_file))
+    @verbose = options.fetch( :verbose, $VERBOSE )
     
     source = source.to_s.fixed_indent(0)
     source.strip!

@@ -4,7 +4,6 @@
 ####################################################################################################
 ################################### establish project environment ##################################
 ####################################################################################################
-
 load './config/antlr3.rb'
 
 ####################################################################################################
@@ -28,149 +27,86 @@ end
 
 task :dev => %w(dev:setup)
 
-# tasks concerning the ANTLR java package
-namespace :antlr do
+if $project.setup?
+  $project.load_environment
   
-  desc "build the antlr jar"
-  task :build do
-    $project.load_task 'antlr'
+  require 'rake/testtask'
+  require 'spec/rake/spectask'
+  require 'rake/gempackagetask'
+  require 'rake/rdoctask'
+  
+  # tasks concerning the ANTLR java package
+  namespace :antlr do
+    
+    desc "build the antlr jar"
+    task :build do
+      $project.load_task 'antlr'
+    end
+    
+    desc "clean the java directory"
+    task :clean do
+      $project.java?( 'org' ) and rm_r( $project.java( 'org' ) )
+    end
+    
   end
   
-  desc "clean the antlr package directory"
-  task :clean do
-    cd $project.antlr.tool do
-      sh("mvn clean")
+  namespace :test do
+    Spec::Rake::SpecTask.new('unit') do | t |
+      t.spec_files = FileList[ *$project.unit_tests ]
+      t.libs.concat( $project.bundler.gems!('rspec-*') )
+    end
+    
+    Spec::Rake::SpecTask.new( 'functional' ) do | t |
+      t.spec_files = FileList[ $project.bundler.environment, *$project.functional_tests ]
     end
   end
   
-end
+  desc( "run all tests" )
+  task :test => %w( test:unit test:functional )
+  
+  Rake::GemPackageTask.new( $project.gem_specification ) do | t |
+    t.need_zip = true
+  end
+  
+  Rake::RDocTask.new do | t |
+    t.rdoc_files.include( 'lib/**/*.rb' )
+    t.rdoc_dir = 'doc/rdoc'
+  end
+  
+  namespace :notes do
+    desc( "find and list FIXME notes in the library and test source code")
+    task :FIXME do
+      require 'source-notes'
+      color_map = { :tag => 'red', :text => 'yellow' }
+      files = $project.package_files.select { |path| test( ?f, path ) }
+      SourceNote.scan( 'FIXME', files ) do |note|
+        puts( note.to_s( color_map ) )
+      end
+    end
+    
+    desc( "find and list TODO notes in the library and test source code")
+    task :TODO do
+      require 'source-notes'
+      color_map = { :tag => 'magenta', :text => 'yellow' }
+      files = $project.package_files.select { |path| test( ?f, path ) }
+      SourceNote.scan( 'TODO', files ) do |note|
+        puts( note.to_s( color_map ) )
+      end
+    end
+    
+    desc( "find and list notes with tag (like FIXME) provided by the tag argument")
+    task :with_tag, [:tag] do |t, args|
+      tag = args[ :tag ] or fail( "provide a tag argument" )
+      
+      require 'source-notes'
+      color_map = { :tag => 'blue', :text => 'yellow' }
+      files = $project.package_files.select { |path| test( ?f, path ) }
+      
+      SourceNote.scan( tag, files ) do |note|
+        puts( note.to_s( color_map ) )
+      end
+    end
+    
+  end
 
-#namespace :notes do
-#  def exclude?(path)
-#    EXCLUDE.any? { |glob| File.fnmatch(glob, path, File::FNM_DOTMATCH) }
-#  end
-#  
-#  ################################################################################
-#  ############################ TASK SOURCE CODE ##################################
-#  ################################################################################
-#  
-#  desc('list FIXME annotations')
-#  task(:fixme) do
-#    require 'find'
-#    
-#    Find.find('.') do |path|
-#      exclude?(path) and Find.prune
-#  
-#      if test(?f, path)
-#  
-#        fixmes = open(path) do |f|
-#          f.grep(/\bFIXME\b/) do |line|
-#            message = '%5i | ' % f.lineno
-#            message <<
-#              case line.chomp
-#              when /<! *FIXME *: *(.+?) *!>/ then $1
-#              when /\# *FIXME(?: *\-\- *| *: *)(.*)$/ then $1
-#              when /FIXME\(\d+\)/ then line.strip
-#              when /FIXME *\((.*?)\)/ then $1
-#              else line.strip
-#              end
-#          end
-#        end
-#        
-#        unless fixmes.empty?
-#          head = ("~~ " << path << " ").ljust(screen_width, '~')
-#          puts head.magenta
-#          for fix in fixmes
-#            puts(fix.cyan)
-#          end
-#        end
-#  
-#      end # if test
-#    end   # Find.find
-#  end     # task :fixme
-#  
-#  desc('list TODO annotations')
-#  task(:todo) do
-#    require 'find'
-#    
-#    Find.find('.') do |path|
-#      exclude?(path) and Find.prune
-#  
-#      if test(?f, path)
-#  
-#        todos = open(path) do |f|
-#          f.grep(/\bTO[\- ]?DO\b/) do |line|
-#            message = '%5i | ' % f.lineno
-#            message <<
-#              case line.chomp
-#              when /<! *TO[\- ]?DO *: *(.+?) *!>/ then $1
-#              when /\# *TO[\- ]?DO(?: *\-\- *| *: *)(.*)$/ then $1
-#              when /TO[\- ]?DO\(\d+\)/ then line.strip
-#              when /TO[\- ]?DO *\((.*?)\)/ then $1
-#              else line.strip
-#              end
-#          end
-#        end
-#        
-#        unless todos.empty?
-#          head = ("~~ " << path << " ").ljust(screen_width, '~')
-#          puts head.magenta
-#          for todo in todos
-#            puts(todo.cyan)
-#          end
-#        end
-#  
-#      end # if test
-#    end   # Find.find
-#  end     # task :fixme
-#
-#end
-#
-#Rcov::RcovTask.new do |t|
-#  t.libs << './lib'
-#  t.test_files = FileList['test/unit/test-*.rb', 'test/functional/0*/test.rb']
-#  t.output_dir = './rcov'
-#end
-#
-#namespace :test do
-#  desc("ruby runtime library unit tests")
-#  Rake::TestTask.new(:unit) do |task|
-#    task.test_files = Dir['test/unit/test-*.rb']
-#  end
-#  
-#  desc("run all of the functional tests")
-#  Spec::Rake::SpecTask.new(:functional) do |t|
-#    t.libs = %w(./lib)
-#    t.ruby_opts = ['-rtest/unit']
-#    t.pattern = './test/functional/*/*.rb'
-#  end
-#  
-#  task :functional => %w(antlr:build)
-#end
-#
-#desc "run both unit and functional tests"
-#task :test => %w(test:unit test:functional)
-#
-#desc "discover, run, and record benchmark scripts"
-#task :benchmark do
-#  stamp = Time.now.strftime('%m-%d-%y@%I:%M%P')
-#  result_dir = "./log/benchmark/#{stamp}"
-#  mkpath(result_dir)
-#  
-#  bench_dir = './test/benchmark'
-#  scripts = FileList["#{bench_dir}/*/bench.rb"]
-#  
-#  for script in scripts
-#    name = File.basename( File.dirname(script) )
-#    results = `ruby #{script}`
-#    open("#{result_dir}/#{name}.txt", 'w') do |f|
-#      f.write(results)
-#    end
-#    puts "[ #{name} ]"
-#    puts results
-#    puts ''
-#  end
-#  
-#end
-#
-#
+end

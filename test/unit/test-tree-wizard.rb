@@ -2,12 +2,9 @@
 # encoding: utf-8
 
 require 'antlr3'
-require 'test/unit'
-
-require 'rubygems'
-gem 'rspec'
-require 'spec'
 require 'antlr3/tree/wizard'
+require 'spec/test/unit'
+
 
 include ANTLR3
 include ANTLR3::AST
@@ -61,7 +58,7 @@ class TestTreePatternLexer < Test::Unit::TestCase
     type = lexer.next_token
     assert_equal(:identifier, type)
     assert_equal('__whatever_1__', lexer.text)
-    lexer.error.should be_false
+    assert( !(lexer.error) )
   end
   
   def test_arg
@@ -69,7 +66,7 @@ class TestTreePatternLexer < Test::Unit::TestCase
     type = lexer.next_token
     assert_equal(type, :argument)
     assert_equal(' ]bla\n', lexer.text)
-    lexer.error.should be_false
+    assert( !(lexer.error) )
   end
   
   def test_error
@@ -416,7 +413,7 @@ class TestTreeWizard < Test::Unit::TestCase
   
   def test_parse_single_node_fails
     tree = @wizard.create('A')
-    @wizard.parse(tree, 'B').should be_false
+    assert( !(@wizard.parse(tree, 'B')) )
   end
   
   
@@ -427,12 +424,12 @@ class TestTreeWizard < Test::Unit::TestCase
   
   def test_parse_flat_tree_fails
     tree = @wizard.create('(nil A B C)')
-    @wizard.parse(tree, '(nil A B)').should be_false
+    assert( !(@wizard.parse(tree, '(nil A B)')) )
   end
 
   def test_parse_flat_tree_fails2
     tree = @wizard.create('(nil A B C)')
-    @wizard.parse(tree, '(nil A B A)').should be_false
+    assert( !(@wizard.parse(tree, '(nil A B A)')) )
   end
   
   def test_wildcard
@@ -447,7 +444,7 @@ class TestTreeWizard < Test::Unit::TestCase
   
   def test_parse_with_text_fails
     tree = @wizard.create('(A B C)')
-    @wizard.parse(tree, '(A[foo] B C)').should be_false
+    assert( !(@wizard.parse(tree, '(A[foo] B C)')) )
   end
   
   def test_parse_labels
@@ -506,20 +503,20 @@ class TestTreeWizard < Test::Unit::TestCase
   def test_equals_with_mismatched_text
     tree1 = @wizard.create("(A B[foo] C)")
     tree2 = @wizard.create("(A B C)")
-    @wizard.equals(tree1, tree2).should be_false
+    assert( !(@wizard.equals(tree1, tree2)) )
   end
   
   
   def test_equals_with_mismatched_list
     tree1 = @wizard.create("(A B C)")
     tree2 = @wizard.create("(A B A)")
-    @wizard.equals(tree1, tree2).should be_false
+    assert( !(@wizard.equals(tree1, tree2)) )
   end
   
   def test_equals_with_mismatched_list_length
     tree1 = @wizard.create("(A B C)")
     tree2 = @wizard.create("(A B)")
-    @wizard.equals(tree1, tree2).should be_false
+    assert( !(@wizard.equals(tree1, tree2)) )
   end
   
   def test_find_pattern

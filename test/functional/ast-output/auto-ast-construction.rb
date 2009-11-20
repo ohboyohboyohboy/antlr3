@@ -779,7 +779,6 @@ class TestAutoAST < ANTLR3::Test::Functional
     END
     result.should == "34\nabc 34"
   end
-  # FIXME:  tab as '\\t' ?
   
   example "a (...)+ loop containing a token-type set" do
     result = parse(<<-'END', :r, 'abc 34 d')
@@ -788,7 +787,7 @@ class TestAutoAST < ANTLR3::Test::Functional
       r : (INT|ID)+ ; 
       ID : 'a'..'z' + ;
       INT : '0'..'9' +;
-      WS: (' ' | '\n' | '\\t')+ {$channel = HIDDEN;};
+      WS: (' ' | '\n' | '\t')+ {$channel = HIDDEN;};
     
     END
     result.should == 'abc 34 d'

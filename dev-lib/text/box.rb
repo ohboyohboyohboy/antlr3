@@ -5,10 +5,6 @@ require 'text'
 require 'facets/hash/symbolize_keys'
 require 'facets/string/words'
 
-# ┌────────────────────────────────────────────────────────────┐
-# │  Text::Box is a Class that represents a CLI Box with text  │
-# └────────────────────────────────────────────────────────────┘
-
 module Text
   class Box
     BOXBITS = {

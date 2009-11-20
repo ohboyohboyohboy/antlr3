@@ -1,33 +1,33 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 
-__DIR__ = File.dirname __FILE__
+__DIR__ = File.expand_path( File.dirname __FILE__ )
 project_top = File.dirname __DIR__
-jars = Dir[ File.join(project_top, 'java', 'antlr-full-*.jar') ]
-antlr_jar =
-  case jars.length
-  when 1 then jars.first
-  when 0
-    $stderr.puts(<<-END.strip!.gsub!(/\s+/, ' '))
-      failure: unable to find any antlr jars
-      (matching pattern 'antlr-full-*.jar')
-      in #{File.join(project_top, 'java')}
-    END
-    exit(1)
+load( File.join( project_top, 'lib', 'antlr3', 'version.rb' ) )
+
+jar_name = "antlr-full-#{ ANTLR_VERSION_STRING }.jar"
+jar_path = File.join( project_top, 'java', jar_name )
+
+unless File.exist?( jar_path )
+  $stderr.puts(<<-END.strip!.gsub!(/\s+/, ' '))
+    the ANTLR #{ ANTLR_VERSION_STRING } jar is expected
+    to be located at #{ jar_path }, but it does not
+    appear to exist.
+  END
+  exit( 1 )
+end
+
+escape = proc do | a |
+  if a.empty? then "''"
   else
-    jars.max_by do |jar|
-      jar =~ /antlr\-full\-((?:\d+\.?)+).*\.jar/ and
-        $1.split('.').map! { |i| i.to_i }
-    end
-  end
-
-ENV['CLASSPATH'] = File.expand_path( antlr_jar )
-
-ARGV.map! do |arg|
-  arg.empty? and next("''")
-  arg.gsub( /([^A-Za-z0-9_\-.,:\/@\n])/n, '\\\1' ).
+    a.gsub( /([^A-Za-z0-9_\-.,:\/@\n])/n, '\\\1' ).
       gsub( /\n/, "'\n'" )
-end.unshift('java', 'org.antlr.Tool')
-command = ARGV.join(' ')
+  end
+end
 
-exec( command )
+command = %w(java -jar) << escape[ antlr_jar ]
+for arg in ARGV
+  command << escape[ arg ]
+end
+
+exec command.join(' ')

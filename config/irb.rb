@@ -3,6 +3,8 @@
 
 load( File.join( File.dirname( __FILE__ ), 'antlr3.rb' ) )
 
+require 'irb/completion'
+
 if $project.setup?
   $project.load_environment
 else

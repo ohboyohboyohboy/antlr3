@@ -2,11 +2,8 @@
 # encoding: utf-8
 
 require 'antlr3'
-require 'test/unit'
+require 'spec/test/unit'
 
-require 'rubygems'
-gem 'rspec'
-require 'spec'
 
 include ANTLR3
 

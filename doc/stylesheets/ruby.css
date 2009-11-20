@@ -1,0 +1,101 @@
+.ruby {
+    border-collapse: collapse;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+
+.ruby .line_number {
+    border-right: 1px solid black;
+    border-left:  0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 2%;
+}
+
+.ruby .odd { background-color: #E8C681; }
+
+.ruby .even { background-color: #E8D2A7; }
+
+.ruby .code {
+    margin: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #0B0A0A;
+    color: white;
+}
+
+.ruby pre {
+    margin: 0px;
+    padding: 0px;  
+}
+
+.ruby a:link { text-decoration: none; }
+.ruby a:visited { text-decoration: none; }
+.ruby a:hover { outline-style: dotted; outline-color: #f92672; outline-width: thin; }
+
+.ruby .c, .ruby .cm, .ruby .c1 { color: #60606d; } /* comments */
+
+.ruby .ld { color: #fb9a4b; } /* Literal.Date */
+.ruby .m  { color: #ff3a55; } /* Literal.Number */
+.ruby .mf { color: #ff3a55; } /* Literal.Number.Float */
+.ruby .mh { color: #ff3a55; } /* Literal.Number.Hex */
+.ruby .mi { color: #ff3a55; } /* Literal.Number.Integer */
+.ruby .il { color: #ff3a55; } /* Literal.Number.Integer.Long */
+.ruby .mo { color: #ff3a55; } /* Literal.Number.Oct */
+
+.ruby .g { } /* Generic */
+.ruby .gd { } /* Generic.Deleted */
+.ruby .ge { } /* Generic.Emph */
+.ruby .gr { } /* Generic.Error */
+.ruby .gh { } /* Generic.Heading */
+.ruby .gi { } /* Generic.Inserted */
+.ruby .go { } /* Generic.Output */
+.ruby .gp { } /* Generic.Prompt */
+.ruby .gs { } /* Generic.Strong */
+.ruby .gu { } /* Generic.Subheading */
+.ruby .gt { } /* Generic.Traceback */
+
+.ruby .na { color: #78e087; }
+.ruby .nb { font-weight: bold; }
+.ruby .nd { color: #3366ff; }
+.ruby .bp { font-weight: bold; }
+.ruby .nc { color: #ffaa00; font-weight: bold; }
+.ruby .no { color: #f3f3f3; }
+.ruby .nn { color: #f92672; }
+.ruby .nf { color: #0E97FF; }
+.ruby .nl { color: #A2A2B7; }
+
+.ruby .nv { color: #ffffcc; }
+.ruby .vc { color: #84bee2; }
+.ruby .vg { color: #3366ff; }
+.ruby .vi { color: #78e087; }
+
+.ruby .k { color: #ffaa00; font-weight: bold; }
+.ruby .kc { color: #84bee2; font-weight: bold; }
+.ruby .kd { font-size: 1.1em; font-weight: bold; color: #0E97FF; }
+.ruby .kp { color: white; font-weight: bold; font-size: 1.1em; }
+.ruby .kt { color: #f92672; font-weight: bold;}
+
+.ruby .o { color: #E8B4B4; font-size: 1.05em; font-weight: bold; }
+.ruby .p { color: #E8B4B4; font-weight: bold; }
+
+.ruby .s { color: #a9e448; }
+.ruby .sb { color: #99ffff; }
+.ruby .sc { color: #a9e448; }
+.ruby .sd { color: #71dcdc; }
+.ruby .sh { color: #f92672; }
+.ruby .si { color: #ff7474; font-weight: bold; }
+.ruby .sr { color: #379bff; }
+.ruby .s1 { color: #a9e448; }
+.ruby .s2 { color: #a9e448; }
+.ruby .ss { color: #66ff99; }

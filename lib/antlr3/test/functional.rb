@@ -6,10 +6,7 @@ require 'antlr3/test/core-extensions'
 require 'antlr3/test/grammar'
 require 'antlr3/test/call-stack'
 
-require 'test/unit'
-require 'rubygems'
-gem :rspec unless RUBY_VERSION =~ /^1\.9/
-require 'spec'
+require 'spec/test/unit'
 
 module ANTLR3
 module Test

@@ -7,6 +7,9 @@ gem 'highline'
 # a big bag of bric-a-brac 
 gem "facets"
 
+gem 'rake'
+gem 'hoe'
+
 # antlr tests use a rspec environment with a test/unit structure
 gem "rspec"
 
@@ -20,10 +23,10 @@ gem "ruby-prof"
 gem "RedCloth"
 
 # where the gem libs go
-bundle_path '../vendor/gems'
+bundle_path '../vendor'
 
 # where the gem executables go
 bin_path '../vendor/bin'
 
 # turns off rubygems in code
-disable_rubygems
+disable_system_gems

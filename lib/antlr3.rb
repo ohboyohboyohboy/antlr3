@@ -116,10 +116,6 @@ module ANTLR3
     library_path('..', *args)
   end
   
-  def self.core_extensions
-    Dir[library_path('core-ext','**','*.rb')]
-  end
-  
   # This is used internally in a handful of locations in the runtime library
   # where assumptions have been made that a condition will never happen
   # under normal usage conditions and thus an ANTLR3::Bug error will be
@@ -131,18 +127,8 @@ module ANTLR3
   end
   
   def self.antlr_jar
-    @antlr_jar ||= begin
-      jars = Dir.glob( project_path('java/antlr-full-*.jar') )
-      case jars.length
-      when 0 then nil
-      when 1 then jars.first
-      else
-        # the lastest version if more than one version is in the java dir
-        jars.max_by do |jar|
-          jar.scan(/\d+/).map { |n| n.to_i }
-        end
-      end
-    end
+    path = project_path "java/antlr-full-#{ANTLR_VERSION_STRING}.jar"
+    File.exists?( path ) ? path : nil
   end
   
   ##############################################################################################
@@ -177,15 +163,12 @@ module ANTLR3
   
   $LOAD_PATH.include?(library_path) or $LOAD_PATH.unshift(library_path)
   
-  for ruby_file in core_extensions
-    load ruby_file
-  end
 end  # module ANTLR3
 
 require 'set'
+require 'antlr3/util'
 require 'antlr3/version'
 require 'antlr3/constants'
-require 'antlr3/util'
 require 'antlr3/error'
 require 'antlr3/token'
 require 'antlr3/recognizers'

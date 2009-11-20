@@ -60,7 +60,7 @@ class TestDebugGrammars < ANTLR3::Test::Functional
   
   def parse(grammar, rule, input, options = {})
     @grammar = inline_grammar(grammar)
-    @grammar.compile(:debug => true)
+    @grammar.compile( self.class.compile_options )
     @grammar_path = File.expand_path(@grammar.path)
     for output_file in @grammar.target_files
       self.class.import( output_file )

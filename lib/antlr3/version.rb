@@ -9,9 +9,11 @@ module ANTLR3
   # 
   ANTLR_MAJOR_VERSION = 3
   ANTLR_MINOR_VERSION = 2
-  ANTLR_PATCH_VERSION = 0
+  ANTLR_PATCH_VERSION = 1
   ANTLR_VERSION = [ANTLR_MAJOR_VERSION, ANTLR_MINOR_VERSION, ANTLR_PATCH_VERSION].freeze
-  ANTLR_VERSION_STRING = ANTLR_VERSION.join('.').freeze
+  ANTLR_VERSION_STRING = ANTLR_VERSION.join('.')
+  ANTLR_VERSION_STRING.chomp!( '.0' )   # versioning drops minor version at 0
+  ANTLR_VERSION_STRING.freeze
   
   # 
   # The version data for the current state the library itself
