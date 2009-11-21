@@ -1,6 +1,0 @@
-h1. Fancy Ruby Antlers
-
-div(subtitle). The particulars of generating ruby-coded language recognizers from ANTLR grammars.
-
-h2. ANTLR Overview
-

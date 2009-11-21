@@ -1,5 +1,0 @@
-lexer grammar t028labelExpr;
-ETAGO: ('</a')=> '</';
-MDO: {True}? ('<!a')=> '<!';
-STAGO: {True}? ('<a')=> '<';
-CDATA: '<';

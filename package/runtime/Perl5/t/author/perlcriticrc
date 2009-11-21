@@ -1,5 +1,0 @@
-severity = 5
-
-#[-CodeLayout::RequireTidyCode]
-
-[-Subroutines::ProhibitExplicitReturnUndef]
