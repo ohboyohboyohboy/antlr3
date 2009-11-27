@@ -4,6 +4,7 @@
 __DIR__ = File.dirname( __FILE__ )
 load File.join( __DIR__, 'script-helper.rb' )
 
+require 'main'
 require 'string-template'
 
 Main do
@@ -121,13 +122,15 @@ Main do
     end
     
     def table( title_row, *rows )
-      t = Text::Table.new( rows ) do | table |
-        table.title_row = title_row
+      puts Text::Table.build( title_row ) do | table |
+        for row in rows
+          table.row( row )
+        end
+        
         block_given? and yield( table )
+        
+        table.width > @width and table.width = @width
       end
-      
-      t.width > @width and t.width = @width
-      puts( t.render )
     end
     
     def title_bar( title )

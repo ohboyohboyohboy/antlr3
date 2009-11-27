@@ -70,8 +70,6 @@ class TestParser001 < ANTLR3::Test::Functional
   end
 end
 
-
-
 class TestParser002 < ANTLR3::Test::Functional
   inline_grammar(<<-'END')
     grammar SimpleLanguage;

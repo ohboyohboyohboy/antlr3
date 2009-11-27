@@ -5,7 +5,7 @@ require 'antlr3/test/functional'
 
 class TestBug80 < ANTLR3::Test::Functional
   inline_grammar(<<-'END')
-    lexer grammar TestBug80;
+    lexer grammar Bug80;
     options { language = Ruby; }
      
     ID_LIKE
@@ -18,9 +18,9 @@ class TestBug80 < ANTLR3::Test::Functional
     // with just 'a', output compiles
     Identifier: 'a'..'z'+ ;
   END
-
+  
   example "um... something" do
-    lexer = TestBug80::Lexer.new( 'defined' )
+    lexer = Bug80::Lexer.new( 'defined' )
     tokens = lexer.each { |tk| tk }
   end
 end

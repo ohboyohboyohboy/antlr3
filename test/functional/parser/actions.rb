@@ -53,53 +53,33 @@ class TestActions2 < ANTLR3::Test::Functional
     options { language = Ruby; }
     
     @parser::members {
-      require 'stringio'
-      def output_buffer
-        defined?(@output_buffer) or @output_buffer = StringIO.new('')
-        @output_buffer
-      end
-      def output
-        output_buffer.string
-      end
-      def capture(*args)
-        output_buffer.puts(*args)
-      end
+      include ANTLR3::Test::CaptureOutput
     }
     
     @lexer::members {
-      require 'stringio'
-      def output_buffer
-        defined?(@output_buffer) or @output_buffer = StringIO.new('')
-        @output_buffer
-      end
-      def output
-        output_buffer.string
-      end
-      def capture(*args)
-        output_buffer.puts(*args)
-      end
+      include ANTLR3::Test::CaptureOutput
     }
     @lexer::init { @foobar = 'attribute' }
     
     prog
-    @init  { capture('init')  }
-    @after { capture('after') }
+    @init  { say('init')  }
+    @after { say('after') }
       :   IDENTIFIER EOF
       ;
       catch [ RecognitionError => exc ] {
-        capture('catch')
+        say('catch')
         raise
       }
-      finally { capture('finally') }
+      finally { say('finally') }
     
     
     IDENTIFIER
         : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
           {
             # a comment
-            capture('action')
-            capture('\%p \%p \%p \%p \%p \%p \%p \%p' \% [$text, $type, $line, $pos, $index, $channel, $start, $stop])
-            capture(@foobar)
+            say('action')
+            say('\%p \%p \%p \%p \%p \%p \%p \%p' \% [$text, $type, $line, $pos, $index, $channel, $start, $stop])
+            say(@foobar)
           }
         ;
     

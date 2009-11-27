@@ -6,38 +6,15 @@ require 'antlr3/test/functional'
 class XMLLexerTest < ANTLR3::Test::Functional
   inline_grammar(<<-'END')
     lexer grammar XML;
-    options {
-      language = Ruby;
-    }
-    
-    @header {
-      require 'stringio'
-    }
-    
-    @init {
-      @output_buffer = StringIO.new
-    }
+    options { language = Ruby; }
     
     @members {
-      def say(line)
-        @output_buffer.puts(line)
-      end
-      
-      def output
-        @output_buffer.string
-      end
+      include ANTLR3::Test::CaptureOutput
+      include ANTLR3::Test::RaiseErrors
       
       def quote(text)
         text = text.gsub(/\"/, '\\"')
         \%("#{ text }")
-      end
-      
-      def emit_error_message(msg)
-        # do nothing
-      end
-      
-      def report_error(error)
-        raise error
       end
     }
     

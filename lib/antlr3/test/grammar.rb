@@ -3,7 +3,6 @@
 
 require 'antlr3/test/core-extensions'
 require 'antlr3/test/call-stack'
-require 'shellwords'
 
 if RUBY_VERSION =~ /^1\.9/
   require 'digest/md5'
@@ -221,7 +220,6 @@ private
       depends_on(grammar_file)
     end    
   end
-  
   
   def shell_escape(token)
     token = token.to_s.dup

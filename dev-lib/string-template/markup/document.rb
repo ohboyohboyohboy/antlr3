@@ -3,9 +3,9 @@
 
 require 'base64'
 
+module StringTemplate
+module Markup
 class Document
-  include Base64
-  
   DATA_PREAMBLE = (<<-END.here_indent!).freeze
   | 
   | __END__
@@ -71,7 +71,7 @@ class Document
   def serialize( output )
     output.write( @ruby_source )
     output.write( DATA_PREAMBLE )
-    output.write( encode64( Marshal.dump( self ) ) )
+    output.write( Base64.encode64( Marshal.dump( self ) ) )
   end
   
   def nodes_covering_line(line)
@@ -80,4 +80,5 @@ class Document
     end
   end
 end
-
+end
+end

@@ -26,13 +26,9 @@ class TestMainUtility < ANTLR3::Test::Functional
   example 'overriding the built-in script action using the @main named-action' do
     grammar = inline_grammar(<<-'END')
       lexer grammar MainOverride;
-      options {
-        language = Ruby;
-      }
-  
-      @main {
-        puts "hey the main is running"
-      }
+      options { language = Ruby; }
+      
+      @main { puts "hey the main is running" }
       
       ID: ('a'..'z' | '\u00c0'..'\u00ff')+;
       WS: ' '+ { $channel = HIDDEN; };

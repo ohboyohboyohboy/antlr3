@@ -3,6 +3,8 @@
 
 require 'tree-like'
 
+module StringTemplate
+module Markup
 class Node
   include TreeLike
   attr_accessor :id, :start, :finish, :document, :parent_id, :tag_id
@@ -16,16 +18,13 @@ class Node
     self.parent = parent unless parent.nil?
   end
   
-  def parent_id
-    parent.id if parent
-  end
-  
   def tag
     @document.tag( @tag_id )
   end
   
   def marshal_dump
-    [ parent_id, @tag_id, @start, @finish ]
+    @parent_id = parent.id if parent
+    [ @parent_id, @tag_id, @start, @finish ]
   end
   
   def marshal_load( data )
@@ -68,4 +67,5 @@ class Node
     '  ' * depth << tag
   end
 end
-
+end
+end

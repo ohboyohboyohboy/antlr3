@@ -2,7 +2,8 @@
 # encoding: utf-8
 
 require 'antlr3'
-require 'spec/test/unit'
+require 'test/unit'
+require 'spec'
 
 class DFASubclass < ANTLR3::DFA
   EOT = [1, 2].freeze

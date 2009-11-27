@@ -14,6 +14,19 @@ class << ENV
     return(parse(value, as_type, *arguments))
   end
   
+  def temporary( name, value = '' )
+    name, value = name.to_s, value.to_s
+    prior_value = fetch( name, :none )
+    ENV[ name ] = value
+    yield
+  ensure
+    if prior_value == :none
+      ENV.delete( name )
+    else
+      ENV[ name ] = prior_value
+    end
+  end
+  
   def add_onto( var, *values )
     values = [values, ENV[ var.to_s ]].flatten!
     values.compact!
@@ -30,7 +43,8 @@ class << ENV
     Config::CONFIG[ 'PATH_SEPARATOR' ] or ':'
   end
   
-  private
+private
+  
   def parse(value, type, *args)
     result = case type.to_s.downcase
     when 'array', 'list' then parse_array(value, *args)

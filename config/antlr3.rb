@@ -8,6 +8,8 @@ $project = Project.load( project_top, 'config/antlr3.yaml' ) do
   # load external rake task setup script from the
   # project's rake library directory
   def load_task( *name )
+    name.map! { |n| n.to_s }
+    
     load( rake_tasks( *name ) << '.rake' )
   end
   
@@ -136,3 +138,6 @@ $project.jar_command = %w( fastjar jar ).find do | cmd |
   $project.program_available? cmd
 end
 
+if $project.setup?
+  $project.load_environment
+end

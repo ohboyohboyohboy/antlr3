@@ -22,8 +22,11 @@ module Markup
     Document.restore( path )
   end
   
-  for lib in %w( location node parser document )
-    module_load( __DIR__ / 'markup' / "#{lib}.rb" )
-  end
 end
 end
+
+require 'strscan'
+require 'string-template/markup/location'
+require 'string-template/markup/node'
+require 'string-template/markup/parser'
+require 'string-template/markup/document'

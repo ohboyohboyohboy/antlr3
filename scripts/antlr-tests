@@ -1,0 +1,68 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+__DIR__ = File.dirname( __FILE__ )
+load File.join( __DIR__, 'script-helper.rb' )
+
+require 'main'
+require 'enhanced-test/manager'
+
+Main do
+  mixin :manager do
+    
+    def manager( opts = nil )
+      @manager ||=
+        ANTLR3::Test::Manager.new( opts || {} ) do | m |
+          yield( m ) if block_given?
+        end
+    end
+    
+  end
+  
+  
+  mode :unit do
+    mixin :manager
+    
+    def run
+      ANTLR3::Test::Manager.new do | m |
+      end
+    end
+    
+  end
+  
+  mode :functional do
+    mixin :manager
+    
+    def run
+      manager do | m |
+        m.functional_tests( $project.functional_tests )
+        m.run_tests
+        m.summarize( :style => 'single_line' )
+        m.dump_failures( $stdout )
+      end
+    end
+    
+  end
+  
+  mode :run do
+    mixin :manager
+    
+    argument( :test_files ) do
+      arity( -2 )
+    end
+    
+    def run
+      manager do | m |
+        m.functional_tests( params[ :test_files ].values )
+        m.run_tests
+        m.summarize
+        m.dump_failures( $stdout )
+      end
+    end
+    
+  end
+  
+  
+  run { help! }
+  
+end

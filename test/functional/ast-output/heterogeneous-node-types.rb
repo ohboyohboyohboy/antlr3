@@ -123,7 +123,7 @@ class TestHeterogeneousNodeTypes < ANTLR3::Test::Functional
 
 
   inline_grammar(<<-'END')
-    grammar String;
+    grammar FromString;
     options {
         language=Ruby;
         output=AST;
@@ -653,7 +653,7 @@ class TestHeterogeneousNodeTypes < ANTLR3::Test::Functional
 
 
   example "string" do
-    result = parse(:String, :a, 'begin')
+    result = parse(:FromString, :a, 'begin')
     result.should == 'begin<V>'
   end
 

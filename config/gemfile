@@ -10,7 +10,7 @@ gem "facets", "2.7.0"
 gem 'rake', "0.8.7"
 
 # antlr tests use a rspec environment with a test/unit structure
-gem "rspec"
+gem "rspec", "1.1.11"
 
 # code coverage
 gem "rcov"

@@ -476,7 +476,8 @@ class Project::PathList
     + - & |
   ]
 
-  DELEGATING_METHODS = (ARRAY_METHODS + MUST_DEFINE - MUST_NOT_DEFINE).sort.uniq
+  DELEGATING_METHODS =  (ARRAY_METHODS + MUST_DEFINE - MUST_NOT_DEFINE).
+                          sort_by { |m| m.to_s }.uniq
 
   # Now do the delegation.
   DELEGATING_METHODS.each_with_index do |sym, i|

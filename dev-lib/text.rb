@@ -2,8 +2,8 @@
 # encoding: utf-8
 
 module Text
-  autoload :Table, 'text/table'
-  autoload :ColumnList, 'text/column-list'
-  autoload :Tree, 'text/tree'
-  autoload :Box, 'text/box'
+  require 'text/box-style'
+  require 'text/utils'
+  require 'text/table'
+  require 'text/column-list'
 end

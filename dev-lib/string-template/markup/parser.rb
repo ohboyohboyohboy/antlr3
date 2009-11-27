@@ -1,6 +1,8 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 
+module StringTemplate
+module Markup
 class Parser
   attr_reader :stack, :node, :document, :scanner
   
@@ -110,5 +112,5 @@ class Parser
   end
   
 end
-
-
+end
+end

@@ -23,12 +23,18 @@ class ANTLRDebugger < Thread
           #Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
           #@socket.connect( Socket.pack_sockaddr_in(@port, '127.0.0.1') )
         rescue Errno::ECONNREFUSED => error
-          puts("%s:%s received connection refuse error: %p" % [__FILE__, __LINE__, error])
-          puts("sleeping for 0.1 seconds before retrying")
+          if $VERBOSE
+            $stderr.printf(
+                "%s:%s received connection refuse error: %p\n",
+                __FILE__, __LINE__, error
+              )
+            $stderr.puts("sleeping for 0.1 seconds before retrying")
+          end
           sleep(0.01)
           retry
         end
       end
+      
       @socket.readline.strip.should == 'ANTLR 2'
       @socket.readline.strip.start_with?('grammar "').should == true
       ack
@@ -46,7 +52,6 @@ class ANTLRDebugger < Thread
   end
   
   def ack
-    #$stderr.puts("===> ACK")
     @socket.write("ACK\n")
     @socket.flush
   end

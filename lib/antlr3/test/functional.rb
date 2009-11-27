@@ -6,7 +6,8 @@ require 'antlr3/test/core-extensions'
 require 'antlr3/test/grammar'
 require 'antlr3/test/call-stack'
 
-require 'spec/test/unit'
+require 'test/unit'
+require 'spec'
 
 module ANTLR3
 module Test
@@ -32,7 +33,7 @@ module Location
 end # module Location
 
 module NameSpace
-  def import(ruby_file)
+  def import( ruby_file )
     constants_before = constants
     class_eval(File.read(ruby_file), ruby_file, 1)
     constants - constants_before
@@ -52,20 +53,41 @@ module GrammarManager
   include NameSpace
   
   DEFAULT_COMPILE_OPTIONS = {}
-  if jar = ENV['ANTLR_JAR'] || ANTLR3.antlr_jar
-    DEFAULT_COMPILE_OPTIONS[:antlr_jar] = jar
-    Grammar.global_dependency jar
+  
+  def add_default_compile_option( name, value )
+    DEFAULT_COMPILE_OPTIONS[ name ] = value
+  end
+  module_function :add_default_compile_option
+  
+  if ANTLR_JAR = ENV['ANTLR_JAR'] || ANTLR3.antlr_jar
+    add_default_compile_option( :antlr_jar, ANTLR_JAR )
+    
+    Grammar.global_dependency( ANTLR_JAR )
+  end
+  
+  def const_missing( name )
+    if g = grammars[ name.to_s ]
+      compile( g )
+      grammars.delete( name.to_s )
+      const_get( name )
+    else
+      super
+    end
   end
   
   def grammars
-    @grammars ||= []
+    @grammars ||= {}
+  end
+  
+  def grammar_count
+    grammars.length
   end
   
   def load_grammar( name )
     path = local_path( name.to_s )
     path =~ /\.g$/ or path << '.g'
     grammar = Grammar.new( path, :output_directory => output_directory )
-    register_grammar(grammar)
+    register_grammar( grammar )
     return grammar
   end
   
@@ -75,9 +97,7 @@ module GrammarManager
                 :output_directory => output_directory,
                 :file => (call.file rescue nil),
                 :line => (call.line rescue nil)
-    if options.fetch(:compile, true)
-      register_grammar(grammar)
-    end
+    register_grammar(grammar)
     return grammar
   end
   
@@ -87,30 +107,22 @@ module GrammarManager
     return @compile_options
   end
   
-  def compile(grammar_name, options = {})
-    record = grammars.assoc(grammar_name.to_s)
-    unless record[2]
-      grammar = record[1]
-      grammar.compile(compile_options.merge(options))
-      import_grammar_targets( grammar )
-      record[2] = true
-    end
-    return record[1]
+  def compile(grammar, options = {})
+    grammar.compile( compile_options.merge(options) )
+    import_grammar_targets( grammar )
+    return grammar
   end
   
 private
+  
   def register_grammar(grammar)
     name = grammar.name
-    if existing_record = grammars.assoc(name)
-      conflicting_grammar = existing_record[1]
-      unless conflicting_grammar.source == grammar.source
-        error = NameError.new(<<-END.here_indent!, name)
-        | Multiple grammars exist with the name ``#{name}''
-        END
-        raise error, caller
-      end
+    
+    if conflict = grammars[ name ] and conflict.source != grammar.source
+      message = "Multiple grammars exist with the name ``#{name}''"
+      raise NameError, message
     else
-      grammars << [name, grammar, false]
+      grammars[ name ] = grammar
     end
   end
 end # module GrammarManager
@@ -121,24 +133,6 @@ class Functional < ::Test::Unit::TestCase
   def self.inherited(klass)
     super
     klass.test_path = call_stack[0].file
-    
-    klass.send(:before, :all) do
-      grammars = klass.grammars.map { |n, *| n }
-      total = grammars.length
-      grammars.each_with_index do |name, i|
-        notify_progress(name, i, total)
-        klass.compile( name )
-      end
-      $stderr.print(' ' * 80 << "\r")
-      $stderr.flush
-    end
-  end
-  
-  def notify_progress(name, index, total)
-    progress = (index.to_f * 100 / total).round
-    $stderr.printf("[%2i%% %3i of %3i] compiling grammar %s\r",
-                   progress, index + 1, total, name)
-    $stderr.flush
   end
   
   def local_path(*args)
@@ -162,11 +156,10 @@ class Functional < ::Test::Unit::TestCase
   end
   
   def compile_and_load( grammar, options = {} )
-    options = self.class.compile_options.merge options
-    grammar.compile( options )
-    self.class.import_grammar_targets( grammar )
+    self.class.compile( grammar, options )
   end
 end # class Functional
+
 
 
 module CaptureOutput

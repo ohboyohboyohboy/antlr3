@@ -2,6 +2,8 @@
 # encoding: utf-8
 require 'rbconfig'
 
+Dir.chdir File.dirname( __FILE__ )
+
 def command?( name )
   sep = Config::CONFIG.fetch( "PATH_SEPARATOR", ':' )
   ENV[ "PATH" ].split( sep ).find do | dir |
@@ -20,4 +22,6 @@ sh "ruby scripts/gem-bundle.rb"
 
 if command?( "less" ) and $stdout.tty?
   sh "less DEVELOPER-README.txt"
+else
+  puts File.read( 'DEVELOPER-README.txt' )
 end

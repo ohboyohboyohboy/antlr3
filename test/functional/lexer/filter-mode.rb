@@ -104,17 +104,8 @@ class TestFuzzy < ANTLR3::Test::Functional
         filter=true;
     }
     
-    @header { require 'stringio' }
-    @init { @output = StringIO.new() }
-    
     @members {
-      def output
-        @output.string
-      end
-      
-      def say(*args)
-        @output.puts(*args)
-      end
+      include ANTLR3::Test::CaptureOutput
     }
     
     IMPORT

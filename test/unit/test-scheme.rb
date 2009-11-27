@@ -1,7 +1,8 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 require 'antlr3'
-require 'spec/test/unit'
+require 'test/unit'
+require 'spec'
 
 include ANTLR3
 

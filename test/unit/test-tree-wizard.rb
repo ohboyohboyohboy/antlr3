@@ -3,7 +3,8 @@
 
 require 'antlr3'
 require 'antlr3/tree/wizard'
-require 'spec/test/unit'
+require 'test/unit'
+require 'spec'
 
 
 include ANTLR3
