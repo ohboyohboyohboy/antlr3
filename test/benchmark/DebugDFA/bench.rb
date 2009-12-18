@@ -88,10 +88,11 @@ end
 def bench(name)
   GC.disable
   before = Time.now
-  yield
+  value = yield
   elapsed = Time.now - before
   add_bench_value(name, elapsed)
   GC.enable
+  return( value )
 end
 
 require 'test-tools'

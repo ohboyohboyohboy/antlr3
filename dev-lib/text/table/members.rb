@@ -8,8 +8,12 @@ class Member
   include Enumerable
   
   class << self
+    attr_reader :member_name
     def define( member_name, sup = self, &body )
-      klass = Class.new( sup, &body )
+      klass = Class.new( sup ) do
+        @member_name = member_name
+        class_eval( &body )
+      end
       
       define_method( "#{ member_name }!" ) do |*args|
         klass.new( @table, *args ) { |m| link(m) }.tail
@@ -33,6 +37,11 @@ class Member
   
   def initialize!( * )
     # do nothing
+  end
+  
+  def inspect( *args )
+    content = args.map! { |a| a.inspect }.join(', ')
+    "#{self.class.member_name}(#{content})"
   end
   
   def each
@@ -106,7 +115,6 @@ Row = Member.define( 'row' ) do
     @cells[ index ] = value
   end
   
-  
   def cells
     pad
     @table.columns.zip( @cells ).
@@ -133,6 +141,10 @@ Row = Member.define( 'row' ) do
   end
   
 
+
+  def inspect
+    super( *cells )
+  end
 private
   
   def prepare
@@ -153,7 +165,7 @@ private
     n = @table.columns.length
     m = @cells.length
     if n > m
-      @cells.fill( '', m, n - m )
+      @cells.fill( ' ', m, n - m )
     end
   end
   
@@ -162,7 +174,7 @@ end
 TitleRow = Member.define( 'title_row', Row ) do
   def initialize!( *content )
     super
-    divider!( :title_row )
+    divider!( :title_divider )
   end
   
   def render!( out )
@@ -179,6 +191,10 @@ Divider = Member.define( 'divider' ) do
   
   def render( out )
     super( out ) unless @after.is_a?( Divider )
+  end
+  
+  def inspect( *args )
+    super( @type, *args )
   end
   
   def render!( out )
@@ -198,6 +214,9 @@ SectionTitle = Member.define( 'section', Divider ) do
     @alignment = options.fetch( :align, :left )
   end
   
+  def inspect
+    super( @title, @alignment )
+  end
   
   def render!( out )
     out.puts simulate( :foot )

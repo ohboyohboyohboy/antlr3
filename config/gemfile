@@ -21,6 +21,9 @@ gem "ruby-prof"
 # textile markup for documentation
 gem "RedCloth"
 
+# simple and supposedly OS independent command execution
+gem 'systemu'
+
 # where the gem libs go
 bundle_path '../vendor'
 
@@ -28,4 +31,5 @@ bundle_path '../vendor'
 bin_path '../vendor/bin'
 
 # turns off rubygems in code
-disable_system_gems
+disable_rubygems
+#disable_system_gems

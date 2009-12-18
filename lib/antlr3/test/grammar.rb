@@ -1,8 +1,10 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 
+require 'antlr3'
 require 'antlr3/test/core-extensions'
 require 'antlr3/test/call-stack'
+
 
 if RUBY_VERSION =~ /^1\.9/
   require 'digest/md5'
@@ -112,6 +114,14 @@ class Grammar
     tree? and name + '.rb'
   end
   
+  def has_lexer?
+    @type == 'combined' || @type == 'lexer'
+  end
+  
+  def has_parser?
+    @type == 'combined' || @type == 'parser'
+  end
+  
   def lexer?
     @type == "lexer"
   end
@@ -123,6 +133,8 @@ class Grammar
   def tree?
     @type == "tree"
   end
+  
+  alias has_tree? tree?
   
   def combined?
     @type == "combined"

@@ -208,7 +208,7 @@ class File
 end
 
 class Dir
-  DOTS = %w(. ..).freeze
+  defined?(DOTS) or DOTS = %w(. ..).freeze
   def self.children(directory)
     entries = Dir.entries(directory) - DOTS
     entries.map! do |entry|

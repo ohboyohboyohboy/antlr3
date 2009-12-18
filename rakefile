@@ -6,29 +6,31 @@
 ####################################################################################################
 load './config/antlr3.rb'
 
+def run( name )
+  Rake::Task.task_defined?( name ) or file( name )
+  task = Rake::Task[ name ]
+  task.needed? and task.invoke
+end
+
+def abs( path ); File.expand_path( path ); end
+def rel( path, dir = '.' ); File.relative_path( path, dir ); end
+
 ####################################################################################################
 ######################################### task definitions #########################################
 ####################################################################################################
 
 # tasks concerning the development environment
-namespace :dev do
-  
-  desc "update development gem dependencies using config/gemfile"
-  task :update do
-    $project.load_task 'update_gems'
-  end
-  
-  desc "update gems and setup project development environment"
-  task :setup => %w(dev:update) do
-    $project.load_environment
-  end
-  
+desc "update development gem dependencies using config/gemfile"
+task :update do
+  $project.load_task 'update_gems'
 end
 
-task :dev => %w(dev:setup)
+desc "update gems and setup project development environment"
+task :setup => %w(update) do
+  $project.load_environment
+end
 
 if $project.setup?
-  
   require 'rake/testtask'
   require 'spec/rake/spectask'
   require 'rake/gempackagetask'
@@ -53,7 +55,7 @@ if $project.setup?
   $project.load_task( :test )
   
   desc( "run all tests" )
-  task :test => %w( test:unit test:functional )
+  task :test => %w( test:all )
   
   Rake::GemPackageTask.new( $project.gem_specification ) do | t |
     t.need_zip = true

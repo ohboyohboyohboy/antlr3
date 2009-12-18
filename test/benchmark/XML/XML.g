@@ -16,8 +16,8 @@ fragment DOCTYPE
             ( WS )?
         )?
         ( dtd=INTERNAL_DTD )?
-		  '>'
-	;
+      '>'
+  ;
 
 fragment INTERNAL_DTD : '[' .* ']' ;
 
@@ -57,12 +57,12 @@ fragment END_TAG
     ;
 
 fragment COMMENT
-	:	'<!--' (options {greedy=false;} : .)* '-->'
-	;
+  :	'<!--' (options {greedy=false;} : .)* '-->'
+  ;
 
 fragment CDATA
-	:	'<![CDATA[' .* ']]>'
-	;
+  :	'<![CDATA[' .* ']]>'
+  ;
 
 fragment PCDATA : (~'<')+ ; 
 
@@ -70,16 +70,16 @@ fragment VALUE :
         ( '\"' (~'\"')* '\"'
         | '\'' (~'\'')* '\''
         )
-	;
+  ;
 
 fragment GENERIC_ID 
   : ( LETTER | '_' | ':') (LETTER | '0'..'9' | '.' | '-' | '_' | ':')*
-	;
+  ;
 
 fragment LETTER
-	: 'a'..'z' 
-	| 'A'..'Z'
-	;
+  : 'a'..'z' 
+  | 'A'..'Z'
+  ;
 
 fragment WS  :
   ( ' ' | '\t' | ( '\n' |	'\r\n' |	'\r' ) )+

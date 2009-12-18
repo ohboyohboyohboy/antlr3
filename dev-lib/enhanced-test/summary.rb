@@ -10,21 +10,23 @@ Summary = Struct.new(
 )
 
 class Summary
+  FIELDS = members.map { |m| m.to_s }
   COUNT_FIELDS = members - %w( duration )
+  UNIT_TEST_FIELDS = members - %w( import_errors syntax_errors compilation_failures )
   
   def self.restore( serialized )
     new.restore( serialized )
   end
   
   DESCRIPTIONS = {
-    :passed                 => %w( passed green ),
-    :pending                => %w( pending yellow ),
-    :failed                 => %w( failed red ),
-    :example_errors         => %w( error red ),
-    :import_errors          => %w( runtime magenta ),
-    :syntax_errors          => %w( syntax magenta ),
-    :compilation_failures   => %w( antlr magenta ),
-    nil                     => %w( no\ tests cyan )
+    'passed'                 => %w( passed green ),
+    'pending'                => %w( pending yellow ),
+    'failed'                 => %w( failed red ),
+    'example_errors'         => %w( error red ),
+    'import_errors'          => %w( runtime magenta ),
+    'syntax_errors'          => %w( syntax magenta ),
+    'compilation_failures'   => %w( antlr magenta ),
+    nil                      => %w( no\ tests cyan )
   }
   
   def initialize( *args )
@@ -70,7 +72,7 @@ class Summary
     end
     
     desc, color =
-      DESCRIPTIONS.fetch( field.to_sym, [ field.to_s, 'blue' ] )
+      DESCRIPTIONS.fetch( field, [ field.to_s, 'blue' ] )
     with_color and desc = desc.send( color )
     
     return( desc )
@@ -84,7 +86,30 @@ class Summary
       desc = description( true )
     end
     
-    report = [ desc, total, *to_a ]
+    return format_fields( [ desc, total, *to_a ] )
+  end
+  
+  def unit_test_report( opts = nil )
+    if opts
+      with_color = opts.fetch( :color, true )
+      desc = opts[ :description ] || description( with_color )
+    else
+      desc = description( true )
+    end
+    
+    values = UNIT_TEST_FIELDS.map { |f| self[ f ] }
+    return format_fields( [ desc, total, *values ] )
+  end
+  
+private
+
+  def format_fields( values )
+    values.map! do | v |
+      case v
+      when Float then '%0.4f' % v
+      else v.to_s
+      end
+    end
   end
   
 end

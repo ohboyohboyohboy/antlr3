@@ -5,64 +5,206 @@ __DIR__ = File.dirname( __FILE__ )
 load File.join( __DIR__, 'script-helper.rb' )
 
 require 'main'
-require 'enhanced-test/manager'
+require 'enhanced-test/session'
 
 Main do
-  mixin :manager do
-    
-    def manager( opts = nil )
-      @manager ||=
-        ANTLR3::Test::Manager.new( opts || {} ) do | m |
-          yield( m ) if block_given?
-        end
-    end
-    
+  option( :log ) do
+    description( "path to use as test log" )
+    default( $project.test.log )
   end
   
+  def session
+    @session ||= ANTLR3::Test::Session.new( session_options )
+    block_given? ? yield( @session ) : @session
+  end
+  
+  def session_options
+    @session_options ||= {
+      :log => params[ :log ].value,
+      :output => stdout,
+      :load_path => [ $project.lib ],
+      :functional => test_options,
+      :unit => test_options,
+      :profile => { :require => $project.bundler.environment }
+    }
+  end
+  
+  def test_options( additions = nil )
+    @test_options ||= {
+      :load_path => [ $project.dev_lib ],
+      :require => $project.path( 'config/antlr3.rb' ),
+      :arguments => [
+        '--require', $project.dev_lib( 'enhanced-test.rb' ),
+        '--format', "ANTLRFormatter",
+        '--runner', "ANTLRRunner",
+        '--backtrace'
+      ]
+    }
+  end
+  
+  mixin :test_arguments do
+    argument( :tests ) do
+      description( <<-END.here_flow! )
+      | any combination of category names, test names, paths to test files
+      | or `all'
+      END
+      default( 'all' )
+      arity( -1 )
+    end
+    
+    def test_files
+      files = []
+      for arg in params[:tests].values
+        if arg == 'all'
+          files += all
+        elsif File.file?( arg )
+          files << arg
+        elsif File.directory?( arg )
+          files += Dir.children( arg ).select { | f | File.file?( f ) }
+        elsif matches = match_tests?( arg )
+          files += matches
+        else
+          warn("can't associate argument %p with any test files -- ignoring" % arg)
+        end
+      end
+      return( files.uniq )
+    end
+    
+    def match_tests?( a )
+      ( ts = match_tests( a ) and ! ts.empty? ) ? ts : false
+    end
+  end
+  
+  mixin :all_types do
+    argument( :types ) do
+      description( <<-'END'.here_indent! )
+      | `all', `functional', `unit', or `benchmark'
+      END
+      
+      default( 'all' )
+      arity( -1 )
+    end
+    
+    def add_tests( s )
+      include_types = [ false, false, false ]
+      for keyword in params[ :types ].values
+        case keyword
+        when 'all' then include_types.map! { true }
+        when 'unit' then include_types[0] = true
+        when 'functional' then include_types[1] = true
+        when 'benchmark' then include_types[2] = true
+        end
+      end
+      include_types[0] and s.add_unit( $project.test.unit!( '*.rb' ) )
+      include_types[1] and s.add_functional( $project.test.functional!('*','*.rb') )
+      include_types[2] and s.add_benchmark( $project.test.benchmark!('*.yaml') )
+    end
+  end
   
   mode :unit do
-    mixin :manager
+    mixin :test_arguments
     
     def run
-      ANTLR3::Test::Manager.new do | m |
+      session do | s |
+        s.add_unit( test_files )
+        s.run_tests
       end
+    end
+    
+    def all
+      $project.test.unit!('test-*.rb')
+    end
+    
+    def match_tests( arg )
+      $project.test.unit!( "*#{ arg }*.rb" )
     end
     
   end
   
   mode :functional do
-    mixin :manager
+    mixin :test_arguments
     
     def run
-      manager do | m |
-        m.functional_tests( $project.functional_tests )
-        m.run_tests
-        m.summarize( :style => 'single_line' )
-        m.dump_failures( $stdout )
+      session do | s |
+        s.add_functional( test_files )
+        s.run_tests
       end
     end
     
+    def all
+      $project.test.functional!('*','*.rb')
+    end
+    
+    def match_tests( arg )
+      $project.test.functional!( name + '*', '*.rb' ) +
+      $project.test.functional!( '*', name + '*.rb' )
+    end
+  end
+  
+  mode :benchmark do
+    mixin :test_arguments
+    
+    def run
+      session do | s |
+        s.add_benchmark( test_files )
+        s.run_tests
+      end
+    end
+    
+    def all
+      $project.test.benchmark!( '*.yaml' )
+    end
+    
+    def match_tests( arg )
+      $project.test.benchmark!( "#{arg}*.yaml" )
+    end
+  end
+  
+  mode :profile do
+    mixin :test_arguments
+    
+    def run
+      timestamp = Time.now.strftime("%m-%d-%y-%I%M%P")
+      report_directory = $project.path( 'log', timestamp )
+      Dir.mkdir( report_directory )
+      
+      session do | s |
+        s.add_profile( test_files,
+          :require => $project.bundler.environment )
+        s.run_tests
+      end
+    end
+    
+    def all
+      $project.test.benchmark!( '*.yaml' )
+    end
+    
+    def match_tests( arg )
+      $project.test.benchmark!( "#{arg}*.yaml" )
+    end
+  end
+  
+  mode :clean do
+    mixin :all_types
+    
+    def run
+      session do | s |
+        add_tests( s )
+        s.clean( :verbose => true, :dry_run => true )
+      end
+    end
   end
   
   mode :run do
-    mixin :manager
-    
-    argument( :test_files ) do
-      arity( -2 )
-    end
+    mixin :all_types
     
     def run
-      manager do | m |
-        m.functional_tests( params[ :test_files ].values )
-        m.run_tests
-        m.summarize
-        m.dump_failures( $stdout )
+      session do | s |
+        add_tests( s )
+        s.run_tests
       end
     end
-    
   end
   
-  
   run { help! }
-  
 end

@@ -5,14 +5,35 @@ require 'text'
 
 module Text
   class ColumnList
+    include Measurement
+    
     SizeToken = Struct.new(:length, :index) do
       def <=>(o)
-        self.length <=> o.length
+        o.length <=> length
       end
     end
     Column = Struct.new(:index, :width, :start, :finish, :padding)
     
     attr_reader :column_spacing, :items, :width_limit, :columns, :number_of_columns
+    
+    def initialize( *items )
+      items = [ items ].flatten!
+      options = items.last.is_a?( Hash ) ? items.pop : {}
+      
+      @items = []
+      @tokens = []
+      
+      for item in items
+        item = item.to_s
+        @tokens << SizeToken[ measure( item ), @items.length ]
+        @items << item
+      end
+      @tokens.sort!
+      
+      @width_limit = options.fetch( :width_limit ) { $stdout.screen_width }
+      @column_spacing = options.fetch( :column_spacing, 2 )
+      @number_of_columns = options.fetch( :columns ) { optimize_width }
+    end
     
     def spacer
       ' ' * @column_spacing
@@ -61,27 +82,6 @@ module Text
       basic_width = columns.inject( 0 ) { | sum, column | sum + column.width }
       space_width = (@number_of_columns - 1) * @column_spacing
       basic_width + space_width
-    end
-    
-    def initialize(list, options = {})
-      @items = list.map { |i| i.to_s }
-      
-      iterator = @items.enum_for(:map)
-      @tokens = 
-        if block_given?
-          iterator.with_index do |text, index|
-            SizeToken[ yield( text, index ).to_i, index ]
-          end
-        else
-          iterator.with_index do |text, index|
-            SizeToken[ text.length, index ]
-          end
-        end
-      @tokens.sort!.reverse!
-      
-      @width_limit = options.fetch( :width_limit ) { $stdout.screen_width }
-      @column_spacing = options.fetch( :column_spacing, 2 )
-      @number_of_columns = options.fetch( :columns ) { optimize_width }
     end
     
     def optimize_width(limit = @width_limit)

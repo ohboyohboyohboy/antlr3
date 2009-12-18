@@ -14,16 +14,19 @@ class << ENV
     return(parse(value, as_type, *arguments))
   end
   
-  def temporary( name, value = '' )
-    name, value = name.to_s, value.to_s
-    prior_value = fetch( name, :none )
-    ENV[ name ] = value
+  def temporary( value_map )
+    current = {}
+    for name, value in value_map
+      name, value = name.to_s, value.to_s
+      current[ name ] = fetch( name, :none )
+      self[ name ] = value
+    end
     yield
   ensure
-    if prior_value == :none
-      ENV.delete( name )
-    else
-      ENV[ name ] = prior_value
+    for name, value in current
+      if value == :none then delete( name )
+      else self[ name ] = value
+      end
     end
   end
   
@@ -40,7 +43,7 @@ class << ENV
   end
   
   def path_separator
-    Config::CONFIG[ 'PATH_SEPARATOR' ] or ':'
+    Config::CONFIG.fetch( 'PATH_SEPARATOR', ':' )
   end
   
 private

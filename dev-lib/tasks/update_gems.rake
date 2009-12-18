@@ -1,15 +1,14 @@
-plugin_lib = $project.bundler.lib( 'rubygems_plugin.rb' )
+bundler = $project.bundler
 
-file( $project.bundler.config )
+file( bundler.config )
 
-file( plugin_lib ) do
-  relative = File.relative_path( $project.bundler.top )
+file( bundler.plugin ) do
   sh( "git submodule init" )
-  sh( "git submodule update #{relative}" )
+  sh( "git submodule update #{ bundler.top }" )
 end
 
-file( $project.bundler.environment => [ plugin_lib, $project.bundler.config ] ) do
+file( bundler.environment => [ bundler.plugin, bundler.config ] ) do
   $project.run_bundler
 end
 
-Rake::Task[ $project.bundler.environment ].invoke
+run bundler.environment

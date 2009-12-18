@@ -5,10 +5,14 @@ require 'spec/runner/formatter/progress_bar_formatter'
 
 PrettyError.blacklist( __FILE__, 'rspec', 'timeout.rb' )
 
+class ::Spec::Runner::Formatter::ProgressBarFormatter
+  remove_method :method_missing
+end
+#
 module ANTLR3
 module Test
 class Formatter < ::Spec::Runner::Formatter::ProgressBarFormatter
-  
+  include Messages
   # just a little alias to keep things clean
   NoDice = Spec::Expectations::ExpectationNotMetError
   
@@ -19,14 +23,12 @@ class Formatter < ::Spec::Runner::Formatter::ProgressBarFormatter
   
   def example_passed(example)
     @summary.passed += 1
-    $stdout.print('+')
-    $stdout.flush
+    inform( PASSED )
   end
   
   def example_pending(example, message, pending_caller)
     @summary.pending += 1
-    $stdout.print('-')
-    $stdout.flush
+    inform( PENDING )
   end
   
   def example_failed(example, counter, failure)
@@ -37,8 +39,12 @@ class Formatter < ::Spec::Runner::Formatter::ProgressBarFormatter
     when NoDice      then @summary.failed += 1
     else @summary.example_errors += 1
     end
-    $stdout.print('!')
-    $stdout.flush
+    inform( FAILED )
+  end
+  
+  def start_dump
+    @where.print( DIVIDER )
+    @where.flush
   end
   
   def dump_failure(counter, failure)
@@ -59,9 +65,15 @@ class Formatter < ::Spec::Runner::Formatter::ProgressBarFormatter
   def dump_summary(duration, example_count, failure_count, pending_count)
     ret = super
     @summary.duration = duration
-    @where.write("\n__END__\n#{ @summary.serialize }")
+    @where.print( DIVIDER )
+    @where.print( @summary.serialize )
     @where.flush
     return(ret)
+  end
+  
+  def inform( message )
+    @where.putc( message )
+    @where.flush
   end
   
 #  add_example_group, close, dump_failure, dump_pending,
@@ -78,6 +90,7 @@ class Runner < Spec::Runner::ExampleGroupRunner
   end
   
   def run
+    
     prepare
     
     for example_group in example_groups
@@ -92,10 +105,8 @@ class Runner < Spec::Runner::ExampleGroupRunner
   end
   
   def finish
-    
     super
     exit!( @status )
-    
   end
   
 end

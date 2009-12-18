@@ -20,20 +20,43 @@ development_dependencies: [rspec]
 requirements: [java]
 required_ruby_version: ">= 1.8.7"
 
+package_files: !pathlist
+  include:
+    - lib/**/*.rb
+    - test/unit/**/*
+    - test/functional/*/*.rb
+    - templates/*.stg
+    - samples/Cpp.g
+    - samples/ANTLRv3Grammar.g
+    - *.txt
+    - java/antlr-full-$(antlr_version).jar
+    - java/*.java
+  exclude:
+    - lib/antlr3/token/*.rb
+
 # 
 # important paths in the project tree
 # 
-antlr:
-  jar: antlr-full-$(antlr_version).jar
-  templates: org/antlr/codegen/templates
-  targets: org/antlr/codegen
+antlr: !pathmap
+  jar: java/antlr-full-$(antlr_version).jar
+  templates: java/org/antlr/codegen/templates
+  targets: java/org/antlr/codegen
+  target: java/RubyTarget.java
   
 bundler: !pathmap
+  top: vendor/bundler
   lib: vendor/bundler/lib
+  plugin: vendor/bundler/lib/rubygems_plugin.rb
   environment: vendor/environment.rb
   config: config/gemfile
-  top: vendor/bundler
   gems: vendor/gems
+
+test: !pathmap
+  unit: test/unit
+  functional: test/functional
+  benchmark: test/benchmark
+  log: log/test.log
+  results: log/test-results.txt
   
 rake_tasks: !path dev-lib/tasks
 dev_lib: !path dev-lib
@@ -55,20 +78,8 @@ unit_tests: !pathlist
 functional_tests: !pathlist
   - test/functional/*/*.rb
 
-package_files: !pathlist
-  include:
-    - lib/**/*.rb
-    - test/unit/**/*
-    - test/functional/*/*.rb
-    - templates/*.stg
-    - samples/Cpp.g
-    - samples/ANTLRv3Grammar.g
-    - *.txt
-    - java/antlr-full-$(antlr_version).jar
-    - java/*.java
-  exclude:
-    - lib/antlr3/token/*.rb
-
+templates: !pathlist
+  - templates/*.stg
 
 #   
 # project environment setup

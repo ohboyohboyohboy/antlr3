@@ -65,7 +65,7 @@ class TestCalcParser < ANTLR3::Test::Functional
   END
   
   def evaluate(expression)
-    lexer = TestCalc::Lexer.new( expression )
+    lexer  = TestCalc::Lexer.new( expression )
     parser = TestCalc::Parser.new lexer
     value = parser.evaluate
     errors = parser.reported_errors

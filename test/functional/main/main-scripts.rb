@@ -8,46 +8,30 @@ ENV.delete( 'RUBYOPT' )
 ENV['RUBYLIB'] = ANTLR3.library_path
 
 class TestMainUtility < ANTLR3::Test::Functional
-  require 'tempfile'
-  
-  def redirect
-    tmp_file = Tempfile.new('t054')
-    stdout = $stdout.clone
-    begin
-      $stdout.reopen(tmp_file)
-      yield
-      tmp_file.rewind
-      return(tmp_file.read)
-    ensure
-      $stdout.reopen(stdout)
-    end
-  end
   
   example 'overriding the built-in script action using the @main named-action' do
     grammar = inline_grammar(<<-'END')
       lexer grammar MainOverride;
       options { language = Ruby; }
       
-      @main { puts "hey the main is running" }
+      @main {
+        raise( "the main block ran" )
+      }
       
       ID: ('a'..'z' | '\u00c0'..'\u00ff')+;
       WS: ' '+ { $channel = HIDDEN; };
     END
     
-    out = redirect do
-      compile_and_load(grammar)
-    end
-    
-    # this assertion indicates that the main region doesn't run
-    # when the script file is required as a library
-    out.should be_empty
+    # when this grammar is compiled and the resulting ruby files
+    # are loaded as a library, the custom @main block
+    # should not be executed
+    proc { compile_and_load( grammar ) }.should_not raise_error
     
     # this assertion verifies that the main region is executed
     # when the parser script is run directly
-    ENV['RUBYLIB'] = ANTLR3.library_path
     lexer_script = grammar.target_files.first
-    out = `ruby #{lexer_script}`.chomp
-    out.should == 'hey the main is running'
+    out = `ruby #{lexer_script} 2>&1`.chomp
+    out.should =~ /the main block ran/
   end
   
   example 'using Lexer.main() to run the built-in lexer utility script on a source file' do

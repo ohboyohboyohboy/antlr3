@@ -60,7 +60,7 @@ private
   
   def open_node_table( line_digits )
     buffer.print( '╠' )
-    buffer.print( '=' * ( width - 8 - 2 * line_digits ) )
+    buffer.print( '═' * ( width - 8 - 2 * line_digits ) )
     2.times do
       buffer.print( '╤' )
       buffer.print( '═' * ( line_digits + 2 ) )

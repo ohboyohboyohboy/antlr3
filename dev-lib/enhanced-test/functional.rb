@@ -4,6 +4,8 @@
 module ANTLR3
 module Test
 class Grammar
+  include Messages
+  
   @@inform = false
   def self.inform!
     unless @inform
@@ -28,26 +30,22 @@ class Grammar
     end
     
     if @@inform
-      $stdout.print( '.' )
+      $stdout.putc( GRAMMAR_COMPILE )
       $stdout.flush
     end
   end
-  
 end
 
 
 GrammarManager.add_default_compile_option( :debug_st, true )
 
 class Functional
-  
-  
   def self.import( ruby_file )
     super
   rescue => error
     raise ImportError.new( error )
   end
 end
-
 
 class ImportError < StandardError
   

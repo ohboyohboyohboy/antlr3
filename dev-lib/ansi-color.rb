@@ -15,20 +15,20 @@ module ANSIEscapes
   FOREGROUND_COLORS = {
     :cyan           => "\e[36m",
     :blue           => "\e[34m",
-    :bright_red     => "\e[1m\e[31m",
+    :bright_red     => "\e[1;31m",
     :red            => "\e[31m",
-    :bright_black   => "\e[1m\e[30m",
+    :bright_black   => "\e[1;30m",
     :white          => "\e[37m",
-    :bright_white   => "\e[1m\e[37m",
-    :bright_blue    => "\e[1m\e[34m",
+    :bright_white   => "\e[1;37m",
+    :bright_blue    => "\e[1;34m",
     :green          => "\e[32m",
-    :bright_yellow  => "\e[1m\e[33m",
-    :bright_cyan    => "\e[1m\e[36m",
+    :bright_yellow  => "\e[1;33m",
+    :bright_cyan    => "\e[1;36m",
     :yellow         => "\e[33m",
     :magenta        => "\e[35m",
-    :bright_green   => "\e[1m\e[32m",
+    :bright_green   => "\e[1;32m",
     :black          => "\e[30m",
-    :bright_magenta => "\e[1m\e[35m"
+    :bright_magenta => "\e[1;35m"
   }
   
   BACKGROUND_COLORS = {
@@ -41,6 +41,7 @@ module ANSIEscapes
     :on_cyan    => "\e[46m",
     :on_black   => "\e[40m"
   }
+  
   
   COLORS = BACKGROUND_COLORS.merge(FOREGROUND_COLORS)
   ALL_ESCAPES = COLORS.merge(STYLES)

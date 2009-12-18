@@ -157,7 +157,7 @@ module_function
   def blacklist( *patterns )
     unless patterns.empty?
       for pattern in [ patterns ].flatten!
-        BLACKLIST << Regexp === pattern ? pattern : Regexp.literal( pattern )
+        BLACKLIST << (Regexp === pattern ? pattern : Regexp.literal( pattern ))
       end
     end
     

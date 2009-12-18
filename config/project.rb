@@ -61,10 +61,12 @@ class PropertyGroup
     elsif name =~ /^\w+$/
       case args.length
       when 0
-        message = "%s has no property or method named ``%s''" % [property_group_name, method]
-        error = NoMethodError.new( message, method )
-        error.set_backtrace( caller )
-        raise( error )
+        begin
+          return( super )
+        rescue NoMethodError => e
+          e.message.gsub!(/undefined method /, 'undefined method or property')
+          raise
+        end
       when 1
         return define_member( method, *args )
       end
@@ -118,7 +120,7 @@ end
 
 class Project < PropertyGroup
   def self.load( base, config_path, &block)
-    config = YAML.load_file( File.join( base, config_path ) )
+    config = YAML.load_file( config_path )
     new( base, config, &block )
   end
   
@@ -126,8 +128,9 @@ class Project < PropertyGroup
     super()
     config = symbolize( config )
     config[ :name ] ||= File.basename( base )
-    base = File.expand_path(base.to_s).freeze
+    base = base.to_s.dup.freeze
     define_member( :base, base )
+    
     general_paths = PathMap.define( self, {} )
     extend( general_paths )
     
@@ -180,11 +183,12 @@ class Project < PropertyGroup
   end
   
   def path( *args )
-    File.expand_path( File.join( base, *args ) )
+    File.join( base, *args )
   end
   
   def path?( *args )
-    test( ?e, path( *args ) )
+    pt = path( *args )
+    File.exist?( pt ) and pt
   end
   
   def path!( *args )
@@ -292,7 +296,7 @@ class Project::PathMap < Module
   def self.define(project, map)
     m = new do
       const_set( :PROJECT, project )
-      const_set( :PATHS, map )
+      const_set( :PATHS, {} )
       const_set( :PATH_MAP, self )
       class_eval( <<-END, __FILE__, __LINE__ + 1 )
         def define_path( name, value )

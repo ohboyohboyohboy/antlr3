@@ -2,9 +2,11 @@
 # encoding: utf-8
 __DIR__ = File.dirname( __FILE__ )
 project_top = File.dirname( __DIR__ )
+config_file = File.join( __DIR__, 'antlr3.yaml' )
+
 load File.join( __DIR__, 'project.rb' )
 
-$project = Project.load( project_top, 'config/antlr3.yaml' ) do
+$proj = $project = Project.load( project_top, config_file ) do
   # load external rake task setup script from the
   # project's rake library directory
   def load_task( *name )
@@ -19,7 +21,7 @@ $project = Project.load( project_top, 'config/antlr3.yaml' ) do
   end
   
   def program_available?( name )
-    system_path.find { |d| test( ?x, d / name ) }
+    system_path.find { |d| File.executable?( d / name ) }
   end
   
   def system_path
@@ -53,10 +55,8 @@ $project = Project.load( project_top, 'config/antlr3.yaml' ) do
     END
   end
   
-  
   def bundler_environment_missing!
-    file = File.relative_path( bundler.environment, base )
-    error!( <<-END.here_indent!, file )
+    error!( <<-END.here_indent!, bundler.environment )
     | Unable to locate bundler gem environment at %s
     | To create this file, run:
     | 

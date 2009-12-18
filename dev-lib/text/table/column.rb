@@ -57,10 +57,10 @@ class Column
   
   def prepare( cell_text )
     cell_text = cell_text.to_s
-    
     if @wrap
       @flow and cell_text = cell_text.fold
       cell_text = cell_text.word_wrap( width )
+      cell_text.strip!
     end
     
     align( cell_text, @alignment, width )
