@@ -7,18 +7,21 @@ path.unshift( $project.path( 'scripts' ) )
 namespace :test do
   
   desc "run functional and unit tests, as well as benchmarks and profile"
-  task :all => %w(antlr:build) do
-    sh( "antlr-tests run" )
+  task :all => %w(antlr) do
+    sh "antlr-tests run"
   end
   
   desc "run unit tests"
-  task :unit => %w(antlr:build) do
-    sh( "antlr-tests unit" )
+  task :unit => %w(antlr) do
+    sh "antlr-tests unit"
   end
   
   desc "run functional tests"
-  task :functional => %w(antlr:build) do
-    sh( "antlr-tests functional" )
+  task :functional => %w(antlr) do
+    sh "antlr-tests functional"
   end
   
 end
+
+desc "run all tests"
+task :test => %w( test:all )

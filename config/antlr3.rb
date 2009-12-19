@@ -7,29 +7,100 @@ config_file = File.join( __DIR__, 'antlr3.yaml' )
 load File.join( __DIR__, 'project.rb' )
 
 $proj = $project = Project.load( project_top, config_file ) do
+  
   # load external rake task setup script from the
   # project's rake library directory
   def load_task( *name )
     name.map! { |n| n.to_s }
-    
     load( rake_tasks( *name ) << '.rake' )
   end
   
+  # run the gem-bundle.rb script to reflect any
+  # changes to config/gemfile
   def run_bundler
     script = path('scripts', 'gem-bundle.rb')
     system %(ruby '#{script}')
   end
   
-  def program_available?( name )
-    system_path.find { |d| File.executable?( d / name ) }
+  # given a list of program names (like `less', `more', ...),
+  # return the first program that can be found on the
+  # system path or nil if none are found
+  def find_program( *names )
+    system_path = ENV.read( 'PATH', Array )
+    [ names ].flatten!.find do | prog |
+      system_path.find { | d | File.executable?( d / prog ) }
+    end
   end
   
-  def system_path
-    ENV.read( 'PATH', Array )
+  # extract the long-form description from the README
+  def description
+    @description ||= begin
+      readme = File.read( path( 'README.txt' ) )
+      md = readme.match( /== DESCRIPTION:(.+?)\n== /m ) or
+        fail( "can't find a description section in README.txt" )
+      md[1].strip
+    end
   end
   
-  def bundler_initialized?
+  
+  # build a gem spec from the project metadata
+  def gem_spec
+    require 'rubygems/specification'
+    spec_fields = %w(
+      name author email has_rdoc rubyforge_project summary
+      version description required_ruby_version
+    )
+    Gem::Specification.new do | spec |
+      for field in spec_fields
+        value = self.send( field )
+        spec.send( "#{field}=", value )
+      end
+      
+      spec.files = package_files.to_a
+      spec.test_files = unit_tests.to_a + functional_tests.to_a
+      
+      spec.executables.push( *executables )
+      spec.requirements.push( *requirements )
+      
+      #for dep in development_dependencies
+      #  Array === dep or dep = [ dep ]
+      #  spec.add_development_dependency( *dep )
+      #end
+    end
+  end
+  
+  def jar_command
+    @jar_command ||= find_program %w( fastjar jar )
+  end
+  
+  def shell_escape( text )
+    if text.empty? then "''"
+    else
+      text.gsub( /([^A-Za-z0-9_\-.,:\/@\n])/n ) { '\\' << $1 }.
+        gsub( /\n/, "'\n'" )
+    end
+  end
+  
+  def load_environment
+    @load_environment ||= begin
+      verify_environment
+      load( bundler.environment )
+      
+      for lib in environment_require
+        require lib
+      end
+      
+      true
+    end
+  end
+  
+  def has_bundler?
     bundler.lib?
+  end
+  
+  def verify_environment
+    bundler.lib? or bundler_missing!
+    bundler.environment? or bundler_environment_missing!
   end
   
   def bundler_missing!
@@ -50,7 +121,7 @@ $proj = $project = Project.load( project_top, config_file ) do
     | Afterward, the full bundler library should appear within %s.
     | To complete the development environment set up, run:
     | 
-    |   rake dev:setup
+    |   rake setup
     | 
     END
   end
@@ -60,70 +131,9 @@ $proj = $project = Project.load( project_top, config_file ) do
     | Unable to locate bundler gem environment at %s
     | To create this file, run:
     | 
-    |    rake dev:setup
+    |    rake setup
     | 
     END
-  end
-  
-  def description
-    @description ||= begin
-      readme = File.read( path( 'README.txt' ) )
-      md = readme.match( /== DESCRIPTION:(.+?)\n== /m ) or
-        fail( "can't find a description section in README.txt" )
-      md[1].strip
-    end
-  end
-  
-  def load_environment
-    @load_environment ||= begin
-      verify_environment
-      load( bundler.environment )
-      
-      for lib in environment_require
-        require lib
-      end
-      
-      true
-    end
-  end
-  
-  def gem_specification
-    require 'rubygems'
-    spec_fields = %w(
-      name author email has_rdoc rubyforge_project summary
-      version description required_ruby_version
-    )
-    Gem::Specification.new do | spec |
-      for field in spec_fields
-        value = self.send( field )
-        spec.send( "#{field}=", value )
-      end
-      
-      spec.files = package_files.to_a
-      spec.test_files = unit_tests.to_a + functional_tests.to_a
-      
-      spec.executables.push( *executables )
-      spec.requirements.push( *requirements )
-      
-      for dep in development_dependencies
-        Array === dep or dep = [ dep ]
-        spec.add_development_dependency( *dep )
-      end
-      
-    end
-  end
-  
-  def shell_escape( text )
-    if text.empty? then "''"
-    else
-      text.gsub( /([^A-Za-z0-9_\-.,:\/@\n])/n ) { '\\' << $1 }.
-        gsub( /\n/, "'\n'" )
-    end
-  end
-  
-  def verify_environment
-    bundler.lib? or bundler_missing!
-    bundler.environment? or bundler_environment_missing!
   end
   
   def setup?
@@ -134,10 +144,4 @@ $proj = $project = Project.load( project_top, config_file ) do
   end
 end
 
-$project.jar_command = %w( fastjar jar ).find do | cmd |
-  $project.program_available? cmd
-end
-
-if $project.setup?
-  $project.load_environment
-end
+$project.setup? and $project.load_environment

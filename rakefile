@@ -8,10 +8,11 @@ load './config/antlr3.rb'
 
 def run( name )
   Rake::Task.task_defined?( name ) or file( name )
-  task = Rake::Task[ name ]
-  task.needed? and task.invoke
+  case task = Rake::Task[ name ]
+  when Rake::FileTask then task.needed? and task.invoke
+  else task.invoke
+  end
 end
-
 def abs( path ); File.expand_path( path ); end
 def rel( path, dir = '.' ); File.relative_path( path, dir ); end
 
@@ -20,7 +21,6 @@ def rel( path, dir = '.' ); File.relative_path( path, dir ); end
 ####################################################################################################
 
 # tasks concerning the development environment
-desc "update development gem dependencies using config/gemfile"
 task :update do
   $project.load_task 'update_gems'
 end
@@ -30,34 +30,22 @@ task :setup => %w(update) do
   $project.load_environment
 end
 
+$project.setup? or run( :setup )
+
 if $project.setup?
-  require 'rake/testtask'
-  require 'spec/rake/spectask'
   require 'rake/gempackagetask'
   require 'rake/rdoctask'
-  require 'rcov/rcovtask'
+  #require 'rcov/rcovtask'
   
   # tasks concerning the ANTLR java package
-  namespace :antlr do
-    
-    desc "build the antlr jar"
-    task :build do
-      $project.load_task 'antlr'
-    end
-    
-    desc "clean the java directory"
-    task :clean do
-      $project.java?( 'org' ) and rm_r( $project.java( 'org' ) )
-    end
-    
+  desc "update the antlr jar if necessary"
+  task :antlr do
+    $project.load_task 'antlr'
   end
   
   $project.load_task( :test )
   
-  desc( "run all tests" )
-  task :test => %w( test:all )
-  
-  Rake::GemPackageTask.new( $project.gem_specification ) do | t |
+  Rake::GemPackageTask.new( $project.gem_spec ) do | t |
     t.need_zip = true
   end
   
@@ -99,7 +87,5 @@ if $project.setup?
         puts( note.to_s( color_map ) )
       end
     end
-    
   end
-
 end

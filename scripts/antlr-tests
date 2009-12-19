@@ -190,7 +190,7 @@ Main do
     def run
       session do | s |
         add_tests( s )
-        s.clean( :verbose => true, :dry_run => true )
+        s.clean( :verbose => true, :dry_run => false )
       end
     end
   end

@@ -32,6 +32,7 @@ package_files: !pathlist
     - java/antlr-full-$(antlr_version).jar
     - java/*.java
   exclude:
+    - DEVELOPER-README.txt
     - lib/antlr3/token/*.rb
 
 # 

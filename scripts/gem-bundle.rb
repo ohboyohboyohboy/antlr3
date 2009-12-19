@@ -5,7 +5,7 @@ __DIR__ = File.dirname( __FILE__ )    # $top/scripts
 top = File.dirname( __DIR__ )
 load File.join( top, 'config', 'antlr3.rb' )
 
-$project.bundler_initialized? or $project.bundler_missing!
+$project.has_bundler? or $project.bundler_missing!
 
 $:.unshift( $project.bundler.lib )
 require 'rubygems'

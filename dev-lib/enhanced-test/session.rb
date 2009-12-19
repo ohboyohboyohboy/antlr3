@@ -10,7 +10,6 @@ require 'enhanced-test/messages'
 require 'enhanced-test/ruby-command'
 require 'enhanced-test/loggable'
 
-
 module ANTLR3
 module Test
   autoload :Grammar, 'antlr3/test/grammar'
@@ -100,7 +99,7 @@ class Session
   
   def clean( options = {} )
     options = @options.weave( options )
-    each { |t| t.clean( options ) }
+    tests.each { |t| t.clean( options ) }
   end
   
 private
@@ -189,7 +188,7 @@ class Item
   
   def clean( options = {} )
     verbose = options.fetch( :verbose, true )
-    dry_run = options.fetch( :dry_run, true )
+    dry_run = options.fetch( :dry_run, false )
     for f in byproducts
       trash!( f, dry_run, verbose )
     end

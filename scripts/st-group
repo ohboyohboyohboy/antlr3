@@ -83,8 +83,6 @@ Main do
     end
   end
   
-
-  
   mixin :TextFormatting do
     def initialize
       require 'text'
@@ -143,8 +141,6 @@ Main do
     end
     
   end
-  
-
   
   mode(:unzip) do
     argument(:file) do

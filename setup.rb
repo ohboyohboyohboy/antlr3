@@ -13,11 +13,21 @@ end
 
 def sh( command )
   puts command
-  system( command ) or fail("command `#{command}' failed with status #{ $?.exitstatus }")
+  system( command ) or
+    block_given? ? yield( command, $? ) :
+    fail("command `#{command}' failed with status #{ $?.exitstatus }")
 end
 
 sh "git submodule init"
-sh "git submodule update vendor/bundler"
+sh "git submodule update vendor/bundler" do | cmd, status |
+  if test( ?d, 'vendor/bundler' )
+    Dir.chdir( 'vendor/bundler' ) do
+      sh 'git reset --hard'
+    end
+  else
+    fail("command `#{cmd}' failed with status #{ status.exitstatus }")
+  end
+end
 sh "ruby scripts/gem-bundle.rb"
 
 if command?( "less" ) and $stdout.tty?

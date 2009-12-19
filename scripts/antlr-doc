@@ -12,7 +12,6 @@ Ruby.project ||= 'antlr3'
 Ruby.project.setup_extras
 require 'doc-utils'
 
-
 for f in ARGV
   convert(f)
 end
