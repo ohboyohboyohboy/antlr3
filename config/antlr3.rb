@@ -19,7 +19,9 @@ $proj = $project = Project.load( project_top, config_file ) do
   # changes to config/gemfile
   def run_bundler
     script = path('scripts', 'gem-bundle.rb')
-    system %(ruby '#{script}')
+    ENV.temporary( 'RUBYOPT' => '' ) do
+      system %(ruby '#{script}')
+    end
   end
   
   # given a list of program names (like `less', `more', ...),
@@ -68,6 +70,7 @@ $proj = $project = Project.load( project_top, config_file ) do
       #end
     end
   end
+  
   
   def jar_command
     @jar_command ||= find_program %w( fastjar jar )
