@@ -158,9 +158,8 @@ class RecognitionError < StandardError
   
   alias inspect message
   
-  private
+private
   
-  # FIXME: extract_from_node_stream broken
   def extract_from_node_stream(nodes)
     adaptor = nodes.adaptor
     payload = adaptor.token(@symbol)
@@ -184,12 +183,12 @@ class RecognitionError < StandardError
         @column = payload.column
       end
     elsif @symbol.is_a?(AST::Tree)
-      @line = @node.line
-      @column = @node.column
-      @node.is_a?(AST::CommonTree) and @token = @node.token
+      @line = @symbol.line
+      @column = @symbol.column
+      @symbol.is_a?(AST::CommonTree) and @token = @symbol.token
     else
-      type = adaptor.type(@node)
-      text = adaptor.text(@node)
+      type = adaptor.type( @symbol )
+      text = adaptor.text( @symbol )
       token_class = @input.token_class rescue CommonToken
       @token = token_class.new
       @token.type = type
@@ -197,8 +196,6 @@ class RecognitionError < StandardError
       @token
     end
   end
-  
-  
 end
 
 =begin rdoc ANTLR3::Error::MismatchedToken

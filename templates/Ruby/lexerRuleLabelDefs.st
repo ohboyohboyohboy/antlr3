@@ -1,5 +1,3 @@
-
-
 lexerRuleLabelDefs() ::= <<
 <if([ruleDescriptor.tokenLabels,ruleDescriptor.tokenListLabels,ruleDescriptor.ruleLabels,ruleDescriptor.charLabels,ruleDescriptor.tokenListLabels,ruleDescriptor.ruleListLabels])>
 # - - - - label initialization - - - -

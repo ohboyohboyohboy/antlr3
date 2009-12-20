@@ -1,3 +1,1 @@
-
-
 execForcedAction(action) ::= "<action>"

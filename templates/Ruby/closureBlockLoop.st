@@ -1,5 +1,3 @@
-
-
 closureBlockLoop() ::= <<
 loop do  #loop <decisionNumber>
   alt_<decisionNumber> = <maxAlt>

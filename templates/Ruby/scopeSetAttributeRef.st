@@ -1,5 +1,3 @@
-
-
 scopeSetAttributeRef(scope, attr, expr, index, negIndex) ::= <<
 <if(negIndex)>
 @<scope>_stack[-<negIndex>].<attr.name> = <expr>

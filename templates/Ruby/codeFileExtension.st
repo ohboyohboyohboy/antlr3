@@ -1,3 +1,1 @@
-
-
 codeFileExtension() ::= ".rb"

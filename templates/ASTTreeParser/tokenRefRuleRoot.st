@@ -1,4 +1,3 @@
-
 tokenRefRuleRoot(token,label,elementIndex,hetero) ::= <<
 _last = @input.look
 <super.tokenRef(...)>

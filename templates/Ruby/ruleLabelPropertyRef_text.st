@@ -1,5 +1,3 @@
-
-
 ruleLabelPropertyRef_text(scope, attr) ::= <<
 <if(TREE_PARSER)>
 (<scope; format="label">.nil? ? nil : @input.token_stream.to_s(

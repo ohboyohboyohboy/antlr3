@@ -1,3 +1,1 @@
-
-
 lexerRulePropertyRef_text(scope, attr) ::= "self.text"

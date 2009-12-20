@@ -1,5 +1,3 @@
-
-
 delegateRule(ruleDescriptor) ::= <<
 # delegated rule <ruleDescriptor.name>
 def <ruleDescriptor.name>(<ruleDescriptor.parameterScope:parameterScope(scope=it)>)

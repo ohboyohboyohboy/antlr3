@@ -1,5 +1,3 @@
-
-
 ruleMemoization(name) ::= <<
 <if(memoize)>
 # rule memoization

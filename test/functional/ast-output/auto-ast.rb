@@ -469,27 +469,28 @@ class TestAutoAST < ANTLR3::Test::Functional
     END
     result.should == '(34 55)'
   end
+  
   # FIXME: no label actually in the grammar
   
   example "hoisting a `~' inverted token-type set to root using `^' (with label)" do
     result = parse(<<-'END', :a, '34 55')
       grammar NotSetRootWithLabel;
       options {language=Ruby;output=AST;}
-      a : ~'+'^ INT ;
-      ID : 'a'..'z'+ ;
+      a   : x=~'+'^ INT ;
+      ID  : 'a'..'z'+ ;
       INT : '0'..'9'+;
-      WS : (' '|'\n') {$channel=HIDDEN;} ;
-  
+      WS  : (' '|'\n') {$channel=HIDDEN;} ;
     END
     result.should == '(34 55)'
   end
+  
   # FIXME:  no label here either
   
   example "hoisting a `~' inverted token-type set to root using `^' (with list += label)" do
     result = parse(<<-'END', :a, '34 55')
       grammar NotSetRootWithListLabel;
       options {language=Ruby;output=AST;}
-      a : ~'+'^ INT ;
+      a : x+=~'+'^ INT ;
       ID : 'a'..'z'+ ;
       INT : '0'..'9'+;
       WS : (' '|'\n') {$channel=HIDDEN;} ;

@@ -1,5 +1,3 @@
-
-
 positiveClosureBlockLoop() ::= <<
 match_count_<decisionNumber> = 0
 loop do

@@ -31,6 +31,7 @@ class Session
     initialize_log( options )
     @success = @functional = @unit = @benchmark = @profile = nil
     yield( self ) if block_given?
+    info! { "initialized test session at #@timestamp" }
   end
   
   for type in TEST_TYPES
@@ -85,13 +86,21 @@ class Session
         info! { "running #{type} tests" }
         @success &= klass.run( bar, options )
       end
-    end
-    unless @success
-      Monocle::Pager.open do | pager |
-        pager.colors( :black, :red ) do
-          pager.puts( "Tests Resulted In Failures and/or Errors\nDetails:" )
+      
+      bar.clear_line
+      
+      unless @success
+        Monocle::Pager.open do | pager |
+          pager.colors( :black, :red ) do
+            pager.puts( "Tests Resulted In Failures and/or Errors\nDetails:" )
+          end
+          
+          each_type { | type, klass | klass.report_failures( pager ) }
         end
-        each_type { | type, klass | klass.report_failures( pager ) }
+        
+        bar.clear_line
+        
+        each_type { | type, klass | klass.report_failures( bar ) }
       end
     end
     return( @success )
@@ -102,7 +111,29 @@ class Session
     tests.each { |t| t.clean( options ) }
   end
   
+  def save( base_directory, options = {} )
+    dir = base_directory / @timestamp.strftime("%m-%d-%y-%I%M%P")
+    Dir.mkdir( dir ) unless test( ?d, dir )
+    Monocle::OutputDevice.open( dir / 'summary.txt' ) do | f |
+      f.center do
+        each_type do | type, klass |
+          klass.summarize( f, options )
+        end
+      end
+    end
+    
+    unless @success
+      Monocle::OutputDevice.open( dir / 'errors.txt' ) do | f |
+        f.colors( :black, :red ) do
+          f.puts( "Tests Resulted In Failures and/or Errors\nDetails:" )
+        end
+        each_type { | type, klass | klass.report_failures( f ) }
+      end
+    end
+  end
+  
 private
+  
   def each_type
     block_given? or return( enum_for( :each_type ) )
     for type in TEST_TYPES
@@ -267,6 +298,7 @@ class TestFile < Item
   
   def run( progress_bar, options = {} )
     if Hash === progress_bar then options, progress_bar = progress_bar, nil end
+    environment( 'COLUMNS' => progress_bar.width ) if progress_bar
     
     @results = ruby( @path, options ) do | cmd, out, err |
       info! { cmd }
@@ -296,6 +328,7 @@ class TestFile < Item
   def failed?
     @results and @results.failed?
   end
+  
   def report_failure( out )
     out.foreground( :yellow ) { out.puts( @path ) }
     if @results.status == 1
@@ -304,7 +337,9 @@ class TestFile < Item
       out.puts( @results.stdout.indent( 2 ) )
     end
   end
+  
 private
+  
   def compute_weight
     source.lines.grep( /^ *(def test_|example\b|ast_test\b)/ ).
       length * EXAMPLE_WEIGHT

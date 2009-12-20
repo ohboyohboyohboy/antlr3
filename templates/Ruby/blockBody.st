@@ -1,5 +1,3 @@
-
-
 blockBody() ::= <<
 <@decision><decision><@end>
 case alt_<decisionNumber>

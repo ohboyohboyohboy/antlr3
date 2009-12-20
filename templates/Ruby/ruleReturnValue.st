@@ -1,5 +1,3 @@
-
-
 ruleReturnValue() ::= <<
 <if(!ruleDescriptor.isSynPred)>
 <if(ruleDescriptor.hasReturnValue)>

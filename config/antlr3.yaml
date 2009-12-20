@@ -4,7 +4,7 @@
 # 
 name: antlr3
 
-version: "1.2.1"
+version: "1.2.2"
 antlr_version: "3.2.1"
 
 summary: |-
@@ -55,9 +55,9 @@ bundler: !pathmap
 test: !pathmap
   unit: test/unit
   functional: test/functional
-  benchmark: test/benchmark
+  performance: test/performance
   log: log/test.log
-  results: log/test-results.txt
+  results: log
   
 rake_tasks: !path dev-lib/tasks
 dev_lib: !path dev-lib

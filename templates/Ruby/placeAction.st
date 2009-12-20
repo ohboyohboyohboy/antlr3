@@ -1,6 +1,3 @@
-
-
-
 placeAction(scope, name) ::= <<
 <if(actions.(scope).(name))>
 # - - - - - - begin action @<scope>::<name> - - - - - -

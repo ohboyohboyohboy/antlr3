@@ -1,6 +1,3 @@
-
-
-
 delegateLexerRule(ruleDescriptor) ::= <<
 # delegated lexer rule <ruleDescriptor.name; format="lexerRule"> (<ruleDescriptor.name> in the grammar)
 def <ruleDescriptor.name; format="lexerRule">(<ruleDescriptor.parameterScope:parameterScope(scope=it)>)

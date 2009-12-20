@@ -1,5 +1,3 @@
-
-
 ruleDeclarations() ::= <<
 <if(ruleDescriptor.hasMultipleReturnValues)>
 return_value = <returnStructName(r=ruleDescriptor)>.new

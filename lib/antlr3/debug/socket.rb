@@ -137,7 +137,7 @@ class EventSocketProxy
   def look(i, item)
     case item
     when AST::Tree
-      FIXME(34)
+      look_tree( i, item )
     when nil
     else
       transmit "%s\t%i\t%s", __method__, i, serialize_token(item)
@@ -182,48 +182,48 @@ class EventSocketProxy
   end
   
   def consume_node( tree )
-    FIXME(31)
+    transmit "%s\t%s", __method__, serialize_node( tree )
   end
   
-  def look_tree( i, t )
-    FIXME(34)
+  def adaptor
+    @adaptor ||= ANTLR3::CommonTreeAdaptor.new
   end
   
-  def serialize_node( buffer, tree )
-    FIXME(33)
+  def look_tree( i, tree )
+    transmit "%s\t%s\t%s", __method__, i, serialize_node( tree )
   end
   
   def flat_node( tree )
-    transmit "%s\t%i", __method__, @adaptor.unique_id( tree )
+    transmit "%s\t%i", __method__, adaptor.unique_id( tree )
   end
   
   def error_node( tree )
-    transmit "%s\t%i\t%i\t%p", __method__, @adaptor.unique_id( tree ),
+    transmit "%s\t%i\t%i\t%p", __method__, adaptor.unique_id( tree ),
             Token::INVALID_TOKEN_TYPE, escape_newlines( tree.to_s )
   end
   
   def create_node( node, token = nil )
     if token
-      transmit "%s\t%i\t%i", __method__, @adaptor.unique_id( node ),
+      transmit "%s\t%i\t%i", __method__, adaptor.unique_id( node ),
               token.token_index
     else
-      transmit "%s\t%i\t%i\t%p", __method__, @adaptor.unique_id( node ),
-          @adaptor.type_of( node ), @adaptor.text_of( node )
+      transmit "%s\t%i\t%i\t%p", __method__, adaptor.unique_id( node ),
+          adaptor.type_of( node ), adaptor.text_of( node )
     end
   end
   
   def become_root( new_root, old_root )
-    transmit "%s\t%i\t%i", __method__, @adaptor.unique_id( new_root ),
-              @adaptor.unique_id( old_root )
+    transmit "%s\t%i\t%i", __method__, adaptor.unique_id( new_root ),
+              adaptor.unique_id( old_root )
   end
   
   def add_child( root, child )
-    transmit "%s\t%i\t%i", __method__, @adaptor.unique_id( root ),
-             @adaptor.unique_id( child )
+    transmit "%s\t%i\t%i", __method__, adaptor.unique_id( root ),
+             adaptor.unique_id( child )
   end
   
   def set_token_boundaries( t, token_start_index, token_stop_index )
-    transmit "%s\t%i\t%i\t%i", __method__, @adaptor.unique_id( t ),
+    transmit "%s\t%i\t%i\t%i", __method__, adaptor.unique_id( t ),
                                token_start_index, token_stop_index
   end
   
@@ -235,20 +235,22 @@ class EventSocketProxy
      escape_newlines( token.text )].join( "\t" )
   end
   
+  def serialize_node( node )
+    adaptor ||= ANTLR3::AST::CommonTreeAdaptor.new
+    id = adaptor.unique_id( node )
+    type = adaptor.type_of( node )
+    token = adaptor.token( node )
+    line = token.line rescue -1
+    col  = token.column rescue -1
+    index = adaptor.token_start_index( node )
+    [ id, type, line, col, index ].join( "\t" )
+  end
+  
+  
   def escape_newlines( text )
     text.inspect.tap do |t|
       t.gsub!(/%/, '%%')
     end
-  end
-  
-  private
-  def FIXME(number)
-    file, line, method = call_stack.first.to_a
-    raise NotImplementedError, Util.tidy(<<-END)
-    | FIXME(#{number})
-    | a portion of #{self.class.name}##{method} is pending implementation
-    |   file ``#{file}'' line #{line}
-    END
   end
 end
 

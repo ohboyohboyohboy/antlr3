@@ -9,6 +9,12 @@ class OutputDevice < DelegateClass( IO )
   include Constructors
   include TerminalEscapes
   
+  def self.open( path, options = {} )
+    File.open( path, options.fetch( :mode, 'w' ) ) do | file |
+      return( yield( new( file, options ) ) )
+    end
+  end
+  
   DEFAULT_SIZE = Pair.new( 80, 22 ).freeze
   IO_PRINT_METHODS = %w( puts print printf putc write )
   SIZE_IOCTL = 0x5413

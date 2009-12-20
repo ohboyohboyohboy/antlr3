@@ -1,5 +1,3 @@
-/* * * * * * * * * * R E C O G N I Z E R   C L A S S E S * * * * * * * * * */
-
 parser(grammar, name, scopes, tokens, tokenNames, rules, numRules, bitsets, ASTLabelType="Object", superClass="ANTLR3::Parser", labelType="ANTLR3::Token", members={<actions.parser.members>}) ::= <<
 <if(grammar.grammarIsRoot)><autoloadDelegates()><endif>
 

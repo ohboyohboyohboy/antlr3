@@ -1,8 +1,3 @@
-
-
-
-/* * * * * * * * * * * * * R U L E   H E L P E R S * * * * * * * * * * * * */
-
 traceIn() ::= <<
 <if(trace)>
 trace_in(__method__, <ruleDescriptor.index>)<\n>

@@ -1,5 +1,3 @@
-
-
 action(name, code) ::= <<
 <if(code)>
 # - - - - @<name> action - - - -

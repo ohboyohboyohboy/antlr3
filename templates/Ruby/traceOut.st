@@ -1,5 +1,3 @@
-
-
 traceOut() ::= <<
 <if(trace)>
 trace_out(__method__, <ruleDescriptor.index>)<\n>

@@ -44,7 +44,6 @@ $proj = $project = Project.load( project_top, config_file ) do
     end
   end
   
-  
   # build a gem spec from the project metadata
   def gem_spec
     require 'rubygems/specification'
@@ -63,14 +62,8 @@ $proj = $project = Project.load( project_top, config_file ) do
       
       spec.executables.push( *executables )
       spec.requirements.push( *requirements )
-      
-      #for dep in development_dependencies
-      #  Array === dep or dep = [ dep ]
-      #  spec.add_development_dependency( *dep )
-      #end
     end
   end
-  
   
   def jar_command
     @jar_command ||= find_program %w( fastjar jar )

@@ -1,3 +1,1 @@
-
-
 parameterAttributeRef(attr) ::= "<attr.name>"

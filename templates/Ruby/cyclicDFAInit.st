@@ -1,5 +1,3 @@
-
-
 cyclicDFAInit(dfa) ::= <<
 <if(dfa.specialStateSTs)>
 @dfa<dfa.decisionNumber> = DFA<dfa.decisionNumber>.new(self, <dfa.decisionNumber>) do |s|

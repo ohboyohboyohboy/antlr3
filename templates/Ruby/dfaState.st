@@ -1,5 +1,3 @@
-
-
 dfaState(k,edges,eotPredictsAlt,description,stateNumber,semPredState) ::= <<
 look_<decisionNumber>_<stateNumber> = @input.peek(<k>)<\n>
 <edges; separator="\nels">

@@ -1,5 +1,3 @@
-
-
 tokenDataModule() ::= <<
 # TokenData defines all of the token type integer values
 # as constants, which will be included in all 

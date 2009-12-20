@@ -1,5 +1,3 @@
-
-
 specialStateTransitionMethod(dfa) ::= <<
 def special_state_transition_for_dfa<dfa.decisionNumber>(s, input)
   case s

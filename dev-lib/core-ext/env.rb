@@ -1,8 +1,6 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 
-require 'rbconfig'
-
 class << ENV
   
   # fetch an environmental variable value and
@@ -33,17 +31,13 @@ class << ENV
   def add_onto( var, *values )
     values = [values, ENV[ var.to_s ]].flatten!
     values.compact!
-    ENV[ var.to_s ] = values.join( path_separator )
+    ENV[ var.to_s ] = values.join( File::PATH_SEPARATOR )
   end
   
   def push_onto( var, *values )
     values = [ENV[ var.to_s ], values].flatten!
     values.compact!
-    ENV[ var.to_s ] = values.join( path_separator )
-  end
-  
-  def path_separator
-    Config::CONFIG.fetch( 'PATH_SEPARATOR', ':' )
+    ENV[ var.to_s ] = values.join( File::PATH_SEPARATOR )
   end
   
 private
@@ -54,7 +48,7 @@ private
     when 'string' then parse_string(value, *args)
     when 'float' then parse_float(value, *args)
     when 'boolean' then parse_boolean(value, *args)
-    when 'number', 'numeric'
+    when 'number', 'numeric', 'int'
       value =~ /\./ ? parse_float(value, *args) : parse_int(value, *args)
     else
       warn(
@@ -67,7 +61,7 @@ private
     return result
   end
 
-  def parse_array(value, separator = Config::CONFIG['PATH_SEPARATOR'], sub_type = String, *args)
+  def parse_array(value, separator = File::PATH_SEPARATOR, sub_type = String, *args)
     out = value.split(separator).map! do |item|
       value.tainted? and item.taint
       parse(item, sub_type, *args)

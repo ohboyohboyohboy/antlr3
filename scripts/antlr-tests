@@ -13,9 +13,18 @@ Main do
     default( $project.test.log )
   end
   
+  
   def session
     @session ||= ANTLR3::Test::Session.new( session_options )
     block_given? ? yield( @session ) : @session
+  end
+  
+  def run_tests
+    session do | s |
+      yield( s )
+      s.run_tests
+      s.save( $project.test.results )
+    end
   end
   
   def session_options
@@ -97,7 +106,7 @@ Main do
       end
       include_types[0] and s.add_unit( $project.test.unit!( '*.rb' ) )
       include_types[1] and s.add_functional( $project.test.functional!('*','*.rb') )
-      include_types[2] and s.add_benchmark( $project.test.benchmark!('*.yaml') )
+      include_types[2] and s.add_benchmark( $project.test.performance!('*.yaml') )
     end
   end
   
@@ -105,10 +114,7 @@ Main do
     mixin :test_arguments
     
     def run
-      session do | s |
-        s.add_unit( test_files )
-        s.run_tests
-      end
+      run_tests { | s | s.add_unit( test_files ) }
     end
     
     def all
@@ -125,10 +131,7 @@ Main do
     mixin :test_arguments
     
     def run
-      session do | s |
-        s.add_functional( test_files )
-        s.run_tests
-      end
+      run_tests { | s | s.add_functional( test_files ) }
     end
     
     def all
@@ -199,10 +202,7 @@ Main do
     mixin :all_types
     
     def run
-      session do | s |
-        add_tests( s )
-        s.run_tests
-      end
+      run_tests { | s | add_tests( s ) }
     end
   end
   

@@ -1,5 +1,3 @@
-
-
 altSwitchCase() ::= <<
 when <i>
   <@prealt()>

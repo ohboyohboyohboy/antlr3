@@ -1,3 +1,1 @@
-
-
 noRewrite(rewriteBlockLevel, treeLevel) ::= ""

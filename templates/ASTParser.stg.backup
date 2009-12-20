@@ -43,6 +43,9 @@ tokenRefAndListLabel(token,label,elementIndex,hetero) ::= <<
 <tokenRef(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
+
+
+
 tokenRefRuleRootAndListLabel(token,label,hetero,elementIndex) ::= <<
 <tokenRefRuleRoot(...)>
 <addToList(elem={<label; format="label">},...)>
@@ -63,15 +66,14 @@ matchRuleBlockSet(s,label,hetero,elementIndex,postmatchCode,treeLevel="0") ::= <
 
 
 matchSetBang(s,label,elementIndex,postmatchCode) ::= "<super.matchSet(...)>"
+
+
+
 matchSetRuleRoot(s,label,hetero,elementIndex,debug) ::= <<
 <if(label)>
 <label; format="label"> = @input.look<\n>
 <endif>
 <super.matchSet(..., postmatchCode={<gatedAction({root_0 = @adaptor.become_root(<createNodeFromToken(...)>, root_0)})>})>
->>
-matchSetRuleRootAndListLabel(s,label,hetero,elementIndex,debug) ::= <<
-<matchSetRuleRoot(...)>
-<addToList(elem={<label; format="label">},...)>
 >>
 
 

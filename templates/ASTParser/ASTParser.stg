@@ -11,6 +11,7 @@ group ASTParser;
 <%= matchRuleBlockSet %>
 <%= matchSetBang %>
 <%= matchSetRuleRoot %>
+<%= matchSetRuleRootAndListLabel %>
 <%= ruleRef %>
 <%= ruleRefBang %>
 <%= ruleRefRuleRoot %>

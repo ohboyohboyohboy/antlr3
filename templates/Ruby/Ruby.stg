@@ -5,11 +5,15 @@ group Ruby implements ANTLRCore;
  ******************************************************************************/
  
 <%= outputFile %>
+
+
 <%= tokenDataModule %>
 <%= rootGrammarOutputFile %>
 <%= delegateGrammarOutputFile %>
 <%= delegateGrammarModuleHead %>
 <%= delegateGrammarModuleTail %>
+/* * * * * * * * * * R E C O G N I Z E R   C L A S S E S * * * * * * * * * */
+
 <%= parser %>
 
 
@@ -24,42 +28,112 @@ group Ruby implements ANTLRCore;
 
 
 <%= rule %>
+
+
 <%= delegateRule %>
+// HELPERS
+
 <%= recognizerClassName %>
+
+
 <%= initializeDirectDelegate %>
+
+
 <%= initializeDelegator %>
+
+
 <%= altSwitchCase %>
+
+
 <%= blockBody %>
+
+
 <%= catch %>
+
+
 <%= closureBlockLoop %>
 <%= delegateName %>
+
+
 <%= element %>
+
+
 <%= execForcedAction %>
+
+
 <%= globalAttributeScopeClass %>
+
+
 <%= globalAttributeScopeStack %>
+
+
 <%= noRewrite %>
+
+
 <%= parameterScope %>
+
+
 <%= positiveClosureBlockLoop %>
 <%= returnScope %>
+
+
 <%= returnStructName %>
+
+
 <%= ruleAttributeScopeClass %>
+
+
 <%= ruleAttributeScopeStack %>
+
+
 <%= ruleBacktrackFailure %>
+
+
 <%= ruleBody %>
+
+
 <%= ruleReturnValue %>
+
+
 <%= ruleDeclarations %>
+
+
 <%= ruleLabelDef %>
+
+
 <%= ruleLabelDefs %>
+
+
+
+/* * * * * * * * * * * * * R U L E   H E L P E R S * * * * * * * * * * * * */
+
 <%= traceIn %>
+
+
 <%= traceOut %>
+
+
 <%= ruleCleanUp %>
+
+
 <%= ruleMemoization %>
+
+
 <%= ruleScopeSetUp %>
+
+
 <%= ruleScopeCleanUp %>
+
+
 <%= memoize %>
 
 
 <%= methodCall %>
+
+
+/* * * * * * * * * * * * * L E X E R   P A R T S * * * * * * * * * * * * * */
+
+
 <%= actionGate %>
 
 
@@ -67,6 +141,8 @@ group Ruby implements ANTLRCore;
 
 
 <%= ruleBlock %>
+
+
 <%= ruleBlockSingleAlt %>
 
 
@@ -74,14 +150,20 @@ group Ruby implements ANTLRCore;
 
 
 <%= positiveClosureBlock %>
+
+
 <%= positiveClosureBlockSingleAlt %>
 
 
 <%= closureBlock %>
+
+
 <%= closureBlockSingleAlt %>
 
 
 <%= optionalBlock %>
+
+
 <%= optionalBlockSingleAlt %>
 
 
@@ -97,9 +179,17 @@ group Ruby implements ANTLRCore;
 
 
 <%= matchSet %>
+
+
 <%= matchSetAndListLabel %>
+
+
 <%= matchRuleBlockSet %>
+
+
 <%= wildcard %>
+
+
 <%= wildcardAndListLabel %>
 
 
@@ -113,6 +203,8 @@ group Ruby implements ANTLRCore;
 
 
 <%= validateSemanticPredicate %>
+
+
 <%= dfaState %>
 
 
@@ -129,8 +221,14 @@ group Ruby implements ANTLRCore;
 
 
 <%= dfaStateSwitch %>
+
+
 <%= dfaOptionalBlockStateSwitch %>
+
+
 <%= dfaLoopbackStateSwitch %>
+
+
 <%= dfaEdgeSwitch %>
 
 
@@ -138,8 +236,14 @@ group Ruby implements ANTLRCore;
 
 
 <%= cyclicDFA %>
+
+
 <%= specialStateTransitionMethod %>
+
+
 <%= cyclicDFASynpred %>
+
+
 <%= cyclicDFAInit %>
 
 
@@ -158,21 +262,45 @@ input.line   = line_<decisionNumber>_<stateNumber>
 
 
 <%= eotDFAEdge %>
+
+
 <%= andPredicates %>
+
+
 <%= orPredicates %>
+
+
 <%= notPredicate %>
+
+
 <%= evalPredicate %>
+
+
 <%= evalSynPredicate %>
+
+
 <%= lookaheadTest %>
 
 
 <%= isolatedLookaheadTest %>
+
+
 <%= lookaheadRangeTest %>
+
+
 <%= isolatedLookaheadRangeTest %>
 <%= setTest %>
+
+
 <%= parameterAttributeRef %>
+
+
 <%= parameterSetAttributeRef %>
+
+
 <%= scopeAttributeRef %>
+
+
 <%= scopeSetAttributeRef %>
 
 
@@ -180,7 +308,11 @@ input.line   = line_<decisionNumber>_<stateNumber>
 
 
 <%= ruleLabelRef %>
+
+
 <%= returnAttributeRef %>
+
+
 <%= returnSetAttributeRef %>
 
 
@@ -188,23 +320,49 @@ input.line   = line_<decisionNumber>_<stateNumber>
 
 
 <%= listLabelRef %>
+
+
 <%= tokenLabelPropertyRef_text %>
+
+
 <%= tokenLabelPropertyRef_type %>
+
+
 <%= tokenLabelPropertyRef_line %>
+
+
 <%= tokenLabelPropertyRef_pos %>
+
+
 <%= tokenLabelPropertyRef_channel %>
+
+
 <%= tokenLabelPropertyRef_index %>
+
+
 <%= tokenLabelPropertyRef_tree %>
+
+
 <%= ruleLabelPropertyRef_start %>
+
+
 <%= ruleLabelPropertyRef_stop %>
+
+
 <%= ruleLabelPropertyRef_tree %>
+
+
 <%= ruleLabelPropertyRef_text %>
+
+
 <%= ruleLabelPropertyRef_st %>
 
 
 
 <%= lexerSynpred %>
 <%= lexer %>
+
+
 <%= lexerRuleLabelDefs %>
 
 
@@ -212,24 +370,50 @@ input.line   = line_<decisionNumber>_<stateNumber>
 
 
 <%= lexerRuleLabel %>
+
+
 <%= lexerRuleLabelPropertyRef_line %>
+
+
 <%= lexerRuleLabelPropertyRef_type %>
+
+
 <%= lexerRuleLabelPropertyRef_pos %>
+
+
 <%= lexerRuleLabelPropertyRef_channel %>
+
+
 <%= lexerRuleLabelPropertyRef_index %>
+
+
 <%= lexerRuleLabelPropertyRef_text %>
 
 
 <%= tokensRule %>
+
+
 <%= lexerRulePropertyRef_text %>
+
+
 <%= lexerRulePropertyRef_type %>
+
+
 <%= lexerRulePropertyRef_line %>
+
+
 <%= lexerRulePropertyRef_pos %>
 
 
 <%= lexerRulePropertyRef_index %>
+
+
 <%= lexerRulePropertyRef_channel %>
+
+
 <%= lexerRulePropertyRef_start %>
+
+
 <%= lexerRulePropertyRef_stop %>
 
 
@@ -240,6 +424,8 @@ input.line   = line_<decisionNumber>_<stateNumber>
 
 
 <%= wildcardChar %>
+
+
 <%= wildcardCharListLabel %>
 
 
@@ -247,7 +433,11 @@ input.line   = line_<decisionNumber>_<stateNumber>
 
 
 <%= charRangeRef %>
+
+
 <%= filteringNextToken %>
+
+
 <%= filteringActionGate %>
 
 
@@ -270,20 +460,38 @@ input.line   = line_<decisionNumber>_<stateNumber>
 
 
 <%= rulePropertyRef_st %>
+
+
 <%= ruleSetPropertyRef_tree %>
+
+
 <%= ruleSetPropertyRef_st %>
 
 
 <%= execAction %>
+
+
 <%= codeFileExtension %>
+
+
 <%= true %>
+
+
 <%= false %>
+
+
 <%= action %>
 <%= autoloadDelegates %>
+
+
+
 <%= delegateLexerRule %>
 <%= rootClassName %>
 <%= grammarClassName %>
 <%= newDelegate %>
+
+
+
 <%= placeAction %>
 
 

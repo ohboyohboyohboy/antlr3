@@ -1,6 +1,3 @@
-
-
-
 matchSetRuleRoot(s,label,hetero,elementIndex,debug) ::= <<
 <if(label)>
 <label; format="label"> = @input.look<\n>

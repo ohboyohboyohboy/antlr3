@@ -1,5 +1,3 @@
-
-
 ruleBody() ::= <<
 <if(memoize)><if(backtracking)>
 success = false # flag used for memoization<\n>
