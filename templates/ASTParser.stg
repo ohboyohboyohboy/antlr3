@@ -20,6 +20,7 @@ tree_for_<label> = <createNodeFromToken(...)>
 @adaptor.add_child(root_0, tree_for_<label>)
 })>
 >>
+
 tokenRefBang(token,label,elementIndex) ::= "<super.tokenRef(...)>"
 
 tokenRefRuleRoot(token,label,elementIndex,hetero) ::= <<

@@ -201,6 +201,10 @@ class Grammar
     return deleted
   end
   
+  def inspect
+    sprintf( "grammar %s (%s)", @name, @path )
+  end
+  
 private
   def post_compile(options)
     # do nothing for now
@@ -218,7 +222,7 @@ private
     for f in target_files
       test(?f, f) and File.delete(f)
     end
-    raise CompilationFailure.new(command, status, output)
+    raise CompilationFailure.new(self, command, status, output)
   end
 
   def build_dependencies
@@ -298,8 +302,10 @@ class Grammar::InlineGrammar < Grammar
     previous == @path or write_to_disk
   end
   
+  def inspect
+    sprintf( 'inline grammar %s (%s:%s)', name, @host_file, @host_line )
+  end
 private
-  
   def write_to_disk
     @path ||= output_directory / @name + '.g'
     test(?d, output_directory) or Dir.mkdir( output_directory )
@@ -309,22 +315,23 @@ private
   end
 end # class Grammar::InlineGrammar
 
-
 class Grammar::CompilationFailure < StandardError
-  attr_reader :command, :status, :output
+  JAVA_TRACE = /^(org\.)?antlr\.\S+\(\S+\.java:\d+\)\s*/
+  attr_reader :grammar, :command, :status, :output
   
-  def initialize(command, status, output)
+  def initialize(grammar, command, status, output)
     @command = command
     @status = status
-    @output = output
+    @output = output.gsub( JAVA_TRACE, '' )
     
-    message = <<-END.here_indent! % [command, status, output]
+    message = <<-END.here_indent! % [command, status, grammar, @output]
     | command ``%s'' failed with status %s
+    | %p
     | ~ ~ ~ command output ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
     | %s
     END
     
-    super(message)
+    super( message.chomp! || message )
   end
 end # error Grammar::CompilationFailure
 

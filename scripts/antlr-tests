@@ -8,12 +8,6 @@ require 'main'
 require 'enhanced-test/session'
 
 Main do
-  option( :log ) do
-    description( "path to use as test log" )
-    default( $project.test.log )
-  end
-  
-  
   def session
     @session ||= ANTLR3::Test::Session.new( session_options )
     block_given? ? yield( @session ) : @session
@@ -23,13 +17,13 @@ Main do
     session do | s |
       yield( s )
       s.run_tests
-      s.save( $project.test.results )
+      s.save
     end
   end
   
   def session_options
-    @session_options ||= {
-      :log => params[ :log ].value,
+    {
+      :data_directory => $project.test.results,
       :output => stdout,
       :load_path => [ $project.lib ],
       :functional => test_options,
@@ -38,8 +32,8 @@ Main do
     }
   end
   
-  def test_options( additions = nil )
-    @test_options ||= {
+  def test_options
+    {
       :load_path => [ $project.dev_lib ],
       :require => $project.path( 'config/antlr3.rb' ),
       :arguments => [
@@ -144,47 +138,19 @@ Main do
     end
   end
   
-  mode :benchmark do
-    mixin :test_arguments
-    
-    def run
-      session do | s |
-        s.add_benchmark( test_files )
-        s.run_tests
+  for type in %w( benchmark profile )
+    eval( <<-END, binding, __FILE__, __LINE__ + 1 )
+      mode :#{ type } do
+        mixin :test_arguments
+        
+        run { run_tests { | s | s.add_#{ type }( test_files ) } }
+        
+        def all() $project.test.performance!( '*.yaml' ) end
+        def match_tests( arg )
+          $project.test.performance!( "\#{arg}*.yaml" )
+        end
       end
-    end
-    
-    def all
-      $project.test.benchmark!( '*.yaml' )
-    end
-    
-    def match_tests( arg )
-      $project.test.benchmark!( "#{arg}*.yaml" )
-    end
-  end
-  
-  mode :profile do
-    mixin :test_arguments
-    
-    def run
-      timestamp = Time.now.strftime("%m-%d-%y-%I%M%P")
-      report_directory = $project.path( 'log', timestamp )
-      Dir.mkdir( report_directory )
-      
-      session do | s |
-        s.add_profile( test_files,
-          :require => $project.bundler.environment )
-        s.run_tests
-      end
-    end
-    
-    def all
-      $project.test.benchmark!( '*.yaml' )
-    end
-    
-    def match_tests( arg )
-      $project.test.benchmark!( "#{arg}*.yaml" )
-    end
+    END
   end
   
   mode :clean do
@@ -200,11 +166,7 @@ Main do
   
   mode :run do
     mixin :all_types
-    
-    def run
-      run_tests { | s | add_tests( s ) }
-    end
+    run { run_tests { | s | add_tests( s ) } }
   end
-  
   run { help! }
 end

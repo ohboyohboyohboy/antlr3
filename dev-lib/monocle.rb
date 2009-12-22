@@ -2,14 +2,49 @@
 # encoding: utf-8
 
 module Monocle
-  autoload :List, 'monocle/list'
-  autoload :Progress, 'monocle/progress'
-  autoload :OutputDevice, 'monocle/output-device'
-  autoload :Pager, 'monocle/output-device'
+  def self.included( kl )
+    super
+    kl.extend( self )
+  end
+
+module_function
+  
+  def Line( obj )
+    SingleLine === obj ? obj : SingleLine.new( obj.to_s )
+  end
+  
+  def Output( dev )
+    OutputDevice === dev ? dev : OutputDevice.new( dev )
+  end
+  
+  def Text( obj )
+    case obj
+    when Text then obj
+    when nil then Text.new
+    else Text.new( obj.to_s )
+    end
+  end
+  
+  def Style( obj )
+    Graphics === obj ? obj : Graphics::NAMED_STYLES[ obj.to_s ]
+  end
+  
+  def Rectangle( obj )
+    case obj
+    when Rectangle then obj
+    when Array then Rectangle.new( *obj )
+    when Hash then Rectangle.create( obj )
+    else Rectangle.new( obj )
+    end
+  end
+  
 end
 
-require 'monocle/utils'
-require 'monocle/presentation'
-require 'monocle/terminal-escapes'
-require 'monocle/atomic'
-require 'monocle/graphics'
+
+%w(
+  utils presentation terminal-escapes
+  atomic graphics output-device progress
+  table list
+).each do | lib |
+  require "monocle/#{ lib }"
+end

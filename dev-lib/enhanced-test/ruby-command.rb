@@ -9,23 +9,10 @@ module RubyCommand
   ).map! { |v| v.to_sym }
   
   Result = Struct.new( :command, :stdout, :stderr, :process ) do
-    
-    def pid
-      process.pid
-    end
-    
-    def status
-      process.exitstatus
-    end
-    
-    def failed?
-      not process.success?
-    end
-    
-    def success?
-      process.success?
-    end
-    
+    def pid() process.pid end
+    def status() process.exitstatus end
+    def failed?() not process.success? end
+    def success?() process.success? end
   end
   
   attr_accessor :ruby_program
@@ -33,26 +20,20 @@ module RubyCommand
   def require( *libs )
     ( @require ||= [] ).concat( libs )
   end
-  
   def load_path( *paths )
     ( @load_path ||= [] ).concat( paths )
   end
-  
   def ruby_options( *args )
     ( @ruby_options ||= [] ).concat( args )
   end
-  
   def arguments( *args )
     ( @arguments ||= [] ).concat( args )
   end
-  
   def environment( vars = nil )
     @environment ||= {}
     vars and @environment.update( vars )
     return( @environment )
   end
-  
-  
   def initialize_command( options = {} )
     @load_path = @require = @arguments =
     @ruby_options = @environment = nil
@@ -61,7 +42,7 @@ module RubyCommand
   end
   private :initialize_command
   
-  module_function
+module_function
   
   def ruby( path, options = {}, &block )
     command = ruby_command( path, options )

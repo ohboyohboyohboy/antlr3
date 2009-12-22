@@ -152,6 +152,7 @@ module PrettyError
     end
   end
   
+  
 module_function
   
   def blacklist( *patterns )
@@ -172,7 +173,6 @@ module_function
 end
 
 class Exception
-  
   def pretty!( options = {} )
     PrettyError.pretty( self, options )
     return( self )

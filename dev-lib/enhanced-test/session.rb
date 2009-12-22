@@ -4,34 +4,37 @@
 require 'erb'
 require 'benchmark'
 require 'facets/hash/weave'
-
+require 'monocle'
 require 'enhanced-test/summary'
 require 'enhanced-test/messages'
 require 'enhanced-test/ruby-command'
-require 'enhanced-test/loggable'
 
 module ANTLR3
 module Test
   autoload :Grammar, 'antlr3/test/grammar'
-  autoload :Monocle, 'monocle'
-  autoload :Text, 'text'
   autoload :OpenStruct, 'ostruct'
   autoload :YAML, 'yaml'
   
 class Session
   TEST_TYPES = %w( unit functional benchmark profile ).freeze
-  include Loggable
+  include Monocle
   
-  attr_accessor :options
-  attr_reader :tests, :success, :timestamp
+  attr_accessor :directory
+  attr_reader :success, :timestamp, :output
   
   def initialize( options = {} )
     @timestamp = Time.now
     @options = options
-    initialize_log( options )
-    @success = @functional = @unit = @benchmark = @profile = nil
+    @output = options.delete( :output ) || $stdout
+    data_directory = options.delete( :data_directory ) || '.'
+    @directory = data_directory / @timestamp.strftime("%m-%d-%y-%I%M%P")
+    
     yield( self ) if block_given?
-    info! { "initialized test session at #@timestamp" }
+  end
+  
+  def options( opts = nil )
+    opts and @options = @options.weave( opts )
+    return( @options )
   end
   
   for type in TEST_TYPES
@@ -45,12 +48,10 @@ class Session
         options = @options[ :#{ type } ] ||= {}
         paths.last.is_a?( Hash ) and options.update( paths.pop )
         options = @options.weave( options )
-        debug! { "creating #{ type } tests with options %p" % options }
         
         klass = self.#{ type }
         for path in paths
           if File.file?( path = path.to_s )
-            info! { "adding #{ type } test: #\{ path }" }
             klass.new( path, options )
           else 
             warn "skipping #\{ path } -- it is not an existing file"
@@ -68,11 +69,6 @@ class Session
     end
   end
   
-  def log=( log )
-    super
-    @options[ :log ] = @log
-  end
-  
   def run_tests( options = {} )
     options = @options.weave( options )
     
@@ -81,26 +77,13 @@ class Session
     end
     
     @success = true
-    Monocle::Progress.run( total_weight, options ) do | bar |
-      each_type do | type, klass |
-        info! { "running #{type} tests" }
-        @success &= klass.run( bar, options )
-      end
+    Progress.run( total_weight, :output => @output ) do | bar |
+      each_type { | type, klass | @success &= klass.run( bar, options ) }
       
       bar.clear_line
-      
-      unless @success
-        Monocle::Pager.open do | pager |
-          pager.colors( :black, :red ) do
-            pager.puts( "Tests Resulted In Failures and/or Errors\nDetails:" )
-          end
-          
-          each_type { | type, klass | klass.report_failures( pager ) }
-        end
-        
-        bar.clear_line
-        
-        each_type { | type, klass | klass.report_failures( bar ) }
+      report_failures( bar )
+      unless @success or not $stdout.tty? && $stdin.tty?
+        Pager.open { | pager | report_failures( pager ) }
       end
     end
     return( @success )
@@ -111,28 +94,40 @@ class Session
     tests.each { |t| t.clean( options ) }
   end
   
-  def save( base_directory, options = {} )
-    dir = base_directory / @timestamp.strftime("%m-%d-%y-%I%M%P")
-    Dir.mkdir( dir ) unless test( ?d, dir )
-    Monocle::OutputDevice.open( dir / 'summary.txt' ) do | f |
-      f.center do
-        each_type do | type, klass |
-          klass.summarize( f, options )
-        end
-      end
-    end
-    
+  def save
+    open( 'summary.txt' ) { | f | summarize( f ) }
+    open( 'failures.txt' ) { | f | report_failures( f ) } unless @success
+  end
+  
+private
+  
+  def report_failures( out )
     unless @success
-      Monocle::OutputDevice.open( dir / 'errors.txt' ) do | f |
-        f.colors( :black, :red ) do
-          f.puts( "Tests Resulted In Failures and/or Errors\nDetails:" )
-        end
-        each_type { | type, klass | klass.report_failures( f ) }
+      out.colors( :black, :red ) do
+        out.puts( "Tests Resulted in Failures and/or Errors", "Details:" )
+      end
+      each_type do | type, klass |
+        klass.report_failures( out )
       end
     end
   end
   
-private
+  def summarize( out )
+    out.center do
+      each_type { | type, klass | klass.summarize( out, @options ) }
+    end
+  end
+  
+  def open( file, options = {} )
+    test( ?d, @directory ) or Dir.mkdir( @directory )
+    OutputDevice.open( @directory / file, options ) do | f |
+      yield( f )
+    end
+  end
+  
+  def serialize
+    
+  end
   
   def each_type
     block_given? or return( enum_for( :each_type ) )
@@ -147,18 +142,12 @@ class Session
 class Item
   class << self
     attr_accessor :title
-    
-    def instances
-      @instances ||= {}
+    def options()
+      @options ||= {}
     end
-    
-    def tests
-      instances.values
-    end
-    
-    def failures
-      tests.select { | t | t.failed? }
-    end
+    def instances() @instances ||= {} end
+    def tests() instances.values end
+    def failures() tests.select { | t | t.failed? } end
     
     def report_failures( out )
       failures = tests.select { | t | t.failed? }
@@ -202,15 +191,14 @@ class Item
   end
   
   include Messages
-  include Loggable
   include RubyCommand
+  include Monocle
   
   attr_reader :path
   
   def initialize( path, options )
     @path = path.to_s.freeze
     initialize_command( options )
-    initialize_log( options )
     environment(
       'RUBYOPT' => nil,
       'RUBYLIB' => nil
@@ -225,36 +213,16 @@ class Item
     end
   end
   
-  def byproducts
-    []
-  end
+  def byproducts() [] end
+  def name() File.basename( @path, '.*' ) end
+  def type() end
+  def description() "[#{type}] #{name}" end
+  def weight() @weight ||= compute_weight end
+  def failed?()  false end
+  def report_failure( out )  end # do nothing
   
-  def name
-    File.basename( @path, '.*' )
-  end
-  
-  def type
-  end
-  
-  def description
-    "[#{type}] #{name}"
-  end
-  
-  def weight
-    @weight ||= compute_weight
-  end
-  
-  def failed?
-    false
-  end
-  
-  def report_failure( out )
-    # do nothing
-  end
 private
-  def compute_weight
-    1
-  end
+  def compute_weight() 1 end
   
   def trash!( path, dry_run, verbose )
     if File.directory?( path )
@@ -264,12 +232,10 @@ private
       verbose and puts( "trashing #{ path }" )
       Dir.rmdir( path ) unless dry_run
     elsif File.exists?( path )
-      info! { "trashing #{ path }" }
       verbose and puts( "trashing #{ path }" )
       File.delete( path ) unless dry_run
     end
   end
-  
 end
 
 class TestFile < Item
@@ -280,7 +246,7 @@ class TestFile < Item
     tests = self.tests.sort_by { | t | t.name }
     summaries = tests.map { | t | t.summary }
     total = summaries.inject( Summary.new, :<< )
-    table = Text::Table.build( table_head, options ) do | table |
+    table = Table.build( table_head, options ) do | table |
       yield( tests, total, table )
     end
     
@@ -301,33 +267,19 @@ class TestFile < Item
     environment( 'COLUMNS' => progress_bar.width ) if progress_bar
     
     @results = ruby( @path, options ) do | cmd, out, err |
-      info! { cmd }
       progress( progress_bar, out )
-    end
-    
-    if @results.status.zero?
-      info! { "command succeeded with status 0" }
-    else
-      error! { "command failed with status #{ @results.status }" }
-      @results.status == 1 and error! { @results.stderr }
     end
     
     if @results.stdout =~ DATA_RX
       report, data = $`, $'
-      info! { "restoring summary #{ data }" }
       @summary.restore( data.strip )
       @results.stdout = report
     end
     return( @results.success? )
   end
   
-  def source
-    @source ||= File.read( @path )
-  end
-  
-  def failed?
-    @results and @results.failed?
-  end
+  def source() @source ||= File.read( @path ) end
+  def failed?() @results and @results.failed? end
   
   def report_failure( out )
     out.foreground( :yellow ) { out.puts( @path ) }
@@ -396,7 +348,7 @@ class FunctionalTest < TestFile
       Time: Time elapsed while running all examples (in seconds)
     END
     
-    Text::Table.new( 2 ) do | table |
+    Table.new( 2 ) do | table |
       legend.columns[1].wrap = true
       legend.columns[0].flow = false
       legend.section( "Legend", :align => 'center' )
@@ -426,9 +378,9 @@ class FunctionalTest < TestFile
   def self.table_head; %w[ Name Status #T :) :| :( E! IM SX AC Time ]; end
   def self.title; "Functional Test Results"; end
   
-  def type
-    'functional'
-  end
+  def type() 'functional' end
+  def category() File.basename( File.dirname( path ) ) end
+  def description() "[#{ type }] #{ category }: #{ name }" end
   
   def byproducts
     Dir[ File.dirname( @path ) / File.basename( @path, '.rb' ) ]
@@ -446,14 +398,6 @@ class FunctionalTest < TestFile
         )
       end
     [ name, *report ]
-  end
-  
-  def category
-    File.basename( File.dirname( path ) )
-  end
-  
-  def description
-    "[#{ type }] #{ category }: #{ name }"
   end
   
   def inline_grammars
@@ -495,16 +439,11 @@ class UnitTest < TestFile
     end
   end
   
-  def self.title; "Unit Test Results"; end
-  def self.table_head; %w[ Name Status #T :) :| :( E! Time ]; end
+  def self.title() "Unit Test Results" end
+  def self.table_head() %w[ Name Status #T :) :| :( E! Time ] end
   
-  def type
-    'unit'
-  end
-  
-  def name
-    super.gsub( /test\-/, '' )
-  end
+  def type() 'unit' end
+  def name() super.gsub( /test\-/, '' ) end
   
   def summarize
     report = 
@@ -560,9 +499,7 @@ class PerformanceTest < Item
     @grammar.depends_on( file )
   end
   
-  def by_products
-    [ @output_directory ]
-  end
+  def by_products() [ @output_directory ] end
   
   def run( progress_bar, options = {} )
     if Hash === progress_bar then options, progress_bar = progress_bar, nil end
@@ -578,7 +515,6 @@ class PerformanceTest < Item
       end
       
       ruby( sample.script ) do | cmd, out, err |
-        info! { cmd }
         progress( progress_bar, out )
       end.each_pair do | field, value |
         sample[ field ] = value
@@ -590,9 +526,7 @@ class PerformanceTest < Item
     return( @samples.none? { | s | s.error } )
   end
   
-  def failed?
-    @samples.any? { | sample | sample.error }
-  end
+  def failed?() @samples.any? { | sample | sample.error } end
   
   def report_failure( out )
     out.foreground( :yellow ) { out.puts( @path ) }
@@ -610,32 +544,21 @@ private
     @grammar.stale? ? GRAMMAR_WEIGHT : 0
   end
   
-  def progress( bar, out )
-    # do nothing
-  end
+  def progress( bar, out ) end # do nothing
 end
 
 class ProfileTest < PerformanceTest
   def self.title; nil; end
   
-  def script_name( name )
-    "profile_#{ name }"
-  end
-  
-  def type
-    'profile'
-  end
-  
-  def summarize( * )
-    
-  end
+  def script_name( name ) "profile_#{ name }" end
+  def type() 'profile' end
+  def summarize( * ) end
   
   def report( base_directory )
     data_directory = base_directory / name
     test( ?d, data_directory ) or Dir.mkdir( data_directory )
     @samples.map do | sample |
       report_file = data_directory / sample.name + '.html'
-      info! { "writing profile data to #{ report_file }" }
       open( report_file, 'w' ) do | f |
         f.write( sample.stdout )
       end
@@ -704,7 +627,7 @@ class BenchmarkTest < PerformanceTest
         as calculated using the Time class
         instead of Process.times
     END
-    Text::Table.build( 2 ) do | legend |
+    Table.build( 2 ) do | legend |
       legend.columns[1].wrap = true
       legend.columns[0].flow = false
       legend.section( "Legend", :align => 'center' )
@@ -721,7 +644,7 @@ class BenchmarkTest < PerformanceTest
     bench_tests = tests.sort_by { | t | t.name }
     columns = %w( Action Item Trials Total User System Real )
     out.puts(
-      Text::Table.build( columns ) do | table |
+      Table.build( columns ) do | table |
         for test in bench_tests
           test.summarize( table )
         end
@@ -730,15 +653,10 @@ class BenchmarkTest < PerformanceTest
     out.puts
   end
   
-  def self.title; "Benchmarking Performance Data"; end
+  def self.title() "Benchmarking Performance Data" end
   
-  def script_name( name )
-    "bench_#{ name }"
-  end
-  
-  def type
-    'benchmark'
-  end
+  def script_name( name ) "bench_#{ name }" end
+  def type() 'benchmark' end
   
   def run( progress_bar, options = {} )
     @load_times = Hash.new { |h, k| h[ k ] = [] }
@@ -886,7 +804,6 @@ end
 __END__
 <%= sample.data %>
 BENCH
-
 end
 end
 end

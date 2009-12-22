@@ -16,8 +16,11 @@ module Monocle
   end
   
   COLOR_ESCAPE = /\e\[[\d:;]*?m/
+  
 
 class SingleLine < ::String
+  include Monocle
+  
   def self.clear_cache
     @@width.clear
     @@invisible_size.clear
@@ -28,7 +31,6 @@ class SingleLine < ::String
   @@invisible_size = {}
   
   if RUBY_VERSION =~ /^1\.8/
-    
     def char_byte( n )
       n.zero? and return( 0 )
       seen = byte = 0
@@ -83,15 +85,66 @@ class SingleLine < ::String
     when :right then right!( width, fill )
     end
   end
-
+  
+  def >>( str )
+    Line( str ).insert( 0, self )
+  end
+  
+  
+  def wrap( w )
+    if width > w
+      words = split( /\s+/ ).inject( [] ) do | words, word |
+        while word.width > w
+          frag, word = word.divide_at( w )
+          words << frag
+        end
+        words << word
+      end
+      
+      line = words.shift || self.class.new
+      text = Text.new
+      w -= 1
+      while word = words.shift
+        if line.width + word.width > w
+          text << line
+          line = word
+        else
+          line << ' ' << word
+        end
+      end
+      text << line
+      return( text )
+    else
+      return( Text( self.dup ) )
+    end
+  end
+  
+  def blank?
+    empty? or self =~ /^\s+$/
+  end
+  
   def bleach
     gsub( COLOR_ESCAPE, '' )
   end
-
+  
+  def truncate!( w, tail = nil )
+    width > w or return( self )
+    if tail then tail = Line( tail )
+      return( partial( w - tail.width ) << tail )
+    else
+      return( partial( w ) )
+    end
+    return( self )
+  end
+  
+  def truncate( w, tail = nil )
+    dup.truncate!( w, tail )
+  end
+  
   def bleach!
     gsub!( COLOR_ESCAPE, '' )
   end
-
+  
   def center!( w, fill = ' ' )
     w > width or return( self )
     if fill.length == 1
@@ -103,11 +156,11 @@ class SingleLine < ::String
     end
     self
   end
-
+  
   def invisible_size
     @@invisible_size[ hash ] ||= size - width
   end
-
+  
   def left!( w, fill = ' ' )
     w > width or return( self )
     if fill.length == 1
@@ -117,16 +170,21 @@ class SingleLine < ::String
     end
     self
   end
-
+  
   def pad!( left, right = left )
     right!( width + left )
     left!( width + right )
   end
-
+  
   def partial(len)
     self[ 0, char_byte( len ) ]
   end
-
+  
+  def divide_at( len )
+    pos = char_byte( len )
+    return( [ self[ 0, pos ], self[ pos, size ] ] )
+  end
+  
   def right!( w, fill = ' ' )
     w > width or return( self )
     if fill.length == 1
@@ -136,18 +194,49 @@ class SingleLine < ::String
     end
     self
   end
-
+  
   def tile( size )
     width == 0 and return( )
     full, partial = size.divmod( width )
-    partial
     self * full << partial( partial )
   end
-
+  
+  def indent!( num_spaces )
+    if num_spaces < 0
+      remaining_indent = ( level_of_indent + num_spaces ).at_least( 0 )
+      lstrip!
+      indent!( remaining_indent )
+    else
+      insert( 0, ' ' * num_spaces )
+    end
+    return( self )
+  end
+  
+  def indent( n )
+    dup.indent!( n )
+  end
+  
+  def level_of_indent
+    self =~ /^(\s+)/ ? $1.length : 0
+  end
+  
+  def each_escape
+    block_given? or return( enum_for( :each_escape ) )
+    scan( COLOR_ESCAPE ) do |esc|
+      yield( esc )
+    end
+  end
+  
+  def escapes
+    each_escape.inject( self.class.new ) do | escs, esc |
+      escs << esc
+    end
+  end
+  
   def words
     strip.split(/\s+/)
   end
-
+  
   def wrap( w )
     width <= w and return( Text.new( self ) )
     line = strip
@@ -164,11 +253,11 @@ class Text < Array
     return( self )
   end
   
-  include Constructors
+  include Monocle
   @@width = {}
   @@uniform = {}
-
-  def initialize( lines, default = nil )
+  
+  def initialize( lines = nil, default = nil )
     case lines
     when Fixnum
       if block_given?
@@ -181,6 +270,7 @@ class Text < Array
     when Array
       super( lines.join( $/ ).map { | l | Line( l.chomp! || l ) } )
     when SingleLine then super(1, lines)
+    when nil then super()
     else
       super( lines.to_s.lines.map { |l| Line( l.chomp! || l ) } )
     end
@@ -214,9 +304,35 @@ class Text < Array
   def fix
     dup.fix!
   end
-
+  
   def fix!
-    align!( a, width )
+    align!( :left, width )
+  end
+  
+  def fixed_indent!( level = 0 )
+    level = level.at_least( 0 )
+    offset = level - level_of_indent
+    indent!( offset )
+  end
+  
+  def fixed_indent( level = 0 )
+    dup.fixed_indent!( level )
+  end
+  
+  def level_of_indent
+    level = nil
+    levels = map { | line | line.blank? ? nil : line.level_of_indent }
+    levels.compact!
+    levels.min || 0
+  end
+  
+  def indent!( spaces )
+    for line in self do line.indent!( spaces ) end
+    self
+  end
+  
+  def indent( spaces )
+    dup.indent!( spaces )
   end
   
   def frame( graphic_style )
@@ -236,14 +352,18 @@ class Text < Array
   end
   
   def inspect
-    map { | line | line.inspect }.join( "\n" )
+    digits = Math.log10( length.at_least( 1 ) ).floor + 1
+    $/ + each_with_index.map do | line, i |
+      line_no = i.to_s.rjust( digits )
+      "#{ line_no } | #{ line }"
+    end.join( $/ ) + $/
   end
   
   def juxtapose( text, joint = ' ' )
     dup.juxtapose!( text, joint )
   end
 
-  def juxtapose!( text, joint = '' )
+  def juxtapose!( text, joint = ' ' )
     text = self.class.new( text ).fix!.valign!( :top, height )
     valign!( :top, text.height ); fix!
     
@@ -267,15 +387,31 @@ class Text < Array
     end
     self
   end
-
-  def reflow( width )
-    to_s.split( /\s*\n\s*\n\s*/, -1 ) do | section |
-      
+  
+  def reflow
+    cursor, new = 0, self.class.new
+    text = self.to_s
+    while text =~ /\n\s*\n/
+      before, text = $`, $'
+      new << `#{ before.gsub!( /[ \t]*\n/, ' ' ) || before }`
+      new << ``
+    end
+    new << `#{ text.gsub!( /[ \t]*\n/, ' ' ) || text }`
+    return( new )
+  end
+  
+  def reflow!
+    replace( reflow )
+  end
+  
+  def wrap( width )
+    reflow.inject( self.class.new ) do | wrapped, line |
+      wrapped.concat( line.wrap( width ) )
     end
   end
   
   def to_s
-    @lines.join( $/ )
+    join( $/ )
   end
 
   def uniform?
@@ -306,6 +442,9 @@ class Text < Array
 
   alias height length
   alias | juxtapose
+  def `(str)   #` # comment here cos my editor's colorizing freaks out
+    SingleLine.new( str )
+  end 
 end
 
 class Block < Text

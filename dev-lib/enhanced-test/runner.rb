@@ -52,6 +52,8 @@ class Formatter < ::Spec::Runner::Formatter::ProgressBarFormatter
     @where.puts "#{counter.to_s}) #{failure.example}"
     
     case error = failure.exception
+    when Grammar::CompilationFailure
+      @where.puts error.pretty!( :backtrace => false )
     when NoDice
       @where.puts error.pretty!( :backtrace => 1 )
     when nil then super

@@ -99,6 +99,7 @@ tokenRefAndListLabel(token,label,elementIndex,hetero) ::= <<
 <tokenRef(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
+
 tokenRefRuleRoot(token,label,elementIndex,hetero) ::= <<
 _last = @input.look
 <super.tokenRef(...)>
@@ -113,6 +114,9 @@ root_<treeLevel> = @adaptor.become_root(tree_for_<label>, root_<treeLevel>)
 })>
 <endif>
 >>
+
+
+
 tokenRefRuleRootAndListLabel(token,label,elementIndex,hetero) ::= <<
 <tokenRefRuleRoot(...)>
 <addToList(elem={<label; format="label">},...)>
@@ -164,6 +168,7 @@ matchSetBang(s,label,elementIndex,postmatchCode) ::= <<
 _last = @input.look
 <super.matchSet(...)>
 >>
+
 matchSetRuleRoot(s,label,hetero,elementIndex,debug) ::= <<
 <super.matchSet(..., postmatchCode={
 <if(!rewriteMode)>
@@ -177,10 +182,6 @@ root_<treeLevel> = @adaptor.become_root(tree_for_<label>, root_<treeLevel>)
 })>
 <endif>
 })>
->>
-matchSetRuleRootAndListLabel(s,label,hetero,elementIndex,debug) ::= <<
-<matchSetRuleRoot(...)>
-<addToList(elem={<label; format="label">},...)>
 >>
 
 

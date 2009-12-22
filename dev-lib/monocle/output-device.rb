@@ -1,17 +1,32 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 
-require 'ansi-color'
 require 'delegate'
+autoload :StringIO, 'stringio' unless defined?( StringIO )
 
 module Monocle
 class OutputDevice < DelegateClass( IO )
-  include Constructors
+  include Monocle
   include TerminalEscapes
   
   def self.open( path, options = {} )
     File.open( path, options.fetch( :mode, 'w' ) ) do | file |
       return( yield( new( file, options ) ) )
+    end
+  end
+  
+  def self.buffer( options = {} )
+    buffer = StringIO.new( '', options.fetch( :mode, 'w' ) )
+    out = new( buffer, options )
+    if block_given?
+      begin
+        yield( out )
+        return( out.string )
+      ensure
+        out.close
+      end
+    else
+      return out
     end
   end
   
@@ -54,8 +69,7 @@ class OutputDevice < DelegateClass( IO )
     
     @screen_size = nil
     @alignment = options.fetch( :alignment, :left )
-    
-    #tty? and clear
+    @style = Style( options[ :style ] )
   end
   
   def foreground( color = nil )
@@ -203,13 +217,6 @@ class OutputDevice < DelegateClass( IO )
     self
   end
   
-  def say( text )
-    for line in Text( text )
-      print_line( line )
-    end
-    self
-  end
-  
   def return!
     ~@cursor
     @device.print("\r")
@@ -269,6 +276,31 @@ class OutputDevice < DelegateClass( IO )
     @device.print( super )
     @device.flush
     return!
+  end
+  
+  for m in %w( horizontal_line box_top box_bottom )
+    class_eval( <<-END, __FILE__, __LINE__ + 1 )
+      def #{ m }
+        print_line( @style.#{ m }( width ) )
+        newline!
+      end
+    END
+  end
+  
+  def table_top( *column_widths )
+    nw + line_with_joints( esw, column_widths ) + ne
+  end
+  
+  def table_divide( *column_widths )
+    ens + line_with_joints( ensw, column_widths ) + nsw
+  end
+  
+  def table_bottom( *column_widths )
+    sw + line_with_joints( enw, column_widths ) + se
+  end
+  
+  def line_with_joints( joint, *widths )
+    widths.map { | w | horizontal_line( w ) }.join( joint )
   end
   
 private

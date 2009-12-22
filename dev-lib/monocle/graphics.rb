@@ -20,8 +20,7 @@ Graphics = Struct.new(
 )
 
 class Graphics
-  extend Constructors
-  include Constructors
+  include Monocle
   
   NAMED_STYLES = Hash.new { |h, k| h[ 'ascii' ].dup  }
   
@@ -35,7 +34,7 @@ class Graphics
   define :double_line, '═', '║', '╔', '╗', '╝', '╚', '╠', '╣', '╩', '╦', '╬', '╠', '╚'
   
   def format( description )
-    out = Line(description)
+    out = Line( description )
     out.gsub!( /<([nsewlrtbudhv]+)(?::(\d+))?>/i ) do
       box_bit = resolve_name( $1 )
       $2 ? box_bit.tile( $2.to_i ) : box_bit

@@ -3,6 +3,7 @@
 
 module Monocle
 module Presentation
+  include Monocle
   ALIGNMENTS = [ :left, :right, :center ]
   
   def self.included( klass )

@@ -59,39 +59,4 @@ class Rectangle
     super( left, top, right, bottom )
   end
 end
-
-module Constructors
-  def self.included( kl )
-    super
-    kl.extend( self )
-  end
-  
-module_function
-  
-  def Line( obj )
-    SingleLine === obj ? obj : SingleLine.new( obj.to_s )
-  end
-  
-  def Output( dev )
-    OutputDevice === dev ? dev : OutputDevice.new( dev )
-  end
-  
-  def Text( obj )
-    Text === obj ? obj : Text.new( obj )
-  end
-  
-  def Style( obj )
-    Graphics === obj ? obj : Graphics::NAMED_STYLES[ obj.to_s ]
-  end
-  
-  def Rectangle( obj )
-    case obj
-    when Rectangle then obj
-    when Array then Rectangle.new( *obj )
-    when Hash then Rectangle.create( obj )
-    else Rectangle.new( obj )
-    end
-  end
-  
-end
 end

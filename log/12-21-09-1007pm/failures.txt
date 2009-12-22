@@ -1,0 +1,22 @@
+Tests Resulted in Failures and/or Errors[0m
+Details:              [0m
+From Functional Test Results:[0m
+test/functional/main/main-scripts.rb[0m
+                      [0m
+                      [0m
+1) using a tree parser's built-in main to inspect AST rewrite output(TestMainUtility)[0m
+                      [0m
+╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗[0m
+║                                                         ANTLR3::Test::Grammar::CompilationFailure                                                          ║[0m
+╟────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╢[0m
+║ command ``java -cp /home/kyle/lib/ruby/projects/antlr3/java/antlr-full-3.2.1.jar org.antlr.Tool -fo test/functional/main/main-scripts -XdbgST /home/kyle/lib/ruby/projects/antlr3/test/functional/main/main-scripts/TreeRewriteMainWalker.g 2>&1'' failed with status 1 ║[0m
+║ inline grammar TreeRewriteMainWalker (/home/kyle/lib/ruby/projects/antlr3/test/functional/main/main-scripts.rb:172)                                        ║[0m
+║ ~ ~ ~ command output ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~                                                                                     ║[0m
+║ error(10):  internal error: problem parsing group <unknown>: antlr.TokenStreamIOException: Unexpected end of ZLIB input stream : antlr.TokenStreamIOException: Unexpected end of ZLIB input stream ║[0m
+║ error(10):  internal error: /home/kyle/lib/ruby/projects/antlr3/test/functional/main/main-scripts/TreeRewriteMainWalker.g : java.lang.IllegalArgumentException: Can't find template tokenRefBang.st; group hierarchy is [Ruby] ║[0m
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝[0m
+                      [0m
+                      [0m
+Finished in 10.920582 seconds[0m
+                      [0m
+10 examples, 1 failure[0m
