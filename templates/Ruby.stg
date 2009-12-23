@@ -7,25 +7,67 @@ group Ruby implements ANTLRCore;
 /** The overall file structure of a recognizer; stores methods
   * for rules and cyclic DFAs plus support code.
   */
-outputFile(LEXER,PARSER,TREE_PARSER, actionScope, actions, docComment, recognizer, name, tokens, tokenNames, rules, cyclicDFAs, bitsets, buildTemplate, buildAST, rewriteMode, profile, backtracking, synpreds, memoize, numRules, fileName, ANTLRVersion, generatedTimestamp, trace, scopes, superClass, literals) ::=
+outputFile(LEXER, PARSER, TREE_PARSER, actionScope, actions, docComment, recognizer, name,
+  tokens, tokenNames, rules, cyclicDFAs, bitsets, buildTemplate, buildAST, rewriteMode,
+  profile, backtracking, synpreds, memoize, numRules, fileName, ANTLRVersion, generatedTimestamp,
+  trace, scopes, superClass, literals) ::=
 <<
 #!/usr/bin/env ruby
+#
+# <fileName>
 # 
 # generated using ANTLR Version: <ANTLRVersion>
 # input grammar file: <fileName>
 # generated at: <generatedTimestamp>
+# 
 
+# ~~~\> start load path setup
 this_directory = File.expand_path( File.dirname( __FILE__ ) )
 $:.unshift( this_directory ) unless $:.include?( this_directory )
 
-begin
-  require 'rubygems'
-  gem 'antlr3'
-rescue LoadError
-  # ignore load error and assume antlr3.rb is in the load path already
+antlr_load_failed = proc do
+  load_path = $LOAD_PATH.map { |dir| '  - ' \<\< dir }.join( $/ )
+  raise LoadError, \<\<-'END'.strip!
+  
+Failed to load the ANTLR3 runtime library:
+
+Ensure the library has been installed on your system and is available
+on the load path. If rubygems is available on your system, this can
+be done with the command:
+  
+  gem install antlr3
+
+Current load path:
+#{ load_path }
+
+  END
 end
 
-require 'antlr3'
+defined?(ANTLR3) or begin
+  
+  # 1: try to load the ruby antlr3 runtime library from the system path
+  require 'antlr3'
+  
+rescue LoadError
+  
+  # 2: try to load rubygems if it isn't already loaded
+  defined?(Gem) or begin
+    require 'rubygems'
+  rescue LoadError
+    antlr_load_failed.call
+  end
+  
+  # 3: try to activate the antlr3 gem
+  begin
+    Gem.activate( 'antlr3' )
+  rescue Gem::LoadError
+    antlr_load_failed.call
+  end
+  
+  require 'antlr3'
+  
+end
+# \<~~~ end load path setup
 
 <placeAction(scope=actionScope,name="header")>
 
@@ -39,11 +81,10 @@ require 'antlr3'
 
 <if(actions.(actionScope).main)>
 if __FILE__ == $0 and ARGV.first != '--'
-<placeAction(scope=actionScope,name="main")>
+  <placeAction(scope=actionScope,name="main")>
 end
 <endif>
 >>
-
 
 tokenDataModule() ::= <<
 # TokenData defines all of the token type integer values
@@ -116,7 +157,11 @@ end # class <gram.name>
 >>
 /* * * * * * * * * * R E C O G N I Z E R   C L A S S E S * * * * * * * * * */
 
-parser(grammar, name, scopes, tokens, tokenNames, rules, numRules, bitsets, ASTLabelType="Object", superClass="ANTLR3::Parser", labelType="ANTLR3::Token", members={<actions.parser.members>}) ::= <<
+parser(
+  grammar, name, scopes, tokens, tokenNames, rules, numRules, bitsets,
+  ASTLabelType="Object", superClass="ANTLR3::Parser", labelType="ANTLR3::Token",
+  members={<actions.parser.members>}
+) ::= <<
 <if(grammar.grammarIsRoot)><autoloadDelegates()><endif>
 
 class <if(grammar.grammarIsRoot)>Parser<else><grammar.name><endif> \< <superClass>
@@ -127,7 +172,6 @@ end # class <if(grammar.grammarIsRoot)>Parser<else><grammar.name><endif> \< <sup
 at_exit { <if(grammar.grammarIsRoot)>Parser<else><grammar.name><endif>.main(ARGV) } if __FILE__ == $0
 <endif>
 >>
-
 
 /** How to generate a tree parser; same as parser except the
   * input stream is a different type.
@@ -263,16 +307,13 @@ recognizerClassName() ::= <<
 <if(TREE_PARSER)>TreeParser<elseif(PARSER)>Parser<else>Lexer<endif>
 >>
 
-
 initializeDirectDelegate() ::= <<
 @<g:delegateName()> = <g.name>::<recognizerClassName()>.new(<trunc(g.delegators):{p|<p:delegateName()>, }>self, input, options.merge(:state => @state))
 >>
 
-
 initializeDelegator() ::= <<
 @<g:delegateName()> = <g:delegateName()>
 >>
-
 
 altSwitchCase() ::= <<
 when <i>
@@ -280,14 +321,12 @@ when <i>
   <it>
 >>
 
-
 blockBody() ::= <<
 <@decision><decision><@end>
 case alt_<decisionNumber>
 <alts:altSwitchCase(); separator="\n">
 end
 >>
-
 
 catch(decl, action) ::= <<
 # - - - - - - @catch e.decl - - - - - -
@@ -1261,23 +1300,11 @@ end
 
 /** Isolated $RULE ref ok in lexer as it's a Token */
 lexerRuleLabel(label) ::= "<label; format=\"label\">"
-
-
 lexerRuleLabelPropertyRef_line(scope, attr) ::= "<scope; format=\"label\">.line"
-
-
 lexerRuleLabelPropertyRef_type(scope, attr) ::= "<scope; format=\"label\">.type"
-
-
 lexerRuleLabelPropertyRef_pos(scope, attr) ::= "<scope; format=\"label\">.column"
-
-
 lexerRuleLabelPropertyRef_channel(scope, attr) ::= "<scope; format=\"label\">.channel"
-
-
 lexerRuleLabelPropertyRef_index(scope, attr) ::= "<scope; format=\"label\">.index"
-
-
 lexerRuleLabelPropertyRef_text(scope, attr) ::= "<scope; format=\"label\">.text"
 
 
@@ -1297,33 +1324,18 @@ def <ruleName; format="lexerRule">
 end
 >>
 
-
 lexerRulePropertyRef_text(scope, attr) ::= "self.text"
-
-
 lexerRulePropertyRef_type(scope, attr) ::= "type"
-
-
 lexerRulePropertyRef_line(scope, attr) ::= "@state.token_start_line"
-
-
 lexerRulePropertyRef_pos(scope, attr) ::= "@state.token_start_column"
-
 
 /** Undefined, but present for consistency with Token
   * attributes; set to -1
   */
 lexerRulePropertyRef_index(scope, attr) ::= "-1"
-
-
 lexerRulePropertyRef_channel(scope, attr) ::= "channel"
-
-
 lexerRulePropertyRef_start(scope, attr) ::= "@state.token_start_position"
-
-
 lexerRulePropertyRef_stop(scope, attr) ::= "(self.character_index - 1)"
-
 
 /** A lexer rule reference */
 lexerRuleRef(rule,label,args,elementIndex,scope) ::= <<
@@ -1358,12 +1370,10 @@ wildcardChar(label, elementIndex) ::= <<
 match_any
 >>
 
-
 wildcardCharListLabel(label, elementIndex) ::= <<
 <wildcardChar(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
-
 
 /** match a character */
 charRef(char,label) ::= <<
@@ -1373,7 +1383,6 @@ charRef(char,label) ::= <<
 match(<char>)
 >>
 
-
 /** match a character range */
 charRangeRef(a,b,label) ::= <<
 <if(label)>
@@ -1382,12 +1391,8 @@ charRangeRef(a,b,label) ::= <<
 match_range(<a>, <b>)
 >>
 
-
 filteringNextToken() ::= ""
-
-
 filteringActionGate() ::= "@state.backtracking == 1"
-
 
 /** Match a string literal */
 lexerStringRef(string,label) ::= <<
@@ -1424,32 +1429,24 @@ match(ANTLR3::EOF)<\n>
 <endif>
 >>
 
-
 /** $start in parser rule */
 rulePropertyRef_start(scope, attr) ::= "return_value.start"
-
 
 /** $stop in parser rule */
 rulePropertyRef_stop(scope, attr) ::= "return_value.stop"
 
-
 /** $tree in parser rule */
 rulePropertyRef_tree(scope, attr) ::= "return_value.tree"
-
 
 /** $text in parser rule */
 rulePropertyRef_text(scope, attr) ::= "@input.to_s(return_value.start, @input.look(-1))"
 
-
 /** $template in parser rule */
 rulePropertyRef_st(scope, attr) ::= "return_value.st"
 
-
 ruleSetPropertyRef_tree(scope, attr, expr) ::= "return_value.tree = <expr>"
 
-
 ruleSetPropertyRef_st(scope, attr, expr) ::= "return_value.st = <expr>"
-
 
 /** How to execute an action */
 execAction(action) ::= <<
@@ -1467,15 +1464,10 @@ end
 <endif>
 >>
 
-
 codeFileExtension() ::= ".rb"
 
-
 true() ::= "true"
-
-
 false() ::= "false"
-
 
 action(name, code) ::= <<
 <if(code)>
@@ -1483,13 +1475,12 @@ action(name, code) ::= <<
 <code><\n>
 <endif>
 >>
+
 autoloadDelegates() ::= <<
 <if(grammar.directDelegates)>
 <grammar.directDelegates:{autoload :<it.name>, "<it.recognizerName>"<\n>}>
 <endif>
 >>
-
-
 
 delegateLexerRule(ruleDescriptor) ::= <<
 # delegated lexer rule <ruleDescriptor.name; format="lexerRule"> (<ruleDescriptor.name> in the grammar)
@@ -1497,17 +1488,18 @@ def <ruleDescriptor.name; format="lexerRule">(<ruleDescriptor.parameterScope:par
   <methodCall(del=ruleDescriptor.grammar, n={<ruleDescriptor.name; format="lexerRule">}, args=ruleDescriptor.parameterScope.attributes)>
 end
 >>
+
 rootClassName() ::= <<
 <if(grammar.grammarIsRoot)><grammar.name><else><grammar.composite.rootGrammar.name><endif>::<if(TREE_PARSER)>TreeParser<elseif(PARSER)>Parser<else>Lexer<endif>
 >>
+
 grammarClassName() ::= <<
 <gram.name>::<if(TREE_PARSER)>TreeParser<elseif(PARSER)>Parser<else>Lexer<endif>
 >>
+
 newDelegate(gram) ::= <<
 <gram.name>.new(<trunc(gram.delegators):{p|<p:delegateName()>, }>self, @input, :state => @state<@delegateOptions()>)
 >>
-
-
 
 placeAction(scope, name) ::= <<
 <if(actions.(scope).(name))>

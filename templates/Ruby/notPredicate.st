@@ -1,1 +1,0 @@
-notPredicate(pred) ::= "not (<evalPredicate(...)>)"

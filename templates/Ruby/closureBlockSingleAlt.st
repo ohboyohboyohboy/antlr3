@@ -1,1 +1,0 @@
-closureBlockSingleAlt ::= closureBlock

@@ -14,7 +14,6 @@ module Test
   autoload :Grammar, 'antlr3/test/grammar'
   autoload :OpenStruct, 'ostruct'
   autoload :YAML, 'yaml'
-  
 class Session
   TEST_TYPES = %w( unit functional benchmark profile ).freeze
   include Monocle
@@ -97,6 +96,7 @@ class Session
   def save
     open( 'summary.txt' ) { | f | summarize( f ) }
     open( 'failures.txt' ) { | f | report_failures( f ) } unless @success
+    each_type { | type, klass | klass.save( @directory ) }
   end
   
 private
@@ -147,10 +147,10 @@ class Item
     end
     def instances() @instances ||= {} end
     def tests() instances.values end
-    def failures() tests.select { | t | t.failed? } end
+    def failures() tests.select { | t | t.ran? and t.failed? } end
     
     def report_failures( out )
-      failures = tests.select { | t | t.failed? }
+      failures = tests.select { | t | t.ran? and t.failed? }
       unless failures.empty?
         title and out.foreground( :cyan ) {
           out.puts( "From #{ title }:" ) }
@@ -159,6 +159,10 @@ class Item
           t.report_failure( out )
         end
       end
+    end
+    
+    def save( dir )
+      # do nothing
     end
     
     def new( path, options = nil )
@@ -178,15 +182,19 @@ class Item
       success = true
       if @instances and not @instances.empty?
         for item in tests
-          success &=
-            progress.stage( item.description, item.weight ) do
-              item.run( progress, options )
-            end
+          progress.stage( item.description, item.weight ) do
+            success &= item.run( progress, options )
+            item.ran = true
+          end
         end
         
         progress.hide { progress.center { summarize( progress, options ) } }
       end
       return( success )
+    rescue Interrupt
+      progress.clear_line
+      report_failures( progress )
+      raise
     end
   end
   
@@ -194,7 +202,9 @@ class Item
   include RubyCommand
   include Monocle
   
+  attr_accessor :ran
   attr_reader :path
+  alias :ran? :ran
   
   def initialize( path, options )
     @path = path.to_s.freeze
@@ -254,12 +264,14 @@ class TestFile < Item
     out.puts
   end
   
+  
   attr_reader :summary, :results
   
   def initialize( path, options = {} )
     super( path, options )
     @summary = Summary.new
     @results = nil
+    @ran = false
   end
   
   def run( progress_bar, options = {} )
@@ -302,8 +314,18 @@ private
       case c
       when GRAMMAR_COMPILE
         bar.step( GRAMMAR_WEIGHT ) if bar
-      when PASSED, PENDING, FAILED
+      when PASSED
         bar.step( EXAMPLE_WEIGHT ) if bar
+      when PENDING
+        if bar
+          bar.bar_color = :yellow
+          bar.step( EXAMPLE_WEIGHT )
+        end
+      when FAILED
+        if bar
+          bar.bar_color = :magenta
+          bar.step( EXAMPLE_WEIGHT )
+        end
       when SECTION
         pipe.getc == SECTION and break
       end
@@ -400,6 +422,7 @@ class FunctionalTest < TestFile
     [ name, *report ]
   end
   
+  
   def inline_grammars
     grammars = {}
     source.scan( INLINE_GRAMMARS ) do | name, body |
@@ -467,7 +490,18 @@ class PerformanceTest < Item
     :error, :performance_data, *result_members
   )
   attr_accessor :repetitions, :parser_rule, :tree_rule
-  attr_reader :compile_options, :grammar, :output_directory, :samples
+  attr_reader :compile_options, :grammar, :output_directory,
+              :samples, :configuration
+  def self.save( directory )
+    perf_tests = tests.select { |i| i.ran? }
+    unless perf_tests.empty?
+      directory = directory / self.directory_name
+      test( ?d, directory ) or Dir.mkdir( directory )
+      for pt in perf_tests
+        pt.save( directory )
+      end
+    end
+  end
   
   def initialize( file, options = {} )
     file =~ /\.yaml$/ or
@@ -477,7 +511,7 @@ class PerformanceTest < Item
     @output_directory = file.chomp('.yaml')
     test( ?d, @output_directory ) or Dir.mkdir( @output_directory )
     
-    data = YAML.load_file( file )
+    @configuration = data = YAML.load_file( file ).freeze
     @repetitions = data.fetch( :repetitions, 10 )
     @parser_rule = data[ :parser_rule ]
     @tree_rule = data[ :parser_rule ]
@@ -549,20 +583,17 @@ end
 
 class ProfileTest < PerformanceTest
   def self.title; nil; end
-  
+  def self.directory_name() 'profiling-reports' end
   def script_name( name ) "profile_#{ name }" end
   def type() 'profile' end
   def summarize( * ) end
   
-  def report( base_directory )
-    data_directory = base_directory / name
-    test( ?d, data_directory ) or Dir.mkdir( data_directory )
-    @samples.map do | sample |
-      report_file = data_directory / sample.name + '.html'
-      open( report_file, 'w' ) do | f |
+  def save( directory )
+    for sample in samples
+      file_name = "#{name}-#{sample.name}.html"
+      open( directory / file_name, 'w' ) do | f |
         f.write( sample.stdout )
       end
-      report_file
     end
   end
   
@@ -578,6 +609,7 @@ end
 
 class BenchmarkTest < PerformanceTest
   BenchmarkData = Struct.new( :lexing, :parsing )
+  TimeStats = Struct.new( :utime, :stime, :cutime, :cstime, :real, :total )
   Stats = Struct.new(:count, :min, :max, :mean, :standard_deviation) do
     def self.extract( values )
       if values.length == 1
@@ -594,13 +626,12 @@ class BenchmarkTest < PerformanceTest
     end
     
     def self.for_table( records )
-      %w( utime stime cutime cstime real total ).
-        inject( OpenStruct.new ) do | os, f |
-          os.send( :"#{ f }=",
-            extract( records.map { | r | r.send( f ) } )
-          )
-          os
-        end
+      cummulative = TimeStats.new
+      cummulative.members.each do | field |
+        data = records.map { | r | r.send( field ) }
+        cummulative[ field ] = extract( data )
+      end
+      return cummulative
     end
   end
   
@@ -654,6 +685,7 @@ class BenchmarkTest < PerformanceTest
   end
   
   def self.title() "Benchmarking Performance Data" end
+  def self.directory_name() 'benchmark-data' end
   
   def script_name( name ) "bench_#{ name }" end
   def type() 'benchmark' end
@@ -681,6 +713,21 @@ class BenchmarkTest < PerformanceTest
     return( success )
   end
   
+  def save( directory )
+    report = {}.update( @configuration )
+    for sample in samples
+      report[ :samples ][ sample.name ][ :performance_data ] =
+        sample.performance_data.to_h!
+    end
+    
+    open( directory / name + '.yaml', 'w' ) do | f |
+      YAML.dump( report, f )
+    end
+  end
+  
+  #:name, :data, :script, :repetitions, :parser_rule, :tree_rule,
+  #:error, :performance_data, *result_members
+    
   def summarize( table )
     table.section( name, :align => 'center' )
     make_row = proc do | action, item, stat |

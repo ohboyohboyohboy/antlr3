@@ -8,73 +8,81 @@ require 'main'
 require 'enhanced-test/session'
 
 Main do
-  def session
-    @session ||= ANTLR3::Test::Session.new( session_options )
-    block_given? ? yield( @session ) : @session
+  option :save, 's' do
+    description( "save the test results in the log directory" )
+    arity( -1 )
   end
   
   def run_tests
     session do | s |
       yield( s )
       s.run_tests
-      s.save
+      s.save if params[ :save ].given?
     end
+  end
+  def session
+    @session ||= ANTLR3::Test::Session.new( session_options )
+    block_given? ? yield( @session ) : @session
   end
   
   def session_options
-    {
-      :data_directory => $project.test.results,
+    { :data_directory => $project.test.results,
       :output => stdout,
       :load_path => [ $project.lib ],
       :functional => test_options,
       :unit => test_options,
-      :profile => { :require => $project.bundler.environment }
-    }
+      :profile => { :require => $project.bundler.environment } }
   end
   
   def test_options
-    {
-      :load_path => [ $project.dev_lib ],
+    { :load_path => [ $project.dev_lib ],
       :require => $project.path( 'config/antlr3.rb' ),
       :arguments => [
         '--require', $project.dev_lib( 'enhanced-test.rb' ),
         '--format', "ANTLRFormatter",
         '--runner', "ANTLRRunner",
         '--backtrace'
-      ]
-    }
+      ] }
   end
   
-  mixin :test_arguments do
-    argument( :tests ) do
-      description( <<-END.here_flow! )
-      | any combination of category names, test names, paths to test files
-      | or `all'
-      END
-      default( 'all' )
-      arity( -1 )
-    end
-    
-    def test_files
-      files = []
-      for arg in params[:tests].values
-        if arg == 'all'
-          files += all
-        elsif File.file?( arg )
-          files << arg
-        elsif File.directory?( arg )
-          files += Dir.children( arg ).select { | f | File.file?( f ) }
-        elsif matches = match_tests?( arg )
-          files += matches
-        else
-          warn("can't associate argument %p with any test files -- ignoring" % arg)
-        end
+  def self.test_mode( test_type, &block )
+    mode( test_type ) do
+      argument( :tests ) do
+        description( <<-END.here_flow! )
+        | any combination of category names, test names, paths to test files
+        | or `all'
+        END
+        default( 'all' )
+        arity( -1 )
       end
-      return( files.uniq )
-    end
-    
-    def match_tests?( a )
-      ( ts = match_tests( a ) and ! ts.empty? ) ? ts : false
+      
+      run do
+        run_tests { | s | s.send( "add_#{ test_type }", test_files ) }
+      end
+      
+      def test_files
+        files = []
+        for arg in params[:tests].values
+          if arg == 'all'
+            files += all
+          elsif File.file?( arg )
+            files << arg
+          elsif File.directory?( arg )
+            files += Dir.children( arg ).select { | f | File.file?( f ) }
+          elsif matches = match_tests?( arg )
+            files += matches
+          else
+            warn("can't associate argument %p with any test files -- ignoring" % arg)
+          end
+        end
+        return( files.uniq )
+      end
+      
+      def match_tests?( a )
+        ( ts = match_tests( a ) and ! ts.empty? ) ? ts : false
+      end
+      
+      block.call
     end
   end
   
@@ -104,13 +112,7 @@ Main do
     end
   end
   
-  mode :unit do
-    mixin :test_arguments
-    
-    def run
-      run_tests { | s | s.add_unit( test_files ) }
-    end
-    
+  test_mode :unit do
     def all
       $project.test.unit!('test-*.rb')
     end
@@ -118,33 +120,22 @@ Main do
     def match_tests( arg )
       $project.test.unit!( "*#{ arg }*.rb" )
     end
-    
   end
   
-  mode :functional do
-    mixin :test_arguments
-    
-    def run
-      run_tests { | s | s.add_functional( test_files ) }
-    end
-    
+  test_mode :functional do
     def all
       $project.test.functional!('*','*.rb')
     end
     
     def match_tests( arg )
-      $project.test.functional!( name + '*', '*.rb' ) +
-      $project.test.functional!( '*', name + '*.rb' )
+      $project.test.functional!( arg + '*', '*.rb' ) +
+      $project.test.functional!( '*', arg + '*.rb' )
     end
   end
   
   for type in %w( benchmark profile )
     eval( <<-END, binding, __FILE__, __LINE__ + 1 )
-      mode :#{ type } do
-        mixin :test_arguments
-        
-        run { run_tests { | s | s.add_#{ type }( test_files ) } }
-        
+      test_mode :#{ type } do
         def all() $project.test.performance!( '*.yaml' ) end
         def match_tests( arg )
           $project.test.performance!( "\#{arg}*.yaml" )

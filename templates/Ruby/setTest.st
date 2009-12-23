@@ -1,3 +1,0 @@
-setTest(ranges) ::= <<
-<ranges; separator=" || ">
->>

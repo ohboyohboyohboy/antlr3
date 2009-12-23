@@ -65,6 +65,36 @@ $proj = $project = Project.load( project_top, config_file ) do
     end
   end
   
+  def increment_version( level = 'patch' )
+    major, minor, patch = version.split('.').map { |i| i.to_i }
+    case level.to_s.downcase
+    when 'major' then major, minor, patch = major + 1, 0, 0
+    when 'minor' then major, minor, patch = major, minor + 1, 0
+    when 'patch' then major, minor, patch = major, minor, patch + 1
+    else raise( ArgumentError,
+      "level argument must be `patch', `minor', `major', but got `#{ level }'" )
+    end
+    
+    config_file = path( 'config/antlr3.yaml' )
+    source = File.read( config_file )
+    File.rename( config_file, config_file + '~' )
+    source[ version.inspect ] = %("#{major}.#{minor}.#{patch}")
+    open( config_file, 'w' ) { |f| f.write( source ) }
+    
+    version_file = path( 'lib/antlr3/version.rb' )
+    source = File.read( version_file )
+    %w( major minor patch ).each do | l |
+      rx = /^(\s*)#{ l.upcase }_VERSION\s*=\s*(\d+)$/
+      source =~ rx or fail( "can't find a line matching %p in version.rb" % rx )
+      old_line = $~[0]
+      new_line = "#{ $1 }#{ l.upcase }_VERSION = #{ eval( l, binding ) }"
+      source[ old_line ] = new_line
+    end
+    File.rename( version_file, version_file + '~' )
+    open( version_file, 'w' ) { | f | f.write( source ) }
+    self.version = "#{ major }.#{ minor }.#{ patch }"
+  end
+  
   def jar_command
     @jar_command ||= find_program %w( fastjar jar )
   end
@@ -141,3 +171,11 @@ $proj = $project = Project.load( project_top, config_file ) do
 end
 
 $project.setup? and $project.load_environment
+
+bin_dirs = [
+  $project.path( 'scripts' ),
+  $project.path( 'bin' ),
+  $project.path( 'vendor/bin' )
+].map! { | dir | File.expand_path( dir ) }
+
+ENV.add_onto( 'PATH', *bin_dirs )

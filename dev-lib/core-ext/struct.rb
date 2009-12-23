@@ -23,7 +23,27 @@ class Struct
     alias_method( new, cur )
     alias_method( "#{new}=", "#{cur}=" )
   end
-
+  
+  def to_h
+    h = {}
+    each_pair { | member, value | h[ member ] = value }
+    return( h )
+  end
+  
+  def to_h!
+    h = {}
+    each_pair do | member, value |
+      h[ member ] =
+        case value
+        when Struct then value.to_h!
+        when Array then value.map { |v| Struct === v ? v.to_h! : v }
+        when Hash then Hash[ value.map { |pair| pair.map! { |v| Struct === v ? v.to_h! : v } } ]
+        else value
+        end
+    end
+    return( h )
+  end
+  
 end
 
 if __FILE__ == $0

@@ -3,7 +3,8 @@
 
 module Monocle
 class Progress < OutputDevice
-  attr_accessor :position, :total
+  
+  attr_accessor :position, :total, :bar_color
   attr_reader :output, :title
   attr_writer :width
   
@@ -19,6 +20,7 @@ class Progress < OutputDevice
     @position = 0
     @title = Line( options[ :title ].to_s )
     @limit = @width = @time = @next_time = nil
+    @bar_color = options.fetch( :bar_color, :red )
     super( options.fetch( :output, $stderr ), options )
   end
   
@@ -76,7 +78,7 @@ class Progress < OutputDevice
     bar = ( progress.to_s << '%' ).center( bar_width )
     fill_point = bar_width * @position / @total
     bar.insert( fill_point, "\e[0m" )
-    bar.insert( 0, ansi_color( ?b, :red ) )
+    bar.insert( 0, ansi_color( ?b, @bar_color ) )
     print( title.align( :left, title_width )[ 0 , title_width ] )
     print( bar )
     print( eta )

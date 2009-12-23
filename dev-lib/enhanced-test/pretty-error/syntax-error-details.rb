@@ -75,7 +75,7 @@ private
     
     line_format = "%0#{ finish.digits }i | %s"
     code = source_lines[ start - 1 .. finish - 1 ]
-    error_line = code[ line_no - start ].dup
+    error_line = code[ line_no - start - 1 ].to_s.dup
     error_line.insert( error_line.length - $/.length, ' <~~~ ' )
     error_line.insert( error_column, ' ~~~> ' )
     code[ line_no - start ] = error_line
