@@ -16,10 +16,11 @@ Main do
   def run_tests
     session do | s |
       yield( s )
-      s.run_tests
+      exit_status( s.run_tests ? 0 : 1 )
       s.save if params[ :save ].given?
     end
   end
+  
   def session
     @session ||= ANTLR3::Test::Session.new( session_options )
     block_given? ? yield( @session ) : @session
@@ -157,7 +158,9 @@ Main do
   
   mode :run do
     mixin :all_types
-    run { run_tests { | s | add_tests( s ) } }
+    run do
+      run_tests { | s | add_tests( s ) }
+    end
   end
   run { help! }
 end

@@ -1,0 +1,19 @@
+h1. Ruby ANTLR3 Tutorial: Building a CSS Stylesheet Parser
+
+p. Suppose you want to build a library that can manipulate CSS stylesheets from web pages. Inevitably, to manipulate the stylesheets, you will need to find a way to parse the CSS source code. While, for some simple tasks, you might be able to get away with using regular expressions to take care of business, for any significant task, you will need to build a CSS parser.
+
+<!-- INCOMPLETE -->
+
+p. Fortunately, the "W3C":http://www.w3.org provides detailed specifications for the CSS language. We'll stick with the "spec for version 2.1.":http://www.w3.org/TR/CSS21/ Since, for the moment, we're primarily concerned with the syntax of CSS, let's skip ahead to the fourth chapter, "Syntax and Basic Data Types.":http://www.w3.org/TR/CSS21/syndata.html
+
+p. Conveniently enough, the specification provides a formal grammar. Thus, we just have to translate the grammar into an ANTLR3 grammar. We'll start simply enough with a basic combined parser/lexer grammar. Here is the bare-bones start of a ruby-targetted ANTLR lexer/parser grammar:
+
+« antlr
+grammar CSS;
+
+options { language = Ruby; }
+
+// incomplete
+»
+
+p. OK, so W3C's syntax specification begins with a precise set of token definitions, written in @lex@ format. We can pretty much translate these directly into ANTLR lexer rules. 

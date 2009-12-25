@@ -8,10 +8,21 @@ purpose:    utility script
 summary:    convert textile-based documentation files to HTML
 =end
 
-Ruby.project ||= 'antlr3'
-Ruby.project.setup_extras
+__DIR__ = File.dirname( __FILE__ )
+load File.join( __DIR__, 'script-helper.rb' )
+
+require 'main'
 require 'doc-utils'
 
-for f in ARGV
-  convert(f)
+Main do
+  argument( :files ) do
+    description( "documentation files" )
+    arity( -2 )
+  end
+  
+  def run
+    for file in params[ :files ].values
+      ANTLRDoc.convert( file )
+    end
+  end
 end

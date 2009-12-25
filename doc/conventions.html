@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+
+Design by NodeThirtyThree <http://www.nodethirtythree.com>
+Published by Free CSS Templates <http://www.freecsstemplates.org/>
+Released for free under a Creative Commons Attribution 2.5 License
+
+Title      : stylized
+Version    : 1.1
+Released   : 20070716
+Description: A two-column fixed width template for 1024x768 resolutions.
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="general.css" rel="stylesheet" type="text/css" media="screen" />
+
+<style type="text/css">
+
+</style>
+</head>
+<body>
+  <p>Conventions For <span class="caps">ANTLR</span>-Generated Ruby Code</p>
+  <p>I. File Names</p>
+  For a lexer-only, parser-only, or tree grammar file, ``Lang.g&#8217;&#8217;:
+  - Lang.rb
+  - Lang.tokens
+  
+  For a combined grammar file, ``Lang.g&#8217;&#8217;:
+  - LangLexer.rb
+  - LangParser.rb
+  - Lang.tokens
+  <p>II. Primary Code Structure</p>
+  A. Combined Grammar ``Whatevs.g&#8217;&#8217;
+  module Whatevs                        # in both WhatevsLexer.rb and WhatevsParser.rb
+  module TokenData (token scheme)     # in both WhatevsLexer.rb and WhatevsParser.rb
+  class Token &lt; ANTLR3::CommonToken # in both WhatevsLexer.rb and WhatevsParser.rb
+  class Lexer &lt; ANTLR3::Lexer         # in WhatevsLexer.rb
+  class Parser &lt; ANTLR3::Parser       # in WhatevsParser.rb
+  
+  B. Lexer Grammar ``Whatevs.g&#8217;&#8217;
+  module Whatevs
+  module TokenData (token scheme)
+  class Token &lt; ANTLR3::CommonToken
+  class Lexer &lt; ANTLR3::Parser
+  
+  C. Parser Grammar ``Whatevs.g&#8217;&#8217;
+  module Whatevs
+  module TokenData (token scheme)
+  class Token &lt; ANTLR3::CommonToken
+  class Parser &lt; ANTLR3::Parser
+  
+  D. ** Tree Grammar ``Whatevs.g&#8217;&#8217;
+  module Whatevs
+  module TokenData (token scheme)
+  class Token &lt; ANTLR3::CommonToken
+  class TreeParser &lt; ANTLR3::TreeParser
+  
+  
+  	<ul>
+  		<li>the code structure for tree grammars may be revised shortly</li>
+  	</ul><p>III. Grammar Components</p>
+  A. Token Types
+  <ul>
+  	<li>token types are implemented as integer valued constants defined in token schemes</li>
+  	<li>token schemes are modules designed to track token information for the grammar</li>
+  	<li>the schemes are mixed into the recognizer classes</li>
+  	<li>thus, token types are referenced directly as constants within recognizer code</li>
+  	<li>if <span class="caps">ANTLR</span> defines token type ``SOME_TOKEN&#8217;&#8217; as 11, the recognizer will contain<br />
+        the constant ``SOME_TOKEN&#8217;&#8217;, which will have the value 11</li>
+  </ul>
+  B. Rule Methods
+  <ul>
+  	<li>lexer rule ``RULE_NAME&#8217;&#8217; is implemented as method ``rule_name!&#8217;&#8217; in the lexer class</li>
+  	<li>parser or tree parser rule ``rule_name&#8217;&#8217; is mapped directly to method ``rule_name&#8217;&#8217; <br />
+        in the parser or tree parser class</li>
+  </ul>
+  <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br />
+    C. Imported Grammars</p>
+  <ul>
+  	<li>if a grammar ``Lang.g&#8217;&#8217; imports other grammars using the ``import <span class="caps">XYZ</span>;&#8217;&#8217; declaration<br />
+        within the grammar specification, <span class="caps">ANTLR</span> will create additional output files that<br />
+        declare additional classes <br />
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</li>
+  </ul>
+</body>
+</html>

@@ -21,6 +21,11 @@ namespace :test do
     sh "antlr-tests functional"
   end
   
+  desc "run benchmarking and profiling scripts and save the data"
+  task :performance => %w(antlr) do
+    sh "antlr-tests run benchmark profile -s"
+  end
+  
 end
 
 desc "run all tests"

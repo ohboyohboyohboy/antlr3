@@ -3,20 +3,11 @@
 
 __DIR__ = File.expand_path( File.dirname __FILE__ )
 project_top = File.dirname __DIR__
-load( File.join( project_top, 'lib', 'antlr3', 'version.rb' ) )
+lib = File.join( project_top, 'lib' )
+$:.unshift( lib )
+require 'antlr3'
 
-jar_name = "antlr-full-#{ ANTLR_VERSION_STRING }.jar"
-jar_path = File.join( project_top, 'java', jar_name )
-
-unless File.exist?( jar_path )
-  $stderr.puts(<<-END.strip!.gsub!(/\s+/, ' '))
-    the ANTLR #{ ANTLR_VERSION_STRING } jar is expected
-    to be located at #{ jar_path }, but it does not
-    appear to exist.
-  END
-  exit( 1 )
-end
-
+jar = ANTLR3.antlr_jar or fail( "cannot find antlr4ruby's customized ANTLR jar" )
 escape = proc do | a |
   if a.empty? then "''"
   else
@@ -25,7 +16,7 @@ escape = proc do | a |
   end
 end
 
-command = %w(java -jar) << escape[ antlr_jar ]
+command = %w(java -jar) << escape[ jar ]
 for arg in ARGV
   command << escape[ arg ]
 end

@@ -7,6 +7,9 @@ gem 'highline', "1.5.1"
 # a big bag of bric-a-brac 
 gem "facets", "2.7.0"
 
+gem 'rubyforge'
+gem 'gemcutter'
+
 gem 'rake', "0.8.7"
 
 # antlr tests use a rspec environment with a test/unit structure
