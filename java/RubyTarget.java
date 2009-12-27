@@ -63,11 +63,12 @@ extends Target
 		public String toString(Object o) {
 			return o.toString();
 		}
+		
 		public String toString(Object o, String formatName) {
 			String idString = o.toString();
-
+			
 			if (idString.isEmpty()) return idString;
-
+			
 			if (formatName.equals("snakecase")) {
 				return snakecase(idString);
 			} else if (formatName.equals("camelcase")) {
@@ -393,132 +394,14 @@ extends Target
 	 */
 	public String encodeIntAsCharEscape(final int v) {
 		final int intValue;
-
+		
 		if (v == 65535) {
-			intValue = -1;
+		  intValue = -1;
 		} else {
-			intValue = v;
+		  intValue = v;
 		}
-
+		
 		return String.valueOf(intValue);
+		// return String.valueOf(v);
 	}
-//    public List postProcessAction(List chunks, antlr.Token actionToken) {
-//		List nChunks = new ArrayList();
-//		
-//		for (int i = 0; i < chunks.size(); i++) {
-//			Object chunk = chunks.get(i);
-//
-//			if ( chunk instanceof String ) {
-//				String text = (String)chunks.get(i);
-//				if ( nChunks.size() == 0 && actionToken.getColumn() > 0 ) {
-//					// first chunk and some 'virtual' WS at beginning
-//					// prepend to this chunk
-//
-//					String ws = "";
-//					for ( int j = 0 ; j < actionToken.getColumn() ; j++ ) {
-//						ws += " ";
-//					}
-//					text = ws + text;
-//				}
-//
-//				String[] parts = text.split("\r?\n");
-//				for ( String line : parts  ) {
-//					nChunks.add(line);
-//				}
-//			}
-//			else {
-//				if ( nChunks.size() == 0 && actionToken.getColumn() > 0 ) {
-//					// first chunk and some 'virtual' WS at beginning
-//					// add as a chunk of its own
-//
-//					String ws = "";
-//					for ( int j = 0 ; j < actionToken.getColumn() ; j++ ) {
-//						ws += " ";
-//					}
-//					nChunks.add(ws);
-//				}
-//
-//				nChunks.add(chunk);
-//			}
-//		}
-//
-//		int lineNo = actionToken.getLine();
-//		int col = 0;
-//
-//		// strip trailing empty lines
-//		int lastChunk = nChunks.size() - 1;
-//		while ( lastChunk > 0
-//				&& nChunks.get(lastChunk) instanceof String
-//				&& ((String)nChunks.get(lastChunk)).trim().length() == 0 )
-//			lastChunk--;
-//
-//		// string leading empty lines
-//		int firstChunk = 0;
-//		while ( firstChunk <= lastChunk
-//				&& nChunks.get(firstChunk) instanceof String
-//				&& ((String)nChunks.get(firstChunk)).trim().length() == 0
-//				&& ((String)nChunks.get(firstChunk)).endsWith("\n") ) {
-//			lineNo++;
-//			firstChunk++;
-//		}
-//
-//		int indent = -1;
-//		for ( int i = firstChunk ; i <= lastChunk ; i++ ) {
-//			Object chunk = nChunks.get(i);
-//
-//			//System.out.println(lineNo + ":" + col + " " + quote(chunk.toString()));
-//
-//			if ( chunk instanceof String ) {
-//				String text = (String)chunk;
-//
-//				if ( col == 0 ) {
-//					if ( indent == -1 ) {
-//						// first non-blank line
-//						// count number of leading whitespaces
-//
-//						indent = 0;
-//						for ( int j = 0; j < text.length(); j++ ) {
-//							if ( !Character.isWhitespace(text.charAt(j)) )
-//								break;
-//			
-//							indent++;
-//						}
-//					}
-//
-//					if ( text.length() >= indent ) {
-//						int j;
-//						for ( j = 0; j < indent ; j++ ) {
-//							if ( !Character.isWhitespace(text.charAt(j)) ) {
-//								// should do real error reporting here...
-//								System.err.println("Warning: badly indented line " + lineNo + " in action:");
-//								System.err.println(text);
-//								break;
-//							}
-//						}
-//
-//						nChunks.set(i, text.substring(j));
-//					}
-//					else if ( text.trim().length() > 0 ) {
-//						// should do real error reporting here...
-//						System.err.println("Warning: badly indented line " + lineNo + " in action:");
-//						System.err.println(text);
-//					}
-//				}
-//
-//				if ( text.endsWith("\n") ) {
-//					lineNo++;
-//					col = 0;
-//				}
-//				else {
-//					col += text.length();
-//				}
-//			}
-//			else {
-//				// not really correct, but all I need is col to increment...
-//				col += 1;
-//			}
-//		}
-//
-//		return nChunks;
-//    }
 }

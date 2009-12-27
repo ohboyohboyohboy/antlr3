@@ -105,14 +105,15 @@ class DFA
               :accept, :special, :transition, :special_block
   
   class << self
-    attr_reader :decision
+    attr_reader :decision, :eot, :eof, :min, :max,
+                :accept, :special, :transition
     
     def unpack(*data)
       data.empty? and return [].freeze
       
       n = data.length / 2
       size = 0
-      n.times { |i| size += data[2*i] }
+      n.times { |i| size += data[ 2*i ] }
       if size > 1024
         values = Hash.new(0)
         data.each_slice(2) do |count, value|
@@ -131,26 +132,28 @@ class DFA
       else
         unpacked = []
         data.each_slice(2) do |count, value|
-          unpacked.concat Array.new(count, value)
+          unpacked.fill( value, unpacked.length, count )
         end
       end
       
-      return unpacked.freeze
+      return unpacked
     end
+    
   end
   
-  def initialize(recognizer, decision_number = nil, eot = nil, eof = nil,
-                 min = nil, max = nil, accept = nil, special = nil,
-                 transition = nil, &special_block)
+  def initialize( recognizer, decision_number = nil,
+                 eot = nil, eof = nil, min = nil, max = nil,
+                 accept = nil, special = nil,
+                 transition = nil, &special_block )
     @recognizer = recognizer
     @decision_number = decision_number || self.class.decision
-    @eot = eot || self.class::EOT
-    @eof = eof || self.class::EOF
-    @min = min || self.class::MIN
-    @max = max || self.class::MAX
-    @accept = accept || self.class::ACCEPT
-    @special = special || self.class::SPECIAL
-    @transition = transition || self.class::TRANSITION
+    @eot = eot || self.class::EOT #.eot
+    @eof = eof || self.class::EOF #.eof
+    @min = min || self.class::MIN #.min
+    @max = max || self.class::MAX #.max
+    @accept = accept || self.class::ACCEPT #.accept
+    @special = special || self.class::SPECIAL #.special
+    @transition = transition || self.class::TRANSITION #.transition
     @special_block = special_block
   rescue NameError => e
     raise unless e.message =~ /uninitialized constant/
@@ -185,7 +188,7 @@ class DFA
       c = input.peek
       # the @min and @max arrays contain the bounds of the character (or token type)
       # ranges for the transition decisions
-      if c.between?(@min[state], @max[state])
+      if c.between?( @min[ state ], @max[ state ] )
         # c - @min[state] is the position of the character within the range
         # so for a range like ?a..?z, a match of ?a would be 0,
         # ?c would be 2, and ?z would be 25

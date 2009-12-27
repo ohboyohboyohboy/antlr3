@@ -2,99 +2,92 @@ grammar CSS;
 
 options {
   language = Ruby;
-  output = AST;
 }
 
 tokens {
-  PERCENTAGE; DIMENSION; FUNCTION;
-  INVALID; ANGLE; LENGTH; FREQ;
-  TIME; EMS; EXS; RULE; ELEMENT;
-  UNDER; MEDIA_LIST; SELECTOR;
+  PERCENTAGE;
+  DIMENSION;
+  FUNCTION;
+  INVALID;
+  ANGLE;
+  LENGTH;
+  FREQ;
+  TIME;
+  EMS;
+  EXS;
 }
 
 stylesheet
-  : ( '@charset' STRING ';'! )?
-    ( WS! | '<!--'! | '-->'! )*
-    ( import_statement ( '<!--'! WS!* | '-->'! WS!* )* )*
-    ( ( rule | media | page ) ( '<!--'! WS!* | '-->'! WS!* )* )*
+  : ( '@charset' STRING ';' )?
+    ( '<!--' | '-->' )*
+    ( import_statement ( '<!--' | '-->' )* )*
+    ( ( rule_set | media | page ) ( '<!--' | '-->' )* )*
   ;
 
 import_statement
-  : '@import'^ WS!* ( STRING | URI ) WS!* media_list? ';'! WS!*
+  : '@import' ( STRING | URI ) media_list? ';'
   ;
 
 media
-  : '@media'^ WS!* media_list '{'! WS!* rule* '}'! WS!*
+  : '@media' media_list '{' rule_set* '}'
   ;
 
 media_list
-  : ID WS* ( ',' WS* ID WS* )* -> ^( MEDIA_LIST ID+ )
+  : ID ( ',' ID )*
   ;
 
 page
-  : '@page' WS* ( ':' ID WS* )?
-    '{' WS* declaration? ( ';' WS* declaration? )* '}' WS*
-  -> ^( '@page' ID? declaration* )
+  : '@page' ( ':' ID )? '{' declaration? ( ';' declaration? )* '}'
   ;
 
-rule
-  : selector WS*
-    '{' WS* declaration? ( ';' WS* declaration? )* '}' WS*
-    -> ^( RULE selector ^( declaration )* )
+rule_set
+  : selector ( ',' selector )*
+    '{' declaration? ( ';' declaration? )* '}'
   ;
 
 selector
-  : relational_selector ( ',' WS* relational_selector )*
-  -> ^( SELECTOR relational_selector+ )
-  ;
-
-relational_selector
-  : ( simple_selector -> simple_selector )
-    ( WS* '+' WS* r=simple_selector -> ^( '+' $relational_selector $r )
-    | WS* '>' WS* r=simple_selector -> ^( '>' $relational_selector $r )
-    | WS+ r=simple_selector         -> ^( UNDER $relational_selector $r )
-    )*
+  : simple_selector ( ( '+' | '>' )? selector )?
   ;
 
 simple_selector
-  : element modifier*
-  | modifier+
+  : element_name ( HASH | klass | attrib | pseudo )*
+  | ( HASH | klass | attrib | pseudo )+
   ;
 
-element
-  : '*' -> '*'
-  | ID  -> ELEMENT[$ID]
+klass
+  : '.' ID
   ;
 
-modifier
-  : HASH^
-  | '.'^ ID
-  | '['^ WS!* match_attribute ']'!
-  | ':'^ ( ID | FUNCTION WS!* ( ID WS!* )? ')'! )
+element_name
+  : ID | '*'
   ;
 
-match_attribute
-  : ID WS!* ( ( '='^ | '~='^ | '|='^ ) WS!* ( ID | STRING ) WS!* )?
+attrib
+  : '[' ID ( ( '=' | '~=' | '|=' ) ( ID | STRING ) )? ']'
+  ;
+
+pseudo
+  : ':' ( ID | FUNCTION ID? ')' )
   ;
 
 declaration
-  : ID WS!* ':'^ WS!* expr (IMPORTANT WS!*)?
+  : ID ':' expr IMPORTANT?
   ;
 
 expr
-  : term ( ( '/'^ WS!* | ','^ WS!* )? term )*
+  : term ( ( '/' | ',' )? term )*
   ;
 
 term
-  : ( '-' | '+' )? ( NUMBER | PERCENTAGE | LENGTH | EMS | EXS | ANGLE | TIME | FREQ ) WS!*
-  | STRING WS!*
-  | ID WS!*
-  | URI WS!*
-  | HASH WS!*      // <- hex color
-  | FUNCTION WS!* expr ')' WS!*
+  : ( '-' | '+' )? ( NUMBER | PERCENTAGE | LENGTH | EMS | EXS | ANGLE | TIME | FREQ )
+  | STRING
+  | ID
+  | URI
+  | HASH      // <- hex color
+  | FUNCTION expr ')'
   ;
 
-WS: ( ' ' | '\t' | '\f' | '\r' | '\n' )+ ;
+WS: ( ' ' | '\t' | '\f' | '\r' | '\n' )+ { $channel = HIDDEN };
 
 COMMENT
   : '/*' ~'*'* '*'+ ( ~('/' | '*') ~'*'* '*'+ )* '/'

@@ -895,6 +895,12 @@ class DFA<dfa.decisionNumber> \< ANTLR3::DFA
     <dfa.javaCompressedTransition:{s|unpack(<s; wrap="\n", anchor, separator=", ">)}; separator=",\n">
   ].freeze
   
+  ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+    if a \> 0 and z \< 0
+      MAX[ i ] %= 0x10000
+    end
+  end
+  
   @decision = <dfa.decisionNumber>
   
   <@errorMethod()>
@@ -927,7 +933,7 @@ end
 
 
 cyclicDFASynpred(name) ::= <<
-def <name>; @recognizer.<name>; end<\n>
+def <name>() @recognizer.<name> end<\n>
 >>
 
 
@@ -972,15 +978,6 @@ s = -1
 <endif>
 >>
 
-
-/*
-line_<decisionNumber>_<stateNumber> = input.line
-col_<decisionNumber>_<stateNumber> = input.column
-----
-input.column = col_<decisionNumber>_<stateNumber>
-input.line   = line_<decisionNumber>_<stateNumber>
-*/
-
 /** Just like a fixed DFA edge, test the look and indicate
   * what state to jump to next if successful.  Again, this is
   * for special states.
@@ -1002,15 +999,11 @@ e
 
 andPredicates(left,right) ::= "( ( <left> ) and ( <right> ) )"
 
-
-orPredicates(operands) ::= "(<first(operands)><rest(operands):{o |  or <o>}>)"
-
+orPredicates(operands) ::= "(<first(operands)><rest(operands):{o|  or <o>}>)"
 
 notPredicate(pred) ::= "not (<evalPredicate(...)>)"
 
-
 evalPredicate(pred,description) ::= "(<pred>)"
-
 
 evalSynPredicate(pred,description) ::= <<
 syntactic_predicate?(<pred:{<it; format="lexerRule">}; format="symbol">)
@@ -1018,7 +1011,6 @@ syntactic_predicate?(<pred:{<it; format="lexerRule">}; format="symbol">)
 
 
 lookaheadTest(atom, k, atomAsInt) ::= "look_<decisionNumber>_<stateNumber> == <atom>"
-
 
 /** Sometimes a look test cannot assume that LA(k) is in a
   * temp variable somewhere.  Must ask for the look
@@ -1466,7 +1458,7 @@ end
 
 codeFileExtension() ::= ".rb"
 
-true() ::= "true"
+true()  ::= "true"
 false() ::= "false"
 
 action(name, code) ::= <<
@@ -1509,6 +1501,3 @@ placeAction(scope, name) ::= <<
 # - - - - - - end action @<scope>::<name> - - - - - - -<\n>
 <endif>
 >>
-
-
-

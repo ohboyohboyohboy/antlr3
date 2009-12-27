@@ -183,7 +183,7 @@ class Project < PropertyGroup
   end
   
   def path( *args )
-    File.join( base, *args )
+    expand!( File.join( base, *args ) )
   end
   
   def path?( *args )
@@ -292,7 +292,6 @@ end
 
 
 class Project::PathMap < Module
-  
   def self.define(project, map)
     m = new do
       const_set( :PROJECT, project )

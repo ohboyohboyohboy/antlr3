@@ -8,17 +8,5 @@ $:.unshift( lib )
 require 'antlr3'
 
 jar = ANTLR3.antlr_jar or fail( "cannot find antlr4ruby's customized ANTLR jar" )
-escape = proc do | a |
-  if a.empty? then "''"
-  else
-    a.gsub( /([^A-Za-z0-9_\-.,:\/@\n])/n, '\\\1' ).
-      gsub( /\n/, "'\n'" )
-  end
-end
 
-command = %w(java -jar) << escape[ jar ]
-for arg in ARGV
-  command << escape[ arg ]
-end
-
-exec command.join(' ')
+exec( 'java', '-jar', jar, *ARGV )

@@ -92,14 +92,12 @@ if $project.setup?
   
   desc( "publish the package to rubyforge/gemcutter if the tests are clean" )
   task 'publish' => %w(test package) do
-    name, version = $project.name, $project.version
-    pkg_file = $project.path( "pkg/#{ name }-#{ version }" )
-    gem = pkg_file + '.gem'
-    zip = pkg_file + '.zip'
-    
-    sh "rubyforge add_release #{ name } #{ name } #{ version } #{ gem }"
-    sh "rubyforge add_file #{ name } #{ name } #{ version } #{ zip }"
-    sh "gem push #{ gem }"
+    cmd = $project.expand!(
+      'rubyforge add_%s $(name) $(name) $(version) pkg/$(name)-$(version).%s'
+    )
+    sh( cmd % %w(release gem) )
+    sh( cmd % %w(file zip) )
+    sh( $project.expand!("gem push pkg/$(name)-$(version).gem") )
   end
   
 end

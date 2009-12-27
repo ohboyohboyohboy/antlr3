@@ -1,0 +1,801 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+
+Design by NodeThirtyThree <http://www.nodethirtythree.com>
+Published by Free CSS Templates <http://www.freecsstemplates.org/>
+Released for free under a Creative Commons Attribution 2.5 License
+
+Title      : stylized
+Version    : 1.1
+Released   : 20070716
+Description: A two-column fixed width template for 1024x768 resolutions.
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="general.css" rel="stylesheet" type="text/css" media="screen" />
+
+<link rel="stylesheet" type="text/css" href="ANTLR3.css" />
+
+<style type="text/css">
+
+</style>
+</head>
+<body>
+  <h1>Ruby ANTLR3 Tutorial: Building a <span class="caps">CSS</span> Stylesheet Parser</h1>
+  <p>Suppose you want to build a library that can manipulate <span class="caps">CSS</span> stylesheets from web pages. Inevitably, to manipulate the stylesheets, you will need to find a way to parse the <span class="caps">CSS</span> source code. While, for some simple tasks, you might be able to get away with using regular expressions to take care of business, for any significant task, you will need to build a <span class="caps">CSS</span> parser.</p>
+  <p><!-- INCOMPLETE --></p>
+  <p>Fortunately, the <a href="http://www.w3.org">W3C</a> provides detailed specifications for the <span class="caps">CSS</span> language. We&#8217;ll stick with the <a href="http://www.w3.org/TR/CSS21/">spec for version 2.1.</a> Since, for the moment, we&#8217;re primarily concerned with the syntax of <span class="caps">CSS</span>, let&#8217;s skip ahead to the <a href="http://www.w3.org/TR/CSS21/grammar.html">formal grammar</a></p>
+  <p>So we just have to translate the grammar into an ANTLR3 grammar. We&#8217;ll start simply enough with a basic combined parser/lexer grammar. Create a file named <tt><span class="caps">CSS</span>.g</tt>. Here is the bare-bones start of a ruby-targetted <span class="caps">ANTLR</span> lexer/parser grammar</p>
+  <notextile>
+  <table class="ANTLR3" id="CSS">
+  <tr class="code_line" id="CSS-1">
+      <td class="line_number odd"><pre>1</pre></td>
+      <td class="code"><pre><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name"><span class="caps">CSS</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-2">
+      <td class="line_number even"><pre>2</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-3">
+      <td class="line_number odd"><pre>3</pre></td>
+      <td class="code"><pre><span class="k">options&nbsp;{</span><span class="ws">&nbsp;</span><span class="id">language</span><span class="ws">&nbsp;</span><span class="o">=</span><span class="ws">&nbsp;</span><span class="id">Ruby</span><span class="p">;</span><span class="ws">&nbsp;</span><span class="k">}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-4">
+      <td class="line_number even"><pre>4</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-5">
+      <td class="line_number odd"><pre>5</pre></td>
+      <td class="code"><pre><span class="kd">stylesheet</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-6">
+      <td class="line_number even"><pre>6</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="c">//&nbsp;incomplete</span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-7">
+      <td class="line_number odd"><pre>7</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span></pre></td>
+  </tr>
+  </table>
+  </notextile>
+  <p>So the <a href="http://www.w3.org/TR/CSS21/grammar.html">formal grammar</a> has a token-level grammar written in a style that uses repetition operators, so that should be a pretty straight foward translation. The lexical scanner is written in <code>lex</code> style, with a number of &#8220;macros&#8221; doing much of the grunt-work.</p>
+  <notextile>
+  <table class="ANTLR3" id="CSS">
+  <tr class="code_line" id="CSS-1">
+      <td class="line_number odd"><pre>001</pre></td>
+      <td class="code"><pre><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name"><span class="caps">CSS</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-2">
+      <td class="line_number even"><pre>002</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-3">
+      <td class="line_number odd"><pre>003</pre></td>
+      <td class="code"><pre><span class="k">options&nbsp;{</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-4">
+      <td class="line_number even"><pre>004</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id">language</span><span class="ws">&nbsp;</span><span class="o">=</span><span class="ws">&nbsp;</span><span class="id">Ruby</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-5">
+      <td class="line_number odd"><pre>005</pre></td>
+      <td class="code"><pre><span class="k">}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-6">
+      <td class="line_number even"><pre>006</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-7">
+      <td class="line_number odd"><pre>007</pre></td>
+      <td class="code"><pre><span class="k">tokens&nbsp;{</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-8">
+      <td class="line_number even"><pre>008</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id"><span class="caps">PERCENTAGE</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-9">
+      <td class="line_number odd"><pre>009</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id"><span class="caps">DIMENSION</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-10">
+      <td class="line_number even"><pre>010</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id"><span class="caps">FUNCTION</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-11">
+      <td class="line_number odd"><pre>011</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id"><span class="caps">INVALID</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-12">
+      <td class="line_number even"><pre>012</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id"><span class="caps">ANGLE</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-13">
+      <td class="line_number odd"><pre>013</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id"><span class="caps">LENGTH</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-14">
+      <td class="line_number even"><pre>014</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id"><span class="caps">FREQ</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-15">
+      <td class="line_number odd"><pre>015</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id"><span class="caps">TIME</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-16">
+      <td class="line_number even"><pre>016</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id"><span class="caps">EMS</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-17">
+      <td class="line_number odd"><pre>017</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id"><span class="caps">EXS</span></span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-18">
+      <td class="line_number even"><pre>018</pre></td>
+      <td class="code"><pre><span class="k">}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-19">
+      <td class="line_number odd"><pre>019</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-20">
+      <td class="line_number even"><pre>020</pre></td>
+      <td class="code"><pre><span class="kd">stylesheet</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-21">
+      <td class="line_number odd"><pre>021</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;@charset&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-97"><span class="n"><span class="caps">STRING</span></span></a><span class="ws">&nbsp;</span><span class="s2">&#8216;;&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-22">
+      <td class="line_number even"><pre>022</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&lt;!&#8212;&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&#8212;&gt;&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-23">
+      <td class="line_number odd"><pre>023</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#CSS-27"><span class="n">import_statement</span></a><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&lt;!&#8212;&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&#8212;&gt;&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o"><strong></span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o"></strong></span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-24">
+      <td class="line_number even"><pre>024</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#CSS-43"><span class="n">rule_set</span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-31"><span class="n">media</span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-39"><span class="n">page</span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&lt;!&#8212;&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&#8212;&gt;&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o"><strong></span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o"></strong></span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-25">
+      <td class="line_number odd"><pre>025</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-26">
+      <td class="line_number even"><pre>026</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-27">
+      <td class="line_number odd"><pre>027</pre></td>
+      <td class="code"><pre><span class="kd">import_statement</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-28">
+      <td class="line_number even"><pre>028</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;@import&#8217;</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#CSS-97"><span class="n"><span class="caps">STRING</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-146"><span class="n"><span class="caps">URI</span></span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><a href="#CSS-35"><span class="n">media_list</span></a><span class="o">?</span><span class="ws">&nbsp;</span><span class="s2">&#8216;;&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-29">
+      <td class="line_number odd"><pre>029</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-30">
+      <td class="line_number even"><pre>030</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-31">
+      <td class="line_number odd"><pre>031</pre></td>
+      <td class="code"><pre><span class="kd">media</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-32">
+      <td class="line_number even"><pre>032</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;@media&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-35"><span class="n">media_list</span></a><span class="ws">&nbsp;</span><span class="s2">&#8216;{&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-43"><span class="n">rule_set</span></a><span class="o">*</span><span class="ws">&nbsp;</span><span class="s2">&#8216;}&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-33">
+      <td class="line_number odd"><pre>033</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-34">
+      <td class="line_number even"><pre>034</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-35">
+      <td class="line_number odd"><pre>035</pre></td>
+      <td class="code"><pre><span class="kd">media_list</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-36">
+      <td class="line_number even"><pre>036</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;,&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-37">
+      <td class="line_number odd"><pre>037</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-38">
+      <td class="line_number even"><pre>038</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-39">
+      <td class="line_number odd"><pre>039</pre></td>
+      <td class="code"><pre><span class="kd">page</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-40">
+      <td class="line_number even"><pre>040</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;@page&#8217;</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;:&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws">&nbsp;</span><span class="s2">&#8216;{&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-73"><span class="n">declaration</span></a><span class="o">?</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;;&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-73"><span class="n">declaration</span></a><span class="o">?</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws">&nbsp;</span><span class="s2">&#8216;}&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-41">
+      <td class="line_number odd"><pre>041</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-42">
+      <td class="line_number even"><pre>042</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-43">
+      <td class="line_number odd"><pre>043</pre></td>
+      <td class="code"><pre><span class="kd">rule_set</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-44">
+      <td class="line_number even"><pre>044</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><a href="#CSS-48"><span class="n">selector</span></a><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;,&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-48"><span class="n">selector</span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-45">
+      <td class="line_number odd"><pre>045</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="s2">&#8216;{&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-73"><span class="n">declaration</span></a><span class="o">?</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;;&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-73"><span class="n">declaration</span></a><span class="o">?</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws">&nbsp;</span><span class="s2">&#8216;}&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-46">
+      <td class="line_number even"><pre>046</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-47">
+      <td class="line_number odd"><pre>047</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-48">
+      <td class="line_number even"><pre>048</pre></td>
+      <td class="code"><pre><span class="kd">selector</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-49">
+      <td class="line_number odd"><pre>049</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><a href="#CSS-52"><span class="n">simple_selector</span></a><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;+&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&gt;&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws">&nbsp;</span><a href="#CSS-48"><span class="n">selector</span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-50">
+      <td class="line_number even"><pre>050</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-51">
+      <td class="line_number odd"><pre>051</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-52">
+      <td class="line_number even"><pre>052</pre></td>
+      <td class="code"><pre><span class="kd">simple_selector</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-53">
+      <td class="line_number odd"><pre>053</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><a href="#CSS-61"><span class="n">element_name</span></a><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#CSS-144"><span class="n"><span class="caps">HASH</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-57"><span class="n">klass</span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-65"><span class="n">attrib</span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-69"><span class="n">pseudo</span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-54">
+      <td class="line_number even"><pre>054</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#CSS-144"><span class="n"><span class="caps">HASH</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-57"><span class="n">klass</span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-65"><span class="n">attrib</span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-69"><span class="n">pseudo</span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">+</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-55">
+      <td class="line_number odd"><pre>055</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-56">
+      <td class="line_number even"><pre>056</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-57">
+      <td class="line_number odd"><pre>057</pre></td>
+      <td class="code"><pre><span class="kd">klass</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-58">
+      <td class="line_number even"><pre>058</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;.&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-59">
+      <td class="line_number odd"><pre>059</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-60">
+      <td class="line_number even"><pre>060</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-61">
+      <td class="line_number odd"><pre>061</pre></td>
+      <td class="code"><pre><span class="kd">element_name</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-62">
+      <td class="line_number even"><pre>062</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;*&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-63">
+      <td class="line_number odd"><pre>063</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-64">
+      <td class="line_number even"><pre>064</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-65">
+      <td class="line_number odd"><pre>065</pre></td>
+      <td class="code"><pre><span class="kd">attrib</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-66">
+      <td class="line_number even"><pre>066</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;[&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;=&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;~=&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;|=&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-97"><span class="n"><span class="caps">STRING</span></span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws">&nbsp;</span><span class="s2">&#8216;]&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-67">
+      <td class="line_number odd"><pre>067</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-68">
+      <td class="line_number even"><pre>068</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-69">
+      <td class="line_number odd"><pre>069</pre></td>
+      <td class="code"><pre><span class="kd">pseudo</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-70">
+      <td class="line_number even"><pre>070</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;:&#8217;</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-1084"><span class="n"><span class="caps">FUNCTION</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="o">?</span><span class="ws">&nbsp;</span><span class="s2">&#8216;)&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-71">
+      <td class="line_number odd"><pre>071</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-72">
+      <td class="line_number even"><pre>072</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-73">
+      <td class="line_number odd"><pre>073</pre></td>
+      <td class="code"><pre><span class="kd">declaration</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-74">
+      <td class="line_number even"><pre>074</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="ws">&nbsp;</span><span class="s2">&#8216;:&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-77"><span class="n">expr</span></a><span class="ws">&nbsp;</span><a href="#CSS-116"><span class="n"><span class="caps">IMPORTANT</span></span></a><span class="o">?</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-75">
+      <td class="line_number odd"><pre>075</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-76">
+      <td class="line_number even"><pre>076</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-77">
+      <td class="line_number odd"><pre>077</pre></td>
+      <td class="code"><pre><span class="kd">expr</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-78">
+      <td class="line_number even"><pre>078</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><a href="#CSS-81"><span class="n">term</span></a><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;/&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;,&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws">&nbsp;</span><a href="#CSS-81"><span class="n">term</span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-79">
+      <td class="line_number odd"><pre>079</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-80">
+      <td class="line_number even"><pre>080</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-81">
+      <td class="line_number odd"><pre>081</pre></td>
+      <td class="code"><pre><span class="kd">term</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-82">
+      <td class="line_number even"><pre>082</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;-&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;+&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#CSS-120"><span class="n"><span class="caps">NUMBER</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-857"><span class="n"><span class="caps">PERCENTAGE</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-13116"><span class="n"><span class="caps">LENGTH</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-16142"><span class="n"><span class="caps">EMS</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-17149"><span class="n"><span class="caps">EXS</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-12107"><span class="n"><span class="caps">ANGLE</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-15134"><span class="n"><span class="caps">TIME</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-14126"><span class="n"><span class="caps">FREQ</span></span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-83">
+      <td class="line_number odd"><pre>083</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-97"><span class="n"><span class="caps">STRING</span></span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-84">
+      <td class="line_number even"><pre>084</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-136"><span class="n">ID</span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-85">
+      <td class="line_number odd"><pre>085</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-146"><span class="n"><span class="caps">URI</span></span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-86">
+      <td class="line_number even"><pre>086</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-144"><span class="n"><span class="caps">HASH</span></span></a><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c">//&nbsp;&lt;-&nbsp;hex&nbsp;color</span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-87">
+      <td class="line_number odd"><pre>087</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-1084"><span class="n"><span class="caps">FUNCTION</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-77"><span class="n">expr</span></a><span class="ws">&nbsp;</span><span class="s2">&#8216;)&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-88">
+      <td class="line_number even"><pre>088</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-89">
+      <td class="line_number odd"><pre>089</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-90">
+      <td class="line_number even"><pre>090</pre></td>
+      <td class="code"><pre><span class="kd">WS</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&nbsp;&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\t&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\f&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\r&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\n&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">+</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$channel</span><span class="kt">&nbsp;=&nbsp;<span class="caps">HIDDEN</span>&nbsp;}</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-91">
+      <td class="line_number odd"><pre>091</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-92">
+      <td class="line_number even"><pre>092</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">COMMENT</span></span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-93">
+      <td class="line_number odd"><pre>093</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;/*&#8217;</span><span class="ws">&nbsp;</span><span class="o">~</span><span class="s2">&#8216;*&#8217;</span><span class="o"><strong></span><span class="ws">&nbsp;</span><span class="s2">&#8217;</strong>&#8216;</span><span class="o">+</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="o">~</span><span class="p">(</span><span class="s2">&#8217;/&#8216;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8217;<strong>&#8216;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="o">~</span><span class="s2">&#8217;</strong>&#8216;</span><span class="o">*</span><span class="ws">&nbsp;</span><span class="s2">&#8217;<strong>&#8217;</span><span class="o">+</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o"></strong></span><span class="ws">&nbsp;</span><span class="s2">&#8216;/&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-94">
+      <td class="line_number even"><pre>094</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$channel</span><span class="kt">&nbsp;=&nbsp;<span class="caps">HIDDEN</span>&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-95">
+      <td class="line_number odd"><pre>095</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-96">
+      <td class="line_number even"><pre>096</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-97">
+      <td class="line_number odd"><pre>097</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">STRING</span></span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-98">
+      <td class="line_number even"><pre>098</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&quot;&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-99">
+      <td class="line_number odd"><pre>099</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="o">~</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\n&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\r&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\f&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\\&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&quot;&#8217;</span><span class="ws">&nbsp;&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-100">
+      <td class="line_number even"><pre>100</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\\&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-180"><span class="n"><span class="caps">NEWLINE</span></span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-101">
+      <td class="line_number odd"><pre>101</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-173"><span class="n"><span class="caps">ESCAPE</span></span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-102">
+      <td class="line_number even"><pre>102</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-103">
+      <td class="line_number odd"><pre>103</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&quot;&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-104">
+      <td class="line_number even"><pre>104</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">INVALID</span>&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-105">
+      <td class="line_number odd"><pre>105</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-106">
+      <td class="line_number even"><pre>106</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\&#8217;&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-107">
+      <td class="line_number odd"><pre>107</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="o">~</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\n&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\r&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\f&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\\&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\&#8217;&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-108">
+      <td class="line_number even"><pre>108</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\\&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-180"><span class="n"><span class="caps">NEWLINE</span></span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-109">
+      <td class="line_number odd"><pre>109</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-173"><span class="n"><span class="caps">ESCAPE</span></span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-110">
+      <td class="line_number even"><pre>110</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-111">
+      <td class="line_number odd"><pre>111</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\&#8217;&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-112">
+      <td class="line_number even"><pre>112</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">INVALID</span>&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-113">
+      <td class="line_number odd"><pre>113</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-114">
+      <td class="line_number even"><pre>114</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-115">
+      <td class="line_number odd"><pre>115</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-116">
+      <td class="line_number even"><pre>116</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">IMPORTANT</span></span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-117">
+      <td class="line_number odd"><pre>117</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;!&#8217;</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&nbsp;&#8217;</span><span class="o">*</span><span class="ws">&nbsp;</span><span class="s2">&#8216;important&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-118">
+      <td class="line_number even"><pre>118</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-119">
+      <td class="line_number odd"><pre>119</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-120">
+      <td class="line_number even"><pre>120</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">NUMBER</span></span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-121">
+      <td class="line_number odd"><pre>121</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;0&#8217;</span><span class="o">..</span><span class="s2">&#8216;9&#8217;</span><span class="o">+</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-122">
+      <td class="line_number even"><pre>122</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;0&#8217;</span><span class="o">..</span><span class="s2">&#8216;9&#8217;</span><span class="o">*</span><span class="ws">&nbsp;</span><span class="s2">&#8216;.&#8217;</span><span class="ws">&nbsp;</span><span class="s2">&#8216;0&#8217;</span><span class="o">..</span><span class="s2">&#8216;9&#8217;</span><span class="o">+</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-123">
+      <td class="line_number odd"><pre>123</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-124">
+      <td class="line_number even"><pre>124</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;%&#8217;</span><span class="ws">&nbsp;&nbsp;&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">PERCENTAGE</span>&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-125">
+      <td class="line_number odd"><pre>125</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;em&#8217;</span><span class="ws">&nbsp;&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">EMS</span>&nbsp;&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-126">
+      <td class="line_number even"><pre>126</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;ex&#8217;</span><span class="ws">&nbsp;&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">EXS</span>&nbsp;&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-127">
+      <td class="line_number odd"><pre>127</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;px&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;cm&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;mm&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;in&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;pt&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;pc&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">LENGTH</span>&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-128">
+      <td class="line_number even"><pre>128</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;deg&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;rad&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;grad&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">ANGLE</span>&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-129">
+      <td class="line_number odd"><pre>129</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;ms&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;s&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">TIME</span>&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-130">
+      <td class="line_number even"><pre>130</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;khz&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;hz&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">FREQ</span>&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-131">
+      <td class="line_number odd"><pre>131</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-161"><span class="n">PLAIN_ID</span></a><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">DIMENSION</span>&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-132">
+      <td class="line_number even"><pre>132</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="c">/<strong>&nbsp;nothing&nbsp;-&nbsp;just&nbsp;a&nbsp;plain&nbsp;number&nbsp;</strong>/</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-133">
+      <td class="line_number odd"><pre>133</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-134">
+      <td class="line_number even"><pre>134</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-135">
+      <td class="line_number odd"><pre>135</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-136">
+      <td class="line_number even"><pre>136</pre></td>
+      <td class="code"><pre><span class="kd">ID</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-137">
+      <td class="line_number odd"><pre>137</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;-&#8217;</span><span class="o">?</span><span class="ws">&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;a&#8217;</span><span class="o">..</span><span class="s2">&#8216;z&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;A&#8217;</span><span class="o">..</span><span class="s2">&#8216;Z&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;_&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-167"><span class="n"><span class="caps">NONASCII</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-173"><span class="n"><span class="caps">ESCAPE</span></span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-138">
+      <td class="line_number even"><pre>138</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;_&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;a&#8217;</span><span class="o">..</span><span class="s2">&#8216;z&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;A&#8217;</span><span class="o">..</span><span class="s2">&#8216;Z&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;0&#8217;</span><span class="o">..</span><span class="s2">&#8216;9&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;-&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-167"><span class="n"><span class="caps">NONASCII</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-173"><span class="n"><span class="caps">ESCAPE</span></span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-139">
+      <td class="line_number odd"><pre>139</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;(&#8217;</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;<span class="caps">FUNCTION</span>&nbsp;}</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-140">
+      <td class="line_number even"><pre>140</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-141">
+      <td class="line_number odd"><pre>141</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-142">
+      <td class="line_number even"><pre>142</pre></td>
+      <td class="code"><pre><span class="kd">AT_KEYWORD</span><span class="ws">&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;@&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-161"><span class="n">PLAIN_ID</span></a><span class="ws">&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-143">
+      <td class="line_number odd"><pre>143</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-144">
+      <td class="line_number even"><pre>144</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">HASH</span></span><span class="ws">&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;#&#8217;</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;_&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;a&#8217;</span><span class="o">..</span><span class="s2">&#8216;z&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;A&#8217;</span><span class="o">..</span><span class="s2">&#8216;Z&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;0&#8217;</span><span class="o">..</span><span class="s2">&#8216;9&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;-&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-167"><span class="n"><span class="caps">NONASCII</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-173"><span class="n"><span class="caps">ESCAPE</span></span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">+</span><span class="ws">&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-145">
+      <td class="line_number odd"><pre>145</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-146">
+      <td class="line_number even"><pre>146</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">URI</span></span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-147">
+      <td class="line_number odd"><pre>147</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;url(&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-183"><span class="n">S</span></a><span class="ws">&nbsp;</span><a href="#CSS-97"><span class="n"><span class="caps">STRING</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-183"><span class="n">S</span></a><span class="ws">&nbsp;</span><span class="s2">&#8216;)&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-148">
+      <td class="line_number even"><pre>148</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;url(&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-183"><span class="n">S</span></a><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;!&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;#&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;$&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;%&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&amp;&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;*&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;-&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;~&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-167"><span class="n"><span class="caps">NONASCII</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-173"><span class="n"><span class="caps">ESCAPE</span></span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws">&nbsp;</span><a href="#CSS-183"><span class="n">S</span></a><span class="ws">&nbsp;</span><span class="s2">&#8216;)&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-149">
+      <td class="line_number odd"><pre>149</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-150">
+      <td class="line_number even"><pre>150</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-151">
+      <td class="line_number odd"><pre>151</pre></td>
+      <td class="code"><pre><span class="kd">UNICODE_RANGE</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-152">
+      <td class="line_number even"><pre>152</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;u+&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;-&#8217;</span><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-153">
+      <td class="line_number odd"><pre>153</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-154">
+      <td class="line_number even"><pre>154</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-155">
+      <td class="line_number odd"><pre>155</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-156">
+      <td class="line_number even"><pre>156</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">DELIM</span></span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-157">
+      <td class="line_number odd"><pre>157</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;*&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;+&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;$&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;%&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&amp;&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-158">
+      <td class="line_number even"><pre>158</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-159">
+      <td class="line_number odd"><pre>159</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-160">
+      <td class="line_number even"><pre>160</pre></td>
+      <td class="code"><pre><span class="k">fragment</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-161">
+      <td class="line_number odd"><pre>161</pre></td>
+      <td class="code"><pre><span class="kd">PLAIN_ID</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-162">
+      <td class="line_number even"><pre>162</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;-&#8217;</span><span class="o">?</span><span class="ws">&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;a&#8217;</span><span class="o">..</span><span class="s2">&#8216;z&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;A&#8217;</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">&#8216;F&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;_&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-167"><span class="n"><span class="caps">NONASCII</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-173"><span class="n"><span class="caps">ESCAPE</span></span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-163">
+      <td class="line_number odd"><pre>163</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;_&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;a&#8217;</span><span class="o">..</span><span class="s2">&#8216;z&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;A&#8217;</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">&#8216;Z&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;0&#8217;</span><span class="o">..</span><span class="s2">&#8216;9&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;-&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-167"><span class="n"><span class="caps">NONASCII</span></span></a><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#CSS-173"><span class="n"><span class="caps">ESCAPE</span></span></a><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-164">
+      <td class="line_number even"><pre>164</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-165">
+      <td class="line_number odd"><pre>165</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-166">
+      <td class="line_number even"><pre>166</pre></td>
+      <td class="code"><pre><span class="k">fragment</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-167">
+      <td class="line_number odd"><pre>167</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">NONASCII</span></span><span class="ws">&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="o">~</span><span class="p">(</span><span class="s2">&#8216;\u0000&#8217;</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\u007f&#8217;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-168">
+      <td class="line_number even"><pre>168</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-169">
+      <td class="line_number odd"><pre>169</pre></td>
+      <td class="code"><pre><span class="k">fragment</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-170">
+      <td class="line_number even"><pre>170</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">HEX</span></span><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;0&#8217;</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">&#8216;9&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;a&#8217;</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">&#8216;f&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;A&#8217;</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">&#8216;F&#8217;</span><span class="ws">&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-171">
+      <td class="line_number odd"><pre>171</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-172">
+      <td class="line_number even"><pre>172</pre></td>
+      <td class="code"><pre><span class="k">fragment</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-173">
+      <td class="line_number odd"><pre>173</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">ESCAPE</span></span><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\\&#8217;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-174">
+      <td class="line_number even"><pre>174</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws">&nbsp;</span><a href="#CSS-170"><span class="n"><span class="caps">HEX</span></span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-175">
+      <td class="line_number odd"><pre>175</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="o">~</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\n&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\r&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\f&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;0&#8217;</span><span class="o">..</span><span class="s2">&#8216;9&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;a&#8217;</span><span class="o">..</span><span class="s2">&#8216;f&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;A&#8217;</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">&#8216;F&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-176">
+      <td class="line_number even"><pre>176</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-177">
+      <td class="line_number odd"><pre>177</pre></td>
+      <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-178">
+      <td class="line_number even"><pre>178</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-179">
+      <td class="line_number odd"><pre>179</pre></td>
+      <td class="code"><pre><span class="k">fragment</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-180">
+      <td class="line_number even"><pre>180</pre></td>
+      <td class="code"><pre><span class="kd"><span class="caps">NEWLINE</span></span><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\r&#8217;</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\n&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&nbsp;&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\n&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\r&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\f&#8217;</span><span class="ws">&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-181">
+      <td class="line_number odd"><pre>181</pre></td>
+      <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-182">
+      <td class="line_number even"><pre>182</pre></td>
+      <td class="code"><pre><span class="k">fragment</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="CSS-183">
+      <td class="line_number odd"><pre>183</pre></td>
+      <td class="code"><pre><span class="kd">S</span><span class="ws">&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">&#8216;&nbsp;&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\t&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\f&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\r&#8217;</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">&#8216;\n&#8217;</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="ws">&nbsp;</span><span class="p">;</span></pre></td>
+  </tr>
+  </table>
+  </notextile>
+</body>
+</html>
