@@ -9,7 +9,7 @@ end
 
 def javac( java )
   sh( "javac -classpath #{ $antlr.jar } #{ java }" )
-  return( java.ext( 'class' ) )
+  return( Dir[ File.dirname( java ) / '*.class' ] )
 end
 
 def jar_file( f, jar_dir, *deps, &action )
@@ -20,10 +20,19 @@ def jar_file( f, jar_dir, *deps, &action )
     target_file = abs( f.pathmap( "#{ jar_dir }/%f" ) )
     test( ?d, jar_dir ) or mkpath( jar_dir )
     cp( f, target_file )
-    f =~ /\.java/ and target_file = javac( target_file )
-    target_file = abs( target_file )
-    file( target_file )
-    $jar_files << target_file
+    if f =~ /\.java/
+      $jar_files.concat(
+        javac( target_file ).map do | cl |
+          cl = abs( cl )
+          file( cl )
+          cl
+        end
+      )
+    else
+      target_file = abs( target_file )
+      file( target_file )
+      $jar_files << target_file
+    end
   end
 end
 
@@ -44,7 +53,7 @@ end
 file( $antlr.jar => $jar_files ) do
   unless $jar_files.empty?
     jar_args = [ $antlr.jar, *$jar_files ].map! do | jar |
-      rel( jar, $project.java )
+      $project.shell_escape( rel( jar, $project.java ) )
     end
     
     cd $project.java do
