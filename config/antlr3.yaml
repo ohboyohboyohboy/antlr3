@@ -40,7 +40,7 @@ package_files: !pathlist
 # 
 antlr: !pathmap
   jar: java/antlr-full-$(antlr_version).jar
-  templates: java/org/antlr/codegen/templates
+  templates: java/org/antlr/codegen/templates/Ruby
   targets: java/org/antlr/codegen
   target: java/RubyTarget.java
   

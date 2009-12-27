@@ -9,4 +9,5 @@ require 'antlr3'
 
 jar = ANTLR3.antlr_jar or fail( "cannot find antlr4ruby's customized ANTLR jar" )
 
+puts jar
 exec( 'java', '-jar', jar, *ARGV )
