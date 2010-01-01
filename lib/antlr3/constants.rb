@@ -82,6 +82,8 @@ module Constants
     2 => "<DOWN>".freeze, 3 => "<UP>".freeze, 
     -1 => "<EOF>".freeze
   )
+  
+  
 end
 
 include Constants

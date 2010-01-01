@@ -472,14 +472,17 @@ class TokenScheme < ::Module
       tk_class ||= Class.new(::ANTLR3::CommonToken)
       self.token_class = tk_class
       
-      const_set(:TOKEN_NAMES, ::ANTLR3::Constants::BUILT_IN_TOKEN_NAMES.clone)
+      const_set( :TOKEN_NAMES, ::ANTLR3::Constants::BUILT_IN_TOKEN_NAMES.clone )
+      
+      @types  = ::ANTLR3::Constants::BUILT_IN_TOKEN_NAMES.invert
+      @unused = ::ANTLR3::Constants::MIN_TOKEN_TYPE
       
       scheme = self
-      define_method(:token_scheme) { scheme }
-      define_method(:token_names) { scheme::TOKEN_NAMES }
-      define_method(:token_name) do |type|
+      define_method( :token_scheme ) { scheme }
+      define_method( :token_names )  { scheme::TOKEN_NAMES }
+      define_method( :token_name ) do |type|
         begin
-          token_names[type] or super
+          token_names[ type ] or super
         rescue NoMethodError
           ::ANTLR3::CommonToken.token_name(type)
         end
@@ -492,31 +495,64 @@ class TokenScheme < ::Module
     end
   end
   
+  def self.build( *token_names )
+    token_names = [ token_names ].flatten!
+    token_names.compact!
+    token_names.uniq!
+    tk_class = Class === token_names.first ? token_names.shift : nil
+    value_maps, names = token_names.partition { |i| Hash === i }
+    new( tk_class ) do
+      for value_map in value_maps
+        define_tokens( value_map )
+      end
+      
+      for name in names
+        define_token( name )
+      end
+    end
+  end
+  
+  
   def included(mod)
     super
     mod.extend(self)
   end
   private :included
+  attr_reader :unused, :types
   
-  def define_tokens(token_map = {})
+  def define_tokens( token_map = {} )
     for token_name, token_value in token_map
       define_token(token_name, token_value)
     end
     return self
   end
   
-  def define_token(name, value)
-    if const_defined?(name)
-      current_value = const_get(name)
+  def define_token( name, value = nil )
+    name = name.to_s
+    
+    if current_value = @types[ name ]
+      # token type has already been defined
+      # raise an error unless value is the same as the current value
+      value ||= current_value
       unless current_value == value
-        error = NameError.new("new token type definition ``#{name} = #{value}'' conflicts " <<
-          "with existing type definition ``#{name} = #{current_value}''", name)
-        raise error
+        raise NameError.new(
+          "new token type definition ``#{name} = #{value}'' conflicts " <<
+          "with existing type definition ``#{name} = #{current_value}''", name
+        )
       end
     else
-      const_set(name, value)
+      value ||= @unused
+      if name =~ /^[A-Z]\w*$/
+        const_set( name, @types[ name ] = value )
+      else
+        constant = "T__#{ value }"
+        const_set( constant, @types[ constant ] = value )
+        @types[ name ] = value
+      end
+      register_name( value, name ) unless built_in_type?( value )
     end
-    register_name(value, name) unless built_in_type?(value)
+    
+    value >= @unused and @unused = value + 1
     return self
   end
   
@@ -533,13 +569,13 @@ class TokenScheme < ::Module
     end
   end
   
-  def register_name(type_value, name)
+  def register_name( type_value, name )
     name = name.to_s.freeze
     if token_names.has_key?(type_value)
       current_name = token_names[type_value]
       current_name == name and return name
       
-      if current_name == "T__#{type_value}"
+      if current_name == "T__#{ type_value }"
         # only an anonymous name is registered -- upgrade the name to the full literal name
         token_names[type_value] = name
       elsif name == "T__#{type_value}"
@@ -583,7 +619,7 @@ class TokenScheme < ::Module
     Class === klass or raise(TypeError, "token_class must be a Class")
     Util.silence_warnings do
       klass < self or klass.send(:include, self)
-      const_set(:Token, klass)
+      const_set( :Token, klass )
     end
   end
   

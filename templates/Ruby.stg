@@ -16,9 +16,10 @@ outputFile(LEXER, PARSER, TREE_PARSER, actionScope, actions, docComment, recogni
 #
 # <fileName>
 # 
-# generated using ANTLR Version: <ANTLRVersion>
-# input grammar file: <fileName>
-# generated at: <generatedTimestamp>
+# Generated using ANTLR version: <ANTLRVersion>
+# Ruby runtime library version: <runtimeLibraryVersion()>
+# Input grammar file: <fileName>
+# Generated at: <generatedTimestamp>
 # 
 
 # ~~~\> start load path setup
@@ -29,7 +30,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' \<\< dir }.join( $/ )
   raise LoadError, \<\<-'END'.strip!
   
-Failed to load the ANTLR3 runtime library:
+Failed to load the ANTLR3 runtime library (version <runtimeLibraryVersion()>):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -59,7 +60,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3' )
+    Gem.activate( 'antlr3', '= <runtimeLibraryVersion()>' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -124,6 +125,7 @@ module TokenData
 <endif>
 end<\n>
 >>
+
 rootGrammarOutputFile() ::= <<
 module <recognizer.grammar.name>
   <placeAction(scope="module",name="head")>
@@ -132,6 +134,7 @@ module <recognizer.grammar.name>
   <placeAction(scope="module",name="foot")>
 end
 >>
+
 delegateGrammarOutputFile() ::= <<
 require '<recognizer.grammar.delegator.recognizerName>'
 
@@ -139,6 +142,7 @@ require '<recognizer.grammar.delegator.recognizerName>'
   <recognizer>
 <delegateGrammarModuleTail(gram=recognizer.grammar.delegator)>
 >>
+
 delegateGrammarModuleHead(gram) ::= <<
 <if(gram.grammarIsRoot)>
 module <gram.name>
@@ -147,6 +151,7 @@ module <gram.name>
 class <gram.name>
 <endif>
 >>
+
 delegateGrammarModuleTail(gram) ::= <<
 <if(gram.grammarIsRoot)>
 end # module <gram.name>
@@ -187,6 +192,7 @@ end # class <if(grammar.grammarIsRoot)>TreeParser<else><grammar.name><endif> \< 
 at_exit { <if(grammar.grammarIsRoot)>TreeParser<else><grammar.name><endif>.main(ARGV) } if __FILE__ == $0
 <endif>
 >>
+
 parserBody(grammar, name, scopes, tokens, tokenNames, rules, numRules, bitsets, inputStreamType, superClass, filterMode, ASTLabelType="Object", labelType, members, rewriteElementType, actionScope) ::= <<
 @grammar_home = <grammar.name>
 <if(!grammar.grammarIsRoot)><autoloadDelegates()><\n><endif>
@@ -205,7 +211,7 @@ imports( <grammar.directDelegates:{d|:<d.name>}; separator=", "> )<\n>
 
 include TokenData
 
-generated_using("<fileName>", "<ANTLRVersion>")
+generated_using( "<fileName>", "<ANTLRVersion>", "<runtimeLibraryVersion()>" )
 
 <if(!grammar.grammarIsRoot)>
 require '<grammar.composite.rootGrammar.recognizerName>'
@@ -235,6 +241,7 @@ end
 <endif>
 <bitsets:{TOKENS_FOLLOWING_<it.name>_IN_<it.inName>_<it.tokenIndex> = Set[<it.tokenTypes:{<it>}; separator=", ">]<\n>}>
 >>
+
 parserConstructor() ::= <<
 def initialize(<grammar.delegators:{g|<g:delegateName()>, }>input, options = {})
   super(input, options)
@@ -346,6 +353,7 @@ loop do  #loop <decisionNumber>
   end
 end
 >>
+
 delegateName() ::= <<
 <if(it.label)><it.label; format="label"><else><it.name; format="snakecase"><endif>
 >>
@@ -355,9 +363,7 @@ element() ::= <<
 <it.el><\n>
 >>
 
-
 execForcedAction(action) ::= "<action>"
-
 
 globalAttributeScopeClass(scope) ::= <<
 <if(scope.attributes)>Scope<scope.name> = Struct.new(<scope.attributes:{:<it.decl>}; separator=", ">)<endif>
@@ -1153,13 +1159,12 @@ ruleLabelPropertyRef_text(scope, attr) ::= <<
 
 ruleLabelPropertyRef_st(scope, attr) ::= "(<scope; format=\"label\">.nil? ? nil : <scope; format=\"label\">.st)"
 
-
-
 /******************************************************************************
  *****************  L E X E R - O N L Y   T E M P L A T E S  ******************
  ******************************************************************************/
 
 lexerSynpred(name) ::= ""
+
 lexer(grammar, name, tokens, scopes, rules, numRules, labelType="ANTLR3::Token", filterMode, superClass="ANTLR3::Lexer") ::= <<
 <if(grammar.grammarIsRoot)><autoloadDelegates()><endif>
 
@@ -1172,7 +1177,7 @@ class <if(grammar.delegator)><grammar.name><else>Lexer<endif> \< <superClass>
 <endif>
   <scopes:{<if(it.isDynamicGlobalScope)><globalAttributeScopeClass(scope=it)><\n><endif>}>
   begin
-    generated_using('<fileName>', '<ANTLRVersion>')
+    generated_using( "<fileName>", "<ANTLRVersion>", "<runtimeLibraryVersion()>" )
   rescue NoMethodError => error
     error.name.to_sym == :generated_using or raise
   end
@@ -1501,3 +1506,5 @@ placeAction(scope, name) ::= <<
 # - - - - - - end action @<scope>::<name> - - - - - - -<\n>
 <endif>
 >>
+
+runtimeLibraryVersion() ::= "1.3.0"

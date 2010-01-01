@@ -60,11 +60,11 @@ Main do
     end
     
     def template_names
-      @group.templates.keys.sort
+      group.templates.keys.sort
     end
     
     def template( name )
-      templates = @group.templates
+      templates = group.templates
       templates.fetch( name ) do
         if c = complete( 'template name', templates.keys, name )
           return templates[ c ]

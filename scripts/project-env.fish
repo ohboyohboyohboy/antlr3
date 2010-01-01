@@ -11,3 +11,7 @@ function etest
   set -l config $ANTLR3_BASE/config/antlr3.rb
   ruby -I"$lib:$dev" -r"$config" $argv --require 'enhanced-test' --format ANTLRFormatter --runner ANTLRRunner --backtrace
 end
+
+function top!
+  cd $ANTLR3_BASE
+end

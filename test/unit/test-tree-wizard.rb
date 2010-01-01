@@ -6,24 +6,23 @@ require 'antlr3/tree/wizard'
 require 'test/unit'
 require 'spec'
 
-
 include ANTLR3
 include ANTLR3::AST
 
-class TestTreePatternLexer < Test::Unit::TestCase
+class TestPatternLexer < Test::Unit::TestCase
   
   # vvvvvvvv tests vvvvvvvvv
   
   def test_open
-    lexer = Wizard::TreePatternLexer.new('(')
+    lexer = Wizard::PatternLexer.new( '(' )
     type = lexer.next_token
-    assert_equal(type, :open)
-    assert_equal(lexer.text, '')
-    assert_equal(lexer.error, false)
+    assert_equal( type, :open )
+    assert_equal( lexer.text, '' )
+    assert_equal( lexer.error, false )
   end
   
   def test_close
-    lexer = Wizard::TreePatternLexer.new(')')
+    lexer = Wizard::PatternLexer.new(')')
     type = lexer.next_token
     assert_equal(type, :close)
     assert_equal(lexer.text, '')
@@ -31,7 +30,7 @@ class TestTreePatternLexer < Test::Unit::TestCase
   end
   
   def test_percent
-    lexer = Wizard::TreePatternLexer.new('%')
+    lexer = Wizard::PatternLexer.new('%')
     type = lexer.next_token
     assert_equal(type, :percent)
     assert_equal(lexer.text, '')
@@ -39,7 +38,7 @@ class TestTreePatternLexer < Test::Unit::TestCase
   end
   
   def test_dot
-    lexer = Wizard::TreePatternLexer.new('.')
+    lexer = Wizard::PatternLexer.new('.')
     type = lexer.next_token
     assert_equal(type, :dot)
     assert_equal(lexer.text, '')
@@ -47,7 +46,7 @@ class TestTreePatternLexer < Test::Unit::TestCase
   end
   
   def test_eof
-    lexer = Wizard::TreePatternLexer.new(" \n \r \t ")
+    lexer = Wizard::PatternLexer.new(" \n \r \t ")
     type = lexer.next_token
     assert_equal(type, EOF)
     assert_equal(lexer.text, '')
@@ -55,7 +54,7 @@ class TestTreePatternLexer < Test::Unit::TestCase
   end
   
   def test_id
-    lexer = Wizard::TreePatternLexer.new('__whatever_1__')
+    lexer = Wizard::PatternLexer.new('__whatever_1__')
     type = lexer.next_token
     assert_equal(:identifier, type)
     assert_equal('__whatever_1__', lexer.text)
@@ -63,7 +62,7 @@ class TestTreePatternLexer < Test::Unit::TestCase
   end
   
   def test_arg
-    lexer = Wizard::TreePatternLexer.new('[ \]bla\n]')
+    lexer = Wizard::PatternLexer.new('[ \]bla\n]')
     type = lexer.next_token
     assert_equal(type, :argument)
     assert_equal(' ]bla\n', lexer.text)
@@ -71,7 +70,7 @@ class TestTreePatternLexer < Test::Unit::TestCase
   end
   
   def test_error
-    lexer = Wizard::TreePatternLexer.new("1")
+    lexer = Wizard::PatternLexer.new("1")
     type = lexer.next_token
     assert_equal(type, EOF)
     assert_equal(lexer.text, '')
@@ -81,96 +80,75 @@ class TestTreePatternLexer < Test::Unit::TestCase
 end
 
 
-class TestTreePatternParser < Test::Unit::TestCase
+class TestPatternParser < Test::Unit::TestCase
+  Tokens = TokenScheme.build %w(A B C D E ID VAR)
+  include Tokens
+  
   def setup
-    @adaptor = CommonTreeAdaptor.new
-    @pattern_adaptor = Wizard::TreePatternTreeAdaptor.new
-    @tokens = Array.new(5, '') + %w(A B C D E ID VAR)
-    @wizard = Wizard.new(@adaptor, @tokens)
+    @adaptor = CommonTreeAdaptor.new( Tokens.token_class )
+    @pattern_adaptor = Wizard::PatternAdaptor.new( Tokens.token_class )
+    @wizard = Wizard.new( :adaptor => @adaptor, :token_scheme => Tokens )
   end
   
   # vvvvvvvv tests vvvvvvvvv
   def test_single_node
-    lexer = Wizard::TreePatternLexer.new('ID')
-    parser = Wizard::TreePatternParser.new(lexer, @wizard, @adaptor)
-    tree = parser.pattern
-  
+    tree = Wizard::PatternParser.parse( 'ID', Tokens, @adaptor )
+    
     assert_instance_of(CommonTree, tree)
-    assert_equal(10, tree.type)
-    assert_equal('ID', tree.text)
+    assert_equal( ID, tree.type )
+    assert_equal( 'ID', tree.text )
   end
   
   def test_single_node_with_arg
-    lexer = Wizard::TreePatternLexer.new('ID[foo]')
-    parser = Wizard::TreePatternParser.new(lexer, @wizard, @adaptor)
-    tree = parser.pattern
-  
-    assert_instance_of(CommonTree, tree)
-    assert_equal(10, tree.type)
-    assert_equal('foo', tree.text)
+    tree = Wizard::PatternParser.parse( 'ID[foo]', Tokens, @adaptor )
+    
+    assert_instance_of( CommonTree, tree )
+    assert_equal( ID, tree.type )
+    assert_equal( 'foo', tree.text )
   end
   
   def test_single_level_tree
-    lexer = Wizard::TreePatternLexer.new('(A B)')
-    parser = Wizard::TreePatternParser.new(lexer, @wizard, @adaptor)
-    tree = parser.pattern
-  
-    assert_instance_of(CommonTree, tree)
-    assert_equal(5, tree.type)
+    tree = Wizard::PatternParser.parse( '(A B)', Tokens, @adaptor )
+    
+    assert_instance_of( CommonTree, tree )
+    assert_equal(A, tree.type)
     assert_equal('A', tree.text)
     assert_equal(tree.child_count, 1)
-    assert_equal(tree.child(0).type, 6)
+    assert_equal(tree.child(0).type, B)
     assert_equal(tree.child(0).text, 'B')
   end
   
   def test_nil
-    lexer = Wizard::TreePatternLexer.new('nil')
-    parser = Wizard::TreePatternParser.new(lexer, @wizard, @adaptor)
-    tree = parser.pattern
-  
+    tree = Wizard::PatternParser.parse( 'nil', Tokens, @adaptor )
+    
     assert_instance_of(CommonTree, tree)
     assert_equal(0, tree.type)
     assert_nil tree.text
   end
   
   def test_wildcard
-    lexer = Wizard::Wizard::TreePatternLexer.new('(.)')
-    parser = Wizard::Wizard::TreePatternParser.new(lexer, @wizard, @adaptor)
-    tree = parser.pattern
-  
-    assert_instance_of(Wizard::WildcardTreePattern, tree)
+    tree = Wizard::PatternParser.parse( '(.)', Tokens, @adaptor )
+    assert_instance_of( Wizard::WildcardPattern, tree )
   end
   
   def test_label
-    lexer = Wizard::TreePatternLexer.new('(%a:A)')
-    parser = Wizard::TreePatternParser.new(lexer, @wizard, @pattern_adaptor)
-    tree = parser.pattern
-  
-    assert_instance_of(Wizard::TreePattern, tree)
+    tree = Wizard::PatternParser.parse( '(%a:A)', Tokens, @pattern_adaptor )
+    assert_instance_of(Wizard::Pattern, tree)
     assert_equal('a', tree.label)
   end
   
   def test_error_1
-    lexer = Wizard::TreePatternLexer.new(')')
-    parser = Wizard::TreePatternParser.new(lexer, @wizard, @adaptor)
-    tree = parser.pattern
-    
+    tree = Wizard::PatternParser.parse( ')', Tokens, @adaptor )
     assert_nil tree
   end
   
   def test_error_2
-    lexer = Wizard::TreePatternLexer.new('()')
-    parser = Wizard::TreePatternParser.new(lexer, @wizard, @adaptor)
-    tree = parser.pattern
-    
+    tree = Wizard::PatternParser.parse( '()', Tokens, @adaptor )
     assert_nil tree
   end
   
   def test_error_3
-    lexer = Wizard::TreePatternLexer.new('(A ])')
-    parser = Wizard::TreePatternParser.new(lexer, @wizard, @adaptor)
-    tree = parser.pattern
-    
+    tree = Wizard::PatternParser.parse( '(A ])', Tokens, @adaptor )
     assert_nil tree
   end
   
@@ -178,75 +156,60 @@ end
 
 
 class TestTreeWizard < Test::Unit::TestCase
+  Tokens = TokenScheme.build %w(A B C D E ID VAR)
+  include Tokens
 
   def setup
-    @adaptor = ANTLR3::CommonTreeAdaptor.new
-    @tokens = Array.new(5, '') + %w(A B C D E ID VAR)
-    @wizard = Wizard.new(@adaptor, @tokens)
+    @adaptor = CommonTreeAdaptor.new( Tokens.token_class )
+    @wizard = Wizard.new( :adaptor => @adaptor, :token_scheme => Tokens )
+  end
+  
+  def create_wizard( tokens )
+    Wizard.new( :tokens => tokens )
   end
   
   # vvvvvvvv tests vvvvvvvvv
   def test_init
-    wiz = Wizard.new(@adaptor, %w(a b))
+    @wizard = Wizard.new( :tokens => %w(A B), :adaptor => @adaptor )
     
-    assert_equal(wiz.adaptor, @adaptor)
-    assert_equal(wiz.token_name_to_type_map, { 'a' => 0, 'b' => 1 })
+    assert_equal( @wizard.adaptor, @adaptor )
+    assert_kind_of( ANTLR3::TokenScheme, @wizard.token_scheme )
   end
   
-  def test_token_type
-    wiz = Wizard.new(@adaptor, @tokens)
-    assert_equal(wiz.token_type('A'), 5)
-    assert_equal(wiz.token_type('VAR'), 11)
-    assert_equal(wiz.token_type('invalid'), INVALID_TOKEN_TYPE)
-  end
-
   def test_single_node
-    wiz = Wizard.new(@adaptor, @tokens)
-    t = wiz.create("ID")
-    
-    assert_equal(t.to_string_tree, 'ID')
+    t = @wizard.create("ID")
+    assert_equal(t.inspect, 'ID')
   end
   
   def test_single_node_with_arg
-    wiz = Wizard.new(@adaptor, @tokens)
-    t = wiz.create("ID[foo]")
+    t = @wizard.create("ID[foo]")
     
-    assert_equal(t.to_string_tree, 'foo')
+    assert_equal(t.inspect, 'foo')
   end
   
   def test_single_node_tree
-    wiz = Wizard.new(@adaptor, @tokens)
-    t = wiz.create("(A)")
-    
-    assert_equal(t.to_string_tree, 'A')
+    t = @wizard.create("(A)")
+    assert_equal(t.inspect, 'A')
   end
   
   def test_single_level_tree
-    wiz = Wizard.new(@adaptor, @tokens)
-    t = wiz.create("(A B C D)")
-    
-    assert_equal(t.to_string_tree, '(A B C D)')
+    t = @wizard.create("(A B C D)")
+    assert_equal(t.inspect, '(A B C D)')
   end
   
   def test_list_tree
-    wiz = Wizard.new(@adaptor, @tokens)
-    t = wiz.create("(nil A B C)")
-    
-    assert_equal(t.to_string_tree, 'A B C')
+    t = @wizard.create("(nil A B C)")
+    assert_equal(t.inspect, 'A B C')
   end
   
   def test_invalid_list_tree
-    wiz = Wizard.new(@adaptor, @tokens)
-    t = wiz.create("A B C")
-    
+    t = @wizard.create("A B C")
     assert_nil t
   end
   
   def test_double_level_tree
-    wiz = Wizard.new(@adaptor, @tokens)
-    t = wiz.create("(A (B C) (B D) E)")
-    
-    assert_equal(t.to_string_tree, "(A (B C) (B D) E)")
+    t = @wizard.create("(A (B C) (B D) E)")
+    assert_equal(t.inspect, "(A (B C) (B D) E)")
   end
   
   SIMPLIFY_MAP = lambda do |imap|
@@ -256,33 +219,30 @@ class TestTreeWizard < Test::Unit::TestCase
   end
   
   def test_single_node_index
-    wiz = Wizard.new(@adaptor, @tokens)
-    tree = wiz.create("ID")
-    index_map = SIMPLIFY_MAP[wiz.index(tree)]
+    tree = @wizard.create("ID")
+    index_map = SIMPLIFY_MAP[@wizard.index(tree)]
     
-    assert_equal(index_map, { 10 => %w(ID) })
+    assert_equal(index_map, ID => %w(ID))
   end
   
   
   def test_no_repeats_index
-    wiz = Wizard.new(@adaptor, @tokens)
-    tree = wiz.create("(A B C D)")
-    index_map = SIMPLIFY_MAP[wiz.index(tree)]
+    tree = @wizard.create("(A B C D)")
+    index_map = SIMPLIFY_MAP[@wizard.index(tree)]
     
     assert_equal(index_map,
-        8 => %w(D), 6 => %w(B),
-        7 => %w(C), 5 => %w(A)
+        D => %w(D), B => %w(B),
+        C => %w(C), A => %w(A)
     )
   end
   
   def test_repeats_index
-    wiz = Wizard.new(@adaptor, @tokens)
-    tree = wiz.create("(A B (A C B) B D D)")
-    index_map = SIMPLIFY_MAP[wiz.index(tree)]
+    tree = @wizard.create("(A B (A C B) B D D)")
+    index_map = SIMPLIFY_MAP[@wizard.index(tree)]
     
     assert_equal(index_map,
-        8 => %w(D D), 6 => %w(B B B),
-        7 => %w(C), 5 => %w(A A)
+        D => %w(D D), B => %w(B B B),
+        C => %w(C), A => %w(A A)
     )
   end
   
@@ -291,11 +251,11 @@ class TestTreeWizard < Test::Unit::TestCase
     tree = @wizard.create("(A B C D)")
     
     elements = []
-    @wizard.visit(tree, @wizard.token_type('B')) do |node, parent, child_index, labels|
+    @wizard.visit( tree, B ) do |node, parent, child_index, labels|
       elements << node.to_s
     end
     
-    assert_equal(%w(B), elements)
+    assert_equal( %w(B), elements )
   end
   
   
@@ -303,7 +263,7 @@ class TestTreeWizard < Test::Unit::TestCase
     tree = @wizard.create("(A B (A C B) B D D)")
     
     elements = []
-    @wizard.visit(tree, @wizard.token_type('C')) do |node, parent, child_index, labels|
+    @wizard.visit( tree, C ) do |node, parent, child_index, labels|
       elements << node.to_s
     end
     
@@ -315,7 +275,7 @@ class TestTreeWizard < Test::Unit::TestCase
     tree = @wizard.create("(A B (A C B) B D D)")
     
     elements = []
-    @wizard.visit(tree, @wizard.token_type('B')) do |node, parent, child_index, labels|
+    @wizard.visit( tree, B ) do |node, parent, child_index, labels|
       elements << node.to_s
     end
     
@@ -327,7 +287,7 @@ class TestTreeWizard < Test::Unit::TestCase
     tree = @wizard.create("(A B (A C B) B D D)")
     
     elements = []
-    @wizard.visit(tree, @wizard.token_type('A')) do |node, parent, child_index, labels|
+    @wizard.visit( tree, A ) do |node, parent, child_index, labels|
       elements << node.to_s
     end
     
@@ -342,7 +302,7 @@ class TestTreeWizard < Test::Unit::TestCase
     tree = @wizard.create("(A B (A C B) B D D)")
     
     elements = []
-    @wizard.visit(tree, @wizard.token_type('B')) do |node, parent, child_index, labels|
+    @wizard.visit( tree, B ) do |node, parent, child_index, labels|
       elements << context(node, parent, child_index)
     end
     
@@ -354,13 +314,12 @@ class TestTreeWizard < Test::Unit::TestCase
     tree = @wizard.create("(A B (A C B) B D D)")
     
     elements = []
-    @wizard.visit(tree, @wizard.token_type('A')) do |node, parent, child_index, labels|
+    @wizard.visit( tree, A ) do |node, parent, child_index, labels|
       elements << context(node, parent, child_index)
     end
     
-    assert_equal(['A@nil[0]', 'A@A[1]'], elements)
+    assert_equal(['A@nil[-1]', 'A@A[1]'], elements)
   end
-  
   
   def test_visit_pattern
     tree = @wizard.create("(A B C (A B) D)")
@@ -402,83 +361,83 @@ class TestTreeWizard < Test::Unit::TestCase
   end
   
   
-  def test_parse
+  def test_match
     tree = @wizard.create("(A B C)")
-    assert @wizard.parse(tree, "(A B C)")
+    assert @wizard.match(tree, "(A B C)")
   end
   
-  def test_parse_single_node
+  def test_match_single_node
     tree = @wizard.create('A')
-    assert @wizard.parse(tree, 'A')
+    assert @wizard.match(tree, 'A')
   end
   
-  def test_parse_single_node_fails
+  def test_match_single_node_fails
     tree = @wizard.create('A')
-    assert( !(@wizard.parse(tree, 'B')) )
+    assert( !(@wizard.match(tree, 'B')) )
   end
   
   
-  def test_parse_flat_tree
+  def test_match_flat_tree
     tree = @wizard.create('(nil A B C)')
-    assert @wizard.parse(tree, '(nil A B C)')
+    assert @wizard.match(tree, '(nil A B C)')
   end
   
-  def test_parse_flat_tree_fails
+  def test_match_flat_tree_fails
     tree = @wizard.create('(nil A B C)')
-    assert( !(@wizard.parse(tree, '(nil A B)')) )
+    assert( !(@wizard.match(tree, '(nil A B)')) )
   end
 
-  def test_parse_flat_tree_fails2
+  def test_match_flat_tree_fails2
     tree = @wizard.create('(nil A B C)')
-    assert( !(@wizard.parse(tree, '(nil A B A)')) )
+    assert( !(@wizard.match(tree, '(nil A B A)')) )
   end
   
   def test_wildcard
     tree = @wizard.create('(A B C)')
-    assert @wizard.parse(tree, '(A . .)')
+    assert @wizard.match(tree, '(A . .)')
   end
   
-  def test_parse_with_text
+  def test_match_with_text
     tree = @wizard.create('(A B[foo] C[bar])')
-    assert @wizard.parse(tree, '(A B[foo] C)')
+    assert @wizard.match(tree, '(A B[foo] C)')
   end
   
-  def test_parse_with_text_fails
+  def test_match_with_text_fails
     tree = @wizard.create('(A B C)')
-    assert( !(@wizard.parse(tree, '(A[foo] B C)')) )
+    assert( !(@wizard.match(tree, '(A[foo] B C)')) )
   end
   
-  def test_parse_labels
+  def test_match_labels
     tree = @wizard.create('(A B C)')
-    labels = {}
-    assert @wizard.parse(tree, '(%a:A %b:B %c:C)', labels)
+    labels = @wizard.match( tree, '(%a:A %b:B %c:C)' )
+    
     assert_equal('A', labels['a'].to_s)
     assert_equal('B', labels['b'].to_s)
     assert_equal('C', labels['c'].to_s)
   end
   
-  def test_parse_with_wildcard_labels
+  def test_match_with_wildcard_labels
     tree = @wizard.create('(A B C)')
-    labels = {}
-    assert @wizard.parse(tree, '(A %b:. %c:.)', labels)
+    labels = @wizard.match(tree, '(A %b:. %c:.)')
+    assert_kind_of( Hash, labels )
     assert_equal('B', labels['b'].to_s)
     assert_equal('C', labels['c'].to_s)
   end
   
   
-  def test_parse_labels_and_test_text
+  def test_match_labels_and_test_text
     tree = @wizard.create('(A B[foo] C)')
-    labels = {}
-    assert @wizard.parse(tree, '(%a:A %b:B[foo] %c:C)', labels)
+    labels = @wizard.match( tree, '(%a:A %b:B[foo] %c:C)' )
+    assert_kind_of( Hash, labels )
     assert_equal('A', labels['a'].to_s)
     assert_equal('foo', labels['b'].to_s)
     assert_equal('C', labels['c'].to_s)
   end
   
-  def test_parse_labels_in_nested_tree
+  def test_match_labels_in_nested_tree
     tree = @wizard.create('(A (B C) (D E))')
-    labels = {}
-    assert @wizard.parse(tree, '(%a:A (%b:B %c:C) (%d:D %e:E))', labels)
+    labels = @wizard.match( tree, '(%a:A (%b:B %c:C) (%d:D %e:E))' )
+    assert_kind_of( Hash, labels )
     assert_equal('A', labels['a'].to_s)
     assert_equal('B', labels['b'].to_s)
     assert_equal('C', labels['c'].to_s)
@@ -528,7 +487,7 @@ class TestTreeWizard < Test::Unit::TestCase
   
   def test_find_token_type
     tree = @wizard.create("(A B C (A[foo] B[bar]) (D (A[big] B[dog])))")
-    subtrees = @wizard.find(tree, @wizard.token_type('A')).map { |t| t.to_s }
+    subtrees = @wizard.find( tree, A ).map { |t| t.to_s }
     assert_equal(%w(A foo big), subtrees)
   end
 end

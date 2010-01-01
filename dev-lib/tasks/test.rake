@@ -26,6 +26,11 @@ namespace :test do
     sh "antlr-tests run benchmark profile -s"
   end
   
+  desc "clean generated files from embedded test grammars"
+  task :clean do
+    sh "antlr-tests clean all"
+  end
+  
 end
 
 desc "run all tests"

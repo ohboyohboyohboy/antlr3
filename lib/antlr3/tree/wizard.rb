@@ -82,8 +82,8 @@ for more background on the concept of a tree wizard.
     # => nil - invalid node names
   
   # test whether a tree matches a pattern
-  wizard.parse(expression_node, '(MINUS VAR .)') # => true
-  wizard.parse(lone_node, 'NUMBER NUMBER')       # => false
+  wizard.match(expression_node, '(MINUS VAR .)') # => true
+  wizard.match(lone_node, 'NUMBER NUMBER')       # => false
   
   # extract nodes matching a pattern
   wizard.find(statement_node, '(PLUS . .)')
@@ -116,15 +116,16 @@ for more background on the concept of a tree wizard.
 
 class Wizard
   
-  include ANTLR3::Constants
+  include Constants
+  include Util
 
-=begin rdoc ANTLR3::AST::Wizard::TreePatternLexer
+=begin rdoc ANTLR3::AST::Wizard::PatternLexer
 
 A class that is used internally by AST::Wizard to tokenize tree patterns
 
 =end
 
-  class TreePatternLexer
+  class PatternLexer
     include ANTLR3::Constants
     
     autoload :StringScanner, 'strscan'
@@ -141,9 +142,9 @@ A class that is used internally by AST::Wizard to tokenize tree patterns
     ]
     
     attr_reader :text, :error, :pattern
-    def initialize(pattern)
+    def initialize( pattern )
       @pattern = pattern.to_s
-      @scanner = StringScanner.new(pattern)
+      @scanner = StringScanner.new( pattern )
       @text = ''
       @error = false
     end
@@ -174,19 +175,24 @@ A class that is used internally by AST::Wizard to tokenize tree patterns
   end
   
 
-=begin rdoc ANTLR3::AST::Wizard::TreePatternParser
+=begin rdoc ANTLR3::AST::Wizard::Pattern
 
 A class that is used internally by AST::Wizard to construct AST tree objects
 from a tokenized tree pattern
 
 =end
 
-  class TreePatternParser
+  class PatternParser
+    def self.parse( pattern, token_scheme, adaptor )
+      lexer = PatternLexer.new( pattern )
+      new( lexer, token_scheme, adaptor ).pattern
+    end
+    
     include ANTLR3::Constants
     
-    def initialize(tokenizer, wizard, adaptor)
+    def initialize( tokenizer, token_scheme, adaptor )
       @tokenizer = tokenizer
-      @wizard    = wizard
+      @token_scheme = token_scheme
       @adaptor   = adaptor
       @token_type = tokenizer.next_token
     end
@@ -212,7 +218,7 @@ from a tokenized tree pattern
       loop do
         case @token_type
         when :open
-          subtree = parse_tree()
+          subtree = parse_tree
           @adaptor.add_child(root, subtree)
         when :identifier, :percent, :dot
           child = parse_node or return nil
@@ -237,7 +243,7 @@ from a tokenized tree pattern
       if @token_type == :dot
         @token_type = @tokenizer.next_token
         wildcard_payload = CommonToken.create(:type => 0, :text => '.')
-        node = WildcardTreePattern.new(wildcard_payload)
+        node = WildcardPattern.new(wildcard_payload)
         label and node.label = label
         return node
       end
@@ -255,190 +261,188 @@ from a tokenized tree pattern
         @token_type = @tokenizer.next_token
       end
       
-      tree_node_type = @wizard.token_type(token_name)
-      tree_node_type == INVALID_TOKEN_TYPE and return nil
+      node_type = @token_scheme[ token_name ] || INVALID_TOKEN_TYPE
+      node = @adaptor.create_from_type!( node_type, text )
       
-      node = @adaptor.create_from_type!(tree_node_type, text)
-      label && node.is_a?(TreePattern) and node.label = label
-      arg && node.is_a?(TreePattern) and node.has_text_arg = true
+      if Pattern === node
+        node.label, node.has_text_arg = label, arg
+      end
       return node
     end
   end
   
 
-=begin rdoc ANTLR3::AST::Wizard::TreePattern
+=begin rdoc ANTLR3::AST::Wizard::Pattern
 
 A simple tree class that represents the skeletal structure of tree. It is used
 to validate tree structures as well as to extract nodes that match the pattern.
 
 =end
 
-  class TreePattern < CommonTree
+  class Pattern < CommonTree
+    def self.parse( pattern_str, scheme )
+      PatternParser.parse(
+        pattern_str, scheme, PatternAdaptor.new( scheme.token_class )
+      )
+    end
+    
     attr_accessor :label, :has_text_arg
-    def initialize(payload)
-      super(payload)
+    alias :has_text_arg? :has_text_arg
+    
+    def initialize( payload )
+      super( payload )
       @label = nil
       @has_text_arg = nil
     end
     
     def to_s
       prefix = @label ? '%' << @label << ':' : ''
-      return prefix << super()
+      return( prefix << super )
     end
-    
   end
   
-=begin rdoc ANTLR3::AST::Wizard::WildcardTreePattern
+=begin rdoc ANTLR3::AST::Wizard::WildcardPattern
 
 A simple tree node used to represent the operation "match any tree node type" in
 a tree pattern. They are represented by '.' in tree pattern specifications.
 
 =end
   
-  class WildcardTreePattern < TreePattern; end
+  class WildcardPattern < Pattern; end
   
 
-=begin rdoc ANTLR3::AST::Wizard::TreePatternTreeAdaptor
+=begin rdoc ANTLR3::AST::Wizard::PatternAdaptor
 
 A customized TreeAdaptor used by AST::Wizards to build tree patterns.
 
 =end
 
-  class TreePatternTreeAdaptor < CommonTreeAdaptor
-    def create_with_payload!(payload)
-      return TreePattern.new(payload)
+  class PatternAdaptor < CommonTreeAdaptor
+    def create_with_payload!( payload )
+      return Pattern.new( payload )
     end
   end
 
-  attr_accessor :token_name_to_type_map, :adaptor
+  attr_accessor :token_scheme, :adaptor
 
-  def initialize(adaptor = CommonTreeAdaptor.new, token_names_or_type_map = {})
-    @adaptor = adaptor
-    @token_name_to_type_map = 
-      case token_names_or_type_map
-      when Array, nil then compute_token_types(token_names_or_type_map)
-      else token_names_or_type_map
-      end
+  def initialize( options = {} )
+    @token_scheme = options.fetch( :token_scheme ) do
+      TokenScheme.build( options[ :token_class ], options[ :tokens ] )
+    end
+    @adaptor = options.fetch( :adaptor ) do
+      CommonTreeAdaptor.new( @token_scheme.token_class )
+    end
   end
   
-  def token_type(name)
-    @token_name_to_type_map[name]
+  def create( pattern )
+    PatternParser.parse( pattern, @token_scheme, @adaptor )
   end
   
-  def create(pattern)
-    tokenizer = TreePatternLexer.new(pattern)
-    parser = TreePatternParser.new(tokenizer, self, @adaptor)
-    return parser.pattern
+  def index( tree, map = {} )
+    tree or return( map )
+    type = @adaptor.type_of( tree )
+    elements = map[ type ] ||= []
+    elements << tree
+    @adaptor.each_child( tree ) { | child | index( child, map ) }
+    return( map )
   end
   
-  def index(tree)
-    m = {}
-    index!(tree, m)
-    return(m)
-  end
-  
-  def find(tree, what)
+  def find( tree, what )
     case what
     when Integer then find_token_type(tree, what)
-    when String then find_pattern(tree, what)
+    when String  then find_pattern(tree, what)
+    when Symbol  then find_token_type( tree, @token_scheme[ what ] )
     else raise ArgumentError, "search subject must be a token type (integer) or a string"
     end
   end
   
   def find_token_type(tree, type)
     nodes = []
-    visit(tree, type) do |t, parent, child_index, labels|
-      nodes << t
-    end
+    visit( tree, type ) { | t, | nodes << t }
     return nodes
   end
   
   def find_pattern(tree, pattern)
     subtrees = []
-    tokenizer = TreePatternLexer.new(pattern)
-    parser = TreePatternParser.new(tokenizer, self, TreePatternTreeAdaptor.new)
-    pattern = parser.pattern()
-    
-    return nil if pattern.nil? or pattern.flat_list? or
-      pattern.is_a?(WildcardTreePattern)
-      
-    root_token_type = pattern.type
-    visit(tree, root_token_type) do |t, parent, child_index, label|
-      ( parse! t, pattern, nil ) and subtrees << t
-    end
-    return subtrees
+    visit_pattern( tree, pattern ) { | t, | subtrees << t }
+    return( subtrees )
   end
   
-  def visit(tree, what, &block)
+  def visit( tree, what = nil, &block )
+    block_given? or return enum_for( :visit, tree, what )
+    Symbol === what and what = @token_scheme[ what ]
     case what
-    when Integer then self.visit_type(tree, nil, 0, what, &block)
-    when String then self.visit_pattern(tree, what, &block)
-    else raise ArgumentError,
-      "the 'what' filter argument must be a tree pattern (String) or a token type (Integer) -- got #{what.inspect}"
+    when nil then visit_all( tree, &block )
+    when Integer then visit_type( tree, nil, what, &block )
+    when String  then visit_pattern( tree, what, &block )
+    else raise( ArgumentError, tidy( <<-'END', true ) )
+      | The 'what' filter argument must be a tree
+      | pattern (String) or a token type (Integer)
+      | -- got #{ what.inspect }
+      END
     end
   end
   
-  def visit_type(tree, parent, child_index, type, &block)
+  def visit_all( tree, parent = nil, &block )
+    index = @adaptor.child_index( tree )
+    yield( tree, parent, index, nil )
+    @adaptor.each_child( tree ) do | child |
+      visit_all( child, tree, &block )
+    end
+  end
+  
+  def visit_type( tree, parent, type, &block )
     tree.nil? and return(nil)
-    @adaptor.type_of(tree) == type and yield(tree, parent, child_index, nil)
-    @adaptor.child_count(tree).times do |i|
-      child = @adaptor.child_of(tree, i)
-      visit_type(child, tree, i, type, &block)
+    index = @adaptor.child_index( tree )
+    @adaptor.type_of( tree ) == type and yield( tree, parent, index, nil )
+    @adaptor.each_child( tree ) do | child |
+      visit_type( child, tree, type, &block )
     end
   end
   
-  def visit_pattern(tree, pattern, &block)
-    tokenizer = TreePatternLexer.new(pattern)
-    parser    = TreePatternParser.new(tokenizer, self, TreePatternTreeAdaptor.new)
-    pattern = parser.pattern()
+  def visit_pattern( tree, pattern, &block )
+    pattern = Pattern.parse( pattern, @token_scheme )
     
-    return nil if pattern.nil? or pattern.flat_list? or
-      pattern.is_a?(WildcardTreePattern)
+    if pattern.nil? or pattern.flat_list? or pattern.is_a?( WildcardPattern )
+      return( nil )
+    end
     
-    root_token_type = pattern.type
-    
-    visit tree, root_token_type do |tree, parent, child_index, labels|
-      labels = {}
-      ( parse! tree, pattern, labels ) and yield(tree, parent, child_index, labels)
+    visit( tree, pattern.type ) do | tree, parent, child_index, labels |
+      labels = match!( tree, pattern ) and
+        yield( tree, parent, child_index, labels )
     end
   end
   
-  def parse(tree, pattern, labels = nil)
-    tokenizer = TreePatternLexer.new(pattern)
-    parser = TreePatternParser.new(tokenizer, self, TreePatternTreeAdaptor.new)
-    pattern = parser.pattern
+  def match( tree, pattern )
+    pattern = Pattern.parse( pattern, @token_scheme )
     
-    parse! tree, pattern, labels
+    return( match!( tree, pattern ) )
   end
   
-  def parse!(tree, pattern, labels)
+  def match!( tree, pattern, labels = {} )
     tree.nil? || pattern.nil? and return false
-    unless pattern.is_a? WildcardTreePattern
+    unless pattern.is_a? WildcardPattern
       @adaptor.type_of(tree) == pattern.type or return false
       pattern.has_text_arg && (@adaptor.text_of(tree) != pattern.text) and
         return false
     end
-    labels[pattern.label] = tree if labels && pattern.label
+    labels[ pattern.label ] = tree if labels && pattern.label
     
     number_of_children = @adaptor.child_count(tree)
     return false unless number_of_children == pattern.child_count
     
     number_of_children.times do |index|
       actual_child = @adaptor.child_of(tree, index)
-      pattern_child = pattern.child(index)
-      return false unless parse! actual_child, pattern_child, labels
+      pattern_child = pattern.child( index )
+      
+      return(false) unless match!( actual_child, pattern_child, labels )
     end
     
-    return true
+    return labels
   end
   
-  def equals(tree_a, tree_b, adaptor = nil)
-    adaptor ||= @adaptor
-    return equals!(tree_a, tree_b, adaptor)
-  end
-  
-  def equals! tree_a, tree_b, adaptor
-    tree_a && tree_b or return false    # -> if either argument is nil, return false
+  def equals( tree_a, tree_b, adaptor = @adaptor )
+    tree_a && tree_b or return( false )
     
     adaptor.type_of(tree_a) == adaptor.type_of(tree_b) or return false
     adaptor.text_of(tree_a) == adaptor.text_of(tree_b) or return false
@@ -447,35 +451,43 @@ A customized TreeAdaptor used by AST::Wizards to build tree patterns.
     child_count_b = adaptor.child_count(tree_b)
     child_count_a == child_count_b or return false
     
-    child_count_a.times do |index|
-      child_a = adaptor.child_of(tree_a, index)
-      child_b = adaptor.child_of(tree_b, index)
-      equals!(child_a, child_b, adaptor) or return false
+    child_count_a.times do | i |
+      child_a = adaptor.child_of( tree_a, i )
+      child_b = adaptor.child_of( tree_b, i )
+      equals( child_a, child_b, adaptor ) or return false
     end
     return true
   end
   
-  def index!(tree, m)
-    tree or return nil
-    type = @adaptor.type_of(tree)
-    elements = (m[type] ||= [])
-    elements << tree
-    @adaptor.child_count(tree).times do |i|
-      child = @adaptor.child_of(tree, i)
-      index!(child, m)
+  
+  DOT_DOT_PATTERN = /.*[^\.]\\.{2}[^\.].*/
+  DOUBLE_ETC_PATTERN = /.*\.{3}\s+\.{3}.*/
+  
+  def in_context?( tree, context )
+    case context
+    when DOT_DOT_PATTERN then raise ArgumentError, "invalid syntax: .."
+    when DOUBLE_ETC_PATTERN then raise ArgumentError, "invalid syntax: ... ..."
     end
+    
+    context = context.gsub(/([^\.\s])\.{3}([^\.])/, '\1 ... \2')
+    context.strip!
+    nodes = context.split(/\s+/)
+    
+    while tree = @adaptor.parent( tree ) and node = nodes.pop
+      if node == '...'
+        node = nodes.pop or return( true )
+        tree = @adaptor.each_ancestor( tree ).find do | t |
+          @adaptor.type_name( t ) == node
+        end or return( false )
+      end
+      @adaptor.type_name( tree ) == node or return( false )
+    end
+    
+    return( false ) if tree.nil? and not nodes.empty?
+    return true
   end
   
-  def compute_token_types(token_names)
-    token_names or return({})
-    map = Hash.new(INVALID_TOKEN_TYPE)
-    token_names.each_with_index do |name, index|
-      map[name] = index
-    end
-    return map
-  end
-  
-  private :parse!, :index!, :equals!
+  private :match!
 end
 end
 end

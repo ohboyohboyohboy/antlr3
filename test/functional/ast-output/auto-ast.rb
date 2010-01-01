@@ -710,7 +710,7 @@ class TestAutoAST < ANTLR3::Test::Functional
       options {language=Ruby;output=AST;}
       a returns [result]: x+=b x+=b {
       t = $x[1]
-      $result = "2nd x=#{t.to_string_tree},"
+      $result = "2nd x=#{t.inspect},"
       };
       b : ID;
       ID : 'a'..'z'+ ;
@@ -726,7 +726,7 @@ class TestAutoAST < ANTLR3::Test::Functional
       grammar RuleListLabelRuleRoot;
       options {language=Ruby;output=AST;}
       a returns [result] : ( x+=b^ )+ {
-      $result = "x=%s," \% $x[1].to_string_tree
+      $result = "x=%s," \% $x[1].inspect
       } ;
       b : ID;
       ID : 'a'..'z'+ ;
@@ -742,7 +742,7 @@ class TestAutoAST < ANTLR3::Test::Functional
       grammar RuleListLabelBang;
       options {language=Ruby;output=AST;}
       a returns [result] : x+=b! x+=b {
-      $result = "1st x=#{$x[0].to_string_tree},"
+      $result = "1st x=#{$x[0].inspect},"
       } ;
       b : ID;
       ID : 'a'..'z'+ ;

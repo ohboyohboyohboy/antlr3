@@ -265,7 +265,7 @@ root_<treeLevel> = @adaptor.become_root(<createImaginaryNode(tokenType=token, ..
 >>
 
 rewriteAction(action) ::= <<
-root_0 = <action><\n>
+root_0 = ( <action> )<\n>
 >>
 
 prevRuleRootRef() ::= "return_value"
