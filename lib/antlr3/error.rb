@@ -100,7 +100,7 @@ class RecognitionError < StandardError
   include ANTLR3::Constants
   attr_accessor :input, :index, :line, :column, :symbol, :token, :source_name
   
-  def initialize(input = nil)
+  def initialize( input = nil )
     @index = @line =  @column = nil
     @approximate_line_info = false
     if @input = input
@@ -116,11 +116,11 @@ class RecognitionError < StandardError
         @line   = @input.line
         @column = @input.column
       when AST::TreeNodeStream
-        @symbol = nodes.look
+        @symbol = @input.look
         if @symbol.respond_to?(:line) and @symbol.respond_to?(:column)
           @line, @column = @symbol.line, @symbol.column
         else
-          extract_from_node_stream(@input)
+          extract_from_node_stream( @input )
         end
       else
         @symbol = @input.look

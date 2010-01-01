@@ -146,7 +146,7 @@ class TreeParser < BaseRecognizer
       case type
       when DOWN then level += 1
       when UP
-        level += 1
+        level -= 1
         level.zero? and break
       end
     end
