@@ -119,7 +119,6 @@ class RecognizerSharedState
     self.type = nil
     self.text = nil
   end
-  
 end
 end
 
@@ -165,6 +164,7 @@ class BaseRecognizer
     attr_reader :grammar_file_name,
                 :antlr_version,
                 :antlr_version_string,
+                :library_version_string,
                 :grammar_home
     
     attr_accessor :token_scheme, :default_rule
@@ -173,9 +173,10 @@ class BaseRecognizer
     # the code with the name of the grammar file and
     # the current version of ANTLR being used to generate
     # the code
-    def generated_using(grammar_file, version_string)
+    def generated_using( grammar_file, antlr_version, library_version = nil )
       @grammar_file_name = grammar_file.freeze
-      @antlr_version_string = version_string.freeze
+      @antlr_version_string = antlr_version.freeze
+      @library_version = Util.parse_version( library_version )
       if @antlr_version_string =~ /^(\d+)\.(\d+)(?:\.(\d+)(?:b(\d+))?)?(.*)$/
         @antlr_version = [$1, $2, $3, $4].map! { |str| str.to_i }
         timestamp = $5.strip
@@ -742,9 +743,8 @@ class BaseRecognizer
   # input symbol is.
   # 
   # This is ignored for lexers.
-  
   def current_input_symbol
-    return nil
+    @input.look
   end
   
   # Consume tokens until one matches the given token or token set
@@ -811,7 +811,7 @@ class BaseRecognizer
   end
   
   def trace_in(rule_name, rule_index, input_symbol)
-    @error_output.printf("--> enter %s on %s", rule_name, input_symbol)
+    @error_output.printf( "--> enter %s on %s", rule_name, input_symbol )
     @state.backtracking > 0 and @error_output.printf(
       " (in backtracking mode: depth = %s)", @state.backtracking
     )
@@ -956,6 +956,10 @@ class Lexer < BaseRecognizer
       when ::IO then FileStream.new(input, options)
       else input
       end
+  end
+  
+  def current_input_symbol
+    nil
   end
   
   def next_token
@@ -1110,7 +1114,8 @@ class Lexer < BaseRecognizer
     @input.consume
   end
   
-  private
+  
+private
   
   def trace_in(rule_name, rule_index)
     if symbol = @input.look and symbol != EOF then symbol = symbol.inspect
@@ -1200,16 +1205,12 @@ class Parser < BaseRecognizer
     end
   end
   
-  def initialize(input, options = {})
-    super(options)
+  def initialize( input, options = {} )
+    super( options )
     @input = nil
     reset
     input = cast_input( input, options ) unless TokenStream === input
     @input = input
-  end
-  
-  def current_input_symbol
-    @input.look
   end
   
   def missing_symbol(error, expected_type, follow)
@@ -1239,15 +1240,15 @@ class Parser < BaseRecognizer
   def source_name
     @input.source_name
   end
-
+  
 private
   
   def trace_in(rule_name, rule_index)
-    super(rule_name, rule_index, @input.look.inspect)
+    super( rule_name, rule_index, @input.look.inspect )
   end
   
   def trace_out(rule_name, rule_index)
-    super(rule_name, rule_index, @input.look.inspect)
+    super( rule_name, rule_index, @input.look.inspect )
   end
   
   def cast_input( input, options )

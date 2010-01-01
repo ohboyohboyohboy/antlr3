@@ -170,6 +170,7 @@ module_function
   end
   
   blacklist 'rubygems/custom_require'
+  blacklist 'test/unit/assertions'
 end
 
 class Exception

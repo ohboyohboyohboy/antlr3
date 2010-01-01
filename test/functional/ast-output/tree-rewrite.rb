@@ -841,7 +841,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       rewrite=true;
     }
     s : ^(ID a) {
-      # self.buf += $s.start.to_string_tree
+      # self.buf += $s.start.inspect
     };
     a : ^(ID INT) -> {true}? ^(ID["ick"] INT)
                   -> INT

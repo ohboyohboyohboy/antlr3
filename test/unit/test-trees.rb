@@ -26,7 +26,7 @@ class TestTreeNodeStream < Test::Unit::TestCase
     
     found.should == expecting
     
-    expecting = '101'
+    expecting = '<UNKNOWN: 101>'
     found = stream.inspect
     
     found.should == expecting
@@ -68,7 +68,7 @@ class TestTreeNodeStream < Test::Unit::TestCase
     found = nodes_only_string(stream)
     found.should == expecting
     
-    expecting = "101 2 102 2 103 3 104 3"
+    expecting = "<UNKNOWN: 101> <DOWN> <UNKNOWN: 102> <DOWN> <UNKNOWN: 103> <UP> <UNKNOWN: 104> <UP>"
     found = stream.inspect
     found.should == expecting
   end
@@ -91,7 +91,7 @@ class TestTreeNodeStream < Test::Unit::TestCase
     found = nodes_only_string(stream)
     found.should == expecting
     
-    expecting = "101 2 102 2 103 3 104 3 105"
+    expecting = "<UNKNOWN: 101> <DOWN> <UNKNOWN: 102> <DOWN> <UNKNOWN: 103> <UP> <UNKNOWN: 104> <UP> <UNKNOWN: 105>"
     found = stream.inspect
     found.should == expecting
   end
@@ -103,13 +103,13 @@ class TestTreeNodeStream < Test::Unit::TestCase
     root.add_child(CommonTree.new(CommonToken[102]))
     root.add_child(CommonTree.new(CommonToken[103]))
     
-    stream = CommonTreeNodeStream.new(root)
+    stream = CommonTreeNodeStream.new( root )
     
     expecting = '101 102 103'
     found = nodes_only_string(stream)
     found.should == expecting
     
-    expecting = '101 102 103'
+    expecting = '<UNKNOWN: 101> <UNKNOWN: 102> <UNKNOWN: 103>'
     found = stream.inspect
     found.should == expecting
   end
@@ -125,7 +125,7 @@ class TestTreeNodeStream < Test::Unit::TestCase
     found = nodes_only_string(stream)
     found.should == expecting
     
-    expecting = '101'
+    expecting = "<UNKNOWN: 101>"
     found = stream.inspect
     found.should == expecting
   end
@@ -139,7 +139,7 @@ class TestTreeNodeStream < Test::Unit::TestCase
     found = nodes_only_string(stream)
     found.should == expecting
     
-    expecting = '101 2 102 3'
+    expecting = '<UNKNOWN: 101> <DOWN> <UNKNOWN: 102> <UP>'
     found = stream.inspect
     found.should == expecting
   end
@@ -335,7 +335,9 @@ class TestCommonTreeNodeStream < Test::Unit::TestCase
     r0.add_child new_node( new_token 109 )
     
     stream = CommonTreeNodeStream.new(r0)
-    expecting = '101 2 102 2 103 3 104 2 105 3 106 2 107 3 108 109 3'
+    expecting = '<UNKNOWN: 101> <DOWN> <UNKNOWN: 102> <DOWN> <UNKNOWN: 103> <UP> <UNKNOWN: 104> ' +
+                '<DOWN> <UNKNOWN: 105> <UP> <UNKNOWN: 106> <DOWN> <UNKNOWN: 107> <UP> ' +
+                '<UNKNOWN: 108> <UNKNOWN: 109> <UP>'
     found = stream.inspect
     found.should == expecting
     
@@ -557,10 +559,10 @@ class TestCommonTree < Test::Unit::TestCase
     r0.add_child( new_node( new_token 104 ) )
     r0.add_child( new_node( new_token 105 ) )
     
-    dup = @adaptor.copy_tree(r0)
+    dup = @adaptor.copy_tree( r0 )
     assert_nil dup.parent
     dup.child_index.should == -1
-    dup.sanity_check_parent_and_child_indexes
+    dup.sanity_check
   end
   
   def test_become_root
@@ -572,7 +574,7 @@ class TestCommonTree < Test::Unit::TestCase
     old_root.add_child( new_node( new_token 103 ) )
     
     @adaptor.become_root(new_root, old_root)
-    new_root.sanity_check_parent_and_child_indexes
+    new_root.sanity_check
   end
   
   def test_become_root2
@@ -583,7 +585,7 @@ class TestCommonTree < Test::Unit::TestCase
     old_root.add_child( new_node( new_token 103 ) )
     
     @adaptor.become_root(new_root, old_root)
-    new_root.sanity_check_parent_and_child_indexes
+    new_root.sanity_check
   end
   
   def test_become_root3
@@ -596,7 +598,7 @@ class TestCommonTree < Test::Unit::TestCase
     old_root.add_child( new_node( new_token 103 ) )
     
     @adaptor.become_root(new_root, old_root)
-    new_root.sanity_check_parent_and_child_indexes
+    new_root.sanity_check
   end
   
   def test_become_root5
@@ -608,7 +610,7 @@ class TestCommonTree < Test::Unit::TestCase
     old_root.add_child( new_node( new_token 103 ) )
     
     @adaptor.become_root(new_root, old_root)
-    new_root.sanity_check_parent_and_child_indexes
+    new_root.sanity_check
   end
   
   def test_become_root6
@@ -618,7 +620,7 @@ class TestCommonTree < Test::Unit::TestCase
     
     @adaptor.add_child( root_1, new_node( new_token 6 ) )
     @adaptor.add_child( root_0, root_1 )
-    root_0.sanity_check_parent_and_child_indexes
+    root_0.sanity_check
   end
   
   def test_replace_with_no_children
@@ -638,8 +640,8 @@ class TestCommonTree < Test::Unit::TestCase
     new_child = new_node( new_token 99, :text => 'c' )
     t.replace_children(0,0,new_child)
     
-    t.to_string_tree.should == '(a c)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a c)'
+    t.sanity_check
 
   end
   def test_replace_in_middle
@@ -650,8 +652,8 @@ class TestCommonTree < Test::Unit::TestCase
     
     new_child = new_node( new_token 99, :text => 'x' )
     t.replace_children(1, 1, new_child)
-    t.to_string_tree.should == '(a b x d)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a b x d)'
+    t.sanity_check
   end
   
   def test_replace_at_left
@@ -662,8 +664,8 @@ class TestCommonTree < Test::Unit::TestCase
     
     new_child = new_node( new_token 99, :text => 'x' )
     t.replace_children(0, 0, new_child)
-    t.to_string_tree.should == '(a x c d)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a x c d)'
+    t.sanity_check
   end
   
   def test_replace_at_left
@@ -674,8 +676,8 @@ class TestCommonTree < Test::Unit::TestCase
     
     new_child = new_node( new_token 99, :text => 'x' )
     t.replace_children(2, 2, new_child)
-    t.to_string_tree.should == '(a b c x)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a b c x)'
+    t.sanity_check
   end
   
   def test_replace_one_with_two_at_left
@@ -689,8 +691,8 @@ class TestCommonTree < Test::Unit::TestCase
     new_children.add_child new_node( new_token 99, :text => 'y' )
     
     t.replace_children(0, 0, new_children)
-    t.to_string_tree.should == '(a x y c d)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a x y c d)'
+    t.sanity_check
   end
   
   def test_replace_one_with_two_at_right
@@ -704,8 +706,8 @@ class TestCommonTree < Test::Unit::TestCase
     new_children.add_child new_node( new_token 99, :text => 'y' )
     
     t.replace_children(2, 2, new_children)
-    t.to_string_tree.should == '(a b c x y)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a b c x y)'
+    t.sanity_check
   end
   
   def test_replace_one_with_two_in_middle
@@ -719,8 +721,8 @@ class TestCommonTree < Test::Unit::TestCase
     new_children.add_child new_node( new_token 99, :text => 'y' )
     
     t.replace_children(1, 1, new_children)
-    t.to_string_tree.should == '(a b x y d)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a b x y d)'
+    t.sanity_check
   end
   
   def test_replace_two_with_one_at_left
@@ -732,8 +734,8 @@ class TestCommonTree < Test::Unit::TestCase
     new_child = new_node( new_token 99, :text => 'x' )
     
     t.replace_children(0, 1, new_child)
-    t.to_string_tree.should == '(a x d)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a x d)'
+    t.sanity_check
   end
   
   def test_replace_two_with_one_at_right
@@ -745,8 +747,8 @@ class TestCommonTree < Test::Unit::TestCase
     new_child = new_node( new_token 99, :text => 'x' )
     
     t.replace_children(1, 2, new_child)
-    t.to_string_tree.should == '(a b x)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a b x)'
+    t.sanity_check
   end
   
   def test_replace_all_with_one
@@ -758,8 +760,8 @@ class TestCommonTree < Test::Unit::TestCase
     new_child = new_node( new_token 99, :text => 'x' )
     
     t.replace_children(0, 2, new_child)
-    t.to_string_tree.should == '(a x)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a x)'
+    t.sanity_check
   end
   
   def test_replace_all_with_two
@@ -773,8 +775,8 @@ class TestCommonTree < Test::Unit::TestCase
     new_children.add_child new_node( new_token 99, :text => 'y' )
     
     t.replace_children(0, 1, new_children)
-    t.to_string_tree.should == '(a x y d)'
-    t.sanity_check_parent_and_child_indexes
+    t.inspect.should == '(a x y d)'
+    t.sanity_check
   end
   
   def new_token(type, opts = {})
@@ -792,9 +794,12 @@ class TestTreeContext < Test::Unit::TestCase
     <invalid> <EOR> <DOWN> <UP> VEC ASSIGN PRINT
     PLUS MULT DOT ID INT WS '[' ',' ']'
   )
+  Tokens = TokenScheme.build( TOKEN_NAMES )
+  
   def setup
-    # before-each-test code
+    @wizard = Wizard.new( :token_scheme => Tokens )
   end
+  
   def teardown
     # after-each-test code
   end
@@ -802,53 +807,37 @@ class TestTreeContext < Test::Unit::TestCase
   # vvvvvvvv tests vvvvvvvvv
   
   def test_simple_parent
-    tree = "(nil (ASSIGN ID[x] INT[3]) (PRINT (MULT ID[x] (VEC INT[1] INT[2] INT[3]))))"
-    adaptor = CommonTreeAdaptor.new
-    wiz = Wizard.new(adaptor, TOKEN_NAMES)
-    t = wiz.create(tree)
-    
-    labels = {}
-    
-    valid = wiz.parse(t,
-      "(nil (ASSIGN ID[x] INT[3]) (PRINT (MULT ID (VEC INT %x:INT INT))))",
-      labels
+    tree = @wizard.create(
+      "(nil (ASSIGN ID[x] INT[3]) (PRINT (MULT ID[x] (VEC INT[1] INT[2] INT[3]))))"
     )
-    assert(valid)
-    node = labels['x']
+    labels = @wizard.match( tree,
+      "(nil (ASSIGN ID[x] INT[3]) (PRINT (MULT ID (VEC INT %x:INT INT))))"
+    )
     
-    TreeParser.in_context?(adaptor, TOKEN_NAMES, node, "VEC").should be_true
+    assert_kind_of( Hash, labels )
+    @wizard.in_context?( labels.fetch( 'x' ), 'VEC' ).should be_true
   end
   
   def test_no_parent
-    tree = '(PRINT (MULT ID[x] (VEC INT[1] INT[2] INT[3])))'
-    adaptor = CommonTreeAdaptor.new
-    wiz = Wizard.new(adaptor, TOKEN_NAMES)
-    t = wiz.create(tree)
-    
-    labels = {}
-    valid = wiz.parse(t,
-      "(%x:PRINT (MULT ID (VEC INT INT INT)))",
-      labels
+    tree = @wizard.create(
+      '(PRINT (MULT ID[x] (VEC INT[1] INT[2] INT[3])))'
     )
-    assert(valid)
-    node = labels['x']
-    assert_equal false,
-      TreeParser.in_context?(adaptor, TOKEN_NAMES, node, "VEC")
+    
+    labels = @wizard.match( tree, "(%x:PRINT (MULT ID (VEC INT INT INT)))" )
+    assert_kind_of( Hash, labels )
+    @wizard.in_context?( labels.fetch( 'x' ), 'VEC' ).should be_false
   end
   
   def test_parent_with_wildcard
-    tree = "(nil (ASSIGN ID[x] INT[3]) (PRINT (MULT ID[x] (VEC INT[1] INT[2] INT[3]))))"
-    adaptor = CommonTreeAdaptor.new
-    wiz = Wizard.new(adaptor, TOKEN_NAMES)
-    t = wiz.create(tree)
+    tree = @wizard.create(
+      "(nil (ASSIGN ID[x] INT[3]) (PRINT (MULT ID[x] (VEC INT[1] INT[2] INT[3]))))"
+    )
     
-    labels = {}
-    assert wiz.parse(t,
-      "(nil (ASSIGN ID[x] INT[3]) (PRINT (MULT ID (VEC INT %x:INT INT))))",
-      labels)
-    node = labels['x']
-    
-    assert_equal true,
-      TreeParser.in_context?(adaptor, TOKEN_NAMES, node, 'VEC ...')
+    labels = @wizard.match( tree,
+      "(nil (ASSIGN ID[x] INT[3]) (PRINT (MULT ID (VEC INT %x:INT INT))))"
+    )
+    assert_kind_of( Hash, labels )
+    node = labels.fetch( 'x' )
+    @wizard.in_context?( node, 'VEC ...' ).should be_true
   end
 end

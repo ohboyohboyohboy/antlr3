@@ -4,7 +4,7 @@
 require 'antlr3'
 require 'fileutils'
 require 'antlr3/test/functional'
-require 'antlr3/test/diff'
+#require 'antlr3/test/diff'
 
 class ANTLRDebugger < Thread
   self.abort_on_exception = true
@@ -61,7 +61,7 @@ end # ANTLRDebugger
 class TestDebugGrammars < ANTLR3::Test::Functional
   compile_options :debug => true
   
-  include ANTLR3::Test::Diff
+  #include ANTLR3::Test::Diff
   
   def parse(grammar, rule, input, options = {})
     @grammar = inline_grammar(grammar)

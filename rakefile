@@ -100,4 +100,7 @@ if $project.setup?
     sh( $project.expand!("gem push pkg/$(name)-$(version).gem") )
   end
   
+  desc( "clean up all project by-products" )
+  task :clean => %w(test:clean clobber_package clobber_rdoc)
+  
 end

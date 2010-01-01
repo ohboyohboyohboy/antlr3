@@ -14,7 +14,13 @@ module_function
     str
   end
   
-  def tidy(here_doc, flow = false)
+  def parse_version( version_string )
+    version_string.split( '.' ).map! do | segment |
+      segment.to_i
+    end.freeze
+  end
+  
+  def tidy( here_doc, flow = false )
     here_doc.gsub!(/^ *\| ?/, '')
     if flow
       here_doc.strip!
