@@ -1,0 +1,1 @@
+lexerRulePropertyRef_stop(scope, attr) ::= "(self.character_index - 1)"

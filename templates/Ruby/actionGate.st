@@ -1,0 +1,1 @@
+actionGate() ::= "@state.backtracking == 0"

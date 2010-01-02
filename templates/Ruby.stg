@@ -111,18 +111,9 @@ module TokenData
   register_names(<tokenNames:{<it>}; separator=", ", anchor, wrap="\n">)
 
 <endif>
-<if(actions.token.scheme)>
-
-  <action(name="token::scheme",code=actions.token.scheme)>
-
-<endif>
-<if(actions.token.members)>
-
-  class Token
-    <action(name="token::members",code=actions.token.members)>
-  end
-
-<endif>
+  
+  <placeAction(scope="token",name="scheme")>
+  <placeAction(scope="token",name="members")>
 end<\n>
 >>
 

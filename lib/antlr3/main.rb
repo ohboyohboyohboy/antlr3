@@ -338,13 +338,13 @@ generated lexer file is run directly from the command line.
 
 =end
 class LexerMain < Main
-  def initialize(lexer_class, options = {})
-    super(options)
+  def initialize( lexer_class, options = {} )
+    super( options )
     @lexer_class = lexer_class
   end
   
-  def recognize(in_stream)
-    lexer = @lexer_class.new(in_stream)
+  def recognize( in_stream )
+    lexer = @lexer_class.new( in_stream )
     
     loop do
       begin
@@ -353,7 +353,7 @@ class LexerMain < Main
         else display_token(token)
         end
       rescue ANTLR3::RecognitionError => error
-        report_error(error)
+        report_error( error )
         break
       end
     end
@@ -365,11 +365,11 @@ class LexerMain < Main
       prefix = '-->'
       suffix = ''
     when ANTLR3::HIDDEN_CHANNEL
-      prefix = '// '
-      suffix = ' (hidden) '
+      prefix = '#  '
+      suffix = ' (hidden)'
     else
       prefix = '~~>'
-      suffix = ' (channel %p) ' % token.channel
+      suffix = ' (channel %p)' % token.channel
     end
     
     printf("%s %-15s %-15p @ line %-3i col %-3i%s\n",
@@ -557,5 +557,4 @@ class WalkerMain < Main
   end
 end
 end
-
 end

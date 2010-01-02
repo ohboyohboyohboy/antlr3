@@ -1,0 +1,1 @@
+lexerRuleLabelPropertyRef_channel(scope, attr) ::= "<scope; format=\"label\">.channel"

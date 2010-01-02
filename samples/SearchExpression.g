@@ -1,13 +1,17 @@
 grammar SearchExpression;
 
 options {
-  language=Ruby;
-  output=AST;
+  language = Ruby;
+  output = AST;
+}
+
+tokens {
+  MATCH;
 }
 
 
 search_expression
-    : not_expression ( ('and' | 'or' | 'xor')^ not_expression)*
+    : not_expression ( ('and'^ | 'or'^ | 'xor'^) not_expression )*
     ;
 
 not_expression
@@ -16,7 +20,7 @@ not_expression
 
 atom
     : group
-    | term
+    | ( CHUNK ':'^ )? term+
     ;
 
 group
@@ -37,6 +41,11 @@ CHUNK
 
 REGEX
     : '/' ( '\\' . | ~'/' )+ '/' ('i' | 'm' | 'x')*
+    ;
+
+STRING
+    : '"' ( ~('"'|'\\') | '\\' . )* '"'
+    | '\'' ( ~('\''|'\\') | '\\' . )* '\''
     ;
 
 WS  : (' ' | '\t' | '\n' | '\r' )+ { $channel = HIDDEN }

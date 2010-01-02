@@ -1,0 +1,13 @@
+group ASTDbg;
+
+<%= @parserBody.additionalMembers %>
+
+
+<%= createListenerAndHandshake %>
+<%= @parserConstructor.init %>
+
+
+<%= @newDelegate.delegateOptions %>
+
+
+<%= @rewriteElement.pregen %>

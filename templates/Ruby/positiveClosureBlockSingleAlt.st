@@ -1,0 +1,1 @@
+positiveClosureBlockSingleAlt ::= positiveClosureBlock

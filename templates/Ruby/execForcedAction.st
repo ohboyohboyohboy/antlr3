@@ -1,0 +1,1 @@
+execForcedAction(action) ::= "<action>"

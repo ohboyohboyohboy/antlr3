@@ -1,0 +1,82 @@
+group ASTTreeParser;
+<%= gatedAction %>
+
+
+
+<%= ruleDeclarations %>
+
+
+
+<%= noRewrite %>
+
+<%= tree %>
+
+
+
+<%= tokenRefBang %>
+
+<%= tokenRef %>
+
+
+
+<%= tokenRefAndListLabel %>
+
+<%= tokenRefRuleRoot %>
+
+
+
+<%= tokenRefRuleRootAndListLabel %>
+
+
+
+<%= wildcard %>
+
+<%= matchSet %>
+
+
+
+<%= matchRuleBlockSet %>
+
+
+
+<%= matchSetBang %>
+
+<%= matchSetRuleRoot %>
+
+
+
+<%= ruleRef %>
+
+
+
+<%= ruleRefAndListLabel %>
+
+
+
+<%= ruleRefRuleRoot %>
+
+
+
+<%= ruleRefRuleRootAndListLabel %>
+
+
+
+<%= ruleRefTrack %>
+
+
+
+<%= ruleRefTrackAndListLabel %>
+
+
+
+<%= ruleRefRuleRootTrack %>
+
+
+
+<%= ruleRefRuleRootTrackAndListLabel %>
+
+<%= createRewriteNodeFromElement %>
+
+<%= ruleCleanUp %>
+
+

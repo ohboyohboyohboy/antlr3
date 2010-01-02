@@ -1,0 +1,71 @@
+group ASTParser;
+<%= gatedAction %>
+
+<%= @ruleBody.setErrorReturnValue %>
+
+<%= tokenRef %>
+
+<%= tokenRefBang %>
+
+<%= tokenRefRuleRoot %>
+
+
+
+<%= tokenRefBangAndListLabel %>
+
+
+
+<%= tokenRefAndListLabel %>
+<%= tokenRefRuleRootAndListLabel %>
+
+
+
+<%= matchSet %>
+
+
+
+<%= matchRuleBlockSet %>
+
+
+
+<%= matchSetBang %>
+<%= matchSetRuleRoot %>
+<%= matchSetRuleRootAndListLabel %>
+
+
+
+<%= ruleRef %>
+
+
+
+<%= ruleRefBang %>
+
+
+
+<%= ruleRefRuleRoot %>
+
+
+
+<%= ruleRefAndListLabel %>
+
+
+
+<%= ruleRefBangAndListLabel %>
+
+
+
+<%= ruleRefRuleRootAndListLabel %>
+
+<%= wildcard %>
+
+
+
+<%= wildcardBang %>
+
+<%= wildcardRuleRoot %>
+
+<%= createNodeFromToken %>
+
+<%= ruleCleanUp %>
+
+

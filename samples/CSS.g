@@ -13,10 +13,14 @@ tokens {
 }
 
 stylesheet
-  : ( '@charset' STRING ';'! )?
+  : charset?
     ( WS! | '<!--'! | '-->'! )*
     ( import_statement ( '<!--'! WS!* | '-->'! WS!* )* )*
     ( ( rule | media | page ) ( '<!--'! WS!* | '-->'! WS!* )* )*
+  ;
+
+charset
+  : '@charset'^ STRING ';'!
   ;
 
 import_statement
@@ -157,11 +161,6 @@ URI
 
 UNICODE_RANGE
   : 'u+' HEX HEX HEX HEX HEX HEX ( '-' HEX HEX HEX HEX HEX HEX )?
-  ;
-
-
-DELIM
-  : '*' | '+' | '$' | '%' | '&'
   ;
 
 fragment
