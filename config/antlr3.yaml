@@ -11,6 +11,7 @@ summary: |-
   Fully-featured ruby parser generation for ANTLR version 3.
 author: Kyle Yetter
 email: kcy5b@yahoo.com
+homepage: http://github.com/ohboyohboyohboy/antlr3
 
 has_rdoc: true
 rubyforge_project: antlr3
@@ -26,7 +27,7 @@ package_files: !pathlist
     - test/unit/**/*
     - test/functional/*/*.rb
     - templates/*.stg
-    - samples/Cpp.g
+    - samples/CPP.g
     - samples/ANTLRv3Grammar.g
     - *.txt
     - java/antlr-full-$(antlr_version).jar

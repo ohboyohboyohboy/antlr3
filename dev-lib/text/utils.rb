@@ -1,11 +1,13 @@
 #!/usr/bin/ruby
-# encoding: utf-8
 
 module Text
 Rect = Struct.new( :x, :y )
 module Measurement
   ALIGNMENTS = [ :left, :right, :center ]
-  UTF = /[\xC2-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF4][\x80-\xBF]{3}/
+  unless RUBY_VERSION =~ /^1\.9/
+    UTF = /[\xC2-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF4][\x80-\xBF]{3}/
+  end
+  
   
   @@memo_maps = []
   
@@ -27,18 +29,32 @@ module Measurement
     str.count( $/ ) + 1
   end
   
-  memoize( :block_width ) do | str |
-    str = bleach( str )
-    str.gsub!( UTF, ' ' )
-    str.split( $/, -1 ).
-      map! { | t | t.length }.max or 0
+  
+  if RUBY_VERSION =~ /^1\.9/
+    memoize( :block_width ) do | str |
+      str = bleach( str )
+      str.split( $/, -1 ).
+        map! { | t | t.length }.max or 0
+    end
+    
+    memoize( :measure ) do | str |
+      str = bleach( str )
+      str.length
+    end
+  else
+    memoize( :block_width ) do | str |
+      str = bleach( str )
+      str.gsub!( UTF, ' ' )
+      str.split( $/, -1 ).
+        map! { | t | t.length }.max or 0
+    end
+    memoize( :measure ) do | str |
+      str = bleach( str )
+      str.gsub!( UTF, ' ' )
+      str.length
+    end
   end
   
-  memoize( :measure ) do | str |
-    str = bleach( str )
-    str.gsub!( UTF, ' ' )
-    str.length
-  end
   
   memoize( :bleach ) do | str |
     str.gsub( /\e\[\S+?m/, '' )
@@ -48,13 +64,11 @@ module Measurement
     str.length - measure( str )
   end
   
-  module_function
+module_function
+  
   def clear_memory!
     for m in @@memo_maps; m.clear; end
-  end
-  
-
-  
+  end  
 end
 
 module Utils
