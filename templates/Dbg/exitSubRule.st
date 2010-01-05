@@ -1,3 +1,0 @@
-exitSubRule() ::= <<
-end<\n>
->>

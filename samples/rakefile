@@ -1,0 +1,23 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+load '../config/antlr3.rb'
+
+require 'antlr-task'
+
+$grammars = []
+def self.grammar( name, options = {} )
+  file = "#{ name }.g"
+  $grammars << ( options[ :name ] ||= name )
+  options[ :output_directory ] ||= "./#{ name }"
+  tasks = ANTLR3::CompileTask.new( file, options )
+  tasks.define
+end
+
+grammar( "ANTLRv3Grammar" )
+grammar( "CPP" )
+grammar( "Python" )
+
+grammar_tasks = $grammars.map { | g | "#{ g }:compile" }
+desc( "compile everything" )
+task( :compile_all => grammar_tasks )

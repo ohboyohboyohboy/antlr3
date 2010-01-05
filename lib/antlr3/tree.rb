@@ -696,6 +696,7 @@ Tree adaptors are tasked with:
 module TreeAdaptor
   include TokenFactory
   include Constants
+  include Error
   
   def add_child( tree, child )
     tree.add_child( child ) if tree and child

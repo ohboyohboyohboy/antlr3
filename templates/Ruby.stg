@@ -28,7 +28,7 @@ $:.unshift( this_directory ) unless $:.include?( this_directory )
 
 antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' \<\< dir }.join( $/ )
-  raise LoadError, \<\<-'END'.strip!
+  raise LoadError, \<\<-END.strip!
   
 Failed to load the ANTLR3 runtime library (version <runtimeLibraryVersion()>):
 

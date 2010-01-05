@@ -3,9 +3,9 @@
 # CPP.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.2.6
+# Ruby runtime library version: 1.3.0
 # Input grammar file: CPP.g
-# Generated at: 2010-01-02 16:44:36
+# Generated at: 2010-01-05 04:38:18
 # 
 
 # ~~~> start load path setup
@@ -14,9 +14,9 @@ $:.unshift( this_directory ) unless $:.include?( this_directory )
 
 antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
-  raise LoadError, <<-'END'.strip!
+  raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.2.6):
+Failed to load the ANTLR3 runtime library (version 1.3.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.2.6' )
+    Gem.activate( 'antlr3', '= 1.3.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -134,6 +134,7 @@ module CPP
                    "DOTMBR", "SCOPE", "EscapeSequence", "HexDigit", "IntegerTypeSuffix", 
                    "Exponent", "FloatTypeSuffix", "OctalEscape", "UnicodeEscape", 
                    "COMMENT", "LINE_COMMENT", "ESCAPED_NEWLINE")
+    
   end
 
 
@@ -164,7 +165,7 @@ module CPP
 
     include TokenData
 
-    generated_using( "CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.2.6" )
+    generated_using( "CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
 
     def initialize(input, options = {})
       super(input, options)

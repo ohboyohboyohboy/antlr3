@@ -1,1 +1,0 @@
-lexerRuleLabelPropertyRef_index(scope, attr) ::= "<scope; format=\"label\">.index"

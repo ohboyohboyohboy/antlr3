@@ -1,1 +1,0 @@
-lexerRulePropertyRef_type(scope, attr) ::= "type"

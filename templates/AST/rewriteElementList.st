@@ -1,1 +1,0 @@
-rewriteElementList(elements) ::= "<elements:rewriteElement()>"

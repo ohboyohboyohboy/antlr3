@@ -1,1 +1,0 @@
-ruleLabelPropertyRef_tree(scope, attr) ::= "<scope; format=\"label\">.tree"

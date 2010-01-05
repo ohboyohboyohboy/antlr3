@@ -1,1 +1,0 @@
-@parserConstructor.init() ::= "self.adaptor = adaptor"

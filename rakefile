@@ -102,5 +102,4 @@ if $project.setup?
   
   desc( "clean up all project by-products" )
   task :clean => %w(test:clean clobber_package clobber_rdoc)
-  
 end

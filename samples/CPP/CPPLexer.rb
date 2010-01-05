@@ -3,9 +3,9 @@
 # CPP.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.2.6
+# Ruby runtime library version: 1.3.0
 # Input grammar file: CPP.g
-# Generated at: 2010-01-02 16:44:37
+# Generated at: 2010-01-05 04:38:19
 # 
 
 # ~~~> start load path setup
@@ -14,9 +14,9 @@ $:.unshift( this_directory ) unless $:.include?( this_directory )
 
 antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
-  raise LoadError, <<-'END'.strip!
+  raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.2.6):
+Failed to load the ANTLR3 runtime library (version 1.3.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.2.6' )
+    Gem.activate( 'antlr3', '= 1.3.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -100,6 +100,7 @@ module CPP
                   :COLON => 68, :MACRO_TEXT => 108, :UnicodeEscape => 121, 
                   :RCURLY => 111, :EXPR_NDEF => 15, :POST_INC => 22, :POINTERTO => 96, 
                   :SIZEOF_TYPE => 20, :OctalEscape => 120, :BITWISEOREQUAL => 66)
+    
   end
 
 
@@ -108,7 +109,7 @@ module CPP
     include TokenData
 
     begin
-      generated_using( "CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.2.6" )
+      generated_using( "CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end

@@ -1,20 +1,60 @@
 #!/usr/bin/env ruby
+#
+# ANTLRv3Grammar.g
 # 
-# generated using ANTLR Version: 3.2 Nov 04, 2009 19:38:44
-# input grammar file: ANTLRv3Grammar.g
-# generated at: 2009-11-04 20:01:59
+# Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
+# Ruby runtime library version: 1.3.0
+# Input grammar file: ANTLRv3Grammar.g
+# Generated at: 2010-01-05 04:38:15
+# 
 
+# ~~~> start load path setup
 this_directory = File.expand_path( File.dirname( __FILE__ ) )
 $:.unshift( this_directory ) unless $:.include?( this_directory )
 
-begin
-  require 'rubygems'
-  gem 'antlr3'
-rescue LoadError
-  # ignore load error and assume antlr3.rb is in the load path already
+antlr_load_failed = proc do
+  load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
+  raise LoadError, <<-END.strip!
+  
+Failed to load the ANTLR3 runtime library (version 1.3.0):
+
+Ensure the library has been installed on your system and is available
+on the load path. If rubygems is available on your system, this can
+be done with the command:
+  
+  gem install antlr3
+
+Current load path:
+#{ load_path }
+
+  END
 end
 
-require 'antlr3'
+defined?(ANTLR3) or begin
+  
+  # 1: try to load the ruby antlr3 runtime library from the system path
+  require 'antlr3'
+  
+rescue LoadError
+  
+  # 2: try to load rubygems if it isn't already loaded
+  defined?(Gem) or begin
+    require 'rubygems'
+  rescue LoadError
+    antlr_load_failed.call
+  end
+  
+  # 3: try to activate the antlr3 gem
+  begin
+    Gem.activate( 'antlr3', '= 1.3.0' )
+  rescue Gem::LoadError
+    antlr_load_failed.call
+  end
+  
+  require 'antlr3'
+  
+end
+# <~~~ end load path setup
 
 
 module ANTLRv3Grammar
@@ -51,6 +91,7 @@ module ANTLRv3Grammar
                   :ROOT => 37, :RULE_REF => 51, :SYNPRED => 12, :OPTIONAL => 9, 
                   :CHAR_LITERAL => 46, :LABEL => 28, :TEMPLATE => 29, :SYN_SEMPRED => 33, 
                   :XDIGIT => 59, :BLOCK => 8, :POSITIVE_CLOSURE => 11, :OPTIONS => 48)
+    
   end
 
 
@@ -59,7 +100,7 @@ module ANTLRv3Grammar
     include TokenData
 
     begin
-      generated_using('ANTLRv3Grammar.g', '3.2 Nov 04, 2009 19:38:44')
+      generated_using( "ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -2397,6 +2438,12 @@ module ANTLRv3Grammar
         unpack()
       ].freeze
       
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
+      
       @decision = 2
       
 
@@ -2431,6 +2478,12 @@ module ANTLRv3Grammar
         unpack(),
         unpack()
       ].freeze
+      
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
       
       @decision = 9
       
@@ -2484,6 +2537,12 @@ module ANTLRv3Grammar
         unpack(),
         unpack()
       ].freeze
+      
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
       
       @decision = 13
       
@@ -2734,6 +2793,12 @@ module ANTLRv3Grammar
         unpack(10, 37, 7, -1, 26, 37, 4, -1, 1, 37, 1, -1, 26, 37),
         unpack()
       ].freeze
+      
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
       
       @decision = 21
       

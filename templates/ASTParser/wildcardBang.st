@@ -1,1 +1,0 @@
-wildcardBang(label,elementIndex) ::= "<super.wildcard(...)>"

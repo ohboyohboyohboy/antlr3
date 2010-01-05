@@ -39,7 +39,6 @@ end
 jar_file( $antlr.target, $antlr.targets )
 
 $project.path!( 'templates', '*.stg' ).each do | template |
-  
   name = template.pathmap( '%n' )
   fragments = $project.path!( 'templates', name, '*.st' )
   manifest = $project.path?( 'templates', name, name + '.stg' ) and
