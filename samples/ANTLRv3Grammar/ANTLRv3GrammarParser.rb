@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 #
-# ANTLRv3Grammar.g
+# samples/ANTLRv3Grammar.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
 # Ruby runtime library version: 1.3.0
-# Input grammar file: ANTLRv3Grammar.g
-# Generated at: 2010-01-05 04:38:14
+# Input grammar file: samples/ANTLRv3Grammar.g
+# Generated at: 2010-01-07 07:34:06
 # 
 
 # ~~~> start load path setup
@@ -143,7 +143,7 @@ module ANTLRv3Grammar
 
     include TokenData
 
-    generated_using( "ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+    generated_using( "samples/ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
 
     def initialize(input, options = {})
       super(input, options)
@@ -159,7 +159,7 @@ module ANTLRv3Grammar
 
     # parser rule grammar_def
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 94:1: grammar_def : ( DOC_COMMENT )? ( 'lexer' | 'parser' | 'tree' | ) g= 'grammar' id ';' ( options_spec )? ( tokens_spec )? ( attr_scope )* ( action )* ( rule )+ EOF -> ^( id ( DOC_COMMENT )? ( options_spec )? ( tokens_spec )? ( attr_scope )* ( action )* ( rule )+ ) ;
     def grammar_def
       # -> uncomment the next line to manually enable rule tracing
@@ -516,7 +516,7 @@ module ANTLRv3Grammar
 
     # parser rule tokens_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 109:1: tokens_spec : TOKENS ( token_spec )+ '}' -> ^( TOKENS ( token_spec )+ ) ;
     def tokens_spec
       # -> uncomment the next line to manually enable rule tracing
@@ -641,7 +641,7 @@ module ANTLRv3Grammar
 
     # parser rule token_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 113:1: token_spec : TOKEN_REF ( '=' (lit= STRING_LITERAL | lit= CHAR_LITERAL ) -> ^( '=' TOKEN_REF $lit) | -> TOKEN_REF ) ';' ;
     def token_spec
       # -> uncomment the next line to manually enable rule tracing
@@ -806,7 +806,7 @@ module ANTLRv3Grammar
 
     # parser rule attr_scope
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 121:1: attr_scope : 'scope' id ACTION -> ^( 'scope' id ACTION ) ;
     def attr_scope
       # -> uncomment the next line to manually enable rule tracing
@@ -896,7 +896,7 @@ module ANTLRv3Grammar
 
     # parser rule action
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 125:1: action : '@' ( action_scope_name '::' )? id ACTION -> ^( '@' ( action_scope_name )? id ACTION ) ;
     def action
       # -> uncomment the next line to manually enable rule tracing
@@ -1028,7 +1028,7 @@ module ANTLRv3Grammar
 
     # parser rule action_scope_name
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 130:1: action_scope_name : ( id | l= 'lexer' -> ID[$l] | p= 'parser' -> ID[$p] );
     def action_scope_name
       # -> uncomment the next line to manually enable rule tracing
@@ -1155,7 +1155,7 @@ module ANTLRv3Grammar
 
     # parser rule options_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 139:1: options_spec : OPTIONS ( option ';' )+ '}' -> ^( OPTIONS ( option )+ ) ;
     def options_spec
       # -> uncomment the next line to manually enable rule tracing
@@ -1287,7 +1287,7 @@ module ANTLRv3Grammar
 
     # parser rule option
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 143:1: option : id '=' option_value -> ^( '=' id option_value ) ;
     def option
       # -> uncomment the next line to manually enable rule tracing
@@ -1378,7 +1378,7 @@ module ANTLRv3Grammar
 
     # parser rule option_value
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 147:1: option_value : ( qid | STRING_LITERAL | CHAR_LITERAL | INT | s= '*' -> STRING_LITERAL[$s] );
     def option_value
       # -> uncomment the next line to manually enable rule tracing
@@ -1522,7 +1522,7 @@ module ANTLRv3Grammar
 
     # parser rule rule
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 155:1: rule : ( DOC_COMMENT )? (modifier= ( 'protected' | 'public' | 'private' | 'fragment' ) )? id ( '!' )? (arg= ARG_ACTION )? ( 'returns' rt= ARG_ACTION )? ( throws_spec )? ( options_spec )? ( rule_scope_spec )? ( rule_action )* ':' alt_list ';' ( exception_group )? -> ^( RULE id ( ^( ARG[$arg] $arg) )? ( ^( 'returns' $rt) )? ( throws_spec )? ( options_spec )? ( rule_scope_spec )? ( rule_action )* alt_list ( exception_group )? EOR[\"EOR\"] ) ;
     def rule
       # -> uncomment the next line to manually enable rule tracing
@@ -1950,7 +1950,7 @@ module ANTLRv3Grammar
 
     # parser rule rule_action
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 176:1: rule_action : '@' id ACTION -> ^( '@' id ACTION ) ;
     def rule_action
       # -> uncomment the next line to manually enable rule tracing
@@ -2040,7 +2040,7 @@ module ANTLRv3Grammar
 
     # parser rule throws_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 181:1: throws_spec : 'throws' id ( ',' id )* -> ^( 'throws' ( id )+ ) ;
     def throws_spec
       # -> uncomment the next line to manually enable rule tracing
@@ -2163,7 +2163,7 @@ module ANTLRv3Grammar
 
     # parser rule rule_scope_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 185:1: rule_scope_spec : ( 'scope' ACTION -> ^( 'scope' ACTION ) | 'scope' id ( ',' id )* ';' -> ^( 'scope' ( id )+ ) | 'scope' ACTION 'scope' id ( ',' id )* ';' -> ^( 'scope' ACTION ( id )+ ) );
     def rule_scope_spec
       # -> uncomment the next line to manually enable rule tracing
@@ -2470,7 +2470,7 @@ module ANTLRv3Grammar
 
     # parser rule block
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 193:1: block : lp= '(' ( (opts= options_spec )? ':' )? altpair ( '|' altpair )* rp= ')' -> ^( BLOCK[$lp,\"BLOCK\"] ( options_spec )? ( altpair )+ EOB[$rp,\"EOB\"] ) ;
     def block
       # -> uncomment the next line to manually enable rule tracing
@@ -2647,7 +2647,7 @@ module ANTLRv3Grammar
 
     # parser rule altpair
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 201:1: altpair : alternative rewrite ;
     def altpair
       # -> uncomment the next line to manually enable rule tracing
@@ -2706,7 +2706,7 @@ module ANTLRv3Grammar
 
     # parser rule alt_list
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 203:1: alt_list : altpair ( '|' altpair )* -> ^( ( altpair )+ EOB[\"eob\"] ) ;
     def alt_list
       # -> uncomment the next line to manually enable rule tracing
@@ -2827,7 +2827,7 @@ module ANTLRv3Grammar
 
     # parser rule alternative
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 210:1: alternative : ( ( element )+ -> ^( ALT[first_token,\"ALT\"] ( element )+ EOA[\"EOA\"] ) | -> ^( ALT[prev_token,\"ALT\"] EPSILON[prev_token,\"EPSILON\"] EOA[\"EOA\"] ) );
     def alternative
       # -> uncomment the next line to manually enable rule tracing
@@ -2990,7 +2990,7 @@ module ANTLRv3Grammar
 
     # parser rule exception_group
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 219:1: exception_group : ( ( exception_handler )+ ( finally_clause )? | finally_clause );
     def exception_group
       # -> uncomment the next line to manually enable rule tracing
@@ -3116,7 +3116,7 @@ module ANTLRv3Grammar
 
     # parser rule exception_handler
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 224:1: exception_handler : 'catch' ARG_ACTION ACTION -> ^( 'catch' ARG_ACTION ACTION ) ;
     def exception_handler
       # -> uncomment the next line to manually enable rule tracing
@@ -3206,7 +3206,7 @@ module ANTLRv3Grammar
 
     # parser rule finally_clause
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 228:1: finally_clause : 'finally' ACTION -> ^( 'finally' ACTION ) ;
     def finally_clause
       # -> uncomment the next line to manually enable rule tracing
@@ -3288,7 +3288,7 @@ module ANTLRv3Grammar
 
     # parser rule element
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 232:1: element : ( id (labelOp= '=' | labelOp= '+=' ) atom ( ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] ^( $labelOp id atom ) EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | -> ^( $labelOp id atom ) ) | id (labelOp= '=' | labelOp= '+=' ) block ( ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] ^( $labelOp id block ) EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | -> ^( $labelOp id block ) ) | atom ( ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] atom EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | -> atom ) | ebnf | ACTION | SEMPRED (g= '=>' -> GATED_SEMPRED[$g] | -> SEMPRED ) | tree_spec ( ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] tree_spec EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | -> tree_spec ) );
     def element
       # -> uncomment the next line to manually enable rule tracing
@@ -3943,7 +3943,7 @@ module ANTLRv3Grammar
 
     # parser rule atom
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 254:1: atom : ( terminal | range ( (op= '^' | op= '!' ) -> ^( $op range ) | -> range ) | not_set ( (op= '^' | op= '!' ) -> ^( $op not_set ) | -> not_set ) | RULE_REF ( ARG_ACTION )? ( (op= '^' | op= '!' ) -> ^( $op RULE_REF ( ARG_ACTION )? ) | -> ^( RULE_REF ( ARG_ACTION )? ) ) );
     def atom
       # -> uncomment the next line to manually enable rule tracing
@@ -4385,7 +4385,7 @@ module ANTLRv3Grammar
 
     # parser rule not_set
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 269:1: not_set : '~' ( not_terminal ( element_options )? -> ^( '~' not_terminal ( element_options )? ) | block ( element_options )? -> ^( '~' block ( element_options )? ) ) ;
     def not_set
       # -> uncomment the next line to manually enable rule tracing
@@ -4575,7 +4575,7 @@ module ANTLRv3Grammar
 
     # parser rule not_terminal
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 276:1: not_terminal : ( CHAR_LITERAL | TOKEN_REF | STRING_LITERAL );
     def not_terminal
       # -> uncomment the next line to manually enable rule tracing
@@ -4637,7 +4637,7 @@ module ANTLRv3Grammar
 
     # parser rule element_options
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 282:1: element_options : ( '<' qid '>' -> ^( OPTIONS qid ) | '<' option ( ';' option )* '>' -> ^( OPTIONS ( option )+ ) );
     def element_options
       # -> uncomment the next line to manually enable rule tracing
@@ -4860,7 +4860,7 @@ module ANTLRv3Grammar
 
     # parser rule element_option
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 287:1: element_option : id '=' option_value -> ^( '=' id option_value ) ;
     def element_option
       # -> uncomment the next line to manually enable rule tracing
@@ -4951,7 +4951,7 @@ module ANTLRv3Grammar
 
     # parser rule tree_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 291:1: tree_spec : '^(' element ( element )+ ')' -> ^( TREE_BEGIN ( element )+ ) ;
     def tree_spec
       # -> uncomment the next line to manually enable rule tracing
@@ -5083,7 +5083,7 @@ module ANTLRv3Grammar
 
     # parser rule range
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 295:1: range : c1= CHAR_LITERAL RANGE c2= CHAR_LITERAL ( element_options )? -> ^( CHAR_RANGE[$c1,\"..\"] $c1 $c2 ( element_options )? ) ;
     def range
       # -> uncomment the next line to manually enable rule tracing
@@ -5200,7 +5200,7 @@ module ANTLRv3Grammar
 
     # parser rule terminal
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 300:1: terminal : ( CHAR_LITERAL ( element_options )? -> ^( CHAR_LITERAL ( element_options )? ) | TOKEN_REF ( ARG_ACTION )? ( element_options )? -> ^( TOKEN_REF ( ARG_ACTION )? ( element_options )? ) | STRING_LITERAL ( element_options )? -> ^( STRING_LITERAL ( element_options )? ) | '.' ( element_options )? -> ^( '.' ( element_options )? ) ) ( '^' -> ^( '^' $terminal) | '!' -> ^( '!' $terminal) )? ;
     def terminal
       # -> uncomment the next line to manually enable rule tracing
@@ -5610,7 +5610,7 @@ module ANTLRv3Grammar
 
     # parser rule ebnf
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 312:1: ebnf : block (op= '?' -> ^( OPTIONAL[$op] block ) | op= '*' -> ^( CLOSURE[$op] block ) | op= '+' -> ^( POSITIVE_CLOSURE[$op] block ) | '=>' -> { \n @grammar_type == COMBINED_GRAMMAR && $rule::name[0].between?(?A, ?Z)\n }? ^( SYNPRED[\"=>\"] block ) -> SYN_SEMPRED | -> block ) ;
     def ebnf
       # -> uncomment the next line to manually enable rule tracing
@@ -5856,7 +5856,7 @@ module ANTLRv3Grammar
 
     # parser rule ebnf_suffix
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 335:1: ebnf_suffix : ( '?' -> OPTIONAL[op] | '*' -> CLOSURE[op] | '+' -> POSITIVE_CLOSURE[op] );
     def ebnf_suffix
       # -> uncomment the next line to manually enable rule tracing
@@ -6004,7 +6004,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 348:1: rewrite : ( (rew+= '->' preds+= SEMPRED predicated+= rewrite_alternative )* rew2= '->' last= rewrite_alternative -> ( ^( $rew $preds $predicated) )* ^( $rew2 $last) | );
     def rewrite
       # -> uncomment the next line to manually enable rule tracing
@@ -6184,7 +6184,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_alternative
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 358:1: rewrite_alternative options {backtrack=true; } : ( rewrite_template | rewrite_tree_alternative | -> ^( ALT[\"ALT\"] EPSILON[\"EPSILON\"] EOA[\"EOA\"] ) );
     def rewrite_alternative
       # -> uncomment the next line to manually enable rule tracing
@@ -6285,7 +6285,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_tree_block
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 365:1: rewrite_tree_block : lp= '(' rewrite_tree_alternative ')' -> ^( BLOCK[$lp,\"BLOCK\"] rewrite_tree_alternative EOB[$lp,\"EOB\"] ) ;
     def rewrite_tree_block
       # -> uncomment the next line to manually enable rule tracing
@@ -6375,7 +6375,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_tree_alternative
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 370:1: rewrite_tree_alternative : ( rewrite_tree_element )+ -> ^( ALT[\"ALT\"] ( rewrite_tree_element )+ EOA[\"EOA\"] ) ;
     def rewrite_tree_alternative
       # -> uncomment the next line to manually enable rule tracing
@@ -6487,7 +6487,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_tree_element
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 374:1: rewrite_tree_element : ( rewrite_tree_atom | rewrite_tree_atom ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] rewrite_tree_atom EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | rewrite_tree ( ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] rewrite_tree EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | -> rewrite_tree ) | rewrite_tree_ebnf );
     def rewrite_tree_element
       # -> uncomment the next line to manually enable rule tracing
@@ -6715,7 +6715,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_tree_atom
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 386:1: rewrite_tree_atom : ( CHAR_LITERAL | TOKEN_REF ( ARG_ACTION )? -> ^( TOKEN_REF ( ARG_ACTION )? ) | RULE_REF | STRING_LITERAL | d= '$' id -> LABEL[$d,$id.text] | ACTION );
     def rewrite_tree_atom
       # -> uncomment the next line to manually enable rule tracing
@@ -6930,7 +6930,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_tree_ebnf
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 395:1: rewrite_tree_ebnf : rewrite_tree_block ebnf_suffix -> ^( ebnf_suffix rewrite_tree_block ) ;
     def rewrite_tree_ebnf
       # -> uncomment the next line to manually enable rule tracing
@@ -7025,7 +7025,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_tree
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 406:1: rewrite_tree : '^(' rewrite_tree_atom ( rewrite_tree_element )* ')' -> ^( TREE_BEGIN rewrite_tree_atom ( rewrite_tree_element )* ) ;
     def rewrite_tree
       # -> uncomment the next line to manually enable rule tracing
@@ -7146,7 +7146,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_template
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 411:1: rewrite_template : ( id lp= '(' rewrite_template_args ')' (str= DOUBLE_QUOTE_STRING_LITERAL | str= DOUBLE_ANGLE_STRING_LITERAL ) -> ^( TEMPLATE[$lp,\"TEMPLATE\"] id rewrite_template_args $str) | rewrite_template_ref | rewrite_indirect_template_head | ACTION );
     def rewrite_template
       # -> uncomment the next line to manually enable rule tracing
@@ -7326,7 +7326,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_template_ref
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 438:1: rewrite_template_ref : id lp= '(' rewrite_template_args ')' -> ^( TEMPLATE[$lp,\"TEMPLATE\"] id rewrite_template_args ) ;
     def rewrite_template_ref
       # -> uncomment the next line to manually enable rule tracing
@@ -7424,7 +7424,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_indirect_template_head
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 444:1: rewrite_indirect_template_head : lp= '(' ACTION ')' '(' rewrite_template_args ')' -> ^( TEMPLATE[$lp,\"TEMPLATE\"] ACTION rewrite_template_args ) ;
     def rewrite_indirect_template_head
       # -> uncomment the next line to manually enable rule tracing
@@ -7533,7 +7533,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_template_args
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 450:1: rewrite_template_args : ( rewrite_template_arg ( ',' rewrite_template_arg )* -> ^( ARGLIST ( rewrite_template_arg )+ ) | -> ARGLIST );
     def rewrite_template_args
       # -> uncomment the next line to manually enable rule tracing
@@ -7688,7 +7688,7 @@ module ANTLRv3Grammar
 
     # parser rule rewrite_template_arg
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 456:1: rewrite_template_arg : id '=' ACTION -> ^( ARG[$id.start] id ACTION ) ;
     def rewrite_template_arg
       # -> uncomment the next line to manually enable rule tracing
@@ -7778,7 +7778,7 @@ module ANTLRv3Grammar
 
     # parser rule qid
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 460:1: qid : id ( '.' id )* ;
     def qid
       # -> uncomment the next line to manually enable rule tracing
@@ -7863,7 +7863,7 @@ module ANTLRv3Grammar
 
     # parser rule id
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 462:1: id : ( TOKEN_REF -> ID[$TOKEN_REF] | RULE_REF -> ID[$RULE_REF] );
     def id
       # -> uncomment the next line to manually enable rule tracing
@@ -7976,7 +7976,7 @@ module ANTLRv3Grammar
 
     # parser rule synpred_1_antl_rv_3_grammar! (synpred1_ANTLRv3Grammar)
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 360:4: synpred1_ANTLRv3Grammar : rewrite_template ;
     def synpred_1_antl_rv_3_grammar!
       # -> uncomment the next line to manually enable rule tracing
@@ -7994,7 +7994,7 @@ module ANTLRv3Grammar
     end
     # parser rule synpred_2_antl_rv_3_grammar! (synpred2_ANTLRv3Grammar)
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 361:4: synpred2_ANTLRv3Grammar : rewrite_tree_alternative ;
     def synpred_2_antl_rv_3_grammar!
       # -> uncomment the next line to manually enable rule tracing

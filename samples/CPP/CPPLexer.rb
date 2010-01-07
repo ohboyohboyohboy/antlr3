@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 #
-# CPP.g
+# samples/CPP.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
 # Ruby runtime library version: 1.3.0
-# Input grammar file: CPP.g
-# Generated at: 2010-01-05 04:38:19
+# Input grammar file: samples/CPP.g
+# Generated at: 2010-01-07 10:20:07
 # 
 
 # ~~~> start load path setup
@@ -109,7 +109,7 @@ module CPP
     include TokenData
 
     begin
-      generated_using( "CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+      generated_using( "samples/CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -187,7 +187,7 @@ module CPP
     
     # - - - - - - - - - - - lexer rules - - - - - - - - - - - -
     # lexer rule string_op! (STRING_OP)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def string_op!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 1)
@@ -245,7 +245,7 @@ module CPP
     end
 
     # lexer rule directive! (DIRECTIVE)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def directive!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 2)
@@ -599,7 +599,7 @@ module CPP
     end
 
     # lexer rule macro_text! (MACRO_TEXT)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def macro_text!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 3)
@@ -693,7 +693,7 @@ module CPP
     end
 
     # lexer rule sizeof! (SIZEOF)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def sizeof!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 4)
@@ -717,7 +717,7 @@ module CPP
     end
 
     # lexer rule defined! (DEFINED)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def defined!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 5)
@@ -747,7 +747,7 @@ module CPP
     end
 
     # lexer rule identifier! (IDENTIFIER)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def identifier!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 6)
@@ -815,7 +815,7 @@ module CPP
     end
 
     # lexer rule letter! (LETTER)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def letter!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 7)
@@ -842,7 +842,7 @@ module CPP
     end
 
     # lexer rule stringification! (STRINGIFICATION)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def stringification!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 8)
@@ -866,7 +866,7 @@ module CPP
     end
 
     # lexer rule sharpsharp! (SHARPSHARP)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def sharpsharp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 9)
@@ -890,7 +890,7 @@ module CPP
     end
 
     # lexer rule assignequal! (ASSIGNEQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def assignequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 10)
@@ -914,7 +914,7 @@ module CPP
     end
 
     # lexer rule colon! (COLON)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def colon!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 11)
@@ -938,7 +938,7 @@ module CPP
     end
 
     # lexer rule comma! (COMMA)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def comma!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 12)
@@ -962,7 +962,7 @@ module CPP
     end
 
     # lexer rule questionmark! (QUESTIONMARK)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def questionmark!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 13)
@@ -986,7 +986,7 @@ module CPP
     end
 
     # lexer rule semicolon! (SEMICOLON)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def semicolon!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 14)
@@ -1010,7 +1010,7 @@ module CPP
     end
 
     # lexer rule pointerto! (POINTERTO)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def pointerto!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 15)
@@ -1034,7 +1034,7 @@ module CPP
     end
 
     # lexer rule lparen! (LPAREN)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def lparen!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 16)
@@ -1058,7 +1058,7 @@ module CPP
     end
 
     # lexer rule rparen! (RPAREN)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def rparen!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 17)
@@ -1094,7 +1094,7 @@ module CPP
     end
 
     # lexer rule lsquare! (LSQUARE)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def lsquare!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 18)
@@ -1118,7 +1118,7 @@ module CPP
     end
 
     # lexer rule rsquare! (RSQUARE)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def rsquare!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 19)
@@ -1142,7 +1142,7 @@ module CPP
     end
 
     # lexer rule lcurly! (LCURLY)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def lcurly!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 20)
@@ -1166,7 +1166,7 @@ module CPP
     end
 
     # lexer rule rcurly! (RCURLY)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def rcurly!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 21)
@@ -1190,7 +1190,7 @@ module CPP
     end
 
     # lexer rule equal! (EQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def equal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 22)
@@ -1214,7 +1214,7 @@ module CPP
     end
 
     # lexer rule notequal! (NOTEQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def notequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 23)
@@ -1238,7 +1238,7 @@ module CPP
     end
 
     # lexer rule lessthanorequalto! (LESSTHANOREQUALTO)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def lessthanorequalto!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 24)
@@ -1262,7 +1262,7 @@ module CPP
     end
 
     # lexer rule lessthan! (LESSTHAN)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def lessthan!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 25)
@@ -1286,7 +1286,7 @@ module CPP
     end
 
     # lexer rule greaterthanorequalto! (GREATERTHANOREQUALTO)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def greaterthanorequalto!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 26)
@@ -1310,7 +1310,7 @@ module CPP
     end
 
     # lexer rule greaterthan! (GREATERTHAN)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def greaterthan!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 27)
@@ -1334,7 +1334,7 @@ module CPP
     end
 
     # lexer rule divide! (DIVIDE)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def divide!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 28)
@@ -1358,7 +1358,7 @@ module CPP
     end
 
     # lexer rule divideequal! (DIVIDEEQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def divideequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 29)
@@ -1382,7 +1382,7 @@ module CPP
     end
 
     # lexer rule plus! (PLUS)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def plus!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 30)
@@ -1406,7 +1406,7 @@ module CPP
     end
 
     # lexer rule plusequal! (PLUSEQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def plusequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 31)
@@ -1430,7 +1430,7 @@ module CPP
     end
 
     # lexer rule plusplus! (PLUSPLUS)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def plusplus!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 32)
@@ -1454,7 +1454,7 @@ module CPP
     end
 
     # lexer rule minus! (MINUS)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def minus!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 33)
@@ -1478,7 +1478,7 @@ module CPP
     end
 
     # lexer rule minusequal! (MINUSEQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def minusequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 34)
@@ -1502,7 +1502,7 @@ module CPP
     end
 
     # lexer rule minusminus! (MINUSMINUS)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def minusminus!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 35)
@@ -1526,7 +1526,7 @@ module CPP
     end
 
     # lexer rule star! (STAR)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def star!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 36)
@@ -1550,7 +1550,7 @@ module CPP
     end
 
     # lexer rule timesequal! (TIMESEQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def timesequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 37)
@@ -1574,7 +1574,7 @@ module CPP
     end
 
     # lexer rule mod! (MOD)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def mod!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 38)
@@ -1598,7 +1598,7 @@ module CPP
     end
 
     # lexer rule modequal! (MODEQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def modequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 39)
@@ -1622,7 +1622,7 @@ module CPP
     end
 
     # lexer rule shiftright! (SHIFTRIGHT)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def shiftright!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 40)
@@ -1646,7 +1646,7 @@ module CPP
     end
 
     # lexer rule shiftrightequal! (SHIFTRIGHTEQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def shiftrightequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 41)
@@ -1670,7 +1670,7 @@ module CPP
     end
 
     # lexer rule shiftleft! (SHIFTLEFT)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def shiftleft!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 42)
@@ -1694,7 +1694,7 @@ module CPP
     end
 
     # lexer rule shiftleftequal! (SHIFTLEFTEQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def shiftleftequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 43)
@@ -1718,7 +1718,7 @@ module CPP
     end
 
     # lexer rule and! (AND)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def and!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 44)
@@ -1742,7 +1742,7 @@ module CPP
     end
 
     # lexer rule not! (NOT)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def not!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 45)
@@ -1766,7 +1766,7 @@ module CPP
     end
 
     # lexer rule or! (OR)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def or!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 46)
@@ -1790,7 +1790,7 @@ module CPP
     end
 
     # lexer rule ampersand! (AMPERSAND)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def ampersand!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 47)
@@ -1814,7 +1814,7 @@ module CPP
     end
 
     # lexer rule bitwiseandequal! (BITWISEANDEQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def bitwiseandequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 48)
@@ -1838,7 +1838,7 @@ module CPP
     end
 
     # lexer rule tilde! (TILDE)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def tilde!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 49)
@@ -1862,7 +1862,7 @@ module CPP
     end
 
     # lexer rule bitwiseor! (BITWISEOR)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def bitwiseor!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 50)
@@ -1886,7 +1886,7 @@ module CPP
     end
 
     # lexer rule bitwiseorequal! (BITWISEOREQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def bitwiseorequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 51)
@@ -1910,7 +1910,7 @@ module CPP
     end
 
     # lexer rule bitwisexor! (BITWISEXOR)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def bitwisexor!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 52)
@@ -1934,7 +1934,7 @@ module CPP
     end
 
     # lexer rule bitwisexorequal! (BITWISEXOREQUAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def bitwisexorequal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 53)
@@ -1958,7 +1958,7 @@ module CPP
     end
 
     # lexer rule dot! (DOT)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def dot!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 54)
@@ -1982,7 +1982,7 @@ module CPP
     end
 
     # lexer rule pointertombr! (POINTERTOMBR)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def pointertombr!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 55)
@@ -2006,7 +2006,7 @@ module CPP
     end
 
     # lexer rule dotmbr! (DOTMBR)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def dotmbr!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 56)
@@ -2030,7 +2030,7 @@ module CPP
     end
 
     # lexer rule scope! (SCOPE)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def scope!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 57)
@@ -2054,7 +2054,7 @@ module CPP
     end
 
     # lexer rule ellipsis! (ELLIPSIS)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def ellipsis!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 58)
@@ -2078,7 +2078,7 @@ module CPP
     end
 
     # lexer rule include_file! (INCLUDE_FILE)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def include_file!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 59)
@@ -2191,7 +2191,7 @@ module CPP
     end
 
     # lexer rule character_literal! (CHARACTER_LITERAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def character_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 60)
@@ -2262,7 +2262,7 @@ module CPP
     end
 
     # lexer rule string_literal! (STRING_LITERAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def string_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 61)
@@ -2314,7 +2314,7 @@ module CPP
     end
 
     # lexer rule hex_literal! (HEX_LITERAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def hex_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 62)
@@ -2389,7 +2389,7 @@ module CPP
     end
 
     # lexer rule decimal_literal! (DECIMAL_LITERAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def decimal_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 63)
@@ -2466,7 +2466,7 @@ module CPP
     end
 
     # lexer rule octal_literal! (OCTAL_LITERAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def octal_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 64)
@@ -2530,7 +2530,7 @@ module CPP
     end
 
     # lexer rule hex_digit! (HexDigit)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def hex_digit!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 65)
@@ -2557,7 +2557,7 @@ module CPP
     end
 
     # lexer rule integer_type_suffix! (IntegerTypeSuffix)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def integer_type_suffix!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 66)
@@ -2622,7 +2622,7 @@ module CPP
     end
 
     # lexer rule floating_point_literal! (FLOATING_POINT_LITERAL)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def floating_point_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 67)
@@ -2855,7 +2855,7 @@ module CPP
     end
 
     # lexer rule exponent! (Exponent)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def exponent!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 68)
@@ -2932,7 +2932,7 @@ module CPP
     end
 
     # lexer rule float_type_suffix! (FloatTypeSuffix)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def float_type_suffix!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 69)
@@ -2959,7 +2959,7 @@ module CPP
     end
 
     # lexer rule escape_sequence! (EscapeSequence)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def escape_sequence!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 70)
@@ -3046,7 +3046,7 @@ module CPP
     end
 
     # lexer rule octal_escape! (OctalEscape)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def octal_escape!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 71)
@@ -3137,7 +3137,7 @@ module CPP
     end
 
     # lexer rule unicode_escape! (UnicodeEscape)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def unicode_escape!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 72)
@@ -3159,7 +3159,7 @@ module CPP
     end
 
     # lexer rule comment! (COMMENT)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def comment!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 73)
@@ -3282,7 +3282,7 @@ module CPP
     end
 
     # lexer rule line_comment! (LINE_COMMENT)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def line_comment!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 74)
@@ -3367,7 +3367,7 @@ module CPP
     end
 
     # lexer rule ws! (WS)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def ws!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 75)
@@ -3462,7 +3462,7 @@ module CPP
     end
 
     # lexer rule end! (End)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def end!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 76)
@@ -3527,7 +3527,7 @@ module CPP
     end
 
     # lexer rule escaped_newline! (ESCAPED_NEWLINE)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def escaped_newline!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 77)
@@ -3587,7 +3587,7 @@ module CPP
     end
 
     # lexer rule coperator! (COPERATOR)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def coperator!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 78)
@@ -3798,7 +3798,7 @@ module CPP
     end
 
     # lexer rule ckeyword! (CKEYWORD)
-    # (in CPP.g)
+    # (in samples/CPP.g)
     def ckeyword!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 79)
@@ -4254,7 +4254,7 @@ module CPP
     end
     # parser rule synpred_1_cpp! (synpred1_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 
     def synpred_1_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -4270,7 +4270,7 @@ module CPP
     end
     # parser rule synpred_2_cpp! (synpred2_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 
     def synpred_2_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -4286,7 +4286,7 @@ module CPP
     end
     # parser rule synpred_3_cpp! (synpred3_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 
     def synpred_3_cpp!
       # -> uncomment the next line to manually enable rule tracing

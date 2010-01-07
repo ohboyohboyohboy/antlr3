@@ -36,6 +36,7 @@ $project.setup? or run( :setup )
 if $project.setup?
   require 'rake/gempackagetask'
   require 'rake/rdoctask'
+  require 'antlr3/task'
   #require 'rcov/rcovtask'
   
   # tasks concerning the ANTLR java package
@@ -100,6 +101,16 @@ if $project.setup?
     sh( $project.expand!("gem push pkg/$(name)-$(version).gem") )
   end
   
+  samples = %w(CSS ANTLRv3Grammar Python CPP)
+  ANTLR3::CompileTask.define( :name => 'samples' ) do | tasks |
+    samples.each do | sample |
+      file = "samples/#{ sample }.g"
+      output_directory = "samples/#{ sample }"
+      tasks.grammar_set( file, :output_directory => output_directory )
+    end
+  end
+
   desc( "clean up all project by-products" )
-  task :clean => %w(test:clean clobber_package clobber_rdoc)
+  task :clean => %w(test:clean clobber_package clobber_rdoc samples:clobber)
+  
 end

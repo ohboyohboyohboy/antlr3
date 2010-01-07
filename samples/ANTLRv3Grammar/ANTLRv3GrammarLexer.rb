@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 #
-# ANTLRv3Grammar.g
+# samples/ANTLRv3Grammar.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
 # Ruby runtime library version: 1.3.0
-# Input grammar file: ANTLRv3Grammar.g
-# Generated at: 2010-01-05 04:38:15
+# Input grammar file: samples/ANTLRv3Grammar.g
+# Generated at: 2010-01-07 07:34:07
 # 
 
 # ~~~> start load path setup
@@ -100,7 +100,7 @@ module ANTLRv3Grammar
     include TokenData
 
     begin
-      generated_using( "ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+      generated_using( "samples/ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -140,7 +140,7 @@ module ANTLRv3Grammar
     
     # - - - - - - - - - - - lexer rules - - - - - - - - - - - -
     # lexer rule ret! (RET)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def ret!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 1)
@@ -164,7 +164,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule scope! (SCOPE)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def scope!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 2)
@@ -188,7 +188,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule fragment! (FRAGMENT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def fragment!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 3)
@@ -212,7 +212,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule tree_begin! (TREE_BEGIN)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def tree_begin!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 4)
@@ -236,7 +236,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule root! (ROOT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def root!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 5)
@@ -260,7 +260,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule bang! (BANG)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def bang!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 6)
@@ -284,7 +284,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule range! (RANGE)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def range!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 7)
@@ -308,7 +308,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule rewrite! (REWRITE)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def rewrite!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 8)
@@ -332,7 +332,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule at! (AT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def at!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 9)
@@ -356,7 +356,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule label_assign! (LABEL_ASSIGN)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def label_assign!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 10)
@@ -380,7 +380,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule list_label_assign! (LIST_LABEL_ASSIGN)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def list_label_assign!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 11)
@@ -404,7 +404,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__67! (T__67)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__67!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 12)
@@ -428,7 +428,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__68! (T__68)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__68!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 13)
@@ -452,7 +452,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__69! (T__69)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__69!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 14)
@@ -476,7 +476,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__70! (T__70)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__70!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 15)
@@ -500,7 +500,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__71! (T__71)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__71!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 16)
@@ -524,7 +524,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__72! (T__72)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__72!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 17)
@@ -548,7 +548,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__73! (T__73)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__73!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 18)
@@ -572,7 +572,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__74! (T__74)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__74!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 19)
@@ -596,7 +596,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__75! (T__75)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__75!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 20)
@@ -620,7 +620,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__76! (T__76)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__76!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 21)
@@ -644,7 +644,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__77! (T__77)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__77!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 22)
@@ -668,7 +668,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__78! (T__78)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__78!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 23)
@@ -692,7 +692,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__79! (T__79)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__79!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 24)
@@ -716,7 +716,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__80! (T__80)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__80!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 25)
@@ -740,7 +740,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__81! (T__81)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__81!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 26)
@@ -764,7 +764,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__82! (T__82)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__82!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 27)
@@ -788,7 +788,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__83! (T__83)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__83!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 28)
@@ -812,7 +812,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__84! (T__84)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__84!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 29)
@@ -836,7 +836,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__85! (T__85)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__85!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 30)
@@ -860,7 +860,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__86! (T__86)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__86!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 31)
@@ -884,7 +884,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__87! (T__87)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__87!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 32)
@@ -908,7 +908,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__88! (T__88)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__88!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 33)
@@ -932,7 +932,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__89! (T__89)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__89!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 34)
@@ -956,7 +956,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__90! (T__90)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__90!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 35)
@@ -980,7 +980,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__91! (T__91)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__91!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 36)
@@ -1004,7 +1004,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__92! (T__92)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__92!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 37)
@@ -1028,7 +1028,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__93! (T__93)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__93!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 38)
@@ -1052,7 +1052,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule sl_comment! (SL_COMMENT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def sl_comment!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 39)
@@ -1132,7 +1132,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule ml_comment! (ML_COMMENT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def ml_comment!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 40)
@@ -1187,7 +1187,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule char_literal! (CHAR_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def char_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 41)
@@ -1213,7 +1213,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule string_literal! (STRING_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def string_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 42)
@@ -1257,7 +1257,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule literal_char! (LITERAL_CHAR)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def literal_char!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 43)
@@ -1301,7 +1301,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule double_quote_string_literal! (DOUBLE_QUOTE_STRING_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def double_quote_string_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 44)
@@ -1358,7 +1358,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule double_angle_string_literal! (DOUBLE_ANGLE_STRING_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def double_angle_string_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 45)
@@ -1410,7 +1410,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule esc! (ESC)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def esc!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 46)
@@ -1480,7 +1480,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule xdigit! (XDIGIT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def xdigit!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 47)
@@ -1505,7 +1505,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule int! (INT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def int!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 48)
@@ -1553,7 +1553,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule arg_action! (ARG_ACTION)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def arg_action!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 49)
@@ -1577,7 +1577,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule nested_arg_action! (NESTED_ARG_ACTION)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def nested_arg_action!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 50)
@@ -1633,7 +1633,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule action! (ACTION)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def action!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 51)
@@ -1673,7 +1673,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule nested_action! (NESTED_ACTION)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def nested_action!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 52)
@@ -1737,7 +1737,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule action_char_literal! (ACTION_CHAR_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def action_char_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 53)
@@ -1788,7 +1788,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule action_string_literal! (ACTION_STRING_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def action_string_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 54)
@@ -1839,7 +1839,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule action_esc! (ACTION_ESC)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def action_esc!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 55)
@@ -1857,7 +1857,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule token_ref! (TOKEN_REF)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def token_ref!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 56)
@@ -1907,7 +1907,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule rule_ref! (RULE_REF)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def rule_ref!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 57)
@@ -1957,7 +1957,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule options! (OPTIONS)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def options!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 58)
@@ -1983,7 +1983,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule tokens! (TOKENS)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def tokens!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 59)
@@ -2009,7 +2009,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule src! (SRC)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def src!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 60)
@@ -2050,7 +2050,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule ws! (WS)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def ws!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 61)
@@ -2121,7 +2121,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule ws_loop! (WS_LOOP)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def ws_loop!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 62)

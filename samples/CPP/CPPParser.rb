@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 #
-# CPP.g
+# samples/CPP.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
 # Ruby runtime library version: 1.3.0
-# Input grammar file: CPP.g
-# Generated at: 2010-01-05 04:38:18
+# Input grammar file: samples/CPP.g
+# Generated at: 2010-01-07 10:20:06
 # 
 
 # ~~~> start load path setup
@@ -165,7 +165,7 @@ module CPP
 
     include TokenData
 
-    generated_using( "CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+    generated_using( "samples/CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
 
     def initialize(input, options = {})
       super(input, options)
@@ -179,7 +179,7 @@ module CPP
 
     # parser rule preprocess
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 85:1: preprocess : ( proc_line )+ ;
     def preprocess
       # -> uncomment the next line to manually enable rule tracing
@@ -268,7 +268,7 @@ module CPP
 
     # parser rule proc_line
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 89:1: proc_line : ( DIRECTIVE | text_line | diagnostics | file_inclusion | macro_define | macro_undef | conditional_compilation | line_control | macro_execution )? End ;
     def proc_line
       # -> uncomment the next line to manually enable rule tracing
@@ -430,7 +430,7 @@ module CPP
 
     # parser rule file_inclusion
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 103:1: file_inclusion : ( INCLUDE -> ^( INCLUDE ) | INCLUDE_EXPAND -> ^( INCLUDE_EXPAND ) );
     def file_inclusion
       # -> uncomment the next line to manually enable rule tracing
@@ -564,7 +564,7 @@ module CPP
 
     # parser rule macro_define
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 108:1: macro_define : ( DEFINE IDENTIFIER LPAREN ( WS )? RPAREN ( macro_text )? -> ^( MAC_FUNCTION_OBJECT IDENTIFIER ( macro_text )? ) | DEFINE mac= IDENTIFIER LPAREN ( WS )? (arg+= macro_param ( WS )? ( COMMA ( WS )* arg+= macro_param ( WS )* )* )? RPAREN ( macro_text )? -> ^( MAC_FUNCTION $mac ( $arg)+ ( macro_text )? ) | DEFINE IDENTIFIER ( macro_text )? -> ^( MAC_OBJECT IDENTIFIER ( macro_text )? ) );
     def macro_define
       # -> uncomment the next line to manually enable rule tracing
@@ -1018,7 +1018,7 @@ module CPP
 
     # parser rule macro_param
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 114:1: macro_param : ( IDENTIFIER ELLIPSIS -> ^( ELLIPSIS IDENTIFIER ) | ELLIPSIS | IDENTIFIER );
     def macro_param
       # -> uncomment the next line to manually enable rule tracing
@@ -1167,7 +1167,7 @@ module CPP
 
     # parser rule macro_execution
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 120:1: macro_execution : EXEC_MACRO ifexpression -> ^( EXEC_MACRO ifexpression ) ;
     def macro_execution
       # -> uncomment the next line to manually enable rule tracing
@@ -1268,7 +1268,7 @@ module CPP
 
     # parser rule macro_undef
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 126:1: macro_undef : UNDEF mac= IDENTIFIER -> ^( UNDEF IDENTIFIER ) ;
     def macro_undef
       # -> uncomment the next line to manually enable rule tracing
@@ -1361,7 +1361,7 @@ module CPP
 
     # parser rule conditional_compilation
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 130:1: conditional_compilation : t= IF ifexp+= ifexpression ifstmt+= statement ( ELIF ifexp+= ifexpression ifstmt+= statement )* ( ELSE elsestmt= statement )? ENDIF -> ^( IF ( $ifexp $ifstmt)+ ( ELSE $elsestmt)? ) ;
     def conditional_compilation
       # -> uncomment the next line to manually enable rule tracing
@@ -1574,7 +1574,7 @@ module CPP
 
     # parser rule line_control
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 140:1: line_control : LINE n= DECIMAL_LITERAL (theFile= STRING_LITERAL )? -> ^( LINE $n ( $theFile)? ) ;
     def line_control
       # -> uncomment the next line to manually enable rule tracing
@@ -1695,7 +1695,7 @@ module CPP
 
     # parser rule diagnostics
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 144:1: diagnostics : ( WARNING -> ^( WARNING ) | ERROR -> ^( ERROR ) | PRAGMA -> ^( PRAGMA ) );
     def diagnostics
       # -> uncomment the next line to manually enable rule tracing
@@ -1862,7 +1862,7 @@ module CPP
 
     # parser rule text_line
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 150:1: text_line : ( source_text )+ -> ^( TEXT_LINE ( source_text )+ ) ;
     def text_line
       # -> uncomment the next line to manually enable rule tracing
@@ -1984,7 +1984,7 @@ module CPP
 
     # parser rule statement
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 155:1: statement : ( proc_line )+ ;
     def statement
       # -> uncomment the next line to manually enable rule tracing
@@ -2073,7 +2073,7 @@ module CPP
 
     # parser rule type_name
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 159:1: type_name : IDENTIFIER ;
     def type_name
       # -> uncomment the next line to manually enable rule tracing
@@ -2138,7 +2138,7 @@ module CPP
 
     # parser rule ifexpression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 163:1: ifexpression : assignment_expression -> ^( assignment_expression ) ;
     def ifexpression
       # -> uncomment the next line to manually enable rule tracing
@@ -2233,7 +2233,7 @@ module CPP
 
     # parser rule assignment_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 175:1: assignment_expression : conditional_expression ( ( ASSIGNEQUAL | TIMESEQUAL | DIVIDEEQUAL | MODEQUAL | PLUSEQUAL | MINUSEQUAL | SHIFTLEFTEQUAL | SHIFTRIGHTEQUAL | BITWISEANDEQUAL | BITWISEXOREQUAL | BITWISEOREQUAL ) assignment_expression )? ;
     def assignment_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -2469,7 +2469,7 @@ module CPP
 
     # parser rule conditional_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 185:1: conditional_expression : logical_or_expression ( QUESTIONMARK assignment_expression COLON conditional_expression )? ;
     def conditional_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -2576,7 +2576,7 @@ module CPP
 
     # parser rule logical_or_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 190:1: logical_or_expression : logical_and_expression ( OR logical_and_expression )* ;
     def logical_or_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -2672,7 +2672,7 @@ module CPP
 
     # parser rule logical_and_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 194:1: logical_and_expression : inclusive_or_expression ( AND inclusive_or_expression )* ;
     def logical_and_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -2768,7 +2768,7 @@ module CPP
 
     # parser rule inclusive_or_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 198:1: inclusive_or_expression : exclusive_or_expression ( BITWISEOR exclusive_or_expression )* ;
     def inclusive_or_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -2864,7 +2864,7 @@ module CPP
 
     # parser rule exclusive_or_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 202:1: exclusive_or_expression : and_expression ( BITWISEXOR and_expression )* ;
     def exclusive_or_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -2960,7 +2960,7 @@ module CPP
 
     # parser rule and_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 206:1: and_expression : equality_expression ( AMPERSAND equality_expression )* ;
     def and_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -3056,7 +3056,7 @@ module CPP
 
     # parser rule equality_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 210:1: equality_expression : relational_expression ( ( NOTEQUAL | EQUAL ) relational_expression )* ;
     def equality_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -3182,7 +3182,7 @@ module CPP
 
     # parser rule relational_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 214:1: relational_expression : shift_expression ( ( ( LESSTHAN | GREATERTHAN | LESSTHANOREQUALTO | GREATERTHANOREQUALTO ) shift_expression )* ) ;
     def relational_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -3335,7 +3335,7 @@ module CPP
 
     # parser rule shift_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 225:1: shift_expression : additive_expression ( ( SHIFTLEFT | SHIFTRIGHT ) additive_expression )* ;
     def shift_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -3461,7 +3461,7 @@ module CPP
 
     # parser rule additive_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 229:1: additive_expression : multiplicative_expression ( ( PLUS | MINUS ) multiplicative_expression )* ;
     def additive_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -3587,7 +3587,7 @@ module CPP
 
     # parser rule multiplicative_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 233:1: multiplicative_expression : unary_expression ( ( STAR | DIVIDE | MOD ) unary_expression )* ;
     def multiplicative_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -3724,7 +3724,7 @@ module CPP
 
     # parser rule unary_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 237:1: unary_expression : ( PLUSPLUS unary_expression -> ^( PLUSPLUS unary_expression ) | MINUSMINUS unary_expression -> ^( MINUSMINUS unary_expression ) | SIZEOF unary_expression -> ^( SIZEOF unary_expression ) | SIZEOF LPAREN type_name RPAREN -> ^( SIZEOF_TYPE type_name ) | DEFINED type_name -> ^( DEFINED type_name ) | DEFINED LPAREN type_name RPAREN -> ^( DEFINED type_name ) | unary_expression_not_plus_minus );
     def unary_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -4076,7 +4076,7 @@ module CPP
 
     # parser rule unary_expression_not_plus_minus
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 247:1: unary_expression_not_plus_minus : ( NOT unary_expression -> ^( NOT unary_expression ) | TILDE unary_expression -> ^( TILDE unary_expression ) | AMPERSAND unary_expression -> ^( REFERANCE unary_expression ) | STAR unary_expression -> ^( POINTER_AT unary_expression ) | MINUS unary_expression -> ^( UNARY_MINUS unary_expression ) | PLUS unary_expression -> ^( UNARY_PLUS unary_expression ) | LPAREN type_name RPAREN unary_expression -> ^( TYPECAST type_name unary_expression ) | postfix_expression );
     def unary_expression_not_plus_minus
       # -> uncomment the next line to manually enable rule tracing
@@ -4462,7 +4462,7 @@ module CPP
 
     # parser rule postfix_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 258:1: postfix_expression : primary_expression (l= LSQUARE assignment_expression RSQUARE | DOT IDENTIFIER | s= STAR IDENTIFIER | POINTERTO IDENTIFIER | p= PLUSPLUS | m= MINUSMINUS )* ;
     def postfix_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -4667,7 +4667,7 @@ module CPP
 
     # parser rule primary_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 269:1: primary_expression : ( ( IDENTIFIER LPAREN )=> function_call | IDENTIFIER | constant | LPAREN assignment_expression RPAREN -> ^( EXPR_GROUP assignment_expression ) );
     def primary_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -4833,7 +4833,7 @@ module CPP
 
     # parser rule function_call
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 276:1: function_call : id= IDENTIFIER LPAREN ( arg_list )? RPAREN -> ^( METHOD_CALL $id ( arg_list )? ) ;
     def function_call
       # -> uncomment the next line to manually enable rule tracing
@@ -4960,7 +4960,7 @@ module CPP
 
     # parser rule arg_list
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 280:1: arg_list : assignment_expression ( COMMA assignment_expression )* -> ^( ARGS ( assignment_expression )+ ) ;
     def arg_list
       # -> uncomment the next line to manually enable rule tracing
@@ -5087,7 +5087,7 @@ module CPP
 
     # parser rule constant
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 284:1: constant : ( HEX_LITERAL | OCTAL_LITERAL | DECIMAL_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | FLOATING_POINT_LITERAL );
     def constant
       # -> uncomment the next line to manually enable rule tracing
@@ -5160,7 +5160,7 @@ module CPP
 
     # parser rule source_text
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 295:1: source_text : ( source_expression | COMMA | LPAREN | RPAREN | WS );
     def source_text
       # -> uncomment the next line to manually enable rule tracing
@@ -5289,7 +5289,7 @@ module CPP
 
     # parser rule macro_expansion
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 303:1: macro_expansion : (id= IDENTIFIER ( WS )? LPAREN ( WS )? RPAREN -> ^( EXPAND $id) | id= IDENTIFIER ( WS )? LPAREN ( WS )? mac_args ( WS )? RPAREN -> ^( EXPAND $id ( mac_args )? ) );
     def macro_expansion
       # -> uncomment the next line to manually enable rule tracing
@@ -5655,7 +5655,7 @@ module CPP
 
     # parser rule mac_args
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 308:1: mac_args : marg+= m_arg ( ( WS )? COMMA ( WS )? marg+= m_arg )* -> ^( EXP_ARGS ( $marg)+ ) ;
     def mac_args
       # -> uncomment the next line to manually enable rule tracing
@@ -5835,7 +5835,7 @@ module CPP
 
     # parser rule m_arg
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 311:1: m_arg : ( ( source_expression )+ -> ^( EXP_ARG ( source_expression )+ ) | -> ^( EXP_ARG ) );
     def m_arg
       # -> uncomment the next line to manually enable rule tracing
@@ -6016,7 +6016,7 @@ module CPP
 
     # parser rule source_expression
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 315:1: source_expression : ( ( IDENTIFIER ( WS )? LPAREN )=> macro_expansion | ( primary_source ( WS )? SHARPSHARP )=> concatenate | STRINGIFICATION IDENTIFIER -> ^( STRINGIFICATION IDENTIFIER ) | primary_source | STRING_OP | SIZEOF | LPAREN ( mac_args )? RPAREN -> ^( TEXT_GROUP ( mac_args )? ) | SEMICOLON | TEXT_END | WS );
     def source_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -6303,7 +6303,7 @@ module CPP
 
     # parser rule concatenate
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 328:1: concatenate : prim+= primary_source ( ( WS )? SHARPSHARP ( WS )? prim+= primary_source )+ -> ^( CONCATENATE ( $prim)+ ) ;
     def concatenate
       # -> uncomment the next line to manually enable rule tracing
@@ -6530,7 +6530,7 @@ module CPP
 
     # parser rule primary_source
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 332:1: primary_source : ( SHARPSHARP ( WS )? IDENTIFIER -> ^( SHARPSHARP IDENTIFIER ) | IDENTIFIER | constant | CKEYWORD | COPERATOR );
     def primary_source
       # -> uncomment the next line to manually enable rule tracing
@@ -6717,7 +6717,7 @@ module CPP
 
     # parser rule macro_text
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 690:1: macro_text : ( source_text )+ -> ^( MACRO_DEFINE ( source_text )+ ) ;
     def macro_text
       # -> uncomment the next line to manually enable rule tracing
@@ -6837,7 +6837,7 @@ module CPP
 
     # parser rule synpred_14_cpp! (synpred14_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 109:8: synpred14_CPP : DEFINE IDENTIFIER LPAREN ( WS )? RPAREN ( macro_text )? ;
     def synpred_14_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -6884,7 +6884,7 @@ module CPP
     end
     # parser rule synpred_22_cpp! (synpred22_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 110:8: synpred22_CPP : DEFINE mac= IDENTIFIER LPAREN ( WS )? (arg+= macro_param ( WS )? ( COMMA ( WS )* arg+= macro_param ( WS )* )* )? RPAREN ( macro_text )? ;
     def synpred_22_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7024,7 +7024,7 @@ module CPP
     end
     # parser rule synpred_65_cpp! (synpred65_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 240:13: synpred65_CPP : SIZEOF unary_expression ;
     def synpred_65_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7043,7 +7043,7 @@ module CPP
     end
     # parser rule synpred_66_cpp! (synpred66_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 241:13: synpred66_CPP : SIZEOF LPAREN type_name RPAREN ;
     def synpred_66_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7064,7 +7064,7 @@ module CPP
     end
     # parser rule synpred_75_cpp! (synpred75_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 254:13: synpred75_CPP : LPAREN type_name RPAREN unary_expression ;
     def synpred_75_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7087,7 +7087,7 @@ module CPP
     end
     # parser rule synpred_78_cpp! (synpred78_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 262:9: synpred78_CPP : s= STAR IDENTIFIER ;
     def synpred_78_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7105,7 +7105,7 @@ module CPP
     end
     # parser rule synpred_82_cpp! (synpred82_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 270:9: synpred82_CPP : IDENTIFIER LPAREN ;
     def synpred_82_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7122,7 +7122,7 @@ module CPP
     end
     # parser rule synpred_83_cpp! (synpred83_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 271:9: synpred83_CPP : IDENTIFIER ;
     def synpred_83_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7138,7 +7138,7 @@ module CPP
     end
     # parser rule synpred_92_cpp! (synpred92_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 296:9: synpred92_CPP : source_expression ;
     def synpred_92_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7156,7 +7156,7 @@ module CPP
     end
     # parser rule synpred_94_cpp! (synpred94_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 298:9: synpred94_CPP : LPAREN ;
     def synpred_94_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7172,7 +7172,7 @@ module CPP
     end
     # parser rule synpred_98_cpp! (synpred98_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 304:7: synpred98_CPP : id= IDENTIFIER ( WS )? LPAREN ( WS )? RPAREN ;
     def synpred_98_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7217,7 +7217,7 @@ module CPP
     end
     # parser rule synpred_100_cpp! (synpred100_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 305:32: synpred100_CPP : WS ;
     def synpred_100_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7233,7 +7233,7 @@ module CPP
     end
     # parser rule synpred_103_cpp! (synpred103_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 308:42: synpred103_CPP : WS ;
     def synpred_103_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7249,7 +7249,7 @@ module CPP
     end
     # parser rule synpred_105_cpp! (synpred105_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 311:18: synpred105_CPP : source_expression ;
     def synpred_105_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7267,7 +7267,7 @@ module CPP
     end
     # parser rule synpred_106_cpp! (synpred106_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 311:18: synpred106_CPP : ( source_expression )+ ;
     def synpred_106_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7311,7 +7311,7 @@ module CPP
     end
     # parser rule synpred_108_cpp! (synpred108_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 316:13: synpred108_CPP : IDENTIFIER ( WS )? LPAREN ;
     def synpred_108_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7341,7 +7341,7 @@ module CPP
     end
     # parser rule synpred_110_cpp! (synpred110_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 317:13: synpred110_CPP : primary_source ( WS )? SHARPSHARP ;
     def synpred_110_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7373,7 +7373,7 @@ module CPP
     end
     # parser rule synpred_112_cpp! (synpred112_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 319:13: synpred112_CPP : primary_source ;
     def synpred_112_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7391,7 +7391,7 @@ module CPP
     end
     # parser rule synpred_115_cpp! (synpred115_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 322:20: synpred115_CPP : mac_args ;
     def synpred_115_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -7409,7 +7409,7 @@ module CPP
     end
     # parser rule synpred_121_cpp! (synpred121_CPP)
     # 
-    # (in CPP.g)
+    # (in samples/CPP.g)
     # 329:35: synpred121_CPP : ( WS )? SHARPSHARP ( WS )? prim+= primary_source ;
     def synpred_121_cpp!
       # -> uncomment the next line to manually enable rule tracing
