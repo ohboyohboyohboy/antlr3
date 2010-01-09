@@ -1,0 +1,100 @@
+group ST;
+
+@parserBody.mixins() ::= <<
+<@super.mixins()>
+include ANTLR3::Template::Builder
+>>
+
+gatedAction( block ) ::= <<
+<if(backtracking)>
+if <actions.(actionScope).synpredgate>
+  <block>
+end
+<else>
+<block>
+<endif>
+>>
+
+/** x+=rule when output=template */
+ruleRefAndListLabel(rule,label,elementIndex,args,scope) ::= <<
+<ruleRef(...)>
+<listLabel(elem={<label; format="label">.template}, ...)>
+>>
+
+rewriteTemplate(alts) ::= <<
+<gatedAction({<alts:rewriteTemplateAlt(); separator="els">
+<if(rewriteMode)><replaceTextInLine()><endif>})>
+>>
+
+replaceTextInLine() ::= <<
+<if(TREE_PARSER)>
+@input.token_stream.replace(
+  @input.tree_adaptor.start_index( return_value.start ),
+  @input.tree_adaptor.stop_index( return_value.start ),
+  return_value.template
+)
+<else>
+@input.replace(
+  return_value.start.index,
+  @input.look( -1 ).token_index,
+  return_value.template
+)
+<endif>
+>>
+
+rewriteTemplateAlt() ::= <<
+<if(it.pred)>
+if (<it.pred>)
+  # <it.description>
+  return_value.template = <it.alt><\n>
+<else>
+e
+  # <it.description>
+  return_value.template = <it.alt><\n>
+<endif>
+>>
+
+rewriteEmptyTemplate(alts) ::= <<
+nil
+>>
+
+/** Invoke a template with a set of attribute name/value pairs.
+ *  Set the value of the rule's template *after* having set
+ *  the attributes because the rule's template might be used as
+ *  an attribute to build a bigger template; you get a self-embedded
+ *  template.
+ */
+rewriteExternalTemplate(name,args) ::= <<
+@templates.<name><if(args)>(
+  <argumentMap(args)>
+)<endif>
+>>
+
+/** expr is a string expression that says what template to load */
+rewriteIndirectTemplate(expr,args) ::= <<
+fetch_template( <expr><if(args)>, <argumentMap(args)><endif> )
+>>
+
+/** Invoke an inline template with a set of attribute name/value pairs */
+rewriteInlineTemplate(args, template) ::= <<
+new_template( "<template>"<if(args)>, <argumentMap(args)><endif> )
+>>
+
+/** plain -> {foo} action */
+rewriteAction(action) ::= <<
+<action>
+>>
+
+/** An action has %st.attrName=expr; or %{st}.attrName=expr; */
+actionSetAttribute(st,attrName,expr) ::= <<
+( <st> )[ :<attrName> ] = <expr>
+>>
+
+/** Translate %{stringExpr} */
+actionStringConstructor(stringExpr) ::= <<
+new_template( <stringExpr> )
+>>
+
+argumentMap(args) ::= <<
+<args:{a|:<a.name> => <a.value>}; separator=",\n">
+>>

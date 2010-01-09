@@ -24,38 +24,17 @@ module ASTBuilder
   shared_attribute( :adaptor )
   
 private
-
+  
   def subtree_stream(desc, element = nil)
     AST::RewriteRuleSubtreeStream.new( @adaptor, desc, element )
-    #if element.instance_of?( Array )
-    #  AST::RewriteRuleSubtreeStream.new( @adaptor, desc, *element )
-    #elsif element
-    #  AST::RewriteRuleSubtreeStream.new( @adaptor, desc, element )
-    #else
-    #  AST::RewriteRuleSubtreeStream.new( @adaptor, desc )
-    #end
   end
   
   def token_stream(desc, element = nil)
     AST::RewriteRuleTokenStream.new( @adaptor, desc, element )
-    #if element.instance_of?( Array )
-    #  AST::RewriteRuleTokenStream.new( @adaptor, desc, *element )
-    #elsif element
-    #  AST::RewriteRuleTokenStream.new( @adaptor, desc, element )
-    #else
-    #  AST::RewriteRuleTokenStream.new( @adaptor, desc )
-    #end
   end
   
   def node_stream(desc, element = nil)
     AST::RewriteRuleNodeStream.new( @adaptor, desc, element )
-    #if element.instance_of?( Array )
-    #  AST::RewriteRuleNodeStream.new( @adaptor, desc, *element )
-    #elsif element
-    #  AST::RewriteRuleNodeStream.new( @adaptor, desc, element )
-    #else
-    #  AST::RewriteRuleNodeStream.new( @adaptor, desc )
-    #end
   end
 end
 end
