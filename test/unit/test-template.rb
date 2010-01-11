@@ -6,7 +6,7 @@ require 'antlr3/template'
 require 'antlr3/util'
 
 include ANTLR3
-TEMPLATE_NAMES = [ :method, :class_def, :attribute ]
+TEMPLATE_NAMES = %w( method class_def attribute )
 
 describe Template do
   describe Template::Group do

@@ -555,7 +555,7 @@ memoize(__method__, <ruleDescriptor.name>_start_index, success) if @state.backtr
 
 /** helper template to format a ruby method call */
 methodCall(n, del, args) ::= <<
-<if(del)>@<del:delegateName()>.<endif><n><if(args)>(<args; seperator=", ">)<endif>
+<if(del)>@<del:delegateName()>.<endif><n><if(args)>(<args; separator=", ">)<endif>
 >>
 
 

@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 require 'erb'
+require 'antlr3'
 
 module ANTLR3
 module Template
@@ -47,8 +48,25 @@ module Builder
   end
 end
 
-
 class Group < Module
+  autoload :Lexer, 'antlr3/template/group-lexer'
+  autoload :Parser, 'antlr3/template/group-parser'
+  
+  def self.parse( source, options = {} )
+    namespace = options.fetch( :namespace, ::Object )
+    lexer  = Lexer.new( source, options )
+    parser = Parser.new( lexer, options )
+    return( parser.group( namespace ) )
+  end
+  
+  def self.load( group_file, options = {} )
+    namespace = options.fetch( :namespace, ::Object )
+    input = ANTLR3::FileStream.new( group_file, options )
+    lexer = Lexer.new( input, options )
+    parser = Parser.new( lexer, options )
+    return( parser.group( namespace ) )
+  end
+  
   def self.new( &block )
     super do
       const_set( :TEMPLATES, {} )
@@ -66,7 +84,7 @@ class Group < Module
   end
   
   def fetch( name, values = {} )
-    self::TEMPLATES.fetch( name.to_sym ).new( values )
+    self::TEMPLATES.fetch( name.to_s ).new( values )
   end
   
   def templates
@@ -74,11 +92,11 @@ class Group < Module
   end
   
   def template_defined?( name )
-    self::TEMPLATES.has_key?( name.to_sym )
+    self::TEMPLATES.has_key?( name.to_s )
   end
   
   def define_template( name, source, &block )
-    name = name.to_sym
+    name = name.to_s
     group = self
     template_class = Class.new( Context ) do
       @group = group
@@ -88,23 +106,37 @@ class Group < Module
     end
     erb = ERB.new( source, nil, '%' )
     erb.def_method( template_class, 'to_s' )
-    
     self::TEMPLATES[ name ] = template_class
+    define_template_methods( name )
+    return( self )
+  end
+  
+  def alias_template( new_name, old_name )
+    template_class = self::TEMPLATES.fetch( old_name.to_s ) do
+      raise( NameError,
+        "undefined template `%s' for template group %p" % [ old_name, self ]
+      )
+    end
+    TEMPLATES[ new_name.to_s ] = template_class.clone
+    define_template_methods( new_name )
+    return( self )
+  end
+  
+private
+  
+  def define_template_methods( name )
     module_eval( <<-END )
       module_function
       
       def #{ name }( values = {} )
-        TEMPLATES[ :#{ name } ].new( values )
+        TEMPLATES[ #{ name.to_s.inspect } ].new( values )
       end
       
       def #{ name }!( values = {} )
-        TEMPLATES[ :#{ name } ].new( values ).to_s
+        TEMPLATES[ #{ name.to_s.inspect } ].new( values ).to_s
       end
     END
-    
-    return( self )
   end
-  
 end
 
 class Context
@@ -142,6 +174,7 @@ class Context
   end
   
 private
+  
   def has_ivar?( name )
     instance_variable_defined?( make_ivar( name ) )
   end

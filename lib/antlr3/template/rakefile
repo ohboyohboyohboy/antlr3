@@ -1,0 +1,24 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+file( 'Group.g' )
+
+file( 'group-parser.rb' => 'Group.g' ) do
+  
+  require 'antlr3/task'
+  tasks = ANTLR3::CompileTask.define( 'Group.g' )
+  tasks.compile_task.invoke
+  
+  for old, new in [ %w( GroupParser.rb group-parser.rb ), %w( GroupLexer.rb group-lexer.rb ) ]
+    source = File.read( old )
+    source[ /^module\s+Group\b/ ] = 'class Group'
+    open( new, 'w' ) do | f |
+      f.write( source )
+    end
+    puts( "wrote #{ new }" )
+    rm( old )
+  end
+  rm( 'Group.tokens' )
+end
+
+task( :default => 'group-parser.rb' )
