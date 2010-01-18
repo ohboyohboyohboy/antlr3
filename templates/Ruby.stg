@@ -327,22 +327,21 @@ end
 >>
 
 catch(decl, action) ::= <<
-# - - - - - - @catch e.decl - - - - - -
+# - - - - - - @catch <e.decl> - - - - - -
 rescue <e.decl>
   <e.action><\n>
 >>
 
-
 closureBlockLoop() ::= <<
-loop do  #loop <decisionNumber>
+loop do # decision <decisionNumber>
   alt_<decisionNumber> = <maxAlt>
   <@decisionBody><decision><@end>
   case alt_<decisionNumber>
   <alts:altSwitchCase(); separator="\n">
   else
-    break #loop <decisionNumber>
+    break # out of loop for decision <decisionNumber>
   end
-end
+end # loop for decision <decisionNumber>
 >>
 
 delegateName() ::= <<
@@ -1148,7 +1147,7 @@ ruleLabelPropertyRef_text(scope, attr) ::= <<
 >>
 
 
-ruleLabelPropertyRef_st(scope, attr) ::= "(<scope; format=\"label\">.nil? ? nil : <scope; format=\"label\">.st)"
+ruleLabelPropertyRef_st(scope, attr) ::= "(<scope; format=\"label\">.nil? ? nil : <scope; format=\"label\">.template)"
 
 /******************************************************************************
  *****************  L E X E R - O N L Y   T E M P L A T E S  ******************
@@ -1430,11 +1429,11 @@ rulePropertyRef_tree(scope, attr) ::= "return_value.tree"
 rulePropertyRef_text(scope, attr) ::= "@input.to_s(return_value.start, @input.look(-1))"
 
 /** $template in parser rule */
-rulePropertyRef_st(scope, attr) ::= "return_value.st"
+rulePropertyRef_st(scope, attr) ::= "return_value.template"
 
 ruleSetPropertyRef_tree(scope, attr, expr) ::= "return_value.tree = <expr>"
 
-ruleSetPropertyRef_st(scope, attr, expr) ::= "return_value.st = <expr>"
+ruleSetPropertyRef_st(scope, attr, expr) ::= "return_value.template = <expr>"
 
 /** How to execute an action */
 execAction(action) ::= <<
@@ -1498,4 +1497,4 @@ placeAction(scope, name) ::= <<
 <endif>
 >>
 
-runtimeLibraryVersion() ::= "1.3.1"
+runtimeLibraryVersion() ::= "1.4.0"

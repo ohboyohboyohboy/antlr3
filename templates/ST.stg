@@ -2,7 +2,11 @@ group ST;
 
 @parserBody.mixins() ::= <<
 <@super.mixins()>
+<if(rewriteMode)>
+include ANTLR3::Template::RewriteBuilder
+<else>
 include ANTLR3::Template::Builder
+<endif>
 >>
 
 gatedAction( block ) ::= <<
@@ -22,35 +26,50 @@ ruleRefAndListLabel(rule,label,elementIndex,args,scope) ::= <<
 >>
 
 rewriteTemplate(alts) ::= <<
-<gatedAction({<alts:rewriteTemplateAlt(); separator="els">
-<if(rewriteMode)><replaceTextInLine()><endif>})>
+<gatedAction({
+<first(alts):rewriteTemplateAltFirst(); anchor>
+<rest(alts):{a| els<rewriteTemplateAltRest(a)>}; anchor, separator="\n\n">
+<if(rewriteMode)><replaceTextInLine()><endif>
+})>
+>>
+
+rewriteTemplateAltFirst(a) ::= <<
+<if(a.pred)>
+if <a.pred>
+  # <a.description>
+  return_value.template = <a.alt>
+<else>
+# <a.description>
+return_value.template = <a.alt>
+<endif>
+>>
+
+rewriteTemplateAltRest(a) ::= <<
+<if(a.pred)>
+if <a.pred>
+  # <a.description>
+  return_value.template = <a.alt>
+<else>
+e <! little hack to get if .. elsif .. else block right !>
+  # <a.description>
+  return_value.template = <a.alt>
+end
+<endif>
 >>
 
 replaceTextInLine() ::= <<
 <if(TREE_PARSER)>
 @input.token_stream.replace(
-  @input.tree_adaptor.start_index( return_value.start ),
-  @input.tree_adaptor.stop_index( return_value.start ),
+  @input.adaptor.token_start_index( return_value.start ),
+  @input.adaptor.token_stop_index( return_value.start ),
   return_value.template
 )
 <else>
 @input.replace(
   return_value.start.index,
-  @input.look( -1 ).token_index,
+  @input.look( -1 ).index,
   return_value.template
 )
-<endif>
->>
-
-rewriteTemplateAlt() ::= <<
-<if(it.pred)>
-if (<it.pred>)
-  # <it.description>
-  return_value.template = <it.alt><\n>
-<else>
-e
-  # <it.description>
-  return_value.template = <it.alt><\n>
 <endif>
 >>
 
@@ -65,9 +84,9 @@ nil
  *  template.
  */
 rewriteExternalTemplate(name,args) ::= <<
-@templates.<name><if(args)>(
+fetch_template( "<name>" <if(args)>,
   <argumentMap(args)>
-)<endif>
+<endif>)
 >>
 
 /** expr is a string expression that says what template to load */
@@ -77,7 +96,7 @@ fetch_template( <expr><if(args)>, <argumentMap(args)><endif> )
 
 /** Invoke an inline template with a set of attribute name/value pairs */
 rewriteInlineTemplate(args, template) ::= <<
-new_template( "<template>"<if(args)>, <argumentMap(args)><endif> )
+create_template( "<template>"<if(args)>, <argumentMap(args)><endif> )
 >>
 
 /** plain -> {foo} action */
@@ -92,9 +111,18 @@ actionSetAttribute(st,attrName,expr) ::= <<
 
 /** Translate %{stringExpr} */
 actionStringConstructor(stringExpr) ::= <<
-new_template( <stringExpr> )
+create_template( <stringExpr> )
 >>
+
+/*
+rulePropertyRef_text(scope, attr) ::= <<
+@input.to_s(return_value.start, @input.look(-1))
+>>
+*/
 
 argumentMap(args) ::= <<
 <args:{a|:<a.name> => <a.value>}; separator=",\n">
 >>
+
+
+

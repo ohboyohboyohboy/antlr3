@@ -202,8 +202,9 @@ class TestHeterogeneousNodeTypes < ANTLR3::Test::Functional
           end
           super(token)
         end
+        
         def to_s
-          (@token.text.to_s rescue '') << "<V>;\%d\%d\%d" % [@x, @y, @z]
+          (@token.text.to_s rescue '') << "<V>;\%d\%d\%d" \% [@x, @y, @z]
         end
       end
     

@@ -15,17 +15,17 @@ module Template
 }
 
 @lexer::footer {
-end # module ANTLR3
 end # module Template
+end # module ANTLR3
 }
 
 @parser::footer {
-end # module ANTLR3
 end # module Template
+end # module ANTLR3
 }
 
 @parser::main {
-  require 'antlr3/template/group-lexer'
+  defined?(ANTLR3::Template::Group::Lexer) or require 'antlr3/template/group-lexer'
   ANTLR3::Template::Group::Parser.main( ARGV )
 }
 
@@ -46,7 +46,7 @@ end # module Template
   def extract_template( token )
     case token.type
     when TEMPLATE
-      token.text.gsub( /\A<<\r?\n?|\r?\n?>>\Z/, '' )
+      token.text.gsub( /\A<<<\r?\n?|\r?\n?>>>\Z/, '' )
     end
   end
   
@@ -56,6 +56,13 @@ end # module Template
 }
 
 group_spec[ namespace ] returns [ group ]
+  : ( group_name[ $namespace ] { $group = $group_name.group }
+    | { $group = ANTLR3::Template::Group.new }
+    )
+    member[ $group ]*
+  ;
+
+group_name[ namespace ] returns [ group ]
   : 'group'
     (
       mod=CONSTANT '::'
@@ -63,28 +70,34 @@ group_spec[ namespace ] returns [ group ]
     )*
     name=CONSTANT { $group = fetch_group( namespace, $name.text ) }
     ';'?
-    member[ $group ]*
   ;
 
 member[ group ]
-  : name=ID parameter_declaration? '::='
+@init { params = nil }
+  : name=ID ( parameter_declaration { params = $parameter_declaration.list } )? '::='
     ( aliased=ID { $group.alias_template( $aliased.text, $name.text ) }
-    | TEMPLATE   { $group.define_template( $name.text, extract_template( $TEMPLATE ) ) }
+    | TEMPLATE   { $group.define_template( $name.text, extract_template( $TEMPLATE ), params ) }
     | STRING
     )
   ;
 
-parameter_declaration
-  : '(' parameters? ')'
-  | parameters
+parameter_declaration returns [ list ]
+@init { $list = nil }
+  : '(' ( parameters { $list = $parameters.list } )? ')'
+  | parameters { $list = $parameters.list }
   ;
 
-parameters
-  : parameter ( ',' parameter )*
+parameters returns [ list ]
+@init { $list = ANTLR3::Template::ParameterList.new }
+  : parameter[ $list ] ( ',' parameter[ $list ] )*
   ;
 
-parameter
-  : ID ( '=' ( STRING | TEMPLATE | ID ) )?
+parameter[ parameters ]
+  : '*' name=ID { $parameters.splat = $name.text }
+  | '&' name=ID { $parameters.block = $name.text }
+  | name=ID     { param = ANTLR3::Template::Parameter.new( $name.text ) }
+    ( '=' v=STRING { param.default = $v.text } )?
+    { $parameters.add( param ) }
   ;
 
 CONSTANT
@@ -97,9 +110,9 @@ ID
   ;
 
 TEMPLATE
-  : '<<'
+  : '<<<'
     (options { greedy = false; }: '\\' . | . )*
-    '>>'
+    '>>>'
   ;
 
 STRING
@@ -114,5 +127,5 @@ COMMENT
   ;
 
 WS
-  : ( ' ' | '\t' | '\n' | '\r' | '\f' )+ { $channel = HIDDEN }
+  : ( ' ' | '\t' | '\n' | '\r' | '\f' )+ { skip }
   ;

@@ -4,7 +4,6 @@
 file( 'Group.g' )
 
 file( 'group-parser.rb' => 'Group.g' ) do
-  
   require 'antlr3/task'
   tasks = ANTLR3::CompileTask.define( 'Group.g' )
   tasks.compile_task.invoke

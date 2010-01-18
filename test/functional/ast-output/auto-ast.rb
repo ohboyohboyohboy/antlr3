@@ -726,7 +726,7 @@ class TestAutoAST < ANTLR3::Test::Functional
       grammar RuleListLabelRuleRoot;
       options {language=Ruby;output=AST;}
       a returns [result] : ( x+=b^ )+ {
-      $result = "x=%s," \% $x[1].inspect
+      $result = "x=\%s," \% $x[1].inspect
       } ;
       b : ID;
       ID : 'a'..'z'+ ;

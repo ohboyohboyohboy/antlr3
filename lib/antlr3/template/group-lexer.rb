@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
 # Ruby runtime library version: 1.3.1
 # Input grammar file: Group.g
-# Generated at: 2010-01-10 19:38:43
+# Generated at: 2010-01-17 06:59:16
 # 
 
 # ~~~> start load path setup
@@ -75,10 +75,10 @@ class Group
   module TokenData
 
     # define the token constants
-    define_tokens(:WS => 9, :T__16 => 16, :T__15 => 15, :T__17 => 17, :T__12 => 12, 
+    define_tokens(:ID => 5, :EOF => -1, :T__19 => 19, :WS => 9, :T__16 => 16, 
+                  :T__15 => 15, :T__18 => 18, :T__17 => 17, :T__12 => 12, 
                   :TEMPLATE => 6, :T__11 => 11, :T__14 => 14, :T__13 => 13, 
-                  :T__10 => 10, :CONSTANT => 4, :ID => 5, :COMMENT => 8, 
-                  :EOF => -1, :STRING => 7)
+                  :T__10 => 10, :CONSTANT => 4, :COMMENT => 8, :STRING => 7)
     
   end
 
@@ -94,11 +94,11 @@ class Group
     end
     
     RULE_NAMES   = ["T__10", "T__11", "T__12", "T__13", "T__14", "T__15", 
-                    "T__16", "T__17", "CONSTANT", "ID", "TEMPLATE", "STRING", 
-                    "COMMENT", "WS"].freeze
+                    "T__16", "T__17", "T__18", "T__19", "CONSTANT", "ID", 
+                    "TEMPLATE", "STRING", "COMMENT", "WS"].freeze
     RULE_METHODS = [:t__10!, :t__11!, :t__12!, :t__13!, :t__14!, :t__15!, 
-                    :t__16!, :t__17!, :constant!, :id!, :template!, :string!, 
-                    :comment!, :ws!].freeze
+                    :t__16!, :t__17!, :t__18!, :t__19!, :constant!, :id!, 
+                    :template!, :string!, :comment!, :ws!].freeze
 
     
     def initialize(input=nil, options = {})
@@ -286,8 +286,8 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 23:9: '='
-      match(?=)
+      # at line 23:9: '*'
+      match(?*)
 
       
       @state.type = type
@@ -299,21 +299,69 @@ class Group
 
     end
 
+    # lexer rule t__18! (T__18)
+    # (in Group.g)
+    def t__18!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in(__method__, 9)
+
+      type = T__18
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 24:9: '&'
+      match(?&)
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out(__method__, 9)
+
+    end
+
+    # lexer rule t__19! (T__19)
+    # (in Group.g)
+    def t__19!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in(__method__, 10)
+
+      type = T__19
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 25:9: '='
+      match(?=)
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out(__method__, 10)
+
+    end
+
     # lexer rule constant! (CONSTANT)
     # (in Group.g)
     def constant!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in(__method__, 9)
+      # trace_in(__method__, 11)
 
       type = CONSTANT
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 91:5: 'A' .. 'Z' ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      # at line 104:5: 'A' .. 'Z' ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
       match_range(?A, ?Z)
-      # at line 91:14: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
-      loop do  #loop 1
+      # at line 104:14: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      loop do # decision 1
         alt_1 = 2
         look_1_0 = @input.peek(1)
 
@@ -335,9 +383,9 @@ class Group
 
 
         else
-          break #loop 1
+          break # out of loop for decision 1
         end
-      end
+      end # loop for decision 1
 
       
       @state.type = type
@@ -345,7 +393,7 @@ class Group
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out(__method__, 9)
+      # trace_out(__method__, 11)
 
     end
 
@@ -353,14 +401,14 @@ class Group
     # (in Group.g)
     def id!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in(__method__, 10)
+      # trace_in(__method__, 12)
 
       type = ID
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 95:5: ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      # at line 108:5: ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
       if @input.peek(1) == ?_ || @input.peek(1).between?(?a, ?z)
         @input.consume
       else
@@ -370,8 +418,8 @@ class Group
       end
 
 
-      # at line 96:5: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
-      loop do  #loop 2
+      # at line 109:5: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      loop do # decision 2
         alt_2 = 2
         look_2_0 = @input.peek(1)
 
@@ -393,9 +441,9 @@ class Group
 
 
         else
-          break #loop 2
+          break # out of loop for decision 2
         end
-      end
+      end # loop for decision 2
 
       
       @state.type = type
@@ -403,7 +451,7 @@ class Group
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out(__method__, 10)
+      # trace_out(__method__, 12)
 
     end
 
@@ -411,17 +459,17 @@ class Group
     # (in Group.g)
     def template!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in(__method__, 11)
+      # trace_in(__method__, 13)
 
       type = TEMPLATE
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 100:5: '<<' ( options {greedy=false; } : '\\\\' . | . )* '>>'
-      match("<<")
-      # at line 101:5: ( options {greedy=false; } : '\\\\' . | . )*
-      loop do  #loop 3
+      # at line 113:5: '<<<' ( options {greedy=false; } : '\\\\' . | . )* '>>>'
+      match("<<<")
+      # at line 114:5: ( options {greedy=false; } : '\\\\' . | . )*
+      loop do # decision 3
         alt_3 = 3
         look_3_0 = @input.peek(1)
 
@@ -429,7 +477,14 @@ class Group
           look_3_1 = @input.peek(2)
 
           if (look_3_1 == ?>) 
-            alt_3 = 3
+            look_3_4 = @input.peek(3)
+
+            if (look_3_4 == ?>) 
+              alt_3 = 3
+            elsif (look_3_4.between?(0x0000, ?=) || look_3_4.between?(??, 0xFFFF)) 
+              alt_3 = 2
+
+            end
           elsif (look_3_1.between?(0x0000, ?=) || look_3_1.between?(??, 0xFFFF)) 
             alt_3 = 2
 
@@ -451,19 +506,19 @@ class Group
         end
         case alt_3
         when 1
-          # at line 101:35: '\\\\' .
+          # at line 114:35: '\\\\' .
           match(?\\)
           match_any
 
         when 2
-          # at line 101:44: .
+          # at line 114:44: .
           match_any
 
         else
-          break #loop 3
+          break # out of loop for decision 3
         end
-      end
-      match(">>")
+      end # loop for decision 3
+      match(">>>")
 
       
       @state.type = type
@@ -471,7 +526,7 @@ class Group
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out(__method__, 11)
+      # trace_out(__method__, 13)
 
     end
 
@@ -479,14 +534,14 @@ class Group
     # (in Group.g)
     def string!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in(__method__, 12)
+      # trace_in(__method__, 14)
 
       type = STRING
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 106:3: ( '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"' | '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\'' )
+      # at line 119:3: ( '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"' | '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\'' )
       alt_6 = 2
       look_6_0 = @input.peek(1)
 
@@ -500,10 +555,10 @@ class Group
       end
       case alt_6
       when 1
-        # at line 106:5: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
+        # at line 119:5: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
         match(?")
-        # at line 106:10: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
-        loop do  #loop 4
+        # at line 119:10: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
+        loop do # decision 4
           alt_4 = 3
           look_4_0 = @input.peek(1)
 
@@ -515,7 +570,7 @@ class Group
           end
           case alt_4
           when 1
-            # at line 106:12: ~ ( '\\\\' | '\"' )
+            # at line 119:12: ~ ( '\\\\' | '\"' )
             if @input.peek(1).between?(0x0000, ?!) || @input.peek(1).between?(?#, ?[) || @input.peek(1).between?(?], 0x00FF)
               @input.consume
             else
@@ -527,21 +582,21 @@ class Group
 
 
           when 2
-            # at line 106:31: '\\\\' .
+            # at line 119:31: '\\\\' .
             match(?\\)
             match_any
 
           else
-            break #loop 4
+            break # out of loop for decision 4
           end
-        end
+        end # loop for decision 4
         match(?")
 
       when 2
-        # at line 107:5: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
+        # at line 120:5: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
         match(?\')
-        # at line 107:10: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
-        loop do  #loop 5
+        # at line 120:10: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
+        loop do # decision 5
           alt_5 = 3
           look_5_0 = @input.peek(1)
 
@@ -553,7 +608,7 @@ class Group
           end
           case alt_5
           when 1
-            # at line 107:12: ~ ( '\\\\' | '\\'' )
+            # at line 120:12: ~ ( '\\\\' | '\\'' )
             if @input.peek(1).between?(0x0000, ?&) || @input.peek(1).between?(?(, ?[) || @input.peek(1).between?(?], 0x00FF)
               @input.consume
             else
@@ -565,14 +620,14 @@ class Group
 
 
           when 2
-            # at line 107:31: '\\\\' .
+            # at line 120:31: '\\\\' .
             match(?\\)
             match_any
 
           else
-            break #loop 5
+            break # out of loop for decision 5
           end
-        end
+        end # loop for decision 5
         match(?\')
 
       end
@@ -582,7 +637,7 @@ class Group
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out(__method__, 12)
+      # trace_out(__method__, 14)
 
     end
 
@@ -590,14 +645,14 @@ class Group
     # (in Group.g)
     def comment!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in(__method__, 13)
+      # trace_in(__method__, 15)
 
       type = COMMENT
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 112:3: ( ( '#' | '//' ) (~ '\\n' )* | '/*' ( . )* '*/' )
+      # at line 125:3: ( ( '#' | '//' ) (~ '\\n' )* | '/*' ( . )* '*/' )
       alt_10 = 2
       look_10_0 = @input.peek(1)
 
@@ -620,8 +675,8 @@ class Group
       end
       case alt_10
       when 1
-        # at line 112:5: ( '#' | '//' ) (~ '\\n' )*
-        # at line 112:5: ( '#' | '//' )
+        # at line 125:5: ( '#' | '//' ) (~ '\\n' )*
+        # at line 125:5: ( '#' | '//' )
         alt_7 = 2
         look_7_0 = @input.peek(1)
 
@@ -635,16 +690,16 @@ class Group
         end
         case alt_7
         when 1
-          # at line 112:7: '#'
+          # at line 125:7: '#'
           match(?#)
 
         when 2
-          # at line 112:13: '//'
+          # at line 125:13: '//'
           match("//")
 
         end
-        # at line 112:20: (~ '\\n' )*
-        loop do  #loop 8
+        # at line 125:20: (~ '\\n' )*
+        loop do # decision 8
           alt_8 = 2
           look_8_0 = @input.peek(1)
 
@@ -654,7 +709,7 @@ class Group
           end
           case alt_8
           when 1
-            # at line 112:20: ~ '\\n'
+            # at line 125:20: ~ '\\n'
             if @input.peek(1).between?(0x0000, ?\t) || @input.peek(1).between?(0x000B, 0x00FF)
               @input.consume
             else
@@ -666,15 +721,15 @@ class Group
 
 
           else
-            break #loop 8
+            break # out of loop for decision 8
           end
-        end
+        end # loop for decision 8
 
       when 2
-        # at line 113:5: '/*' ( . )* '*/'
+        # at line 126:5: '/*' ( . )* '*/'
         match("/*")
-        # at line 113:10: ( . )*
-        loop do  #loop 9
+        # at line 126:10: ( . )*
+        loop do # decision 9
           alt_9 = 2
           look_9_0 = @input.peek(1)
 
@@ -693,13 +748,13 @@ class Group
           end
           case alt_9
           when 1
-            # at line 113:10: .
+            # at line 126:10: .
             match_any
 
           else
-            break #loop 9
+            break # out of loop for decision 9
           end
-        end
+        end # loop for decision 9
         match("*/")
 
       end
@@ -711,7 +766,7 @@ class Group
     # <-- action
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out(__method__, 13)
+      # trace_out(__method__, 15)
 
     end
 
@@ -719,15 +774,15 @@ class Group
     # (in Group.g)
     def ws!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in(__method__, 14)
+      # trace_in(__method__, 16)
 
       type = WS
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 117:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
-      # at file 117:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+      # at line 130:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+      # at file 130:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
       match_count_11 = 0
       loop do
         alt_11 = 2
@@ -761,7 +816,7 @@ class Group
       end
 
       # --> action
-       channel = HIDDEN 
+       skip 
       # <-- action
 
       
@@ -770,7 +825,7 @@ class Group
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out(__method__, 14)
+      # trace_out(__method__, 16)
 
     end
 
@@ -782,8 +837,8 @@ class Group
     # but instead use the next_token method, which will
     # build and emit the actual next token
     def token!
-      # at line 1:8: ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | CONSTANT | ID | TEMPLATE | STRING | COMMENT | WS )
-      alt_12 = 14
+      # at line 1:8: ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | CONSTANT | ID | TEMPLATE | STRING | COMMENT | WS )
+      alt_12 = 16
       alt_12 = @dfa12.predict(@input)
       case alt_12
       when 1
@@ -819,27 +874,35 @@ class Group
         t__17!
 
       when 9
-        # at line 1:58: CONSTANT
-        constant!
+        # at line 1:58: T__18
+        t__18!
 
       when 10
-        # at line 1:67: ID
-        id!
+        # at line 1:64: T__19
+        t__19!
 
       when 11
-        # at line 1:70: TEMPLATE
-        template!
+        # at line 1:70: CONSTANT
+        constant!
 
       when 12
-        # at line 1:79: STRING
-        string!
+        # at line 1:79: ID
+        id!
 
       when 13
-        # at line 1:86: COMMENT
-        comment!
+        # at line 1:82: TEMPLATE
+        template!
 
       when 14
-        # at line 1:94: WS
+        # at line 1:91: STRING
+        string!
+
+      when 15
+        # at line 1:98: COMMENT
+        comment!
+
+      when 16
+        # at line 1:106: WS
         ws!
 
       end
@@ -848,42 +911,44 @@ class Group
     
     # - - - - - - - - - - DFA definitions - - - - - - - - - - -
     class DFA12 < ANTLR3::DFA
-      EOT = unpack(1, -1, 1, 9, 12, -1, 1, 9, 1, 18, 1, 9, 2, -1, 1, 9, 
-                   1, 21, 1, -1)
-      EOF = unpack(22, -1)
-      MIN = unpack(1, 9, 1, 114, 1, 58, 11, -1, 1, 111, 1, 61, 1, 117, 2, 
+      EOT = unpack(1, -1, 1, 11, 14, -1, 1, 11, 1, 20, 1, 11, 2, -1, 1, 
+                   11, 1, 23, 1, -1)
+      EOF = unpack(24, -1)
+      MIN = unpack(1, 9, 1, 114, 1, 58, 13, -1, 1, 111, 1, 61, 1, 117, 2, 
                    -1, 1, 112, 1, 48, 1, -1)
-      MAX = unpack(1, 122, 1, 114, 1, 58, 11, -1, 1, 111, 1, 61, 1, 117, 
+      MAX = unpack(1, 122, 1, 114, 1, 58, 13, -1, 1, 111, 1, 61, 1, 117, 
                    2, -1, 1, 112, 1, 122, 1, -1)
       ACCEPT = unpack(3, -1, 1, 3, 1, 5, 1, 6, 1, 7, 1, 8, 1, 9, 1, 10, 
-                      1, 11, 1, 12, 1, 13, 1, 14, 3, -1, 1, 4, 1, 2, 2, 
-                      -1, 1, 1)
-      SPECIAL = unpack(22, -1)
+                      1, 11, 1, 12, 1, 13, 1, 14, 1, 15, 1, 16, 3, -1, 1, 
+                      4, 1, 2, 2, -1, 1, 1)
+      SPECIAL = unpack(24, -1)
       TRANSITION = [
-        unpack(2, 13, 1, -1, 2, 13, 18, -1, 1, 13, 1, -1, 1, 11, 1, 12, 
-               3, -1, 1, 11, 1, 4, 1, 5, 2, -1, 1, 6, 2, -1, 1, 12, 10, 
-               -1, 1, 2, 1, 3, 1, 10, 1, 7, 3, -1, 26, 8, 4, -1, 1, 9, 1, 
-               -1, 6, 9, 1, 1, 19, 9),
-        unpack(1, 14),
-        unpack(1, 15),
-        unpack(),
-        unpack(),
-        unpack(),
-        unpack(),
-        unpack(),
-        unpack(),
-        unpack(),
-        unpack(),
-        unpack(),
-        unpack(),
-        unpack(),
+        unpack(2, 15, 1, -1, 2, 15, 18, -1, 1, 15, 1, -1, 1, 13, 1, 14, 
+               2, -1, 1, 8, 1, 13, 1, 4, 1, 5, 1, 7, 1, -1, 1, 6, 2, -1, 
+               1, 14, 10, -1, 1, 2, 1, 3, 1, 12, 1, 9, 3, -1, 26, 10, 4, 
+               -1, 1, 11, 1, -1, 6, 11, 1, 1, 19, 11),
         unpack(1, 16),
         unpack(1, 17),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(),
+        unpack(1, 18),
         unpack(1, 19),
+        unpack(1, 21),
         unpack(),
         unpack(),
-        unpack(1, 20),
-        unpack(10, 9, 7, -1, 26, 9, 4, -1, 1, 9, 1, -1, 26, 9),
+        unpack(1, 22),
+        unpack(10, 11, 7, -1, 26, 11, 4, -1, 1, 11, 1, -1, 26, 11),
         unpack()
       ].freeze
       
@@ -898,7 +963,7 @@ class Group
 
       def description
         <<-'__dfa_description__'.strip!
-          1:1: Tokens : ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | CONSTANT | ID | TEMPLATE | STRING | COMMENT | WS );
+          1:1: Tokens : ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | CONSTANT | ID | TEMPLATE | STRING | COMMENT | WS );
         __dfa_description__
       end
     end
@@ -919,8 +984,8 @@ end
 # Group.g
 
 
-end # module ANTLR3
 end # module Template
+end # module ANTLR3
 
 # - - - - - - end action @lexer::footer - - - - - - -
 
