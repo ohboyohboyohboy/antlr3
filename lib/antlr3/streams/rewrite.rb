@@ -99,9 +99,9 @@ class InsertBefore < RewriteOperation
   alias index= location=
   
   def execute(buffer)
-    buffer << text
+    buffer << text.to_s
     token = stream[location]
-    buffer << token.text if token
+    buffer << token.text.to_s if token
     return location + 1
   end
 end
@@ -132,7 +132,7 @@ class Replace < RewriteOperation
   end
   
   def execute(buffer)
-    buffer << text unless text.nil?
+    buffer << text.to_s unless text.nil?
     return(location.end + 1)
   end
   

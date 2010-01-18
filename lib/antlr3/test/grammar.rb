@@ -65,7 +65,7 @@ class Grammar
   ##################################################################
   def initialize(path, options = {})
     @path = path.to_s
-    @source = prepare_source(File.read(@path))
+    @source = File.read( @path )
     @output_directory = options.fetch(:output_directory, '.')
     @verbose = options.fetch( :verbose, $VERBOSE )
     study
@@ -138,7 +138,6 @@ class Grammar
     @type == "combined"
   end
   
-  
   def target_files(include_imports = true)
     targets = []
     
@@ -204,6 +203,7 @@ class Grammar
   end
   
 private
+  
   def post_compile(options)
     # do nothing for now
   end
@@ -257,10 +257,6 @@ private
     parts.map! { |part| shell_escape(part) }.join(' ') << ' 2>&1'
   end
   
-  def prepare_source(text)
-    text.gsub(/([^\\])%/,'\1\\%').freeze
-  end
-  
   def study
     @source =~ /^\s*(lexer|parser|tree)?\s*grammar\s*(\S+)\s*;/ or
       raise Grammar::FormatError[source, path]
@@ -272,7 +268,7 @@ end # class Grammar
 class Grammar::InlineGrammar < Grammar
   attr_accessor :host_file, :host_line
   
-  def initialize(source, options = {})
+  def initialize( source, options = {} )
     host = call_stack.find { |call| call.file != __FILE__ }
     
     @host_file = File.expand_path(options[:file] || host.file)
@@ -280,14 +276,14 @@ class Grammar::InlineGrammar < Grammar
     @output_directory = options.fetch(:output_directory, File.dirname(@host_file))
     @verbose = options.fetch( :verbose, $VERBOSE )
     
-    source = source.to_s.fixed_indent(0)
-    source.strip!
-    @source = prepare_source(source)
+    @source = source.to_s.fixed_indent( 0 )
+    @source.strip!
+    
     study
     write_to_disk
     build_dependencies
     
-    yield(self) if block_given?
+    yield( self ) if block_given?
   end
   
   def output_directory
@@ -303,7 +299,9 @@ class Grammar::InlineGrammar < Grammar
   def inspect
     sprintf( 'inline grammar %s (%s:%s)', name, @host_file, @host_line )
   end
+  
 private
+  
   def write_to_disk
     @path ||= output_directory / @name + '.g'
     test(?d, output_directory) or Dir.mkdir( output_directory )

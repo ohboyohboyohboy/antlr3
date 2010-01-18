@@ -1,0 +1,9 @@
+h1. ANTLR Template Output Mode
+
+h2. Design
+
+* it seems like the implementation doesn't strictly demand StringTemplate,  though it's clearly engineered with StringTemplate in mind
+* so far, I've rigged up a simple extension of plain old ERB templates that allows creating groups of named templates, simillar to StringTemplateGroup
+
+h2. Problems
+

@@ -1181,6 +1181,36 @@ class CommonTreeNodeStream
     return @nodes.dup
   end
   
+  def extract_text( start = nil, stop = nil )
+    @position == -1 and fill_buffer
+    start ||= @nodes.first
+    stop  ||= @nodes.last
+    
+    if @token_stream
+      case @adaptor.type_of( stop )
+      when UP
+        stop_index = @adaptor.token_stop_index( start )
+      when EOF
+        return extract_text( start, @nodes[ - 2 ] )
+      else
+        stop_index = @adaptor.token_stop_index( stop )
+      end
+      
+      start_index = @adaptor.token_start_index( start )
+      return @token_stream.extract_text( start_index, stop_index )
+    else
+      start_index = @nodes.index( start ) || @nodes.length
+      stop_index  = @nodes.index( stop )  || @nodes.length
+      return(
+        @nodes[ start_index .. stop_index ].map do | n |
+          @adaptor.text_of( n ) or " " + @adaptor.type_of( n ).to_s
+        end.join( '' )
+      )
+    end
+  end
+  
+  alias to_s extract_text
+  
 #private
 #  
 #  def linear_node_index( node )

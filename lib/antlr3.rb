@@ -161,6 +161,8 @@ module ANTLR3
   autoload :DOT, 'antlr3/dot'
   autoload :InteractiveStringStream, 'antlr3/streams/interactive'
   
+  autoload :Template, 'antlr3/template'
+  
   $LOAD_PATH.include?(library_path) or $LOAD_PATH.unshift(library_path)
   
 end  # module ANTLR3

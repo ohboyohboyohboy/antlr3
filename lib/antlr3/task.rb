@@ -49,6 +49,7 @@ class CompileTask < Rake::TaskLib
     @grammar_sets = []
     @name = options.fetch( :name, 'antlr-grammars' )
     @options = options
+    @namespace = Rake.application.current_scope
     grammar_files.empty? or grammar_set( grammar_files )
   end
   
@@ -67,6 +68,16 @@ class CompileTask < Rake::TaskLib
     block_given? and yield( set )
     @grammar_sets << set
     return( set )
+  end
+  
+  def compile_task
+    full_name = ( @namespace + [ @name, 'compile' ] ).join(':')
+    Rake::Task[ full_name ]
+  end
+  
+  def clobber_task
+    full_name = ( @namespace + [ @name, 'clobber' ] ).join(':')
+    Rake::Task[ full_name ]
   end
   
   def define
@@ -108,7 +119,7 @@ class CompileTask::GrammarSet
     @grammars = grammar_files.map do | file |
       GrammarFile.new( self, file )
     end
-    @output_directory = nil
+    @output_directory = '.'
     dir = options[ :output_directory ] and @output_directory = dir.to_s
     
     @antlr_jar = options.fetch( :antlr_jar, ANTLR3.antlr_jar )

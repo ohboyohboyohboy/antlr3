@@ -2,7 +2,6 @@
 # encoding: utf-8
 
 =begin LICENSE
-
 [The "BSD licence"]
 Copyright (c) 2009 Kyle Yetter
 All rights reserved.
@@ -171,7 +170,8 @@ class Main
     end
   end
   
-  private
+private
+  
   def execute_interactive
     @output.puts( Util.tidy(<<-END) )
     | ===================================================================
@@ -379,7 +379,6 @@ class LexerMain < Main
   
 end
 
-
 =begin rdoc ANTLR3::Main::ParserMain
 
 A class which implements a handy test script which is executed whenever an ANTLR
@@ -425,7 +424,7 @@ class ParserMain < Main
   end
   
   def setup
-    unless @lexer_class ||= fetch_class(@lexer_class_name)
+    unless @lexer_class ||= fetch_class( @lexer_class_name )
       if @lexer_class_name
         fail("unable to locate the lexer class ``#@lexer_class_name''")
       else
@@ -467,7 +466,6 @@ class ParserMain < Main
   end
   
 end
-
 
 =begin rdoc ANTLR3::Main::WalkerMain
 
