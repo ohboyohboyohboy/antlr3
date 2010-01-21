@@ -44,7 +44,7 @@ Current load path:
   END
 end
 
-defined?(ANTLR3) or begin
+defined?( ANTLR3 ) or begin
   
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
@@ -52,7 +52,7 @@ defined?(ANTLR3) or begin
 rescue LoadError
   
   # 2: try to load rubygems if it isn't already loaded
-  defined?(Gem) or begin
+  defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
@@ -97,7 +97,7 @@ module TokenData
 <if(tokens)>
 
   # define the token constants
-  define_tokens(<tokens:{:<it.name> => <it.type>}; anchor, wrap="\n", separator=", ">)
+  define_tokens( <tokens:{:<it.name> => <it.type>}; anchor, wrap="\n", separator=", "> )
 
 <endif>
 <if(tokenNames)>
@@ -108,7 +108,7 @@ module TokenData
   # this is necessary because anonymous tokens, which are
   # created from literal values in the grammar, do not
   # have descriptive names
-  register_names(<tokenNames:{<it>}; separator=", ", anchor, wrap="\n">)
+  register_names( <tokenNames:{<it>}; separator=", ", anchor, wrap="\n"> )
 
 <endif>
   
@@ -189,7 +189,7 @@ parserBody(grammar, name, scopes, tokens, tokenNames, rules, numRules, bitsets, 
 <if(!grammar.grammarIsRoot)><autoloadDelegates()><\n><endif>
 <@mixins()>
 
-RULE_METHODS = [<rules:{r|:<r.ruleName>}; separator=", ", wrap="\n", anchor>].freeze
+RULE_METHODS = [ <rules:{r|:<r.ruleName>}; separator=", ", wrap="\n", anchor> ].freeze
 
 <scopes:{<if(it.isDynamicGlobalScope)><globalAttributeScopeClass(scope=it)><\n><endif>}>
 <rules:{<ruleAttributeScopeClass(scope=it.ruleDescriptor.ruleScope)>}>
@@ -234,8 +234,8 @@ end
 >>
 
 parserConstructor() ::= <<
-def initialize(<grammar.delegators:{g|<g:delegateName()>, }>input, options = {})
-  super(input, options)
+def initialize( <grammar.delegators:{g|<g:delegateName()>, }>input, options = {} )
+  super( input, options )
 <if(memoize)><if(grammar.grammarIsRoot)>
   @state.rule_memory = {}
 <endif><endif>
@@ -257,10 +257,15 @@ end
   * need to be in a rule by themselves.
   */
 synpredRule(ruleName, ruleDescriptor, block, description, nakedBlock) ::= <<
-# parser rule <ruleName; format="lexerRule"> (<ruleName>)
+# 
+# syntactic predicate <ruleName; format="lexerRule">
 # 
 # (in <fileName>)
 # <description>
+# 
+# This is an imaginary rule inserted by ANTLR to
+# implement a syntactic predicate decision
+# 
 def <ruleName; format="lexerRule"><if(ruleDescriptor.parameterScope)>(<ruleDescriptor.parameterScope:parameterScope(scope=it)>)<endif>
   <traceIn()><ruleLabelDefs()>
   <block>
@@ -276,10 +281,12 @@ end
 rule(ruleName, ruleDescriptor, block, emptyRule, description, exceptions, finally, memoize) ::= <<
 <returnScope(scope=ruleDescriptor.returnScope)>
 
+# 
 # parser rule <ruleName>
 # 
 # (in <fileName>)
 # <description>
+# 
 def <ruleName><if(ruleDescriptor.parameterScope)>(<ruleDescriptor.parameterScope:parameterScope(scope=it)>)<endif>
   <traceIn()><ruleScopeSetUp()><ruleDeclarations()><ruleLabelDefs()><action(name="init", code=ruleDescriptor.actions.init)>
   <@body><ruleBody()><@end>
@@ -291,7 +298,6 @@ end
 <ruleDescriptor.modifier> :<ruleName> rescue nil<\n>
 <endif>
 >>
-
 
 delegateRule(ruleDescriptor) ::= <<
 # delegated rule <ruleDescriptor.name>

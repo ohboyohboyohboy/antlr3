@@ -262,6 +262,7 @@ extends Target
 			generator.getRecognizerFileName(grammar.name, grammar.type);
 		generator.write(outputFileST, fileName);
 	}
+	
 	public String getTargetCharLiteralFromANTLRCharLiteral(
 			CodeGenerator generator,
 			String literal)
@@ -285,11 +286,13 @@ extends Target
 
 		return result;
 	}
+	
 	public int getMaxCharValue(CodeGenerator generator)
 	{
-		// we don't support unicode, yet.
+		// Versions before 1.9 do not support unicode
 		return 0xFF;
 	}
+	
 	public String getTokenTypeAsTargetLabel(CodeGenerator generator, int ttype)
 	{
 		String name = generator.grammar.getTokenDisplayName(ttype);
@@ -299,6 +302,7 @@ extends Target
 		}
 		return name;
 	}
+	
 	/** Is scope in @scope::name {action} valid for this kind of grammar?
 	 *  Targets like C++ may want to allow new scopes like headerfile or
 	 *  some such.  The action names themselves are not policed at the
@@ -369,6 +373,7 @@ extends Target
 		}
 		return false;
 	}
+	
 	/*
     public String getTargetStringLiteralFromString(String s)
     {
@@ -391,17 +396,17 @@ extends Target
         System.out.print(result + "\n");
         return result;
     }
-	 */
+	*/
+	
 	public String encodeIntAsCharEscape(final int v) {
 		final int intValue;
 		
-		if (v == 65535) {
+		if ( v == 65535 ) {
 		  intValue = -1;
 		} else {
 		  intValue = v;
 		}
 		
-		return String.valueOf(intValue);
-		// return String.valueOf(v);
+		return String.valueOf( intValue );
 	}
 }
