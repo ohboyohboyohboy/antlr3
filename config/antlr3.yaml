@@ -44,7 +44,12 @@ antlr: !pathmap
   templates: java/org/antlr/codegen/templates/Ruby
   targets: java/org/antlr/codegen
   target: java/RubyTarget.java
-  
+
+doc: !pathmap
+  base: doc
+  rdoc: doc/rdoc
+  ri:   doc/ri
+
 bundler: !pathmap
   top: vendor/bundler
   lib: vendor/bundler/lib

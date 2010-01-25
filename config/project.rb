@@ -11,96 +11,69 @@
 
 require 'yaml'
 
-class PropertyGroup
-  include Enumerable
+class PropertyGroup < ::Hash
   NOTHING = Object.new
+  attr_reader :project
   
-  attr_accessor :group_owner
+  alias get []
+  alias put []=
+  private :put, :get
   
-  def initialize( values = {} )
-    @table = Hash.new do |h, k|
-      h[ k.to_sym ] = PropertyGroup.new( :group_owner => self, :name => k.to_sym )
-    end
-    
-    for key, value in values
-      case key = key.to_sym
-      when :group_owner then @group_owner = value
-      else
-        define_member( key, value )
-      end
-    end
-    
-    block_given? and yield( self )
-  end
-  
-  def property_group_name
-    @group_owner ? "#{@group_owner.propert_group_name}.#{name}" : name
-  end
-  
-  def properties
-    @table.keys
-  end
-  
-  def each
-    block_given? or return( enum_for( :each ) )
-    @table.each { | name, value | yield( name, value ) }
+  def []=( name, value )
+    super( name.to_s, value )
   end
   
   def []( name )
-    @table[ name.to_sym ]
+    super( name.to_s )
   end
   
-  def []=( name, value )
-    @table[ name.to_sym ] = value
+  def merge( h )
+    super( normalize( h ) )
   end
+  
+  def initialize( project, values = {} )
+    super()
+    @project = project
+    for key, value in values
+      define_member( key, value )
+    end
+    block_given? and yield( self )
+  end
+  
+  alias properties keys
   
   def method_missing( method, *args, &block)
-    name = method.to_s
-    if name =~ /^(\w+)=$/
-      return define_member( $1, *args )
-    elsif name =~ /^\w+$/
-      case args.length
-      when 0
-        begin
-          return( super )
-        rescue NoMethodError => e
-          e.message.gsub!(/undefined method /, 'undefined method or property')
-          raise
-        end
-      when 1
-        return define_member( method, *args )
+    case name = method.to_s
+    when /^(\w+)=$/
+      define_member( $1, *args )
+    when /^(\w+)$/
+      args.empty? or return( super )
+      begin
+        fetch( name ) { super }
+      rescue NoMethodError => e
+        e.message.gsub!( /undefined method/, 'undefined method or property' )
+        raise( e )
       end
+    else
+      super
     end
-    super
   end
   
-  def to_hash
-    @table.dup
-  end
   
-  def create_property_group( name, settings = {} )
-    settings[ :group_owner ] = self
-    settings[ :name ] = name
-    PropertyGroup.new( settings )
-  end
-  
-  def define_member( name, value = PropertyGroup.new )
-    name = name.to_sym
-    value.is_a?( Hash ) and value = create_property_group( name, value )
-    @table[ name ] = value
-    
-    unless self.respond_to?( name )
-      meta_eval( <<-END, __FILE__, __LINE__ + 1 )
-        def #{ name }( value = PropertyGroup::NOTHING )
-          value.equal?( PropertyGroup::NOTHING ) or self.#{name} = value
-          return self[ :#{name} ]
-        end
-        
-        def #{ name }=( value )
-          self[ :#{name} ] = value
-        end
-      END
-    end
+  def define_member( name, value )
+    name = name.to_s
+    name_str = name.inspect
+    put( name, value )
+    customize( <<-END, __FILE__, __LINE__ + 1 )
+      def #{ name }( value = PropertyGroup::NOTHING )
+        value.equal?( PropertyGroup::NOTHING ) or put( #{ name_str }, value )
+        return get( #{ name_str } )
+      end
+      
+      def #{ name }=( value )
+        put( #{ name_str }, value )
+      end
+    END
     return value
   end
   
@@ -108,14 +81,142 @@ class PropertyGroup
     class << self; self; end
   end
   
-  def meta_eval( *args, &block )
+  def customize( *args, &block )
     metaclass.class_eval( *args, &block )
   end
   
-  def symbolize( hash )
-    Hash[ hash.map { | k, v | [ k.to_sym, v ] } ]
+  
+private
+  
+  def path_map
+    @path_map ||= begin
+      map = PropertyGroup::PathMap.define( @project, {} )
+      extend( map )
+      map
+    end
+  end
+  def normalize( hash )
+    stringified = {}
+    for key, value in hash
+      stringified[ key.to_s ] = value
+    end
+    return( stringified )
+  end
+end
+
+module PropertyGroup::Expansion
+  # recusively expand a project setting
+  # note: this may cause an infinite loop if there's a dependency loop between variables
+  def expand( value )
+    case value
+    when Array then expand_array( value )
+    when PropertyGroup
+    when Hash then expand_hash( value )
+    when String then expand_string( value )
+    when PropertyGroup::PathMap then expand_path_map( value )
+    when PropertyGroup::PathList then expand_path_list( value )
+    when Regexp then expand_regex( value )
+    else value
+    end
   end
   
+  def expand!
+    expand_hash( self )
+    expand( @path_map )
+    return( self )
+  end
+  
+private
+
+  def expand_hash( hash )
+    for key, value in hash
+      hash[ key ] = expand( value )
+    end
+    return hash
+  end
+  
+  def expand_array( array )
+    array.map! { |v| expand( v ) }
+  end
+  
+  def expand_string( value )
+    value.gsub! %r| \$ \( ([\w\.]+) \) |x do
+      variable_value = $1.split( '.' ).
+        inject( @project )  { |rec, prop| rec[ prop ] }
+      expand( variable_value )
+    end
+    return value
+  end
+  
+  def expand_path_map( value )
+    paths = value::PATHS
+    for name, path in paths
+      paths[ name ] = expand( path )
+    end
+    return value
+  end
+  
+  def expand_path_list( list )
+    for var in list.instance_variables
+      value = list.instance_variable_get( var )
+      list.instance_variable_set( var, expand( value ) )
+    end
+    return list
+  end
+  
+  def expand_regex( value )
+    pattern = /\\ \$ \\ \( ([\w\.]+) \\ \)/x
+    regex_source = value.source
+    regex_source.gsub!( pattern ) do
+      variable_value = $1.split('.').
+        inject( @project ) { |rec, prop| rec[ prop ] }
+      expand( variable_value )
+    end
+    Regexp.new( regex_source, value.options )
+  end
+end
+
+module PropertyGroup::SpecialTypes
+  def create_property_group( props )
+    PropertyGroup.new( @project, props )
+  end
+  
+  def create_path_map( paths )
+    PropertyGroup::PathMap.define( @project, paths )
+  end
+  
+  def create_path_list( spec )
+    if spec.is_a?( Hash )
+      spec = normalize( spec )
+      inclusions = spec.fetch( 'include', [] )
+      exclusions = spec.fetch( 'exclude', [] )
+      list = PropertyGroup::PathList.new( *inclusions )
+      list.exclude( *exclusions )
+    else
+      list = PropertyGroup::PathList.new( *spec.to_a )
+    end
+    return list
+  end
+  
+  def define_path( name, relative_path )
+    path_map.define_path( name, relative_path )
+  end
+  
+  def define_special_member( name, tag, value )
+    case tag
+    when 'pathmap' then define_member( name, create_path_map( value ) )
+    when 'pathlist' then define_member( name, create_path_list( value ) )
+    when 'path' then define_path( name, value )
+    when 'group'
+    else define_member( name, value )
+    end
+  end
+end
+
+
+class PropertyGroup
+  include Expansion
+  include SpecialTypes
 end
 
 class Project < PropertyGroup
@@ -124,19 +225,16 @@ class Project < PropertyGroup
     new( base, config, &block )
   end
   
-  def initialize(base, config, &block)
-    super()
-    config = symbolize( config )
-    config[ :name ] ||= File.basename( base )
+  def initialize( base, config, &block )
+    super( self )
+    config = normalize( config )
+    config[ 'name' ] ||= File.basename( base )
     base = base.to_s.dup.freeze
-    define_member( :base, base )
+    define_member( 'base', base )
     
-    general_paths = PathMap.define( self, {} )
-    extend( general_paths )
-    
-    load_path = config.delete( :load_path ) || []
-    load_libs = config.delete( :load ) || []
-    require_libs = config.delete( :require ) || []
+    load_path = config.delete( 'load_path' ) || []
+    load_libs = config.delete( 'load' ) || []
+    require_libs = config.delete( 'require' ) || []
     
     for key, value in config
       case value
@@ -147,19 +245,18 @@ class Project < PropertyGroup
     end
     
     # perform value expansion after all values have been established
-    expand!( @table )
-    expand!( general_paths )
+    expand!
     
     for dir in load_path
-      $:.unshift( path( expand!( dir ) ) )
+      $:.unshift( path( dir ) )
     end
     
     for lib in load_libs
-      load!( expand!( lib ) )
+      load!( lib )
     end
     
     for lib in require_libs
-      require( expand!( lib ) )
+      require( lib )
     end
     
     block_given? and customize( &block )
@@ -170,20 +267,16 @@ class Project < PropertyGroup
     raise Project::Error, message, caller
   end
   
-  def full_group_name
-    '$project( %p )' % name
-  end
-  
   def warn!( message, *args )
     warn( format_string( message, *args ) )
   end
   
   def format_string( message, *args )
-    sprintf( message.to_s, *args )
+    expand( sprintf( message.to_s, *args ) )
   end
   
   def path( *args )
-    expand!( File.join( base, *args ) )
+    expand( File.join( base, *args ) )
   end
   
   def path?( *args )
@@ -195,118 +288,23 @@ class Project < PropertyGroup
     Dir[ path( *args ) ]
   end
   
-  # recusively expand a project setting
-  # note: this may cause an infinite loop if there's a dependency loop between variables
-  def expand!( value )
-    case value
-    when Array then expand_array( value )
-    when Hash, PropertyGroup then expand_hash( value )
-    when String then expand_string( value )
-    when PathMap then expand_path_map( value )
-    when PathList then expand_path_list( value )
-    when Regexp then expand_regex( value )
-    else value
-    end
-  end
   
   def load!( path_glob )
     path!( path_glob ).each { |lib| load( lib ) }
   end
-  
-  alias customize meta_eval
-  
-  def create_path_list( spec )
-    if spec.is_a?( Hash )
-      spec = symbolize( spec )
-      inclusions = spec.fetch( :include, [] )
-      exclusions = spec.fetch( :exclude, [] )
-      list = PathList.new( *inclusions )
-      list.exclude( *exclusions )
-    else
-      list = PathList.new( *spec.to_a )
-    end
-    return list
-  end
-  
-  def create_path_map( paths )
-    PathMap.define( self, paths )
-  end
-  
-private
-  
-  def define_special_member( name, tag, value )
-    case tag
-    when 'pathmap' then define_member( name, create_path_map( value ) )
-    when 'pathlist' then define_member( name, create_path_list( value ) )
-    when 'path' then define_path( name, value )
-    else define_member( name, value )
-    end
-  end
-  
-  def expand_hash( hash )
-    for key, value in hash
-      hash[ key ] = expand!( value )
-    end
-    return hash
-  end
-  
-  def expand_array( array )
-    array.map! { |v| expand!( v ) }
-  end
-  
-  def expand_string( value )
-    value.gsub! %r| \$ \( ([\w\.]+) \) |x do
-      variable_value = $1.split('.').inject( self )  { |rec, prop| rec[ prop ] }
-      expand!( variable_value )
-    end
-    return value
-  end
-  
-  def expand_path_map( value )
-    paths = value::PATHS
-    for name, path in paths
-      paths[ name ] = expand!( path )
-    end
-    return value
-  end
-  
-  def expand_path_list( list )
-    for var in list.instance_variables
-      value = list.instance_variable_get( var )
-      list.instance_variable_set( var, expand!( value ) )
-    end
-    return list
-  end
-  
-  def expand_regex( value )
-    pattern = /\\ \$ \\ \( ([\w\.]+) \\ \)/x
-    regex_source = value.source
-    regex_source.gsub!( pattern ) do
-      variable_value = $1.split('.').inject( self ) { |rec, prop| rec[ prop ] }
-      expand!( variable_value )
-    end
-    Regexp.new( regex_source, value.options )
-  end
-  
 end
 
-
-class Project::PathMap < Module
-  def self.define(project, map)
+class PropertyGroup::PathMap < Module
+  def self.define( project, map )
     m = new do
       const_set( :PROJECT, project )
       const_set( :PATHS, {} )
       const_set( :PATH_MAP, self )
-      class_eval( <<-END, __FILE__, __LINE__ + 1 )
-        def define_path( name, value )
-          PATH_MAP.define_path!( name, value )
-        end
-      END
       extend( self )
     end
     
     for name, path in map
-      m.define_path!( name, path )
+      m.define_path( name, path )
     end
     
     return m
@@ -314,36 +312,36 @@ class Project::PathMap < Module
   
   private_class_method :new
   
-  def define_path!( name, value )
+  def define_path( name, value )
+    name, value = name.to_s, value.to_s
     self[ name ] = value
+    name_str = name.inspect
+    
     class_eval( <<-END, __FILE__, __LINE__ + 1 )
       def #{name}( *args )
-        PROJECT.path( PATHS[ :#{ name } ], *args )
+        PROJECT.path( PATHS[ #{ name_str } ], *args )
       end
       
       def #{name}?( *args )
-        PROJECT.path?( PATHS[ :#{ name } ], *args )
+        PROJECT.path?( PATHS[ #{ name_str } ], *args )
       end
       
       def #{name}!( *args )
-        PROJECT.path!( PATHS[ :#{ name } ], *args )
+        PROJECT.path!( PATHS[ #{ name_str } ], *args )
       end
     END
   end
   
   def []( name )
-    self::PATHS[ name.to_sym ]
+    self::PATHS[ name.to_s ]
   end
   
   def []=( name, value )
-    self::PATHS[ name.to_sym ] = value.to_s
+    self::PATHS[ name.to_s ] = value.to_s
   end
-  
 end
 
-class Project::Error < StandardError
-  
-end
+Project::Error = Class.new( StandardError )
 
 
 
@@ -425,7 +423,7 @@ end
 #   fl.include('./**/*')
 #   fl.exclude('./*~')
 #
-class Project::PathList
+class PropertyGroup::PathList
 
   # TODO: Add glob options.
   #attr :glob_options
@@ -603,7 +601,7 @@ class Project::PathList
     result = @items * other
     case result
     when Array
-      PathList.new.import(result)
+      PropertyGroup::PathList.new.import(result)
     else
       result
     end
@@ -673,7 +671,7 @@ class Project::PathList
   #   FileList['a.c', 'b.c'].sub(/\.c$/, '.o')  => ['a.o', 'b.o']
   #
   def sub(pat, rep)
-    inject(PathList.new) { |res, fn| res << fn.sub(pat,rep) }
+    inject(PropertyGroup::PathList.new) { |res, fn| res << fn.sub(pat,rep) }
   end
 
   # Return a new FileList with the results of running +gsub+ against
@@ -684,7 +682,7 @@ class Project::PathList
   #      => ['lib\\test\\file', 'x\\y']
   #
   def gsub(pat, rep)
-    inject(PathList.new) { |res, fn| res << fn.gsub(pat,rep) }
+    inject(PropertyGroup::PathList.new) { |res, fn| res << fn.gsub(pat,rep) }
   end
 
   # Same as +sub+ except that the oringal file list is modified.
@@ -742,8 +740,8 @@ class Project::PathList
     resolve
     result = @items.partition(&block)
     [
-      PathList.new.import(result[0]),
-      PathList.new.import(result[1]),
+      PropertyGroup::PathList.new.import(result[0]),
+      PropertyGroup::PathList.new.import(result[1]),
     ]
   end
 

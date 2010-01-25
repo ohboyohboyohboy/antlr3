@@ -6,7 +6,7 @@
 ####################################################################################################
 load './config/antlr3.rb'
 
-def run( name )
+def run_task( name )
   Rake::Task.task_defined?( name ) or file( name )
   case task = Rake::Task[ name ]
   when Rake::FileTask then task.needed? and task.invoke
@@ -31,11 +31,10 @@ task :setup => %w(update) do
   $project.load_environment
 end
 
-$project.setup? or run( :setup )
+$project.setup? or run_task( :setup )
 
 if $project.setup?
   require 'rake/gempackagetask'
-  require 'rake/rdoctask'
   require 'antlr3/task'
   #require 'rcov/rcovtask'
   
@@ -45,51 +44,15 @@ if $project.setup?
     $project.load_task 'antlr'
   end
   
-  $project.load_task( :test )
+  for task_lib in %w( notes test doc )
+    $project.load_task( task_lib )
+  end
   
   Rake::GemPackageTask.new( $project.gem_spec ) do | t |
     t.need_zip = true
   end
   
-  Rake::RDocTask.new do | t |
-    t.rdoc_files.include( 'lib/**/*.rb' )
-    t.rdoc_dir = 'doc/rdoc'
-  end
   
-  namespace :notes do
-    desc( "find and list FIXME notes in the library and test source code")
-    task :FIXME do
-      require 'source-notes'
-      color_map = { :tag => 'red', :text => 'yellow' }
-      files = $project.package_files.select { |path| test( ?f, path ) }
-      SourceNote.scan( 'FIXME', files ) do |note|
-        puts( note.to_s( color_map ) )
-      end
-    end
-    
-    desc( "find and list TODO notes in the library and test source code")
-    task :TODO do
-      require 'source-notes'
-      color_map = { :tag => 'magenta', :text => 'yellow' }
-      files = $project.package_files.select { |path| test( ?f, path ) }
-      SourceNote.scan( 'TODO', files ) do |note|
-        puts( note.to_s( color_map ) )
-      end
-    end
-    
-    desc( "find and list notes with tag (like FIXME) provided by the tag argument")
-    task :with_tag, [:tag] do |t, args|
-      tag = args[ :tag ] or fail( "provide a tag argument" )
-      
-      require 'source-notes'
-      color_map = { :tag => 'blue', :text => 'yellow' }
-      files = $project.package_files.select { |path| test( ?f, path ) }
-      
-      SourceNote.scan( tag, files ) do |note|
-        puts( note.to_s( color_map ) )
-      end
-    end
-  end
   
   desc( "publish the package to rubyforge/gemcutter if the tests are clean" )
   task 'publish' => %w(test package) do

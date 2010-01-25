@@ -18,7 +18,7 @@ $proj = $project = Project.load( project_top, config_file ) do
   # run the gem-bundle.rb script to reflect any
   # changes to config/gemfile
   def run_bundler
-    script = path('scripts', 'gem-bundle.rb')
+    script = path( 'scripts', 'gem-bundle.rb' )
     ENV.temporary( 'RUBYOPT' => '' ) do
       system %(ruby '#{script}')
     end
