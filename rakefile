@@ -6,7 +6,7 @@
 ####################################################################################################
 load './config/antlr3.rb'
 
-def run( name )
+def run_task( name )
   Rake::Task.task_defined?( name ) or file( name )
   case task = Rake::Task[ name ]
   when Rake::FileTask then task.needed? and task.invoke
@@ -31,12 +31,9 @@ task :setup => %w(update) do
   $project.load_environment
 end
 
-$project.setup? or run( :setup )
+$project.setup? or run_task( :setup )
 
 if $project.setup?
-  require 'rake/gempackagetask'
-  require 'rake/rdoctask'
-  require 'antlr3/task'
   #require 'rcov/rcovtask'
   
   # tasks concerning the ANTLR java package
@@ -45,72 +42,10 @@ if $project.setup?
     $project.load_task 'antlr'
   end
   
-  $project.load_task( :test )
-  
-  Rake::GemPackageTask.new( $project.gem_spec ) do | t |
-    t.need_zip = true
-  end
-  
-  Rake::RDocTask.new do | t |
-    t.rdoc_files.include( 'lib/**/*.rb' )
-    t.rdoc_dir = 'doc/rdoc'
-  end
-  
-  namespace :notes do
-    desc( "find and list FIXME notes in the library and test source code")
-    task :FIXME do
-      require 'source-notes'
-      color_map = { :tag => 'red', :text => 'yellow' }
-      files = $project.package_files.select { |path| test( ?f, path ) }
-      SourceNote.scan( 'FIXME', files ) do |note|
-        puts( note.to_s( color_map ) )
-      end
-    end
-    
-    desc( "find and list TODO notes in the library and test source code")
-    task :TODO do
-      require 'source-notes'
-      color_map = { :tag => 'magenta', :text => 'yellow' }
-      files = $project.package_files.select { |path| test( ?f, path ) }
-      SourceNote.scan( 'TODO', files ) do |note|
-        puts( note.to_s( color_map ) )
-      end
-    end
-    
-    desc( "find and list notes with tag (like FIXME) provided by the tag argument")
-    task :with_tag, [:tag] do |t, args|
-      tag = args[ :tag ] or fail( "provide a tag argument" )
-      
-      require 'source-notes'
-      color_map = { :tag => 'blue', :text => 'yellow' }
-      files = $project.package_files.select { |path| test( ?f, path ) }
-      
-      SourceNote.scan( tag, files ) do |note|
-        puts( note.to_s( color_map ) )
-      end
-    end
-  end
-  
-  desc( "publish the package to rubyforge/gemcutter if the tests are clean" )
-  task 'publish' => %w(test package) do
-    cmd = $project.expand!(
-      'rubyforge add_%s $(name) $(name) $(version) pkg/$(name)-$(version).%s'
-    )
-    sh( cmd % %w(release gem) )
-    sh( cmd % %w(file zip) )
-    sh( $project.expand!("gem push pkg/$(name)-$(version).gem") )
-  end
-  
-  samples = %w( CSS ANTLRv3Grammar Python CPP )
-  ANTLR3::CompileTask.define( :name => 'samples' ) do | tasks |
-    samples.each do | sample |
-      file = "samples/#{ sample }.g"
-      output_directory = "samples/#{ sample }"
-      tasks.grammar_set( file, :output_directory => output_directory )
-    end
+  for task_lib in %w( notes package publish test doc )
+    $project.load_task( task_lib )
   end
   
   desc( "clean up all project by-products" )
-  task :clean => %w(test:clean clobber_package clobber_rdoc samples:clobber)
-  
+  task :clean => %w( test:clean package:clobber doc:clobber doc:samples:clobber )
 end
