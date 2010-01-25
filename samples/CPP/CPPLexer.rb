@@ -3,9 +3,9 @@
 # samples/CPP.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.3.0
+# Ruby runtime library version: 1.4.0
 # Input grammar file: samples/CPP.g
-# Generated at: 2010-01-07 10:20:07
+# Generated at: 2010-01-25 13:58:35
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.3.0):
+Failed to load the ANTLR3 runtime library (version 1.4.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -30,7 +30,7 @@ Current load path:
   END
 end
 
-defined?(ANTLR3) or begin
+defined?( ANTLR3 ) or begin
   
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
@@ -38,7 +38,7 @@ defined?(ANTLR3) or begin
 rescue LoadError
   
   # 2: try to load rubygems if it isn't already loaded
-  defined?(Gem) or begin
+  defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.3.0' )
+    Gem.activate( 'antlr3', '= 1.4.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -66,40 +66,41 @@ module CPP
   module TokenData
 
     # define the token constants
-    define_tokens(:STAR => 84, :LSQUARE => 93, :FloatTypeSuffix => 119, 
-                  :LETTER => 109, :MOD => 86, :TYPECAST => 19, :POINTER => 25, 
-                  :BITWISEXOR => 72, :MINUSMINUS => 88, :ASSIGNEQUAL => 56, 
-                  :NOT => 91, :EOF => -1, :UNARY_PLUS => 17, :NOTEQUAL => 74, 
-                  :COPERATOR => 106, :MINUSEQUAL => 61, :RPAREN => 51, :STRING_LITERAL => 55, 
-                  :MAC_FUNCTION => 43, :FLOATING_POINT_LITERAL => 100, :DOTMBR => 113, 
-                  :INCLUDE => 38, :ENDIF => 9, :ARGS => 28, :COMMENT => 122, 
-                  :REFERANCE => 18, :DIVIDE => 85, :TEXT_END => 31, :GREATERTHAN => 77, 
-                  :MAC_FUNCTION_OBJECT => 44, :LINE_COMMENT => 123, :IntegerTypeSuffix => 117, 
-                  :DEFINED => 90, :POINTERTOMBR => 112, :ELSE => 8, :ELLIPSIS => 53, 
-                  :CHARACTER_LITERAL => 99, :UNARY_MINUS => 16, :EXPR_DEF => 14, 
-                  :LCURLY => 110, :SEMICOLON => 103, :BITWISEXOREQUAL => 65, 
-                  :ERROR => 11, :METHOD_CALL => 27, :ELIF => 7, :WS => 50, 
-                  :CKEYWORD => 105, :SHARPSHARP => 104, :SHIFTLEFTEQUAL => 62, 
-                  :OR => 69, :SIZEOF => 89, :INDEX_OP => 21, :EXPR_GROUP => 26, 
-                  :DIVIDEEQUAL => 58, :LESSTHANOREQUALTO => 78, :INCLUDE_FILE => 107, 
-                  :WARNING => 10, :EscapeSequence => 115, :DECIMAL_LITERAL => 54, 
-                  :EXP_ARGS => 33, :STRING_OP => 102, :End => 47, :ESCAPED_NEWLINE => 124, 
-                  :MAC_OBJECT => 42, :PLUSPLUS => 87, :PRAGMA => 12, :INCLUDE_EXPAND => 39, 
-                  :SHIFTLEFT => 80, :Exponent => 118, :STRINGIFICATION => 101, 
-                  :AND => 70, :DEFINE => 40, :EXPAND => 32, :POINTER_AT => 24, 
-                  :POST_DEC => 23, :DIRECTIVE => 46, :HexDigit => 116, :LPAREN => 49, 
-                  :IF => 6, :PLUSEQUAL => 60, :GREATERTHANOREQUALTO => 79, 
-                  :EXPR => 13, :MODEQUAL => 59, :SCOPE => 114, :COMMA => 52, 
-                  :IDENTIFIER => 48, :EQUAL => 75, :SHIFTRIGHT => 81, :QUESTIONMARK => 67, 
-                  :TILDE => 92, :PLUS => 82, :SHIFTRIGHTEQUAL => 63, :EXP_ARG => 34, 
-                  :HEX_LITERAL => 97, :UNDEF => 41, :DOT => 95, :MACRO_DEFINE => 45, 
-                  :LESSTHAN => 76, :EXEC_MACRO => 35, :IFNDEF => 5, :TIMESEQUAL => 57, 
-                  :TEXT_GROUP => 30, :AMPERSAND => 73, :OCTAL_LITERAL => 98, 
-                  :BITWISEANDEQUAL => 64, :IFDEF => 4, :MINUS => 83, :RSQUARE => 94, 
-                  :BITWISEOR => 71, :TEXT_LINE => 29, :LINE => 37, :CONCATENATE => 36, 
-                  :COLON => 68, :MACRO_TEXT => 108, :UnicodeEscape => 121, 
-                  :RCURLY => 111, :EXPR_NDEF => 15, :POST_INC => 22, :POINTERTO => 96, 
-                  :SIZEOF_TYPE => 20, :OctalEscape => 120, :BITWISEOREQUAL => 66)
+    define_tokens( :STAR => 84, :LSQUARE => 93, :FloatTypeSuffix => 119, 
+                   :LETTER => 109, :MOD => 86, :TYPECAST => 19, :POINTER => 25, 
+                   :BITWISEXOR => 72, :MINUSMINUS => 88, :ASSIGNEQUAL => 56, 
+                   :NOT => 91, :EOF => -1, :UNARY_PLUS => 17, :NOTEQUAL => 74, 
+                   :COPERATOR => 106, :MINUSEQUAL => 61, :RPAREN => 51, 
+                   :STRING_LITERAL => 55, :MAC_FUNCTION => 43, :FLOATING_POINT_LITERAL => 100, 
+                   :DOTMBR => 113, :INCLUDE => 38, :ENDIF => 9, :ARGS => 28, 
+                   :COMMENT => 122, :REFERANCE => 18, :DIVIDE => 85, :TEXT_END => 31, 
+                   :GREATERTHAN => 77, :MAC_FUNCTION_OBJECT => 44, :LINE_COMMENT => 123, 
+                   :IntegerTypeSuffix => 117, :DEFINED => 90, :POINTERTOMBR => 112, 
+                   :ELSE => 8, :ELLIPSIS => 53, :CHARACTER_LITERAL => 99, 
+                   :UNARY_MINUS => 16, :EXPR_DEF => 14, :LCURLY => 110, 
+                   :SEMICOLON => 103, :BITWISEXOREQUAL => 65, :ERROR => 11, 
+                   :METHOD_CALL => 27, :ELIF => 7, :WS => 50, :CKEYWORD => 105, 
+                   :SHARPSHARP => 104, :SHIFTLEFTEQUAL => 62, :OR => 69, 
+                   :SIZEOF => 89, :INDEX_OP => 21, :EXPR_GROUP => 26, :DIVIDEEQUAL => 58, 
+                   :LESSTHANOREQUALTO => 78, :INCLUDE_FILE => 107, :WARNING => 10, 
+                   :EscapeSequence => 115, :DECIMAL_LITERAL => 54, :EXP_ARGS => 33, 
+                   :STRING_OP => 102, :End => 47, :ESCAPED_NEWLINE => 124, 
+                   :MAC_OBJECT => 42, :PLUSPLUS => 87, :PRAGMA => 12, :INCLUDE_EXPAND => 39, 
+                   :SHIFTLEFT => 80, :Exponent => 118, :STRINGIFICATION => 101, 
+                   :AND => 70, :DEFINE => 40, :EXPAND => 32, :POINTER_AT => 24, 
+                   :POST_DEC => 23, :DIRECTIVE => 46, :HexDigit => 116, 
+                   :LPAREN => 49, :IF => 6, :PLUSEQUAL => 60, :GREATERTHANOREQUALTO => 79, 
+                   :EXPR => 13, :MODEQUAL => 59, :SCOPE => 114, :COMMA => 52, 
+                   :IDENTIFIER => 48, :EQUAL => 75, :SHIFTRIGHT => 81, :QUESTIONMARK => 67, 
+                   :TILDE => 92, :PLUS => 82, :SHIFTRIGHTEQUAL => 63, :EXP_ARG => 34, 
+                   :HEX_LITERAL => 97, :UNDEF => 41, :DOT => 95, :MACRO_DEFINE => 45, 
+                   :LESSTHAN => 76, :EXEC_MACRO => 35, :IFNDEF => 5, :TIMESEQUAL => 57, 
+                   :TEXT_GROUP => 30, :AMPERSAND => 73, :OCTAL_LITERAL => 98, 
+                   :BITWISEANDEQUAL => 64, :IFDEF => 4, :MINUS => 83, :RSQUARE => 94, 
+                   :BITWISEOR => 71, :TEXT_LINE => 29, :LINE => 37, :CONCATENATE => 36, 
+                   :COLON => 68, :MACRO_TEXT => 108, :UnicodeEscape => 121, 
+                   :RCURLY => 111, :EXPR_NDEF => 15, :POST_INC => 22, :POINTERTO => 96, 
+                   :SIZEOF_TYPE => 20, :OctalEscape => 120, :BITWISEOREQUAL => 66 )
     
   end
 
@@ -109,7 +110,7 @@ module CPP
     include TokenData
 
     begin
-      generated_using( "samples/CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+      generated_using( "samples/CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -617,7 +618,7 @@ module CPP
           # at line 424:15: ( '/*' )=> '/*' ( . )* '*/'
           match("/*")
           # at line 424:31: ( . )*
-          loop do  #loop 7
+          loop do # decision 7
             alt_7 = 2
             look_7_0 = @input.peek(1)
 
@@ -640,9 +641,9 @@ module CPP
               match_any
 
             else
-              break #loop 7
+              break # out of loop for decision 7
             end
-          end
+          end # loop for decision 7
           match("*/")
 
         when 2
@@ -760,7 +761,7 @@ module CPP
       # at line 439:12: LETTER ( LETTER | '0' .. '9' )*
       letter!
       # at line 439:19: ( LETTER | '0' .. '9' )*
-      loop do  #loop 9
+      loop do # decision 9
         alt_9 = 2
         look_9_0 = @input.peek(1)
 
@@ -784,9 +785,9 @@ module CPP
 
 
         else
-          break #loop 9
+          break # out of loop for decision 9
         end
-      end
+      end # loop for decision 9
       # syntactic predicate action gate test
       if @state.backtracking == 0
         # --> action
@@ -2275,7 +2276,7 @@ module CPP
       # at line 585:13: '\"' ( EscapeSequence | ~ ( '\"' ) )* '\"'
       match(?")
       # at line 585:17: ( EscapeSequence | ~ ( '\"' ) )*
-      loop do  #loop 15
+      loop do # decision 15
         alt_15 = 3
         alt_15 = @dfa15.predict(@input)
         case alt_15
@@ -2298,9 +2299,9 @@ module CPP
 
 
         else
-          break #loop 15
+          break # out of loop for decision 15
         end
-      end
+      end # loop for decision 15
       match(?")
 
       
@@ -2422,7 +2423,7 @@ module CPP
         # at line 593:20: '1' .. '9' ( '0' .. '9' )*
         match_range(?1, ?9)
         # at line 593:29: ( '0' .. '9' )*
-        loop do  #loop 18
+        loop do # decision 18
           alt_18 = 2
           look_18_0 = @input.peek(1)
 
@@ -2436,9 +2437,9 @@ module CPP
             match_range(?0, ?9)
 
           else
-            break #loop 18
+            break # out of loop for decision 18
           end
-        end
+        end # loop for decision 18
 
       end
       # at line 593:40: ( IntegerTypeSuffix )?
@@ -2667,7 +2668,7 @@ module CPP
 
         match(?.)
         # at line 609:29: ( '0' .. '9' )*
-        loop do  #loop 25
+        loop do # decision 25
           alt_25 = 2
           look_25_0 = @input.peek(1)
 
@@ -2681,9 +2682,9 @@ module CPP
             match_range(?0, ?9)
 
           else
-            break #loop 25
+            break # out of loop for decision 25
           end
-        end
+        end # loop for decision 25
         # at line 609:41: ( Exponent )?
         alt_26 = 2
         look_26_0 = @input.peek(1)
@@ -3195,7 +3196,7 @@ module CPP
         # at line 640:9: '/*' ( . )* '*/'
         match("/*")
         # at line 640:15: ( . )*
-        loop do  #loop 40
+        loop do # decision 40
           alt_40 = 2
           look_40_0 = @input.peek(1)
 
@@ -3218,9 +3219,9 @@ module CPP
             match_any
 
           else
-            break #loop 40
+            break # out of loop for decision 40
           end
-        end
+        end # loop for decision 40
         match("*/")
         # syntactic predicate action gate test
         if @state.backtracking == 0
@@ -3236,7 +3237,7 @@ module CPP
         match(?\n)
         match(?*)
         # at line 641:27: ( . )*
-        loop do  #loop 41
+        loop do # decision 41
           alt_41 = 2
           look_41_0 = @input.peek(1)
 
@@ -3259,9 +3260,9 @@ module CPP
             match_any
 
           else
-            break #loop 41
+            break # out of loop for decision 41
           end
-        end
+        end # loop for decision 41
         match("*/")
         # syntactic predicate action gate test
         if @state.backtracking == 0
@@ -3295,7 +3296,7 @@ module CPP
       # at line 645:8: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
       match("//")
       # at line 645:13: (~ ( '\\n' | '\\r' ) )*
-      loop do  #loop 43
+      loop do # decision 43
         alt_43 = 2
         look_43_0 = @input.peek(1)
 
@@ -3319,9 +3320,9 @@ module CPP
 
 
         else
-          break #loop 43
+          break # out of loop for decision 43
         end
-      end
+      end # loop for decision 43
       # at line 645:27: ( '\\r' )?
       alt_44 = 2
       look_44_0 = @input.peek(1)
@@ -4252,9 +4253,14 @@ module CPP
 
       end
     end
-    # parser rule synpred_1_cpp! (synpred1_CPP)
+    # 
+    # syntactic predicate synpred_1_cpp!
     # 
     # (in samples/CPP.g)
+    # 
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
     # 
     def synpred_1_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -4268,9 +4274,14 @@ module CPP
       # trace_out(__method__, 81)
 
     end
-    # parser rule synpred_2_cpp! (synpred2_CPP)
+    # 
+    # syntactic predicate synpred_2_cpp!
     # 
     # (in samples/CPP.g)
+    # 
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
     # 
     def synpred_2_cpp!
       # -> uncomment the next line to manually enable rule tracing
@@ -4284,9 +4295,14 @@ module CPP
       # trace_out(__method__, 82)
 
     end
-    # parser rule synpred_3_cpp! (synpred3_CPP)
+    # 
+    # syntactic predicate synpred_3_cpp!
     # 
     # (in samples/CPP.g)
+    # 
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
     # 
     def synpred_3_cpp!
       # -> uncomment the next line to manually enable rule tracing

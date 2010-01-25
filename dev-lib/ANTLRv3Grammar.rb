@@ -1,4 +1,49 @@
-require 'antlr3'
+this_directory = File.expand_path( File.dirname( __FILE__ ) )
+$:.unshift( this_directory ) unless $:.include?( this_directory )
+
+antlr_load_failed = proc do
+  load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
+  raise LoadError, <<-END.strip!
+  
+Failed to load the ANTLR3 runtime library (version 1.4.0):
+
+Ensure the library has been installed on your system and is available
+on the load path. If rubygems is available on your system, this can
+be done with the command:
+  
+  gem install antlr3
+
+Current load path:
+#{ load_path }
+
+  END
+end
+
+defined?( ANTLR3 ) or begin
+  
+  # 1: try to load the ruby antlr3 runtime library from the system path
+  require 'antlr3'
+  
+rescue LoadError
+  
+  # 2: try to load rubygems if it isn't already loaded
+  defined?( Gem ) or begin
+    require 'rubygems'
+  rescue LoadError
+    antlr_load_failed.call
+  end
+  
+  # 3: try to activate the antlr3 gem
+  begin
+    Gem.activate( 'antlr3', '= 1.4.0' )
+  rescue Gem::LoadError
+    antlr_load_failed.call
+  end
+  
+  require 'antlr3'
+  
+end
+# <~~~ end load path setup
 
 module ANTLRv3Grammar
   module_function
@@ -68,22 +113,14 @@ module ANTLRv3Grammar
     end
   end
   
-  def parse(grammar_source)
-    input = ANTLR3::StringStream.new(grammar_source)
-    lexer = Lexer.new(input)
-    tokens = ANTLR3::CommonTokenStream.new(lexer)
-    parser = Parser.new(tokens)
-    result = parser.grammar_def
-    return(result.tree)
+  def parse( grammar_source )
+    lexer = Lexer.new( grammar_source )
+    parser = Parser.new( lexer )
+    return( parser.grammar_def.tree )
   end
   
-  def load(grammar_path)
-    input = ANTLR3::FileStream.new(grammar_path)
-    lexer = Lexer.new(input)
-    tokens = ANTLR3::CommonTokenStream.new(lexer)
-    parser = Parser.new(tokens)
-    result = parser.grammar_def
-    return(result.tree)
+  def load( grammar_path )
+    parse( ANTLR3::FileStream.new( grammar_path ) )
   end
 
   # TokenData defines all of the token type integer values
@@ -91,68 +128,72 @@ module ANTLRv3Grammar
   # ANTLR-generated recognizers.
   const_defined?(:TokenData) or TokenData = ANTLR3::TokenScheme.new
 
-  # define the token constants
-  TokenData.define_tokens(:BACKTRACK_SEMPRED => 34, :DOUBLE_ANGLE_STRING_LITERAL => 53, 
-                          :LEXER_GRAMMAR => 24, :EOA => 19, :ARGLIST => 22, :EOF => -1, 
-                          :SEMPRED => 31, :ACTION => 47, :EOB => 18, :TOKEN_REF => 44, 
-                          :T__93 => 93, :T__91 => 91, :RET => 23, :T__92 => 92, 
-                          :STRING_LITERAL => 45, :T__90 => 90, :ARG => 21, :EOR => 17, 
-                          :ARG_ACTION => 50, :DOUBLE_QUOTE_STRING_LITERAL => 52, 
-                          :NESTED_ARG_ACTION => 60, :ACTION_CHAR_LITERAL => 62, 
-                          :T__80 => 80, :T__81 => 81, :RULE => 7, :T__82 => 82, 
-                          :T__83 => 83, :ACTION_ESC => 64, :PARSER_GRAMMAR => 25, 
-                          :SRC => 54, :CHAR_RANGE => 14, :INT => 49, :EPSILON => 15, 
-                          :T__85 => 85, :T__84 => 84, :T__87 => 87, :T__86 => 86, 
-                          :T__89 => 89, :REWRITE => 39, :T__88 => 88, :WS => 66, 
-                          :T__71 => 71, :T__72 => 72, :COMBINED_GRAMMAR => 27, :T__70 => 70, 
-                          :LEXER => 6, :SL_COMMENT => 55, :TREE_GRAMMAR => 26, :T__76 => 76, 
-                          :CLOSURE => 10, :T__75 => 75, :PARSER => 5, :T__74 => 74, 
-                          :T__73 => 73, :T__79 => 79, :T__78 => 78, :T__77 => 77, 
-                          :T__68 => 68, :T__69 => 69, :T__67 => 67, :NESTED_ACTION => 63, 
-                          :ESC => 58, :FRAGMENT => 35, :ID => 20, :TREE_BEGIN => 36, 
-                          :AT => 40, :ML_COMMENT => 56, :ALT => 16, :SCOPE => 30, 
-                          :LABEL_ASSIGN => 41, :DOC_COMMENT => 4, :WS_LOOP => 65, 
-                          :RANGE => 13, :TOKENS => 43, :GATED_SEMPRED => 32, :LITERAL_CHAR => 57, 
-                          :BANG => 38, :LIST_LABEL_ASSIGN => 42, :ACTION_STRING_LITERAL => 61, 
-                          :ROOT => 37, :RULE_REF => 51, :SYNPRED => 12, :OPTIONAL => 9, 
-                          :CHAR_LITERAL => 46, :LABEL => 28, :TEMPLATE => 29, :SYN_SEMPRED => 33, 
-                          :XDIGIT => 59, :BLOCK => 8, :POSITIVE_CLOSURE => 11, :OPTIONS => 48)
+  module TokenData
 
+    # define the token constants
+    define_tokens( :BACKTRACK_SEMPRED => 34, :DOUBLE_ANGLE_STRING_LITERAL => 53, 
+                   :LEXER_GRAMMAR => 24, :EOA => 19, :ARGLIST => 22, :EOF => -1, 
+                   :SEMPRED => 31, :ACTION => 47, :EOB => 18, :TOKEN_REF => 44, 
+                   :T__93 => 93, :T__91 => 91, :RET => 23, :T__92 => 92, 
+                   :STRING_LITERAL => 45, :T__90 => 90, :ARG => 21, :EOR => 17, 
+                   :ARG_ACTION => 50, :DOUBLE_QUOTE_STRING_LITERAL => 52, 
+                   :NESTED_ARG_ACTION => 60, :ACTION_CHAR_LITERAL => 62, 
+                   :T__80 => 80, :T__81 => 81, :RULE => 7, :T__82 => 82, 
+                   :T__83 => 83, :ACTION_ESC => 64, :PARSER_GRAMMAR => 25, 
+                   :SRC => 54, :CHAR_RANGE => 14, :INT => 49, :EPSILON => 15, 
+                   :T__85 => 85, :T__84 => 84, :T__87 => 87, :T__86 => 86, 
+                   :T__89 => 89, :REWRITE => 39, :T__88 => 88, :WS => 66, 
+                   :T__71 => 71, :T__72 => 72, :COMBINED_GRAMMAR => 27, 
+                   :T__70 => 70, :LEXER => 6, :SL_COMMENT => 55, :TREE_GRAMMAR => 26, 
+                   :T__76 => 76, :CLOSURE => 10, :T__75 => 75, :PARSER => 5, 
+                   :T__74 => 74, :T__73 => 73, :T__79 => 79, :T__78 => 78, 
+                   :T__77 => 77, :T__68 => 68, :T__69 => 69, :T__67 => 67, 
+                   :NESTED_ACTION => 63, :ESC => 58, :FRAGMENT => 35, :ID => 20, 
+                   :TREE_BEGIN => 36, :AT => 40, :ML_COMMENT => 56, :ALT => 16, 
+                   :SCOPE => 30, :LABEL_ASSIGN => 41, :DOC_COMMENT => 4, 
+                   :WS_LOOP => 65, :RANGE => 13, :TOKENS => 43, :GATED_SEMPRED => 32, 
+                   :LITERAL_CHAR => 57, :BANG => 38, :LIST_LABEL_ASSIGN => 42, 
+                   :ACTION_STRING_LITERAL => 61, :ROOT => 37, :RULE_REF => 51, 
+                   :SYNPRED => 12, :OPTIONAL => 9, :CHAR_LITERAL => 46, 
+                   :LABEL => 28, :TEMPLATE => 29, :SYN_SEMPRED => 33, :XDIGIT => 59, 
+                   :BLOCK => 8, :POSITIVE_CLOSURE => 11, :OPTIONS => 48 )
 
-  # register the proper human-readable name or literal value
-  # for each token type
-  #
-  # this is necessary because anonymous tokens, which are
-  # created from literal values in the grammar, do not
-  # have descriptive names
-  TokenData.register_names("DOC_COMMENT", "PARSER", "LEXER", "RULE", "BLOCK", "OPTIONAL", 
-                           "CLOSURE", "POSITIVE_CLOSURE", "SYNPRED", "RANGE", "CHAR_RANGE", 
-                           "EPSILON", "ALT", "EOR", "EOB", "EOA", "ID", "ARG", "ARGLIST", 
-                           "RET", "LEXER_GRAMMAR", "PARSER_GRAMMAR", "TREE_GRAMMAR", 
-                           "COMBINED_GRAMMAR", "LABEL", "TEMPLATE", "SCOPE", "SEMPRED", 
-                           "GATED_SEMPRED", "SYN_SEMPRED", "BACKTRACK_SEMPRED", 
-                           "FRAGMENT", "TREE_BEGIN", "ROOT", "BANG", "REWRITE", 
-                           "AT", "LABEL_ASSIGN", "LIST_LABEL_ASSIGN", "TOKENS", 
-                           "TOKEN_REF", "STRING_LITERAL", "CHAR_LITERAL", "ACTION", 
-                           "OPTIONS", "INT", "ARG_ACTION", "RULE_REF", "DOUBLE_QUOTE_STRING_LITERAL", 
-                           "DOUBLE_ANGLE_STRING_LITERAL", "SRC", "SL_COMMENT", "ML_COMMENT", 
-                           "LITERAL_CHAR", "ESC", "XDIGIT", "NESTED_ARG_ACTION", 
-                           "ACTION_STRING_LITERAL", "ACTION_CHAR_LITERAL", "NESTED_ACTION", 
-                           "ACTION_ESC", "WS_LOOP", "WS", "'lexer'", "'parser'", 
-                           "'tree'", "'grammar'", "';'", "'}'", "'::'", "'*'", "'protected'", 
-                           "'public'", "'private'", "':'", "'throws'", "','", "'('", 
-                           "'|'", "')'", "'catch'", "'finally'", "'=>'", "'~'", 
-                           "'<'", "'>'", "'.'", "'?'", "'+'", "'$'")
+    # register the proper human-readable name or literal value
+    # for each token type
+    #
+    # this is necessary because anonymous tokens, which are
+    # created from literal values in the grammar, do not
+    # have descriptive names
+    register_names( "DOC_COMMENT", "PARSER", "LEXER", "RULE", "BLOCK", "OPTIONAL", 
+                    "CLOSURE", "POSITIVE_CLOSURE", "SYNPRED", "RANGE", "CHAR_RANGE", 
+                    "EPSILON", "ALT", "EOR", "EOB", "EOA", "ID", "ARG", 
+                    "ARGLIST", "RET", "LEXER_GRAMMAR", "PARSER_GRAMMAR", 
+                    "TREE_GRAMMAR", "COMBINED_GRAMMAR", "LABEL", "TEMPLATE", 
+                    "SCOPE", "SEMPRED", "GATED_SEMPRED", "SYN_SEMPRED", 
+                    "BACKTRACK_SEMPRED", "FRAGMENT", "TREE_BEGIN", "ROOT", 
+                    "BANG", "REWRITE", "AT", "LABEL_ASSIGN", "LIST_LABEL_ASSIGN", 
+                    "TOKENS", "TOKEN_REF", "STRING_LITERAL", "CHAR_LITERAL", 
+                    "ACTION", "OPTIONS", "INT", "ARG_ACTION", "RULE_REF", 
+                    "DOUBLE_QUOTE_STRING_LITERAL", "DOUBLE_ANGLE_STRING_LITERAL", 
+                    "SRC", "SL_COMMENT", "ML_COMMENT", "LITERAL_CHAR", "ESC", 
+                    "XDIGIT", "NESTED_ARG_ACTION", "ACTION_STRING_LITERAL", 
+                    "ACTION_CHAR_LITERAL", "NESTED_ACTION", "ACTION_ESC", 
+                    "WS_LOOP", "WS", "'lexer'", "'parser'", "'tree'", "'grammar'", 
+                    "';'", "'}'", "'::'", "'*'", "'protected'", "'public'", 
+                    "'private'", "':'", "'throws'", "','", "'('", "'|'", 
+                    "')'", "'catch'", "'finally'", "'=>'", "'~'", "'<'", 
+                    "'>'", "'.'", "'?'", "'+'", "'$'" )
+    
+  end
 
   class Lexer < ANTLR3::Lexer
     @grammar_home = ANTLRv3Grammar
-    
     include TokenData
 
     begin
-      generated_using('ANTLRv3Grammar.g', '3.2 Oct 17, 2009 11:23:44')
+      generated_using( "samples/ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
     rescue NoMethodError => error
-      error.name == :generated_using or raise
+      error.name.to_sym == :generated_using or raise
     end
     
     RULE_NAMES   = ["RET", "SCOPE", "FRAGMENT", "TREE_BEGIN", "ROOT", "BANG", 
@@ -184,14 +225,13 @@ module ANTLRv3Grammar
 
     
     def initialize(input=nil, options = {})
-      
       super(input, options)
 
     end
     
     # - - - - - - - - - - - lexer rules - - - - - - - - - - - -
     # lexer rule ret! (RET)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def ret!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 1)
@@ -215,7 +255,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule scope! (SCOPE)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def scope!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 2)
@@ -239,7 +279,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule fragment! (FRAGMENT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def fragment!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 3)
@@ -263,7 +303,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule tree_begin! (TREE_BEGIN)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def tree_begin!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 4)
@@ -287,7 +327,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule root! (ROOT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def root!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 5)
@@ -311,7 +351,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule bang! (BANG)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def bang!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 6)
@@ -335,7 +375,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule range! (RANGE)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def range!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 7)
@@ -359,7 +399,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule rewrite! (REWRITE)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def rewrite!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 8)
@@ -383,7 +423,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule at! (AT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def at!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 9)
@@ -407,7 +447,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule label_assign! (LABEL_ASSIGN)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def label_assign!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 10)
@@ -431,7 +471,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule list_label_assign! (LIST_LABEL_ASSIGN)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def list_label_assign!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 11)
@@ -455,7 +495,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__67! (T__67)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__67!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 12)
@@ -479,7 +519,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__68! (T__68)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__68!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 13)
@@ -503,7 +543,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__69! (T__69)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__69!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 14)
@@ -527,7 +567,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__70! (T__70)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__70!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 15)
@@ -551,7 +591,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__71! (T__71)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__71!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 16)
@@ -575,7 +615,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__72! (T__72)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__72!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 17)
@@ -599,7 +639,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__73! (T__73)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__73!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 18)
@@ -623,7 +663,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__74! (T__74)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__74!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 19)
@@ -647,7 +687,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__75! (T__75)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__75!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 20)
@@ -671,7 +711,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__76! (T__76)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__76!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 21)
@@ -695,7 +735,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__77! (T__77)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__77!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 22)
@@ -719,7 +759,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__78! (T__78)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__78!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 23)
@@ -743,7 +783,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__79! (T__79)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__79!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 24)
@@ -767,7 +807,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__80! (T__80)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__80!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 25)
@@ -791,7 +831,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__81! (T__81)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__81!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 26)
@@ -815,7 +855,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__82! (T__82)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__82!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 27)
@@ -839,7 +879,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__83! (T__83)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__83!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 28)
@@ -863,7 +903,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__84! (T__84)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__84!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 29)
@@ -887,7 +927,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__85! (T__85)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__85!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 30)
@@ -911,7 +951,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__86! (T__86)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__86!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 31)
@@ -935,7 +975,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__87! (T__87)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__87!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 32)
@@ -959,7 +999,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__88! (T__88)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__88!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 33)
@@ -983,7 +1023,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__89! (T__89)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__89!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 34)
@@ -1007,7 +1047,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__90! (T__90)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__90!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 35)
@@ -1031,7 +1071,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__91! (T__91)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__91!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 36)
@@ -1055,7 +1095,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__92! (T__92)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__92!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 37)
@@ -1079,7 +1119,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule t__93! (T__93)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def t__93!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 38)
@@ -1103,7 +1143,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule sl_comment! (SL_COMMENT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def sl_comment!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 39)
@@ -1127,7 +1167,7 @@ module ANTLRv3Grammar
       when 2
         # at line 472:6: (~ ( '\\r' | '\\n' ) )*
         # at line 472:6: (~ ( '\\r' | '\\n' ) )*
-        loop do  #loop 1
+        loop do # decision 1
           alt_1 = 2
           look_1_0 = @input.peek(1)
 
@@ -1149,9 +1189,9 @@ module ANTLRv3Grammar
 
 
           else
-            break #loop 1
+            break # out of loop for decision 1
           end
-        end
+        end # loop for decision 1
 
       end
       # at line 474:3: ( '\\r' )?
@@ -1183,7 +1223,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule ml_comment! (ML_COMMENT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def ml_comment!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 40)
@@ -1199,7 +1239,7 @@ module ANTLRv3Grammar
       if @input.peek(1) == ?* then type = DOC_COMMENT else channel = HIDDEN end 
       # <-- action
       # at line 478:88: ( . )*
-      loop do  #loop 4
+      loop do # decision 4
         alt_4 = 2
         look_4_0 = @input.peek(1)
 
@@ -1222,9 +1262,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 4
+          break # out of loop for decision 4
         end
-      end
+      end # loop for decision 4
       match("*/")
 
       
@@ -1238,7 +1278,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule char_literal! (CHAR_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def char_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 41)
@@ -1264,7 +1304,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule string_literal! (STRING_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def string_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 42)
@@ -1278,7 +1318,7 @@ module ANTLRv3Grammar
       match(?\')
       literal_char!
       # at line 486:22: ( LITERAL_CHAR )*
-      loop do  #loop 5
+      loop do # decision 5
         alt_5 = 2
         look_5_0 = @input.peek(1)
 
@@ -1292,9 +1332,9 @@ module ANTLRv3Grammar
           literal_char!
 
         else
-          break #loop 5
+          break # out of loop for decision 5
         end
-      end
+      end # loop for decision 5
       match(?\')
 
       
@@ -1308,7 +1348,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule literal_char! (LITERAL_CHAR)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def literal_char!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 43)
@@ -1352,7 +1392,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule double_quote_string_literal! (DOUBLE_QUOTE_STRING_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def double_quote_string_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 44)
@@ -1365,7 +1405,7 @@ module ANTLRv3Grammar
       # at line 496:4: '\"' ( ESC | ~ ( '\\\\' | '\"' ) )* '\"'
       match(?")
       # at line 496:8: ( ESC | ~ ( '\\\\' | '\"' ) )*
-      loop do  #loop 7
+      loop do # decision 7
         alt_7 = 3
         look_7_0 = @input.peek(1)
 
@@ -1393,9 +1433,9 @@ module ANTLRv3Grammar
 
 
         else
-          break #loop 7
+          break # out of loop for decision 7
         end
-      end
+      end # loop for decision 7
       match(?")
 
       
@@ -1409,7 +1449,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule double_angle_string_literal! (DOUBLE_ANGLE_STRING_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def double_angle_string_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 45)
@@ -1422,7 +1462,7 @@ module ANTLRv3Grammar
       # at line 500:4: '<<' ( . )* '>>'
       match("<<")
       # at line 500:9: ( . )*
-      loop do  #loop 8
+      loop do # decision 8
         alt_8 = 2
         look_8_0 = @input.peek(1)
 
@@ -1445,9 +1485,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 8
+          break # out of loop for decision 8
         end
-      end
+      end # loop for decision 8
       match(">>")
 
       
@@ -1461,7 +1501,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule esc! (ESC)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def esc!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 46)
@@ -1531,7 +1571,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule xdigit! (XDIGIT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def xdigit!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 47)
@@ -1556,7 +1596,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule int! (INT)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def int!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 48)
@@ -1604,7 +1644,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule arg_action! (ARG_ACTION)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def arg_action!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 49)
@@ -1628,7 +1668,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule nested_arg_action! (NESTED_ARG_ACTION)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def nested_arg_action!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 50)
@@ -1638,7 +1678,7 @@ module ANTLRv3Grammar
       # at line 535:2: '[' ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )* ']'
       match(?[)
       # at line 536:2: ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )*
-      loop do  #loop 11
+      loop do # decision 11
         alt_11 = 5
         look_11_0 = @input.peek(1)
 
@@ -1672,9 +1712,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 11
+          break # out of loop for decision 11
         end
-      end
+      end # loop for decision 11
       match(?])
 
     ensure
@@ -1684,7 +1724,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule action! (ACTION)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def action!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 51)
@@ -1724,7 +1764,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule nested_action! (NESTED_ACTION)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def nested_action!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 52)
@@ -1734,7 +1774,7 @@ module ANTLRv3Grammar
       # at line 552:2: '{' ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )* '}'
       match(?{)
       # at line 553:2: ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )*
-      loop do  #loop 13
+      loop do # decision 13
         alt_13 = 8
         alt_13 = @dfa13.predict(@input)
         case alt_13
@@ -1776,9 +1816,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 13
+          break # out of loop for decision 13
         end
-      end
+      end # loop for decision 13
       match(?})
 
     ensure
@@ -1788,7 +1828,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule action_char_literal! (ACTION_CHAR_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def action_char_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 53)
@@ -1798,7 +1838,7 @@ module ANTLRv3Grammar
       # at line 567:4: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
       match(?\')
       # at line 567:9: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
-      loop do  #loop 14
+      loop do # decision 14
         alt_14 = 3
         look_14_0 = @input.peek(1)
 
@@ -1827,9 +1867,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 14
+          break # out of loop for decision 14
         end
-      end
+      end # loop for decision 14
       match(?\')
 
     ensure
@@ -1839,7 +1879,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule action_string_literal! (ACTION_STRING_LITERAL)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def action_string_literal!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 54)
@@ -1849,7 +1889,7 @@ module ANTLRv3Grammar
       # at line 572:4: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
       match(?")
       # at line 572:8: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
-      loop do  #loop 15
+      loop do # decision 15
         alt_15 = 3
         look_15_0 = @input.peek(1)
 
@@ -1878,9 +1918,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 15
+          break # out of loop for decision 15
         end
-      end
+      end # loop for decision 15
       match(?")
 
     ensure
@@ -1890,7 +1930,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule action_esc! (ACTION_ESC)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def action_esc!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 55)
@@ -1908,7 +1948,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule token_ref! (TOKEN_REF)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def token_ref!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 56)
@@ -1921,7 +1961,7 @@ module ANTLRv3Grammar
       # at line 581:4: 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       match_range(?A, ?Z)
       # at line 581:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-      loop do  #loop 16
+      loop do # decision 16
         alt_16 = 2
         look_16_0 = @input.peek(1)
 
@@ -1943,9 +1983,9 @@ module ANTLRv3Grammar
 
 
         else
-          break #loop 16
+          break # out of loop for decision 16
         end
-      end
+      end # loop for decision 16
 
       
       @state.type = type
@@ -1958,7 +1998,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule rule_ref! (RULE_REF)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def rule_ref!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 57)
@@ -1971,7 +2011,7 @@ module ANTLRv3Grammar
       # at line 585:4: 'a' .. 'z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       match_range(?a, ?z)
       # at line 585:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-      loop do  #loop 17
+      loop do # decision 17
         alt_17 = 2
         look_17_0 = @input.peek(1)
 
@@ -1993,9 +2033,9 @@ module ANTLRv3Grammar
 
 
         else
-          break #loop 17
+          break # out of loop for decision 17
         end
-      end
+      end # loop for decision 17
 
       
       @state.type = type
@@ -2008,7 +2048,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule options! (OPTIONS)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def options!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 58)
@@ -2034,7 +2074,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule tokens! (TOKENS)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def tokens!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 59)
@@ -2060,7 +2100,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule src! (SRC)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def src!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 60)
@@ -2101,7 +2141,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule ws! (WS)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def ws!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 61)
@@ -2172,7 +2212,7 @@ module ANTLRv3Grammar
     end
 
     # lexer rule ws_loop! (WS_LOOP)
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     def ws_loop!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 62)
@@ -2181,7 +2221,7 @@ module ANTLRv3Grammar
       # - - - - main rule block - - - -
       # at line 616:4: ( WS | SL_COMMENT | ML_COMMENT )*
       # at line 616:4: ( WS | SL_COMMENT | ML_COMMENT )*
-      loop do  #loop 20
+      loop do # decision 20
         alt_20 = 4
         look_20_0 = @input.peek(1)
 
@@ -2212,9 +2252,9 @@ module ANTLRv3Grammar
           ml_comment!
 
         else
-          break #loop 20
+          break # out of loop for decision 20
         end
-      end
+      end # loop for decision 20
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
@@ -2489,6 +2529,12 @@ module ANTLRv3Grammar
         unpack()
       ].freeze
       
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
+      
       @decision = 2
       
 
@@ -2523,6 +2569,12 @@ module ANTLRv3Grammar
         unpack(),
         unpack()
       ].freeze
+      
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
       
       @decision = 9
       
@@ -2576,6 +2628,12 @@ module ANTLRv3Grammar
         unpack(),
         unpack()
       ].freeze
+      
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
       
       @decision = 13
       
@@ -2827,6 +2885,12 @@ module ANTLRv3Grammar
         unpack()
       ].freeze
       
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
+      
       @decision = 21
       
 
@@ -2845,7 +2909,7 @@ module ANTLRv3Grammar
       @dfa2 = DFA2.new(self, 2) do |s|
         case s
         when 0
-          look_2_13 = input.peek
+          look_2_13 = @input.peek
           s = -1
           if (look_2_13.between?(0x0000, ?!) || look_2_13.between?(?#, 0xFFFF))
             s = 2
@@ -2854,7 +2918,7 @@ module ANTLRv3Grammar
           end
 
         when 1
-          look_2_12 = input.peek
+          look_2_12 = @input.peek
           s = -1
           if (look_2_12 == ?\s)
             s = 13
@@ -2863,7 +2927,7 @@ module ANTLRv3Grammar
           end
 
         when 2
-          look_2_23 = input.peek
+          look_2_23 = @input.peek
           s = -1
           if (look_2_23 == ?\r)
             s = 15
@@ -2878,7 +2942,7 @@ module ANTLRv3Grammar
           end
 
         when 3
-          look_2_10 = input.peek
+          look_2_10 = @input.peek
           s = -1
           if (look_2_10 == ?r)
             s = 11
@@ -2887,7 +2951,7 @@ module ANTLRv3Grammar
           end
 
         when 4
-          look_2_11 = input.peek
+          look_2_11 = @input.peek
           s = -1
           if (look_2_11 == ?c)
             s = 12
@@ -2896,7 +2960,7 @@ module ANTLRv3Grammar
           end
 
         when 5
-          look_2_19 = input.peek
+          look_2_19 = @input.peek
           s = -1
           if (look_2_19 == ?\r)
             s = 15
@@ -2911,7 +2975,7 @@ module ANTLRv3Grammar
           end
 
         when 6
-          look_2_16 = input.peek
+          look_2_16 = @input.peek
           s = -1
           if (look_2_16 == ?\r)
             s = 21
@@ -2922,7 +2986,7 @@ module ANTLRv3Grammar
           end
 
         when 7
-          look_2_15 = input.peek
+          look_2_15 = @input.peek
           s = -1
           if (look_2_15 == ?\n)
             s = 18
@@ -2931,7 +2995,7 @@ module ANTLRv3Grammar
           end
 
         when 8
-          look_2_21 = input.peek
+          look_2_21 = @input.peek
           s = -1
           if (look_2_21 == ?\n)
             s = 18
@@ -2940,7 +3004,7 @@ module ANTLRv3Grammar
           end
 
         when 9
-          look_2_9 = input.peek
+          look_2_9 = @input.peek
           s = -1
           if (look_2_9 == ?s)
             s = 10
@@ -2949,7 +3013,7 @@ module ANTLRv3Grammar
           end
 
         when 10
-          look_2_17 = input.peek
+          look_2_17 = @input.peek
           s = -1
           if (look_2_17.between?(0x0000, 0x001F) || look_2_17.between?(?!, 0xFFFF))
             s = 2
@@ -2958,7 +3022,7 @@ module ANTLRv3Grammar
           end
 
         when 11
-          look_2_24 = input.peek
+          look_2_24 = @input.peek
           s = -1
           if (look_2_24.between?(0x0000, ?/) || look_2_24.between?(?:, 0xFFFF))
             s = 2
@@ -2967,7 +3031,7 @@ module ANTLRv3Grammar
           end
 
         when 12
-          look_2_0 = input.peek
+          look_2_0 = @input.peek
           s = -1
           if (look_2_0 == ?\s)
             s = 1
@@ -2976,7 +3040,7 @@ module ANTLRv3Grammar
           end
 
         when 13
-          look_2_22 = input.peek
+          look_2_22 = @input.peek
           s = -1
           if (look_2_22.between?(0x0000, 0xFFFF))
             s = 20
@@ -2985,7 +3049,7 @@ module ANTLRv3Grammar
           end
 
         when 14
-          look_2_3 = input.peek
+          look_2_3 = @input.peek
           s = -1
           if (look_2_3 == ?A)
             s = 4
@@ -2994,7 +3058,7 @@ module ANTLRv3Grammar
           end
 
         when 15
-          look_2_1 = input.peek
+          look_2_1 = @input.peek
           s = -1
           if (look_2_1 == ?$)
             s = 3
@@ -3003,7 +3067,7 @@ module ANTLRv3Grammar
           end
 
         when 16
-          look_2_5 = input.peek
+          look_2_5 = @input.peek
           s = -1
           if (look_2_5 == ?T)
             s = 6
@@ -3012,7 +3076,7 @@ module ANTLRv3Grammar
           end
 
         when 17
-          look_2_4 = input.peek
+          look_2_4 = @input.peek
           s = -1
           if (look_2_4 == ?N)
             s = 5
@@ -3021,7 +3085,7 @@ module ANTLRv3Grammar
           end
 
         when 18
-          look_2_14 = input.peek
+          look_2_14 = @input.peek
           s = -1
           if (look_2_14 == ?\r)
             s = 15
@@ -3036,7 +3100,7 @@ module ANTLRv3Grammar
           end
 
         when 19
-          look_2_18 = input.peek
+          look_2_18 = @input.peek
           s = -1
           if (look_2_18.between?(0x0000, 0xFFFF))
             s = 20
@@ -3045,7 +3109,7 @@ module ANTLRv3Grammar
           end
 
         when 20
-          look_2_7 = input.peek
+          look_2_7 = @input.peek
           s = -1
           if (look_2_7 == ?R)
             s = 8
@@ -3054,7 +3118,7 @@ module ANTLRv3Grammar
           end
 
         when 21
-          look_2_6 = input.peek
+          look_2_6 = @input.peek
           s = -1
           if (look_2_6 == ?L)
             s = 7
@@ -3063,7 +3127,7 @@ module ANTLRv3Grammar
           end
 
         when 22
-          look_2_8 = input.peek
+          look_2_8 = @input.peek
           s = -1
           if (look_2_8 == ?\s)
             s = 9
@@ -3084,7 +3148,7 @@ module ANTLRv3Grammar
       @dfa9 = DFA9.new(self, 9) do |s|
         case s
         when 0
-          look_9_0 = input.peek
+          look_9_0 = @input.peek
           s = -1
           if (look_9_0 == ?n)
             s = 1
@@ -3123,7 +3187,7 @@ module ANTLRv3Grammar
       @dfa13 = DFA13.new(self, 13) do |s|
         case s
         when 0
-          look_13_0 = input.peek
+          look_13_0 = @input.peek
           s = -1
           if (look_13_0 == ?})
             s = 1
@@ -3142,7 +3206,7 @@ module ANTLRv3Grammar
           end
 
         when 1
-          look_13_3 = input.peek
+          look_13_3 = @input.peek
           s = -1
           if (look_13_3 == ?/)
             s = 8
@@ -3153,7 +3217,7 @@ module ANTLRv3Grammar
           end
 
         when 2
-          look_13_4 = input.peek
+          look_13_4 = @input.peek
           s = -1
           if (look_13_4 == ?})
             s = 16
@@ -3172,7 +3236,7 @@ module ANTLRv3Grammar
           end
 
         when 3
-          look_13_5 = input.peek
+          look_13_5 = @input.peek
           s = -1
           if (look_13_5 == ?})
             s = 23
@@ -3203,7 +3267,7 @@ module ANTLRv3Grammar
       @dfa21 = DFA21.new(self, 21) do |s|
         case s
         when 0
-          look_21_67 = input.peek
+          look_21_67 = @input.peek
           s = -1
           if (look_21_67.between?(0x0000, ?&) || look_21_67.between?(?(, 0xFFFF))
             s = 94
@@ -3212,7 +3276,7 @@ module ANTLRv3Grammar
           end
 
         when 1
-          look_21_66 = input.peek
+          look_21_66 = @input.peek
           s = -1
           if (look_21_66 == ?n)
             s = 83
@@ -3239,7 +3303,7 @@ module ANTLRv3Grammar
           end
 
         when 2
-          look_21_155 = input.peek
+          look_21_155 = @input.peek
           s = -1
           if (look_21_155 == ?\')
             s = 95
@@ -3248,7 +3312,7 @@ module ANTLRv3Grammar
           end
 
         when 3
-          look_21_92 = input.peek
+          look_21_92 = @input.peek
           s = -1
           if (look_21_92.between?(?0, ?9) || look_21_92.between?(?A, ?F) || look_21_92.between?(?a, ?f))
             s = 111
@@ -3259,7 +3323,7 @@ module ANTLRv3Grammar
           end
 
         when 4
-          look_21_88 = input.peek
+          look_21_88 = @input.peek
           s = -1
           if (look_21_88 == ?\')
             s = 95
@@ -3268,7 +3332,7 @@ module ANTLRv3Grammar
           end
 
         when 5
-          look_21_89 = input.peek
+          look_21_89 = @input.peek
           s = -1
           if (look_21_89 == ?\')
             s = 95
@@ -3277,7 +3341,7 @@ module ANTLRv3Grammar
           end
 
         when 6
-          look_21_90 = input.peek
+          look_21_90 = @input.peek
           s = -1
           if (look_21_90.between?(0x0000, ?&) || look_21_90.between?(?(, 0xFFFF))
             s = 94
@@ -3286,7 +3350,7 @@ module ANTLRv3Grammar
           end
 
         when 7
-          look_21_91 = input.peek
+          look_21_91 = @input.peek
           s = -1
           if (look_21_91.between?(0x0000, ?&) || look_21_91.between?(?(, 0xFFFF))
             s = 94
@@ -3295,7 +3359,7 @@ module ANTLRv3Grammar
           end
 
         when 8
-          look_21_93 = input.peek
+          look_21_93 = @input.peek
           s = -1
           if (look_21_93 == ?\')
             s = 95
@@ -3304,7 +3368,7 @@ module ANTLRv3Grammar
           end
 
         when 9
-          look_21_30 = input.peek
+          look_21_30 = @input.peek
           s = -1
           if (look_21_30 == ?\\)
             s = 66
@@ -3313,7 +3377,7 @@ module ANTLRv3Grammar
           end
 
         when 10
-          look_21_83 = input.peek
+          look_21_83 = @input.peek
           s = -1
           if (look_21_83.between?(0x0000, ?&) || look_21_83.between?(?(, 0xFFFF))
             s = 94
@@ -3322,7 +3386,7 @@ module ANTLRv3Grammar
           end
 
         when 11
-          look_21_85 = input.peek
+          look_21_85 = @input.peek
           s = -1
           if (look_21_85.between?(0x0000, ?&) || look_21_85.between?(?(, 0xFFFF))
             s = 94
@@ -3331,7 +3395,7 @@ module ANTLRv3Grammar
           end
 
         when 12
-          look_21_111 = input.peek
+          look_21_111 = @input.peek
           s = -1
           if (look_21_111.between?(0x0000, ?/) || look_21_111.between?(?:, ?@) || look_21_111.between?(?G, ?`) || look_21_111.between?(?g, 0xFFFF))
             s = 94
@@ -3340,7 +3404,7 @@ module ANTLRv3Grammar
           end
 
         when 13
-          look_21_84 = input.peek
+          look_21_84 = @input.peek
           s = -1
           if (look_21_84 == ?\')
             s = 95
@@ -3349,7 +3413,7 @@ module ANTLRv3Grammar
           end
 
         when 14
-          look_21_128 = input.peek
+          look_21_128 = @input.peek
           s = -1
           if (look_21_128.between?(0x0000, ?/) || look_21_128.between?(?:, ?@) || look_21_128.between?(?G, ?`) || look_21_128.between?(?g, 0xFFFF))
             s = 94
@@ -3358,7 +3422,7 @@ module ANTLRv3Grammar
           end
 
         when 15
-          look_21_87 = input.peek
+          look_21_87 = @input.peek
           s = -1
           if (look_21_87 == ?\')
             s = 95
@@ -3367,7 +3431,7 @@ module ANTLRv3Grammar
           end
 
         when 16
-          look_21_143 = input.peek
+          look_21_143 = @input.peek
           s = -1
           if (look_21_143.between?(0x0000, ?/) || look_21_143.between?(?:, ?@) || look_21_143.between?(?G, ?`) || look_21_143.between?(?g, 0xFFFF))
             s = 94
@@ -3376,7 +3440,7 @@ module ANTLRv3Grammar
           end
 
         when 17
-          look_21_86 = input.peek
+          look_21_86 = @input.peek
           s = -1
           if (look_21_86 == ?\')
             s = 95
@@ -3402,29 +3466,29 @@ module ANTLRv3Grammar
     @grammar_home = ANTLRv3Grammar
     include ANTLR3::ASTBuilder
 
-    RULE_METHODS = [:grammar_def, :tokens_spec, :token_spec, :attr_scope, 
-                    :action, :action_scope_name, :options_spec, :option, 
-                    :option_value, :rule, :rule_action, :throws_spec, :rule_scope_spec, 
-                    :block, :altpair, :alt_list, :alternative, :exception_group, 
-                    :exception_handler, :finally_clause, :element, :atom, 
-                    :not_set, :not_terminal, :element_options, :element_option, 
-                    :tree_spec, :range, :terminal, :ebnf, :ebnf_suffix, 
-                    :rewrite, :rewrite_alternative, :rewrite_tree_block, 
-                    :rewrite_tree_alternative, :rewrite_tree_element, :rewrite_tree_atom, 
-                    :rewrite_tree_ebnf, :rewrite_tree, :rewrite_template, 
-                    :rewrite_template_ref, :rewrite_indirect_template_head, 
-                    :rewrite_template_args, :rewrite_template_arg, :qid, 
-                    :id, :synpred1_ANTLRv3Grammar, :synpred2_ANTLRv3Grammar].freeze
+    RULE_METHODS = [ :grammar_def, :tokens_spec, :token_spec, :attr_scope, 
+                     :action, :action_scope_name, :options_spec, :option, 
+                     :option_value, :rule, :rule_action, :throws_spec, :rule_scope_spec, 
+                     :block, :altpair, :alt_list, :alternative, :exception_group, 
+                     :exception_handler, :finally_clause, :element, :atom, 
+                     :not_set, :not_terminal, :element_options, :element_option, 
+                     :tree_spec, :range, :terminal, :ebnf, :ebnf_suffix, 
+                     :rewrite, :rewrite_alternative, :rewrite_tree_block, 
+                     :rewrite_tree_alternative, :rewrite_tree_element, :rewrite_tree_atom, 
+                     :rewrite_tree_ebnf, :rewrite_tree, :rewrite_template, 
+                     :rewrite_template_ref, :rewrite_indirect_template_head, 
+                     :rewrite_template_args, :rewrite_template_arg, :qid, 
+                     :id, :synpred1_ANTLRv3Grammar, :synpred2_ANTLRv3Grammar ].freeze
 
     Scoperule = Struct.new(:name)
 
 
     include TokenData
 
-    generated_using("ANTLRv3Grammar.g", "3.2 Oct 17, 2009 11:23:44")
+    generated_using( "samples/ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
 
-    def initialize(input, options = {})
-      super(input, options)
+    def initialize( input, options = {} )
+      super( input, options )
       @rule_stack = []
 
 
@@ -3435,10 +3499,12 @@ module ANTLRv3Grammar
     # - - - - - - - - - - - - Rules - - - - - - - - - - - - -
     GrammarDefReturnValue = define_return_scope 
 
+    # 
     # parser rule grammar_def
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 94:1: grammar_def : ( DOC_COMMENT )? ( 'lexer' | 'parser' | 'tree' | ) g= 'grammar' id ';' ( options_spec )? ( tokens_spec )? ( attr_scope )* ( action )* ( rule )+ EOF -> ^( id ( DOC_COMMENT )? ( options_spec )? ( tokens_spec )? ( attr_scope )* ( action )* ( rule )+ ) ;
+    # 
     def grammar_def
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 1)
@@ -3614,7 +3680,7 @@ module ANTLRv3Grammar
 
         end
         # at line 101:52: ( attr_scope )*
-        loop do  #loop 5
+        loop do # decision 5
           alt_5 = 2
           look_5_0 = @input.peek(1)
 
@@ -3633,11 +3699,11 @@ module ANTLRv3Grammar
             end
 
           else
-            break #loop 5
+            break # out of loop for decision 5
           end
-        end
+        end # loop for decision 5
         # at line 101:64: ( action )*
-        loop do  #loop 6
+        loop do # decision 6
           alt_6 = 2
           look_6_0 = @input.peek(1)
 
@@ -3656,9 +3722,9 @@ module ANTLRv3Grammar
             end
 
           else
-            break #loop 6
+            break # out of loop for decision 6
           end
-        end
+        end # loop for decision 6
         # at file 102:6: ( rule )+
         match_count_7 = 0
         loop do
@@ -3792,10 +3858,12 @@ module ANTLRv3Grammar
 
     TokensSpecReturnValue = define_return_scope 
 
+    # 
     # parser rule tokens_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 109:1: tokens_spec : TOKENS ( token_spec )+ '}' -> ^( TOKENS ( token_spec )+ ) ;
+    # 
     def tokens_spec
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 2)
@@ -3917,10 +3985,12 @@ module ANTLRv3Grammar
 
     TokenSpecReturnValue = define_return_scope 
 
+    # 
     # parser rule token_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 113:1: token_spec : TOKEN_REF ( '=' (lit= STRING_LITERAL | lit= CHAR_LITERAL ) -> ^( '=' TOKEN_REF $lit) | -> TOKEN_REF ) ';' ;
+    # 
     def token_spec
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 3)
@@ -4082,10 +4152,12 @@ module ANTLRv3Grammar
 
     AttrScopeReturnValue = define_return_scope 
 
+    # 
     # parser rule attr_scope
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 121:1: attr_scope : 'scope' id ACTION -> ^( 'scope' id ACTION ) ;
+    # 
     def attr_scope
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 4)
@@ -4172,10 +4244,12 @@ module ANTLRv3Grammar
 
     ActionReturnValue = define_return_scope 
 
+    # 
     # parser rule action
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 125:1: action : '@' ( action_scope_name '::' )? id ACTION -> ^( '@' ( action_scope_name )? id ACTION ) ;
+    # 
     def action
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 5)
@@ -4304,10 +4378,12 @@ module ANTLRv3Grammar
 
     ActionScopeNameReturnValue = define_return_scope 
 
+    # 
     # parser rule action_scope_name
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 130:1: action_scope_name : ( id | l= 'lexer' -> ID[$l] | p= 'parser' -> ID[$p] );
+    # 
     def action_scope_name
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 6)
@@ -4431,10 +4507,12 @@ module ANTLRv3Grammar
 
     OptionsSpecReturnValue = define_return_scope 
 
+    # 
     # parser rule options_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 139:1: options_spec : OPTIONS ( option ';' )+ '}' -> ^( OPTIONS ( option )+ ) ;
+    # 
     def options_spec
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 7)
@@ -4563,10 +4641,12 @@ module ANTLRv3Grammar
 
     OptionReturnValue = define_return_scope 
 
+    # 
     # parser rule option
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 143:1: option : id '=' option_value -> ^( '=' id option_value ) ;
+    # 
     def option
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 8)
@@ -4654,10 +4734,12 @@ module ANTLRv3Grammar
 
     OptionValueReturnValue = define_return_scope 
 
+    # 
     # parser rule option_value
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 147:1: option_value : ( qid | STRING_LITERAL | CHAR_LITERAL | INT | s= '*' -> STRING_LITERAL[$s] );
+    # 
     def option_value
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 9)
@@ -4798,10 +4880,12 @@ module ANTLRv3Grammar
 
     RuleReturnValue = define_return_scope 
 
+    # 
     # parser rule rule
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 155:1: rule : ( DOC_COMMENT )? (modifier= ( 'protected' | 'public' | 'private' | 'fragment' ) )? id ( '!' )? (arg= ARG_ACTION )? ( 'returns' rt= ARG_ACTION )? ( throws_spec )? ( options_spec )? ( rule_scope_spec )? ( rule_action )* ':' alt_list ';' ( exception_group )? -> ^( RULE id ( ^( ARG[$arg] $arg) )? ( ^( 'returns' $rt) )? ( throws_spec )? ( options_spec )? ( rule_scope_spec )? ( rule_action )* alt_list ( exception_group )? EOR[\"EOR\"] ) ;
+    # 
     def rule
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 10)
@@ -5053,7 +5137,7 @@ module ANTLRv3Grammar
 
         end
         # at line 165:47: ( rule_action )*
-        loop do  #loop 24
+        loop do # decision 24
           alt_24 = 2
           look_24_0 = @input.peek(1)
 
@@ -5072,9 +5156,9 @@ module ANTLRv3Grammar
             end
 
           else
-            break #loop 24
+            break # out of loop for decision 24
           end
-        end
+        end # loop for decision 24
         char_literal51 = match(T__78, TOKENS_FOLLOWING_T__78_IN_rule_865) 
         if @state.backtracking == 0
           stream_T__78.add(char_literal51)
@@ -5226,10 +5310,12 @@ module ANTLRv3Grammar
 
     RuleActionReturnValue = define_return_scope 
 
+    # 
     # parser rule rule_action
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 176:1: rule_action : '@' id ACTION -> ^( '@' id ACTION ) ;
+    # 
     def rule_action
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 11)
@@ -5316,10 +5402,12 @@ module ANTLRv3Grammar
 
     ThrowsSpecReturnValue = define_return_scope 
 
+    # 
     # parser rule throws_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 181:1: throws_spec : 'throws' id ( ',' id )* -> ^( 'throws' ( id )+ ) ;
+    # 
     def throws_spec
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 12)
@@ -5352,7 +5440,7 @@ module ANTLRv3Grammar
           stream_id.add(id59.tree)
         end
         # at line 182:16: ( ',' id )*
-        loop do  #loop 26
+        loop do # decision 26
           alt_26 = 2
           look_26_0 = @input.peek(1)
 
@@ -5375,9 +5463,9 @@ module ANTLRv3Grammar
             end
 
           else
-            break #loop 26
+            break # out of loop for decision 26
           end
-        end
+        end # loop for decision 26
         # AST Rewrite
         # elements: T__79, id
         # token labels: 
@@ -5439,10 +5527,12 @@ module ANTLRv3Grammar
 
     RuleScopeSpecReturnValue = define_return_scope 
 
+    # 
     # parser rule rule_scope_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 185:1: rule_scope_spec : ( 'scope' ACTION -> ^( 'scope' ACTION ) | 'scope' id ( ',' id )* ';' -> ^( 'scope' ( id )+ ) | 'scope' ACTION 'scope' id ( ',' id )* ';' -> ^( 'scope' ACTION ( id )+ ) );
+    # 
     def rule_scope_spec
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 13)
@@ -5565,7 +5655,7 @@ module ANTLRv3Grammar
             stream_id.add(id65.tree)
           end
           # at line 187:15: ( ',' id )*
-          loop do  #loop 27
+          loop do # decision 27
             alt_27 = 2
             look_27_0 = @input.peek(1)
 
@@ -5588,9 +5678,9 @@ module ANTLRv3Grammar
               end
 
             else
-              break #loop 27
+              break # out of loop for decision 27
             end
-          end
+          end # loop for decision 27
           char_literal68 = match(T__71, TOKENS_FOLLOWING_T__71_IN_rule_scope_spec_1061) 
           if @state.backtracking == 0
             stream_T__71.add(char_literal68)
@@ -5653,7 +5743,7 @@ module ANTLRv3Grammar
             stream_id.add(id72.tree)
           end
           # at line 189:14: ( ',' id )*
-          loop do  #loop 28
+          loop do # decision 28
             alt_28 = 2
             look_28_0 = @input.peek(1)
 
@@ -5676,9 +5766,9 @@ module ANTLRv3Grammar
               end
 
             else
-              break #loop 28
+              break # out of loop for decision 28
             end
-          end
+          end # loop for decision 28
           char_literal75 = match(T__71, TOKENS_FOLLOWING_T__71_IN_rule_scope_spec_1092) 
           if @state.backtracking == 0
             stream_T__71.add(char_literal75)
@@ -5746,10 +5836,12 @@ module ANTLRv3Grammar
 
     BlockReturnValue = define_return_scope 
 
+    # 
     # parser rule block
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 193:1: block : lp= '(' ( (opts= options_spec )? ':' )? altpair ( '|' altpair )* rp= ')' -> ^( BLOCK[$lp,\"BLOCK\"] ( options_spec )? ( altpair )+ EOB[$rp,\"EOB\"] ) ;
+    # 
     def block
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 14)
@@ -5824,7 +5916,7 @@ module ANTLRv3Grammar
           stream_altpair.add(altpair77.tree)
         end
         # at line 196:11: ( '|' altpair )*
-        loop do  #loop 32
+        loop do # decision 32
           alt_32 = 2
           look_32_0 = @input.peek(1)
 
@@ -5847,9 +5939,9 @@ module ANTLRv3Grammar
             end
 
           else
-            break #loop 32
+            break # out of loop for decision 32
           end
-        end
+        end # loop for decision 32
         rp = match(T__83, TOKENS_FOLLOWING_T__83_IN_block_1165) 
         if @state.backtracking == 0
           stream_T__83.add(rp)
@@ -5923,10 +6015,12 @@ module ANTLRv3Grammar
 
     AltpairReturnValue = define_return_scope 
 
+    # 
     # parser rule altpair
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 201:1: altpair : alternative rewrite ;
+    # 
     def altpair
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 15)
@@ -5982,10 +6076,12 @@ module ANTLRv3Grammar
 
     AltListReturnValue = define_return_scope 
 
+    # 
     # parser rule alt_list
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 203:1: alt_list : altpair ( '|' altpair )* -> ^( ( altpair )+ EOB[\"eob\"] ) ;
+    # 
     def alt_list
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 16)
@@ -6015,7 +6111,7 @@ module ANTLRv3Grammar
           stream_altpair.add(altpair82.tree)
         end
         # at line 207:17: ( '|' altpair )*
-        loop do  #loop 33
+        loop do # decision 33
           alt_33 = 2
           look_33_0 = @input.peek(1)
 
@@ -6038,9 +6134,9 @@ module ANTLRv3Grammar
             end
 
           else
-            break #loop 33
+            break # out of loop for decision 33
           end
-        end
+        end # loop for decision 33
         # AST Rewrite
         # elements: altpair
         # token labels: 
@@ -6103,10 +6199,12 @@ module ANTLRv3Grammar
 
     AlternativeReturnValue = define_return_scope 
 
+    # 
     # parser rule alternative
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 210:1: alternative : ( ( element )+ -> ^( ALT[first_token,\"ALT\"] ( element )+ EOA[\"EOA\"] ) | -> ^( ALT[prev_token,\"ALT\"] EPSILON[prev_token,\"EPSILON\"] EOA[\"EOA\"] ) );
+    # 
     def alternative
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 17)
@@ -6266,10 +6364,12 @@ module ANTLRv3Grammar
 
     ExceptionGroupReturnValue = define_return_scope 
 
+    # 
     # parser rule exception_group
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 219:1: exception_group : ( ( exception_handler )+ ( finally_clause )? | finally_clause );
+    # 
     def exception_group
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 18)
@@ -6392,10 +6492,12 @@ module ANTLRv3Grammar
 
     ExceptionHandlerReturnValue = define_return_scope 
 
+    # 
     # parser rule exception_handler
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 224:1: exception_handler : 'catch' ARG_ACTION ACTION -> ^( 'catch' ARG_ACTION ACTION ) ;
+    # 
     def exception_handler
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 19)
@@ -6482,10 +6584,12 @@ module ANTLRv3Grammar
 
     FinallyClauseReturnValue = define_return_scope 
 
+    # 
     # parser rule finally_clause
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 228:1: finally_clause : 'finally' ACTION -> ^( 'finally' ACTION ) ;
+    # 
     def finally_clause
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 20)
@@ -6564,10 +6668,12 @@ module ANTLRv3Grammar
 
     ElementReturnValue = define_return_scope 
 
+    # 
     # parser rule element
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 232:1: element : ( id (labelOp= '=' | labelOp= '+=' ) atom ( ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] ^( $labelOp id atom ) EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | -> ^( $labelOp id atom ) ) | id (labelOp= '=' | labelOp= '+=' ) block ( ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] ^( $labelOp id block ) EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | -> ^( $labelOp id block ) ) | atom ( ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] atom EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | -> atom ) | ebnf | ACTION | SEMPRED (g= '=>' -> GATED_SEMPRED[$g] | -> SEMPRED ) | tree_spec ( ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] tree_spec EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | -> tree_spec ) );
+    # 
     def element
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 21)
@@ -7219,10 +7325,12 @@ module ANTLRv3Grammar
 
     AtomReturnValue = define_return_scope 
 
+    # 
     # parser rule atom
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 254:1: atom : ( terminal | range ( (op= '^' | op= '!' ) -> ^( $op range ) | -> range ) | not_set ( (op= '^' | op= '!' ) -> ^( $op not_set ) | -> not_set ) | RULE_REF ( ARG_ACTION )? ( (op= '^' | op= '!' ) -> ^( $op RULE_REF ( ARG_ACTION )? ) | -> ^( RULE_REF ( ARG_ACTION )? ) ) );
+    # 
     def atom
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 22)
@@ -7661,10 +7769,12 @@ module ANTLRv3Grammar
 
     NotSetReturnValue = define_return_scope 
 
+    # 
     # parser rule not_set
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 269:1: not_set : '~' ( not_terminal ( element_options )? -> ^( '~' not_terminal ( element_options )? ) | block ( element_options )? -> ^( '~' block ( element_options )? ) ) ;
+    # 
     def not_set
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 23)
@@ -7851,10 +7961,12 @@ module ANTLRv3Grammar
 
     NotTerminalReturnValue = define_return_scope 
 
+    # 
     # parser rule not_terminal
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 276:1: not_terminal : ( CHAR_LITERAL | TOKEN_REF | STRING_LITERAL );
+    # 
     def not_terminal
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 24)
@@ -7913,10 +8025,12 @@ module ANTLRv3Grammar
 
     ElementOptionsReturnValue = define_return_scope 
 
+    # 
     # parser rule element_options
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 282:1: element_options : ( '<' qid '>' -> ^( OPTIONS qid ) | '<' option ( ';' option )* '>' -> ^( OPTIONS ( option )+ ) );
+    # 
     def element_options
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 25)
@@ -8044,7 +8158,7 @@ module ANTLRv3Grammar
             stream_option.add(option122.tree)
           end
           # at line 284:15: ( ';' option )*
-          loop do  #loop 58
+          loop do # decision 58
             alt_58 = 2
             look_58_0 = @input.peek(1)
 
@@ -8067,9 +8181,9 @@ module ANTLRv3Grammar
               end
 
             else
-              break #loop 58
+              break # out of loop for decision 58
             end
-          end
+          end # loop for decision 58
           char_literal125 = match(T__89, TOKENS_FOLLOWING_T__89_IN_element_options_1982) 
           if @state.backtracking == 0
             stream_T__89.add(char_literal125)
@@ -8136,10 +8250,12 @@ module ANTLRv3Grammar
 
     ElementOptionReturnValue = define_return_scope 
 
+    # 
     # parser rule element_option
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 287:1: element_option : id '=' option_value -> ^( '=' id option_value ) ;
+    # 
     def element_option
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 26)
@@ -8227,10 +8343,12 @@ module ANTLRv3Grammar
 
     TreeSpecReturnValue = define_return_scope 
 
+    # 
     # parser rule tree_spec
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 291:1: tree_spec : '^(' element ( element )+ ')' -> ^( TREE_BEGIN ( element )+ ) ;
+    # 
     def tree_spec
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 27)
@@ -8359,10 +8477,12 @@ module ANTLRv3Grammar
 
     RangeReturnValue = define_return_scope 
 
+    # 
     # parser rule range
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 295:1: range : c1= CHAR_LITERAL RANGE c2= CHAR_LITERAL ( element_options )? -> ^( CHAR_RANGE[$c1,\"..\"] $c1 $c2 ( element_options )? ) ;
+    # 
     def range
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 28)
@@ -8476,10 +8596,12 @@ module ANTLRv3Grammar
 
     TerminalReturnValue = define_return_scope 
 
+    # 
     # parser rule terminal
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 300:1: terminal : ( CHAR_LITERAL ( element_options )? -> ^( CHAR_LITERAL ( element_options )? ) | TOKEN_REF ( ARG_ACTION )? ( element_options )? -> ^( TOKEN_REF ( ARG_ACTION )? ( element_options )? ) | STRING_LITERAL ( element_options )? -> ^( STRING_LITERAL ( element_options )? ) | '.' ( element_options )? -> ^( '.' ( element_options )? ) ) ( '^' -> ^( '^' $terminal) | '!' -> ^( '!' $terminal) )? ;
+    # 
     def terminal
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 29)
@@ -8886,10 +9008,12 @@ module ANTLRv3Grammar
 
     EbnfReturnValue = define_return_scope 
 
+    # 
     # parser rule ebnf
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 312:1: ebnf : block (op= '?' -> ^( OPTIONAL[$op] block ) | op= '*' -> ^( CLOSURE[$op] block ) | op= '+' -> ^( POSITIVE_CLOSURE[$op] block ) | '=>' -> { \n @grammar_type == COMBINED_GRAMMAR && $rule::name[0].between?(?A, ?Z)\n }? ^( SYNPRED[\"=>\"] block ) -> SYN_SEMPRED | -> block ) ;
+    # 
     def ebnf
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 30)
@@ -9132,10 +9256,12 @@ module ANTLRv3Grammar
 
     EbnfSuffixReturnValue = define_return_scope 
 
+    # 
     # parser rule ebnf_suffix
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 335:1: ebnf_suffix : ( '?' -> OPTIONAL[op] | '*' -> CLOSURE[op] | '+' -> POSITIVE_CLOSURE[op] );
+    # 
     def ebnf_suffix
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 31)
@@ -9280,10 +9406,12 @@ module ANTLRv3Grammar
 
     RewriteReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 348:1: rewrite : ( (rew+= '->' preds+= SEMPRED predicated+= rewrite_alternative )* rew2= '->' last= rewrite_alternative -> ( ^( $rew $preds $predicated) )* ^( $rew2 $last) | );
+    # 
     def rewrite
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 32)
@@ -9331,7 +9459,7 @@ module ANTLRv3Grammar
         when 1
           # at line 352:4: (rew+= '->' preds+= SEMPRED predicated+= rewrite_alternative )* rew2= '->' last= rewrite_alternative
           # at line 352:4: (rew+= '->' preds+= SEMPRED predicated+= rewrite_alternative )*
-          loop do  #loop 71
+          loop do # decision 71
             alt_71 = 2
             look_71_0 = @input.peek(1)
 
@@ -9369,9 +9497,9 @@ module ANTLRv3Grammar
 
 
             else
-              break #loop 71
+              break # out of loop for decision 71
             end
-          end
+          end # loop for decision 71
           rew2 = match(REWRITE, TOKENS_FOLLOWING_REWRITE_IN_rewrite_2496) 
           if @state.backtracking == 0
             stream_REWRITE.add(rew2)
@@ -9460,10 +9588,12 @@ module ANTLRv3Grammar
 
     RewriteAlternativeReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_alternative
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 358:1: rewrite_alternative options {backtrack=true; } : ( rewrite_template | rewrite_tree_alternative | -> ^( ALT[\"ALT\"] EPSILON[\"EPSILON\"] EOA[\"EOA\"] ) );
+    # 
     def rewrite_alternative
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 33)
@@ -9561,10 +9691,12 @@ module ANTLRv3Grammar
 
     RewriteTreeBlockReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_tree_block
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 365:1: rewrite_tree_block : lp= '(' rewrite_tree_alternative ')' -> ^( BLOCK[$lp,\"BLOCK\"] rewrite_tree_alternative EOB[$lp,\"EOB\"] ) ;
+    # 
     def rewrite_tree_block
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 34)
@@ -9651,10 +9783,12 @@ module ANTLRv3Grammar
 
     RewriteTreeAlternativeReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_tree_alternative
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 370:1: rewrite_tree_alternative : ( rewrite_tree_element )+ -> ^( ALT[\"ALT\"] ( rewrite_tree_element )+ EOA[\"EOA\"] ) ;
+    # 
     def rewrite_tree_alternative
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 35)
@@ -9763,10 +9897,12 @@ module ANTLRv3Grammar
 
     RewriteTreeElementReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_tree_element
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 374:1: rewrite_tree_element : ( rewrite_tree_atom | rewrite_tree_atom ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] rewrite_tree_atom EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | rewrite_tree ( ebnf_suffix -> ^( ebnf_suffix ^( BLOCK[\"BLOCK\"] ^( ALT[\"ALT\"] rewrite_tree EOA[\"EOA\"] ) EOB[\"EOB\"] ) ) | -> rewrite_tree ) | rewrite_tree_ebnf );
+    # 
     def rewrite_tree_element
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 36)
@@ -9991,10 +10127,12 @@ module ANTLRv3Grammar
 
     RewriteTreeAtomReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_tree_atom
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 386:1: rewrite_tree_atom : ( CHAR_LITERAL | TOKEN_REF ( ARG_ACTION )? -> ^( TOKEN_REF ( ARG_ACTION )? ) | RULE_REF | STRING_LITERAL | d= '$' id -> LABEL[$d,$id.text] | ACTION );
+    # 
     def rewrite_tree_atom
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 37)
@@ -10206,10 +10344,12 @@ module ANTLRv3Grammar
 
     RewriteTreeEbnfReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_tree_ebnf
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 395:1: rewrite_tree_ebnf : rewrite_tree_block ebnf_suffix -> ^( ebnf_suffix rewrite_tree_block ) ;
+    # 
     def rewrite_tree_ebnf
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 38)
@@ -10301,10 +10441,12 @@ module ANTLRv3Grammar
 
     RewriteTreeReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_tree
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 406:1: rewrite_tree : '^(' rewrite_tree_atom ( rewrite_tree_element )* ')' -> ^( TREE_BEGIN rewrite_tree_atom ( rewrite_tree_element )* ) ;
+    # 
     def rewrite_tree
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 39)
@@ -10338,7 +10480,7 @@ module ANTLRv3Grammar
           stream_rewrite_tree_atom.add(rewrite_tree_atom172.tree)
         end
         # at line 407:27: ( rewrite_tree_element )*
-        loop do  #loop 79
+        loop do # decision 79
           alt_79 = 2
           look_79_0 = @input.peek(1)
 
@@ -10357,9 +10499,9 @@ module ANTLRv3Grammar
             end
 
           else
-            break #loop 79
+            break # out of loop for decision 79
           end
-        end
+        end # loop for decision 79
         char_literal174 = match(T__83, TOKENS_FOLLOWING_T__83_IN_rewrite_tree_2878) 
         if @state.backtracking == 0
           stream_T__83.add(char_literal174)
@@ -10422,10 +10564,12 @@ module ANTLRv3Grammar
 
     RewriteTemplateReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_template
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 411:1: rewrite_template : ( id lp= '(' rewrite_template_args ')' (str= DOUBLE_QUOTE_STRING_LITERAL | str= DOUBLE_ANGLE_STRING_LITERAL ) -> ^( TEMPLATE[$lp,\"TEMPLATE\"] id rewrite_template_args $str) | rewrite_template_ref | rewrite_indirect_template_head | ACTION );
+    # 
     def rewrite_template
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 40)
@@ -10602,10 +10746,12 @@ module ANTLRv3Grammar
 
     RewriteTemplateRefReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_template_ref
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 438:1: rewrite_template_ref : id lp= '(' rewrite_template_args ')' -> ^( TEMPLATE[$lp,\"TEMPLATE\"] id rewrite_template_args ) ;
+    # 
     def rewrite_template_ref
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 41)
@@ -10700,10 +10846,12 @@ module ANTLRv3Grammar
 
     RewriteIndirectTemplateHeadReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_indirect_template_head
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 444:1: rewrite_indirect_template_head : lp= '(' ACTION ')' '(' rewrite_template_args ')' -> ^( TEMPLATE[$lp,\"TEMPLATE\"] ACTION rewrite_template_args ) ;
+    # 
     def rewrite_indirect_template_head
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 42)
@@ -10809,10 +10957,12 @@ module ANTLRv3Grammar
 
     RewriteTemplateArgsReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_template_args
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 450:1: rewrite_template_args : ( rewrite_template_arg ( ',' rewrite_template_arg )* -> ^( ARGLIST ( rewrite_template_arg )+ ) | -> ARGLIST );
+    # 
     def rewrite_template_args
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 43)
@@ -10853,7 +11003,7 @@ module ANTLRv3Grammar
             stream_rewrite_template_arg.add(rewrite_template_arg189.tree)
           end
           # at line 451:25: ( ',' rewrite_template_arg )*
-          loop do  #loop 82
+          loop do # decision 82
             alt_82 = 2
             look_82_0 = @input.peek(1)
 
@@ -10876,9 +11026,9 @@ module ANTLRv3Grammar
               end
 
             else
-              break #loop 82
+              break # out of loop for decision 82
             end
-          end
+          end # loop for decision 82
           # AST Rewrite
           # elements: rewrite_template_arg
           # token labels: 
@@ -10964,10 +11114,12 @@ module ANTLRv3Grammar
 
     RewriteTemplateArgReturnValue = define_return_scope 
 
+    # 
     # parser rule rewrite_template_arg
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 456:1: rewrite_template_arg : id '=' ACTION -> ^( ARG[$id.start] id ACTION ) ;
+    # 
     def rewrite_template_arg
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 44)
@@ -11054,10 +11206,12 @@ module ANTLRv3Grammar
 
     QidReturnValue = define_return_scope 
 
+    # 
     # parser rule qid
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 460:1: qid : id ( '.' id )* ;
+    # 
     def qid
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 45)
@@ -11085,7 +11239,7 @@ module ANTLRv3Grammar
           @adaptor.add_child(root_0, id195.tree)
         end
         # at line 460:10: ( '.' id )*
-        loop do  #loop 84
+        loop do # decision 84
           alt_84 = 2
           look_84_0 = @input.peek(1)
 
@@ -11111,9 +11265,9 @@ module ANTLRv3Grammar
             end
 
           else
-            break #loop 84
+            break # out of loop for decision 84
           end
-        end
+        end # loop for decision 84
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -11139,10 +11293,12 @@ module ANTLRv3Grammar
 
     IdReturnValue = define_return_scope 
 
+    # 
     # parser rule id
     # 
-    # (in ANTLRv3Grammar.g)
+    # (in samples/ANTLRv3Grammar.g)
     # 462:1: id : ( TOKEN_REF -> ID[$TOKEN_REF] | RULE_REF -> ID[$RULE_REF] );
+    # 
     def id
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 46)
@@ -11252,10 +11408,15 @@ module ANTLRv3Grammar
       return return_value
     end
 
-    # parser rule synpred_1_antl_rv_3_grammar! (synpred1_ANTLRv3Grammar)
     # 
-    # (in ANTLRv3Grammar.g)
+    # syntactic predicate synpred_1_antl_rv_3_grammar!
+    # 
+    # (in samples/ANTLRv3Grammar.g)
     # 360:4: synpred1_ANTLRv3Grammar : rewrite_template ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_1_antl_rv_3_grammar!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 47)
@@ -11270,10 +11431,15 @@ module ANTLRv3Grammar
       # trace_out(__method__, 47)
 
     end
-    # parser rule synpred_2_antl_rv_3_grammar! (synpred2_ANTLRv3Grammar)
     # 
-    # (in ANTLRv3Grammar.g)
+    # syntactic predicate synpred_2_antl_rv_3_grammar!
+    # 
+    # (in samples/ANTLRv3Grammar.g)
     # 361:4: synpred2_ANTLRv3Grammar : rewrite_tree_alternative ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_2_antl_rv_3_grammar!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 48)
@@ -11321,6 +11487,12 @@ module ANTLRv3Grammar
         unpack()
       ].freeze
       
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
+      
       @decision = 46
       
 
@@ -11360,6 +11532,12 @@ module ANTLRv3Grammar
                 5, 6, -1, 1, 5, 1, -1, 1, 5, 7, -1, 3, 5),
         unpack(1, 5, 6, -1, 1, 9, 9, -1, 2, 5)
       ].freeze
+      
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
       
       @decision = 73
       
@@ -11404,6 +11582,12 @@ module ANTLRv3Grammar
                 1, 10, 2, -1, 1, 9, 6, -1, 3, 10, 7, -1, 2, 9, 1, 10)
       ].freeze
       
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
+      
       @decision = 76
       
 
@@ -11443,6 +11627,12 @@ module ANTLRv3Grammar
         unpack(1, 13, 2, -1, 1, 8)
       ].freeze
       
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
+      
       @decision = 81
       
 
@@ -11462,9 +11652,9 @@ module ANTLRv3Grammar
       @dfa73 = DFA73.new(self, 73) do |s|
         case s
         when 0
-          look_73_4 = input.peek
-          index_73_4 = input.index
-          input.rewind
+          look_73_4 = @input.peek
+          index_73_4 = @input.index
+          @input.rewind(@input.last_marker, false)
           s = -1
           if (syntactic_predicate?(:synpred_1_antl_rv_3_grammar!))
             s = 9
@@ -11472,7 +11662,7 @@ module ANTLRv3Grammar
             s = 5
           end
            
-          input.seek(index_73_4)
+          @input.seek(index_73_4)
 
         end
         
@@ -11730,6 +11920,6 @@ module ANTLRv3Grammar
     TOKENS_FOLLOWING_rewrite_template_IN_synpred1_ANTLRv3Grammar_2551 = Set[1]
     TOKENS_FOLLOWING_rewrite_tree_alternative_IN_synpred2_ANTLRv3Grammar_2556 = Set[1]
 
-  end
+  end # class Parser < ANTLR3::Parser
 
 end

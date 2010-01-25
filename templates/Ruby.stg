@@ -339,7 +339,7 @@ rescue <e.decl>
 >>
 
 closureBlockLoop() ::= <<
-loop do # decision <decisionNumber>
+while true # decision <decisionNumber>
   alt_<decisionNumber> = <maxAlt>
   <@decisionBody><decision><@end>
   case alt_<decisionNumber>
@@ -381,7 +381,7 @@ parameterScope(scope) ::= <<
 
 positiveClosureBlockLoop() ::= <<
 match_count_<decisionNumber> = 0
-loop do
+while true
   alt_<decisionNumber> = <maxAlt>
   <@decisionBody><decision><@end>
   case alt_<decisionNumber>
@@ -1503,4 +1503,4 @@ placeAction(scope, name) ::= <<
 <endif>
 >>
 
-runtimeLibraryVersion() ::= "1.4.0"
+runtimeLibraryVersion() ::= "1.5.0"

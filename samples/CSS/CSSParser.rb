@@ -3,9 +3,9 @@
 # samples/CSS.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.3.0
+# Ruby runtime library version: 1.4.0
 # Input grammar file: samples/CSS.g
-# Generated at: 2010-01-07 07:34:03
+# Generated at: 2010-01-25 13:58:23
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.3.0):
+Failed to load the ANTLR3 runtime library (version 1.4.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -30,7 +30,7 @@ Current load path:
   END
 end
 
-defined?(ANTLR3) or begin
+defined?( ANTLR3 ) or begin
   
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
@@ -38,7 +38,7 @@ defined?(ANTLR3) or begin
 rescue LoadError
   
   # 2: try to load rubygems if it isn't already loaded
-  defined?(Gem) or begin
+  defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.3.0' )
+    Gem.activate( 'antlr3', '= 1.4.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -66,20 +66,20 @@ module CSS
   module TokenData
 
     # define the token constants
-    define_tokens(:FUNCTION => 6, :UNICODE_RANGE => 34, :MEDIA_LIST => 17, 
-                  :ID => 22, :EOF => -1, :LENGTH => 9, :T__55 => 55, :T__56 => 56, 
-                  :TIME => 11, :T__57 => 57, :UNDER => 16, :T__51 => 51, 
-                  :SELECTOR => 18, :T__52 => 52, :ESCAPE => 28, :T__53 => 53, 
-                  :T__54 => 54, :HEX => 33, :ELEMENT => 15, :DIMENSION => 5, 
-                  :FREQ => 10, :AT_KEYWORD => 31, :COMMENT => 26, :T__50 => 50, 
-                  :T__42 => 42, :T__43 => 43, :T__40 => 40, :T__41 => 41, 
-                  :T__46 => 46, :T__47 => 47, :T__44 => 44, :ANGLE => 8, 
-                  :RULE => 14, :T__45 => 45, :T__48 => 48, :T__49 => 49, 
-                  :NUMBER => 25, :HASH => 23, :S => 32, :INVALID => 7, :PERCENTAGE => 4, 
-                  :IMPORTANT => 24, :URI => 21, :WS => 19, :NEWLINE => 27, 
-                  :T__35 => 35, :T__36 => 36, :T__37 => 37, :T__38 => 38, 
-                  :EMS => 12, :T__39 => 39, :EXS => 13, :PLAIN_ID => 29, 
-                  :NONASCII => 30, :STRING => 20)
+    define_tokens( :FUNCTION => 6, :UNICODE_RANGE => 34, :MEDIA_LIST => 17, 
+                   :ID => 22, :EOF => -1, :LENGTH => 9, :T__55 => 55, :T__56 => 56, 
+                   :TIME => 11, :T__57 => 57, :UNDER => 16, :T__51 => 51, 
+                   :SELECTOR => 18, :T__52 => 52, :ESCAPE => 28, :T__53 => 53, 
+                   :T__54 => 54, :HEX => 33, :ELEMENT => 15, :DIMENSION => 5, 
+                   :FREQ => 10, :AT_KEYWORD => 31, :COMMENT => 26, :T__50 => 50, 
+                   :T__42 => 42, :T__43 => 43, :T__40 => 40, :T__41 => 41, 
+                   :T__46 => 46, :T__47 => 47, :T__44 => 44, :ANGLE => 8, 
+                   :RULE => 14, :T__45 => 45, :T__48 => 48, :T__49 => 49, 
+                   :NUMBER => 25, :HASH => 23, :S => 32, :INVALID => 7, 
+                   :PERCENTAGE => 4, :IMPORTANT => 24, :URI => 21, :WS => 19, 
+                   :NEWLINE => 27, :T__35 => 35, :T__36 => 36, :T__37 => 37, 
+                   :T__38 => 38, :EMS => 12, :T__39 => 39, :EXS => 13, :PLAIN_ID => 29, 
+                   :NONASCII => 30, :STRING => 20 )
 
     # register the proper human-readable name or literal value
     # for each token type
@@ -87,15 +87,15 @@ module CSS
     # this is necessary because anonymous tokens, which are
     # created from literal values in the grammar, do not
     # have descriptive names
-    register_names("PERCENTAGE", "DIMENSION", "FUNCTION", "INVALID", "ANGLE", 
-                   "LENGTH", "FREQ", "TIME", "EMS", "EXS", "RULE", "ELEMENT", 
-                   "UNDER", "MEDIA_LIST", "SELECTOR", "WS", "STRING", "URI", 
-                   "ID", "HASH", "IMPORTANT", "NUMBER", "COMMENT", "NEWLINE", 
-                   "ESCAPE", "PLAIN_ID", "NONASCII", "AT_KEYWORD", "S", 
-                   "HEX", "UNICODE_RANGE", "'<!--'", "'-->'", "'@charset'", 
-                   "';'", "'@import'", "'@media'", "'{'", "'}'", "','", 
-                   "'@page'", "':'", "'+'", "'>'", "'*'", "'.'", "'['", 
-                   "']'", "')'", "'='", "'~='", "'|='", "'/'", "'-'")
+    register_names( "PERCENTAGE", "DIMENSION", "FUNCTION", "INVALID", "ANGLE", 
+                    "LENGTH", "FREQ", "TIME", "EMS", "EXS", "RULE", "ELEMENT", 
+                    "UNDER", "MEDIA_LIST", "SELECTOR", "WS", "STRING", "URI", 
+                    "ID", "HASH", "IMPORTANT", "NUMBER", "COMMENT", "NEWLINE", 
+                    "ESCAPE", "PLAIN_ID", "NONASCII", "AT_KEYWORD", "S", 
+                    "HEX", "UNICODE_RANGE", "'<!--'", "'-->'", "'@charset'", 
+                    "';'", "'@import'", "'@media'", "'{'", "'}'", "','", 
+                    "'@page'", "':'", "'+'", "'>'", "'*'", "'.'", "'['", 
+                    "']'", "')'", "'='", "'~='", "'|='", "'/'", "'-'" )
     
   end
 
@@ -104,28 +104,30 @@ module CSS
     @grammar_home = CSS
     include ANTLR3::ASTBuilder
 
-    RULE_METHODS = [:stylesheet, :charset, :import_statement, :media, :media_list, 
-                    :page, :rule, :selector, :relational_selector, :simple_selector, 
-                    :element, :modifier, :match_attribute, :declaration, 
-                    :expr, :term].freeze
+    RULE_METHODS = [ :stylesheet, :charset, :import_statement, :media, :media_list, 
+                     :page, :rule, :selector, :relational_selector, :simple_selector, 
+                     :element, :modifier, :match_attribute, :declaration, 
+                     :expr, :term ].freeze
 
 
     include TokenData
 
-    generated_using( "samples/CSS.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+    generated_using( "samples/CSS.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
 
-    def initialize(input, options = {})
-      super(input, options)
+    def initialize( input, options = {} )
+      super( input, options )
 
 
     end
     # - - - - - - - - - - - - Rules - - - - - - - - - - - - -
     StylesheetReturnValue = define_return_scope 
 
+    # 
     # parser rule stylesheet
     # 
     # (in samples/CSS.g)
     # 15:1: stylesheet : ( charset )? ( WS | '<!--' | '-->' )* ( import_statement ( '<!--' ( WS )* | '-->' ( WS )* )* )* ( ( rule | media | page ) ( '<!--' ( WS )* | '-->' ( WS )* )* )* ;
+    # 
     def stylesheet
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 1)
@@ -186,7 +188,7 @@ module CSS
 
         end
         # at line 17:5: ( WS | '<!--' | '-->' )*
-        loop do  #loop 2
+        loop do # decision 2
           alt_2 = 4
           case look_2 = @input.peek(1)
           when WS then alt_2 = 1
@@ -207,11 +209,11 @@ module CSS
             string_literal4 = match(T__36, TOKENS_FOLLOWING_T__36_IN_stylesheet_112)
 
           else
-            break #loop 2
+            break # out of loop for decision 2
           end
-        end
+        end # loop for decision 2
         # at line 18:5: ( import_statement ( '<!--' ( WS )* | '-->' ( WS )* )* )*
-        loop do  #loop 6
+        loop do # decision 6
           alt_6 = 2
           look_6_0 = @input.peek(1)
 
@@ -227,7 +229,7 @@ module CSS
             @state.following.pop
             @adaptor.add_child(root_0, import_statement5.tree)
             # at line 18:24: ( '<!--' ( WS )* | '-->' ( WS )* )*
-            loop do  #loop 5
+            loop do # decision 5
               alt_5 = 3
               look_5_0 = @input.peek(1)
 
@@ -242,7 +244,7 @@ module CSS
                 # at line 18:26: '<!--' ( WS )*
                 string_literal6 = match(T__35, TOKENS_FOLLOWING_T__35_IN_stylesheet_128)
                 # at line 18:36: ( WS )*
-                loop do  #loop 3
+                loop do # decision 3
                   alt_3 = 2
                   look_3_0 = @input.peek(1)
 
@@ -256,15 +258,15 @@ module CSS
                     __WS7__ = match(WS, TOKENS_FOLLOWING_WS_IN_stylesheet_131)
 
                   else
-                    break #loop 3
+                    break # out of loop for decision 3
                   end
-                end
+                end # loop for decision 3
 
               when 2
                 # at line 18:41: '-->' ( WS )*
                 string_literal8 = match(T__36, TOKENS_FOLLOWING_T__36_IN_stylesheet_137)
                 # at line 18:50: ( WS )*
-                loop do  #loop 4
+                loop do # decision 4
                   alt_4 = 2
                   look_4_0 = @input.peek(1)
 
@@ -278,21 +280,21 @@ module CSS
                     __WS9__ = match(WS, TOKENS_FOLLOWING_WS_IN_stylesheet_140)
 
                   else
-                    break #loop 4
+                    break # out of loop for decision 4
                   end
-                end
+                end # loop for decision 4
 
               else
-                break #loop 5
+                break # out of loop for decision 5
               end
-            end
+            end # loop for decision 5
 
           else
-            break #loop 6
+            break # out of loop for decision 6
           end
-        end
+        end # loop for decision 6
         # at line 19:5: ( ( rule | media | page ) ( '<!--' ( WS )* | '-->' ( WS )* )* )*
-        loop do  #loop 11
+        loop do # decision 11
           alt_11 = 2
           look_11_0 = @input.peek(1)
 
@@ -337,7 +339,7 @@ module CSS
 
             end
             # at line 19:31: ( '<!--' ( WS )* | '-->' ( WS )* )*
-            loop do  #loop 10
+            loop do # decision 10
               alt_10 = 3
               look_10_0 = @input.peek(1)
 
@@ -352,7 +354,7 @@ module CSS
                 # at line 19:33: '<!--' ( WS )*
                 string_literal13 = match(T__35, TOKENS_FOLLOWING_T__35_IN_stylesheet_172)
                 # at line 19:43: ( WS )*
-                loop do  #loop 8
+                loop do # decision 8
                   alt_8 = 2
                   look_8_0 = @input.peek(1)
 
@@ -366,15 +368,15 @@ module CSS
                     __WS14__ = match(WS, TOKENS_FOLLOWING_WS_IN_stylesheet_175)
 
                   else
-                    break #loop 8
+                    break # out of loop for decision 8
                   end
-                end
+                end # loop for decision 8
 
               when 2
                 # at line 19:48: '-->' ( WS )*
                 string_literal15 = match(T__36, TOKENS_FOLLOWING_T__36_IN_stylesheet_181)
                 # at line 19:57: ( WS )*
-                loop do  #loop 9
+                loop do # decision 9
                   alt_9 = 2
                   look_9_0 = @input.peek(1)
 
@@ -388,19 +390,19 @@ module CSS
                     __WS16__ = match(WS, TOKENS_FOLLOWING_WS_IN_stylesheet_184)
 
                   else
-                    break #loop 9
+                    break # out of loop for decision 9
                   end
-                end
+                end # loop for decision 9
 
               else
-                break #loop 10
+                break # out of loop for decision 10
               end
-            end
+            end # loop for decision 10
 
           else
-            break #loop 11
+            break # out of loop for decision 11
           end
-        end
+        end # loop for decision 11
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -424,10 +426,12 @@ module CSS
 
     CharsetReturnValue = define_return_scope 
 
+    # 
     # parser rule charset
     # 
     # (in samples/CSS.g)
     # 22:1: charset : '@charset' STRING ';' ;
+    # 
     def charset
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 2)
@@ -484,10 +488,12 @@ module CSS
 
     ImportStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule import_statement
     # 
     # (in samples/CSS.g)
     # 26:1: import_statement : '@import' ( WS )* ( STRING | URI ) ( WS )* ( media_list )? ';' ( WS )* ;
+    # 
     def import_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 3)
@@ -523,7 +529,7 @@ module CSS
         root_0 = @adaptor.become_root(tree_for_string_literal20, root_0)
 
         # at line 27:18: ( WS )*
-        loop do  #loop 12
+        loop do # decision 12
           alt_12 = 2
           look_12_0 = @input.peek(1)
 
@@ -537,9 +543,9 @@ module CSS
             __WS21__ = match(WS, TOKENS_FOLLOWING_WS_IN_import_statement_227)
 
           else
-            break #loop 12
+            break # out of loop for decision 12
           end
-        end
+        end # loop for decision 12
         set22 = @input.look
         if @input.peek(1).between?(STRING, URI)
           @input.consume
@@ -552,7 +558,7 @@ module CSS
 
 
         # at line 27:40: ( WS )*
-        loop do  #loop 13
+        loop do # decision 13
           alt_13 = 2
           look_13_0 = @input.peek(1)
 
@@ -566,9 +572,9 @@ module CSS
             __WS23__ = match(WS, TOKENS_FOLLOWING_WS_IN_import_statement_241)
 
           else
-            break #loop 13
+            break # out of loop for decision 13
           end
-        end
+        end # loop for decision 13
         # at line 27:43: ( media_list )?
         alt_14 = 2
         look_14_0 = @input.peek(1)
@@ -587,7 +593,7 @@ module CSS
         end
         char_literal25 = match(T__38, TOKENS_FOLLOWING_T__38_IN_import_statement_248)
         # at line 27:62: ( WS )*
-        loop do  #loop 15
+        loop do # decision 15
           alt_15 = 2
           look_15_0 = @input.peek(1)
 
@@ -601,9 +607,9 @@ module CSS
             __WS26__ = match(WS, TOKENS_FOLLOWING_WS_IN_import_statement_251)
 
           else
-            break #loop 15
+            break # out of loop for decision 15
           end
-        end
+        end # loop for decision 15
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -627,10 +633,12 @@ module CSS
 
     MediaReturnValue = define_return_scope 
 
+    # 
     # parser rule media
     # 
     # (in samples/CSS.g)
     # 30:1: media : '@media' ( WS )* media_list '{' ( WS )* ( rule )* '}' ( WS )* ;
+    # 
     def media
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 4)
@@ -667,7 +675,7 @@ module CSS
         root_0 = @adaptor.become_root(tree_for_string_literal27, root_0)
 
         # at line 31:17: ( WS )*
-        loop do  #loop 16
+        loop do # decision 16
           alt_16 = 2
           look_16_0 = @input.peek(1)
 
@@ -681,16 +689,16 @@ module CSS
             __WS28__ = match(WS, TOKENS_FOLLOWING_WS_IN_media_269)
 
           else
-            break #loop 16
+            break # out of loop for decision 16
           end
-        end
+        end # loop for decision 16
         @state.following.push(TOKENS_FOLLOWING_media_list_IN_media_273)
         media_list29 = media_list
         @state.following.pop
         @adaptor.add_child(root_0, media_list29.tree)
         char_literal30 = match(T__41, TOKENS_FOLLOWING_T__41_IN_media_275)
         # at line 31:38: ( WS )*
-        loop do  #loop 17
+        loop do # decision 17
           alt_17 = 2
           look_17_0 = @input.peek(1)
 
@@ -704,11 +712,11 @@ module CSS
             __WS31__ = match(WS, TOKENS_FOLLOWING_WS_IN_media_278)
 
           else
-            break #loop 17
+            break # out of loop for decision 17
           end
-        end
+        end # loop for decision 17
         # at line 31:41: ( rule )*
-        loop do  #loop 18
+        loop do # decision 18
           alt_18 = 2
           look_18_0 = @input.peek(1)
 
@@ -725,12 +733,12 @@ module CSS
             @adaptor.add_child(root_0, rule32.tree)
 
           else
-            break #loop 18
+            break # out of loop for decision 18
           end
-        end
+        end # loop for decision 18
         char_literal33 = match(T__42, TOKENS_FOLLOWING_T__42_IN_media_285)
         # at line 31:54: ( WS )*
-        loop do  #loop 19
+        loop do # decision 19
           alt_19 = 2
           look_19_0 = @input.peek(1)
 
@@ -744,9 +752,9 @@ module CSS
             __WS34__ = match(WS, TOKENS_FOLLOWING_WS_IN_media_288)
 
           else
-            break #loop 19
+            break # out of loop for decision 19
           end
-        end
+        end # loop for decision 19
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -770,10 +778,12 @@ module CSS
 
     MediaListReturnValue = define_return_scope 
 
+    # 
     # parser rule media_list
     # 
     # (in samples/CSS.g)
     # 34:1: media_list : ID ( WS )* ( ',' ( WS )* ID ( WS )* )* -> ^( MEDIA_LIST ( ID )+ ) ;
+    # 
     def media_list
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 5)
@@ -805,7 +815,7 @@ module CSS
         __ID35__ = match(ID, TOKENS_FOLLOWING_ID_IN_media_list_303) 
         stream_ID.add(__ID35__)
         # at line 35:8: ( WS )*
-        loop do  #loop 20
+        loop do # decision 20
           alt_20 = 2
           look_20_0 = @input.peek(1)
 
@@ -820,11 +830,11 @@ module CSS
             stream_WS.add(__WS36__)
 
           else
-            break #loop 20
+            break # out of loop for decision 20
           end
-        end
+        end # loop for decision 20
         # at line 35:12: ( ',' ( WS )* ID ( WS )* )*
-        loop do  #loop 23
+        loop do # decision 23
           alt_23 = 2
           look_23_0 = @input.peek(1)
 
@@ -838,7 +848,7 @@ module CSS
             char_literal37 = match(T__43, TOKENS_FOLLOWING_T__43_IN_media_list_310) 
             stream_T__43.add(char_literal37)
             # at line 35:18: ( WS )*
-            loop do  #loop 21
+            loop do # decision 21
               alt_21 = 2
               look_21_0 = @input.peek(1)
 
@@ -853,13 +863,13 @@ module CSS
                 stream_WS.add(__WS38__)
 
               else
-                break #loop 21
+                break # out of loop for decision 21
               end
-            end
+            end # loop for decision 21
             __ID39__ = match(ID, TOKENS_FOLLOWING_ID_IN_media_list_315) 
             stream_ID.add(__ID39__)
             # at line 35:25: ( WS )*
-            loop do  #loop 22
+            loop do # decision 22
               alt_22 = 2
               look_22_0 = @input.peek(1)
 
@@ -874,14 +884,14 @@ module CSS
                 stream_WS.add(__WS40__)
 
               else
-                break #loop 22
+                break # out of loop for decision 22
               end
-            end
+            end # loop for decision 22
 
           else
-            break #loop 23
+            break # out of loop for decision 23
           end
-        end
+        end # loop for decision 23
         # AST Rewrite
         # elements: ID
         # token labels: 
@@ -939,10 +949,12 @@ module CSS
 
     PageReturnValue = define_return_scope 
 
+    # 
     # parser rule page
     # 
     # (in samples/CSS.g)
     # 38:1: page : '@page' ( WS )* ( ':' ID ( WS )* )? '{' ( WS )* ( declaration )? ( ';' ( WS )* ( declaration )? )* '}' ( WS )* -> ^( '@page' ( ID )? ( declaration )* ) ;
+    # 
     def page
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 6)
@@ -990,7 +1002,7 @@ module CSS
         string_literal41 = match(T__44, TOKENS_FOLLOWING_T__44_IN_page_345) 
         stream_T__44.add(string_literal41)
         # at line 39:13: ( WS )*
-        loop do  #loop 24
+        loop do # decision 24
           alt_24 = 2
           look_24_0 = @input.peek(1)
 
@@ -1005,9 +1017,9 @@ module CSS
             stream_WS.add(__WS42__)
 
           else
-            break #loop 24
+            break # out of loop for decision 24
           end
-        end
+        end # loop for decision 24
         # at line 39:17: ( ':' ID ( WS )* )?
         alt_26 = 2
         look_26_0 = @input.peek(1)
@@ -1023,7 +1035,7 @@ module CSS
           __ID44__ = match(ID, TOKENS_FOLLOWING_ID_IN_page_354) 
           stream_ID.add(__ID44__)
           # at line 39:26: ( WS )*
-          loop do  #loop 25
+          loop do # decision 25
             alt_25 = 2
             look_25_0 = @input.peek(1)
 
@@ -1038,15 +1050,15 @@ module CSS
               stream_WS.add(__WS45__)
 
             else
-              break #loop 25
+              break # out of loop for decision 25
             end
-          end
+          end # loop for decision 25
 
         end
         char_literal46 = match(T__41, TOKENS_FOLLOWING_T__41_IN_page_366) 
         stream_T__41.add(char_literal46)
         # at line 40:9: ( WS )*
-        loop do  #loop 27
+        loop do # decision 27
           alt_27 = 2
           look_27_0 = @input.peek(1)
 
@@ -1061,9 +1073,9 @@ module CSS
             stream_WS.add(__WS47__)
 
           else
-            break #loop 27
+            break # out of loop for decision 27
           end
-        end
+        end # loop for decision 27
         # at line 40:13: ( declaration )?
         alt_28 = 2
         look_28_0 = @input.peek(1)
@@ -1081,7 +1093,7 @@ module CSS
 
         end
         # at line 40:26: ( ';' ( WS )* ( declaration )? )*
-        loop do  #loop 31
+        loop do # decision 31
           alt_31 = 2
           look_31_0 = @input.peek(1)
 
@@ -1095,7 +1107,7 @@ module CSS
             char_literal49 = match(T__38, TOKENS_FOLLOWING_T__38_IN_page_376) 
             stream_T__38.add(char_literal49)
             # at line 40:32: ( WS )*
-            loop do  #loop 29
+            loop do # decision 29
               alt_29 = 2
               look_29_0 = @input.peek(1)
 
@@ -1110,9 +1122,9 @@ module CSS
                 stream_WS.add(__WS50__)
 
               else
-                break #loop 29
+                break # out of loop for decision 29
               end
-            end
+            end # loop for decision 29
             # at line 40:36: ( declaration )?
             alt_30 = 2
             look_30_0 = @input.peek(1)
@@ -1131,13 +1143,13 @@ module CSS
             end
 
           else
-            break #loop 31
+            break # out of loop for decision 31
           end
-        end
+        end # loop for decision 31
         char_literal52 = match(T__42, TOKENS_FOLLOWING_T__42_IN_page_387) 
         stream_T__42.add(char_literal52)
         # at line 40:56: ( WS )*
-        loop do  #loop 32
+        loop do # decision 32
           alt_32 = 2
           look_32_0 = @input.peek(1)
 
@@ -1152,9 +1164,9 @@ module CSS
             stream_WS.add(__WS53__)
 
           else
-            break #loop 32
+            break # out of loop for decision 32
           end
-        end
+        end # loop for decision 32
         # AST Rewrite
         # elements: declaration, ID, T__44
         # token labels: 
@@ -1215,10 +1227,12 @@ module CSS
 
     RuleReturnValue = define_return_scope 
 
+    # 
     # parser rule rule
     # 
     # (in samples/CSS.g)
     # 44:1: rule : selector ( WS )* '{' ( WS )* ( declaration )? ( ';' ( WS )* ( declaration )? )* '}' ( WS )* -> ^( RULE selector ( ^( declaration ) )* ) ;
+    # 
     def rule
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 7)
@@ -1259,7 +1273,7 @@ module CSS
         @state.following.pop
         stream_selector.add(selector54.tree)
         # at line 45:14: ( WS )*
-        loop do  #loop 33
+        loop do # decision 33
           alt_33 = 2
           look_33_0 = @input.peek(1)
 
@@ -1274,13 +1288,13 @@ module CSS
             stream_WS.add(__WS55__)
 
           else
-            break #loop 33
+            break # out of loop for decision 33
           end
-        end
+        end # loop for decision 33
         char_literal56 = match(T__41, TOKENS_FOLLOWING_T__41_IN_rule_428) 
         stream_T__41.add(char_literal56)
         # at line 46:9: ( WS )*
-        loop do  #loop 34
+        loop do # decision 34
           alt_34 = 2
           look_34_0 = @input.peek(1)
 
@@ -1295,9 +1309,9 @@ module CSS
             stream_WS.add(__WS57__)
 
           else
-            break #loop 34
+            break # out of loop for decision 34
           end
-        end
+        end # loop for decision 34
         # at line 46:13: ( declaration )?
         alt_35 = 2
         look_35_0 = @input.peek(1)
@@ -1315,7 +1329,7 @@ module CSS
 
         end
         # at line 46:26: ( ';' ( WS )* ( declaration )? )*
-        loop do  #loop 38
+        loop do # decision 38
           alt_38 = 2
           look_38_0 = @input.peek(1)
 
@@ -1329,7 +1343,7 @@ module CSS
             char_literal59 = match(T__38, TOKENS_FOLLOWING_T__38_IN_rule_438) 
             stream_T__38.add(char_literal59)
             # at line 46:32: ( WS )*
-            loop do  #loop 36
+            loop do # decision 36
               alt_36 = 2
               look_36_0 = @input.peek(1)
 
@@ -1344,9 +1358,9 @@ module CSS
                 stream_WS.add(__WS60__)
 
               else
-                break #loop 36
+                break # out of loop for decision 36
               end
-            end
+            end # loop for decision 36
             # at line 46:36: ( declaration )?
             alt_37 = 2
             look_37_0 = @input.peek(1)
@@ -1365,13 +1379,13 @@ module CSS
             end
 
           else
-            break #loop 38
+            break # out of loop for decision 38
           end
-        end
+        end # loop for decision 38
         char_literal62 = match(T__42, TOKENS_FOLLOWING_T__42_IN_rule_449) 
         stream_T__42.add(char_literal62)
         # at line 46:56: ( WS )*
-        loop do  #loop 39
+        loop do # decision 39
           alt_39 = 2
           look_39_0 = @input.peek(1)
 
@@ -1386,9 +1400,9 @@ module CSS
             stream_WS.add(__WS63__)
 
           else
-            break #loop 39
+            break # out of loop for decision 39
           end
-        end
+        end # loop for decision 39
         # AST Rewrite
         # elements: declaration, selector
         # token labels: 
@@ -1447,10 +1461,12 @@ module CSS
 
     SelectorReturnValue = define_return_scope 
 
+    # 
     # parser rule selector
     # 
     # (in samples/CSS.g)
     # 50:1: selector : relational_selector ( ',' ( WS )* relational_selector )* -> ^( SELECTOR ( relational_selector )+ ) ;
+    # 
     def selector
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 8)
@@ -1477,7 +1493,7 @@ module CSS
         @state.following.pop
         stream_relational_selector.add(relational_selector64.tree)
         # at line 51:25: ( ',' ( WS )* relational_selector )*
-        loop do  #loop 41
+        loop do # decision 41
           alt_41 = 2
           look_41_0 = @input.peek(1)
 
@@ -1491,7 +1507,7 @@ module CSS
             char_literal65 = match(T__43, TOKENS_FOLLOWING_T__43_IN_selector_490) 
             stream_T__43.add(char_literal65)
             # at line 51:31: ( WS )*
-            loop do  #loop 40
+            loop do # decision 40
               alt_40 = 2
               look_40_0 = @input.peek(1)
 
@@ -1506,18 +1522,18 @@ module CSS
                 stream_WS.add(__WS66__)
 
               else
-                break #loop 40
+                break # out of loop for decision 40
               end
-            end
+            end # loop for decision 40
             @state.following.push(TOKENS_FOLLOWING_relational_selector_IN_selector_495)
             relational_selector67 = relational_selector
             @state.following.pop
             stream_relational_selector.add(relational_selector67.tree)
 
           else
-            break #loop 41
+            break # out of loop for decision 41
           end
-        end
+        end # loop for decision 41
         # AST Rewrite
         # elements: relational_selector
         # token labels: 
@@ -1575,10 +1591,12 @@ module CSS
 
     RelationalSelectorReturnValue = define_return_scope 
 
+    # 
     # parser rule relational_selector
     # 
     # (in samples/CSS.g)
     # 55:1: relational_selector : ( simple_selector -> simple_selector ) ( ( WS )* '+' ( WS )* r= simple_selector -> ^( '+' $relational_selector $r) | ( WS )* '>' ( WS )* r= simple_selector -> ^( '>' $relational_selector $r) | ( WS )+ r= simple_selector -> ^( UNDER $relational_selector $r) )* ;
+    # 
     def relational_selector
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 9)
@@ -1637,14 +1655,14 @@ module CSS
         return_value.tree = root_0
 
         # at line 57:5: ( ( WS )* '+' ( WS )* r= simple_selector -> ^( '+' $relational_selector $r) | ( WS )* '>' ( WS )* r= simple_selector -> ^( '>' $relational_selector $r) | ( WS )+ r= simple_selector -> ^( UNDER $relational_selector $r) )*
-        loop do  #loop 47
+        loop do # decision 47
           alt_47 = 4
           alt_47 = @dfa47.predict(@input)
           case alt_47
           when 1
             # at line 57:7: ( WS )* '+' ( WS )* r= simple_selector
             # at line 57:7: ( WS )*
-            loop do  #loop 42
+            loop do # decision 42
               alt_42 = 2
               look_42_0 = @input.peek(1)
 
@@ -1659,13 +1677,13 @@ module CSS
                 stream_WS.add(__WS69__)
 
               else
-                break #loop 42
+                break # out of loop for decision 42
               end
-            end
+            end # loop for decision 42
             char_literal70 = match(T__46, TOKENS_FOLLOWING_T__46_IN_relational_selector_543) 
             stream_T__46.add(char_literal70)
             # at line 57:15: ( WS )*
-            loop do  #loop 43
+            loop do # decision 43
               alt_43 = 2
               look_43_0 = @input.peek(1)
 
@@ -1680,9 +1698,9 @@ module CSS
                 stream_WS.add(__WS71__)
 
               else
-                break #loop 43
+                break # out of loop for decision 43
               end
-            end
+            end # loop for decision 43
             @state.following.push(TOKENS_FOLLOWING_simple_selector_IN_relational_selector_550)
             r = simple_selector
             @state.following.pop
@@ -1717,7 +1735,7 @@ module CSS
           when 2
             # at line 58:7: ( WS )* '>' ( WS )* r= simple_selector
             # at line 58:7: ( WS )*
-            loop do  #loop 44
+            loop do # decision 44
               alt_44 = 2
               look_44_0 = @input.peek(1)
 
@@ -1732,13 +1750,13 @@ module CSS
                 stream_WS.add(__WS72__)
 
               else
-                break #loop 44
+                break # out of loop for decision 44
               end
-            end
+            end # loop for decision 44
             char_literal73 = match(T__47, TOKENS_FOLLOWING_T__47_IN_relational_selector_575) 
             stream_T__47.add(char_literal73)
             # at line 58:15: ( WS )*
-            loop do  #loop 45
+            loop do # decision 45
               alt_45 = 2
               look_45_0 = @input.peek(1)
 
@@ -1753,9 +1771,9 @@ module CSS
                 stream_WS.add(__WS74__)
 
               else
-                break #loop 45
+                break # out of loop for decision 45
               end
-            end
+            end # loop for decision 45
             @state.following.push(TOKENS_FOLLOWING_simple_selector_IN_relational_selector_582)
             r = simple_selector
             @state.following.pop
@@ -1847,9 +1865,9 @@ module CSS
             return_value.tree = root_0
 
           else
-            break #loop 47
+            break # out of loop for decision 47
           end
-        end
+        end # loop for decision 47
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -1873,10 +1891,12 @@ module CSS
 
     SimpleSelectorReturnValue = define_return_scope 
 
+    # 
     # parser rule simple_selector
     # 
     # (in samples/CSS.g)
     # 63:1: simple_selector : ( element ( modifier )* | ( modifier )+ );
+    # 
     def simple_selector
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 10)
@@ -1915,7 +1935,7 @@ module CSS
           @state.following.pop
           @adaptor.add_child(root_0, element76.tree)
           # at line 64:13: ( modifier )*
-          loop do  #loop 48
+          loop do # decision 48
             alt_48 = 2
             look_48_0 = @input.peek(1)
 
@@ -1932,9 +1952,9 @@ module CSS
               @adaptor.add_child(root_0, modifier77.tree)
 
             else
-              break #loop 48
+              break # out of loop for decision 48
             end
-          end
+          end # loop for decision 48
 
         when 2
           root_0 = @adaptor.create_flat_list!
@@ -1993,10 +2013,12 @@ module CSS
 
     ElementReturnValue = define_return_scope 
 
+    # 
     # parser rule element
     # 
     # (in samples/CSS.g)
     # 68:1: element : ( '*' -> '*' | ID -> ELEMENT[$ID] );
+    # 
     def element
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 11)
@@ -2097,10 +2119,12 @@ module CSS
 
     ModifierReturnValue = define_return_scope 
 
+    # 
     # parser rule modifier
     # 
     # (in samples/CSS.g)
     # 73:1: modifier : ( HASH | '.' ID | '[' ( WS )* match_attribute ']' | ':' ( ID | FUNCTION ( WS )* ( ID ( WS )* )? ')' ) );
+    # 
     def modifier
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 12)
@@ -2190,7 +2214,7 @@ module CSS
           root_0 = @adaptor.become_root(tree_for_char_literal84, root_0)
 
           # at line 76:12: ( WS )*
-          loop do  #loop 52
+          loop do # decision 52
             alt_52 = 2
             look_52_0 = @input.peek(1)
 
@@ -2204,9 +2228,9 @@ module CSS
               __WS85__ = match(WS, TOKENS_FOLLOWING_WS_IN_modifier_722)
 
             else
-              break #loop 52
+              break # out of loop for decision 52
             end
-          end
+          end # loop for decision 52
           @state.following.push(TOKENS_FOLLOWING_match_attribute_IN_modifier_726)
           match_attribute86 = match_attribute
           @state.following.pop
@@ -2252,7 +2276,7 @@ module CSS
             @adaptor.add_child(root_0, tree_for_FUNCTION90)
 
             # at line 77:28: ( WS )*
-            loop do  #loop 53
+            loop do # decision 53
               alt_53 = 2
               look_53_0 = @input.peek(1)
 
@@ -2266,9 +2290,9 @@ module CSS
                 __WS91__ = match(WS, TOKENS_FOLLOWING_WS_IN_modifier_746)
 
               else
-                break #loop 53
+                break # out of loop for decision 53
               end
-            end
+            end # loop for decision 53
             # at line 77:31: ( ID ( WS )* )?
             alt_55 = 2
             look_55_0 = @input.peek(1)
@@ -2285,7 +2309,7 @@ module CSS
               @adaptor.add_child(root_0, tree_for_ID92)
 
               # at line 77:38: ( WS )*
-              loop do  #loop 54
+              loop do # decision 54
                 alt_54 = 2
                 look_54_0 = @input.peek(1)
 
@@ -2299,9 +2323,9 @@ module CSS
                   __WS93__ = match(WS, TOKENS_FOLLOWING_WS_IN_modifier_754)
 
                 else
-                  break #loop 54
+                  break # out of loop for decision 54
                 end
-              end
+              end # loop for decision 54
 
             end
             char_literal94 = match(T__52, TOKENS_FOLLOWING_T__52_IN_modifier_761)
@@ -2331,10 +2355,12 @@ module CSS
 
     MatchAttributeReturnValue = define_return_scope 
 
+    # 
     # parser rule match_attribute
     # 
     # (in samples/CSS.g)
     # 80:1: match_attribute : ID ( WS )* ( ( '=' | '~=' | '|=' ) ( WS )* ( ID | STRING ) ( WS )* )? ;
+    # 
     def match_attribute
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 13)
@@ -2373,7 +2399,7 @@ module CSS
         @adaptor.add_child(root_0, tree_for_ID95)
 
         # at line 81:10: ( WS )*
-        loop do  #loop 58
+        loop do # decision 58
           alt_58 = 2
           look_58_0 = @input.peek(1)
 
@@ -2387,9 +2413,9 @@ module CSS
             __WS96__ = match(WS, TOKENS_FOLLOWING_WS_IN_match_attribute_779)
 
           else
-            break #loop 58
+            break # out of loop for decision 58
           end
-        end
+        end # loop for decision 58
         # at line 81:13: ( ( '=' | '~=' | '|=' ) ( WS )* ( ID | STRING ) ( WS )* )?
         alt_62 = 2
         look_62_0 = @input.peek(1)
@@ -2437,7 +2463,7 @@ module CSS
 
           end
           # at line 81:42: ( WS )*
-          loop do  #loop 60
+          loop do # decision 60
             alt_60 = 2
             look_60_0 = @input.peek(1)
 
@@ -2451,9 +2477,9 @@ module CSS
               __WS100__ = match(WS, TOKENS_FOLLOWING_WS_IN_match_attribute_802)
 
             else
-              break #loop 60
+              break # out of loop for decision 60
             end
-          end
+          end # loop for decision 60
           set101 = @input.look
           if @input.peek(1) == STRING || @input.peek(1) == ID
             @input.consume
@@ -2466,7 +2492,7 @@ module CSS
 
 
           # at line 81:63: ( WS )*
-          loop do  #loop 61
+          loop do # decision 61
             alt_61 = 2
             look_61_0 = @input.peek(1)
 
@@ -2480,9 +2506,9 @@ module CSS
               __WS102__ = match(WS, TOKENS_FOLLOWING_WS_IN_match_attribute_816)
 
             else
-              break #loop 61
+              break # out of loop for decision 61
             end
-          end
+          end # loop for decision 61
 
         end
         # - - - - - - - rule clean up - - - - - - - -
@@ -2508,10 +2534,12 @@ module CSS
 
     DeclarationReturnValue = define_return_scope 
 
+    # 
     # parser rule declaration
     # 
     # (in samples/CSS.g)
     # 84:1: declaration : ID ( WS )* ':' ( WS )* expr ( IMPORTANT ( WS )* )? ;
+    # 
     def declaration
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 14)
@@ -2547,7 +2575,7 @@ module CSS
         @adaptor.add_child(root_0, tree_for_ID103)
 
         # at line 85:10: ( WS )*
-        loop do  #loop 63
+        loop do # decision 63
           alt_63 = 2
           look_63_0 = @input.peek(1)
 
@@ -2561,16 +2589,16 @@ module CSS
             __WS104__ = match(WS, TOKENS_FOLLOWING_WS_IN_declaration_836)
 
           else
-            break #loop 63
+            break # out of loop for decision 63
           end
-        end
+        end # loop for decision 63
         char_literal105 = match(T__45, TOKENS_FOLLOWING_T__45_IN_declaration_840)
 
         tree_for_char_literal105 = @adaptor.create_with_payload!(char_literal105)
         root_0 = @adaptor.become_root(tree_for_char_literal105, root_0)
 
         # at line 85:20: ( WS )*
-        loop do  #loop 64
+        loop do # decision 64
           alt_64 = 2
           look_64_0 = @input.peek(1)
 
@@ -2584,9 +2612,9 @@ module CSS
             __WS106__ = match(WS, TOKENS_FOLLOWING_WS_IN_declaration_843)
 
           else
-            break #loop 64
+            break # out of loop for decision 64
           end
-        end
+        end # loop for decision 64
         @state.following.push(TOKENS_FOLLOWING_expr_IN_declaration_847)
         expr107 = expr
         @state.following.pop
@@ -2607,7 +2635,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_IMPORTANT108)
 
           # at line 85:41: ( WS )*
-          loop do  #loop 65
+          loop do # decision 65
             alt_65 = 2
             look_65_0 = @input.peek(1)
 
@@ -2621,9 +2649,9 @@ module CSS
               __WS109__ = match(WS, TOKENS_FOLLOWING_WS_IN_declaration_852)
 
             else
-              break #loop 65
+              break # out of loop for decision 65
             end
-          end
+          end # loop for decision 65
 
         end
         # - - - - - - - rule clean up - - - - - - - -
@@ -2649,10 +2677,12 @@ module CSS
 
     ExprReturnValue = define_return_scope 
 
+    # 
     # parser rule expr
     # 
     # (in samples/CSS.g)
     # 88:1: expr : term ( ( '/' ( WS )* | ',' ( WS )* )? term )* ;
+    # 
     def expr
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 15)
@@ -2684,7 +2714,7 @@ module CSS
         @state.following.pop
         @adaptor.add_child(root_0, term110.tree)
         # at line 89:10: ( ( '/' ( WS )* | ',' ( WS )* )? term )*
-        loop do  #loop 70
+        loop do # decision 70
           alt_70 = 2
           look_70_0 = @input.peek(1)
 
@@ -2713,7 +2743,7 @@ module CSS
               root_0 = @adaptor.become_root(tree_for_char_literal111, root_0)
 
               # at line 89:21: ( WS )*
-              loop do  #loop 67
+              loop do # decision 67
                 alt_67 = 2
                 look_67_0 = @input.peek(1)
 
@@ -2727,9 +2757,9 @@ module CSS
                   __WS112__ = match(WS, TOKENS_FOLLOWING_WS_IN_expr_878)
 
                 else
-                  break #loop 67
+                  break # out of loop for decision 67
                 end
-              end
+              end # loop for decision 67
 
             when 2
               # at line 89:26: ',' ( WS )*
@@ -2739,7 +2769,7 @@ module CSS
               root_0 = @adaptor.become_root(tree_for_char_literal113, root_0)
 
               # at line 89:33: ( WS )*
-              loop do  #loop 68
+              loop do # decision 68
                 alt_68 = 2
                 look_68_0 = @input.peek(1)
 
@@ -2753,9 +2783,9 @@ module CSS
                   __WS114__ = match(WS, TOKENS_FOLLOWING_WS_IN_expr_887)
 
                 else
-                  break #loop 68
+                  break # out of loop for decision 68
                 end
-              end
+              end # loop for decision 68
 
             end
             @state.following.push(TOKENS_FOLLOWING_term_IN_expr_894)
@@ -2764,9 +2794,9 @@ module CSS
             @adaptor.add_child(root_0, term115.tree)
 
           else
-            break #loop 70
+            break # out of loop for decision 70
           end
-        end
+        end # loop for decision 70
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -2790,10 +2820,12 @@ module CSS
 
     TermReturnValue = define_return_scope 
 
+    # 
     # parser rule term
     # 
     # (in samples/CSS.g)
     # 92:1: term : ( ( '-' | '+' )? ( NUMBER | PERCENTAGE | LENGTH | EMS | EXS | ANGLE | TIME | FREQ ) ( WS )* | STRING ( WS )* | ID ( WS )* | URI ( WS )* | HASH ( WS )* | FUNCTION ( WS )* expr ')' ( WS )* );
+    # 
     def term
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 16)
@@ -2891,7 +2923,7 @@ module CSS
 
 
           # at line 93:89: ( WS )*
-          loop do  #loop 72
+          loop do # decision 72
             alt_72 = 2
             look_72_0 = @input.peek(1)
 
@@ -2905,9 +2937,9 @@ module CSS
               __WS118__ = match(WS, TOKENS_FOLLOWING_WS_IN_term_955)
 
             else
-              break #loop 72
+              break # out of loop for decision 72
             end
-          end
+          end # loop for decision 72
 
         when 2
           root_0 = @adaptor.create_flat_list!
@@ -2920,7 +2952,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_STRING119)
 
           # at line 94:14: ( WS )*
-          loop do  #loop 73
+          loop do # decision 73
             alt_73 = 2
             look_73_0 = @input.peek(1)
 
@@ -2934,9 +2966,9 @@ module CSS
               __WS120__ = match(WS, TOKENS_FOLLOWING_WS_IN_term_965)
 
             else
-              break #loop 73
+              break # out of loop for decision 73
             end
-          end
+          end # loop for decision 73
 
         when 3
           root_0 = @adaptor.create_flat_list!
@@ -2949,7 +2981,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_ID121)
 
           # at line 95:10: ( WS )*
-          loop do  #loop 74
+          loop do # decision 74
             alt_74 = 2
             look_74_0 = @input.peek(1)
 
@@ -2963,9 +2995,9 @@ module CSS
               __WS122__ = match(WS, TOKENS_FOLLOWING_WS_IN_term_975)
 
             else
-              break #loop 74
+              break # out of loop for decision 74
             end
-          end
+          end # loop for decision 74
 
         when 4
           root_0 = @adaptor.create_flat_list!
@@ -2978,7 +3010,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_URI123)
 
           # at line 96:11: ( WS )*
-          loop do  #loop 75
+          loop do # decision 75
             alt_75 = 2
             look_75_0 = @input.peek(1)
 
@@ -2992,9 +3024,9 @@ module CSS
               __WS124__ = match(WS, TOKENS_FOLLOWING_WS_IN_term_985)
 
             else
-              break #loop 75
+              break # out of loop for decision 75
             end
-          end
+          end # loop for decision 75
 
         when 5
           root_0 = @adaptor.create_flat_list!
@@ -3007,7 +3039,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_HASH125)
 
           # at line 97:12: ( WS )*
-          loop do  #loop 76
+          loop do # decision 76
             alt_76 = 2
             look_76_0 = @input.peek(1)
 
@@ -3021,9 +3053,9 @@ module CSS
               __WS126__ = match(WS, TOKENS_FOLLOWING_WS_IN_term_995)
 
             else
-              break #loop 76
+              break # out of loop for decision 76
             end
-          end
+          end # loop for decision 76
 
         when 6
           root_0 = @adaptor.create_flat_list!
@@ -3036,7 +3068,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_FUNCTION127)
 
           # at line 98:16: ( WS )*
-          loop do  #loop 77
+          loop do # decision 77
             alt_77 = 2
             look_77_0 = @input.peek(1)
 
@@ -3050,9 +3082,9 @@ module CSS
               __WS128__ = match(WS, TOKENS_FOLLOWING_WS_IN_term_1011)
 
             else
-              break #loop 77
+              break # out of loop for decision 77
             end
-          end
+          end # loop for decision 77
           @state.following.push(TOKENS_FOLLOWING_expr_IN_term_1015)
           expr129 = expr
           @state.following.pop
@@ -3063,7 +3095,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_char_literal130)
 
           # at line 98:30: ( WS )*
-          loop do  #loop 78
+          loop do # decision 78
             alt_78 = 2
             look_78_0 = @input.peek(1)
 
@@ -3077,9 +3109,9 @@ module CSS
               __WS131__ = match(WS, TOKENS_FOLLOWING_WS_IN_term_1019)
 
             else
-              break #loop 78
+              break # out of loop for decision 78
             end
-          end
+          end # loop for decision 78
 
         end# - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)

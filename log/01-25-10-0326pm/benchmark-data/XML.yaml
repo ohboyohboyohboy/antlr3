@@ -1,0 +1,233 @@
+--- 
+:samples: 
+  antlr3_rdoc: 
+    :performance_data: 
+      :lexing: 
+        :total: 
+          :mean: 0.023
+          :standard_deviation: 0.00674948557710553
+          :count: 10
+          :min: 0.00999999999999998
+          :max: 0.03
+        :cutime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :utime: 
+          :mean: 0.023
+          :standard_deviation: 0.00674948557710553
+          :count: 10
+          :min: 0.00999999999999998
+          :max: 0.03
+        :cstime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :real: 
+          :mean: 0.0277005910873413
+          :standard_deviation: 0.00662077333889815
+          :count: 10
+          :min: 0.0197939872741699
+          :max: 0.0431880950927734
+        :stime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+      :parsing: 
+    :data: |-
+      <?xml version="1.0" encoding="utf-8"?>
+      <rdoc>
+      <file-list>
+        <file name="antlr3.rb" id="lib%2fantlr3.rb">
+          <file-info>
+            <path>lib/antlr3.rb</path>
+            <dtm-modified>Tue Aug 11 11:25:02 -0400 2009</dtm-modified>
+          </file-info>
+      
+          <description>
+      <p>
+      encoding: utf-8
+      </p>
+      
+          </description>
+          <contents>
+            <required-file-list>
+               <required-file name="set"
+               />
+               <required-file name="stringio"
+               />
+               <required-file name="antlr3/constants"
+               />
+               <required-file name="antlr3/errors"
+               />
+               <required-file name="antlr3/tokens"
+               />
+               <required-file name="antlr3/recognizers"
+               />
+               <required-file name="antlr3/dfa"
+               />
+               <required-file name="antlr3/streams"
+               />
+            </required-file-list>
+           </contents>
+      
+        </file>
+      </file-list>
+      <class-module-list>
+        <Module name="ANTLR3" id="ANTLR3">
+          <classmod-info>
+            <infiles>      
+              <infile><a href="#lib%2fantlr3.rb">lib/antlr3.rb</a></infile>
+            </infiles>
+          </classmod-info>
+      
+          <description>
+      <p>
+      encoding: utf-8
+      </p>
+      
+          </description>
+          <contents>
+           </contents>
+      
+        </Module>
+      </class-module-list>
+      </rdoc>
+  :stg_rdoc: 
+    :performance_data: 
+      :lexing: 
+        :total: 
+          :mean: 0.214
+          :standard_deviation: 0.00966091783079295
+          :count: 10
+          :min: 0.2
+          :max: 0.23
+        :cutime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :utime: 
+          :mean: 0.212
+          :standard_deviation: 0.00918936583472681
+          :count: 10
+          :min: 0.2
+          :max: 0.23
+        :cstime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :real: 
+          :mean: 0.300097799301147
+          :standard_deviation: 0.114736747164382
+          :count: 10
+          :min: 0.213016033172607
+          :max: 0.485522031784058
+        :stime: 
+          :mean: 0.002
+          :standard_deviation: 0.00421637021355784
+          :count: 10
+          :min: 0.0
+          :max: 0.01
+      :parsing: 
+    :data: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\
+      <!DOCTYPE language SYSTEM \"language.dtd\">\n\n\
+      <language name=\"StringTemplateGroup\" section=\"Markup\" extensions=\"*.stg\" version=\"0.1\" casesensitive=\"true\" author=\"Kyle Yetter\" hidden=\"false\">\n  <highlighting>\n    <list name=\"keywords\">\n      <item> default </item>\n      <item> first </item>\n      <item> group </item>\n      <item> if </item>\n      <item> implements </item>\n      <item> interface </item>\n      <item> last </item>\n      <item> length </item>\n      <item> optional </item>\n      <item> rest </item>\n      <item> strip </item>\n      <item> super </item>\n      <item> trunc </item>\n      <item> else </item>\n      <item> endif </item>\n      <item> elseif </item>\n    </list>\n\n    <contexts>\n      <!-- Normal -->\n      <context name=\"Normal\" attribute=\"Normal Text\" lineEndContext=\"#stay\">\n        <StringDetect String=\"group\" attribute=\"Keyword\" context=\"GroupDeclaration\" />\n        <RegExpr String=\"[A-Z][\\w_]*\" attribute=\"Group Or Interface Name\" context=\"#stay\" />\n        <RegExpr String=\"^[a-zA-Z_][\\w_]*\" attribute=\"Template Name\" beginRegion=\"template_entry\" context=\"#stay\" />\n        <RegExpr String=\"@[a-zA-Z_][\\w_]*\\.[a-z_A-Z][\\w_]*\" beginRegion=\"template_entry\" attribute=\"Template Name\" context=\"#stay\" />\n        <DetectChar char=\";\" context=\"#stay\" attribute=\"Delimiter\" />\n        <DetectChar char=\"(\" context=\"Attribute List\" attribute=\"Delimiter\" />\n        <StringDetect String=\"/*\" context=\"Long Comment\" beginRegion=\"Comment\" attribute=\"Comment\" />\n        <StringDetect String=\"//\" context=\"Line Comment\" attribute=\"Comment\" />\n        <StringDetect String=\"::=\" context=\"StartDeclaration\" attribute=\"Operator\" />\n        <StringDetect String=\"&lt;&lt;\" context=\"Big Template\" attribute=\"Delimiter\" />\n        <StringDetect String=\"&quot;\" context=\"Little Template\" attribute=\"Delimiter\" />\n        <DetectSpaces context=\"#stay\" />\n      </context>\n      <context name=\"StartDeclaration\" attribute=\"Normal Text\" lineEndContext=\"#stay\">\n        <!-- template aliases ala ``aTemplate(...) ::= anotherTemplate'' -->\n        <RegExpr String=\"[a-zA-Z_][\\w_]*\" attribute=\"Template Name\" endRegion=\"template_entry\" context=\"Normal\" />\n        <RegExpr String=\"@[a-zA-Z_][\\w_]*\\.[a-z_A-Z][\\w_]*\" endRegion=\"template_entry\" attribute=\"Template Name\" context=\"Normal\" />\n\n        <!-- comments -->\n        <StringDetect String=\"/*\" context=\"Long Comment\" beginRegion=\"Comment\" attribute=\"Comment\" />\n        <StringDetect String=\"//\" context=\"Line Comment\" attribute=\"Comment\" />\n\n        <!-- templates -->\n        <StringDetect String=\"&lt;&lt;\" context=\"Big Template\" attribute=\"Delimiter\" />\n        <StringDetect String=\"&quot;\" context=\"Little Template\" attribute=\"Delimiter\" />\n\n        <!-- TODO: type maps (brackets) -->\n        <DetectSpaces context=\"#stay\" />\n      </context>\n\n      <context name=\"GroupDeclaration\" attribute=\"Raw String\" lineEndContext=\"#stay\">\n        <RegExpr String=\"\\b(implements|interface)\\b\" attribute=\"Keyword\" context=\"#stay\" />\n        <RegExpr String=\"[\\w_]+\" attribute=\"Group Or Interface Name\" context=\"#stay\" />\n        <DetectChar char=\";\" context=\"Normal\" attribute=\"Delimiter\" />\n        <StringDetect String=\"/*\" context=\"Long Comment\" beginRegion=\"Comment\" attribute=\"Comment\" />\n        <StringDetect String=\"//\" context=\"Line Comment\" attribute=\"Comment\" />\n        <DetectSpaces context=\"#stay\" />\n      </context>\n\n      <!-- Attribute List -->\n      <context name=\"Attribute List\" attribute=\"Raw String\" lineEndContext=\"#stay\">\n        <RegExpr String=\"[a-zA-Z_][a-zA-Z_0-9]*\" attribute=\"Attribute\" context=\"#stay\" />\n        <RegExpr String=\"@[a-zA-Z_][a-zA-Z_0-9]*\\.[a-zA-Z_][a-zA-Z_0-9]*\" attribute=\"Attribute\" context=\"#stay\" />\n        <DetectChar context=\"AnonymousTemplate\" char=\"{\" attribute=\"Delimiter\" beginRegion=\"anonymous_template\" />\n        <DetectChar char=\",\" context=\"#stay\" attribute=\"Delimiter\" />\n        <DetectSpaces context=\"#stay\" />\n        <DetectChar char=\"=\" context=\"#stay\" attribute=\"Operator\" />\n        <DetectChar char=\"&quot;\" context=\"Plain String\" attribute=\"String\" />\n        <DetectChar char=\")\" context=\"Normal\" attribute=\"Delimiter\" />\n      </context>\n\n      <!-- Plain String -->\n      <context name=\"Plain String\" attribute=\"String\" lineEndContext=\"#stay\">\n        <RegExpr attribute=\"String\" String=\"\\\\\\&quot;\" context=\"#stay\"/>\n        <StringDetect attribute=\"String\" String=\"\\\\\" context=\"#stay\"/>\n        <DetectChar char=\"&quot;\" attribute=\"String\" context=\"#pop\" />\n      </context>\n\n      <!-- Long Comment -->\n      <context name=\"Long Comment\" attribute=\"Comment\" lineEndContext=\"#stay\">\n        <StringDetect String=\"*/\" context=\"#pop\" endRegion=\"Comment\" attribute=\"Comment\" />\n      </context>\n\n      <!-- Line Comment -->\n      <context name=\"Line Comment\" attribute=\"Comment\" lineEndContext=\"#pop\">\n        <RegExpr String=\".*\" attribute=\"Comment\" />\n      </context>\n\n\n      <!-- Template -->\n      <context name=\"Template\" attribute=\"Template Text\" lineEndContext=\"#stay\">\n        <RegExpr attribute=\"Template Text\" String=\"\\\\.\" context=\"#stay\"/>\n        <RegExpr attribute=\"Character\" String=\"&lt;\\\\[nutr ]([0-9A-Fa-F][0-9A-Fa-F][0-9A-Fa-F][0-9A-Fa-F]|)&gt;\" context=\"#stay\"/>\n\
+      \xC2\xA0 \t    <StringDetect attribute=\"Substitution Comment\" String=\"&lt;!\" beginRegion=\"Comment\" context=\"Template Comment\" />\n        <StringDetect attribute=\"Substitution Delimiter\" String=\"&lt;\" context=\"In Directive\" />\n      </context>\n\n      <!-- In Directive -->\n      <context name=\"In Directive\" attribute=\"Substitution\" lineEndContext=\"#stay\">\n        <RegExpr String=\"\\bif\\b\" attribute=\"Substitution Keyword\" beginRegion=\"if_statement\" />\n        <RegExpr String=\"\\belsif\\b\" attribute=\"Substitution Keyword\" beginRegion=\"if_statement\" />\n        <RegExpr String=\"\\belse\\b\" attribute=\"Substitution Keyword\" />\n        <RegExpr String=\"\\bendif\\b\" attribute=\"Substitution Keyword\" endRegion=\"if_statement\" />\n        <RegExpr String=\"\\b(first|last|trunc|strip|rest|length|optional)\\b\" attribute=\"Substitution Keyword\" />\n        <RegExpr String=\"@end\" attribute=\"Substitution Definition\" endRegion=\"named_area\" context=\"#stay\" />\n        <RegExpr String=\"@[a-zA-Z_][\\w_]*(\\.[\\w_]+)?(?=\\()\" attribute=\"Substitution Expression\" context=\"#stay\" />\n        <RegExpr String=\"@[a-zA-Z_][\\w_]*(\\.[\\w_]+)?(?!\\()\" attribute=\"Substitution Definition\" beginRegion=\"named_area\" context=\"#stay\" />\n        <RegExpr String=\"[a-zA-Z_][\\w_]*\" attribute=\"Substitution Attribute\" context=\"#stay\" />\n        <StringDetect attribute=\"Substitution Delimiter\" String=\"&lt;\" context=\"In Directive\" />\n        <DetectChar context=\"#stay\" char=\".\" attribute=\"Substitution Operator\" />\n        <DetectChar context=\"#stay\" char=\";\" attribute=\"Substitution Delimiter\" />\n        <DetectChar context=\"#stay\" char=\"=\" attribute=\"Substitution Operator\" />\n        <DetectChar context=\"#stay\" char=\":\" attribute=\"Substitution Operator\" />\n        <DetectChar context=\"#stay\" char=\"!\" attribute=\"Substitution Operator\" />\n        <DetectChar char=\"&quot;\" context=\"Plain String\" attribute=\"String\" />\n        <DetectChar context=\"#stay\" char=\".\" attribute=\"Substitution Operator\" />\n        <DetectChar context=\"AnonymousTemplate\" char=\"{\" attribute=\"Substitution Delimiter\" beginRegion=\"anonymous_template\" />\n        <DetectChar attribute=\"Substitution Delimiter\" char=\"(\" context=\"#stay\" />\n        <DetectChar attribute=\"Substitution Delimiter\" char=\"[\" context=\"#stay\" />\n        <DetectChar attribute=\"Substitution Delimiter\" char=\")\" context=\"#stay\" />\n        <DetectChar attribute=\"Substitution Delimiter\" char=\"]\" context=\"#stay\" />\n        <StringDetect attribute=\"Substitution Delimiter\" String=\"&gt;\" context=\"#pop\" />\n        <DetectSpaces context=\"#stay\" />\n      </context>\n\n      <!-- Iterator -->\n      <context name=\"AnonymousTemplate\" attribute=\"TemplateText\" lineEndContext=\"#stay\">\n        <DetectChar char=\"}\" context=\"#pop\" attribute=\"Substitution Delimiter\" endRegion=\"anonymous_template\" />\n        <IncludeRules context=\"Template\" />\n      </context>\n\n      <!-- Substitution String -->\n      <context name=\"Substitution String\" attribute=\"Substitution String\" lineEndContext=\"#stay\">\n        <RegExpr attribute=\"Substitution String\" String=\"\\\\\\&quot;\" context=\"#stay\"/>\n        <StringDetect attribute=\"Substitution String\" String=\"\\\\\" context=\"#stay\"/>\n        <DetectChar char=\"&quot;\" attribute=\"Substitution String\" context=\"#pop\" />\n      </context>\n\n      <!-- Template Comment -->\n      <context name=\"Template Comment\" attribute=\"Substitution Comment\" lineEndContext=\"#stay\">\n        <StringDetect String=\"!&gt;\" context=\"#pop\" endRegion=\"Comment\" attribute=\"Substitution Comment\" />\n      </context>\n\n      <!-- Big Template -->\n      <context name=\"Big Template\" attribute=\"Template Text\" lineEndContext=\"#stay\">\n        <StringDetect String=\"&gt;&gt;\" context=\"Normal\" endRegion=\"template_entry\" attribute=\"Delimiter\" />\n        <IncludeRules context=\"Template\" />\n      </context>\n\n      <!-- Little Template -->\n      <context name=\"Little Template\" attribute=\"Template Text\" lineEndContext=\"#stay\">\n        <RegExpr attribute=\"String\" String=\"\\\\&quot;\" context=\"#stay\"/>\n        <StringDetect String=\"&quot;\" context=\"Normal\" attribute=\"Delimiter\" endRegion=\"template_entry\" />\n        <IncludeRules context=\"Template\" />\n      </context>\n\n    </contexts>\n\n    <itemDatas>\n      <itemData name=\"Normal Text\" defStyleNum=\"dsNormal\"  />\n      <itemData name=\"Group Or Interface Name\" defStyleNum=\"dsString\" />\n      <itemData name=\"Template Name\" defStyleNum=\"dsString\" />\n      <itemData name=\"Keyword\" defStyleNum=\"dsKeyword\" bold=\"true\" />\n      <itemData name=\"Attribute\" defStyleNum=\"dsOthers\" />\n      <itemData name=\"Template Text\" defStyleNum=\"dsString\" />\n      <itemData name=\"Definition\" defStyleNum=\"dsKeyword\" />\n      <itemData name=\"String\" defStyleNum=\"dsString\" />\n      <itemData name=\"Comment\" defStyleNum=\"dsComment\" />\n      <itemData name=\"Character\" defStyleNum=\"dsKeyword\" />\n      <itemData name=\"Blockcomment\" defStyleNum=\"dsComment\" />\n      <itemData name=\"Delimiter\" defStyleNum=\"dsChar\" />\n      <itemData name=\"Expression\" defStyleNum=\"dsOthers\" />\n      <itemData name=\"Operator\" defStyleNum=\"dsChar\" />\n\n      <itemData name=\"Substitution\" defStyleNum=\"dsNormal\" />\n      <itemData name=\"Substitution Keyword\" defStyleNum=\"dsKeyword\" bold=\"true\" />\n      <itemData name=\"Substitution Attribute\" defStyleNum=\"dsOthers\"/>\n      <itemData name=\"Substitution Definition\" defStyleNum=\"dsKeyword\"/>\n      <itemData name=\"Substitution String\" defStyleNum=\"dsString\" />\n      <itemData name=\"Substitution Comment\" defStyleNum=\"dsComment\" />\n      <itemData name=\"Substitution Delimiter\" defStyleNum=\"dsChar\"/>\n      <itemData name=\"Substitution Expression\" defStyleNum=\"dsOthers\"/>\n      <itemData name=\"Substitution Operator\" defStyleNum=\"dsChar\"/>\n    </itemDatas>\n\n  </highlighting>\n\n  <general>\n    <comments>\n      <comment name=\"singleLine\" start=\"//\" />\n      <comment name=\"multiLine\" start=\"/*\" end=\"*/\" />\n    </comments>\n    <keywords casesensitive=\"true\" />\n    <indentation mode=\"Normal\" />\n  </general>\n\n\
+      </language>"
+:grammar: |-
+  lexer grammar XML;
+  options {language = Ruby;}
+  
+  DOCUMENT
+      :  XMLDECL? WS? DOCTYPE? WS? ELEMENT WS? 
+      ;
+  
+  fragment DOCTYPE
+      :
+        '<!DOCTYPE' WS rootElementName=GENERIC_ID
+          WS
+          ( 
+              ( 'SYSTEM' WS sys1=VALUE
+              | 'PUBLIC' WS pub=VALUE WS sys2=VALUE
+              )
+              ( WS )?
+          )?
+          ( dtd=INTERNAL_DTD )?
+        '>'
+    ;
+  
+  fragment INTERNAL_DTD : '[' .* ']' ;
+  
+  fragment PI : '<?' target=GENERIC_ID WS? ( ATTRIBUTE WS? )*  '?>' ;
+  
+  fragment XMLDECL : '<?' ('x'|'X') ('m'|'M') ('l'|'L') WS?  ( ATTRIBUTE WS? )*  '?>' ;
+  
+  
+  fragment ELEMENT
+      : ( START_TAG
+              (ELEMENT
+              | t=PCDATA
+              | t=CDATA
+              | t=COMMENT
+              | pi=PI
+              )*
+              END_TAG
+        | EMPTY_ELEMENT
+        )
+      ;
+  
+  fragment START_TAG 
+      : '<' WS? name=GENERIC_ID WS?
+        ( ATTRIBUTE WS? )* '>'
+      ;
+  
+  fragment EMPTY_ELEMENT 
+      : '<' WS? name=GENERIC_ID WS? ( ATTRIBUTE WS? )* '/>'
+      ;
+  
+  fragment ATTRIBUTE 
+      : name=GENERIC_ID WS? '=' WS? value=VALUE
+      ;
+  
+  fragment END_TAG 
+      : '</' WS? name=GENERIC_ID WS? '>'
+      ;
+  
+  fragment COMMENT
+    :	'<!--' (options {greedy=false;} : .)* '-->'
+    ;
+  
+  fragment CDATA
+    :	'<![CDATA[' .* ']]>'
+    ;
+  
+  fragment PCDATA : (~'<')+ ; 
+  
+  fragment VALUE : 
+          ( '\"' (~'\"')* '\"'
+          | '\'' (~'\'')* '\''
+          )
+    ;
+  
+  fragment GENERIC_ID 
+    : ( LETTER | '_' | ':') (LETTER | '0'..'9' | '.' | '-' | '_' | ':')*
+    ;
+  
+  fragment LETTER
+    : 'a'..'z' 
+    | 'A'..'Z'
+    ;
+  
+  fragment WS  :
+    ( ' ' | '\t' | ( '\n' |	'\r\n' |	'\r' ) )+
+    ;

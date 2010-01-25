@@ -287,28 +287,8 @@ module Tree
   #  self.ancestors.each { |anc| yield(anc) }
   #end
   
-  #def walk
-  #  block_given? or return( enum_for( :walk ) )
-  #  stack = []
-  #  cursor = self
-  #  loop do
-  #    begin
-  #      yield(cursor)
-  #      stack.push(cursor.children.clone) unless cursor.leaf?
-  #    rescue StopIteration
-  #      # skips adding children to prune the node
-  #    ensure
-  #      break if stack.empty?
-  #      cursor = stack.last.shift
-  #      stack.pop if stack.last.empty?
-  #    end
-  #  end
-  #  return self
-  #end
   
-  #def prune
-  #  raise StopIteration
-  #end
+
   
   #alias :each :walk
   #
@@ -319,7 +299,7 @@ module Tree
   #def leaf?
   #  children.empty?
   #end
-  #
+  
   #def ancestors
   #  a = []
   #  cursor = self
@@ -400,7 +380,7 @@ class BaseTree < ::Array
     killed = delete_at( index ) and freshen( index )
     return killed
   end
-  
+
   def replace_children( start, stop, new_tree )
     start >= length or stop >= length and
       raise IndexError, (<<-END).gsub!(/^\s+\| /,'')
@@ -444,6 +424,29 @@ class BaseTree < ::Array
     buffer << map { | c | c.inspect }.join( ' ' )
     buffer << ')' unless flat_list?
     return( buffer )
+  end
+  
+  def walk
+    block_given? or return( enum_for( :walk ) )
+    stack = []
+    cursor = self
+    while true
+      begin
+        yield( cursor )
+        stack.push( Array[ *cursor ] ) unless cursor.empty?
+      rescue StopIteration
+        # skips adding children to prune the node
+      ensure
+        break if stack.empty?
+        cursor = stack.last.shift
+        stack.pop if stack.last.empty?
+      end
+    end
+    return self
+  end
+  
+  def prune
+    raise StopIteration
   end
   
   abstract :to_s
@@ -498,7 +501,6 @@ class CommonTree < BaseTree
     @parent = nil
   end
   
-  
   def copy_node
     return self.class.new( @token )
   end
@@ -528,7 +530,6 @@ class CommonTree < BaseTree
     end
     return @token.column
   end
-
   
   def start_index
     @start_index == -1 and @token and return @token.index

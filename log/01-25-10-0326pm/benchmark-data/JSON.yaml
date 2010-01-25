@@ -1,0 +1,913 @@
+--- 
+:parser_rule: object
+:samples: 
+  built_in_classes: 
+    :performance_data: 
+      :lexing: 
+        :total: 
+          :mean: 0.083
+          :standard_deviation: 0.0048304589153965
+          :count: 10
+          :min: 0.08
+          :max: 0.0900000000000001
+        :cutime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :utime: 
+          :mean: 0.083
+          :standard_deviation: 0.0048304589153965
+          :count: 10
+          :min: 0.08
+          :max: 0.0900000000000001
+        :cstime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :real: 
+          :mean: 0.0936352491378784
+          :standard_deviation: 0.00461701973670843
+          :count: 10
+          :min: 0.0897660255432129
+          :max: 0.102504014968872
+        :stime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+      :parsing: 
+        :total: 
+          :mean: 0.00700000000000001
+          :standard_deviation: 0.00483045891539648
+          :count: 10
+          :min: 0.0
+          :max: 0.01
+        :cutime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :utime: 
+          :mean: 0.00700000000000001
+          :standard_deviation: 0.00483045891539648
+          :count: 10
+          :min: 0.0
+          :max: 0.01
+        :cstime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :real: 
+          :mean: 0.00469925403594971
+          :standard_deviation: 0.00199785239413586
+          :count: 10
+          :min: 0.00395894050598145
+          :max: 0.0103678703308105
+        :stime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+    :data: |-
+      [
+        "ArgumentError",
+        "Array",
+        "Bignum",
+        "Binding",
+        "Class",
+        "Continuation",
+        "Data",
+        "Dir",
+        "EOFError",
+        "Enumerable::Enumerator",
+        "Errno::E2BIG",
+        "Errno::EACCES",
+        "Errno::EADDRINUSE",
+        "Errno::EADDRNOTAVAIL",
+        "Errno::EADV",
+        "Errno::EAFNOSUPPORT",
+        "Errno::EAGAIN",
+        "Errno::EALREADY",
+        "Errno::EBADE",
+        "Errno::EBADF",
+        "Errno::EBADFD",
+        "Errno::EBADMSG",
+        "Errno::EBADR",
+        "Errno::EBADRQC",
+        "Errno::EBADSLT",
+        "Errno::EBFONT",
+        "Errno::EBUSY",
+        "Errno::ECHILD",
+        "Errno::ECHRNG",
+        "Errno::ECOMM",
+        "Errno::ECONNABORTED",
+        "Errno::ECONNREFUSED",
+        "Errno::ECONNRESET",
+        "Errno::EDEADLK",
+        "Errno::EDESTADDRREQ",
+        "Errno::EDOM",
+        "Errno::EDOTDOT",
+        "Errno::EDQUOT",
+        "Errno::EEXIST",
+        "Errno::EFAULT",
+        "Errno::EFBIG",
+        "Errno::EHOSTDOWN",
+        "Errno::EHOSTUNREACH",
+        "Errno::EIDRM",
+        "Errno::EILSEQ",
+        "Errno::EINPROGRESS",
+        "Errno::EINTR",
+        "Errno::EINVAL",
+        "Errno::EIO",
+        "Errno::EISCONN",
+        "Errno::EISDIR",
+        "Errno::EISNAM",
+        "Errno::EL2HLT",
+        "Errno::EL2NSYNC",
+        "Errno::EL3HLT",
+        "Errno::EL3RST",
+        "Errno::ELIBACC",
+        "Errno::ELIBBAD",
+        "Errno::ELIBEXEC",
+        "Errno::ELIBMAX",
+        "Errno::ELIBSCN",
+        "Errno::ELNRNG",
+        "Errno::ELOOP",
+        "Errno::EMFILE",
+        "Errno::EMLINK",
+        "Errno::EMSGSIZE",
+        "Errno::EMULTIHOP",
+        "Errno::ENAMETOOLONG",
+        "Errno::ENAVAIL",
+        "Errno::ENETDOWN",
+        "Errno::ENETRESET",
+        "Errno::ENETUNREACH",
+        "Errno::ENFILE",
+        "Errno::ENOANO",
+        "Errno::ENOBUFS",
+        "Errno::ENOCSI",
+        "Errno::ENODATA",
+        "Errno::ENODEV",
+        "Errno::ENOENT",
+        "Errno::ENOEXEC",
+        "Errno::ENOLCK",
+        "Errno::ENOLINK",
+        "Errno::ENOMEM",
+        "Errno::ENOMSG",
+        "Errno::ENONET",
+        "Errno::ENOPKG",
+        "Errno::ENOPROTOOPT",
+        "Errno::ENOSPC",
+        "Errno::ENOSR",
+        "Errno::ENOSTR",
+        "Errno::ENOSYS",
+        "Errno::ENOTBLK",
+        "Errno::ENOTCONN",
+        "Errno::ENOTDIR",
+        "Errno::ENOTEMPTY",
+        "Errno::ENOTNAM",
+        "Errno::ENOTSOCK",
+        "Errno::ENOTTY",
+        "Errno::ENOTUNIQ",
+        "Errno::ENXIO",
+        "Errno::EOPNOTSUPP",
+        "Errno::EOVERFLOW",
+        "Errno::EPERM",
+        "Errno::EPFNOSUPPORT",
+        "Errno::EPIPE",
+        "Errno::EPROTO",
+        "Errno::EPROTONOSUPPORT",
+        "Errno::EPROTOTYPE",
+        "Errno::ERANGE",
+        "Errno::EREMCHG",
+        "Errno::EREMOTE",
+        "Errno::EREMOTEIO",
+        "Errno::ERESTART",
+        "Errno::EROFS",
+        "Errno::ESHUTDOWN",
+        "Errno::ESOCKTNOSUPPORT",
+        "Errno::ESPIPE",
+        "Errno::ESRCH",
+        "Errno::ESRMNT",
+        "Errno::ESTALE",
+        "Errno::ESTRPIPE",
+        "Errno::ETIME",
+        "Errno::ETIMEDOUT",
+        "Errno::ETOOMANYREFS",
+        "Errno::ETXTBSY",
+        "Errno::EUCLEAN",
+        "Errno::EUNATCH",
+        "Errno::EUSERS",
+        "Errno::EXDEV",
+        "Errno::EXFULL",
+        "Exception",
+        "FalseClass",
+        "File",
+        "File::Stat",
+        "Fixnum",
+        "Float",
+        "FloatDomainError",
+        "Hash",
+        "IO",
+        "IOError",
+        "IndexError",
+        "Integer",
+        "Interrupt",
+        "LoadError",
+        "LocalJumpError",
+        "MatchData",
+        "Method",
+        "Module",
+        "NameError",
+        "NilClass",
+        "NoMemoryError",
+        "NoMethodError",
+        "NotImplementedError",
+        "Numeric",
+        "Object",
+        "Proc",
+        "Process::Status",
+        "Range",
+        "RangeError",
+        "Regexp",
+        "RegexpError",
+        "RuntimeError",
+        "ScriptError",
+        "SecurityError",
+        "SignalException",
+        "StandardError",
+        "StopIteration",
+        "String",
+        "Struct",
+        "Struct::Tms",
+        "Symbol",
+        "SyntaxError",
+        "SystemCallError",
+        "SystemExit",
+        "SystemStackError",
+        "Thread",
+        "ThreadError",
+        "ThreadGroup",
+        "Time",
+        "TrueClass",
+        "TypeError",
+        "UnboundMethod",
+        "ZeroDivisionError",
+        "Comparable",
+        "Enumerable",
+        "Errno",
+        "File::Constants",
+        "FileTest",
+        "GC",
+        "Kernel",
+        "Marshal",
+        "Math",
+        "ObjectSpace",
+        "Precision",
+        "Process",
+        "Process::GID",
+        "Process::Sys",
+        "Process::UID",
+        "Signal"
+      ]
+  playlist: 
+    :performance_data: 
+      :lexing: 
+        :total: 
+          :mean: 0.326
+          :standard_deviation: 0.00966091783079295
+          :count: 10
+          :min: 0.31
+          :max: 0.34
+        :cutime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :utime: 
+          :mean: 0.324
+          :standard_deviation: 0.00843274042711567
+          :count: 10
+          :min: 0.31
+          :max: 0.34
+        :cstime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :real: 
+          :mean: 0.372032189369202
+          :standard_deviation: 0.0478329952417286
+          :count: 10
+          :min: 0.341012001037598
+          :max: 0.478091955184937
+        :stime: 
+          :mean: 0.002
+          :standard_deviation: 0.00421637021355784
+          :count: 10
+          :min: 0.0
+          :max: 0.01
+      :parsing: 
+        :total: 
+          :mean: 0.004
+          :standard_deviation: 0.00516397779494323
+          :count: 10
+          :min: 0.0
+          :max: 0.0100000000000002
+        :cutime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :utime: 
+          :mean: 0.004
+          :standard_deviation: 0.00516397779494323
+          :count: 10
+          :min: 0.0
+          :max: 0.0100000000000002
+        :cstime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+        :real: 
+          :mean: 0.00428509712219238
+          :standard_deviation: 0.00241837933486244
+          :count: 10
+          :min: 0.00237512588500977
+          :max: 0.0102739334106445
+        :stime: 
+          :mean: 0.0
+          :standard_deviation: 0.0
+          :count: 10
+          :min: 0.0
+          :max: 0.0
+    :data: |-
+      [
+        {
+          "file": "01 - midnight sun dream.mp3",
+          "play_count": -2,
+          "length": 246,
+          "genre": "folk",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "hanne hukkelberg",
+          "album": "blood from a stone"
+        },
+        {
+          "file": "06-st._vincent-laughing_with_a_mouth_of_blood.mp3",
+          "play_count": -2,
+          "length": 181,
+          "genre": "Indie",
+          "title": 0,
+          "bitrate": 177,
+          "artist": "st. vincent",
+          "album": "actor"
+        },
+        {
+          "file": "03-my only offer.mp3",
+          "play_count": -2,
+          "length": 178,
+          "genre": "",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "mates of state",
+          "album": "re-arrange us"
+        },
+        {
+          "file": "05 Psychic City.mp3",
+          "play_count": -2,
+          "length": 309,
+          "genre": "Indie",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "yacht",
+          "album": "see mystery lights"
+        },
+        {
+          "file": "02 - peter bjorn and john - it don't move me.mp3",
+          "play_count": -2,
+          "length": 202,
+          "genre": "Indie",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "peter bjorn and john",
+          "album": "living thing"
+        },
+        {
+          "file": "03 Last Dance.mp3",
+          "play_count": -2,
+          "length": 227,
+          "genre": "indie",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "the raveonettes",
+          "album": "in and out of control"
+        },
+        {
+          "file": "02. my love.mp3",
+          "play_count": -2,
+          "length": 226,
+          "genre": "indie",
+          "title": 0,
+          "bitrate": 224,
+          "artist": "the bird and the bee",
+          "album": "ray guns are not just the future"
+        },
+        {
+          "file": "04 Snookered.mp3",
+          "play_count": -2,
+          "length": 484,
+          "genre": "",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "dan deacon",
+          "album": "bromst"
+        },
+        {
+          "file": "02 - sixteen,fifteen,fourteen.mp3",
+          "play_count": -2,
+          "length": 215,
+          "genre": "Rock",
+          "title": 0,
+          "bitrate": 194,
+          "artist": "pj harvey and john parish",
+          "album": "a woman a man walked by"
+        },
+        {
+          "file": "11 Soft Shock (Acoustic Version).mp3",
+          "play_count": -2,
+          "length": 207,
+          "genre": "Alternative",
+          "title": 0,
+          "bitrate": 236,
+          "artist": "yeah yeah yeahs",
+          "album": "its blitz"
+        },
+        {
+          "file": "05 - i never said i was deep.mp3",
+          "play_count": -2,
+          "length": 284,
+          "genre": "",
+          "title": 0,
+          "bitrate": 160,
+          "artist": "jarvis cocker",
+          "album": "further complications"
+        },
+        {
+          "file": "04-dirty_projectors-stillness_is_the_move.mp3",
+          "play_count": -2,
+          "length": 314,
+          "genre": "Alternative",
+          "title": 0,
+          "bitrate": 206,
+          "artist": "the dirty projectors",
+          "album": "bitte orca"
+        },
+        {
+          "file": "08 - whiskers.mp3",
+          "play_count": -2,
+          "length": 273,
+          "genre": "Indie",
+          "title": 0,
+          "bitrate": 263,
+          "artist": "The Boy Least Likely To",
+          "album": "The Law Of The Playground"
+        },
+        {
+          "file": "09 - keep me in dark.mp3",
+          "play_count": -2,
+          "length": 244,
+          "genre": "Rock",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "the fiery furnaces",
+          "album": "i'm going away"
+        },
+        {
+          "file": "01 - French Navy.mp3",
+          "play_count": -2,
+          "length": 200,
+          "genre": "Indie Pop",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "camera obscura",
+          "album": "my maudlin career"
+        },
+        {
+          "file": "02-phoenix-1901.mp3",
+          "play_count": -2,
+          "length": 198,
+          "genre": "Indie Rock",
+          "title": 1901,
+          "bitrate": 160,
+          "artist": "phoenix",
+          "album": "wolfgang amadeus phoenix"
+        },
+        {
+          "file": "04 - don't know till you try.mp3",
+          "play_count": -2,
+          "length": 189,
+          "genre": "Alternative",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "the postmarks",
+          "album": "memoirs at the end of the world"
+        },
+        {
+          "file": "05 - dull life.mp3",
+          "play_count": -2,
+          "length": 248,
+          "genre": "Rock",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "yeah yeah yeahs",
+          "album": "It's Blitz"
+        },
+        {
+          "file": "01-neko_case-this_tornado_loves_you.mp3",
+          "play_count": -2,
+          "length": 201,
+          "genre": "Indie",
+          "title": 0,
+          "bitrate": 197,
+          "artist": "neko case",
+          "album": "middle cyclone"
+        },
+        {
+          "file": "05 - gold guns girls.mp3",
+          "play_count": -2,
+          "length": 246,
+          "genre": "",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "metric",
+          "album": "fantasies"
+        },
+        {
+          "file": "03 clattering hooves.mp3",
+          "play_count": -2,
+          "length": 283,
+          "genre": "",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "jenny wilson",
+          "album": "hardships!"
+        },
+        {
+          "file": "04 - islands.mp3",
+          "play_count": -2,
+          "length": 161,
+          "genre": "Alternative & Punk",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "the xx",
+          "album": "2.0"
+        },
+        {
+          "file": "04 - Seven.mp3",
+          "play_count": -2,
+          "length": 310,
+          "genre": "Electronic",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "fever ray",
+          "album": "fever ray"
+        },
+        {
+          "file": "04 Boys Who Rape (Should All Be Dest.mp3",
+          "play_count": -2,
+          "length": 183,
+          "genre": "rock",
+          "title": 0,
+          "bitrate": 205,
+          "artist": "the raveonettes",
+          "album": "in and out of control"
+        },
+        {
+          "file": "01 Hurt Feelings.mp3",
+          "play_count": -2,
+          "length": 158,
+          "genre": "other",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "flight of the conchords",
+          "album": "i told you i was freaky"
+        },
+        {
+          "file": "03 - bandy riddles.mp3",
+          "play_count": -2,
+          "length": 265,
+          "genre": "folk",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "hanne hukkelberg",
+          "album": "blood from a stone"
+        },
+        {
+          "file": "05 - Pop Goes The World.mp3",
+          "play_count": -2,
+          "length": 213,
+          "genre": "Pop\/Rock",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "the gossip",
+          "album": "music for men"
+        },
+        {
+          "file": "02. royksopp - the girl and the robot.mp3",
+          "play_count": -2,
+          "length": 268,
+          "genre": "Electronic",
+          "title": 0,
+          "bitrate": 195,
+          "artist": "royksopp",
+          "album": "junior"
+        },
+        {
+          "file": "03-peaches-lose_you.mp3",
+          "play_count": -2,
+          "length": 214,
+          "genre": "Electronic",
+          "title": 0,
+          "bitrate": 167,
+          "artist": "peaches",
+          "album": "i feel cream"
+        },
+        {
+          "file": "02 - heads will roll.mp3",
+          "play_count": -2,
+          "length": 222,
+          "genre": "Rock",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "yeah yeah yeahs",
+          "album": "It's Blitz"
+        },
+        {
+          "file": "05 - I Don't Like Your Band.mp3",
+          "play_count": -2,
+          "length": 205,
+          "genre": "Dance",
+          "title": 0,
+          "bitrate": 245,
+          "artist": "annie",
+          "album": "don't stop"
+        },
+        {
+          "file": "06 Back To The Start.mp3",
+          "play_count": -2,
+          "length": 251,
+          "genre": "Other",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "lily allen",
+          "album": "it's not me, it's you"
+        },
+        {
+          "file": "04 Summertime Clothes.mp3",
+          "play_count": -2,
+          "length": 270,
+          "genre": "Rock",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "Animal Collective",
+          "album": "Merriweather Post Pavilion"
+        },
+        {
+          "file": "the antlers hospice 05 bear.mp3",
+          "play_count": -2,
+          "length": 234,
+          "genre": "Alternative",
+          "title": 0,
+          "bitrate": 256,
+          "artist": "the antlers",
+          "album": "hospice"
+        },
+        {
+          "file": "07 folds in your hands.mp3",
+          "play_count": -2,
+          "length": 219,
+          "genre": "",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "passion pit",
+          "album": "m 3"
+        },
+        {
+          "file": "04 - twilight galaxy.mp3",
+          "play_count": -2,
+          "length": 293,
+          "genre": "",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "metric",
+          "album": "fantasies"
+        },
+        {
+          "file": "telekinesis! - [05] awkward kisser.mp3",
+          "play_count": -2,
+          "length": 104,
+          "genre": "Indie Rock",
+          "title": 0,
+          "bitrate": 201,
+          "artist": "telekinesis!",
+          "album": "telekinesis!"
+        },
+        {
+          "file": "01 southern point.mp3",
+          "play_count": -2,
+          "length": 300,
+          "genre": "Other",
+          "title": 0,
+          "bitrate": 224,
+          "artist": "grizzly bear",
+          "album": "veckatimest"
+        },
+        {
+          "file": "07-st._vincent-marrow.mp3",
+          "play_count": -2,
+          "length": 204,
+          "genre": "Indie",
+          "title": 0,
+          "bitrate": 209,
+          "artist": "st. vincent",
+          "album": "actor"
+        },
+        {
+          "file": "18 - the flaming lips - watching the planets.mp3",
+          "play_count": -2,
+          "length": 317,
+          "genre": "rock",
+          "title": 0,
+          "bitrate": 160,
+          "artist": "the flaming lips",
+          "album": "embryonic"
+        },
+        {
+          "file": "06-micachu-golden_phone.mp3",
+          "play_count": -2,
+          "length": 163,
+          "genre": "",
+          "title": 0,
+          "bitrate": 203,
+          "artist": "micachu",
+          "album": "jewelery"
+        },
+        {
+          "file": "07 Pearl's Dream.mp3",
+          "play_count": -2,
+          "length": 285,
+          "genre": "Indie",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "bat for lashes",
+          "album": "two suns"
+        },
+        {
+          "file": "03 blue lips.mp3",
+          "play_count": -2,
+          "length": 212,
+          "genre": "Alternative",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "regina spektor",
+          "album": "far"
+        },
+        {
+          "file": "Taken By Trees - Watch The Waves.mp3",
+          "play_count": -2,
+          "length": 230,
+          "genre": "Alternative",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "taken by trees",
+          "album": "east of eden"
+        },
+        {
+          "file": "06-a_camp-here_are_many_wild_animals.mp3",
+          "play_count": -2,
+          "length": 232,
+          "genre": "Indie",
+          "title": 0,
+          "bitrate": 191,
+          "artist": "a camp",
+          "album": "colonia"
+        },
+        {
+          "file": "03 - the frown song.mp3",
+          "play_count": -2,
+          "length": 218,
+          "genre": "indie pop",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "ben folds",
+          "album": "way to normal"
+        },
+        {
+          "file": "09-st._vincent-the_party.mp3",
+          "play_count": -2,
+          "length": 245,
+          "genre": "Indie",
+          "title": 0,
+          "bitrate": 178,
+          "artist": "st. vincent",
+          "album": "actor"
+        },
+        {
+          "file": "03 - Dry And Dusty.mp3",
+          "play_count": -2,
+          "length": 225,
+          "genre": "Electronic",
+          "title": 0,
+          "bitrate": 320,
+          "artist": "fever ray",
+          "album": "fever ray"
+        },
+        {
+          "file": "01-hot_chip-one_life_stand_(album_version).mp3",
+          "play_count": -2,
+          "length": 322,
+          "genre": "",
+          "title": 0,
+          "bitrate": 0,
+          "artist": "",
+          "album": ""
+        },
+        {
+          "file": "03 norway.mp3",
+          "play_count": -2,
+          "length": 246,
+          "genre": "blues",
+          "title": 0,
+          "bitrate": 192,
+          "artist": "beach house",
+          "album": "teen dream"
+        }
+      ]
+:grammar: |-
+  grammar JSON;
+  options {
+    language = Ruby;
+    output = template;
+  }
+  
+  // parser rules
+  object
+    : '{' ( pairs+=object_element ( ',' pairs+=object_element )* )? '}'
+      -> template( pairs={$pairs} ) "{ <%= @pairs.join( ', ' ) %> }"
+    ;
+  
+  object_element
+    : STRING ':' value
+      -> template( key={$STRING}, value={$value.st} ) "<%= @key %> => <%= @value %>"
+    ;
+  
+  array
+    : '[' items+=value ( ',' items+=value )* ']'
+      -> template( items={ $items } ) "[ <%= @items.join( ', ' ) %> ]"
+    ;
+  
+  value
+    : STRING   { $st = $STRING  }
+    | INTEGER  { $st = $INTEGER }
+    | DOUBLE   { $st = $DOUBLE  }
+    | object   { $st = $object.st  }
+    | array    { $st = $array.st   }
+    | 'true'   { $st = 'true'   }
+    | 'false'  { $st = 'false'  }
+    | 'null'   { $st = 'nil'    }
+    ;
+  
+  // lexer rules
+  WS: (' ' | '\r' | '\t' | '\u000C' | '\n') { $channel=HIDDEN; };
+  
+  STRING: '"' STRING_CHAR* '"';
+  INTEGER: INT;
+  DOUBLE:  INT ( FRAC EXP? | EXP );
+  
+  fragment DOT: '.';
+  fragment DIGIT: '0' .. '9';
+  fragment HEX_DIGIT: ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f');
+  fragment UNICODE_CHAR: ~('"'| '\\');
+  fragment STRING_CHAR :  UNICODE_CHAR | ESCAPE_SEQUENCE;
+  fragment ESCAPE_SEQUENCE
+    : '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT)
+    ;
+  
+  fragment INT: '-'? ('0' | '1'..'9' DIGIT*);
+  fragment FRAC: DOT DIGIT+;
+  fragment EXP: ('e' | 'E') ('+' | '-')? DIGIT+;

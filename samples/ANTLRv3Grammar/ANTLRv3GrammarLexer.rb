@@ -3,9 +3,9 @@
 # samples/ANTLRv3Grammar.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.3.0
+# Ruby runtime library version: 1.4.0
 # Input grammar file: samples/ANTLRv3Grammar.g
-# Generated at: 2010-01-07 07:34:07
+# Generated at: 2010-01-25 13:58:27
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.3.0):
+Failed to load the ANTLR3 runtime library (version 1.4.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -30,7 +30,7 @@ Current load path:
   END
 end
 
-defined?(ANTLR3) or begin
+defined?( ANTLR3 ) or begin
   
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
@@ -38,7 +38,7 @@ defined?(ANTLR3) or begin
 rescue LoadError
   
   # 2: try to load rubygems if it isn't already loaded
-  defined?(Gem) or begin
+  defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.3.0' )
+    Gem.activate( 'antlr3', '= 1.4.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -66,31 +66,32 @@ module ANTLRv3Grammar
   module TokenData
 
     # define the token constants
-    define_tokens(:BACKTRACK_SEMPRED => 34, :DOUBLE_ANGLE_STRING_LITERAL => 53, 
-                  :LEXER_GRAMMAR => 24, :EOA => 19, :ARGLIST => 22, :EOF => -1, 
-                  :SEMPRED => 31, :ACTION => 47, :EOB => 18, :TOKEN_REF => 44, 
-                  :T__93 => 93, :T__91 => 91, :RET => 23, :T__92 => 92, 
-                  :STRING_LITERAL => 45, :T__90 => 90, :ARG => 21, :EOR => 17, 
-                  :ARG_ACTION => 50, :DOUBLE_QUOTE_STRING_LITERAL => 52, 
-                  :NESTED_ARG_ACTION => 60, :ACTION_CHAR_LITERAL => 62, 
-                  :T__80 => 80, :T__81 => 81, :T__82 => 82, :RULE => 7, 
-                  :ACTION_ESC => 64, :T__83 => 83, :PARSER_GRAMMAR => 25, 
-                  :SRC => 54, :INT => 49, :CHAR_RANGE => 14, :EPSILON => 15, 
-                  :T__85 => 85, :T__84 => 84, :T__87 => 87, :T__86 => 86, 
-                  :REWRITE => 39, :T__89 => 89, :T__88 => 88, :WS => 66, 
-                  :T__71 => 71, :T__72 => 72, :COMBINED_GRAMMAR => 27, :T__70 => 70, 
-                  :LEXER => 6, :SL_COMMENT => 55, :TREE_GRAMMAR => 26, :T__76 => 76, 
-                  :CLOSURE => 10, :T__75 => 75, :PARSER => 5, :T__74 => 74, 
-                  :T__73 => 73, :T__79 => 79, :T__78 => 78, :T__77 => 77, 
-                  :T__68 => 68, :T__69 => 69, :T__67 => 67, :NESTED_ACTION => 63, 
-                  :ESC => 58, :FRAGMENT => 35, :ID => 20, :TREE_BEGIN => 36, 
-                  :AT => 40, :ML_COMMENT => 56, :ALT => 16, :SCOPE => 30, 
-                  :LABEL_ASSIGN => 41, :DOC_COMMENT => 4, :WS_LOOP => 65, 
-                  :RANGE => 13, :TOKENS => 43, :GATED_SEMPRED => 32, :LITERAL_CHAR => 57, 
-                  :BANG => 38, :LIST_LABEL_ASSIGN => 42, :ACTION_STRING_LITERAL => 61, 
-                  :ROOT => 37, :RULE_REF => 51, :SYNPRED => 12, :OPTIONAL => 9, 
-                  :CHAR_LITERAL => 46, :LABEL => 28, :TEMPLATE => 29, :SYN_SEMPRED => 33, 
-                  :XDIGIT => 59, :BLOCK => 8, :POSITIVE_CLOSURE => 11, :OPTIONS => 48)
+    define_tokens( :BACKTRACK_SEMPRED => 34, :DOUBLE_ANGLE_STRING_LITERAL => 53, 
+                   :LEXER_GRAMMAR => 24, :EOA => 19, :ARGLIST => 22, :EOF => -1, 
+                   :SEMPRED => 31, :ACTION => 47, :EOB => 18, :TOKEN_REF => 44, 
+                   :T__93 => 93, :T__91 => 91, :RET => 23, :T__92 => 92, 
+                   :STRING_LITERAL => 45, :T__90 => 90, :ARG => 21, :EOR => 17, 
+                   :ARG_ACTION => 50, :DOUBLE_QUOTE_STRING_LITERAL => 52, 
+                   :NESTED_ARG_ACTION => 60, :ACTION_CHAR_LITERAL => 62, 
+                   :T__80 => 80, :T__81 => 81, :T__82 => 82, :RULE => 7, 
+                   :ACTION_ESC => 64, :T__83 => 83, :PARSER_GRAMMAR => 25, 
+                   :SRC => 54, :INT => 49, :CHAR_RANGE => 14, :EPSILON => 15, 
+                   :T__85 => 85, :T__84 => 84, :T__87 => 87, :T__86 => 86, 
+                   :REWRITE => 39, :T__89 => 89, :T__88 => 88, :WS => 66, 
+                   :T__71 => 71, :T__72 => 72, :COMBINED_GRAMMAR => 27, 
+                   :T__70 => 70, :LEXER => 6, :SL_COMMENT => 55, :TREE_GRAMMAR => 26, 
+                   :T__76 => 76, :CLOSURE => 10, :T__75 => 75, :PARSER => 5, 
+                   :T__74 => 74, :T__73 => 73, :T__79 => 79, :T__78 => 78, 
+                   :T__77 => 77, :T__68 => 68, :T__69 => 69, :T__67 => 67, 
+                   :NESTED_ACTION => 63, :ESC => 58, :FRAGMENT => 35, :ID => 20, 
+                   :TREE_BEGIN => 36, :AT => 40, :ML_COMMENT => 56, :ALT => 16, 
+                   :SCOPE => 30, :LABEL_ASSIGN => 41, :DOC_COMMENT => 4, 
+                   :WS_LOOP => 65, :RANGE => 13, :TOKENS => 43, :GATED_SEMPRED => 32, 
+                   :LITERAL_CHAR => 57, :BANG => 38, :LIST_LABEL_ASSIGN => 42, 
+                   :ACTION_STRING_LITERAL => 61, :ROOT => 37, :RULE_REF => 51, 
+                   :SYNPRED => 12, :OPTIONAL => 9, :CHAR_LITERAL => 46, 
+                   :LABEL => 28, :TEMPLATE => 29, :SYN_SEMPRED => 33, :XDIGIT => 59, 
+                   :BLOCK => 8, :POSITIVE_CLOSURE => 11, :OPTIONS => 48 )
     
   end
 
@@ -100,7 +101,7 @@ module ANTLRv3Grammar
     include TokenData
 
     begin
-      generated_using( "samples/ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+      generated_using( "samples/ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -1076,7 +1077,7 @@ module ANTLRv3Grammar
       when 2
         # at line 472:6: (~ ( '\\r' | '\\n' ) )*
         # at line 472:6: (~ ( '\\r' | '\\n' ) )*
-        loop do  #loop 1
+        loop do # decision 1
           alt_1 = 2
           look_1_0 = @input.peek(1)
 
@@ -1098,9 +1099,9 @@ module ANTLRv3Grammar
 
 
           else
-            break #loop 1
+            break # out of loop for decision 1
           end
-        end
+        end # loop for decision 1
 
       end
       # at line 474:3: ( '\\r' )?
@@ -1148,7 +1149,7 @@ module ANTLRv3Grammar
       if @input.peek(1) == ?* then type = DOC_COMMENT else channel = HIDDEN end 
       # <-- action
       # at line 478:88: ( . )*
-      loop do  #loop 4
+      loop do # decision 4
         alt_4 = 2
         look_4_0 = @input.peek(1)
 
@@ -1171,9 +1172,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 4
+          break # out of loop for decision 4
         end
-      end
+      end # loop for decision 4
       match("*/")
 
       
@@ -1227,7 +1228,7 @@ module ANTLRv3Grammar
       match(?\')
       literal_char!
       # at line 486:22: ( LITERAL_CHAR )*
-      loop do  #loop 5
+      loop do # decision 5
         alt_5 = 2
         look_5_0 = @input.peek(1)
 
@@ -1241,9 +1242,9 @@ module ANTLRv3Grammar
           literal_char!
 
         else
-          break #loop 5
+          break # out of loop for decision 5
         end
-      end
+      end # loop for decision 5
       match(?\')
 
       
@@ -1314,7 +1315,7 @@ module ANTLRv3Grammar
       # at line 496:4: '\"' ( ESC | ~ ( '\\\\' | '\"' ) )* '\"'
       match(?")
       # at line 496:8: ( ESC | ~ ( '\\\\' | '\"' ) )*
-      loop do  #loop 7
+      loop do # decision 7
         alt_7 = 3
         look_7_0 = @input.peek(1)
 
@@ -1342,9 +1343,9 @@ module ANTLRv3Grammar
 
 
         else
-          break #loop 7
+          break # out of loop for decision 7
         end
-      end
+      end # loop for decision 7
       match(?")
 
       
@@ -1371,7 +1372,7 @@ module ANTLRv3Grammar
       # at line 500:4: '<<' ( . )* '>>'
       match("<<")
       # at line 500:9: ( . )*
-      loop do  #loop 8
+      loop do # decision 8
         alt_8 = 2
         look_8_0 = @input.peek(1)
 
@@ -1394,9 +1395,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 8
+          break # out of loop for decision 8
         end
-      end
+      end # loop for decision 8
       match(">>")
 
       
@@ -1587,7 +1588,7 @@ module ANTLRv3Grammar
       # at line 535:2: '[' ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )* ']'
       match(?[)
       # at line 536:2: ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )*
-      loop do  #loop 11
+      loop do # decision 11
         alt_11 = 5
         look_11_0 = @input.peek(1)
 
@@ -1621,9 +1622,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 11
+          break # out of loop for decision 11
         end
-      end
+      end # loop for decision 11
       match(?])
 
     ensure
@@ -1683,7 +1684,7 @@ module ANTLRv3Grammar
       # at line 552:2: '{' ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )* '}'
       match(?{)
       # at line 553:2: ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )*
-      loop do  #loop 13
+      loop do # decision 13
         alt_13 = 8
         alt_13 = @dfa13.predict(@input)
         case alt_13
@@ -1725,9 +1726,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 13
+          break # out of loop for decision 13
         end
-      end
+      end # loop for decision 13
       match(?})
 
     ensure
@@ -1747,7 +1748,7 @@ module ANTLRv3Grammar
       # at line 567:4: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
       match(?\')
       # at line 567:9: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
-      loop do  #loop 14
+      loop do # decision 14
         alt_14 = 3
         look_14_0 = @input.peek(1)
 
@@ -1776,9 +1777,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 14
+          break # out of loop for decision 14
         end
-      end
+      end # loop for decision 14
       match(?\')
 
     ensure
@@ -1798,7 +1799,7 @@ module ANTLRv3Grammar
       # at line 572:4: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
       match(?")
       # at line 572:8: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
-      loop do  #loop 15
+      loop do # decision 15
         alt_15 = 3
         look_15_0 = @input.peek(1)
 
@@ -1827,9 +1828,9 @@ module ANTLRv3Grammar
           match_any
 
         else
-          break #loop 15
+          break # out of loop for decision 15
         end
-      end
+      end # loop for decision 15
       match(?")
 
     ensure
@@ -1870,7 +1871,7 @@ module ANTLRv3Grammar
       # at line 581:4: 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       match_range(?A, ?Z)
       # at line 581:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-      loop do  #loop 16
+      loop do # decision 16
         alt_16 = 2
         look_16_0 = @input.peek(1)
 
@@ -1892,9 +1893,9 @@ module ANTLRv3Grammar
 
 
         else
-          break #loop 16
+          break # out of loop for decision 16
         end
-      end
+      end # loop for decision 16
 
       
       @state.type = type
@@ -1920,7 +1921,7 @@ module ANTLRv3Grammar
       # at line 585:4: 'a' .. 'z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       match_range(?a, ?z)
       # at line 585:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-      loop do  #loop 17
+      loop do # decision 17
         alt_17 = 2
         look_17_0 = @input.peek(1)
 
@@ -1942,9 +1943,9 @@ module ANTLRv3Grammar
 
 
         else
-          break #loop 17
+          break # out of loop for decision 17
         end
-      end
+      end # loop for decision 17
 
       
       @state.type = type
@@ -2130,7 +2131,7 @@ module ANTLRv3Grammar
       # - - - - main rule block - - - -
       # at line 616:4: ( WS | SL_COMMENT | ML_COMMENT )*
       # at line 616:4: ( WS | SL_COMMENT | ML_COMMENT )*
-      loop do  #loop 20
+      loop do # decision 20
         alt_20 = 4
         look_20_0 = @input.peek(1)
 
@@ -2161,9 +2162,9 @@ module ANTLRv3Grammar
           ml_comment!
 
         else
-          break #loop 20
+          break # out of loop for decision 20
         end
-      end
+      end # loop for decision 20
 
     ensure
       # -> uncomment the next line to manually enable rule tracing

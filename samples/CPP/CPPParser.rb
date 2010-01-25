@@ -3,9 +3,9 @@
 # samples/CPP.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.3.0
+# Ruby runtime library version: 1.4.0
 # Input grammar file: samples/CPP.g
-# Generated at: 2010-01-07 10:20:06
+# Generated at: 2010-01-25 13:58:34
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.3.0):
+Failed to load the ANTLR3 runtime library (version 1.4.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -30,7 +30,7 @@ Current load path:
   END
 end
 
-defined?(ANTLR3) or begin
+defined?( ANTLR3 ) or begin
   
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
@@ -38,7 +38,7 @@ defined?(ANTLR3) or begin
 rescue LoadError
   
   # 2: try to load rubygems if it isn't already loaded
-  defined?(Gem) or begin
+  defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.3.0' )
+    Gem.activate( 'antlr3', '= 1.4.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -66,41 +66,42 @@ module CPP
   module TokenData
 
     # define the token constants
-    define_tokens(:STAR => 84, :LSQUARE => 93, :FloatTypeSuffix => 119, 
-                  :LETTER => 109, :MOD => 86, :TYPECAST => 19, :POINTER => 25, 
-                  :BITWISEXOR => 72, :MINUSMINUS => 88, :ASSIGNEQUAL => 56, 
-                  :NOT => 91, :EOF => -1, :UNARY_PLUS => 17, :NOTEQUAL => 74, 
-                  :COPERATOR => 106, :MINUSEQUAL => 61, :RPAREN => 51, :MAC_FUNCTION => 43, 
-                  :STRING_LITERAL => 55, :FLOATING_POINT_LITERAL => 100, 
-                  :DOTMBR => 113, :INCLUDE => 38, :ENDIF => 9, :ARGS => 28, 
-                  :COMMENT => 122, :REFERANCE => 18, :DIVIDE => 85, :TEXT_END => 31, 
-                  :GREATERTHAN => 77, :LINE_COMMENT => 123, :MAC_FUNCTION_OBJECT => 44, 
-                  :IntegerTypeSuffix => 117, :POINTERTOMBR => 112, :DEFINED => 90, 
-                  :ELSE => 8, :CHARACTER_LITERAL => 99, :ELLIPSIS => 53, 
-                  :LCURLY => 110, :EXPR_DEF => 14, :UNARY_MINUS => 16, :SEMICOLON => 103, 
-                  :BITWISEXOREQUAL => 65, :ERROR => 11, :METHOD_CALL => 27, 
-                  :ELIF => 7, :WS => 50, :CKEYWORD => 105, :SHARPSHARP => 104, 
-                  :SHIFTLEFTEQUAL => 62, :OR => 69, :SIZEOF => 89, :INDEX_OP => 21, 
-                  :EXPR_GROUP => 26, :DIVIDEEQUAL => 58, :LESSTHANOREQUALTO => 78, 
-                  :INCLUDE_FILE => 107, :WARNING => 10, :EscapeSequence => 115, 
-                  :DECIMAL_LITERAL => 54, :EXP_ARGS => 33, :STRING_OP => 102, 
-                  :End => 47, :ESCAPED_NEWLINE => 124, :MAC_OBJECT => 42, 
-                  :PLUSPLUS => 87, :PRAGMA => 12, :INCLUDE_EXPAND => 39, 
-                  :SHIFTLEFT => 80, :Exponent => 118, :STRINGIFICATION => 101, 
-                  :AND => 70, :DEFINE => 40, :EXPAND => 32, :POINTER_AT => 24, 
-                  :POST_DEC => 23, :DIRECTIVE => 46, :HexDigit => 116, :LPAREN => 49, 
-                  :IF => 6, :PLUSEQUAL => 60, :GREATERTHANOREQUALTO => 79, 
-                  :EXPR => 13, :MODEQUAL => 59, :SCOPE => 114, :COMMA => 52, 
-                  :IDENTIFIER => 48, :EQUAL => 75, :SHIFTRIGHT => 81, :QUESTIONMARK => 67, 
-                  :TILDE => 92, :PLUS => 82, :HEX_LITERAL => 97, :EXP_ARG => 34, 
-                  :SHIFTRIGHTEQUAL => 63, :UNDEF => 41, :DOT => 95, :MACRO_DEFINE => 45, 
-                  :LESSTHAN => 76, :EXEC_MACRO => 35, :IFNDEF => 5, :TEXT_GROUP => 30, 
-                  :TIMESEQUAL => 57, :OCTAL_LITERAL => 98, :AMPERSAND => 73, 
-                  :IFDEF => 4, :BITWISEANDEQUAL => 64, :RSQUARE => 94, :MINUS => 83, 
-                  :LINE => 37, :TEXT_LINE => 29, :BITWISEOR => 71, :CONCATENATE => 36, 
-                  :MACRO_TEXT => 108, :COLON => 68, :UnicodeEscape => 121, 
-                  :RCURLY => 111, :EXPR_NDEF => 15, :POST_INC => 22, :POINTERTO => 96, 
-                  :OctalEscape => 120, :SIZEOF_TYPE => 20, :BITWISEOREQUAL => 66)
+    define_tokens( :STAR => 84, :LSQUARE => 93, :FloatTypeSuffix => 119, 
+                   :LETTER => 109, :MOD => 86, :TYPECAST => 19, :POINTER => 25, 
+                   :BITWISEXOR => 72, :MINUSMINUS => 88, :ASSIGNEQUAL => 56, 
+                   :NOT => 91, :EOF => -1, :UNARY_PLUS => 17, :NOTEQUAL => 74, 
+                   :COPERATOR => 106, :MINUSEQUAL => 61, :RPAREN => 51, 
+                   :MAC_FUNCTION => 43, :STRING_LITERAL => 55, :FLOATING_POINT_LITERAL => 100, 
+                   :DOTMBR => 113, :INCLUDE => 38, :ENDIF => 9, :ARGS => 28, 
+                   :COMMENT => 122, :REFERANCE => 18, :DIVIDE => 85, :TEXT_END => 31, 
+                   :GREATERTHAN => 77, :LINE_COMMENT => 123, :MAC_FUNCTION_OBJECT => 44, 
+                   :IntegerTypeSuffix => 117, :POINTERTOMBR => 112, :DEFINED => 90, 
+                   :ELSE => 8, :CHARACTER_LITERAL => 99, :ELLIPSIS => 53, 
+                   :LCURLY => 110, :EXPR_DEF => 14, :UNARY_MINUS => 16, 
+                   :SEMICOLON => 103, :BITWISEXOREQUAL => 65, :ERROR => 11, 
+                   :METHOD_CALL => 27, :ELIF => 7, :WS => 50, :CKEYWORD => 105, 
+                   :SHARPSHARP => 104, :SHIFTLEFTEQUAL => 62, :OR => 69, 
+                   :SIZEOF => 89, :INDEX_OP => 21, :EXPR_GROUP => 26, :DIVIDEEQUAL => 58, 
+                   :LESSTHANOREQUALTO => 78, :INCLUDE_FILE => 107, :WARNING => 10, 
+                   :EscapeSequence => 115, :DECIMAL_LITERAL => 54, :EXP_ARGS => 33, 
+                   :STRING_OP => 102, :End => 47, :ESCAPED_NEWLINE => 124, 
+                   :MAC_OBJECT => 42, :PLUSPLUS => 87, :PRAGMA => 12, :INCLUDE_EXPAND => 39, 
+                   :SHIFTLEFT => 80, :Exponent => 118, :STRINGIFICATION => 101, 
+                   :AND => 70, :DEFINE => 40, :EXPAND => 32, :POINTER_AT => 24, 
+                   :POST_DEC => 23, :DIRECTIVE => 46, :HexDigit => 116, 
+                   :LPAREN => 49, :IF => 6, :PLUSEQUAL => 60, :GREATERTHANOREQUALTO => 79, 
+                   :EXPR => 13, :MODEQUAL => 59, :SCOPE => 114, :COMMA => 52, 
+                   :IDENTIFIER => 48, :EQUAL => 75, :SHIFTRIGHT => 81, :QUESTIONMARK => 67, 
+                   :TILDE => 92, :PLUS => 82, :HEX_LITERAL => 97, :EXP_ARG => 34, 
+                   :SHIFTRIGHTEQUAL => 63, :UNDEF => 41, :DOT => 95, :MACRO_DEFINE => 45, 
+                   :LESSTHAN => 76, :EXEC_MACRO => 35, :IFNDEF => 5, :TEXT_GROUP => 30, 
+                   :TIMESEQUAL => 57, :OCTAL_LITERAL => 98, :AMPERSAND => 73, 
+                   :IFDEF => 4, :BITWISEANDEQUAL => 64, :RSQUARE => 94, 
+                   :MINUS => 83, :LINE => 37, :TEXT_LINE => 29, :BITWISEOR => 71, 
+                   :CONCATENATE => 36, :MACRO_TEXT => 108, :COLON => 68, 
+                   :UnicodeEscape => 121, :RCURLY => 111, :EXPR_NDEF => 15, 
+                   :POST_INC => 22, :POINTERTO => 96, :OctalEscape => 120, 
+                   :SIZEOF_TYPE => 20, :BITWISEOREQUAL => 66 )
 
     # register the proper human-readable name or literal value
     # for each token type
@@ -108,32 +109,33 @@ module CPP
     # this is necessary because anonymous tokens, which are
     # created from literal values in the grammar, do not
     # have descriptive names
-    register_names("IFDEF", "IFNDEF", "IF", "ELIF", "ELSE", "ENDIF", "WARNING", 
-                   "ERROR", "PRAGMA", "EXPR", "EXPR_DEF", "EXPR_NDEF", "UNARY_MINUS", 
-                   "UNARY_PLUS", "REFERANCE", "TYPECAST", "SIZEOF_TYPE", 
-                   "INDEX_OP", "POST_INC", "POST_DEC", "POINTER_AT", "POINTER", 
-                   "EXPR_GROUP", "METHOD_CALL", "ARGS", "TEXT_LINE", "TEXT_GROUP", 
-                   "TEXT_END", "EXPAND", "EXP_ARGS", "EXP_ARG", "EXEC_MACRO", 
-                   "CONCATENATE", "LINE", "INCLUDE", "INCLUDE_EXPAND", "DEFINE", 
-                   "UNDEF", "MAC_OBJECT", "MAC_FUNCTION", "MAC_FUNCTION_OBJECT", 
-                   "MACRO_DEFINE", "DIRECTIVE", "End", "IDENTIFIER", "LPAREN", 
-                   "WS", "RPAREN", "COMMA", "ELLIPSIS", "DECIMAL_LITERAL", 
-                   "STRING_LITERAL", "ASSIGNEQUAL", "TIMESEQUAL", "DIVIDEEQUAL", 
-                   "MODEQUAL", "PLUSEQUAL", "MINUSEQUAL", "SHIFTLEFTEQUAL", 
-                   "SHIFTRIGHTEQUAL", "BITWISEANDEQUAL", "BITWISEXOREQUAL", 
-                   "BITWISEOREQUAL", "QUESTIONMARK", "COLON", "OR", "AND", 
-                   "BITWISEOR", "BITWISEXOR", "AMPERSAND", "NOTEQUAL", "EQUAL", 
-                   "LESSTHAN", "GREATERTHAN", "LESSTHANOREQUALTO", "GREATERTHANOREQUALTO", 
-                   "SHIFTLEFT", "SHIFTRIGHT", "PLUS", "MINUS", "STAR", "DIVIDE", 
-                   "MOD", "PLUSPLUS", "MINUSMINUS", "SIZEOF", "DEFINED", 
-                   "NOT", "TILDE", "LSQUARE", "RSQUARE", "DOT", "POINTERTO", 
-                   "HEX_LITERAL", "OCTAL_LITERAL", "CHARACTER_LITERAL", 
-                   "FLOATING_POINT_LITERAL", "STRINGIFICATION", "STRING_OP", 
-                   "SEMICOLON", "SHARPSHARP", "CKEYWORD", "COPERATOR", "INCLUDE_FILE", 
-                   "MACRO_TEXT", "LETTER", "LCURLY", "RCURLY", "POINTERTOMBR", 
-                   "DOTMBR", "SCOPE", "EscapeSequence", "HexDigit", "IntegerTypeSuffix", 
-                   "Exponent", "FloatTypeSuffix", "OctalEscape", "UnicodeEscape", 
-                   "COMMENT", "LINE_COMMENT", "ESCAPED_NEWLINE")
+    register_names( "IFDEF", "IFNDEF", "IF", "ELIF", "ELSE", "ENDIF", "WARNING", 
+                    "ERROR", "PRAGMA", "EXPR", "EXPR_DEF", "EXPR_NDEF", 
+                    "UNARY_MINUS", "UNARY_PLUS", "REFERANCE", "TYPECAST", 
+                    "SIZEOF_TYPE", "INDEX_OP", "POST_INC", "POST_DEC", "POINTER_AT", 
+                    "POINTER", "EXPR_GROUP", "METHOD_CALL", "ARGS", "TEXT_LINE", 
+                    "TEXT_GROUP", "TEXT_END", "EXPAND", "EXP_ARGS", "EXP_ARG", 
+                    "EXEC_MACRO", "CONCATENATE", "LINE", "INCLUDE", "INCLUDE_EXPAND", 
+                    "DEFINE", "UNDEF", "MAC_OBJECT", "MAC_FUNCTION", "MAC_FUNCTION_OBJECT", 
+                    "MACRO_DEFINE", "DIRECTIVE", "End", "IDENTIFIER", "LPAREN", 
+                    "WS", "RPAREN", "COMMA", "ELLIPSIS", "DECIMAL_LITERAL", 
+                    "STRING_LITERAL", "ASSIGNEQUAL", "TIMESEQUAL", "DIVIDEEQUAL", 
+                    "MODEQUAL", "PLUSEQUAL", "MINUSEQUAL", "SHIFTLEFTEQUAL", 
+                    "SHIFTRIGHTEQUAL", "BITWISEANDEQUAL", "BITWISEXOREQUAL", 
+                    "BITWISEOREQUAL", "QUESTIONMARK", "COLON", "OR", "AND", 
+                    "BITWISEOR", "BITWISEXOR", "AMPERSAND", "NOTEQUAL", 
+                    "EQUAL", "LESSTHAN", "GREATERTHAN", "LESSTHANOREQUALTO", 
+                    "GREATERTHANOREQUALTO", "SHIFTLEFT", "SHIFTRIGHT", "PLUS", 
+                    "MINUS", "STAR", "DIVIDE", "MOD", "PLUSPLUS", "MINUSMINUS", 
+                    "SIZEOF", "DEFINED", "NOT", "TILDE", "LSQUARE", "RSQUARE", 
+                    "DOT", "POINTERTO", "HEX_LITERAL", "OCTAL_LITERAL", 
+                    "CHARACTER_LITERAL", "FLOATING_POINT_LITERAL", "STRINGIFICATION", 
+                    "STRING_OP", "SEMICOLON", "SHARPSHARP", "CKEYWORD", 
+                    "COPERATOR", "INCLUDE_FILE", "MACRO_TEXT", "LETTER", 
+                    "LCURLY", "RCURLY", "POINTERTOMBR", "DOTMBR", "SCOPE", 
+                    "EscapeSequence", "HexDigit", "IntegerTypeSuffix", "Exponent", 
+                    "FloatTypeSuffix", "OctalEscape", "UnicodeEscape", "COMMENT", 
+                    "LINE_COMMENT", "ESCAPED_NEWLINE" )
     
   end
 
@@ -142,33 +144,34 @@ module CPP
     @grammar_home = CPP
     include ANTLR3::ASTBuilder
 
-    RULE_METHODS = [:preprocess, :proc_line, :file_inclusion, :macro_define, 
-                    :macro_param, :macro_execution, :macro_undef, :conditional_compilation, 
-                    :line_control, :diagnostics, :text_line, :statement, 
-                    :type_name, :ifexpression, :assignment_expression, :conditional_expression, 
-                    :logical_or_expression, :logical_and_expression, :inclusive_or_expression, 
-                    :exclusive_or_expression, :and_expression, :equality_expression, 
-                    :relational_expression, :shift_expression, :additive_expression, 
-                    :multiplicative_expression, :unary_expression, :unary_expression_not_plus_minus, 
-                    :postfix_expression, :primary_expression, :function_call, 
-                    :arg_list, :constant, :source_text, :macro_expansion, 
-                    :mac_args, :m_arg, :source_expression, :concatenate, 
-                    :primary_source, :macro_text, :synpred14_CPP, :synpred22_CPP, 
-                    :synpred65_CPP, :synpred66_CPP, :synpred75_CPP, :synpred78_CPP, 
-                    :synpred82_CPP, :synpred83_CPP, :synpred92_CPP, :synpred94_CPP, 
-                    :synpred98_CPP, :synpred100_CPP, :synpred103_CPP, :synpred105_CPP, 
-                    :synpred106_CPP, :synpred108_CPP, :synpred110_CPP, :synpred112_CPP, 
-                    :synpred115_CPP, :synpred121_CPP].freeze
+    RULE_METHODS = [ :preprocess, :proc_line, :file_inclusion, :macro_define, 
+                     :macro_param, :macro_execution, :macro_undef, :conditional_compilation, 
+                     :line_control, :diagnostics, :text_line, :statement, 
+                     :type_name, :ifexpression, :assignment_expression, 
+                     :conditional_expression, :logical_or_expression, :logical_and_expression, 
+                     :inclusive_or_expression, :exclusive_or_expression, 
+                     :and_expression, :equality_expression, :relational_expression, 
+                     :shift_expression, :additive_expression, :multiplicative_expression, 
+                     :unary_expression, :unary_expression_not_plus_minus, 
+                     :postfix_expression, :primary_expression, :function_call, 
+                     :arg_list, :constant, :source_text, :macro_expansion, 
+                     :mac_args, :m_arg, :source_expression, :concatenate, 
+                     :primary_source, :macro_text, :synpred14_CPP, :synpred22_CPP, 
+                     :synpred65_CPP, :synpred66_CPP, :synpred75_CPP, :synpred78_CPP, 
+                     :synpred82_CPP, :synpred83_CPP, :synpred92_CPP, :synpred94_CPP, 
+                     :synpred98_CPP, :synpred100_CPP, :synpred103_CPP, :synpred105_CPP, 
+                     :synpred106_CPP, :synpred108_CPP, :synpred110_CPP, 
+                     :synpred112_CPP, :synpred115_CPP, :synpred121_CPP ].freeze
 
     ScopeExpression = Struct.new(:flavor)
 
 
     include TokenData
 
-    generated_using( "samples/CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+    generated_using( "samples/CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
 
-    def initialize(input, options = {})
-      super(input, options)
+    def initialize( input, options = {} )
+      super( input, options )
       @state.rule_memory = {}
       @Expression_stack = []
 
@@ -177,10 +180,12 @@ module CPP
     # - - - - - - - - - - - - Rules - - - - - - - - - - - - -
     PreprocessReturnValue = define_return_scope 
 
+    # 
     # parser rule preprocess
     # 
     # (in samples/CPP.g)
     # 85:1: preprocess : ( proc_line )+ ;
+    # 
     def preprocess
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 1)
@@ -266,10 +271,12 @@ module CPP
 
     ProcLineReturnValue = define_return_scope 
 
+    # 
     # parser rule proc_line
     # 
     # (in samples/CPP.g)
     # 89:1: proc_line : ( DIRECTIVE | text_line | diagnostics | file_inclusion | macro_define | macro_undef | conditional_compilation | line_control | macro_execution )? End ;
+    # 
     def proc_line
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 2)
@@ -428,10 +435,12 @@ module CPP
 
     FileInclusionReturnValue = define_return_scope 
 
+    # 
     # parser rule file_inclusion
     # 
     # (in samples/CPP.g)
     # 103:1: file_inclusion : ( INCLUDE -> ^( INCLUDE ) | INCLUDE_EXPAND -> ^( INCLUDE_EXPAND ) );
+    # 
     def file_inclusion
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 3)
@@ -562,10 +571,12 @@ module CPP
 
     MacroDefineReturnValue = define_return_scope 
 
+    # 
     # parser rule macro_define
     # 
     # (in samples/CPP.g)
     # 108:1: macro_define : ( DEFINE IDENTIFIER LPAREN ( WS )? RPAREN ( macro_text )? -> ^( MAC_FUNCTION_OBJECT IDENTIFIER ( macro_text )? ) | DEFINE mac= IDENTIFIER LPAREN ( WS )? (arg+= macro_param ( WS )? ( COMMA ( WS )* arg+= macro_param ( WS )* )* )? RPAREN ( macro_text )? -> ^( MAC_FUNCTION $mac ( $arg)+ ( macro_text )? ) | DEFINE IDENTIFIER ( macro_text )? -> ^( MAC_OBJECT IDENTIFIER ( macro_text )? ) );
+    # 
     def macro_define
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 4)
@@ -786,7 +797,7 @@ module CPP
 
             end
             # at line 110:64: ( COMMA ( WS )* arg+= macro_param ( WS )* )*
-            loop do  #loop 10
+            loop do # decision 10
               alt_10 = 2
               look_10_0 = @input.peek(1)
 
@@ -802,7 +813,7 @@ module CPP
                   stream_COMMA.add(__COMMA24__)
                 end
                 # at line 110:71: ( WS )*
-                loop do  #loop 8
+                loop do # decision 8
                   alt_8 = 2
                   look_8_0 = @input.peek(1)
 
@@ -819,9 +830,9 @@ module CPP
                     end
 
                   else
-                    break #loop 8
+                    break # out of loop for decision 8
                   end
-                end
+                end # loop for decision 8
                 @state.following.push(TOKENS_FOLLOWING_macro_param_IN_macro_define_686)
                 arg = macro_param
                 @state.following.pop
@@ -831,7 +842,7 @@ module CPP
                 list_of_arg << arg.tree
 
                 # at line 110:92: ( WS )*
-                loop do  #loop 9
+                loop do # decision 9
                   alt_9 = 2
                   look_9_0 = @input.peek(1)
 
@@ -848,14 +859,14 @@ module CPP
                     end
 
                   else
-                    break #loop 9
+                    break # out of loop for decision 9
                   end
-                end
+                end # loop for decision 9
 
               else
-                break #loop 10
+                break # out of loop for decision 10
               end
-            end
+            end # loop for decision 10
 
           end
           __RPAREN27__ = match(RPAREN, TOKENS_FOLLOWING_RPAREN_IN_macro_define_695) 
@@ -1016,10 +1027,12 @@ module CPP
 
     MacroParamReturnValue = define_return_scope 
 
+    # 
     # parser rule macro_param
     # 
     # (in samples/CPP.g)
     # 114:1: macro_param : ( IDENTIFIER ELLIPSIS -> ^( ELLIPSIS IDENTIFIER ) | ELLIPSIS | IDENTIFIER );
+    # 
     def macro_param
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 5)
@@ -1165,10 +1178,12 @@ module CPP
 
     MacroExecutionReturnValue = define_return_scope 
 
+    # 
     # parser rule macro_execution
     # 
     # (in samples/CPP.g)
     # 120:1: macro_execution : EXEC_MACRO ifexpression -> ^( EXEC_MACRO ifexpression ) ;
+    # 
     def macro_execution
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 6)
@@ -1266,10 +1281,12 @@ module CPP
 
     MacroUndefReturnValue = define_return_scope 
 
+    # 
     # parser rule macro_undef
     # 
     # (in samples/CPP.g)
     # 126:1: macro_undef : UNDEF mac= IDENTIFIER -> ^( UNDEF IDENTIFIER ) ;
+    # 
     def macro_undef
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 7)
@@ -1359,10 +1376,12 @@ module CPP
 
     ConditionalCompilationReturnValue = define_return_scope 
 
+    # 
     # parser rule conditional_compilation
     # 
     # (in samples/CPP.g)
     # 130:1: conditional_compilation : t= IF ifexp+= ifexpression ifstmt+= statement ( ELIF ifexp+= ifexpression ifstmt+= statement )* ( ELSE elsestmt= statement )? ENDIF -> ^( IF ( $ifexp $ifstmt)+ ( ELSE $elsestmt)? ) ;
+    # 
     def conditional_compilation
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 8)
@@ -1432,7 +1451,7 @@ module CPP
         list_of_ifstmt << ifstmt.tree
 
         # at line 134:7: ( ELIF ifexp+= ifexpression ifstmt+= statement )*
-        loop do  #loop 16
+        loop do # decision 16
           alt_16 = 2
           look_16_0 = @input.peek(1)
 
@@ -1465,9 +1484,9 @@ module CPP
 
 
           else
-            break #loop 16
+            break # out of loop for decision 16
           end
-        end
+        end # loop for decision 16
         # at line 135:7: ( ELSE elsestmt= statement )?
         alt_17 = 2
         look_17_0 = @input.peek(1)
@@ -1572,10 +1591,12 @@ module CPP
 
     LineControlReturnValue = define_return_scope 
 
+    # 
     # parser rule line_control
     # 
     # (in samples/CPP.g)
     # 140:1: line_control : LINE n= DECIMAL_LITERAL (theFile= STRING_LITERAL )? -> ^( LINE $n ( $theFile)? ) ;
+    # 
     def line_control
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 9)
@@ -1693,10 +1714,12 @@ module CPP
 
     DiagnosticsReturnValue = define_return_scope 
 
+    # 
     # parser rule diagnostics
     # 
     # (in samples/CPP.g)
     # 144:1: diagnostics : ( WARNING -> ^( WARNING ) | ERROR -> ^( ERROR ) | PRAGMA -> ^( PRAGMA ) );
+    # 
     def diagnostics
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 10)
@@ -1860,10 +1883,12 @@ module CPP
 
     TextLineReturnValue = define_return_scope 
 
+    # 
     # parser rule text_line
     # 
     # (in samples/CPP.g)
     # 150:1: text_line : ( source_text )+ -> ^( TEXT_LINE ( source_text )+ ) ;
+    # 
     def text_line
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 11)
@@ -1982,10 +2007,12 @@ module CPP
 
     StatementReturnValue = define_return_scope 
 
+    # 
     # parser rule statement
     # 
     # (in samples/CPP.g)
     # 155:1: statement : ( proc_line )+ ;
+    # 
     def statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 12)
@@ -2071,10 +2098,12 @@ module CPP
 
     TypeNameReturnValue = define_return_scope 
 
+    # 
     # parser rule type_name
     # 
     # (in samples/CPP.g)
     # 159:1: type_name : IDENTIFIER ;
+    # 
     def type_name
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 13)
@@ -2136,10 +2165,12 @@ module CPP
 
     IfexpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule ifexpression
     # 
     # (in samples/CPP.g)
     # 163:1: ifexpression : assignment_expression -> ^( assignment_expression ) ;
+    # 
     def ifexpression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 14)
@@ -2231,10 +2262,12 @@ module CPP
 
     AssignmentExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule assignment_expression
     # 
     # (in samples/CPP.g)
     # 175:1: assignment_expression : conditional_expression ( ( ASSIGNEQUAL | TIMESEQUAL | DIVIDEEQUAL | MODEQUAL | PLUSEQUAL | MINUSEQUAL | SHIFTLEFTEQUAL | SHIFTRIGHTEQUAL | BITWISEANDEQUAL | BITWISEXOREQUAL | BITWISEOREQUAL ) assignment_expression )? ;
+    # 
     def assignment_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 15)
@@ -2467,10 +2500,12 @@ module CPP
 
     ConditionalExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule conditional_expression
     # 
     # (in samples/CPP.g)
     # 185:1: conditional_expression : logical_or_expression ( QUESTIONMARK assignment_expression COLON conditional_expression )? ;
+    # 
     def conditional_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 16)
@@ -2574,10 +2609,12 @@ module CPP
 
     LogicalOrExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule logical_or_expression
     # 
     # (in samples/CPP.g)
     # 190:1: logical_or_expression : logical_and_expression ( OR logical_and_expression )* ;
+    # 
     def logical_or_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 17)
@@ -2613,7 +2650,7 @@ module CPP
           @adaptor.add_child(root_0, logical_and_expression68.tree)
         end
         # at line 191:36: ( OR logical_and_expression )*
-        loop do  #loop 25
+        loop do # decision 25
           alt_25 = 2
           look_25_0 = @input.peek(1)
 
@@ -2639,9 +2676,9 @@ module CPP
             end
 
           else
-            break #loop 25
+            break # out of loop for decision 25
           end
-        end
+        end # loop for decision 25
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -2670,10 +2707,12 @@ module CPP
 
     LogicalAndExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule logical_and_expression
     # 
     # (in samples/CPP.g)
     # 194:1: logical_and_expression : inclusive_or_expression ( AND inclusive_or_expression )* ;
+    # 
     def logical_and_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 18)
@@ -2709,7 +2748,7 @@ module CPP
           @adaptor.add_child(root_0, inclusive_or_expression71.tree)
         end
         # at line 195:37: ( AND inclusive_or_expression )*
-        loop do  #loop 26
+        loop do # decision 26
           alt_26 = 2
           look_26_0 = @input.peek(1)
 
@@ -2735,9 +2774,9 @@ module CPP
             end
 
           else
-            break #loop 26
+            break # out of loop for decision 26
           end
-        end
+        end # loop for decision 26
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -2766,10 +2805,12 @@ module CPP
 
     InclusiveOrExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule inclusive_or_expression
     # 
     # (in samples/CPP.g)
     # 198:1: inclusive_or_expression : exclusive_or_expression ( BITWISEOR exclusive_or_expression )* ;
+    # 
     def inclusive_or_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 19)
@@ -2805,7 +2846,7 @@ module CPP
           @adaptor.add_child(root_0, exclusive_or_expression74.tree)
         end
         # at line 199:37: ( BITWISEOR exclusive_or_expression )*
-        loop do  #loop 27
+        loop do # decision 27
           alt_27 = 2
           look_27_0 = @input.peek(1)
 
@@ -2831,9 +2872,9 @@ module CPP
             end
 
           else
-            break #loop 27
+            break # out of loop for decision 27
           end
-        end
+        end # loop for decision 27
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -2862,10 +2903,12 @@ module CPP
 
     ExclusiveOrExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule exclusive_or_expression
     # 
     # (in samples/CPP.g)
     # 202:1: exclusive_or_expression : and_expression ( BITWISEXOR and_expression )* ;
+    # 
     def exclusive_or_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 20)
@@ -2901,7 +2944,7 @@ module CPP
           @adaptor.add_child(root_0, and_expression77.tree)
         end
         # at line 203:28: ( BITWISEXOR and_expression )*
-        loop do  #loop 28
+        loop do # decision 28
           alt_28 = 2
           look_28_0 = @input.peek(1)
 
@@ -2927,9 +2970,9 @@ module CPP
             end
 
           else
-            break #loop 28
+            break # out of loop for decision 28
           end
-        end
+        end # loop for decision 28
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -2958,10 +3001,12 @@ module CPP
 
     AndExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule and_expression
     # 
     # (in samples/CPP.g)
     # 206:1: and_expression : equality_expression ( AMPERSAND equality_expression )* ;
+    # 
     def and_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 21)
@@ -2997,7 +3042,7 @@ module CPP
           @adaptor.add_child(root_0, equality_expression80.tree)
         end
         # at line 207:33: ( AMPERSAND equality_expression )*
-        loop do  #loop 29
+        loop do # decision 29
           alt_29 = 2
           look_29_0 = @input.peek(1)
 
@@ -3023,9 +3068,9 @@ module CPP
             end
 
           else
-            break #loop 29
+            break # out of loop for decision 29
           end
-        end
+        end # loop for decision 29
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -3054,10 +3099,12 @@ module CPP
 
     EqualityExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule equality_expression
     # 
     # (in samples/CPP.g)
     # 210:1: equality_expression : relational_expression ( ( NOTEQUAL | EQUAL ) relational_expression )* ;
+    # 
     def equality_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 22)
@@ -3095,7 +3142,7 @@ module CPP
           @adaptor.add_child(root_0, relational_expression83.tree)
         end
         # at line 211:35: ( ( NOTEQUAL | EQUAL ) relational_expression )*
-        loop do  #loop 31
+        loop do # decision 31
           alt_31 = 2
           look_31_0 = @input.peek(1)
 
@@ -3149,9 +3196,9 @@ module CPP
             end
 
           else
-            break #loop 31
+            break # out of loop for decision 31
           end
-        end
+        end # loop for decision 31
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -3180,10 +3227,12 @@ module CPP
 
     RelationalExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule relational_expression
     # 
     # (in samples/CPP.g)
     # 214:1: relational_expression : shift_expression ( ( ( LESSTHAN | GREATERTHAN | LESSTHANOREQUALTO | GREATERTHANOREQUALTO ) shift_expression )* ) ;
+    # 
     def relational_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 23)
@@ -3227,7 +3276,7 @@ module CPP
         # at line 216:13: ( ( ( LESSTHAN | GREATERTHAN | LESSTHANOREQUALTO | GREATERTHANOREQUALTO ) shift_expression )* )
         # at line 216:21: ( ( LESSTHAN | GREATERTHAN | LESSTHANOREQUALTO | GREATERTHANOREQUALTO ) shift_expression )*
         # at line 216:21: ( ( LESSTHAN | GREATERTHAN | LESSTHANOREQUALTO | GREATERTHANOREQUALTO ) shift_expression )*
-        loop do  #loop 33
+        loop do # decision 33
           alt_33 = 2
           look_33_0 = @input.peek(1)
 
@@ -3301,9 +3350,9 @@ module CPP
             end
 
           else
-            break #loop 33
+            break # out of loop for decision 33
           end
-        end
+        end # loop for decision 33
 
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
@@ -3333,10 +3382,12 @@ module CPP
 
     ShiftExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule shift_expression
     # 
     # (in samples/CPP.g)
     # 225:1: shift_expression : additive_expression ( ( SHIFTLEFT | SHIFTRIGHT ) additive_expression )* ;
+    # 
     def shift_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 24)
@@ -3374,7 +3425,7 @@ module CPP
           @adaptor.add_child(root_0, additive_expression93.tree)
         end
         # at line 226:33: ( ( SHIFTLEFT | SHIFTRIGHT ) additive_expression )*
-        loop do  #loop 35
+        loop do # decision 35
           alt_35 = 2
           look_35_0 = @input.peek(1)
 
@@ -3428,9 +3479,9 @@ module CPP
             end
 
           else
-            break #loop 35
+            break # out of loop for decision 35
           end
-        end
+        end # loop for decision 35
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -3459,10 +3510,12 @@ module CPP
 
     AdditiveExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule additive_expression
     # 
     # (in samples/CPP.g)
     # 229:1: additive_expression : multiplicative_expression ( ( PLUS | MINUS ) multiplicative_expression )* ;
+    # 
     def additive_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 25)
@@ -3500,7 +3553,7 @@ module CPP
           @adaptor.add_child(root_0, multiplicative_expression97.tree)
         end
         # at line 230:39: ( ( PLUS | MINUS ) multiplicative_expression )*
-        loop do  #loop 37
+        loop do # decision 37
           alt_37 = 2
           look_37_0 = @input.peek(1)
 
@@ -3554,9 +3607,9 @@ module CPP
             end
 
           else
-            break #loop 37
+            break # out of loop for decision 37
           end
-        end
+        end # loop for decision 37
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -3585,10 +3638,12 @@ module CPP
 
     MultiplicativeExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule multiplicative_expression
     # 
     # (in samples/CPP.g)
     # 233:1: multiplicative_expression : unary_expression ( ( STAR | DIVIDE | MOD ) unary_expression )* ;
+    # 
     def multiplicative_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 26)
@@ -3628,7 +3683,7 @@ module CPP
           @adaptor.add_child(root_0, unary_expression101.tree)
         end
         # at line 234:30: ( ( STAR | DIVIDE | MOD ) unary_expression )*
-        loop do  #loop 39
+        loop do # decision 39
           alt_39 = 2
           look_39_0 = @input.peek(1)
 
@@ -3691,9 +3746,9 @@ module CPP
             end
 
           else
-            break #loop 39
+            break # out of loop for decision 39
           end
-        end
+        end # loop for decision 39
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -3722,10 +3777,12 @@ module CPP
 
     UnaryExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule unary_expression
     # 
     # (in samples/CPP.g)
     # 237:1: unary_expression : ( PLUSPLUS unary_expression -> ^( PLUSPLUS unary_expression ) | MINUSMINUS unary_expression -> ^( MINUSMINUS unary_expression ) | SIZEOF unary_expression -> ^( SIZEOF unary_expression ) | SIZEOF LPAREN type_name RPAREN -> ^( SIZEOF_TYPE type_name ) | DEFINED type_name -> ^( DEFINED type_name ) | DEFINED LPAREN type_name RPAREN -> ^( DEFINED type_name ) | unary_expression_not_plus_minus );
+    # 
     def unary_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 27)
@@ -4074,10 +4131,12 @@ module CPP
 
     UnaryExpressionNotPlusMinusReturnValue = define_return_scope 
 
+    # 
     # parser rule unary_expression_not_plus_minus
     # 
     # (in samples/CPP.g)
     # 247:1: unary_expression_not_plus_minus : ( NOT unary_expression -> ^( NOT unary_expression ) | TILDE unary_expression -> ^( TILDE unary_expression ) | AMPERSAND unary_expression -> ^( REFERANCE unary_expression ) | STAR unary_expression -> ^( POINTER_AT unary_expression ) | MINUS unary_expression -> ^( UNARY_MINUS unary_expression ) | PLUS unary_expression -> ^( UNARY_PLUS unary_expression ) | LPAREN type_name RPAREN unary_expression -> ^( TYPECAST type_name unary_expression ) | postfix_expression );
+    # 
     def unary_expression_not_plus_minus
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 28)
@@ -4460,10 +4519,12 @@ module CPP
 
     PostfixExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule postfix_expression
     # 
     # (in samples/CPP.g)
     # 258:1: postfix_expression : primary_expression (l= LSQUARE assignment_expression RSQUARE | DOT IDENTIFIER | s= STAR IDENTIFIER | POINTERTO IDENTIFIER | p= PLUSPLUS | m= MINUSMINUS )* ;
+    # 
     def postfix_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 29)
@@ -4517,7 +4578,7 @@ module CPP
           @adaptor.add_child(root_0, primary_expression140.tree)
         end
         # at line 260:5: (l= LSQUARE assignment_expression RSQUARE | DOT IDENTIFIER | s= STAR IDENTIFIER | POINTERTO IDENTIFIER | p= PLUSPLUS | m= MINUSMINUS )*
-        loop do  #loop 42
+        loop do # decision 42
           alt_42 = 7
           alt_42 = @dfa42.predict(@input)
           case alt_42
@@ -4634,9 +4695,9 @@ module CPP
             end
 
           else
-            break #loop 42
+            break # out of loop for decision 42
           end
-        end
+        end # loop for decision 42
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -4665,10 +4726,12 @@ module CPP
 
     PrimaryExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule primary_expression
     # 
     # (in samples/CPP.g)
     # 269:1: primary_expression : ( ( IDENTIFIER LPAREN )=> function_call | IDENTIFIER | constant | LPAREN assignment_expression RPAREN -> ^( EXPR_GROUP assignment_expression ) );
+    # 
     def primary_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 30)
@@ -4831,10 +4894,12 @@ module CPP
 
     FunctionCallReturnValue = define_return_scope 
 
+    # 
     # parser rule function_call
     # 
     # (in samples/CPP.g)
     # 276:1: function_call : id= IDENTIFIER LPAREN ( arg_list )? RPAREN -> ^( METHOD_CALL $id ( arg_list )? ) ;
+    # 
     def function_call
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 31)
@@ -4958,10 +5023,12 @@ module CPP
 
     ArgListReturnValue = define_return_scope 
 
+    # 
     # parser rule arg_list
     # 
     # (in samples/CPP.g)
     # 280:1: arg_list : assignment_expression ( COMMA assignment_expression )* -> ^( ARGS ( assignment_expression )+ ) ;
+    # 
     def arg_list
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 32)
@@ -4995,7 +5062,7 @@ module CPP
           stream_assignment_expression.add(assignment_expression157.tree)
         end
         # at line 281:30: ( COMMA assignment_expression )*
-        loop do  #loop 45
+        loop do # decision 45
           alt_45 = 2
           look_45_0 = @input.peek(1)
 
@@ -5018,9 +5085,9 @@ module CPP
             end
 
           else
-            break #loop 45
+            break # out of loop for decision 45
           end
-        end
+        end # loop for decision 45
         # AST Rewrite
         # elements: assignment_expression
         # token labels: 
@@ -5085,10 +5152,12 @@ module CPP
 
     ConstantReturnValue = define_return_scope 
 
+    # 
     # parser rule constant
     # 
     # (in samples/CPP.g)
     # 284:1: constant : ( HEX_LITERAL | OCTAL_LITERAL | DECIMAL_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | FLOATING_POINT_LITERAL );
+    # 
     def constant
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 33)
@@ -5158,10 +5227,12 @@ module CPP
 
     SourceTextReturnValue = define_return_scope 
 
+    # 
     # parser rule source_text
     # 
     # (in samples/CPP.g)
     # 295:1: source_text : ( source_expression | COMMA | LPAREN | RPAREN | WS );
+    # 
     def source_text
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 34)
@@ -5287,10 +5358,12 @@ module CPP
 
     MacroExpansionReturnValue = define_return_scope 
 
+    # 
     # parser rule macro_expansion
     # 
     # (in samples/CPP.g)
     # 303:1: macro_expansion : (id= IDENTIFIER ( WS )? LPAREN ( WS )? RPAREN -> ^( EXPAND $id) | id= IDENTIFIER ( WS )? LPAREN ( WS )? mac_args ( WS )? RPAREN -> ^( EXPAND $id ( mac_args )? ) );
+    # 
     def macro_expansion
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 35)
@@ -5653,10 +5726,12 @@ module CPP
 
     MacArgsReturnValue = define_return_scope 
 
+    # 
     # parser rule mac_args
     # 
     # (in samples/CPP.g)
     # 308:1: mac_args : marg+= m_arg ( ( WS )? COMMA ( WS )? marg+= m_arg )* -> ^( EXP_ARGS ( $marg)+ ) ;
+    # 
     def mac_args
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 36)
@@ -5698,7 +5773,7 @@ module CPP
         list_of_marg << marg.tree
 
         # at line 308:30: ( ( WS )? COMMA ( WS )? marg+= m_arg )*
-        loop do  #loop 55
+        loop do # decision 55
           alt_55 = 2
           look_55_0 = @input.peek(1)
 
@@ -5766,9 +5841,9 @@ module CPP
 
 
           else
-            break #loop 55
+            break # out of loop for decision 55
           end
-        end
+        end # loop for decision 55
         # AST Rewrite
         # elements: marg
         # token labels: 
@@ -5833,10 +5908,12 @@ module CPP
 
     MArgReturnValue = define_return_scope 
 
+    # 
     # parser rule m_arg
     # 
     # (in samples/CPP.g)
     # 311:1: m_arg : ( ( source_expression )+ -> ^( EXP_ARG ( source_expression )+ ) | -> ^( EXP_ARG ) );
+    # 
     def m_arg
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 37)
@@ -6014,10 +6091,12 @@ module CPP
 
     SourceExpressionReturnValue = define_return_scope 
 
+    # 
     # parser rule source_expression
     # 
     # (in samples/CPP.g)
     # 315:1: source_expression : ( ( IDENTIFIER ( WS )? LPAREN )=> macro_expansion | ( primary_source ( WS )? SHARPSHARP )=> concatenate | STRINGIFICATION IDENTIFIER -> ^( STRINGIFICATION IDENTIFIER ) | primary_source | STRING_OP | SIZEOF | LPAREN ( mac_args )? RPAREN -> ^( TEXT_GROUP ( mac_args )? ) | SEMICOLON | TEXT_END | WS );
+    # 
     def source_expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 38)
@@ -6301,10 +6380,12 @@ module CPP
 
     ConcatenateReturnValue = define_return_scope 
 
+    # 
     # parser rule concatenate
     # 
     # (in samples/CPP.g)
     # 328:1: concatenate : prim+= primary_source ( ( WS )? SHARPSHARP ( WS )? prim+= primary_source )+ -> ^( CONCATENATE ( $prim)+ ) ;
+    # 
     def concatenate
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 39)
@@ -6528,10 +6609,12 @@ module CPP
 
     PrimarySourceReturnValue = define_return_scope 
 
+    # 
     # parser rule primary_source
     # 
     # (in samples/CPP.g)
     # 332:1: primary_source : ( SHARPSHARP ( WS )? IDENTIFIER -> ^( SHARPSHARP IDENTIFIER ) | IDENTIFIER | constant | CKEYWORD | COPERATOR );
+    # 
     def primary_source
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 40)
@@ -6715,10 +6798,12 @@ module CPP
 
     MacroTextReturnValue = define_return_scope 
 
+    # 
     # parser rule macro_text
     # 
     # (in samples/CPP.g)
     # 690:1: macro_text : ( source_text )+ -> ^( MACRO_DEFINE ( source_text )+ ) ;
+    # 
     def macro_text
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 41)
@@ -6835,10 +6920,15 @@ module CPP
       return return_value
     end
 
-    # parser rule synpred_14_cpp! (synpred14_CPP)
+    # 
+    # syntactic predicate synpred_14_cpp!
     # 
     # (in samples/CPP.g)
     # 109:8: synpred14_CPP : DEFINE IDENTIFIER LPAREN ( WS )? RPAREN ( macro_text )? ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_14_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 55)
@@ -6882,10 +6972,15 @@ module CPP
       # trace_out(__method__, 55)
 
     end
-    # parser rule synpred_22_cpp! (synpred22_CPP)
+    # 
+    # syntactic predicate synpred_22_cpp!
     # 
     # (in samples/CPP.g)
     # 110:8: synpred22_CPP : DEFINE mac= IDENTIFIER LPAREN ( WS )? (arg+= macro_param ( WS )? ( COMMA ( WS )* arg+= macro_param ( WS )* )* )? RPAREN ( macro_text )? ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_22_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 63)
@@ -6940,7 +7035,7 @@ module CPP
 
         end
         # at line 110:64: ( COMMA ( WS )* arg+= macro_param ( WS )* )*
-        loop do  #loop 78
+        loop do # decision 78
           alt_78 = 2
           look_78_0 = @input.peek(1)
 
@@ -6953,7 +7048,7 @@ module CPP
             # at line 110:65: COMMA ( WS )* arg+= macro_param ( WS )*
             match(COMMA, TOKENS_FOLLOWING_COMMA_IN_synpred22_CPP_679)
             # at line 110:71: ( WS )*
-            loop do  #loop 76
+            loop do # decision 76
               alt_76 = 2
               look_76_0 = @input.peek(1)
 
@@ -6967,16 +7062,16 @@ module CPP
                 match(WS, TOKENS_FOLLOWING_WS_IN_synpred22_CPP_681)
 
               else
-                break #loop 76
+                break # out of loop for decision 76
               end
-            end
+            end # loop for decision 76
             @state.following.push(TOKENS_FOLLOWING_macro_param_IN_synpred22_CPP_686)
             arg = macro_param
             @state.following.pop
             list_of_arg << arg
 
             # at line 110:92: ( WS )*
-            loop do  #loop 77
+            loop do # decision 77
               alt_77 = 2
               look_77_0 = @input.peek(1)
 
@@ -6990,14 +7085,14 @@ module CPP
                 match(WS, TOKENS_FOLLOWING_WS_IN_synpred22_CPP_688)
 
               else
-                break #loop 77
+                break # out of loop for decision 77
               end
-            end
+            end # loop for decision 77
 
           else
-            break #loop 78
+            break # out of loop for decision 78
           end
-        end
+        end # loop for decision 78
 
       end
       match(RPAREN, TOKENS_FOLLOWING_RPAREN_IN_synpred22_CPP_695)
@@ -7022,10 +7117,15 @@ module CPP
       # trace_out(__method__, 63)
 
     end
-    # parser rule synpred_65_cpp! (synpred65_CPP)
+    # 
+    # syntactic predicate synpred_65_cpp!
     # 
     # (in samples/CPP.g)
     # 240:13: synpred65_CPP : SIZEOF unary_expression ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_65_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 106)
@@ -7041,10 +7141,15 @@ module CPP
       # trace_out(__method__, 106)
 
     end
-    # parser rule synpred_66_cpp! (synpred66_CPP)
+    # 
+    # syntactic predicate synpred_66_cpp!
     # 
     # (in samples/CPP.g)
     # 241:13: synpred66_CPP : SIZEOF LPAREN type_name RPAREN ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_66_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 107)
@@ -7062,10 +7167,15 @@ module CPP
       # trace_out(__method__, 107)
 
     end
-    # parser rule synpred_75_cpp! (synpred75_CPP)
+    # 
+    # syntactic predicate synpred_75_cpp!
     # 
     # (in samples/CPP.g)
     # 254:13: synpred75_CPP : LPAREN type_name RPAREN unary_expression ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_75_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 116)
@@ -7085,10 +7195,15 @@ module CPP
       # trace_out(__method__, 116)
 
     end
-    # parser rule synpred_78_cpp! (synpred78_CPP)
+    # 
+    # syntactic predicate synpred_78_cpp!
     # 
     # (in samples/CPP.g)
     # 262:9: synpred78_CPP : s= STAR IDENTIFIER ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_78_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 119)
@@ -7103,10 +7218,15 @@ module CPP
       # trace_out(__method__, 119)
 
     end
-    # parser rule synpred_82_cpp! (synpred82_CPP)
+    # 
+    # syntactic predicate synpred_82_cpp!
     # 
     # (in samples/CPP.g)
     # 270:9: synpred82_CPP : IDENTIFIER LPAREN ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_82_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 123)
@@ -7120,10 +7240,15 @@ module CPP
       # trace_out(__method__, 123)
 
     end
-    # parser rule synpred_83_cpp! (synpred83_CPP)
+    # 
+    # syntactic predicate synpred_83_cpp!
     # 
     # (in samples/CPP.g)
     # 271:9: synpred83_CPP : IDENTIFIER ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_83_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 124)
@@ -7136,10 +7261,15 @@ module CPP
       # trace_out(__method__, 124)
 
     end
-    # parser rule synpred_92_cpp! (synpred92_CPP)
+    # 
+    # syntactic predicate synpred_92_cpp!
     # 
     # (in samples/CPP.g)
     # 296:9: synpred92_CPP : source_expression ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_92_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 133)
@@ -7154,10 +7284,15 @@ module CPP
       # trace_out(__method__, 133)
 
     end
-    # parser rule synpred_94_cpp! (synpred94_CPP)
+    # 
+    # syntactic predicate synpred_94_cpp!
     # 
     # (in samples/CPP.g)
     # 298:9: synpred94_CPP : LPAREN ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_94_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 135)
@@ -7170,10 +7305,15 @@ module CPP
       # trace_out(__method__, 135)
 
     end
-    # parser rule synpred_98_cpp! (synpred98_CPP)
+    # 
+    # syntactic predicate synpred_98_cpp!
     # 
     # (in samples/CPP.g)
     # 304:7: synpred98_CPP : id= IDENTIFIER ( WS )? LPAREN ( WS )? RPAREN ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_98_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 139)
@@ -7215,10 +7355,15 @@ module CPP
       # trace_out(__method__, 139)
 
     end
-    # parser rule synpred_100_cpp! (synpred100_CPP)
+    # 
+    # syntactic predicate synpred_100_cpp!
     # 
     # (in samples/CPP.g)
     # 305:32: synpred100_CPP : WS ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_100_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 141)
@@ -7231,10 +7376,15 @@ module CPP
       # trace_out(__method__, 141)
 
     end
-    # parser rule synpred_103_cpp! (synpred103_CPP)
+    # 
+    # syntactic predicate synpred_103_cpp!
     # 
     # (in samples/CPP.g)
     # 308:42: synpred103_CPP : WS ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_103_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 144)
@@ -7247,10 +7397,15 @@ module CPP
       # trace_out(__method__, 144)
 
     end
-    # parser rule synpred_105_cpp! (synpred105_CPP)
+    # 
+    # syntactic predicate synpred_105_cpp!
     # 
     # (in samples/CPP.g)
     # 311:18: synpred105_CPP : source_expression ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_105_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 146)
@@ -7265,10 +7420,15 @@ module CPP
       # trace_out(__method__, 146)
 
     end
-    # parser rule synpred_106_cpp! (synpred106_CPP)
+    # 
+    # syntactic predicate synpred_106_cpp!
     # 
     # (in samples/CPP.g)
     # 311:18: synpred106_CPP : ( source_expression )+ ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_106_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 147)
@@ -7309,10 +7469,15 @@ module CPP
       # trace_out(__method__, 147)
 
     end
-    # parser rule synpred_108_cpp! (synpred108_CPP)
+    # 
+    # syntactic predicate synpred_108_cpp!
     # 
     # (in samples/CPP.g)
     # 316:13: synpred108_CPP : IDENTIFIER ( WS )? LPAREN ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_108_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 149)
@@ -7339,10 +7504,15 @@ module CPP
       # trace_out(__method__, 149)
 
     end
-    # parser rule synpred_110_cpp! (synpred110_CPP)
+    # 
+    # syntactic predicate synpred_110_cpp!
     # 
     # (in samples/CPP.g)
     # 317:13: synpred110_CPP : primary_source ( WS )? SHARPSHARP ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_110_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 151)
@@ -7371,10 +7541,15 @@ module CPP
       # trace_out(__method__, 151)
 
     end
-    # parser rule synpred_112_cpp! (synpred112_CPP)
+    # 
+    # syntactic predicate synpred_112_cpp!
     # 
     # (in samples/CPP.g)
     # 319:13: synpred112_CPP : primary_source ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_112_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 153)
@@ -7389,10 +7564,15 @@ module CPP
       # trace_out(__method__, 153)
 
     end
-    # parser rule synpred_115_cpp! (synpred115_CPP)
+    # 
+    # syntactic predicate synpred_115_cpp!
     # 
     # (in samples/CPP.g)
     # 322:20: synpred115_CPP : mac_args ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_115_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 156)
@@ -7407,10 +7587,15 @@ module CPP
       # trace_out(__method__, 156)
 
     end
-    # parser rule synpred_121_cpp! (synpred121_CPP)
+    # 
+    # syntactic predicate synpred_121_cpp!
     # 
     # (in samples/CPP.g)
     # 329:35: synpred121_CPP : ( WS )? SHARPSHARP ( WS )? prim+= primary_source ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_121_cpp!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 162)

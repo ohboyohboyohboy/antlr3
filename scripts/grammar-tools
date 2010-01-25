@@ -14,7 +14,7 @@ include ANTLRv3Grammar::TokenData
 
 Main do
   author 'Kyle Yetter <kcy5b@yahoo.com>'
-  version '1.0.0'
+  version '1.0.1'
   description(<<-END)
     grammar-tools provides a number of commands which may
     be used to study and manipulate ANTLR Version 3
@@ -674,7 +674,7 @@ Main do
       def run
         setup
         tree = grammar_tree
-        tree.set_unknown_token_boundaries
+        tree.infer_boundaries
         
         tasks = []
         unless params['keep-actions'].given?
@@ -724,7 +724,8 @@ Main do
           end
         end
         
-        write_output { |f| f.write(stylized) }
+        
+        write_output { |f| f.write( stylized.to_s ) }
       end
     end
     

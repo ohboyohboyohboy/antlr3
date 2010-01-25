@@ -98,18 +98,21 @@ Main do
     end
     
     def add_tests( s )
-      include_types = [ false, false, false ]
+      include_types = [ false, false, false, false ]
       for keyword in params[ :types ].values
         case keyword
         when 'all' then include_types.map! { true }
+        when 'performance' then include_types[ 2 ] = include_types[ 3 ] = true
         when 'unit' then include_types[0] = true
-        when 'functional' then include_types[1] = true
-        when 'benchmark' then include_types[2] = true
+        when 'functional' then include_types[ 1 ] = true
+        when 'benchmark'  then include_types[ 2 ] = true
+        when 'profile'    then include_types[ 3 ] = true
         end
       end
       include_types[0] and s.add_unit( $project.test.unit!( '*.rb' ) )
       include_types[1] and s.add_functional( $project.test.functional!('*','*.rb') )
       include_types[2] and s.add_benchmark( $project.test.performance!('*.yaml') )
+      include_types[3] and s.add_profile( $project.test.performance!('*.yaml') )
     end
   end
   
