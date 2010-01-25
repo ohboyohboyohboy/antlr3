@@ -60,7 +60,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= <runtimeLibraryVersion()>' )
+    Gem.activate( 'antlr3', '~> <runtimeLibraryVersion()>' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -362,7 +362,7 @@ element() ::= <<
 execForcedAction(action) ::= "<action>"
 
 globalAttributeScopeClass(scope) ::= <<
-<if(scope.attributes)>Scope<scope.name> = Struct.new(<scope.attributes:{:<it.decl>}; separator=", ">)<endif>
+<if(scope.attributes)>Scope<scope.name> = Struct.new( <scope.attributes:{:<it.decl>}; separator=", "> )<endif>
 >>
 
 
@@ -396,6 +396,7 @@ loop do
   match_count_<decisionNumber> += 1
 end<\n>
 >>
+
 returnScope(scope) ::= <<
 <if(ruleDescriptor.hasMultipleReturnValues)>
 <ruleDescriptor:returnStructName(r=it)> = define_return_scope <scope.attributes:{:<it.decl>}; separator=", ">

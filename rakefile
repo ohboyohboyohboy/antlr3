@@ -101,7 +101,7 @@ if $project.setup?
     sh( $project.expand!("gem push pkg/$(name)-$(version).gem") )
   end
   
-  samples = %w(CSS ANTLRv3Grammar Python CPP)
+  samples = %w( CSS ANTLRv3Grammar Python CPP )
   ANTLR3::CompileTask.define( :name => 'samples' ) do | tasks |
     samples.each do | sample |
       file = "samples/#{ sample }.g"
@@ -109,7 +109,7 @@ if $project.setup?
       tasks.grammar_set( file, :output_directory => output_directory )
     end
   end
-
+  
   desc( "clean up all project by-products" )
   task :clean => %w(test:clean clobber_package clobber_rdoc samples:clobber)
   
