@@ -21,21 +21,36 @@ development_dependencies: [rspec]
 requirements: [java]
 required_ruby_version: ">= 1.8.7"
 
-package_files: !pathlist
-  include:
-    - lib/**/*.rb
-    - test/unit/**/*
-    - test/functional/*/*.rb
-    - templates/*.stg
-    - samples/CPP.g
-    - samples/ANTLRv3Grammar.g
-    - *.txt
-    - java/antlr-full-$(antlr_version).jar
-    - java/*.java
-  exclude:
-    - DEVELOPER-README.txt
-    - lib/antlr3/token/*.rb
+doc: !group
+  rdoc: !path doc/rdoc
+  ri:   !path doc/ri
+  options:
+    - "-Nd"
+  files: !pathlist
+    include:
+      - lib/**/*.rb
+    exclude:
+      - lib/antlr3/token/*.rb
 
+package: !group
+  base: !path pkg
+  dir:  !path pkg/$(name)-$(version)
+  files: !pathlist
+    include:
+      - bin/antlr4ruby
+      - lib/**/*.rb
+      - test/unit/**/*
+      - test/functional/*/*.rb
+      - templates/*.stg
+      - samples/CPP.g
+      - samples/ANTLRv3Grammar.g
+      - *.txt
+      - java/antlr-full-$(antlr_version).jar
+      - java/*.java
+    exclude:
+      - DEVELOPER-README.txt
+      - lib/antlr3/token/*.rb
+  
 # 
 # important paths in the project tree
 # 
@@ -44,11 +59,6 @@ antlr: !pathmap
   templates: java/org/antlr/codegen/templates/Ruby
   targets: java/org/antlr/codegen
   target: java/RubyTarget.java
-
-doc: !pathmap
-  base: doc
-  rdoc: doc/rdoc
-  ri:   doc/ri
 
 bundler: !pathmap
   top: vendor/bundler
@@ -98,6 +108,10 @@ load_path:
   - lib
   - dev-lib
 
+system_path:
+  - scripts
+  - bin
+  - vendor/bin
 # these are required after the gem-neutral environment is established
 # via $project.load_environment
 environment_require:

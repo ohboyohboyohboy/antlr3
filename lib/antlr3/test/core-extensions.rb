@@ -176,7 +176,7 @@ end
 
 class File
   
-  # Given some target path string, and an optional reference path
+  # given some target path string, and an optional reference path
   # (Dir.pwd by default), this method returns a string containing
   # the relative path of the target path from the reference path
   # 

@@ -34,8 +34,6 @@ end
 $project.setup? or run_task( :setup )
 
 if $project.setup?
-  require 'rake/gempackagetask'
-  require 'antlr3/task'
   #require 'rcov/rcovtask'
   
   # tasks concerning the ANTLR java package
@@ -44,36 +42,10 @@ if $project.setup?
     $project.load_task 'antlr'
   end
   
-  for task_lib in %w( notes test doc )
+  for task_lib in %w( notes package publish test doc )
     $project.load_task( task_lib )
   end
   
-  Rake::GemPackageTask.new( $project.gem_spec ) do | t |
-    t.need_zip = true
-  end
-  
-  
-  
-  desc( "publish the package to rubyforge/gemcutter if the tests are clean" )
-  task 'publish' => %w(test package) do
-    cmd = $project.expand!(
-      'rubyforge add_%s $(name) $(name) $(version) pkg/$(name)-$(version).%s'
-    )
-    sh( cmd % %w(release gem) )
-    sh( cmd % %w(file zip) )
-    sh( $project.expand!("gem push pkg/$(name)-$(version).gem") )
-  end
-  
-  samples = %w(CSS ANTLRv3Grammar Python CPP)
-  ANTLR3::CompileTask.define( :name => 'samples' ) do | tasks |
-    samples.each do | sample |
-      file = "samples/#{ sample }.g"
-      output_directory = "samples/#{ sample }"
-      tasks.grammar_set( file, :output_directory => output_directory )
-    end
-  end
-
   desc( "clean up all project by-products" )
-  task :clean => %w(test:clean clobber_package clobber_rdoc samples:clobber)
-  
+  task :clean => %w( test:clean package:clobber doc:clobber doc:samples:clobber )
 end

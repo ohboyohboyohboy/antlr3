@@ -153,6 +153,19 @@ class OutputDevice < DelegateClass( IO )
   
   alias use_color? use_color
   
+  def leger( char = '<h>', w = width )
+    puts( @style.format( char ).tile( w ) )
+  end
+  
+  def list( *args )
+    List.new( *args ) do | list |
+      list.output = self
+      block_given? and yield( self )
+      list.render
+    end
+    return( self )
+  end
+  
   def print( *objs )
     text = Text( [ objs ].flatten!.join )
     @use_color or text.bleach!
@@ -345,7 +358,7 @@ private
   end
   
   def default_size
-    Pair.new( default_height, default_width )
+    Pair.new( default_width, default_height )
   end
   
   def default_height
