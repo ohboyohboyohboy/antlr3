@@ -4,7 +4,7 @@
 # 
 name: antlr3
 
-version: "1.4.0"
+version: "1.5.0"
 antlr_version: "3.2.1"
 
 summary: |-
@@ -116,13 +116,5 @@ system_path:
 # via $project.load_environment
 environment_require:
   - pp
-  - facets/string/tab
-  - facets/string/snakecase
-  - facets/string/camelcase
-  - facets/module/module_load
-  - facets/module/modspace
-  - facets/class_extend
-  - facets/array/pad
   - facets/comparable/bound
-  - facets/progressbar
   - ansi-color

@@ -3,9 +3,9 @@
 # samples/Python.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.3.0
+# Ruby runtime library version: 1.4.0
 # Input grammar file: samples/Python.g
-# Generated at: 2010-01-07 12:23:33
+# Generated at: 2010-01-25 13:58:29
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.3.0):
+Failed to load the ANTLR3 runtime library (version 1.4.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -30,7 +30,7 @@ Current load path:
   END
 end
 
-defined?(ANTLR3) or begin
+defined?( ANTLR3 ) or begin
   
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
@@ -38,7 +38,7 @@ defined?(ANTLR3) or begin
 rescue LoadError
   
   # 2: try to load rubygems if it isn't already loaded
-  defined?(Gem) or begin
+  defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.3.0' )
+    Gem.activate( 'antlr3', '= 1.4.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -66,32 +66,33 @@ module Python
   module TokenData
 
     # define the token constants
-    define_tokens(:TRIAPOS => 31, :COMPLEX => 10, :EOF => -1, :LEADING_WS => 35, 
-                  :T__93 => 93, :T__94 => 94, :T__91 => 91, :TUPLE => 13, 
-                  :RPAREN => 21, :NAME => 22, :T__92 => 92, :T__90 => 90, 
-                  :EXP => 30, :COMMENT => 36, :T__99 => 99, :T__98 => 98, 
-                  :T__97 => 97, :T__96 => 96, :T__95 => 95, :RBRACK => 24, 
-                  :T__80 => 80, :T__81 => 81, :T__82 => 82, :T__83 => 83, 
-                  :CONCAT => 11, :LCURLY => 25, :INT => 27, :T__85 => 85, 
-                  :T__84 => 84, :LIST => 14, :T__87 => 87, :T__86 => 86, 
-                  :T__89 => 89, :T__88 => 88, :WS => 37, :T__71 => 71, :T__72 => 72, 
-                  :T__70 => 70, :LONGINT => 9, :CALL => 12, :T__76 => 76, 
-                  :T__75 => 75, :PARAM_TUPLE => 8, :T__74 => 74, :T__73 => 73, 
-                  :T__79 => 79, :T__78 => 78, :T__77 => 77, :T__68 => 68, 
-                  :T__69 => 69, :T__66 => 66, :T__67 => 67, :CONTINUED_LINE => 34, 
-                  :LBRACK => 23, :T__64 => 64, :T__65 => 65, :T__62 => 62, 
-                  :T__63 => 63, :ESC => 33, :FLOAT => 28, :DEDENT => 5, 
-                  :T__61 => 61, :T__60 => 60, :INDENT => 4, :LPAREN => 20, 
-                  :T__55 => 55, :T__56 => 56, :T__57 => 57, :T__58 => 58, 
-                  :T__51 => 51, :T__52 => 52, :T__53 => 53, :T__54 => 54, 
-                  :T__107 => 107, :DOCUMENT => 18, :T__59 => 59, :T__103 => 103, 
-                  :DICT => 15, :T__104 => 104, :T__105 => 105, :T__106 => 106, 
-                  :T__50 => 50, :PARAMS => 7, :T__42 => 42, :T__43 => 43, 
-                  :T__40 => 40, :T__41 => 41, :T__46 => 46, :T__47 => 47, 
-                  :T__44 => 44, :T__45 => 45, :T__48 => 48, :T__49 => 49, 
-                  :T__102 => 102, :T__101 => 101, :T__100 => 100, :MODULE => 17, 
-                  :TRIQUOTE => 32, :NEWLINE => 19, :T__38 => 38, :T__39 => 39, 
-                  :BLOCK => 6, :RCURLY => 26, :DECORATION => 16, :STRING => 29)
+    define_tokens( :TRIAPOS => 31, :COMPLEX => 10, :EOF => -1, :LEADING_WS => 35, 
+                   :T__93 => 93, :T__94 => 94, :T__91 => 91, :TUPLE => 13, 
+                   :RPAREN => 21, :NAME => 22, :T__92 => 92, :T__90 => 90, 
+                   :EXP => 30, :COMMENT => 36, :T__99 => 99, :T__98 => 98, 
+                   :T__97 => 97, :T__96 => 96, :T__95 => 95, :RBRACK => 24, 
+                   :T__80 => 80, :T__81 => 81, :T__82 => 82, :T__83 => 83, 
+                   :CONCAT => 11, :LCURLY => 25, :INT => 27, :T__85 => 85, 
+                   :T__84 => 84, :LIST => 14, :T__87 => 87, :T__86 => 86, 
+                   :T__89 => 89, :T__88 => 88, :WS => 37, :T__71 => 71, 
+                   :T__72 => 72, :T__70 => 70, :LONGINT => 9, :CALL => 12, 
+                   :T__76 => 76, :T__75 => 75, :PARAM_TUPLE => 8, :T__74 => 74, 
+                   :T__73 => 73, :T__79 => 79, :T__78 => 78, :T__77 => 77, 
+                   :T__68 => 68, :T__69 => 69, :T__66 => 66, :T__67 => 67, 
+                   :CONTINUED_LINE => 34, :LBRACK => 23, :T__64 => 64, :T__65 => 65, 
+                   :T__62 => 62, :T__63 => 63, :ESC => 33, :FLOAT => 28, 
+                   :DEDENT => 5, :T__61 => 61, :T__60 => 60, :INDENT => 4, 
+                   :LPAREN => 20, :T__55 => 55, :T__56 => 56, :T__57 => 57, 
+                   :T__58 => 58, :T__51 => 51, :T__52 => 52, :T__53 => 53, 
+                   :T__54 => 54, :T__107 => 107, :DOCUMENT => 18, :T__59 => 59, 
+                   :T__103 => 103, :DICT => 15, :T__104 => 104, :T__105 => 105, 
+                   :T__106 => 106, :T__50 => 50, :PARAMS => 7, :T__42 => 42, 
+                   :T__43 => 43, :T__40 => 40, :T__41 => 41, :T__46 => 46, 
+                   :T__47 => 47, :T__44 => 44, :T__45 => 45, :T__48 => 48, 
+                   :T__49 => 49, :T__102 => 102, :T__101 => 101, :T__100 => 100, 
+                   :MODULE => 17, :TRIQUOTE => 32, :NEWLINE => 19, :T__38 => 38, 
+                   :T__39 => 39, :BLOCK => 6, :RCURLY => 26, :DECORATION => 16, 
+                   :STRING => 29 )
 
     # register the proper human-readable name or literal value
     # for each token type
@@ -99,23 +100,23 @@ module Python
     # this is necessary because anonymous tokens, which are
     # created from literal values in the grammar, do not
     # have descriptive names
-    register_names("INDENT", "DEDENT", "BLOCK", "PARAMS", "PARAM_TUPLE", 
-                   "LONGINT", "COMPLEX", "CONCAT", "CALL", "TUPLE", "LIST", 
-                   "DICT", "DECORATION", "MODULE", "DOCUMENT", "NEWLINE", 
-                   "LPAREN", "RPAREN", "NAME", "LBRACK", "RBRACK", "LCURLY", 
-                   "RCURLY", "INT", "FLOAT", "STRING", "EXP", "TRIAPOS", 
-                   "TRIQUOTE", "ESC", "CONTINUED_LINE", "LEADING_WS", "COMMENT", 
-                   "WS", "'@'", "'.'", "'def'", "':'", "','", "'*'", "'**'", 
-                   "'='", "';'", "'+='", "'-='", "'*='", "'/='", "'%='", 
-                   "'&='", "'|='", "'^='", "'<<='", "'>>='", "'**='", "'//='", 
-                   "'print'", "'>>'", "'del'", "'pass'", "'break'", "'continue'", 
-                   "'return'", "'raise'", "'import'", "'from'", "'as'", 
-                   "'global'", "'exec'", "'in'", "'assert'", "'if'", "'else'", 
-                   "'elif'", "'while'", "'for'", "'try'", "'finally'", "'with'", 
-                   "'except'", "'or'", "'and'", "'not'", "'<'", "'>'", "'=='", 
-                   "'>='", "'<='", "'<>'", "'!='", "'is'", "'|'", "'^'", 
-                   "'&'", "'<<'", "'+'", "'-'", "'/'", "'%'", "'//'", "'~'", 
-                   "'`'", "'lambda'", "'class'", "'yield'")
+    register_names( "INDENT", "DEDENT", "BLOCK", "PARAMS", "PARAM_TUPLE", 
+                    "LONGINT", "COMPLEX", "CONCAT", "CALL", "TUPLE", "LIST", 
+                    "DICT", "DECORATION", "MODULE", "DOCUMENT", "NEWLINE", 
+                    "LPAREN", "RPAREN", "NAME", "LBRACK", "RBRACK", "LCURLY", 
+                    "RCURLY", "INT", "FLOAT", "STRING", "EXP", "TRIAPOS", 
+                    "TRIQUOTE", "ESC", "CONTINUED_LINE", "LEADING_WS", "COMMENT", 
+                    "WS", "'@'", "'.'", "'def'", "':'", "','", "'*'", "'**'", 
+                    "'='", "';'", "'+='", "'-='", "'*='", "'/='", "'%='", 
+                    "'&='", "'|='", "'^='", "'<<='", "'>>='", "'**='", "'//='", 
+                    "'print'", "'>>'", "'del'", "'pass'", "'break'", "'continue'", 
+                    "'return'", "'raise'", "'import'", "'from'", "'as'", 
+                    "'global'", "'exec'", "'in'", "'assert'", "'if'", "'else'", 
+                    "'elif'", "'while'", "'for'", "'try'", "'finally'", 
+                    "'with'", "'except'", "'or'", "'and'", "'not'", "'<'", 
+                    "'>'", "'=='", "'>='", "'<='", "'<>'", "'!='", "'is'", 
+                    "'|'", "'^'", "'&'", "'<<'", "'+'", "'-'", "'/'", "'%'", 
+                    "'//'", "'~'", "'`'", "'lambda'", "'class'", "'yield'" )
     
   end
 
@@ -124,43 +125,45 @@ module Python
     @grammar_home = Python
     include ANTLR3::ASTBuilder
 
-    RULE_METHODS = [:file_input, :single_input, :eval_input, :decorator, 
-                    :dotted_attr, :decoration, :func_def, :parameters, :var_args_list, 
-                    :def_parameter, :fp_def, :fp_list, :statement, :simple_statement, 
-                    :small_statement, :expr_statement, :print_statement, 
-                    :del_statement, :pass_statement, :flow_statement, :break_statement, 
-                    :continue_statement, :return_statement, :yield_statement, 
-                    :raise_statement, :import_statement, :import_name, :import_from, 
-                    :import_as_names, :import_as_name, :dotted_as_name, 
-                    :dotted_as_names, :dotted_name, :global_statement, :exec_statement, 
-                    :assert_statement, :compound_statement, :if_statement, 
-                    :elif_clause, :while_statement, :for_statement, :try_statement, 
-                    :with_statement, :except_clause, :suite, :test, :or_test, 
-                    :and_test, :not_test, :comparison, :expr, :xor_expr, 
-                    :and_expr, :shift_expr, :arith_expr, :term, :factor, 
-                    :power, :atom, :list_maker, :testlist_gexp, :lamb_def, 
-                    :trailer, :subscript_list, :subscript, :sliceop, :exprlist, 
-                    :test_list, :dict_maker, :class_def, :arg_list, :argument, 
-                    :list_iter, :list_for, :list_if, :gen_iter, :gen_for, 
-                    :gen_if, :yield_expr, :synpred1_Python].freeze
+    RULE_METHODS = [ :file_input, :single_input, :eval_input, :decorator, 
+                     :dotted_attr, :decoration, :func_def, :parameters, 
+                     :var_args_list, :def_parameter, :fp_def, :fp_list, 
+                     :statement, :simple_statement, :small_statement, :expr_statement, 
+                     :print_statement, :del_statement, :pass_statement, 
+                     :flow_statement, :break_statement, :continue_statement, 
+                     :return_statement, :yield_statement, :raise_statement, 
+                     :import_statement, :import_name, :import_from, :import_as_names, 
+                     :import_as_name, :dotted_as_name, :dotted_as_names, 
+                     :dotted_name, :global_statement, :exec_statement, :assert_statement, 
+                     :compound_statement, :if_statement, :elif_clause, :while_statement, 
+                     :for_statement, :try_statement, :with_statement, :except_clause, 
+                     :suite, :test, :or_test, :and_test, :not_test, :comparison, 
+                     :expr, :xor_expr, :and_expr, :shift_expr, :arith_expr, 
+                     :term, :factor, :power, :atom, :list_maker, :testlist_gexp, 
+                     :lamb_def, :trailer, :subscript_list, :subscript, :sliceop, 
+                     :exprlist, :test_list, :dict_maker, :class_def, :arg_list, 
+                     :argument, :list_iter, :list_for, :list_if, :gen_iter, 
+                     :gen_for, :gen_if, :yield_expr, :synpred1_Python ].freeze
 
 
     include TokenData
 
-    generated_using( "samples/Python.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+    generated_using( "samples/Python.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
 
-    def initialize(input, options = {})
-      super(input, options)
+    def initialize( input, options = {} )
+      super( input, options )
 
 
     end
     # - - - - - - - - - - - - Rules - - - - - - - - - - - - -
     FileInputReturnValue = define_return_scope 
 
+    # 
     # parser rule file_input
     # 
     # (in samples/Python.g)
     # 134:1: file_input : ( ( NEWLINE )* DOCUMENT )? ( NEWLINE | statement )* -> ^( MODULE ( DOCUMENT )? ( statement )* ) ;
+    # 
     def file_input
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 1)
@@ -190,7 +193,7 @@ module Python
         when 1
           # at line 135:7: ( NEWLINE )* DOCUMENT
           # at line 135:7: ( NEWLINE )*
-          loop do  #loop 1
+          loop do # decision 1
             alt_1 = 2
             look_1_0 = @input.peek(1)
 
@@ -207,9 +210,9 @@ module Python
               end
 
             else
-              break #loop 1
+              break # out of loop for decision 1
             end
-          end
+          end # loop for decision 1
           __DOCUMENT2__ = match(DOCUMENT, TOKENS_FOLLOWING_DOCUMENT_IN_file_input_158) 
           if @state.backtracking == 0
             stream_DOCUMENT.add(__DOCUMENT2__)
@@ -217,7 +220,7 @@ module Python
 
         end
         # at line 136:5: ( NEWLINE | statement )*
-        loop do  #loop 3
+        loop do # decision 3
           alt_3 = 3
           look_3_0 = @input.peek(1)
 
@@ -245,9 +248,9 @@ module Python
             end
 
           else
-            break #loop 3
+            break # out of loop for decision 3
           end
-        end
+        end # loop for decision 3
         # AST Rewrite
         # elements: DOCUMENT, statement
         # token labels: 
@@ -312,10 +315,12 @@ module Python
 
     SingleInputReturnValue = define_return_scope 
 
+    # 
     # parser rule single_input
     # 
     # (in samples/Python.g)
     # 139:1: single_input : ( NEWLINE | simple_statement | compound_statement NEWLINE );
+    # 
     def single_input
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 2)
@@ -404,10 +409,12 @@ module Python
 
     EvalInputReturnValue = define_return_scope 
 
+    # 
     # parser rule eval_input
     # 
     # (in samples/Python.g)
     # 145:1: eval_input : ( NEWLINE )* test_list ( NEWLINE )* ;
+    # 
     def eval_input
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 3)
@@ -430,7 +437,7 @@ module Python
 
         # at line 146:5: ( NEWLINE )* test_list ( NEWLINE )*
         # at line 146:12: ( NEWLINE )*
-        loop do  #loop 5
+        loop do # decision 5
           alt_5 = 2
           look_5_0 = @input.peek(1)
 
@@ -444,9 +451,9 @@ module Python
             __NEWLINE9__ = match(NEWLINE, TOKENS_FOLLOWING_NEWLINE_IN_eval_input_232)
 
           else
-            break #loop 5
+            break # out of loop for decision 5
           end
-        end
+        end # loop for decision 5
         @state.following.push(TOKENS_FOLLOWING_test_list_IN_eval_input_236)
         test_list10 = test_list
         @state.following.pop
@@ -454,7 +461,7 @@ module Python
           @adaptor.add_child(root_0, test_list10.tree)
         end
         # at line 146:32: ( NEWLINE )*
-        loop do  #loop 6
+        loop do # decision 6
           alt_6 = 2
           look_6_0 = @input.peek(1)
 
@@ -468,9 +475,9 @@ module Python
             __NEWLINE11__ = match(NEWLINE, TOKENS_FOLLOWING_NEWLINE_IN_eval_input_238)
 
           else
-            break #loop 6
+            break # out of loop for decision 6
           end
-        end
+        end # loop for decision 6
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -496,10 +503,12 @@ module Python
 
     DecoratorReturnValue = define_return_scope 
 
+    # 
     # parser rule decorator
     # 
     # (in samples/Python.g)
     # 149:1: decorator : '@' dotted_attr ( LPAREN ( arg_list )? RPAREN )? NEWLINE -> ^( '@' dotted_attr ( arg_list )? ) ;
+    # 
     def decorator
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 4)
@@ -638,10 +647,12 @@ module Python
 
     DottedAttrReturnValue = define_return_scope 
 
+    # 
     # parser rule dotted_attr
     # 
     # (in samples/Python.g)
     # 154:1: dotted_attr : NAME ( '.' NAME )* ;
+    # 
     def dotted_attr
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 5)
@@ -672,7 +683,7 @@ module Python
 
         end
         # at line 155:10: ( '.' NAME )*
-        loop do  #loop 9
+        loop do # decision 9
           alt_9 = 2
           look_9_0 = @input.peek(1)
 
@@ -699,9 +710,9 @@ module Python
             end
 
           else
-            break #loop 9
+            break # out of loop for decision 9
           end
-        end
+        end # loop for decision 9
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -727,10 +738,12 @@ module Python
 
     DecorationReturnValue = define_return_scope 
 
+    # 
     # parser rule decoration
     # 
     # (in samples/Python.g)
     # 158:1: decoration : ( ( decorator )+ -> ^( DECORATION ( decorator )+ ) | -> DECORATION );
+    # 
     def decoration
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 6)
@@ -877,10 +890,12 @@ module Python
 
     FuncDefReturnValue = define_return_scope 
 
+    # 
     # parser rule func_def
     # 
     # (in samples/Python.g)
     # 163:1: func_def : decoration 'def' NAME LPAREN ( var_args_list )? RPAREN ':' suite -> ^( 'def' decoration NAME ( var_args_list )? suite ) ;
+    # 
     def func_def
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 7)
@@ -1024,10 +1039,12 @@ module Python
 
     ParametersReturnValue = define_return_scope 
 
+    # 
     # parser rule parameters
     # 
     # (in samples/Python.g)
     # 168:1: parameters : LPAREN ( var_args_list )? RPAREN ;
+    # 
     def parameters
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 8)
@@ -1106,10 +1123,12 @@ module Python
 
     VarArgsListReturnValue = define_return_scope 
 
+    # 
     # parser rule var_args_list
     # 
     # (in samples/Python.g)
     # 172:1: var_args_list : ( ( def_parameter ( ',' def_parameter )* -> ( ^( def_parameter ) )+ ) ( ',' ( '*' single= NAME ( ',' '**' double= NAME -> $var_args_list ^( '*' $single) ^( '**' $double) | -> $var_args_list ^( '*' $single) ) | '**' double= NAME -> $var_args_list ^( '**' $double) )? )? -> ^( PARAMS $var_args_list) | '*' single= NAME ( ',' '**' double= NAME -> ^( PARAMS ^( '*' $single) ^( '**' $double) ) | -> ^( PARAMS ^( '*' $single) ) ) | '**' NAME -> ^( PARAMS ^( '**' NAME ) ) );
+    # 
     def var_args_list
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 9)
@@ -1178,7 +1197,7 @@ module Python
             stream_def_parameter.add(def_parameter33.tree)
           end
           # at line 173:21: ( ',' def_parameter )*
-          loop do  #loop 14
+          loop do # decision 14
             alt_14 = 2
             look_14_0 = @input.peek(1)
 
@@ -1206,9 +1225,9 @@ module Python
               end
 
             else
-              break #loop 14
+              break # out of loop for decision 14
             end
-          end
+          end # loop for decision 14
           # AST Rewrite
           # elements: def_parameter
           # token labels: 
@@ -1631,10 +1650,12 @@ module Python
 
     DefParameterReturnValue = define_return_scope 
 
+    # 
     # parser rule def_parameter
     # 
     # (in samples/Python.g)
     # 189:1: def_parameter : fp_def ( '=' test )? ;
+    # 
     def def_parameter
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 10)
@@ -1711,10 +1732,12 @@ module Python
 
     FpDefReturnValue = define_return_scope 
 
+    # 
     # parser rule fp_def
     # 
     # (in samples/Python.g)
     # 193:1: fp_def : ( NAME | LPAREN fp_list RPAREN );
+    # 
     def fp_def
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 11)
@@ -1800,10 +1823,12 @@ module Python
 
     FpListReturnValue = define_return_scope 
 
+    # 
     # parser rule fp_list
     # 
     # (in samples/Python.g)
     # 198:1: fp_list : fp_def ( ',' fp_def )* ( ',' )? -> ^( PARAM_TUPLE ( fp_def )+ ) ;
+    # 
     def fp_list
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 12)
@@ -1831,7 +1856,7 @@ module Python
           stream_fp_def.add(fp_def53.tree)
         end
         # at line 199:12: ( ',' fp_def )*
-        loop do  #loop 22
+        loop do # decision 22
           alt_22 = 2
           look_22_0 = @input.peek(1)
 
@@ -1859,9 +1884,9 @@ module Python
             end
 
           else
-            break #loop 22
+            break # out of loop for decision 22
           end
-        end
+        end # loop for decision 22
         # at line 199:28: ( ',' )?
         alt_23 = 2
         look_23_0 = @input.peek(1)
@@ -1939,10 +1964,12 @@ module Python
 
     StatementReturnValue = define_return_scope 
 
+    # 
     # parser rule statement
     # 
     # (in samples/Python.g)
     # 202:1: statement : ( simple_statement | compound_statement );
+    # 
     def statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 13)
@@ -2020,10 +2047,12 @@ module Python
 
     SimpleStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule simple_statement
     # 
     # (in samples/Python.g)
     # 207:1: simple_statement : small_statement ( ';' small_statement )* ( ';' )? NEWLINE -> ( small_statement )+ ;
+    # 
     def simple_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 14)
@@ -2054,7 +2083,7 @@ module Python
           stream_small_statement.add(small_statement59.tree)
         end
         # at line 209:5: ( ';' small_statement )*
-        loop do  #loop 25
+        loop do # decision 25
           alt_25 = 2
           look_25_0 = @input.peek(1)
 
@@ -2082,9 +2111,9 @@ module Python
             end
 
           else
-            break #loop 25
+            break # out of loop for decision 25
           end
-        end
+        end # loop for decision 25
         # at line 210:5: ( ';' )?
         alt_26 = 2
         look_26_0 = @input.peek(1)
@@ -2160,10 +2189,12 @@ module Python
 
     SmallStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule small_statement
     # 
     # (in samples/Python.g)
     # 214:1: small_statement : ( expr_statement | print_statement | del_statement | pass_statement | flow_statement | import_statement | global_statement | exec_statement | assert_statement );
+    # 
     def small_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 15)
@@ -2337,10 +2368,12 @@ module Python
 
     ExprStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule expr_statement
     # 
     # (in samples/Python.g)
     # 226:1: expr_statement : test_list ( ( '+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | '>>=' | '**=' | '//=' ) ( yield_expr | test_list ) | ( '=' ( test_list | yield_expr ) )+ )? ;
+    # 
     def expr_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 16)
@@ -2678,10 +2711,12 @@ module Python
 
     PrintStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule print_statement
     # 
     # (in samples/Python.g)
     # 248:1: print_statement : 'print' ( test ( ',' test )* (no_nl= ',' )? -> ^( 'print' ( test )+ ( $no_nl)? ) | '>>' dev= test ( ',' obj= test )* (no_nl= ',' )? -> ^( 'print' ^( '>>' $dev) ( $obj)* ( $no_nl)? ) | -> ^( 'print' ) ) ;
+    # 
     def print_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 17)
@@ -2738,7 +2773,7 @@ module Python
             stream_test.add(test92.tree)
           end
           # at line 250:12: ( ',' test )*
-          loop do  #loop 33
+          loop do # decision 33
             alt_33 = 2
             look_33_0 = @input.peek(1)
 
@@ -2766,9 +2801,9 @@ module Python
               end
 
             else
-              break #loop 33
+              break # out of loop for decision 33
             end
-          end
+          end # loop for decision 33
           # at line 250:32: (no_nl= ',' )?
           alt_34 = 2
           look_34_0 = @input.peek(1)
@@ -2843,7 +2878,7 @@ module Python
             stream_test.add(dev.tree)
           end
           # at line 251:21: ( ',' obj= test )*
-          loop do  #loop 35
+          loop do # decision 35
             alt_35 = 2
             look_35_0 = @input.peek(1)
 
@@ -2871,9 +2906,9 @@ module Python
               end
 
             else
-              break #loop 35
+              break # out of loop for decision 35
             end
-          end
+          end # loop for decision 35
           # at line 251:44: (no_nl= ',' )?
           alt_36 = 2
           look_36_0 = @input.peek(1)
@@ -2993,10 +3028,12 @@ module Python
 
     DelStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule del_statement
     # 
     # (in samples/Python.g)
     # 256:1: del_statement : 'del' exprlist ;
+    # 
     def del_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 18)
@@ -3054,10 +3091,12 @@ module Python
 
     PassStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule pass_statement
     # 
     # (in samples/Python.g)
     # 260:1: pass_statement : 'pass' ;
+    # 
     def pass_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 19)
@@ -3108,10 +3147,12 @@ module Python
 
     FlowStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule flow_statement
     # 
     # (in samples/Python.g)
     # 264:1: flow_statement : ( break_statement | continue_statement | return_statement | raise_statement | yield_statement );
+    # 
     def flow_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 20)
@@ -3229,10 +3270,12 @@ module Python
 
     BreakStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule break_statement
     # 
     # (in samples/Python.g)
     # 272:1: break_statement : 'break' ;
+    # 
     def break_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 21)
@@ -3283,10 +3326,12 @@ module Python
 
     ContinueStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule continue_statement
     # 
     # (in samples/Python.g)
     # 276:1: continue_statement : 'continue' ;
+    # 
     def continue_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 22)
@@ -3337,10 +3382,12 @@ module Python
 
     ReturnStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule return_statement
     # 
     # (in samples/Python.g)
     # 280:1: return_statement : 'return' ( test_list )? ;
+    # 
     def return_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 23)
@@ -3410,10 +3457,12 @@ module Python
 
     YieldStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule yield_statement
     # 
     # (in samples/Python.g)
     # 284:1: yield_statement : yield_expr ;
+    # 
     def yield_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 24)
@@ -3462,10 +3511,12 @@ module Python
 
     RaiseStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule raise_statement
     # 
     # (in samples/Python.g)
     # 288:1: raise_statement : 'raise' ( test ( ',' test ( ',' test )? )? )? ;
+    # 
     def raise_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 25)
@@ -3591,10 +3642,12 @@ module Python
 
     ImportStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule import_statement
     # 
     # (in samples/Python.g)
     # 292:1: import_statement : ( import_name | import_from );
+    # 
     def import_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 26)
@@ -3672,10 +3725,12 @@ module Python
 
     ImportNameReturnValue = define_return_scope 
 
+    # 
     # parser rule import_name
     # 
     # (in samples/Python.g)
     # 297:1: import_name : 'import' dotted_as_names ;
+    # 
     def import_name
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 27)
@@ -3733,10 +3788,12 @@ module Python
 
     ImportFromReturnValue = define_return_scope 
 
+    # 
     # parser rule import_from
     # 
     # (in samples/Python.g)
     # 301:1: import_from : 'from' ( ( '.' )* dotted_name | ( '.' )+ ) 'import' ( '*' | import_as_names | LPAREN import_as_names RPAREN ) ;
+    # 
     def import_from
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 28)
@@ -3784,7 +3841,7 @@ module Python
         when 1
           # at line 302:14: ( '.' )* dotted_name
           # at line 302:14: ( '.' )*
-          loop do  #loop 44
+          loop do # decision 44
             alt_44 = 2
             look_44_0 = @input.peek(1)
 
@@ -3804,9 +3861,9 @@ module Python
               end
 
             else
-              break #loop 44
+              break # out of loop for decision 44
             end
-          end
+          end # loop for decision 44
           @state.following.push(TOKENS_FOLLOWING_dotted_name_IN_import_from_1578)
           dotted_name122 = dotted_name
           @state.following.pop
@@ -3927,10 +3984,12 @@ module Python
 
     ImportAsNamesReturnValue = define_return_scope 
 
+    # 
     # parser rule import_as_names
     # 
     # (in samples/Python.g)
     # 309:1: import_as_names : import_as_name ( ',' import_as_name )* ( ',' )? ;
+    # 
     def import_as_names
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 29)
@@ -3960,7 +4019,7 @@ module Python
           @adaptor.add_child(root_0, import_as_name130.tree)
         end
         # at line 310:20: ( ',' import_as_name )*
-        loop do  #loop 48
+        loop do # decision 48
           alt_48 = 2
           look_48_0 = @input.peek(1)
 
@@ -3985,9 +4044,9 @@ module Python
             end
 
           else
-            break #loop 48
+            break # out of loop for decision 48
           end
-        end
+        end # loop for decision 48
         # at line 310:48: ( ',' )?
         alt_49 = 2
         look_49_0 = @input.peek(1)
@@ -4026,10 +4085,12 @@ module Python
 
     ImportAsNameReturnValue = define_return_scope 
 
+    # 
     # parser rule import_as_name
     # 
     # (in samples/Python.g)
     # 313:1: import_as_name : NAME ( 'as' NAME )? ;
+    # 
     def import_as_name
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 30)
@@ -4110,10 +4171,12 @@ module Python
 
     DottedAsNameReturnValue = define_return_scope 
 
+    # 
     # parser rule dotted_as_name
     # 
     # (in samples/Python.g)
     # 317:1: dotted_as_name : dotted_name ( 'as' NAME )? ;
+    # 
     def dotted_as_name
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 31)
@@ -4192,10 +4255,12 @@ module Python
 
     DottedAsNamesReturnValue = define_return_scope 
 
+    # 
     # parser rule dotted_as_names
     # 
     # (in samples/Python.g)
     # 321:1: dotted_as_names : dotted_as_name ( ',' dotted_as_name )* ;
+    # 
     def dotted_as_names
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 32)
@@ -4223,7 +4288,7 @@ module Python
           @adaptor.add_child(root_0, dotted_as_name140.tree)
         end
         # at line 322:20: ( ',' dotted_as_name )*
-        loop do  #loop 52
+        loop do # decision 52
           alt_52 = 2
           look_52_0 = @input.peek(1)
 
@@ -4243,9 +4308,9 @@ module Python
             end
 
           else
-            break #loop 52
+            break # out of loop for decision 52
           end
-        end
+        end # loop for decision 52
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -4271,10 +4336,12 @@ module Python
 
     DottedNameReturnValue = define_return_scope 
 
+    # 
     # parser rule dotted_name
     # 
     # (in samples/Python.g)
     # 325:1: dotted_name : NAME ( '.' NAME )* ;
+    # 
     def dotted_name
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 33)
@@ -4305,7 +4372,7 @@ module Python
 
         end
         # at line 326:10: ( '.' NAME )*
-        loop do  #loop 53
+        loop do # decision 53
           alt_53 = 2
           look_53_0 = @input.peek(1)
 
@@ -4332,9 +4399,9 @@ module Python
             end
 
           else
-            break #loop 53
+            break # out of loop for decision 53
           end
-        end
+        end # loop for decision 53
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -4360,10 +4427,12 @@ module Python
 
     GlobalStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule global_statement
     # 
     # (in samples/Python.g)
     # 329:1: global_statement : 'global' NAME ( ',' NAME )* ;
+    # 
     def global_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 34)
@@ -4403,7 +4472,7 @@ module Python
 
         end
         # at line 330:20: ( ',' NAME )*
-        loop do  #loop 54
+        loop do # decision 54
           alt_54 = 2
           look_54_0 = @input.peek(1)
 
@@ -4424,9 +4493,9 @@ module Python
             end
 
           else
-            break #loop 54
+            break # out of loop for decision 54
           end
-        end
+        end # loop for decision 54
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -4452,10 +4521,12 @@ module Python
 
     ExecStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule exec_statement
     # 
     # (in samples/Python.g)
     # 333:1: exec_statement : 'exec' expr ( 'in' test ( ',' test )? )? ;
+    # 
     def exec_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 35)
@@ -4569,10 +4640,12 @@ module Python
 
     AssertStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule assert_statement
     # 
     # (in samples/Python.g)
     # 337:1: assert_statement : 'assert' assertion= test ( ',' error_value= test )? -> ^( 'assert' $assertion ( $error_value)? ) ;
+    # 
     def assert_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 36)
@@ -4686,10 +4759,12 @@ module Python
 
     CompoundStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule compound_statement
     # 
     # (in samples/Python.g)
     # 342:1: compound_statement : ( if_statement | while_statement | for_statement | try_statement | with_statement | func_def | class_def );
+    # 
     def compound_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 37)
@@ -4835,10 +4910,12 @@ module Python
 
     IfStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule if_statement
     # 
     # (in samples/Python.g)
     # 352:1: if_statement : 'if' test ':' suite ( elif_clause )* ( 'else' ':' suite )? ;
+    # 
     def if_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 38)
@@ -4888,7 +4965,7 @@ module Python
           @adaptor.add_child(root_0, suite168.tree)
         end
         # at line 353:27: ( elif_clause )*
-        loop do  #loop 59
+        loop do # decision 59
           alt_59 = 2
           look_59_0 = @input.peek(1)
 
@@ -4907,9 +4984,9 @@ module Python
             end
 
           else
-            break #loop 59
+            break # out of loop for decision 59
           end
-        end
+        end # loop for decision 59
         # at line 354:5: ( 'else' ':' suite )?
         alt_60 = 2
         look_60_0 = @input.peek(1)
@@ -4955,10 +5032,12 @@ module Python
 
     ElifClauseReturnValue = define_return_scope 
 
+    # 
     # parser rule elif_clause
     # 
     # (in samples/Python.g)
     # 357:1: elif_clause : 'elif' test ':' suite ;
+    # 
     def elif_clause
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 39)
@@ -5026,10 +5105,12 @@ module Python
 
     WhileStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule while_statement
     # 
     # (in samples/Python.g)
     # 361:1: while_statement : 'while' test ':' suite ( 'else' ':' suite )? ;
+    # 
     def while_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 40)
@@ -5122,10 +5203,12 @@ module Python
 
     ForStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule for_statement
     # 
     # (in samples/Python.g)
     # 366:1: for_statement : 'for' exprlist 'in' test_list ':' suite ( 'else' ':' suite )? ;
+    # 
     def for_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 41)
@@ -5228,10 +5311,12 @@ module Python
 
     TryStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule try_statement
     # 
     # (in samples/Python.g)
     # 370:1: try_statement : 'try' ':' suite ( ( except_clause )+ ( 'else' ':' suite )? ( 'finally' ':' suite )? | 'finally' ':' suite ) ;
+    # 
     def try_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 42)
@@ -5421,10 +5506,12 @@ module Python
 
     WithStatementReturnValue = define_return_scope 
 
+    # 
     # parser rule with_statement
     # 
     # (in samples/Python.g)
     # 377:1: with_statement : 'with' test ( 'as' NAME ':' suite -> ^( 'with' ^( 'as' test NAME ) suite ) | ':' suite -> ^( 'with' test suite ) ) ;
+    # 
     def with_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 43)
@@ -5501,7 +5588,7 @@ module Python
             stream_suite.add(suite211.tree)
           end
           # AST Rewrite
-          # elements: T__69, NAME, suite, test, T__81
+          # elements: T__81, test, NAME, T__69, suite
           # token labels: 
           # rule labels: return_value
           # token list labels: 
@@ -5548,7 +5635,7 @@ module Python
             stream_suite.add(suite213.tree)
           end
           # AST Rewrite
-          # elements: test, T__81, suite
+          # elements: T__81, suite, test
           # token labels: 
           # rule labels: return_value
           # token list labels: 
@@ -5601,10 +5688,12 @@ module Python
 
     ExceptClauseReturnValue = define_return_scope 
 
+    # 
     # parser rule except_clause
     # 
     # (in samples/Python.g)
     # 384:1: except_clause : 'except' ( test ( ',' test )? )? ':' suite ;
+    # 
     def except_clause
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 44)
@@ -5718,10 +5807,12 @@ module Python
 
     SuiteReturnValue = define_return_scope 
 
+    # 
     # parser rule suite
     # 
     # (in samples/Python.g)
     # 388:1: suite : ( simple_statement -> ^( BLOCK simple_statement ) | NEWLINE INDENT ( statement )+ DEDENT -> ^( BLOCK ( statement )+ ) );
+    # 
     def suite
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 45)
@@ -5903,10 +5994,12 @@ module Python
 
     TestReturnValue = define_return_scope 
 
+    # 
     # parser rule test
     # 
     # (in samples/Python.g)
     # 393:1: test : ( or_test ( ( 'if' or_test 'else' )=> 'if' or_test 'else' test )? | lamb_def );
+    # 
     def test
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 46)
@@ -6024,10 +6117,12 @@ module Python
 
     OrTestReturnValue = define_return_scope 
 
+    # 
     # parser rule or_test
     # 
     # (in samples/Python.g)
     # 399:1: or_test : and_test ( 'or' and_test )* ;
+    # 
     def or_test
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 47)
@@ -6055,7 +6150,7 @@ module Python
           @adaptor.add_child(root_0, and_test231.tree)
         end
         # at line 400:14: ( 'or' and_test )*
-        loop do  #loop 74
+        loop do # decision 74
           alt_74 = 2
           look_74_0 = @input.peek(1)
 
@@ -6081,9 +6176,9 @@ module Python
             end
 
           else
-            break #loop 74
+            break # out of loop for decision 74
           end
-        end
+        end # loop for decision 74
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -6109,10 +6204,12 @@ module Python
 
     AndTestReturnValue = define_return_scope 
 
+    # 
     # parser rule and_test
     # 
     # (in samples/Python.g)
     # 403:1: and_test : not_test ( 'and' not_test )* ;
+    # 
     def and_test
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 48)
@@ -6140,7 +6237,7 @@ module Python
           @adaptor.add_child(root_0, not_test234.tree)
         end
         # at line 404:14: ( 'and' not_test )*
-        loop do  #loop 75
+        loop do # decision 75
           alt_75 = 2
           look_75_0 = @input.peek(1)
 
@@ -6166,9 +6263,9 @@ module Python
             end
 
           else
-            break #loop 75
+            break # out of loop for decision 75
           end
-        end
+        end # loop for decision 75
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -6194,10 +6291,12 @@ module Python
 
     NotTestReturnValue = define_return_scope 
 
+    # 
     # parser rule not_test
     # 
     # (in samples/Python.g)
     # 407:1: not_test : ( 'not' not_test | comparison );
+    # 
     def not_test
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 49)
@@ -6284,10 +6383,12 @@ module Python
 
     ComparisonReturnValue = define_return_scope 
 
+    # 
     # parser rule comparison
     # 
     # (in samples/Python.g)
     # 412:1: comparison : expr ( ( '<' | '>' | '==' | '>=' | '<=' | '<>' | '!=' | 'in' | 'not' 'in' | 'is' | 'is' 'not' ) expr )* ;
+    # 
     def comparison
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 50)
@@ -6339,7 +6440,7 @@ module Python
           @adaptor.add_child(root_0, expr240.tree)
         end
         # at line 414:5: ( ( '<' | '>' | '==' | '>=' | '<=' | '<>' | '!=' | 'in' | 'not' 'in' | 'is' | 'is' 'not' ) expr )*
-        loop do  #loop 78
+        loop do # decision 78
           alt_78 = 2
           look_78_0 = @input.peek(1)
 
@@ -6487,9 +6588,9 @@ module Python
             end
 
           else
-            break #loop 78
+            break # out of loop for decision 78
           end
-        end
+        end # loop for decision 78
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -6515,10 +6616,12 @@ module Python
 
     ExprReturnValue = define_return_scope 
 
+    # 
     # parser rule expr
     # 
     # (in samples/Python.g)
     # 431:1: expr : xor_expr ( '|' xor_expr )* ;
+    # 
     def expr
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 51)
@@ -6546,7 +6649,7 @@ module Python
           @adaptor.add_child(root_0, xor_expr255.tree)
         end
         # at line 432:14: ( '|' xor_expr )*
-        loop do  #loop 79
+        loop do # decision 79
           alt_79 = 2
           look_79_0 = @input.peek(1)
 
@@ -6572,9 +6675,9 @@ module Python
             end
 
           else
-            break #loop 79
+            break # out of loop for decision 79
           end
-        end
+        end # loop for decision 79
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -6600,10 +6703,12 @@ module Python
 
     XorExprReturnValue = define_return_scope 
 
+    # 
     # parser rule xor_expr
     # 
     # (in samples/Python.g)
     # 435:1: xor_expr : and_expr ( '^' and_expr )* ;
+    # 
     def xor_expr
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 52)
@@ -6631,7 +6736,7 @@ module Python
           @adaptor.add_child(root_0, and_expr258.tree)
         end
         # at line 436:14: ( '^' and_expr )*
-        loop do  #loop 80
+        loop do # decision 80
           alt_80 = 2
           look_80_0 = @input.peek(1)
 
@@ -6657,9 +6762,9 @@ module Python
             end
 
           else
-            break #loop 80
+            break # out of loop for decision 80
           end
-        end
+        end # loop for decision 80
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -6685,10 +6790,12 @@ module Python
 
     AndExprReturnValue = define_return_scope 
 
+    # 
     # parser rule and_expr
     # 
     # (in samples/Python.g)
     # 439:1: and_expr : shift_expr ( '&' shift_expr )* ;
+    # 
     def and_expr
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 53)
@@ -6716,7 +6823,7 @@ module Python
           @adaptor.add_child(root_0, shift_expr261.tree)
         end
         # at line 440:16: ( '&' shift_expr )*
-        loop do  #loop 81
+        loop do # decision 81
           alt_81 = 2
           look_81_0 = @input.peek(1)
 
@@ -6742,9 +6849,9 @@ module Python
             end
 
           else
-            break #loop 81
+            break # out of loop for decision 81
           end
-        end
+        end # loop for decision 81
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -6770,10 +6877,12 @@ module Python
 
     ShiftExprReturnValue = define_return_scope 
 
+    # 
     # parser rule shift_expr
     # 
     # (in samples/Python.g)
     # 443:1: shift_expr : arith_expr ( ( '<<' | '>>' ) arith_expr )* ;
+    # 
     def shift_expr
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 54)
@@ -6803,7 +6912,7 @@ module Python
           @adaptor.add_child(root_0, arith_expr264.tree)
         end
         # at line 444:16: ( ( '<<' | '>>' ) arith_expr )*
-        loop do  #loop 83
+        loop do # decision 83
           alt_83 = 2
           look_83_0 = @input.peek(1)
 
@@ -6857,9 +6966,9 @@ module Python
             end
 
           else
-            break #loop 83
+            break # out of loop for decision 83
           end
-        end
+        end # loop for decision 83
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -6885,10 +6994,12 @@ module Python
 
     ArithExprReturnValue = define_return_scope 
 
+    # 
     # parser rule arith_expr
     # 
     # (in samples/Python.g)
     # 447:1: arith_expr : term ( ( '+' | '-' ) term )* ;
+    # 
     def arith_expr
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 55)
@@ -6918,7 +7029,7 @@ module Python
           @adaptor.add_child(root_0, term268.tree)
         end
         # at line 448:10: ( ( '+' | '-' ) term )*
-        loop do  #loop 85
+        loop do # decision 85
           alt_85 = 2
           look_85_0 = @input.peek(1)
 
@@ -6972,9 +7083,9 @@ module Python
             end
 
           else
-            break #loop 85
+            break # out of loop for decision 85
           end
-        end
+        end # loop for decision 85
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -7000,10 +7111,12 @@ module Python
 
     TermReturnValue = define_return_scope 
 
+    # 
     # parser rule term
     # 
     # (in samples/Python.g)
     # 451:1: term : factor ( ( '*' | '/' | '%' | '//' ) factor )* ;
+    # 
     def term
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 56)
@@ -7037,7 +7150,7 @@ module Python
           @adaptor.add_child(root_0, factor272.tree)
         end
         # at line 452:12: ( ( '*' | '/' | '%' | '//' ) factor )*
-        loop do  #loop 87
+        loop do # decision 87
           alt_87 = 2
           look_87_0 = @input.peek(1)
 
@@ -7111,9 +7224,9 @@ module Python
             end
 
           else
-            break #loop 87
+            break # out of loop for decision 87
           end
-        end
+        end # loop for decision 87
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look(-1)
 
@@ -7139,10 +7252,12 @@ module Python
 
     FactorReturnValue = define_return_scope 
 
+    # 
     # parser rule factor
     # 
     # (in samples/Python.g)
     # 455:1: factor : ( '+' factor | '-' factor | '~' factor | power );
+    # 
     def factor
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 57)
@@ -7273,10 +7388,12 @@ module Python
 
     PowerReturnValue = define_return_scope 
 
+    # 
     # parser rule power
     # 
     # (in samples/Python.g)
     # 462:1: power : atom ( trailer )* ( '**' factor )? ;
+    # 
     def power
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 58)
@@ -7305,7 +7422,7 @@ module Python
           @adaptor.add_child(root_0, atom285.tree)
         end
         # at line 463:10: ( trailer )*
-        loop do  #loop 89
+        loop do # decision 89
           alt_89 = 2
           look_89_0 = @input.peek(1)
 
@@ -7324,9 +7441,9 @@ module Python
             end
 
           else
-            break #loop 89
+            break # out of loop for decision 89
           end
-        end
+        end # loop for decision 89
         # at line 463:19: ( '**' factor )?
         alt_90 = 2
         look_90_0 = @input.peek(1)
@@ -7377,10 +7494,12 @@ module Python
 
     AtomReturnValue = define_return_scope 
 
+    # 
     # parser rule atom
     # 
     # (in samples/Python.g)
     # 466:1: atom : ( LPAREN ( yield_expr | testlist_gexp )? RPAREN | LBRACK ( list_maker )? RBRACK | LCURLY ( dict_maker )? RCURLY | '`' test_list '`' | NAME | INT | LONGINT | FLOAT | COMPLEX | ( STRING )+ );
+    # 
     def atom
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 59)
@@ -7726,10 +7845,12 @@ module Python
 
     ListMakerReturnValue = define_return_scope 
 
+    # 
     # parser rule list_maker
     # 
     # (in samples/Python.g)
     # 483:1: list_maker : test ( list_for | ( options {greedy=true; } : ',' test )* ) ( ',' )? ;
+    # 
     def list_maker
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 60)
@@ -7785,7 +7906,7 @@ module Python
         when 2
           # at line 486:7: ( options {greedy=true; } : ',' test )*
           # at line 486:7: ( options {greedy=true; } : ',' test )*
-          loop do  #loop 96
+          loop do # decision 96
             alt_96 = 2
             look_96_0 = @input.peek(1)
 
@@ -7816,9 +7937,9 @@ module Python
               end
 
             else
-              break #loop 96
+              break # out of loop for decision 96
             end
-          end
+          end # loop for decision 96
 
         end
         # at line 487:7: ( ',' )?
@@ -7865,10 +7986,12 @@ module Python
 
     TestlistGexpReturnValue = define_return_scope 
 
+    # 
     # parser rule testlist_gexp
     # 
     # (in samples/Python.g)
     # 490:1: testlist_gexp : test ( ( options {k=2; } : ',' test )* ( ',' )? | gen_for ) ;
+    # 
     def testlist_gexp
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 61)
@@ -7915,7 +8038,7 @@ module Python
         when 1
           # at line 492:7: ( options {k=2; } : ',' test )* ( ',' )?
           # at line 492:7: ( options {k=2; } : ',' test )*
-          loop do  #loop 99
+          loop do # decision 99
             alt_99 = 2
             alt_99 = @dfa99.predict(@input)
             case alt_99
@@ -7936,9 +8059,9 @@ module Python
               end
 
             else
-              break #loop 99
+              break # out of loop for decision 99
             end
-          end
+          end # loop for decision 99
           # at line 492:35: ( ',' )?
           alt_100 = 2
           look_100_0 = @input.peek(1)
@@ -7994,10 +8117,12 @@ module Python
 
     LambDefReturnValue = define_return_scope 
 
+    # 
     # parser rule lamb_def
     # 
     # (in samples/Python.g)
     # 497:1: lamb_def : 'lambda' ( var_args_list )? ':' test ;
+    # 
     def lamb_def
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 62)
@@ -8083,10 +8208,12 @@ module Python
 
     TrailerReturnValue = define_return_scope 
 
+    # 
     # parser rule trailer
     # 
     # (in samples/Python.g)
     # 501:1: trailer : ( LPAREN ( arg_list )? RPAREN | LBRACK subscript_list RBRACK | '.' NAME );
+    # 
     def trailer
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 63)
@@ -8235,10 +8362,12 @@ module Python
 
     SubscriptListReturnValue = define_return_scope 
 
+    # 
     # parser rule subscript_list
     # 
     # (in samples/Python.g)
     # 507:1: subscript_list : subscript ( options {greedy=true; } : ',' subscript )* ( ',' )? ;
+    # 
     def subscript_list
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 64)
@@ -8268,7 +8397,7 @@ module Python
           @adaptor.add_child(root_0, subscript330.tree)
         end
         # at line 507:28: ( options {greedy=true; } : ',' subscript )*
-        loop do  #loop 105
+        loop do # decision 105
           alt_105 = 2
           look_105_0 = @input.peek(1)
 
@@ -8299,9 +8428,9 @@ module Python
             end
 
           else
-            break #loop 105
+            break # out of loop for decision 105
           end
-        end
+        end # loop for decision 105
         # at line 507:68: ( ',' )?
         alt_106 = 2
         look_106_0 = @input.peek(1)
@@ -8346,10 +8475,12 @@ module Python
 
     SubscriptReturnValue = define_return_scope 
 
+    # 
     # parser rule subscript
     # 
     # (in samples/Python.g)
     # 510:1: subscript : ( '.' '.' '.' | test ( ':' ( test )? ( sliceop )? )? | ':' ( test )? ( sliceop )? );
+    # 
     def subscript
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 65)
@@ -8558,10 +8689,12 @@ module Python
 
     SliceopReturnValue = define_return_scope 
 
+    # 
     # parser rule sliceop
     # 
     # (in samples/Python.g)
     # 515:1: sliceop : ':' ( test )? ;
+    # 
     def sliceop
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 66)
@@ -8631,10 +8764,12 @@ module Python
 
     ExprlistReturnValue = define_return_scope 
 
+    # 
     # parser rule exprlist
     # 
     # (in samples/Python.g)
     # 518:1: exprlist : expr ( options {k=2; } : ',' expr )* ( ',' )? ;
+    # 
     def exprlist
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 67)
@@ -8664,7 +8799,7 @@ module Python
           @adaptor.add_child(root_0, expr346.tree)
         end
         # at line 518:17: ( options {k=2; } : ',' expr )*
-        loop do  #loop 114
+        loop do # decision 114
           alt_114 = 2
           alt_114 = @dfa114.predict(@input)
           case alt_114
@@ -8685,9 +8820,9 @@ module Python
             end
 
           else
-            break #loop 114
+            break # out of loop for decision 114
           end
-        end
+        end # loop for decision 114
         # at line 518:45: ( ',' )?
         alt_115 = 2
         look_115_0 = @input.peek(1)
@@ -8732,10 +8867,12 @@ module Python
 
     TestListReturnValue = define_return_scope 
 
+    # 
     # parser rule test_list
     # 
     # (in samples/Python.g)
     # 521:1: test_list : test ( options {k=2; } : ',' test )* ( ',' )? ;
+    # 
     def test_list
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 68)
@@ -8765,7 +8902,7 @@ module Python
           @adaptor.add_child(root_0, test350.tree)
         end
         # at line 522:12: ( options {k=2; } : ',' test )*
-        loop do  #loop 116
+        loop do # decision 116
           alt_116 = 2
           alt_116 = @dfa116.predict(@input)
           case alt_116
@@ -8786,9 +8923,9 @@ module Python
             end
 
           else
-            break #loop 116
+            break # out of loop for decision 116
           end
-        end
+        end # loop for decision 116
         # at line 522:40: ( ',' )?
         alt_117 = 2
         look_117_0 = @input.peek(1)
@@ -8833,10 +8970,12 @@ module Python
 
     DictMakerReturnValue = define_return_scope 
 
+    # 
     # parser rule dict_maker
     # 
     # (in samples/Python.g)
     # 525:1: dict_maker : test ':' test ( options {k=2; } : ',' test ':' test )* ( ',' )? ;
+    # 
     def dict_maker
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 69)
@@ -8864,54 +9003,54 @@ module Python
         root_0 = @adaptor.create_flat_list!
 
 
-        # at line 525:14: test ':' test ( options {k=2; } : ',' test ':' test )* ( ',' )?
-        @state.following.push(TOKENS_FOLLOWING_test_IN_dict_maker_3283)
+        # at line 526:5: test ':' test ( options {k=2; } : ',' test ':' test )* ( ',' )?
+        @state.following.push(TOKENS_FOLLOWING_test_IN_dict_maker_3285)
         test354 = test
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child(root_0, test354.tree)
         end
-        char_literal355 = match(T__41, TOKENS_FOLLOWING_T__41_IN_dict_maker_3285)
+        char_literal355 = match(T__41, TOKENS_FOLLOWING_T__41_IN_dict_maker_3287)
         if @state.backtracking == 0
 
           tree_for_char_literal355 = @adaptor.create_with_payload!(char_literal355)
           @adaptor.add_child(root_0, tree_for_char_literal355)
 
         end
-        @state.following.push(TOKENS_FOLLOWING_test_IN_dict_maker_3287)
+        @state.following.push(TOKENS_FOLLOWING_test_IN_dict_maker_3289)
         test356 = test
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child(root_0, test356.tree)
         end
-        # at line 525:28: ( options {k=2; } : ',' test ':' test )*
-        loop do  #loop 118
+        # at line 526:19: ( options {k=2; } : ',' test ':' test )*
+        loop do # decision 118
           alt_118 = 2
           alt_118 = @dfa118.predict(@input)
           case alt_118
           when 1
-            # at line 525:44: ',' test ':' test
-            char_literal357 = match(T__42, TOKENS_FOLLOWING_T__42_IN_dict_maker_3297)
+            # at line 526:35: ',' test ':' test
+            char_literal357 = match(T__42, TOKENS_FOLLOWING_T__42_IN_dict_maker_3299)
             if @state.backtracking == 0
 
               tree_for_char_literal357 = @adaptor.create_with_payload!(char_literal357)
               @adaptor.add_child(root_0, tree_for_char_literal357)
 
             end
-            @state.following.push(TOKENS_FOLLOWING_test_IN_dict_maker_3299)
+            @state.following.push(TOKENS_FOLLOWING_test_IN_dict_maker_3301)
             test358 = test
             @state.following.pop
             if @state.backtracking == 0
               @adaptor.add_child(root_0, test358.tree)
             end
-            char_literal359 = match(T__41, TOKENS_FOLLOWING_T__41_IN_dict_maker_3301)
+            char_literal359 = match(T__41, TOKENS_FOLLOWING_T__41_IN_dict_maker_3303)
             if @state.backtracking == 0
 
               tree_for_char_literal359 = @adaptor.create_with_payload!(char_literal359)
               @adaptor.add_child(root_0, tree_for_char_literal359)
 
             end
-            @state.following.push(TOKENS_FOLLOWING_test_IN_dict_maker_3303)
+            @state.following.push(TOKENS_FOLLOWING_test_IN_dict_maker_3305)
             test360 = test
             @state.following.pop
             if @state.backtracking == 0
@@ -8919,10 +9058,10 @@ module Python
             end
 
           else
-            break #loop 118
+            break # out of loop for decision 118
           end
-        end
-        # at line 525:64: ( ',' )?
+        end # loop for decision 118
+        # at line 526:56: ( ',' )?
         alt_119 = 2
         look_119_0 = @input.peek(1)
 
@@ -8931,8 +9070,8 @@ module Python
         end
         case alt_119
         when 1
-          # at line 525:65: ','
-          char_literal361 = match(T__42, TOKENS_FOLLOWING_T__42_IN_dict_maker_3308)
+          # at line 526:56: ','
+          char_literal361 = match(T__42, TOKENS_FOLLOWING_T__42_IN_dict_maker_3310)
           if @state.backtracking == 0
 
             tree_for_char_literal361 = @adaptor.create_with_payload!(char_literal361)
@@ -8966,10 +9105,12 @@ module Python
 
     ClassDefReturnValue = define_return_scope 
 
+    # 
     # parser rule class_def
     # 
     # (in samples/Python.g)
-    # 528:1: class_def : 'class' NAME ( LPAREN ( test_list )? RPAREN )? ':' suite ;
+    # 529:1: class_def : 'class' NAME ( LPAREN ( test_list )? RPAREN )? ':' suite ;
+    # 
     def class_def
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 70)
@@ -8997,22 +9138,22 @@ module Python
         root_0 = @adaptor.create_flat_list!
 
 
-        # at line 528:12: 'class' NAME ( LPAREN ( test_list )? RPAREN )? ':' suite
-        string_literal362 = match(T__106, TOKENS_FOLLOWING_T__106_IN_class_def_3328)
+        # at line 530:5: 'class' NAME ( LPAREN ( test_list )? RPAREN )? ':' suite
+        string_literal362 = match(T__106, TOKENS_FOLLOWING_T__106_IN_class_def_3324)
         if @state.backtracking == 0
 
           tree_for_string_literal362 = @adaptor.create_with_payload!(string_literal362)
           @adaptor.add_child(root_0, tree_for_string_literal362)
 
         end
-        __NAME363__ = match(NAME, TOKENS_FOLLOWING_NAME_IN_class_def_3330)
+        __NAME363__ = match(NAME, TOKENS_FOLLOWING_NAME_IN_class_def_3326)
         if @state.backtracking == 0
 
           tree_for_NAME363 = @adaptor.create_with_payload!(__NAME363__)
           @adaptor.add_child(root_0, tree_for_NAME363)
 
         end
-        # at line 528:25: ( LPAREN ( test_list )? RPAREN )?
+        # at line 530:18: ( LPAREN ( test_list )? RPAREN )?
         alt_121 = 2
         look_121_0 = @input.peek(1)
 
@@ -9021,15 +9162,15 @@ module Python
         end
         case alt_121
         when 1
-          # at line 528:26: LPAREN ( test_list )? RPAREN
-          __LPAREN364__ = match(LPAREN, TOKENS_FOLLOWING_LPAREN_IN_class_def_3333)
+          # at line 530:19: LPAREN ( test_list )? RPAREN
+          __LPAREN364__ = match(LPAREN, TOKENS_FOLLOWING_LPAREN_IN_class_def_3329)
           if @state.backtracking == 0
 
             tree_for_LPAREN364 = @adaptor.create_with_payload!(__LPAREN364__)
             @adaptor.add_child(root_0, tree_for_LPAREN364)
 
           end
-          # at line 528:33: ( test_list )?
+          # at line 530:26: ( test_list )?
           alt_120 = 2
           look_120_0 = @input.peek(1)
 
@@ -9038,8 +9179,8 @@ module Python
           end
           case alt_120
           when 1
-            # at line 528:33: test_list
-            @state.following.push(TOKENS_FOLLOWING_test_list_IN_class_def_3335)
+            # at line 530:26: test_list
+            @state.following.push(TOKENS_FOLLOWING_test_list_IN_class_def_3331)
             test_list365 = test_list
             @state.following.pop
             if @state.backtracking == 0
@@ -9047,7 +9188,7 @@ module Python
             end
 
           end
-          __RPAREN366__ = match(RPAREN, TOKENS_FOLLOWING_RPAREN_IN_class_def_3338)
+          __RPAREN366__ = match(RPAREN, TOKENS_FOLLOWING_RPAREN_IN_class_def_3334)
           if @state.backtracking == 0
 
             tree_for_RPAREN366 = @adaptor.create_with_payload!(__RPAREN366__)
@@ -9056,14 +9197,14 @@ module Python
           end
 
         end
-        char_literal367 = match(T__41, TOKENS_FOLLOWING_T__41_IN_class_def_3342)
+        char_literal367 = match(T__41, TOKENS_FOLLOWING_T__41_IN_class_def_3338)
         if @state.backtracking == 0
 
           tree_for_char_literal367 = @adaptor.create_with_payload!(char_literal367)
           @adaptor.add_child(root_0, tree_for_char_literal367)
 
         end
-        @state.following.push(TOKENS_FOLLOWING_suite_IN_class_def_3344)
+        @state.following.push(TOKENS_FOLLOWING_suite_IN_class_def_3340)
         suite368 = suite
         @state.following.pop
         if @state.backtracking == 0
@@ -9094,10 +9235,12 @@ module Python
 
     ArgListReturnValue = define_return_scope 
 
+    # 
     # parser rule arg_list
     # 
     # (in samples/Python.g)
-    # 531:1: arg_list : ( argument ( ',' argument )* ( ',' ( '*' test ( ',' '**' test )? | '**' test )? )? | '*' test ( ',' '**' test )? | '**' test );
+    # 533:1: arg_list : ( argument ( ',' argument )* ( ',' ( '*' test ( ',' '**' test )? | '**' test )? )? | '*' test ( ',' '**' test )? | '**' test );
+    # 
     def arg_list
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 71)
@@ -9138,7 +9281,7 @@ module Python
       tree_for_string_literal385 = nil
 
       begin
-        # at line 531:10: ( argument ( ',' argument )* ( ',' ( '*' test ( ',' '**' test )? | '**' test )? )? | '*' test ( ',' '**' test )? | '**' test )
+        # at line 534:3: ( argument ( ',' argument )* ( ',' ( '*' test ( ',' '**' test )? | '**' test )? )? | '*' test ( ',' '**' test )? | '**' test )
         alt_127 = 3
         case look_127 = @input.peek(1)
         when LONGINT, COMPLEX, LPAREN, NAME, LBRACK, LCURLY, INT, FLOAT, STRING, T__85, T__98, T__99, T__103, T__104, T__105 then alt_127 = 1
@@ -9155,15 +9298,15 @@ module Python
           root_0 = @adaptor.create_flat_list!
 
 
-          # at line 531:12: argument ( ',' argument )* ( ',' ( '*' test ( ',' '**' test )? | '**' test )? )?
-          @state.following.push(TOKENS_FOLLOWING_argument_IN_arg_list_3361)
+          # at line 534:5: argument ( ',' argument )* ( ',' ( '*' test ( ',' '**' test )? | '**' test )? )?
+          @state.following.push(TOKENS_FOLLOWING_argument_IN_arg_list_3353)
           argument369 = argument
           @state.following.pop
           if @state.backtracking == 0
             @adaptor.add_child(root_0, argument369.tree)
           end
-          # at line 531:21: ( ',' argument )*
-          loop do  #loop 122
+          # at line 534:14: ( ',' argument )*
+          loop do # decision 122
             alt_122 = 2
             look_122_0 = @input.peek(1)
 
@@ -9178,15 +9321,15 @@ module Python
             end
             case alt_122
             when 1
-              # at line 531:22: ',' argument
-              char_literal370 = match(T__42, TOKENS_FOLLOWING_T__42_IN_arg_list_3364)
+              # at line 534:15: ',' argument
+              char_literal370 = match(T__42, TOKENS_FOLLOWING_T__42_IN_arg_list_3356)
               if @state.backtracking == 0
 
                 tree_for_char_literal370 = @adaptor.create_with_payload!(char_literal370)
                 @adaptor.add_child(root_0, tree_for_char_literal370)
 
               end
-              @state.following.push(TOKENS_FOLLOWING_argument_IN_arg_list_3366)
+              @state.following.push(TOKENS_FOLLOWING_argument_IN_arg_list_3358)
               argument371 = argument
               @state.following.pop
               if @state.backtracking == 0
@@ -9194,10 +9337,10 @@ module Python
               end
 
             else
-              break #loop 122
+              break # out of loop for decision 122
             end
-          end
-          # at line 532:11: ( ',' ( '*' test ( ',' '**' test )? | '**' test )? )?
+          end # loop for decision 122
+          # at line 535:5: ( ',' ( '*' test ( ',' '**' test )? | '**' test )? )?
           alt_125 = 2
           look_125_0 = @input.peek(1)
 
@@ -9206,15 +9349,15 @@ module Python
           end
           case alt_125
           when 1
-            # at line 532:13: ',' ( '*' test ( ',' '**' test )? | '**' test )?
-            char_literal372 = match(T__42, TOKENS_FOLLOWING_T__42_IN_arg_list_3382)
+            # at line 535:7: ',' ( '*' test ( ',' '**' test )? | '**' test )?
+            char_literal372 = match(T__42, TOKENS_FOLLOWING_T__42_IN_arg_list_3368)
             if @state.backtracking == 0
 
               tree_for_char_literal372 = @adaptor.create_with_payload!(char_literal372)
               @adaptor.add_child(root_0, tree_for_char_literal372)
 
             end
-            # at line 533:13: ( '*' test ( ',' '**' test )? | '**' test )?
+            # at line 536:7: ( '*' test ( ',' '**' test )? | '**' test )?
             alt_124 = 3
             look_124_0 = @input.peek(1)
 
@@ -9225,21 +9368,21 @@ module Python
             end
             case alt_124
             when 1
-              # at line 533:15: '*' test ( ',' '**' test )?
-              char_literal373 = match(T__43, TOKENS_FOLLOWING_T__43_IN_arg_list_3398)
+              # at line 536:9: '*' test ( ',' '**' test )?
+              char_literal373 = match(T__43, TOKENS_FOLLOWING_T__43_IN_arg_list_3378)
               if @state.backtracking == 0
 
                 tree_for_char_literal373 = @adaptor.create_with_payload!(char_literal373)
                 @adaptor.add_child(root_0, tree_for_char_literal373)
 
               end
-              @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3400)
+              @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3380)
               test374 = test
               @state.following.pop
               if @state.backtracking == 0
                 @adaptor.add_child(root_0, test374.tree)
               end
-              # at line 533:24: ( ',' '**' test )?
+              # at line 536:18: ( ',' '**' test )?
               alt_123 = 2
               look_123_0 = @input.peek(1)
 
@@ -9248,22 +9391,22 @@ module Python
               end
               case alt_123
               when 1
-                # at line 533:25: ',' '**' test
-                char_literal375 = match(T__42, TOKENS_FOLLOWING_T__42_IN_arg_list_3403)
+                # at line 536:19: ',' '**' test
+                char_literal375 = match(T__42, TOKENS_FOLLOWING_T__42_IN_arg_list_3383)
                 if @state.backtracking == 0
 
                   tree_for_char_literal375 = @adaptor.create_with_payload!(char_literal375)
                   @adaptor.add_child(root_0, tree_for_char_literal375)
 
                 end
-                string_literal376 = match(T__44, TOKENS_FOLLOWING_T__44_IN_arg_list_3405)
+                string_literal376 = match(T__44, TOKENS_FOLLOWING_T__44_IN_arg_list_3385)
                 if @state.backtracking == 0
 
                   tree_for_string_literal376 = @adaptor.create_with_payload!(string_literal376)
                   @adaptor.add_child(root_0, tree_for_string_literal376)
 
                 end
-                @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3407)
+                @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3387)
                 test377 = test
                 @state.following.pop
                 if @state.backtracking == 0
@@ -9273,15 +9416,15 @@ module Python
               end
 
             when 2
-              # at line 534:15: '**' test
-              string_literal378 = match(T__44, TOKENS_FOLLOWING_T__44_IN_arg_list_3425)
+              # at line 537:9: '**' test
+              string_literal378 = match(T__44, TOKENS_FOLLOWING_T__44_IN_arg_list_3399)
               if @state.backtracking == 0
 
                 tree_for_string_literal378 = @adaptor.create_with_payload!(string_literal378)
                 @adaptor.add_child(root_0, tree_for_string_literal378)
 
               end
-              @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3427)
+              @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3401)
               test379 = test
               @state.following.pop
               if @state.backtracking == 0
@@ -9296,21 +9439,21 @@ module Python
           root_0 = @adaptor.create_flat_list!
 
 
-          # at line 537:13: '*' test ( ',' '**' test )?
-          char_literal380 = match(T__43, TOKENS_FOLLOWING_T__43_IN_arg_list_3469)
+          # at line 540:5: '*' test ( ',' '**' test )?
+          char_literal380 = match(T__43, TOKENS_FOLLOWING_T__43_IN_arg_list_3423)
           if @state.backtracking == 0
 
             tree_for_char_literal380 = @adaptor.create_with_payload!(char_literal380)
             @adaptor.add_child(root_0, tree_for_char_literal380)
 
           end
-          @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3471)
+          @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3425)
           test381 = test
           @state.following.pop
           if @state.backtracking == 0
             @adaptor.add_child(root_0, test381.tree)
           end
-          # at line 537:22: ( ',' '**' test )?
+          # at line 540:14: ( ',' '**' test )?
           alt_126 = 2
           look_126_0 = @input.peek(1)
 
@@ -9319,22 +9462,22 @@ module Python
           end
           case alt_126
           when 1
-            # at line 537:23: ',' '**' test
-            char_literal382 = match(T__42, TOKENS_FOLLOWING_T__42_IN_arg_list_3474)
+            # at line 540:16: ',' '**' test
+            char_literal382 = match(T__42, TOKENS_FOLLOWING_T__42_IN_arg_list_3429)
             if @state.backtracking == 0
 
               tree_for_char_literal382 = @adaptor.create_with_payload!(char_literal382)
               @adaptor.add_child(root_0, tree_for_char_literal382)
 
             end
-            string_literal383 = match(T__44, TOKENS_FOLLOWING_T__44_IN_arg_list_3476)
+            string_literal383 = match(T__44, TOKENS_FOLLOWING_T__44_IN_arg_list_3431)
             if @state.backtracking == 0
 
               tree_for_string_literal383 = @adaptor.create_with_payload!(string_literal383)
               @adaptor.add_child(root_0, tree_for_string_literal383)
 
             end
-            @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3478)
+            @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3433)
             test384 = test
             @state.following.pop
             if @state.backtracking == 0
@@ -9347,15 +9490,15 @@ module Python
           root_0 = @adaptor.create_flat_list!
 
 
-          # at line 538:13: '**' test
-          string_literal385 = match(T__44, TOKENS_FOLLOWING_T__44_IN_arg_list_3494)
+          # at line 541:5: '**' test
+          string_literal385 = match(T__44, TOKENS_FOLLOWING_T__44_IN_arg_list_3442)
           if @state.backtracking == 0
 
             tree_for_string_literal385 = @adaptor.create_with_payload!(string_literal385)
             @adaptor.add_child(root_0, tree_for_string_literal385)
 
           end
-          @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3496)
+          @state.following.push(TOKENS_FOLLOWING_test_IN_arg_list_3444)
           test386 = test
           @state.following.pop
           if @state.backtracking == 0
@@ -9387,10 +9530,12 @@ module Python
 
     ArgumentReturnValue = define_return_scope 
 
+    # 
     # parser rule argument
     # 
     # (in samples/Python.g)
-    # 541:1: argument : test ( '=' test | gen_for )? ;
+    # 544:1: argument : test ( '=' test | gen_for )? ;
+    # 
     def argument
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 72)
@@ -9411,14 +9556,14 @@ module Python
         root_0 = @adaptor.create_flat_list!
 
 
-        # at line 541:12: test ( '=' test | gen_for )?
-        @state.following.push(TOKENS_FOLLOWING_test_IN_argument_3513)
+        # at line 545:5: test ( '=' test | gen_for )?
+        @state.following.push(TOKENS_FOLLOWING_test_IN_argument_3457)
         test387 = test
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child(root_0, test387.tree)
         end
-        # at line 541:17: ( '=' test | gen_for )?
+        # at line 545:10: ( '=' test | gen_for )?
         alt_128 = 3
         look_128_0 = @input.peek(1)
 
@@ -9429,15 +9574,15 @@ module Python
         end
         case alt_128
         when 1
-          # at line 541:19: '=' test
-          char_literal388 = match(T__45, TOKENS_FOLLOWING_T__45_IN_argument_3517)
+          # at line 545:12: '=' test
+          char_literal388 = match(T__45, TOKENS_FOLLOWING_T__45_IN_argument_3461)
           if @state.backtracking == 0
 
             tree_for_char_literal388 = @adaptor.create_with_payload!(char_literal388)
             @adaptor.add_child(root_0, tree_for_char_literal388)
 
           end
-          @state.following.push(TOKENS_FOLLOWING_test_IN_argument_3519)
+          @state.following.push(TOKENS_FOLLOWING_test_IN_argument_3463)
           test389 = test
           @state.following.pop
           if @state.backtracking == 0
@@ -9445,8 +9590,8 @@ module Python
           end
 
         when 2
-          # at line 541:30: gen_for
-          @state.following.push(TOKENS_FOLLOWING_gen_for_IN_argument_3523)
+          # at line 545:23: gen_for
+          @state.following.push(TOKENS_FOLLOWING_gen_for_IN_argument_3467)
           gen_for390 = gen_for
           @state.following.pop
           if @state.backtracking == 0
@@ -9479,10 +9624,12 @@ module Python
 
     ListIterReturnValue = define_return_scope 
 
+    # 
     # parser rule list_iter
     # 
     # (in samples/Python.g)
-    # 544:1: list_iter : ( list_for | list_if );
+    # 548:1: list_iter : ( list_for | list_if );
+    # 
     def list_iter
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 73)
@@ -9497,7 +9644,7 @@ module Python
 
 
       begin
-        # at line 544:11: ( list_for | list_if )
+        # at line 549:3: ( list_for | list_if )
         alt_129 = 2
         look_129_0 = @input.peek(1)
 
@@ -9515,8 +9662,8 @@ module Python
           root_0 = @adaptor.create_flat_list!
 
 
-          # at line 544:13: list_for
-          @state.following.push(TOKENS_FOLLOWING_list_for_IN_list_iter_3544)
+          # at line 549:5: list_for
+          @state.following.push(TOKENS_FOLLOWING_list_for_IN_list_iter_3483)
           list_for391 = list_for
           @state.following.pop
           if @state.backtracking == 0
@@ -9527,8 +9674,8 @@ module Python
           root_0 = @adaptor.create_flat_list!
 
 
-          # at line 545:13: list_if
-          @state.following.push(TOKENS_FOLLOWING_list_if_IN_list_iter_3558)
+          # at line 550:5: list_if
+          @state.following.push(TOKENS_FOLLOWING_list_if_IN_list_iter_3489)
           list_if392 = list_if
           @state.following.pop
           if @state.backtracking == 0
@@ -9560,10 +9707,12 @@ module Python
 
     ListForReturnValue = define_return_scope 
 
+    # 
     # parser rule list_for
     # 
     # (in samples/Python.g)
-    # 548:1: list_for : 'for' exprlist 'in' test_list ( list_iter )? ;
+    # 553:1: list_for : 'for' exprlist 'in' test_list ( list_iter )? ;
+    # 
     def list_for
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 74)
@@ -9586,34 +9735,34 @@ module Python
         root_0 = @adaptor.create_flat_list!
 
 
-        # at line 548:12: 'for' exprlist 'in' test_list ( list_iter )?
-        string_literal393 = match(T__78, TOKENS_FOLLOWING_T__78_IN_list_for_3577)
+        # at line 554:5: 'for' exprlist 'in' test_list ( list_iter )?
+        string_literal393 = match(T__78, TOKENS_FOLLOWING_T__78_IN_list_for_3502)
         if @state.backtracking == 0
 
           tree_for_string_literal393 = @adaptor.create_with_payload!(string_literal393)
           @adaptor.add_child(root_0, tree_for_string_literal393)
 
         end
-        @state.following.push(TOKENS_FOLLOWING_exprlist_IN_list_for_3579)
+        @state.following.push(TOKENS_FOLLOWING_exprlist_IN_list_for_3504)
         exprlist394 = exprlist
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child(root_0, exprlist394.tree)
         end
-        string_literal395 = match(T__72, TOKENS_FOLLOWING_T__72_IN_list_for_3581)
+        string_literal395 = match(T__72, TOKENS_FOLLOWING_T__72_IN_list_for_3506)
         if @state.backtracking == 0
 
           tree_for_string_literal395 = @adaptor.create_with_payload!(string_literal395)
           @adaptor.add_child(root_0, tree_for_string_literal395)
 
         end
-        @state.following.push(TOKENS_FOLLOWING_test_list_IN_list_for_3583)
+        @state.following.push(TOKENS_FOLLOWING_test_list_IN_list_for_3508)
         test_list396 = test_list
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child(root_0, test_list396.tree)
         end
-        # at line 548:42: ( list_iter )?
+        # at line 554:35: ( list_iter )?
         alt_130 = 2
         look_130_0 = @input.peek(1)
 
@@ -9622,8 +9771,8 @@ module Python
         end
         case alt_130
         when 1
-          # at line 548:42: list_iter
-          @state.following.push(TOKENS_FOLLOWING_list_iter_IN_list_for_3585)
+          # at line 554:35: list_iter
+          @state.following.push(TOKENS_FOLLOWING_list_iter_IN_list_for_3510)
           list_iter397 = list_iter
           @state.following.pop
           if @state.backtracking == 0
@@ -9656,10 +9805,12 @@ module Python
 
     ListIfReturnValue = define_return_scope 
 
+    # 
     # parser rule list_if
     # 
     # (in samples/Python.g)
-    # 551:1: list_if : 'if' test ( list_iter )? ;
+    # 557:1: list_if : 'if' test ( list_iter )? ;
+    # 
     def list_if
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 75)
@@ -9679,21 +9830,21 @@ module Python
         root_0 = @adaptor.create_flat_list!
 
 
-        # at line 551:11: 'if' test ( list_iter )?
-        string_literal398 = match(T__74, TOKENS_FOLLOWING_T__74_IN_list_if_3604)
+        # at line 558:5: 'if' test ( list_iter )?
+        string_literal398 = match(T__74, TOKENS_FOLLOWING_T__74_IN_list_if_3524)
         if @state.backtracking == 0
 
           tree_for_string_literal398 = @adaptor.create_with_payload!(string_literal398)
           @adaptor.add_child(root_0, tree_for_string_literal398)
 
         end
-        @state.following.push(TOKENS_FOLLOWING_test_IN_list_if_3606)
+        @state.following.push(TOKENS_FOLLOWING_test_IN_list_if_3526)
         test399 = test
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child(root_0, test399.tree)
         end
-        # at line 551:21: ( list_iter )?
+        # at line 558:15: ( list_iter )?
         alt_131 = 2
         look_131_0 = @input.peek(1)
 
@@ -9702,8 +9853,8 @@ module Python
         end
         case alt_131
         when 1
-          # at line 551:21: list_iter
-          @state.following.push(TOKENS_FOLLOWING_list_iter_IN_list_if_3608)
+          # at line 558:15: list_iter
+          @state.following.push(TOKENS_FOLLOWING_list_iter_IN_list_if_3528)
           list_iter400 = list_iter
           @state.following.pop
           if @state.backtracking == 0
@@ -9736,10 +9887,12 @@ module Python
 
     GenIterReturnValue = define_return_scope 
 
+    # 
     # parser rule gen_iter
     # 
     # (in samples/Python.g)
-    # 554:1: gen_iter : ( gen_for | gen_if );
+    # 561:1: gen_iter : ( gen_for | gen_if );
+    # 
     def gen_iter
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 76)
@@ -9754,7 +9907,7 @@ module Python
 
 
       begin
-        # at line 554:9: ( gen_for | gen_if )
+        # at line 562:3: ( gen_for | gen_if )
         alt_132 = 2
         look_132_0 = @input.peek(1)
 
@@ -9772,8 +9925,8 @@ module Python
           root_0 = @adaptor.create_flat_list!
 
 
-          # at line 554:11: gen_for
-          @state.following.push(TOKENS_FOLLOWING_gen_for_IN_gen_iter_3625)
+          # at line 562:5: gen_for
+          @state.following.push(TOKENS_FOLLOWING_gen_for_IN_gen_iter_3542)
           gen_for401 = gen_for
           @state.following.pop
           if @state.backtracking == 0
@@ -9784,8 +9937,8 @@ module Python
           root_0 = @adaptor.create_flat_list!
 
 
-          # at line 555:11: gen_if
-          @state.following.push(TOKENS_FOLLOWING_gen_if_IN_gen_iter_3637)
+          # at line 563:5: gen_if
+          @state.following.push(TOKENS_FOLLOWING_gen_if_IN_gen_iter_3548)
           gen_if402 = gen_if
           @state.following.pop
           if @state.backtracking == 0
@@ -9817,10 +9970,12 @@ module Python
 
     GenForReturnValue = define_return_scope 
 
+    # 
     # parser rule gen_for
     # 
     # (in samples/Python.g)
-    # 558:1: gen_for : 'for' exprlist 'in' or_test ( gen_iter )? ;
+    # 566:1: gen_for : 'for' exprlist 'in' or_test ( gen_iter )? ;
+    # 
     def gen_for
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 77)
@@ -9843,34 +9998,34 @@ module Python
         root_0 = @adaptor.create_flat_list!
 
 
-        # at line 558:10: 'for' exprlist 'in' or_test ( gen_iter )?
-        string_literal403 = match(T__78, TOKENS_FOLLOWING_T__78_IN_gen_for_3653)
+        # at line 567:5: 'for' exprlist 'in' or_test ( gen_iter )?
+        string_literal403 = match(T__78, TOKENS_FOLLOWING_T__78_IN_gen_for_3561)
         if @state.backtracking == 0
 
           tree_for_string_literal403 = @adaptor.create_with_payload!(string_literal403)
           @adaptor.add_child(root_0, tree_for_string_literal403)
 
         end
-        @state.following.push(TOKENS_FOLLOWING_exprlist_IN_gen_for_3655)
+        @state.following.push(TOKENS_FOLLOWING_exprlist_IN_gen_for_3563)
         exprlist404 = exprlist
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child(root_0, exprlist404.tree)
         end
-        string_literal405 = match(T__72, TOKENS_FOLLOWING_T__72_IN_gen_for_3657)
+        string_literal405 = match(T__72, TOKENS_FOLLOWING_T__72_IN_gen_for_3565)
         if @state.backtracking == 0
 
           tree_for_string_literal405 = @adaptor.create_with_payload!(string_literal405)
           @adaptor.add_child(root_0, tree_for_string_literal405)
 
         end
-        @state.following.push(TOKENS_FOLLOWING_or_test_IN_gen_for_3659)
+        @state.following.push(TOKENS_FOLLOWING_or_test_IN_gen_for_3567)
         or_test406 = or_test
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child(root_0, or_test406.tree)
         end
-        # at line 558:38: ( gen_iter )?
+        # at line 567:33: ( gen_iter )?
         alt_133 = 2
         look_133_0 = @input.peek(1)
 
@@ -9879,8 +10034,8 @@ module Python
         end
         case alt_133
         when 1
-          # at line 558:38: gen_iter
-          @state.following.push(TOKENS_FOLLOWING_gen_iter_IN_gen_for_3661)
+          # at line 567:33: gen_iter
+          @state.following.push(TOKENS_FOLLOWING_gen_iter_IN_gen_for_3569)
           gen_iter407 = gen_iter
           @state.following.pop
           if @state.backtracking == 0
@@ -9913,10 +10068,12 @@ module Python
 
     GenIfReturnValue = define_return_scope 
 
+    # 
     # parser rule gen_if
     # 
     # (in samples/Python.g)
-    # 561:1: gen_if : 'if' test ( gen_iter )? ;
+    # 570:1: gen_if : 'if' test ( gen_iter )? ;
+    # 
     def gen_if
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 78)
@@ -9936,21 +10093,21 @@ module Python
         root_0 = @adaptor.create_flat_list!
 
 
-        # at line 561:9: 'if' test ( gen_iter )?
-        string_literal408 = match(T__74, TOKENS_FOLLOWING_T__74_IN_gen_if_3677)
+        # at line 571:5: 'if' test ( gen_iter )?
+        string_literal408 = match(T__74, TOKENS_FOLLOWING_T__74_IN_gen_if_3583)
         if @state.backtracking == 0
 
           tree_for_string_literal408 = @adaptor.create_with_payload!(string_literal408)
           @adaptor.add_child(root_0, tree_for_string_literal408)
 
         end
-        @state.following.push(TOKENS_FOLLOWING_test_IN_gen_if_3679)
+        @state.following.push(TOKENS_FOLLOWING_test_IN_gen_if_3585)
         test409 = test
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child(root_0, test409.tree)
         end
-        # at line 561:19: ( gen_iter )?
+        # at line 571:15: ( gen_iter )?
         alt_134 = 2
         look_134_0 = @input.peek(1)
 
@@ -9959,8 +10116,8 @@ module Python
         end
         case alt_134
         when 1
-          # at line 561:19: gen_iter
-          @state.following.push(TOKENS_FOLLOWING_gen_iter_IN_gen_if_3681)
+          # at line 571:15: gen_iter
+          @state.following.push(TOKENS_FOLLOWING_gen_iter_IN_gen_if_3587)
           gen_iter410 = gen_iter
           @state.following.pop
           if @state.backtracking == 0
@@ -9993,10 +10150,12 @@ module Python
 
     YieldExprReturnValue = define_return_scope 
 
+    # 
     # parser rule yield_expr
     # 
     # (in samples/Python.g)
-    # 564:1: yield_expr : 'yield' ( test_list )? -> ^( 'yield' ( test_list )? ) ;
+    # 574:1: yield_expr : 'yield' ( test_list )? -> ^( 'yield' ( test_list )? ) ;
+    # 
     def yield_expr
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 79)
@@ -10013,12 +10172,12 @@ module Python
       stream_T__107 = ANTLR3::AST::RewriteRuleTokenStream.new(@adaptor, "token T__107")
       stream_test_list = ANTLR3::AST::RewriteRuleSubtreeStream.new(@adaptor, "rule test_list")
       begin
-        # at line 564:14: 'yield' ( test_list )?
-        string_literal411 = match(T__107, TOKENS_FOLLOWING_T__107_IN_yield_expr_3697) 
+        # at line 575:5: 'yield' ( test_list )?
+        string_literal411 = match(T__107, TOKENS_FOLLOWING_T__107_IN_yield_expr_3601) 
         if @state.backtracking == 0
           stream_T__107.add(string_literal411)
         end
-        # at line 564:22: ( test_list )?
+        # at line 575:13: ( test_list )?
         alt_135 = 2
         look_135_0 = @input.peek(1)
 
@@ -10027,8 +10186,8 @@ module Python
         end
         case alt_135
         when 1
-          # at line 564:22: test_list
-          @state.following.push(TOKENS_FOLLOWING_test_list_IN_yield_expr_3699)
+          # at line 575:13: test_list
+          @state.following.push(TOKENS_FOLLOWING_test_list_IN_yield_expr_3603)
           test_list412 = test_list
           @state.following.pop
           if @state.backtracking == 0
@@ -10049,12 +10208,12 @@ module Python
           stream_return_value = return_value ? subtree_stream("rule return_value", return_value.tree) : subtree_stream("token return_value")
 
           root_0 = @adaptor.create_flat_list!
-          # 564:33: -> ^( 'yield' ( test_list )? )
-          # at line 564:36: ^( 'yield' ( test_list )? )
+          # 575:24: -> ^( 'yield' ( test_list )? )
+          # at line 575:27: ^( 'yield' ( test_list )? )
           root_1 = @adaptor.create_flat_list!
           root_1 = @adaptor.become_root(stream_T__107.next_node, root_1)
 
-          # at line 564:46: ( test_list )?
+          # at line 575:38: ( test_list )?
           if stream_test_list.has_next?
             @adaptor.add_child(root_1, stream_test_list.next_tree)
 
@@ -10091,10 +10250,15 @@ module Python
       return return_value
     end
 
-    # parser rule synpred_1_python! (synpred1_Python)
+    # 
+    # syntactic predicate synpred_1_python!
     # 
     # (in samples/Python.g)
     # 395:7: synpred1_Python : 'if' or_test 'else' ;
+    # 
+    # This is an imaginary rule inserted by ANTLR to
+    # implement a syntactic predicate decision
+    # 
     def synpred_1_python!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 80)
@@ -10497,7 +10661,7 @@ module Python
 
       def description
         <<-'__dfa_description__'.strip!
-          ()* loopback of 525:28: ( options {k=2; } : ',' test ':' test )*
+          ()* loopback of 526:19: ( options {k=2; } : ',' test ':' test )*
         __dfa_description__
       end
     end
@@ -10906,65 +11070,65 @@ module Python
     TOKENS_FOLLOWING_T__42_IN_test_list_3261 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
     TOKENS_FOLLOWING_test_IN_test_list_3263 = Set[1, 42]
     TOKENS_FOLLOWING_T__42_IN_test_list_3268 = Set[1]
-    TOKENS_FOLLOWING_test_IN_dict_maker_3283 = Set[41]
-    TOKENS_FOLLOWING_T__41_IN_dict_maker_3285 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_dict_maker_3287 = Set[1, 42]
-    TOKENS_FOLLOWING_T__42_IN_dict_maker_3297 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_dict_maker_3299 = Set[41]
-    TOKENS_FOLLOWING_T__41_IN_dict_maker_3301 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_dict_maker_3303 = Set[1, 42]
-    TOKENS_FOLLOWING_T__42_IN_dict_maker_3308 = Set[1]
-    TOKENS_FOLLOWING_T__106_IN_class_def_3328 = Set[22]
-    TOKENS_FOLLOWING_NAME_IN_class_def_3330 = Set[20, 41]
-    TOKENS_FOLLOWING_LPAREN_IN_class_def_3333 = Set[9, 10, 20, 21, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_list_IN_class_def_3335 = Set[21]
-    TOKENS_FOLLOWING_RPAREN_IN_class_def_3338 = Set[41]
-    TOKENS_FOLLOWING_T__41_IN_class_def_3342 = Set[9, 10, 19, 20, 22, 23, 25, 27, 28, 29, 59, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 73, 85, 98, 99, 103, 104, 105, 107]
-    TOKENS_FOLLOWING_suite_IN_class_def_3344 = Set[1]
-    TOKENS_FOLLOWING_argument_IN_arg_list_3361 = Set[1, 42]
-    TOKENS_FOLLOWING_T__42_IN_arg_list_3364 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_argument_IN_arg_list_3366 = Set[1, 42]
-    TOKENS_FOLLOWING_T__42_IN_arg_list_3382 = Set[1, 43, 44]
-    TOKENS_FOLLOWING_T__43_IN_arg_list_3398 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_arg_list_3400 = Set[1, 42]
-    TOKENS_FOLLOWING_T__42_IN_arg_list_3403 = Set[44]
-    TOKENS_FOLLOWING_T__44_IN_arg_list_3405 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_arg_list_3407 = Set[1]
-    TOKENS_FOLLOWING_T__44_IN_arg_list_3425 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_arg_list_3427 = Set[1]
-    TOKENS_FOLLOWING_T__43_IN_arg_list_3469 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_arg_list_3471 = Set[1, 42]
-    TOKENS_FOLLOWING_T__42_IN_arg_list_3474 = Set[44]
-    TOKENS_FOLLOWING_T__44_IN_arg_list_3476 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_arg_list_3478 = Set[1]
-    TOKENS_FOLLOWING_T__44_IN_arg_list_3494 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_arg_list_3496 = Set[1]
-    TOKENS_FOLLOWING_test_IN_argument_3513 = Set[42, 45, 78]
-    TOKENS_FOLLOWING_T__45_IN_argument_3517 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_argument_3519 = Set[1]
-    TOKENS_FOLLOWING_gen_for_IN_argument_3523 = Set[1]
-    TOKENS_FOLLOWING_list_for_IN_list_iter_3544 = Set[1]
-    TOKENS_FOLLOWING_list_if_IN_list_iter_3558 = Set[1]
-    TOKENS_FOLLOWING_T__78_IN_list_for_3577 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104]
-    TOKENS_FOLLOWING_exprlist_IN_list_for_3579 = Set[72]
-    TOKENS_FOLLOWING_T__72_IN_list_for_3581 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_list_IN_list_for_3583 = Set[1, 74, 78]
-    TOKENS_FOLLOWING_list_iter_IN_list_for_3585 = Set[1]
-    TOKENS_FOLLOWING_T__74_IN_list_if_3604 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_list_if_3606 = Set[1, 74, 78]
-    TOKENS_FOLLOWING_list_iter_IN_list_if_3608 = Set[1]
-    TOKENS_FOLLOWING_gen_for_IN_gen_iter_3625 = Set[1]
-    TOKENS_FOLLOWING_gen_if_IN_gen_iter_3637 = Set[1]
-    TOKENS_FOLLOWING_T__78_IN_gen_for_3653 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104]
-    TOKENS_FOLLOWING_exprlist_IN_gen_for_3655 = Set[72]
-    TOKENS_FOLLOWING_T__72_IN_gen_for_3657 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104]
-    TOKENS_FOLLOWING_or_test_IN_gen_for_3659 = Set[1, 42, 74, 78]
-    TOKENS_FOLLOWING_gen_iter_IN_gen_for_3661 = Set[1]
-    TOKENS_FOLLOWING_T__74_IN_gen_if_3677 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_IN_gen_if_3679 = Set[1, 42, 74, 78]
-    TOKENS_FOLLOWING_gen_iter_IN_gen_if_3681 = Set[1]
-    TOKENS_FOLLOWING_T__107_IN_yield_expr_3697 = Set[1, 9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
-    TOKENS_FOLLOWING_test_list_IN_yield_expr_3699 = Set[1]
+    TOKENS_FOLLOWING_test_IN_dict_maker_3285 = Set[41]
+    TOKENS_FOLLOWING_T__41_IN_dict_maker_3287 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_dict_maker_3289 = Set[1, 42]
+    TOKENS_FOLLOWING_T__42_IN_dict_maker_3299 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_dict_maker_3301 = Set[41]
+    TOKENS_FOLLOWING_T__41_IN_dict_maker_3303 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_dict_maker_3305 = Set[1, 42]
+    TOKENS_FOLLOWING_T__42_IN_dict_maker_3310 = Set[1]
+    TOKENS_FOLLOWING_T__106_IN_class_def_3324 = Set[22]
+    TOKENS_FOLLOWING_NAME_IN_class_def_3326 = Set[20, 41]
+    TOKENS_FOLLOWING_LPAREN_IN_class_def_3329 = Set[9, 10, 20, 21, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_list_IN_class_def_3331 = Set[21]
+    TOKENS_FOLLOWING_RPAREN_IN_class_def_3334 = Set[41]
+    TOKENS_FOLLOWING_T__41_IN_class_def_3338 = Set[9, 10, 19, 20, 22, 23, 25, 27, 28, 29, 59, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 73, 85, 98, 99, 103, 104, 105, 107]
+    TOKENS_FOLLOWING_suite_IN_class_def_3340 = Set[1]
+    TOKENS_FOLLOWING_argument_IN_arg_list_3353 = Set[1, 42]
+    TOKENS_FOLLOWING_T__42_IN_arg_list_3356 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_argument_IN_arg_list_3358 = Set[1, 42]
+    TOKENS_FOLLOWING_T__42_IN_arg_list_3368 = Set[1, 43, 44]
+    TOKENS_FOLLOWING_T__43_IN_arg_list_3378 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_arg_list_3380 = Set[1, 42]
+    TOKENS_FOLLOWING_T__42_IN_arg_list_3383 = Set[44]
+    TOKENS_FOLLOWING_T__44_IN_arg_list_3385 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_arg_list_3387 = Set[1]
+    TOKENS_FOLLOWING_T__44_IN_arg_list_3399 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_arg_list_3401 = Set[1]
+    TOKENS_FOLLOWING_T__43_IN_arg_list_3423 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_arg_list_3425 = Set[1, 42]
+    TOKENS_FOLLOWING_T__42_IN_arg_list_3429 = Set[44]
+    TOKENS_FOLLOWING_T__44_IN_arg_list_3431 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_arg_list_3433 = Set[1]
+    TOKENS_FOLLOWING_T__44_IN_arg_list_3442 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_arg_list_3444 = Set[1]
+    TOKENS_FOLLOWING_test_IN_argument_3457 = Set[42, 45, 78]
+    TOKENS_FOLLOWING_T__45_IN_argument_3461 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_argument_3463 = Set[1]
+    TOKENS_FOLLOWING_gen_for_IN_argument_3467 = Set[1]
+    TOKENS_FOLLOWING_list_for_IN_list_iter_3483 = Set[1]
+    TOKENS_FOLLOWING_list_if_IN_list_iter_3489 = Set[1]
+    TOKENS_FOLLOWING_T__78_IN_list_for_3502 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104]
+    TOKENS_FOLLOWING_exprlist_IN_list_for_3504 = Set[72]
+    TOKENS_FOLLOWING_T__72_IN_list_for_3506 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_list_IN_list_for_3508 = Set[1, 74, 78]
+    TOKENS_FOLLOWING_list_iter_IN_list_for_3510 = Set[1]
+    TOKENS_FOLLOWING_T__74_IN_list_if_3524 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_list_if_3526 = Set[1, 74, 78]
+    TOKENS_FOLLOWING_list_iter_IN_list_if_3528 = Set[1]
+    TOKENS_FOLLOWING_gen_for_IN_gen_iter_3542 = Set[1]
+    TOKENS_FOLLOWING_gen_if_IN_gen_iter_3548 = Set[1]
+    TOKENS_FOLLOWING_T__78_IN_gen_for_3561 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104]
+    TOKENS_FOLLOWING_exprlist_IN_gen_for_3563 = Set[72]
+    TOKENS_FOLLOWING_T__72_IN_gen_for_3565 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104]
+    TOKENS_FOLLOWING_or_test_IN_gen_for_3567 = Set[1, 42, 74, 78]
+    TOKENS_FOLLOWING_gen_iter_IN_gen_for_3569 = Set[1]
+    TOKENS_FOLLOWING_T__74_IN_gen_if_3583 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_IN_gen_if_3585 = Set[1, 42, 74, 78]
+    TOKENS_FOLLOWING_gen_iter_IN_gen_if_3587 = Set[1]
+    TOKENS_FOLLOWING_T__107_IN_yield_expr_3601 = Set[1, 9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104, 105]
+    TOKENS_FOLLOWING_test_list_IN_yield_expr_3603 = Set[1]
     TOKENS_FOLLOWING_T__74_IN_synpred1_Python_2288 = Set[9, 10, 20, 22, 23, 25, 27, 28, 29, 85, 98, 99, 103, 104]
     TOKENS_FOLLOWING_or_test_IN_synpred1_Python_2290 = Set[75]
     TOKENS_FOLLOWING_T__75_IN_synpred1_Python_2292 = Set[1]

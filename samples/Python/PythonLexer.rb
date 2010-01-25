@@ -3,9 +3,9 @@
 # samples/Python.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.3.0
+# Ruby runtime library version: 1.4.0
 # Input grammar file: samples/Python.g
-# Generated at: 2010-01-07 12:23:34
+# Generated at: 2010-01-25 13:58:32
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.3.0):
+Failed to load the ANTLR3 runtime library (version 1.4.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -30,7 +30,7 @@ Current load path:
   END
 end
 
-defined?(ANTLR3) or begin
+defined?( ANTLR3 ) or begin
   
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
@@ -38,7 +38,7 @@ defined?(ANTLR3) or begin
 rescue LoadError
   
   # 2: try to load rubygems if it isn't already loaded
-  defined?(Gem) or begin
+  defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.3.0' )
+    Gem.activate( 'antlr3', '= 1.4.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -66,32 +66,33 @@ module Python
   module TokenData
 
     # define the token constants
-    define_tokens(:TRIAPOS => 31, :COMPLEX => 10, :EOF => -1, :LEADING_WS => 35, 
-                  :T__93 => 93, :T__94 => 94, :T__91 => 91, :TUPLE => 13, 
-                  :RPAREN => 21, :NAME => 22, :T__92 => 92, :T__90 => 90, 
-                  :EXP => 30, :COMMENT => 36, :T__99 => 99, :T__98 => 98, 
-                  :T__97 => 97, :T__96 => 96, :T__95 => 95, :RBRACK => 24, 
-                  :T__80 => 80, :T__81 => 81, :T__82 => 82, :T__83 => 83, 
-                  :CONCAT => 11, :LCURLY => 25, :INT => 27, :T__85 => 85, 
-                  :LIST => 14, :T__84 => 84, :T__87 => 87, :T__86 => 86, 
-                  :T__89 => 89, :T__88 => 88, :T__71 => 71, :WS => 37, :T__72 => 72, 
-                  :T__70 => 70, :LONGINT => 9, :CALL => 12, :T__76 => 76, 
-                  :T__75 => 75, :PARAM_TUPLE => 8, :T__74 => 74, :T__73 => 73, 
-                  :T__79 => 79, :T__78 => 78, :T__77 => 77, :T__68 => 68, 
-                  :T__69 => 69, :T__66 => 66, :T__67 => 67, :CONTINUED_LINE => 34, 
-                  :LBRACK => 23, :T__64 => 64, :T__65 => 65, :T__62 => 62, 
-                  :T__63 => 63, :ESC => 33, :FLOAT => 28, :DEDENT => 5, 
-                  :T__61 => 61, :T__60 => 60, :INDENT => 4, :LPAREN => 20, 
-                  :T__55 => 55, :T__56 => 56, :T__57 => 57, :T__58 => 58, 
-                  :T__51 => 51, :T__52 => 52, :T__53 => 53, :T__54 => 54, 
-                  :T__107 => 107, :DOCUMENT => 18, :T__59 => 59, :T__103 => 103, 
-                  :DICT => 15, :T__104 => 104, :T__105 => 105, :T__106 => 106, 
-                  :T__50 => 50, :PARAMS => 7, :T__42 => 42, :T__43 => 43, 
-                  :T__40 => 40, :T__41 => 41, :T__46 => 46, :T__47 => 47, 
-                  :T__44 => 44, :T__45 => 45, :T__48 => 48, :T__49 => 49, 
-                  :T__102 => 102, :T__101 => 101, :T__100 => 100, :MODULE => 17, 
-                  :TRIQUOTE => 32, :NEWLINE => 19, :T__38 => 38, :T__39 => 39, 
-                  :BLOCK => 6, :RCURLY => 26, :DECORATION => 16, :STRING => 29)
+    define_tokens( :TRIAPOS => 31, :COMPLEX => 10, :EOF => -1, :LEADING_WS => 35, 
+                   :T__93 => 93, :T__94 => 94, :T__91 => 91, :TUPLE => 13, 
+                   :RPAREN => 21, :NAME => 22, :T__92 => 92, :T__90 => 90, 
+                   :EXP => 30, :COMMENT => 36, :T__99 => 99, :T__98 => 98, 
+                   :T__97 => 97, :T__96 => 96, :T__95 => 95, :RBRACK => 24, 
+                   :T__80 => 80, :T__81 => 81, :T__82 => 82, :T__83 => 83, 
+                   :CONCAT => 11, :LCURLY => 25, :INT => 27, :T__85 => 85, 
+                   :LIST => 14, :T__84 => 84, :T__87 => 87, :T__86 => 86, 
+                   :T__89 => 89, :T__88 => 88, :T__71 => 71, :WS => 37, 
+                   :T__72 => 72, :T__70 => 70, :LONGINT => 9, :CALL => 12, 
+                   :T__76 => 76, :T__75 => 75, :PARAM_TUPLE => 8, :T__74 => 74, 
+                   :T__73 => 73, :T__79 => 79, :T__78 => 78, :T__77 => 77, 
+                   :T__68 => 68, :T__69 => 69, :T__66 => 66, :T__67 => 67, 
+                   :CONTINUED_LINE => 34, :LBRACK => 23, :T__64 => 64, :T__65 => 65, 
+                   :T__62 => 62, :T__63 => 63, :ESC => 33, :FLOAT => 28, 
+                   :DEDENT => 5, :T__61 => 61, :T__60 => 60, :INDENT => 4, 
+                   :LPAREN => 20, :T__55 => 55, :T__56 => 56, :T__57 => 57, 
+                   :T__58 => 58, :T__51 => 51, :T__52 => 52, :T__53 => 53, 
+                   :T__54 => 54, :T__107 => 107, :DOCUMENT => 18, :T__59 => 59, 
+                   :T__103 => 103, :DICT => 15, :T__104 => 104, :T__105 => 105, 
+                   :T__106 => 106, :T__50 => 50, :PARAMS => 7, :T__42 => 42, 
+                   :T__43 => 43, :T__40 => 40, :T__41 => 41, :T__46 => 46, 
+                   :T__47 => 47, :T__44 => 44, :T__45 => 45, :T__48 => 48, 
+                   :T__49 => 49, :T__102 => 102, :T__101 => 101, :T__100 => 100, 
+                   :MODULE => 17, :TRIQUOTE => 32, :NEWLINE => 19, :T__38 => 38, 
+                   :T__39 => 39, :BLOCK => 6, :RCURLY => 26, :DECORATION => 16, 
+                   :STRING => 29 )
     
   end
 
@@ -101,7 +102,7 @@ module Python
     include TokenData
 
     begin
-      generated_using( "samples/Python.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+      generated_using( "samples/Python.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -1858,7 +1859,7 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 569:13: '('
+      # at line 580:13: '('
       match(?()
       # --> action
        @line_join_level += 1 
@@ -1885,7 +1886,7 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 571:13: ')'
+      # at line 582:13: ')'
       match(?))
       # --> action
        @line_join_level -= 1 
@@ -1912,7 +1913,7 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 573:13: '['
+      # at line 584:13: '['
       match(?[)
       # --> action
        @line_join_level += 1 
@@ -1939,7 +1940,7 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 575:13: ']'
+      # at line 586:13: ']'
       match(?])
       # --> action
        @line_join_level -= 1 
@@ -1966,7 +1967,7 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 577:13: '{'
+      # at line 588:13: '{'
       match(?{)
       # --> action
        @line_join_level += 1 
@@ -1993,7 +1994,7 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 579:13: '}'
+      # at line 590:13: '}'
       match(?})
       # --> action
        @line_join_level -= 1 
@@ -2020,15 +2021,15 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 582:5: ( '.' ( '0' .. '9' )+ ( EXP )? | ( '0' .. '9' )+ ( '.' )? EXP | ( '0' .. '9' )+ '.' ( ( '0' .. '9' )+ ( EXP )? )? ) ( ( 'j' | 'J' ) )?
-      # at line 582:5: ( '.' ( '0' .. '9' )+ ( EXP )? | ( '0' .. '9' )+ ( '.' )? EXP | ( '0' .. '9' )+ '.' ( ( '0' .. '9' )+ ( EXP )? )? )
+      # at line 593:5: ( '.' ( '0' .. '9' )+ ( EXP )? | ( '0' .. '9' )+ ( '.' )? EXP | ( '0' .. '9' )+ '.' ( ( '0' .. '9' )+ ( EXP )? )? ) ( ( 'j' | 'J' ) )?
+      # at line 593:5: ( '.' ( '0' .. '9' )+ ( EXP )? | ( '0' .. '9' )+ ( '.' )? EXP | ( '0' .. '9' )+ '.' ( ( '0' .. '9' )+ ( EXP )? )? )
       alt_9 = 3
       alt_9 = @dfa9.predict(@input)
       case alt_9
       when 1
-        # at line 582:7: '.' ( '0' .. '9' )+ ( EXP )?
+        # at line 593:7: '.' ( '0' .. '9' )+ ( EXP )?
         match(?.)
-        # at file 582:11: ( '0' .. '9' )+
+        # at file 593:11: ( '0' .. '9' )+
         match_count_1 = 0
         loop do
           alt_1 = 2
@@ -2040,7 +2041,7 @@ module Python
           end
           case alt_1
           when 1
-            # at line 582:13: '0' .. '9'
+            # at line 593:13: '0' .. '9'
             match_range(?0, ?9)
 
           else
@@ -2053,7 +2054,7 @@ module Python
           match_count_1 += 1
         end
 
-        # at line 582:27: ( EXP )?
+        # at line 593:27: ( EXP )?
         alt_2 = 2
         look_2_0 = @input.peek(1)
 
@@ -2062,14 +2063,14 @@ module Python
         end
         case alt_2
         when 1
-          # at line 582:27: EXP
+          # at line 593:27: EXP
           exp!
 
         end
 
       when 2
-        # at line 583:8: ( '0' .. '9' )+ ( '.' )? EXP
-        # at file 583:8: ( '0' .. '9' )+
+        # at line 594:8: ( '0' .. '9' )+ ( '.' )? EXP
+        # at file 594:8: ( '0' .. '9' )+
         match_count_3 = 0
         loop do
           alt_3 = 2
@@ -2081,7 +2082,7 @@ module Python
           end
           case alt_3
           when 1
-            # at line 583:10: '0' .. '9'
+            # at line 594:10: '0' .. '9'
             match_range(?0, ?9)
 
           else
@@ -2094,7 +2095,7 @@ module Python
           match_count_3 += 1
         end
 
-        # at line 583:24: ( '.' )?
+        # at line 594:24: ( '.' )?
         alt_4 = 2
         look_4_0 = @input.peek(1)
 
@@ -2103,15 +2104,15 @@ module Python
         end
         case alt_4
         when 1
-          # at line 583:24: '.'
+          # at line 594:24: '.'
           match(?.)
 
         end
         exp!
 
       when 3
-        # at line 584:8: ( '0' .. '9' )+ '.' ( ( '0' .. '9' )+ ( EXP )? )?
-        # at file 584:8: ( '0' .. '9' )+
+        # at line 595:8: ( '0' .. '9' )+ '.' ( ( '0' .. '9' )+ ( EXP )? )?
+        # at file 595:8: ( '0' .. '9' )+
         match_count_5 = 0
         loop do
           alt_5 = 2
@@ -2123,7 +2124,7 @@ module Python
           end
           case alt_5
           when 1
-            # at line 584:10: '0' .. '9'
+            # at line 595:10: '0' .. '9'
             match_range(?0, ?9)
 
           else
@@ -2137,7 +2138,7 @@ module Python
         end
 
         match(?.)
-        # at line 584:28: ( ( '0' .. '9' )+ ( EXP )? )?
+        # at line 595:28: ( ( '0' .. '9' )+ ( EXP )? )?
         alt_8 = 2
         look_8_0 = @input.peek(1)
 
@@ -2146,8 +2147,8 @@ module Python
         end
         case alt_8
         when 1
-          # at line 584:30: ( '0' .. '9' )+ ( EXP )?
-          # at file 584:30: ( '0' .. '9' )+
+          # at line 595:30: ( '0' .. '9' )+ ( EXP )?
+          # at file 595:30: ( '0' .. '9' )+
           match_count_6 = 0
           loop do
             alt_6 = 2
@@ -2159,7 +2160,7 @@ module Python
             end
             case alt_6
             when 1
-              # at line 584:32: '0' .. '9'
+              # at line 595:32: '0' .. '9'
               match_range(?0, ?9)
 
             else
@@ -2172,7 +2173,7 @@ module Python
             match_count_6 += 1
           end
 
-          # at line 584:46: ( EXP )?
+          # at line 595:46: ( EXP )?
           alt_7 = 2
           look_7_0 = @input.peek(1)
 
@@ -2181,7 +2182,7 @@ module Python
           end
           case alt_7
           when 1
-            # at line 584:46: EXP
+            # at line 595:46: EXP
             exp!
 
           end
@@ -2189,7 +2190,7 @@ module Python
         end
 
       end
-      # at line 586:5: ( ( 'j' | 'J' ) )?
+      # at line 597:5: ( ( 'j' | 'J' ) )?
       alt_10 = 2
       look_10_0 = @input.peek(1)
 
@@ -2198,7 +2199,7 @@ module Python
       end
       case alt_10
       when 1
-        # at line 586:7: ( 'j' | 'J' )
+        # at line 597:7: ( 'j' | 'J' )
         if @input.peek(1) == ?J || @input.peek(1) == ?j
           @input.consume
         else
@@ -2235,8 +2236,8 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 590:5: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ | ( '0' .. '9' )+ ) ( ( 'l' | 'L' ) | ( 'j' | 'J' ) )?
-      # at line 590:5: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ | ( '0' .. '9' )+ )
+      # at line 601:5: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ | ( '0' .. '9' )+ ) ( ( 'l' | 'L' ) | ( 'j' | 'J' ) )?
+      # at line 601:5: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ | ( '0' .. '9' )+ )
       alt_13 = 2
       look_13_0 = @input.peek(1)
 
@@ -2256,7 +2257,7 @@ module Python
       end
       case alt_13
       when 1
-        # at line 591:7: '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+        # at line 602:7: '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
         match(?0)
         if @input.peek(1) == ?X || @input.peek(1) == ?x
           @input.consume
@@ -2267,7 +2268,7 @@ module Python
         end
 
 
-        # at file 591:25: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+        # at file 602:25: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
         match_count_11 = 0
         loop do
           alt_11 = 2
@@ -2302,8 +2303,8 @@ module Python
 
 
       when 2
-        # at line 592:7: ( '0' .. '9' )+
-        # at file 592:7: ( '0' .. '9' )+
+        # at line 603:7: ( '0' .. '9' )+
+        # at file 603:7: ( '0' .. '9' )+
         match_count_12 = 0
         loop do
           alt_12 = 2
@@ -2315,7 +2316,7 @@ module Python
           end
           case alt_12
           when 1
-            # at line 592:9: '0' .. '9'
+            # at line 603:9: '0' .. '9'
             match_range(?0, ?9)
 
           else
@@ -2330,7 +2331,7 @@ module Python
 
 
       end
-      # at line 594:5: ( ( 'l' | 'L' ) | ( 'j' | 'J' ) )?
+      # at line 605:5: ( ( 'l' | 'L' ) | ( 'j' | 'J' ) )?
       alt_14 = 3
       look_14_0 = @input.peek(1)
 
@@ -2341,7 +2342,7 @@ module Python
       end
       case alt_14
       when 1
-        # at line 594:7: ( 'l' | 'L' )
+        # at line 605:7: ( 'l' | 'L' )
         if @input.peek(1) == ?L || @input.peek(1) == ?l
           @input.consume
         else
@@ -2356,7 +2357,7 @@ module Python
         # <-- action
 
       when 2
-        # at line 595:7: ( 'j' | 'J' )
+        # at line 606:7: ( 'j' | 'J' )
         if @input.peek(1) == ?J || @input.peek(1) == ?j
           @input.consume
         else
@@ -2393,7 +2394,7 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 599:9: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+      # at line 610:9: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       if @input.peek(1).between?(?A, ?Z) || @input.peek(1) == ?_ || @input.peek(1).between?(?a, ?z)
         @input.consume
       else
@@ -2403,8 +2404,8 @@ module Python
       end
 
 
-      # at line 600:9: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-      loop do  #loop 15
+      # at line 611:9: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+      loop do # decision 15
         alt_15 = 2
         look_15_0 = @input.peek(1)
 
@@ -2426,9 +2427,9 @@ module Python
 
 
         else
-          break #loop 15
+          break # out of loop for decision 15
         end
-      end
+      end # loop for decision 15
 
       
       @state.type = type
@@ -2451,45 +2452,45 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 607:5: ( 'r' | 'u' | 'ur' | 'R' | 'U' | 'UR' | 'Ur' | 'uR' )? ( '\\'\\'\\'' ( options {greedy=false; } : TRIAPOS )* '\\'\\'\\'' | '\"\"\"' ( options {greedy=false; } : TRIQUOTE )* '\"\"\"' | '\"' ( ESC | ~ ( '\\\\' | '\\n' | '\"' ) )* '\"' | '\\'' ( ESC | ~ ( '\\\\' | '\\n' | '\\'' ) )* '\\'' )
-      # at line 607:5: ( 'r' | 'u' | 'ur' | 'R' | 'U' | 'UR' | 'Ur' | 'uR' )?
+      # at line 618:5: ( 'r' | 'u' | 'ur' | 'R' | 'U' | 'UR' | 'Ur' | 'uR' )? ( '\\'\\'\\'' ( options {greedy=false; } : TRIAPOS )* '\\'\\'\\'' | '\"\"\"' ( options {greedy=false; } : TRIQUOTE )* '\"\"\"' | '\"' ( ESC | ~ ( '\\\\' | '\\n' | '\"' ) )* '\"' | '\\'' ( ESC | ~ ( '\\\\' | '\\n' | '\\'' ) )* '\\'' )
+      # at line 618:5: ( 'r' | 'u' | 'ur' | 'R' | 'U' | 'UR' | 'Ur' | 'uR' )?
       alt_16 = 9
       alt_16 = @dfa16.predict(@input)
       case alt_16
       when 1
-        # at line 607:7: 'r'
+        # at line 618:7: 'r'
         match(?r)
 
       when 2
-        # at line 607:13: 'u'
+        # at line 618:13: 'u'
         match(?u)
 
       when 3
-        # at line 607:19: 'ur'
+        # at line 618:19: 'ur'
         match("ur")
 
       when 4
-        # at line 607:26: 'R'
+        # at line 618:26: 'R'
         match(?R)
 
       when 5
-        # at line 607:32: 'U'
+        # at line 618:32: 'U'
         match(?U)
 
       when 6
-        # at line 607:38: 'UR'
+        # at line 618:38: 'UR'
         match("UR")
 
       when 7
-        # at line 607:45: 'Ur'
+        # at line 618:45: 'Ur'
         match("Ur")
 
       when 8
-        # at line 607:52: 'uR'
+        # at line 618:52: 'uR'
         match("uR")
 
       end
-      # at line 608:5: ( '\\'\\'\\'' ( options {greedy=false; } : TRIAPOS )* '\\'\\'\\'' | '\"\"\"' ( options {greedy=false; } : TRIQUOTE )* '\"\"\"' | '\"' ( ESC | ~ ( '\\\\' | '\\n' | '\"' ) )* '\"' | '\\'' ( ESC | ~ ( '\\\\' | '\\n' | '\\'' ) )* '\\'' )
+      # at line 619:5: ( '\\'\\'\\'' ( options {greedy=false; } : TRIAPOS )* '\\'\\'\\'' | '\"\"\"' ( options {greedy=false; } : TRIQUOTE )* '\"\"\"' | '\"' ( ESC | ~ ( '\\\\' | '\\n' | '\"' ) )* '\"' | '\\'' ( ESC | ~ ( '\\\\' | '\\n' | '\\'' ) )* '\\'' )
       alt_21 = 4
       look_21_0 = @input.peek(1)
 
@@ -2533,10 +2534,10 @@ module Python
       end
       case alt_21
       when 1
-        # at line 608:7: '\\'\\'\\'' ( options {greedy=false; } : TRIAPOS )* '\\'\\'\\''
+        # at line 619:7: '\\'\\'\\'' ( options {greedy=false; } : TRIAPOS )* '\\'\\'\\''
         match("'''")
-        # at line 608:16: ( options {greedy=false; } : TRIAPOS )*
-        loop do  #loop 17
+        # at line 619:16: ( options {greedy=false; } : TRIAPOS )*
+        loop do # decision 17
           alt_17 = 2
           look_17_0 = @input.peek(1)
 
@@ -2562,23 +2563,23 @@ module Python
           end
           case alt_17
           when 1
-            # at line 608:42: TRIAPOS
+            # at line 619:42: TRIAPOS
             triapos!
 
           else
-            break #loop 17
+            break # out of loop for decision 17
           end
-        end
+        end # loop for decision 17
         match("'''")
         # --> action
          type = DOCUMENT 
         # <-- action
 
       when 2
-        # at line 609:7: '\"\"\"' ( options {greedy=false; } : TRIQUOTE )* '\"\"\"'
+        # at line 620:7: '\"\"\"' ( options {greedy=false; } : TRIQUOTE )* '\"\"\"'
         match("\"\"\"")
-        # at line 609:13: ( options {greedy=false; } : TRIQUOTE )*
-        loop do  #loop 18
+        # at line 620:13: ( options {greedy=false; } : TRIQUOTE )*
+        loop do # decision 18
           alt_18 = 2
           look_18_0 = @input.peek(1)
 
@@ -2604,23 +2605,23 @@ module Python
           end
           case alt_18
           when 1
-            # at line 609:39: TRIQUOTE
+            # at line 620:39: TRIQUOTE
             triquote!
 
           else
-            break #loop 18
+            break # out of loop for decision 18
           end
-        end
+        end # loop for decision 18
         match("\"\"\"")
         # --> action
          type = DOCUMENT 
         # <-- action
 
       when 3
-        # at line 610:7: '\"' ( ESC | ~ ( '\\\\' | '\\n' | '\"' ) )* '\"'
+        # at line 621:7: '\"' ( ESC | ~ ( '\\\\' | '\\n' | '\"' ) )* '\"'
         match(?")
-        # at line 610:12: ( ESC | ~ ( '\\\\' | '\\n' | '\"' ) )*
-        loop do  #loop 19
+        # at line 621:12: ( ESC | ~ ( '\\\\' | '\\n' | '\"' ) )*
+        loop do # decision 19
           alt_19 = 3
           look_19_0 = @input.peek(1)
 
@@ -2632,11 +2633,11 @@ module Python
           end
           case alt_19
           when 1
-            # at line 610:14: ESC
+            # at line 621:14: ESC
             esc!
 
           when 2
-            # at line 610:20: ~ ( '\\\\' | '\\n' | '\"' )
+            # at line 621:20: ~ ( '\\\\' | '\\n' | '\"' )
             if @input.peek(1).between?(0x0000, ?\t) || @input.peek(1).between?(0x000B, ?!) || @input.peek(1).between?(?#, ?[) || @input.peek(1).between?(?], 0x00FF)
               @input.consume
             else
@@ -2648,16 +2649,16 @@ module Python
 
 
           else
-            break #loop 19
+            break # out of loop for decision 19
           end
-        end
+        end # loop for decision 19
         match(?")
 
       when 4
-        # at line 611:7: '\\'' ( ESC | ~ ( '\\\\' | '\\n' | '\\'' ) )* '\\''
+        # at line 622:7: '\\'' ( ESC | ~ ( '\\\\' | '\\n' | '\\'' ) )* '\\''
         match(?\')
-        # at line 611:12: ( ESC | ~ ( '\\\\' | '\\n' | '\\'' ) )*
-        loop do  #loop 20
+        # at line 622:12: ( ESC | ~ ( '\\\\' | '\\n' | '\\'' ) )*
+        loop do # decision 20
           alt_20 = 3
           look_20_0 = @input.peek(1)
 
@@ -2669,11 +2670,11 @@ module Python
           end
           case alt_20
           when 1
-            # at line 611:14: ESC
+            # at line 622:14: ESC
             esc!
 
           when 2
-            # at line 611:20: ~ ( '\\\\' | '\\n' | '\\'' )
+            # at line 622:20: ~ ( '\\\\' | '\\n' | '\\'' )
             if @input.peek(1).between?(0x0000, ?\t) || @input.peek(1).between?(0x000B, ?&) || @input.peek(1).between?(?(, ?[) || @input.peek(1).between?(?], 0x00FF)
               @input.consume
             else
@@ -2685,9 +2686,9 @@ module Python
 
 
           else
-            break #loop 20
+            break # out of loop for decision 20
           end
-        end
+        end # loop for decision 20
         match(?\')
 
       end
@@ -2713,9 +2714,9 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 620:5: '\\\\' ( '\\r' )? '\\n' ( ' ' | '\\t' )* ( NEWLINE | )
+      # at line 631:5: '\\\\' ( '\\r' )? '\\n' ( ' ' | '\\t' )* ( NEWLINE | )
       match(?\\)
-      # at line 620:10: ( '\\r' )?
+      # at line 631:10: ( '\\r' )?
       alt_22 = 2
       look_22_0 = @input.peek(1)
 
@@ -2724,13 +2725,13 @@ module Python
       end
       case alt_22
       when 1
-        # at line 620:10: '\\r'
+        # at line 631:10: '\\r'
         match(?\r)
 
       end
       match(?\n)
-      # at line 620:21: ( ' ' | '\\t' )*
-      loop do  #loop 23
+      # at line 631:21: ( ' ' | '\\t' )*
+      loop do # decision 23
         alt_23 = 2
         look_23_0 = @input.peek(1)
 
@@ -2752,10 +2753,10 @@ module Python
 
 
         else
-          break #loop 23
+          break # out of loop for decision 23
         end
-      end
-      # at line 621:5: ( NEWLINE | )
+      end # loop for decision 23
+      # at line 632:5: ( NEWLINE | )
       alt_24 = 2
       look_24_0 = @input.peek(1)
 
@@ -2766,7 +2767,7 @@ module Python
       end
       case alt_24
       when 1
-        # at line 621:7: NEWLINE
+        # at line 632:7: NEWLINE
         newline!
         # --> action
 
@@ -2776,7 +2777,7 @@ module Python
         # <-- action
 
       when 2
-        # at line 626:7: 
+        # at line 637:7: 
         # --> action
          channel = HIDDEN 
         # <-- action
@@ -2810,8 +2811,8 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 642:5: ( ( '\\u000C' )? ( '\\r' )? '\\n' )+
-      # at file 642:5: ( ( '\\u000C' )? ( '\\r' )? '\\n' )+
+      # at line 653:5: ( ( '\\u000C' )? ( '\\r' )? '\\n' )+
+      # at file 653:5: ( ( '\\u000C' )? ( '\\r' )? '\\n' )+
       match_count_27 = 0
       loop do
         alt_27 = 2
@@ -2823,8 +2824,8 @@ module Python
         end
         case alt_27
         when 1
-          # at line 642:7: ( '\\u000C' )? ( '\\r' )? '\\n'
-          # at line 642:7: ( '\\u000C' )?
+          # at line 653:7: ( '\\u000C' )? ( '\\r' )? '\\n'
+          # at line 653:7: ( '\\u000C' )?
           alt_25 = 2
           look_25_0 = @input.peek(1)
 
@@ -2833,11 +2834,11 @@ module Python
           end
           case alt_25
           when 1
-            # at line 642:7: '\\u000C'
+            # at line 653:7: '\\u000C'
             match(0x000C)
 
           end
-          # at line 642:17: ( '\\r' )?
+          # at line 653:17: ( '\\r' )?
           alt_26 = 2
           look_26_0 = @input.peek(1)
 
@@ -2846,7 +2847,7 @@ module Python
           end
           case alt_26
           when 1
-            # at line 642:17: '\\r'
+            # at line 653:17: '\\r'
             match(?\r)
 
           end
@@ -2884,11 +2885,11 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 653:5: {...}? => ({...}? ( ' ' | '\\t' )+ | ( ' ' | '\\t' )+ ( '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )* )? ( ( '\\r' )? '\\n' )* )
+      # at line 664:5: {...}? => ({...}? ( ' ' | '\\t' )+ | ( ' ' | '\\t' )+ ( '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )* )? ( ( '\\r' )? '\\n' )* )
       unless (( in_indent? ))
         raise FailedPredicate("LEADING_WS", " in_indent? ")
       end
-      # at line 654:5: ({...}? ( ' ' | '\\t' )+ | ( ' ' | '\\t' )+ ( '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )* )? ( ( '\\r' )? '\\n' )* )
+      # at line 665:5: ({...}? ( ' ' | '\\t' )+ | ( ' ' | '\\t' )+ ( '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )* )? ( ( '\\r' )? '\\n' )* )
       alt_36 = 2
       look_36_0 = @input.peek(1)
 
@@ -2909,11 +2910,11 @@ module Python
       end
       case alt_36
       when 1
-        # at line 654:7: {...}? ( ' ' | '\\t' )+
+        # at line 665:7: {...}? ( ' ' | '\\t' )+
         unless (( @line_join_level > 0 ))
           raise FailedPredicate("LEADING_WS", " @line_join_level > 0 ")
         end
-        # at file 654:33: ( ' ' | '\\t' )+
+        # at file 665:33: ( ' ' | '\\t' )+
         match_count_28 = 0
         loop do
           alt_28 = 2
@@ -2951,8 +2952,8 @@ module Python
         # <-- action
 
       when 2
-        # at line 655:7: ( ' ' | '\\t' )+ ( '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )* )? ( ( '\\r' )? '\\n' )*
-        # at file 655:7: ( ' ' | '\\t' )+
+        # at line 666:7: ( ' ' | '\\t' )+ ( '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )* )? ( ( '\\r' )? '\\n' )*
+        # at file 666:7: ( ' ' | '\\t' )+
         match_count_29 = 0
         loop do
           alt_29 = 2
@@ -2985,7 +2986,7 @@ module Python
           match_count_29 += 1
         end
 
-        # at line 656:7: ( '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )* )?
+        # at line 667:7: ( '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )* )?
         alt_33 = 2
         look_33_0 = @input.peek(1)
 
@@ -2994,10 +2995,10 @@ module Python
         end
         case alt_33
         when 1
-          # at line 656:9: '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )*
+          # at line 667:9: '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )*
           match(?#)
-          # at line 656:13: (~ '\\n' )*
-          loop do  #loop 30
+          # at line 667:13: (~ '\\n' )*
+          loop do # decision 30
             alt_30 = 2
             look_30_0 = @input.peek(1)
 
@@ -3007,7 +3008,7 @@ module Python
             end
             case alt_30
             when 1
-              # at line 656:13: ~ '\\n'
+              # at line 667:13: ~ '\\n'
               if @input.peek(1).between?(0x0000, ?\t) || @input.peek(1).between?(0x000B, 0x00FF)
                 @input.consume
               else
@@ -3019,11 +3020,11 @@ module Python
 
 
             else
-              break #loop 30
+              break # out of loop for decision 30
             end
-          end
-          # at line 656:20: ( ( '\\r' )? '\\n' )*
-          loop do  #loop 32
+          end # loop for decision 30
+          # at line 667:20: ( ( '\\r' )? '\\n' )*
+          loop do # decision 32
             alt_32 = 2
             look_32_0 = @input.peek(1)
 
@@ -3040,8 +3041,8 @@ module Python
             end
             case alt_32
             when 1
-              # at line 656:21: ( '\\r' )? '\\n'
-              # at line 656:21: ( '\\r' )?
+              # at line 667:21: ( '\\r' )? '\\n'
+              # at line 667:21: ( '\\r' )?
               alt_31 = 2
               look_31_0 = @input.peek(1)
 
@@ -3050,16 +3051,16 @@ module Python
               end
               case alt_31
               when 1
-                # at line 656:21: '\\r'
+                # at line 667:21: '\\r'
                 match(?\r)
 
               end
               match(?\n)
 
             else
-              break #loop 32
+              break # out of loop for decision 32
             end
-          end
+          end # loop for decision 32
           # --> action
 
                     type = COMMENT  
@@ -3068,8 +3069,8 @@ module Python
           # <-- action
 
         end
-        # at line 662:7: ( ( '\\r' )? '\\n' )*
-        loop do  #loop 35
+        # at line 673:7: ( ( '\\r' )? '\\n' )*
+        loop do # decision 35
           alt_35 = 2
           look_35_0 = @input.peek(1)
 
@@ -3079,8 +3080,8 @@ module Python
           end
           case alt_35
           when 1
-            # at line 662:9: ( '\\r' )? '\\n'
-            # at line 662:9: ( '\\r' )?
+            # at line 673:9: ( '\\r' )? '\\n'
+            # at line 673:9: ( '\\r' )?
             alt_34 = 2
             look_34_0 = @input.peek(1)
 
@@ -3089,7 +3090,7 @@ module Python
             end
             case alt_34
             when 1
-              # at line 662:9: '\\r'
+              # at line 673:9: '\\r'
               match(?\r)
 
             end
@@ -3099,9 +3100,9 @@ module Python
             # <-- action
 
           else
-            break #loop 35
+            break # out of loop for decision 35
           end
-        end
+        end # loop for decision 35
 
       end
 
@@ -3128,10 +3129,10 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 686:5: '#' (~ '\\n' )*
+      # at line 697:5: '#' (~ '\\n' )*
       match(?#)
-      # at line 686:9: (~ '\\n' )*
-      loop do  #loop 37
+      # at line 697:9: (~ '\\n' )*
+      loop do # decision 37
         alt_37 = 2
         look_37_0 = @input.peek(1)
 
@@ -3141,7 +3142,7 @@ module Python
         end
         case alt_37
         when 1
-          # at line 686:9: ~ '\\n'
+          # at line 697:9: ~ '\\n'
           if @input.peek(1).between?(0x0000, ?\t) || @input.peek(1).between?(0x000B, 0x00FF)
             @input.consume
           else
@@ -3153,9 +3154,9 @@ module Python
 
 
         else
-          break #loop 37
+          break # out of loop for decision 37
         end
-      end
+      end # loop for decision 37
       # --> action
        channel = HIDDEN 
       # <-- action
@@ -3181,8 +3182,8 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 690:5: ( ' ' | '\\t' )+
-      # at file 690:5: ( ' ' | '\\t' )+
+      # at line 701:5: ( ' ' | '\\t' )+
+      # at file 701:5: ( ' ' | '\\t' )+
       match_count_38 = 0
       loop do
         alt_38 = 2
@@ -3237,8 +3238,8 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 695:5: ( '\"' )? ( '\"' )? ( ESC | ~ ( '\\\\' | '\"' ) )+
-      # at line 695:5: ( '\"' )?
+      # at line 706:5: ( '\"' )? ( '\"' )? ( ESC | ~ ( '\\\\' | '\"' ) )+
+      # at line 706:5: ( '\"' )?
       alt_39 = 2
       look_39_0 = @input.peek(1)
 
@@ -3247,11 +3248,11 @@ module Python
       end
       case alt_39
       when 1
-        # at line 695:5: '\"'
+        # at line 706:5: '\"'
         match(?")
 
       end
-      # at line 695:10: ( '\"' )?
+      # at line 706:10: ( '\"' )?
       alt_40 = 2
       look_40_0 = @input.peek(1)
 
@@ -3260,11 +3261,11 @@ module Python
       end
       case alt_40
       when 1
-        # at line 695:10: '\"'
+        # at line 706:10: '\"'
         match(?")
 
       end
-      # at file 695:15: ( ESC | ~ ( '\\\\' | '\"' ) )+
+      # at file 706:15: ( ESC | ~ ( '\\\\' | '\"' ) )+
       match_count_41 = 0
       loop do
         alt_41 = 3
@@ -3278,11 +3279,11 @@ module Python
         end
         case alt_41
         when 1
-          # at line 695:17: ESC
+          # at line 706:17: ESC
           esc!
 
         when 2
-          # at line 695:23: ~ ( '\\\\' | '\"' )
+          # at line 706:23: ~ ( '\\\\' | '\"' )
           if @input.peek(1).between?(0x0000, ?!) || @input.peek(1).between?(?#, ?[) || @input.peek(1).between?(?], 0x00FF)
             @input.consume
           else
@@ -3318,8 +3319,8 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 700:5: ( '\\'' )? ( '\\'' )? ( ESC | ~ ( '\\\\' | '\\'' ) )+
-      # at line 700:5: ( '\\'' )?
+      # at line 711:5: ( '\\'' )? ( '\\'' )? ( ESC | ~ ( '\\\\' | '\\'' ) )+
+      # at line 711:5: ( '\\'' )?
       alt_42 = 2
       look_42_0 = @input.peek(1)
 
@@ -3328,11 +3329,11 @@ module Python
       end
       case alt_42
       when 1
-        # at line 700:5: '\\''
+        # at line 711:5: '\\''
         match(?\')
 
       end
-      # at line 700:11: ( '\\'' )?
+      # at line 711:11: ( '\\'' )?
       alt_43 = 2
       look_43_0 = @input.peek(1)
 
@@ -3341,11 +3342,11 @@ module Python
       end
       case alt_43
       when 1
-        # at line 700:11: '\\''
+        # at line 711:11: '\\''
         match(?\')
 
       end
-      # at file 700:17: ( ESC | ~ ( '\\\\' | '\\'' ) )+
+      # at file 711:17: ( ESC | ~ ( '\\\\' | '\\'' ) )+
       match_count_44 = 0
       loop do
         alt_44 = 3
@@ -3359,11 +3360,11 @@ module Python
         end
         case alt_44
         when 1
-          # at line 700:19: ESC
+          # at line 711:19: ESC
           esc!
 
         when 2
-          # at line 700:25: ~ ( '\\\\' | '\\'' )
+          # at line 711:25: ~ ( '\\\\' | '\\'' )
           if @input.peek(1).between?(0x0000, ?&) || @input.peek(1).between?(?(, ?[) || @input.peek(1).between?(?], 0x00FF)
             @input.consume
           else
@@ -3399,7 +3400,7 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 705:5: '\\\\' .
+      # at line 716:5: '\\\\' .
       match(?\\)
       match_any
 
@@ -3417,7 +3418,7 @@ module Python
 
       
       # - - - - main rule block - - - -
-      # at line 710:5: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+      # at line 721:5: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
       if @input.peek(1) == ?E || @input.peek(1) == ?e
         @input.consume
       else
@@ -3427,7 +3428,7 @@ module Python
       end
 
 
-      # at line 710:19: ( '+' | '-' )?
+      # at line 721:19: ( '+' | '-' )?
       alt_45 = 2
       look_45_0 = @input.peek(1)
 
@@ -3448,7 +3449,7 @@ module Python
 
 
       end
-      # at file 710:34: ( '0' .. '9' )+
+      # at file 721:34: ( '0' .. '9' )+
       match_count_46 = 0
       loop do
         alt_46 = 2
@@ -3460,7 +3461,7 @@ module Python
         end
         case alt_46
         when 1
-          # at line 710:36: '0' .. '9'
+          # at line 721:36: '0' .. '9'
           match_range(?0, ?9)
 
         else
@@ -3864,7 +3865,7 @@ module Python
 
       def description
         <<-'__dfa_description__'.strip!
-          582:5: ( '.' ( '0' .. '9' )+ ( EXP )? | ( '0' .. '9' )+ ( '.' )? EXP | ( '0' .. '9' )+ '.' ( ( '0' .. '9' )+ ( EXP )? )? )
+          593:5: ( '.' ( '0' .. '9' )+ ( EXP )? | ( '0' .. '9' )+ ( '.' )? EXP | ( '0' .. '9' )+ '.' ( ( '0' .. '9' )+ ( EXP )? )? )
         __dfa_description__
       end
     end
@@ -3903,7 +3904,7 @@ module Python
 
       def description
         <<-'__dfa_description__'.strip!
-          607:5: ( 'r' | 'u' | 'ur' | 'R' | 'U' | 'UR' | 'Ur' | 'uR' )?
+          618:5: ( 'r' | 'u' | 'ur' | 'R' | 'U' | 'UR' | 'Ur' | 'uR' )?
         __dfa_description__
       end
     end

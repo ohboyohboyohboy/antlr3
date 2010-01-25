@@ -3,9 +3,9 @@
 # samples/CSS.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.3.0
+# Ruby runtime library version: 1.4.0
 # Input grammar file: samples/CSS.g
-# Generated at: 2010-01-07 07:34:04
+# Generated at: 2010-01-25 13:58:24
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.3.0):
+Failed to load the ANTLR3 runtime library (version 1.4.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -30,7 +30,7 @@ Current load path:
   END
 end
 
-defined?(ANTLR3) or begin
+defined?( ANTLR3 ) or begin
   
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
@@ -38,7 +38,7 @@ defined?(ANTLR3) or begin
 rescue LoadError
   
   # 2: try to load rubygems if it isn't already loaded
-  defined?(Gem) or begin
+  defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.3.0' )
+    Gem.activate( 'antlr3', '= 1.4.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -66,20 +66,20 @@ module CSS
   module TokenData
 
     # define the token constants
-    define_tokens(:FUNCTION => 6, :UNICODE_RANGE => 34, :MEDIA_LIST => 17, 
-                  :ID => 22, :EOF => -1, :LENGTH => 9, :T__55 => 55, :TIME => 11, 
-                  :T__56 => 56, :T__57 => 57, :UNDER => 16, :SELECTOR => 18, 
-                  :T__51 => 51, :T__52 => 52, :T__53 => 53, :ESCAPE => 28, 
-                  :T__54 => 54, :HEX => 33, :ELEMENT => 15, :DIMENSION => 5, 
-                  :FREQ => 10, :AT_KEYWORD => 31, :COMMENT => 26, :T__50 => 50, 
-                  :T__42 => 42, :T__43 => 43, :T__40 => 40, :T__41 => 41, 
-                  :T__46 => 46, :T__47 => 47, :T__44 => 44, :ANGLE => 8, 
-                  :RULE => 14, :T__45 => 45, :T__48 => 48, :T__49 => 49, 
-                  :NUMBER => 25, :HASH => 23, :S => 32, :INVALID => 7, :PERCENTAGE => 4, 
-                  :IMPORTANT => 24, :URI => 21, :WS => 19, :T__35 => 35, 
-                  :NEWLINE => 27, :T__36 => 36, :T__37 => 37, :EMS => 12, 
-                  :T__38 => 38, :T__39 => 39, :EXS => 13, :PLAIN_ID => 29, 
-                  :NONASCII => 30, :STRING => 20)
+    define_tokens( :FUNCTION => 6, :UNICODE_RANGE => 34, :MEDIA_LIST => 17, 
+                   :ID => 22, :EOF => -1, :LENGTH => 9, :T__55 => 55, :TIME => 11, 
+                   :T__56 => 56, :T__57 => 57, :UNDER => 16, :SELECTOR => 18, 
+                   :T__51 => 51, :T__52 => 52, :T__53 => 53, :ESCAPE => 28, 
+                   :T__54 => 54, :HEX => 33, :ELEMENT => 15, :DIMENSION => 5, 
+                   :FREQ => 10, :AT_KEYWORD => 31, :COMMENT => 26, :T__50 => 50, 
+                   :T__42 => 42, :T__43 => 43, :T__40 => 40, :T__41 => 41, 
+                   :T__46 => 46, :T__47 => 47, :T__44 => 44, :ANGLE => 8, 
+                   :RULE => 14, :T__45 => 45, :T__48 => 48, :T__49 => 49, 
+                   :NUMBER => 25, :HASH => 23, :S => 32, :INVALID => 7, 
+                   :PERCENTAGE => 4, :IMPORTANT => 24, :URI => 21, :WS => 19, 
+                   :T__35 => 35, :NEWLINE => 27, :T__36 => 36, :T__37 => 37, 
+                   :EMS => 12, :T__38 => 38, :T__39 => 39, :EXS => 13, :PLAIN_ID => 29, 
+                   :NONASCII => 30, :STRING => 20 )
     
   end
 
@@ -89,7 +89,7 @@ module CSS
     include TokenData
 
     begin
-      generated_using( "samples/CSS.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.0" )
+      generated_using( "samples/CSS.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -738,7 +738,7 @@ module CSS
       # at line 104:5: '/*' (~ '*' )* ( '*' )+ (~ ( '/' | '*' ) (~ '*' )* ( '*' )+ )* '/'
       match("/*")
       # at line 104:10: (~ '*' )*
-      loop do  #loop 2
+      loop do # decision 2
         alt_2 = 2
         look_2_0 = @input.peek(1)
 
@@ -760,9 +760,9 @@ module CSS
 
 
         else
-          break #loop 2
+          break # out of loop for decision 2
         end
-      end
+      end # loop for decision 2
       # at file 104:16: ( '*' )+
       match_count_3 = 0
       loop do
@@ -789,7 +789,7 @@ module CSS
       end
 
       # at line 104:21: (~ ( '/' | '*' ) (~ '*' )* ( '*' )+ )*
-      loop do  #loop 6
+      loop do # decision 6
         alt_6 = 2
         look_6_0 = @input.peek(1)
 
@@ -810,7 +810,7 @@ module CSS
 
 
           # at line 104:36: (~ '*' )*
-          loop do  #loop 4
+          loop do # decision 4
             alt_4 = 2
             look_4_0 = @input.peek(1)
 
@@ -832,9 +832,9 @@ module CSS
 
 
             else
-              break #loop 4
+              break # out of loop for decision 4
             end
-          end
+          end # loop for decision 4
           # at file 104:42: ( '*' )+
           match_count_5 = 0
           loop do
@@ -862,9 +862,9 @@ module CSS
 
 
         else
-          break #loop 6
+          break # out of loop for decision 6
         end
-      end
+      end # loop for decision 6
       match(?/)
       # --> action
        channel = HIDDEN 
@@ -908,7 +908,7 @@ module CSS
         # at line 109:5: '\"' (~ ( '\\n' | '\\r' | '\\f' | '\\\\' | '\"' ) | '\\\\' NEWLINE | ESCAPE )* ( '\"' | )
         match(?")
         # at line 110:5: (~ ( '\\n' | '\\r' | '\\f' | '\\\\' | '\"' ) | '\\\\' NEWLINE | ESCAPE )*
-        loop do  #loop 7
+        loop do # decision 7
           alt_7 = 4
           look_7_0 = @input.peek(1)
 
@@ -950,9 +950,9 @@ module CSS
             escape!
 
           else
-            break #loop 7
+            break # out of loop for decision 7
           end
-        end
+        end # loop for decision 7
         # at line 114:5: ( '\"' | )
         alt_8 = 2
         look_8_0 = @input.peek(1)
@@ -979,7 +979,7 @@ module CSS
         # at line 117:5: '\\'' (~ ( '\\n' | '\\r' | '\\f' | '\\\\' | '\\'' ) | '\\\\' NEWLINE | ESCAPE )* ( '\\'' | )
         match(?\')
         # at line 118:5: (~ ( '\\n' | '\\r' | '\\f' | '\\\\' | '\\'' ) | '\\\\' NEWLINE | ESCAPE )*
-        loop do  #loop 9
+        loop do # decision 9
           alt_9 = 4
           look_9_0 = @input.peek(1)
 
@@ -1021,9 +1021,9 @@ module CSS
             escape!
 
           else
-            break #loop 9
+            break # out of loop for decision 9
           end
-        end
+        end # loop for decision 9
         # at line 122:5: ( '\\'' | )
         alt_10 = 2
         look_10_0 = @input.peek(1)
@@ -1071,7 +1071,7 @@ module CSS
       # at line 128:5: '!' ( ' ' )* 'important'
       match(?!)
       # at line 128:9: ( ' ' )*
-      loop do  #loop 12
+      loop do # decision 12
         alt_12 = 2
         look_12_0 = @input.peek(1)
 
@@ -1085,9 +1085,9 @@ module CSS
           match(?\s)
 
         else
-          break #loop 12
+          break # out of loop for decision 12
         end
-      end
+      end # loop for decision 12
       match("important")
 
       
@@ -1147,7 +1147,7 @@ module CSS
       when 2
         # at line 133:7: ( '0' .. '9' )* '.' ( '0' .. '9' )+
         # at line 133:7: ( '0' .. '9' )*
-        loop do  #loop 14
+        loop do # decision 14
           alt_14 = 2
           look_14_0 = @input.peek(1)
 
@@ -1161,9 +1161,9 @@ module CSS
             match_range(?0, ?9)
 
           else
-            break #loop 14
+            break # out of loop for decision 14
           end
-        end
+        end # loop for decision 14
         match(?.)
         # at file 133:21: ( '0' .. '9' )+
         match_count_15 = 0
@@ -1441,7 +1441,7 @@ module CSS
 
       end
       # at line 149:5: ( '_' | 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | NONASCII | ESCAPE )*
-      loop do  #loop 24
+      loop do # decision 24
         alt_24 = 8
         look_24_0 = @input.peek(1)
 
@@ -1491,9 +1491,9 @@ module CSS
           escape!
 
         else
-          break #loop 24
+          break # out of loop for decision 24
         end
-      end
+      end # loop for decision 24
       # at line 150:5: ( '(' | )
       alt_25 = 2
       look_25_0 = @input.peek(1)
@@ -1664,7 +1664,7 @@ module CSS
         match("url(")
         s!
         # at line 159:14: ( '!' | '#' | '$' | '%' | '&' | '*' | '-' | '~' | NONASCII | ESCAPE )*
-        loop do  #loop 27
+        loop do # decision 27
           alt_27 = 11
           alt_27 = @dfa27.predict(@input)
           case alt_27
@@ -1709,9 +1709,9 @@ module CSS
             escape!
 
           else
-            break #loop 27
+            break # out of loop for decision 27
           end
-        end
+        end # loop for decision 27
         s!
         match(?))
 
@@ -1838,7 +1838,7 @@ module CSS
 
       end
       # at line 169:5: ( '_' | 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | NONASCII | ESCAPE )*
-      loop do  #loop 32
+      loop do # decision 32
         alt_32 = 8
         look_32_0 = @input.peek(1)
 
@@ -1888,9 +1888,9 @@ module CSS
           escape!
 
         else
-          break #loop 32
+          break # out of loop for decision 32
         end
-      end
+      end # loop for decision 32
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
@@ -2064,7 +2064,7 @@ module CSS
       # - - - - main rule block - - - -
       # at line 189:5: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )*
       # at line 189:5: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )*
-      loop do  #loop 35
+      loop do # decision 35
         alt_35 = 2
         look_35_0 = @input.peek(1)
 
@@ -2086,9 +2086,9 @@ module CSS
 
 
         else
-          break #loop 35
+          break # out of loop for decision 35
         end
-      end
+      end # loop for decision 35
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
