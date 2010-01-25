@@ -123,6 +123,3 @@ rulePropertyRef_text(scope, attr) ::= <<
 argumentMap(args) ::= <<
 <args:{a|:<a.name> => <a.value>}; separator=",\n">
 >>
-
-
-

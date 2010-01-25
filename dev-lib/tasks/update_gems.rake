@@ -11,4 +11,4 @@ file( bundler.environment => [ bundler.plugin, bundler.config ] ) do
   $project.run_bundler
 end
 
-run bundler.environment
+run_task bundler.environment

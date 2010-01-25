@@ -47,7 +47,7 @@ class List
   
   def columns( n = nil )
     n and self.columns = n
-    @columns or optimize_columns( width )
+    @columns or optimize_columns
   end
   
   def columns= n
@@ -57,22 +57,19 @@ class List
       else n.to_i.at_least( 1 )
       end
   end
-  
+
 private
 
-  def lock( output = nil )
-    super
-    @sorted = sorted
-    @columns = columns
-  end
-
-  def sorted
-    @sorted or @items.each_with_index.sort_by { | item, index | -item.width }
-  end
-  
   def render_content( output )
-    widths = calculate_columns( @columns )
-    number_of_rows = ( @items.length.to_f / @columns ).ceil
+    unless columns = @columns
+      @sorted = sorted
+      columns = optimize_columns
+      @sorted = nil
+    end
+    
+    widths = calculate_columns( columns )
+    number_of_rows = ( @items.length.to_f / columns ).ceil
+    
     each_column = @items.each_slice( number_of_rows )
     columns = each_column.zip( widths ).map do | cells, width |
       if cells.length < number_of_rows
@@ -81,12 +78,19 @@ private
       end
       cells.map! { | cell | cell.align( alignment, width ) }
     end
+    
     for row in columns.transpose
-      output.line( row.join( spacer ) )
+      output.puts( row.join( spacer ) )
     end
+    return( output )
   end
   
-  def optimize_columns( limit )
+  def sorted
+    @sorted or @items.each_with_index.sort_by { | item, index | -item.width }
+  end
+  
+  def optimize_columns
+    limit = max_width
     @items.empty? and return( nil )
     c, rem = @items.length.divmod( 2 )
     rem.zero? or c += 1

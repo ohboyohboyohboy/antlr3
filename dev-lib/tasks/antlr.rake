@@ -14,7 +14,7 @@ end
 
 def jar_file( f, jar_dir, *deps, &action )
   file( f => deps, &action )
-  run( f )
+  run_task( f )
   
   if test( ?>, f, $antlr.jar )
     target_file = abs( f.pathmap( "#{ jar_dir }/%f" ) )
@@ -63,4 +63,4 @@ file( $antlr.jar => $jar_files ) do
   end
 end
 
-run( $antlr.jar )
+run_task( $antlr.jar )

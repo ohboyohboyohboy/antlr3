@@ -18,7 +18,7 @@ $proj = $project = Project.load( project_top, config_file ) do
   # run the gem-bundle.rb script to reflect any
   # changes to config/gemfile
   def run_bundler
-    script = path('scripts', 'gem-bundle.rb')
+    script = path( 'scripts', 'gem-bundle.rb' )
     ENV.temporary( 'RUBYOPT' => '' ) do
       system %(ruby '#{script}')
     end
@@ -49,7 +49,7 @@ $proj = $project = Project.load( project_top, config_file ) do
     require 'rubygems/specification'
     spec_fields = %w(
       name author email has_rdoc rubyforge_project summary
-      version description required_ruby_version
+      version description required_ruby_version homepage
     )
     Gem::Specification.new do | spec |
       for field in spec_fields
@@ -57,7 +57,7 @@ $proj = $project = Project.load( project_top, config_file ) do
         spec.send( "#{field}=", value )
       end
       
-      spec.files = package_files.to_a
+      spec.files = package.files.to_a
       spec.test_files = unit_tests.to_a + functional_tests.to_a
       
       spec.executables.push( *executables )
@@ -142,10 +142,3 @@ end
 
 $project.setup? and $project.load_environment
 
-bin_dirs = [
-  $project.path( 'scripts' ),
-  $project.path( 'bin' ),
-  $project.path( 'vendor/bin' )
-].map! { | dir | File.expand_path( dir ) }
-
-ENV.add_onto( 'PATH', *bin_dirs )

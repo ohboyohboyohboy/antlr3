@@ -48,8 +48,21 @@ module Presentation
     @style = Style( value )
   end
   
-  def render
-    Text.new( '' )
+  def render( output = @output )
+    if output
+      render_content( output )
+      return output
+    else
+      OutputDevice.buffer do | out |
+        render_content( out )
+      end
+    end
+  end
+  
+  def to_s
+    OutputDevice.buffer do | out |
+      render_content( out )
+    end
   end
   
   def height
@@ -61,21 +74,17 @@ module Presentation
   end
   
   attr_writer :max_width
+  
   def max_width
-    @max_width or @owner && @owner.max_width or
-    @output && @output.width
+    @max_width or @owner && @owner.max_width or output.width
   end
   
   def output
-    @output ||= ( @owner and @owner.output )
+    @output ||= ( @owner and @owner.output or OutputDevice.stdout )
   end
   
   def output=( io )
     @output = io.nil? ? io : Output( io )
-  end
-  
-  def to_s
-    render.to_s
   end
   
 private
