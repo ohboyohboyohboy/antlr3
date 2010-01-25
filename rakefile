@@ -27,14 +27,14 @@ task :update do
 end
 
 desc "update gems and setup project development environment"
-task :setup => %w(update) do
+task :setup => %w( update ) do
   $project.load_environment
 end
 
-$project.setup? or run_task( :setup )
+# task :default => %w( setup )
+# $project.setup? or run_task( :setup )
 
 if $project.setup?
-  #require 'rcov/rcovtask'
   
   # tasks concerning the ANTLR java package
   desc "update the antlr jar if necessary"
@@ -48,4 +48,13 @@ if $project.setup?
   
   desc( "clean up all project by-products" )
   task :clean => %w( test:clean package:clobber doc:clobber doc:samples:clobber )
+else
+  puts( <<-END.here_indent! )
+  | ** Note **
+  | The development environment has not been established.
+  | Thus, most rake tasks will not be active until you run:
+  | 
+  |   ruby ./setup.rb
+  | 
+  END
 end
