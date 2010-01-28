@@ -20,6 +20,11 @@ module Builder
       super.push( :template )
     end
     
+    def load_templates( group_file )
+      @template_library = 
+        ANTLR3::Template::Group.load( group_file )
+    end
+    
     def define_template( name, source, &block )
       template_library.define_template( name, source, &block )
     end
@@ -91,6 +96,12 @@ class Group < Module
   end
   
   def self.load( group_file, options = {} )
+    unless( File.file?( group_file ) )
+      dir = $LOAD_PATH.find do | d |
+        File.file?( File.join( dir, group_file ) )
+      end or raise( LoadError, "no such template group file to load %s" % group_file )
+      group_file = File.join( dir, group_file )
+    end
     namespace = options.fetch( :namespace, ::Object )
     input = ANTLR3::FileStream.new( group_file, options )
     lexer = Lexer.new( input, options )

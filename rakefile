@@ -42,13 +42,15 @@ if $project.setup?
     $project.load_task 'antlr'
   end
   
-  for task_lib in %w( notes package publish test doc )
+  for task_lib in %w( notes package coverage publish test doc )
     $project.load_task( task_lib )
   end
   
   desc( "clean up all project by-products" )
   task :clean => %w( test:clean package:clobber doc:clobber doc:samples:clobber )
+  
 else
+  
   puts( <<-END.here_indent! )
   | ** Note **
   | The development environment has not been established.
@@ -57,4 +59,5 @@ else
   |   ruby ./setup.rb
   | 
   END
+  
 end

@@ -5,6 +5,7 @@ load File.join( __DIR__, 'script-helper.rb' )
 
 require 'main'
 require 'ANTLRv3Grammar'
+require 'facets/string'
 
 ACTION_TOKENS = %w(
   ARG RET T__72 ACTION SEMPRED SYN_SEMPRED GATED_SEMPRED

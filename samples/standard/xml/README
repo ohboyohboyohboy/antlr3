@@ -1,0 +1,16 @@
+The example input file has been slightly modified from the analogous 
+Java example: the non-ascii characters have been removed and replaced
+by some ascii data.
+
+The lexer would fail, if it tries to compare a byte >0x7f from the input
+to a unicode constant.
+It would work fine, if you feed unicode into the lexer, but then 
+sys.stdout.write() would probably fail, when it tries to print non-ascii
+data.
+
+It will also work with non-ascii input (the lexer operates on unicode()
+strings), but then you'll have to do some more work (which I omitted for
+simplicity):
+ - decode the input using the appropriate encoding into a unicode string.
+ - encode the data as you send it to the console or store it in a file.
+

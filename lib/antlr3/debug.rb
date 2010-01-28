@@ -228,21 +228,16 @@ module ParserEvents
     @state.backtracking -= 1
   end
   
-  def report_error(exc)
-    case exc
-    when ANTLR3::Error::RecognitionError
-      @debug_listener.recognition_exception(exc)
-    else
-      $stderr.puts(exc)
-      $stderr.puts(exc.backtrace)
-    end
+  def report_error( exc )
+    ANTLR3::RecognitionError === exc and
+      @debug_listener.recognition_exception( exc )
     super
   end
   
-  def missing_symbol(error, expected_type, follow)
+  def missing_symbol( error, expected_type, follow )
     symbol = super
-    @debug_listener.consume_node(symbol)
-    return(symbol)
+    @debug_listener.consume_node( symbol )
+    return( symbol )
   end
   
   def in_rule(grammar_file, rule_name)
@@ -363,11 +358,10 @@ module TokenStream
     return @last_marker
   end
   
-  def rewind(marker = nil)
-    @debug_listener.rewind(marker)
+  def rewind( marker = nil, release = true )
+    @debug_listener.rewind( marker )
     super
   end
-  
 end
 
 =begin rdoc ANTLR3::Debug::EventListener

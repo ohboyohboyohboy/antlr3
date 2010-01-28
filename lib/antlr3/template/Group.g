@@ -43,10 +43,33 @@ end # module ANTLR3
     return( group )
   end
   
+  def unescape( text )
+    text.gsub( /\\(?:([abefnrstv])|([0-7]{3})|x([0-9a-fA-F]{2})|(.))/ ) do
+      if $1
+        case $1[0]
+        when ?a then "\a"
+        when ?b then "\b"
+        when ?e then "\e"
+        when ?f then "\f"
+        when ?n then "\n"
+        when ?r then "\r"
+        when ?s then "\s"
+        when ?t then "\t"
+        when ?v then "\v"
+        end
+      elsif $2 then $2.to_i( 8 ).chr
+      elsif $3 then $3.to_i( 16 ).chr
+      elsif $4 then $4
+      end
+    end
+  end
+  
   def extract_template( token )
     case token.type
     when TEMPLATE
       token.text.gsub( /\A<<<\r?\n?|\r?\n?>>>\Z/, '' )
+    when STRING
+      unescape( token.text[1...-1] )
     end
   end
   
@@ -75,9 +98,9 @@ group_name[ namespace ] returns [ group ]
 member[ group ]
 @init { params = nil }
   : name=ID ( parameter_declaration { params = $parameter_declaration.list } )? '::='
-    ( aliased=ID { $group.alias_template( $aliased.text, $name.text ) }
+    ( aliased=ID { $group.alias_template( $name.text, $aliased.text ) }
     | TEMPLATE   { $group.define_template( $name.text, extract_template( $TEMPLATE ), params ) }
-    | STRING
+    | STRING     { $group.define_template( $name.text, extract_template( $STRING ), params ) }
     )
   ;
 

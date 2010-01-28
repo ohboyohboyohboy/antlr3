@@ -1,0 +1,91 @@
+group CMinus::Java
+
+indent( text, level ) ::=
+<<<
+% @text.to_s.each_line do | line |
+<%= '    ' * @level %><%= line.chomp %>
+% end
+>>>
+
+program(globals,functions) ::=
+<<<
+class Wrapper {
+% for global in @globals
+    <%= global %>
+% end
+% for function in @functions
+% for line in function.to_s.lines
+    <%= line.chomp %>
+% end
+% end
+}
+>>>
+
+variable(type,name) ::= "<%= @type %> <%= @name %>;"
+
+globalVariable ::= variable
+
+function(type,name,args,locals,stats) ::=
+<<<
+<%= @type %> <%= @name %>( <%= @args.join( ', ' ) %> ) {
+% for local in @locals
+    <%= local %>
+% end
+% for stat in @stats
+% for line in stat.to_s.lines
+    <%= line.chomp %>
+% end
+% end
+}
+>>>
+
+type_int() ::= "int"
+
+type_char() ::= "char"
+
+type_user_object(name) ::= "<%= @name %>"
+
+parameter(type,name) ::= "<%= @type %> <%= @name %>"
+
+statement(expr) ::= "<%= @expr %>;"
+
+statementList(locals,stats) ::=
+<<<
+{
+% for local in @locals
+    <%= local %>
+% end
+% for stat in @stats
+% for line in stat.to_s.lines
+    <%= line.chomp %>
+% end
+% end
+}
+
+>>>
+
+forLoop(e1,e2,e3,locals,stats) ::=
+<<<
+for (<%= @e1 %> <%= @e2 %>; <%= @e3 %>) {
+% for local in @locals
+    <%= local %>
+% end
+% for stat in @stats
+% for line in stat.to_s.lines
+    <%= line.chomp %>
+% end
+% end
+}
+>>>
+
+assign(lhs,rhs) ::= "<%= @lhs %> = <%= @rhs %>;"
+
+equals(left,right) ::= "<%= @left %> == <%= @right %>"
+
+lessThan(left,right) ::= "<%= @left %> < <%= @right %>"
+
+add(left,right) ::= "<%= @left %> + <%= @right %>"
+
+refVar(id) ::= "<%= @id %>"
+
+iconst(value) ::= "<%= @value %>"

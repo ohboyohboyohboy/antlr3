@@ -9,10 +9,11 @@ Adds debugging event hooks to TreeAdaptor objects
 
 =end
 module TreeAdaptor
-  def self.wrap(adaptor, debug_listener = nil)
+  
+  def self.wrap( adaptor, debug_listener = nil )
     adaptor.extend(self)
     adaptor.debug_listener = debug_listener
-    return(adaptor)
+    return( adaptor )
   end
   
   attr_accessor :debug_listener

@@ -844,7 +844,7 @@ class CommonTreeAdaptor
   end
   
   def create_flat_list!
-    return self.create_with_payload!( nil )
+    return create_with_payload!( nil )
   end
   
   def become_root( new_root, old_root )
@@ -885,6 +885,7 @@ class CommonTreeAdaptor
   def create_with_payload!( payload )
     return CommonTree.new( payload )
   end
+  
   def create!( *args )
     n = args.length
     if n == 1 and args.first.is_a?( Token ) then create_with_payload!( args[0] )
@@ -912,7 +913,7 @@ class CommonTreeAdaptor
   end
   
   def each_child( tree )
-    block_given? or return enum_for( __method__, tree )
+    block_given? or return enum_for( :each_child, tree )
     tree.each do | child |
       yield( child )
     end
@@ -980,14 +981,14 @@ class CommonTreeNodeStream
   attr_reader :adaptor, :position
   
   def initialize(*args)
+    options = args.last.is_a?( ::Hash ) ? args.pop : {}
     case n = args.length
     when 1
-      @adaptor = CommonTreeAdaptor.new
       @root = args.first
-      @nodes = @down = @up = @eof = nil
+      @token_stream = @adaptor = @nodes = @down = @up = @eof = nil
     when 2
       @adaptor, @root = args
-      @nodes = @down = @up = @eof = nil
+      @token_stream = @nodes = @down = @up = @eof = nil
     when 3
       parent, start, stop = *args
       @adaptor = parent.adaptor
@@ -996,17 +997,19 @@ class CommonTreeNodeStream
       @down = parent.down
       @up = parent.up
       @eof = parent.eof
+      @token_stream = parent.token_stream
     when 0
       raise ArgumentError, "wrong number of arguments (0 for 1)"
     else raise ArgumentError, "wrong number of arguments (#{ n } for 3)"
     end
-    @down  ||= @adaptor.create_from_type!( DOWN, 'DOWN' )
-    @up    ||= @adaptor.create_from_type!( UP, 'UP' )
-    @eof   ||= @adaptor.create_from_type!( EOF, 'EOF' )
+    @adaptor ||= options.fetch( :adaptor ) { CommonTreeAdaptor.new }
+    @token_stream ||= options[ :token_stream ]
+    @down  ||= options.fetch( :down ) { @adaptor.create_from_type!( DOWN, 'DOWN' ) }
+    @up    ||= options.fetch( :up )   { @adaptor.create_from_type!( UP, 'UP' ) }
+    @eof   ||= options.fetch( :eof )  { @adaptor.create_from_type!( EOF, 'EOF' ) }
     @nodes ||= []
-    @token_stream = nil
     
-    @unique_navigation_nodes = false
+    @unique_navigation_nodes = options.fetch( :unique_navigation_nodes, false )
     @position = -1
     @last_marker = nil
     @calls = []

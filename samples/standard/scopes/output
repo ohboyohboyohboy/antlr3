@@ -1,0 +1,3 @@
+globals: [i, j]
+level 2 symbols: [j, k]
+level 1 symbols: [i, k]

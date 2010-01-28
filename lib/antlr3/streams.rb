@@ -728,21 +728,30 @@ class CommonTokenStream
   #     token.name != 'WHITE_SPACE'
   #   end
   # 
-  def initialize(token_source, options = {})
-    @token_source = token_source
+  def initialize( token_source, options = {} )
+    case token_source
+    when CommonTokenStream
+      # this is useful in cases where you want to convert a CommonTokenStream
+      # to a RewriteTokenStream or other variation of the standard token stream
+      stream = token_source
+      @token_source = stream.token_source
+      @channel = options.fetch( :channel ) { stream.channel or DEFAULT_CHANNEL }
+      @source_name = options.fetch( :source_name ) { stream.source_name }
+      tokens = stream.tokens.map { | t | t.dup }
+    else
+      @token_source = token_source
+      @channel = options.fetch( :channel, DEFAULT_CHANNEL )
+      @source_name = options.fetch( :source_name ) {  @token_source.source_name rescue nil }
+      tokens = @token_source.to_a
+    end
     @last_marker = nil
-    @channel = options.fetch(:channel, DEFAULT_CHANNEL)
-    
-    @tokens = 
-      block_given? ? @token_source.select { |token| yield(token, self) } :
-                     @token_source.to_a
+    @tokens = block_given? ? tokens.select { | t | yield( t, self ) } : tokens
     @tokens.each_with_index { |t, i| t.index = i }
     @position = 
       if first_token = @tokens.find { |t| t.channel == @channel }
         @tokens.index(first_token)
       else @tokens.length
       end
-    @source_name = options.fetch(:source_name) {  @token_source.source_name rescue nil }
   end
   
   #

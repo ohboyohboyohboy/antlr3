@@ -6,6 +6,18 @@ require 'test/unit'
 require 'spec'
 
 include ANTLR3::Error
+
+describe( ANTLR3::Error ) do
+  
+  example "raising an ANTLR bug exception" do
+    proc {
+      ANTLR3.bug!( 'whateva' )
+    }.should raise_error( ANTLR3::Bug )
+  end
+  
+  
+end
+
 #
 #class TestRecognitionError < Test::Unit::TestCase
 #  def test_init_none

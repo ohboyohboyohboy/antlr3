@@ -99,39 +99,39 @@ class EventSocketProxy
   end
   
   def enter_rule( grammar_file_name, rule_name )
-    transmit "%s\t%s\t%s", __method__, grammar_file_name, rule_name
+    transmit "%s\t%s\t%s", :enter_rule, grammar_file_name, rule_name
   end
   
   def enter_alternative( alt )
-    transmit "%s\t%s", __method__, alt
+    transmit "%s\t%s", :enter_alternative, alt
   end
   
   def exit_rule( grammar_file_name, rule_name )
-    transmit "%s\t%s\t%s", __method__, grammar_file_name, rule_name
+    transmit "%s\t%s\t%s", :exit_rule, grammar_file_name, rule_name
   end
   
   def enter_subrule( decision_number )
-    transmit "%s\t%i", __method__, decision_number
+    transmit "%s\t%i", :enter_subrule, decision_number
   end
   
   def exit_subrule( decision_number )
-    transmit "%s\t%i", __method__, decision_number
+    transmit "%s\t%i", :exit_subrule, decision_number
   end
   
   def enter_decision( decision_number )
-    transmit "%s\t%i", __method__, decision_number
+    transmit "%s\t%i", :enter_decision, decision_number
   end
   
   def exit_decision( decision_number )
-    transmit "%s\t%i", __method__, decision_number
+    transmit "%s\t%i", :exit_decision, decision_number
   end
   
   def consume_token( token )
-    transmit "%s\t%s", __method__, serialize_token( token )
+    transmit "%s\t%s", :consume_token, serialize_token( token )
   end
   
   def consume_hidden_token( token )
-    transmit "%s\t%s", __method__, serialize_token( token )
+    transmit "%s\t%s", :consume_hidden_token, serialize_token( token )
   end
   
   def look(i, item)
@@ -140,49 +140,49 @@ class EventSocketProxy
       look_tree( i, item )
     when nil
     else
-      transmit "%s\t%i\t%s", __method__, i, serialize_token(item)
+      transmit "%s\t%i\t%s", :look, i, serialize_token(item)
     end
   end
   
   def mark(i)
-    transmit "%s\t%i", __method__, i
+    transmit "%s\t%i", :mark, i
   end
   
   def rewind(i = nil)
-    i ? transmit( "%s\t%i", __method__, i ) : transmit( '%s', __method__ )
+    i ? transmit( "%s\t%i", :rewind, i ) : transmit( '%s', :rewind )
   end
   
   def begin_backtrack( level )
-    transmit "%s\t%i", __method__, level
+    transmit "%s\t%i", :begin_backtrack, level
   end
   def end_backtrack( level, successful )
-    transmit "%s\t%i\t%p", __method__, level, (successful ? true : false)
+    transmit "%s\t%i\t%p", :end_backtrack, level, (successful ? true : false)
   end
   
   def location( line, position )
-    transmit "%s\t%i\t%i", __method__, line, position
+    transmit "%s\t%i\t%i", :location, line, position
   end
   
   def recognition_exception( exception )
-    transmit "%s\t%p\t%i\t%i\t%i", __method__, exception.class,
+    transmit "%s\t%p\t%i\t%i\t%i", :recognition_exception, exception.class,
       exception.index, exception.line, exception.column
   end
   
   def begin_resync
-    transmit '%s', __method__
+    transmit '%s', :begin_resync
   end
   
   def end_resync
-    transmit '%s', __method__
+    transmit '%s', :end_resync
   end
   
   def semantic_predicate( result, predicate )
     pure_boolean = !(!result)
-    transmit "%s\t%s\t%s", __method__, pure_boolean, escape_newlines( predicate )
+    transmit "%s\t%s\t%s", :semantic_predicate, pure_boolean, escape_newlines( predicate )
   end
   
   def consume_node( tree )
-    transmit "%s\t%s", __method__, serialize_node( tree )
+    transmit "%s\t%s", :consume_node, serialize_node( tree )
   end
   
   def adaptor
@@ -190,40 +190,40 @@ class EventSocketProxy
   end
   
   def look_tree( i, tree )
-    transmit "%s\t%s\t%s", __method__, i, serialize_node( tree )
+    transmit "%s\t%s\t%s", :look_tree, i, serialize_node( tree )
   end
   
   def flat_node( tree )
-    transmit "%s\t%i", __method__, adaptor.unique_id( tree )
+    transmit "%s\t%i", :flat_node, adaptor.unique_id( tree )
   end
   
   def error_node( tree )
-    transmit "%s\t%i\t%i\t%p", __method__, adaptor.unique_id( tree ),
+    transmit "%s\t%i\t%i\t%p", :error_node, adaptor.unique_id( tree ),
             Token::INVALID_TOKEN_TYPE, escape_newlines( tree.to_s )
   end
   
   def create_node( node, token = nil )
     if token
-      transmit "%s\t%i\t%i", __method__, adaptor.unique_id( node ),
+      transmit "%s\t%i\t%i", :create_node, adaptor.unique_id( node ),
               token.token_index
     else
-      transmit "%s\t%i\t%i\t%p", __method__, adaptor.unique_id( node ),
+      transmit "%s\t%i\t%i\t%p", :create_node, adaptor.unique_id( node ),
           adaptor.type_of( node ), adaptor.text_of( node )
     end
   end
   
   def become_root( new_root, old_root )
-    transmit "%s\t%i\t%i", __method__, adaptor.unique_id( new_root ),
+    transmit "%s\t%i\t%i", :become_root, adaptor.unique_id( new_root ),
               adaptor.unique_id( old_root )
   end
   
   def add_child( root, child )
-    transmit "%s\t%i\t%i", __method__, adaptor.unique_id( root ),
+    transmit "%s\t%i\t%i", :add_child, adaptor.unique_id( root ),
              adaptor.unique_id( child )
   end
   
   def set_token_boundaries( t, token_start_index, token_stop_index )
-    transmit "%s\t%i\t%i\t%i", __method__, adaptor.unique_id( t ),
+    transmit "%s\t%i\t%i\t%i", :set_token_boundaries, adaptor.unique_id( t ),
                                token_start_index, token_stop_index
   end
   

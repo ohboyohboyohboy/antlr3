@@ -5,7 +5,7 @@ require 'antlr3/test/functional'
 
 class TestASTConstructingParser < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  compile inline_grammar( <<-'END' )
     grammar ASTBuilder;
     options {
       language = Ruby;

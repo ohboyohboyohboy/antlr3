@@ -361,8 +361,9 @@ class BaseRecognizer
   # to display the error info on $stderr. 
   def report_error(e = $!)
     @state.error_recovery and return
+    @state.syntax_errors += 1
     @state.error_recovery = true
-    display_recognition_error(e)
+    display_recognition_error( e )
   end
   
   # error reporting hook for presenting the information
@@ -789,18 +790,19 @@ class BaseRecognizer
   alias backtracking backtracking_level
   alias backtracking= backtracking_level=
   
-  def rule_memoization(rule, start_index)
-    @state.rule_memory[rule] ||= Hash.new(MEMO_RULE_UNKNOWN)
-    @state.rule_memory[rule][start_index]
+  def rule_memoization( rule, start_index )
+    @state.rule_memory[ rule ] ||= Hash.new( MEMO_RULE_UNKNOWN )
+    @state.rule_memory[ rule ][ start_index ]
   end
   
-  def already_parsed_rule?(rule)
-    stop_index = rule_memoization(rule, @input.index)
+  def already_parsed_rule?( rule )
+    stop_index = rule_memoization( rule, @input.index )
     case stop_index
     when MEMO_RULE_UNKNOWN then return false
-    when MEMO_RULE_FAILED then return true
+    when MEMO_RULE_FAILED
+      raise BacktrackingFailed
     else
-      @input.seek(stop_index + 1)
+      @input.seek( stop_index + 1 )
     end
     return true
   end
@@ -924,18 +926,6 @@ class Lexer < BaseRecognizer
   end
   
   def self.associated_parser
-    @grammar_home and @grammar_home::Parser
-  rescue NameError
-    grammar_name = @grammar_home.name.split("::").last
-    begin
-      require "#{grammar_name}Parser"
-    rescue LoadError => e
-      return nil
-    end
-    return @grammar_home::Parser rescue nil
-  end
-
-  def self.associated_parser
     @associated_parser ||= begin
       @grammar_home and @grammar_home::Parser
     rescue NameError
@@ -949,7 +939,7 @@ class Lexer < BaseRecognizer
   end
 
   def initialize(input, options = {})
-    super(options)
+    super( options )
     @input =
       case input
       when ::String then StringStream.new(input, options)
@@ -1009,7 +999,7 @@ class Lexer < BaseRecognizer
     @input.source_name
   end
   
-  def emit(token = nil)
+  def emit( token = @state.token )
     token ||= create_token
     @state.token = token
     return token
@@ -1254,7 +1244,7 @@ private
   def cast_input( input, options )
     case input
     when TokenSource then CommonTokenStream.new( input, options )
-    when IO, String
+    when IO, String, CharacterStream
       if lexer_class = self.class.associated_lexer
         CommonTokenStream.new( lexer_class.new( input, options ), options )
       else

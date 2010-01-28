@@ -3,9 +3,9 @@
 # Group.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.3.1
+# Ruby runtime library version: 1.5.0
 # Input grammar file: Group.g
-# Generated at: 2010-01-17 06:59:16
+# Generated at: 2010-01-27 10:24:01
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.3.1):
+Failed to load the ANTLR3 runtime library (version 1.5.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -30,7 +30,7 @@ Current load path:
   END
 end
 
-defined?(ANTLR3) or begin
+defined?( ANTLR3 ) or begin
   
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
@@ -38,7 +38,7 @@ defined?(ANTLR3) or begin
 rescue LoadError
   
   # 2: try to load rubygems if it isn't already loaded
-  defined?(Gem) or begin
+  defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.3.1' )
+    Gem.activate( 'antlr3', '~> 1.5.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -75,10 +75,10 @@ class Group
   module TokenData
 
     # define the token constants
-    define_tokens(:ID => 5, :EOF => -1, :T__19 => 19, :T__16 => 16, :WS => 9, 
-                  :T__15 => 15, :T__18 => 18, :T__17 => 17, :T__12 => 12, 
-                  :TEMPLATE => 6, :T__11 => 11, :T__14 => 14, :T__13 => 13, 
-                  :T__10 => 10, :CONSTANT => 4, :COMMENT => 8, :STRING => 7)
+    define_tokens( :ID => 5, :EOF => -1, :T__19 => 19, :T__16 => 16, :WS => 9, 
+                   :T__15 => 15, :T__18 => 18, :T__17 => 17, :T__12 => 12, 
+                   :TEMPLATE => 6, :T__11 => 11, :T__14 => 14, :T__13 => 13, 
+                   :T__10 => 10, :CONSTANT => 4, :COMMENT => 8, :STRING => 7 )
 
     # register the proper human-readable name or literal value
     # for each token type
@@ -86,9 +86,9 @@ class Group
     # this is necessary because anonymous tokens, which are
     # created from literal values in the grammar, do not
     # have descriptive names
-    register_names("CONSTANT", "ID", "TEMPLATE", "STRING", "COMMENT", "WS", 
-                   "'group'", "'::'", "';'", "'::='", "'('", "')'", "','", 
-                   "'*'", "'&'", "'='")
+    register_names( "CONSTANT", "ID", "TEMPLATE", "STRING", "COMMENT", "WS", 
+                    "'group'", "'::'", "';'", "'::='", "'('", "')'", "','", 
+                    "'*'", "'&'", "'='" )
     
   end
 
@@ -96,16 +96,16 @@ class Group
   class Parser < ANTLR3::Parser
     @grammar_home = Group
 
-    RULE_METHODS = [:group_spec, :group_name, :member, :parameter_declaration, 
-                    :parameters, :parameter].freeze
+    RULE_METHODS = [ :group_spec, :group_name, :member, :parameter_declaration, 
+                     :parameters, :parameter ].freeze
 
 
     include TokenData
 
-    generated_using( "Group.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.1" )
+    generated_using( "Group.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.5.0" )
 
-    def initialize(input, options = {})
-      super(input, options)
+    def initialize( input, options = {} )
+      super( input, options )
 
 
     end
@@ -123,10 +123,33 @@ class Group
         return( group )
       end
       
+      def unescape( text )
+        text.gsub( /\\(?:([abefnrstv])|([0-7]{3})|x([0-9a-fA-F]{2})|(.))/ ) do
+          if $1
+            case $1[0]
+            when ?a then "\a"
+            when ?b then "\b"
+            when ?e then "\e"
+            when ?f then "\f"
+            when ?n then "\n"
+            when ?r then "\r"
+            when ?s then "\s"
+            when ?t then "\t"
+            when ?v then "\v"
+            end
+          elsif $2 then $2.to_i( 8 ).chr
+          elsif $3 then $3.to_i( 16 ).chr
+          elsif $4 then $4
+          end
+        end
+      end
+      
       def extract_template( token )
         case token.type
         when TEMPLATE
           token.text.gsub( /\A<<<\r?\n?|\r?\n?>>>\Z/, '' )
+        when STRING
+          unescape( token.text[1...-1] )
         end
       end
       
@@ -136,10 +159,12 @@ class Group
 
     # - - - - - - - - - - - - Rules - - - - - - - - - - - - -
 
+    # 
     # parser rule group_spec
     # 
     # (in Group.g)
-    # 58:1: group_spec[ namespace ] returns [ group ] : ( group_name[ $namespace ] | ) ( member[ $group ] )* ;
+    # 81:1: group_spec[ namespace ] returns [ group ] : ( group_name[ $namespace ] | ) ( member[ $group ] )* ;
+    # 
     def group_spec(namespace)
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 1)
@@ -147,8 +172,8 @@ class Group
       group_name1 = nil
 
       begin
-        # at line 59:5: ( group_name[ $namespace ] | ) ( member[ $group ] )*
-        # at line 59:5: ( group_name[ $namespace ] | )
+        # at line 82:5: ( group_name[ $namespace ] | ) ( member[ $group ] )*
+        # at line 82:5: ( group_name[ $namespace ] | )
         alt_1 = 2
         look_1_0 = @input.peek(1)
 
@@ -162,7 +187,7 @@ class Group
         end
         case alt_1
         when 1
-          # at line 59:7: group_name[ $namespace ]
+          # at line 82:7: group_name[ $namespace ]
           @state.following.push(TOKENS_FOLLOWING_group_name_IN_group_spec_87)
           group_name1 = group_name(namespace)
           @state.following.pop
@@ -171,14 +196,14 @@ class Group
           # <-- action
 
         when 2
-          # at line 60:7: 
+          # at line 83:7: 
           # --> action
            group = ANTLR3::Template::Group.new 
           # <-- action
 
         end
-        # at line 62:5: ( member[ $group ] )*
-        loop do # decision 2
+        # at line 85:5: ( member[ $group ] )*
+        while true # decision 2
           alt_2 = 2
           look_2_0 = @input.peek(1)
 
@@ -188,7 +213,7 @@ class Group
           end
           case alt_2
           when 1
-            # at line 62:5: member[ $group ]
+            # at line 85:5: member[ $group ]
             @state.following.push(TOKENS_FOLLOWING_member_IN_group_spec_110)
             member(group)
             @state.following.pop
@@ -212,10 +237,12 @@ class Group
     end
 
 
+    # 
     # parser rule group_name
     # 
     # (in Group.g)
-    # 65:1: group_name[ namespace ] returns [ group ] : 'group' (mod= CONSTANT '::' )* name= CONSTANT ( ';' )? ;
+    # 88:1: group_name[ namespace ] returns [ group ] : 'group' (mod= CONSTANT '::' )* name= CONSTANT ( ';' )? ;
+    # 
     def group_name(namespace)
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 2)
@@ -224,10 +251,10 @@ class Group
       name = nil
 
       begin
-        # at line 66:5: 'group' (mod= CONSTANT '::' )* name= CONSTANT ( ';' )?
+        # at line 89:5: 'group' (mod= CONSTANT '::' )* name= CONSTANT ( ';' )?
         match(T__10, TOKENS_FOLLOWING_T__10_IN_group_name_130)
-        # at line 67:5: (mod= CONSTANT '::' )*
-        loop do # decision 3
+        # at line 90:5: (mod= CONSTANT '::' )*
+        while true # decision 3
           alt_3 = 2
           look_3_0 = @input.peek(1)
 
@@ -242,7 +269,7 @@ class Group
           end
           case alt_3
           when 1
-            # at line 68:7: mod= CONSTANT '::'
+            # at line 91:7: mod= CONSTANT '::'
             mod = match(CONSTANT, TOKENS_FOLLOWING_CONSTANT_IN_group_name_146)
             match(T__11, TOKENS_FOLLOWING_T__11_IN_group_name_148)
             # --> action
@@ -257,7 +284,7 @@ class Group
         # --> action
          group = fetch_group( namespace, name.text ) 
         # <-- action
-        # at line 72:5: ( ';' )?
+        # at line 95:5: ( ';' )?
         alt_4 = 2
         look_4_0 = @input.peek(1)
 
@@ -266,7 +293,7 @@ class Group
         end
         case alt_4
         when 1
-          # at line 72:5: ';'
+          # at line 95:5: ';'
           match(T__12, TOKENS_FOLLOWING_T__12_IN_group_name_179)
 
         end
@@ -285,24 +312,27 @@ class Group
     end
 
 
+    # 
     # parser rule member
     # 
     # (in Group.g)
-    # 75:1: member[ group ] : name= ID ( parameter_declaration )? '::=' (aliased= ID | TEMPLATE | STRING ) ;
+    # 98:1: member[ group ] : name= ID ( parameter_declaration )? '::=' (aliased= ID | TEMPLATE | STRING ) ;
+    # 
     def member(group)
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 3)
       name = nil
       aliased = nil
       __TEMPLATE3__ = nil
+      __STRING4__ = nil
       parameter_declaration2 = nil
       # - - - - @init action - - - -
        params = nil 
 
       begin
-        # at line 77:5: name= ID ( parameter_declaration )? '::=' (aliased= ID | TEMPLATE | STRING )
+        # at line 100:5: name= ID ( parameter_declaration )? '::=' (aliased= ID | TEMPLATE | STRING )
         name = match(ID, TOKENS_FOLLOWING_ID_IN_member_201)
-        # at line 77:13: ( parameter_declaration )?
+        # at line 100:13: ( parameter_declaration )?
         alt_5 = 2
         look_5_0 = @input.peek(1)
 
@@ -311,7 +341,7 @@ class Group
         end
         case alt_5
         when 1
-          # at line 77:15: parameter_declaration
+          # at line 100:15: parameter_declaration
           @state.following.push(TOKENS_FOLLOWING_parameter_declaration_IN_member_205)
           parameter_declaration2 = parameter_declaration
           @state.following.pop
@@ -321,7 +351,7 @@ class Group
 
         end
         match(T__13, TOKENS_FOLLOWING_T__13_IN_member_212)
-        # at line 78:5: (aliased= ID | TEMPLATE | STRING )
+        # at line 101:5: (aliased= ID | TEMPLATE | STRING )
         alt_6 = 3
         case look_6 = @input.peek(1)
         when ID then alt_6 = 1
@@ -333,22 +363,25 @@ class Group
         end
         case alt_6
         when 1
-          # at line 78:7: aliased= ID
+          # at line 101:7: aliased= ID
           aliased = match(ID, TOKENS_FOLLOWING_ID_IN_member_222)
           # --> action
-           group.alias_template( aliased.text, name.text ) 
+           group.alias_template( name.text, aliased.text ) 
           # <-- action
 
         when 2
-          # at line 79:7: TEMPLATE
+          # at line 102:7: TEMPLATE
           __TEMPLATE3__ = match(TEMPLATE, TOKENS_FOLLOWING_TEMPLATE_IN_member_232)
           # --> action
            group.define_template( name.text, extract_template( __TEMPLATE3__ ), params ) 
           # <-- action
 
         when 3
-          # at line 80:7: STRING
-          match(STRING, TOKENS_FOLLOWING_STRING_IN_member_244)
+          # at line 103:7: STRING
+          __STRING4__ = match(STRING, TOKENS_FOLLOWING_STRING_IN_member_244)
+          # --> action
+           group.define_template( name.text, extract_template( __STRING4__ ), params ) 
+          # <-- action
 
         end
 
@@ -366,21 +399,23 @@ class Group
     end
 
 
+    # 
     # parser rule parameter_declaration
     # 
     # (in Group.g)
-    # 84:1: parameter_declaration returns [ list ] : ( '(' ( parameters )? ')' | parameters );
+    # 107:1: parameter_declaration returns [ list ] : ( '(' ( parameters )? ')' | parameters );
+    # 
     def parameter_declaration
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 4)
       list = nil
-      parameters4 = nil
       parameters5 = nil
+      parameters6 = nil
       # - - - - @init action - - - -
        list = nil 
 
       begin
-        # at line 86:3: ( '(' ( parameters )? ')' | parameters )
+        # at line 109:3: ( '(' ( parameters )? ')' | parameters )
         alt_8 = 2
         look_8_0 = @input.peek(1)
 
@@ -394,9 +429,9 @@ class Group
         end
         case alt_8
         when 1
-          # at line 86:5: '(' ( parameters )? ')'
-          match(T__14, TOKENS_FOLLOWING_T__14_IN_parameter_declaration_272)
-          # at line 86:9: ( parameters )?
+          # at line 109:5: '(' ( parameters )? ')'
+          match(T__14, TOKENS_FOLLOWING_T__14_IN_parameter_declaration_278)
+          # at line 109:9: ( parameters )?
           alt_7 = 2
           look_7_0 = @input.peek(1)
 
@@ -405,24 +440,24 @@ class Group
           end
           case alt_7
           when 1
-            # at line 86:11: parameters
-            @state.following.push(TOKENS_FOLLOWING_parameters_IN_parameter_declaration_276)
-            parameters4 = parameters
+            # at line 109:11: parameters
+            @state.following.push(TOKENS_FOLLOWING_parameters_IN_parameter_declaration_282)
+            parameters5 = parameters
             @state.following.pop
             # --> action
-             list = parameters4 
+             list = parameters5 
             # <-- action
 
           end
-          match(T__15, TOKENS_FOLLOWING_T__15_IN_parameter_declaration_283)
+          match(T__15, TOKENS_FOLLOWING_T__15_IN_parameter_declaration_289)
 
         when 2
-          # at line 87:5: parameters
-          @state.following.push(TOKENS_FOLLOWING_parameters_IN_parameter_declaration_289)
-          parameters5 = parameters
+          # at line 110:5: parameters
+          @state.following.push(TOKENS_FOLLOWING_parameters_IN_parameter_declaration_295)
+          parameters6 = parameters
           @state.following.pop
           # --> action
-           list = parameters5 
+           list = parameters6 
           # <-- action
 
         end
@@ -440,10 +475,12 @@ class Group
     end
 
 
+    # 
     # parser rule parameters
     # 
     # (in Group.g)
-    # 90:1: parameters returns [ list ] : parameter[ $list ] ( ',' parameter[ $list ] )* ;
+    # 113:1: parameters returns [ list ] : parameter[ $list ] ( ',' parameter[ $list ] )* ;
+    # 
     def parameters
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 5)
@@ -452,12 +489,12 @@ class Group
        list = ANTLR3::Template::ParameterList.new 
 
       begin
-        # at line 92:5: parameter[ $list ] ( ',' parameter[ $list ] )*
-        @state.following.push(TOKENS_FOLLOWING_parameter_IN_parameters_313)
+        # at line 115:5: parameter[ $list ] ( ',' parameter[ $list ] )*
+        @state.following.push(TOKENS_FOLLOWING_parameter_IN_parameters_319)
         parameter(list)
         @state.following.pop
-        # at line 92:24: ( ',' parameter[ $list ] )*
-        loop do # decision 9
+        # at line 115:24: ( ',' parameter[ $list ] )*
+        while true # decision 9
           alt_9 = 2
           look_9_0 = @input.peek(1)
 
@@ -467,9 +504,9 @@ class Group
           end
           case alt_9
           when 1
-            # at line 92:26: ',' parameter[ $list ]
-            match(T__16, TOKENS_FOLLOWING_T__16_IN_parameters_318)
-            @state.following.push(TOKENS_FOLLOWING_parameter_IN_parameters_320)
+            # at line 115:26: ',' parameter[ $list ]
+            match(T__16, TOKENS_FOLLOWING_T__16_IN_parameters_324)
+            @state.following.push(TOKENS_FOLLOWING_parameter_IN_parameters_326)
             parameter(list)
             @state.following.pop
 
@@ -492,10 +529,12 @@ class Group
     end
 
 
+    # 
     # parser rule parameter
     # 
     # (in Group.g)
-    # 95:1: parameter[ parameters ] : ( '*' name= ID | '&' name= ID | name= ID ( '=' v= STRING )? );
+    # 118:1: parameter[ parameters ] : ( '*' name= ID | '&' name= ID | name= ID ( '=' v= STRING )? );
+    # 
     def parameter(parameters)
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 6)
@@ -503,7 +542,7 @@ class Group
       v = nil
 
       begin
-        # at line 96:3: ( '*' name= ID | '&' name= ID | name= ID ( '=' v= STRING )? )
+        # at line 119:3: ( '*' name= ID | '&' name= ID | name= ID ( '=' v= STRING )? )
         alt_11 = 3
         case look_11 = @input.peek(1)
         when T__17 then alt_11 = 1
@@ -515,28 +554,28 @@ class Group
         end
         case alt_11
         when 1
-          # at line 96:5: '*' name= ID
-          match(T__17, TOKENS_FOLLOWING_T__17_IN_parameter_338)
-          name = match(ID, TOKENS_FOLLOWING_ID_IN_parameter_342)
+          # at line 119:5: '*' name= ID
+          match(T__17, TOKENS_FOLLOWING_T__17_IN_parameter_344)
+          name = match(ID, TOKENS_FOLLOWING_ID_IN_parameter_348)
           # --> action
            parameters.splat = name.text 
           # <-- action
 
         when 2
-          # at line 97:5: '&' name= ID
-          match(T__18, TOKENS_FOLLOWING_T__18_IN_parameter_350)
-          name = match(ID, TOKENS_FOLLOWING_ID_IN_parameter_354)
+          # at line 120:5: '&' name= ID
+          match(T__18, TOKENS_FOLLOWING_T__18_IN_parameter_356)
+          name = match(ID, TOKENS_FOLLOWING_ID_IN_parameter_360)
           # --> action
            parameters.block = name.text 
           # <-- action
 
         when 3
-          # at line 98:5: name= ID ( '=' v= STRING )?
-          name = match(ID, TOKENS_FOLLOWING_ID_IN_parameter_364)
+          # at line 121:5: name= ID ( '=' v= STRING )?
+          name = match(ID, TOKENS_FOLLOWING_ID_IN_parameter_370)
           # --> action
            param = ANTLR3::Template::Parameter.new( name.text ) 
           # <-- action
-          # at line 99:5: ( '=' v= STRING )?
+          # at line 122:5: ( '=' v= STRING )?
           alt_10 = 2
           look_10_0 = @input.peek(1)
 
@@ -545,9 +584,9 @@ class Group
           end
           case alt_10
           when 1
-            # at line 99:7: '=' v= STRING
-            match(T__19, TOKENS_FOLLOWING_T__19_IN_parameter_378)
-            v = match(STRING, TOKENS_FOLLOWING_STRING_IN_parameter_382)
+            # at line 122:7: '=' v= STRING
+            match(T__19, TOKENS_FOLLOWING_T__19_IN_parameter_384)
+            v = match(STRING, TOKENS_FOLLOWING_STRING_IN_parameter_388)
             # --> action
              param.default = v.text 
             # <-- action
@@ -586,20 +625,20 @@ class Group
     TOKENS_FOLLOWING_ID_IN_member_222 = Set[1]
     TOKENS_FOLLOWING_TEMPLATE_IN_member_232 = Set[1]
     TOKENS_FOLLOWING_STRING_IN_member_244 = Set[1]
-    TOKENS_FOLLOWING_T__14_IN_parameter_declaration_272 = Set[5, 14, 15, 17, 18]
-    TOKENS_FOLLOWING_parameters_IN_parameter_declaration_276 = Set[15]
-    TOKENS_FOLLOWING_T__15_IN_parameter_declaration_283 = Set[1]
-    TOKENS_FOLLOWING_parameters_IN_parameter_declaration_289 = Set[1]
-    TOKENS_FOLLOWING_parameter_IN_parameters_313 = Set[1, 16]
-    TOKENS_FOLLOWING_T__16_IN_parameters_318 = Set[5, 14, 17, 18]
-    TOKENS_FOLLOWING_parameter_IN_parameters_320 = Set[1, 16]
-    TOKENS_FOLLOWING_T__17_IN_parameter_338 = Set[5]
-    TOKENS_FOLLOWING_ID_IN_parameter_342 = Set[1]
-    TOKENS_FOLLOWING_T__18_IN_parameter_350 = Set[5]
-    TOKENS_FOLLOWING_ID_IN_parameter_354 = Set[1]
-    TOKENS_FOLLOWING_ID_IN_parameter_364 = Set[1, 19]
-    TOKENS_FOLLOWING_T__19_IN_parameter_378 = Set[7]
-    TOKENS_FOLLOWING_STRING_IN_parameter_382 = Set[1]
+    TOKENS_FOLLOWING_T__14_IN_parameter_declaration_278 = Set[5, 14, 15, 17, 18]
+    TOKENS_FOLLOWING_parameters_IN_parameter_declaration_282 = Set[15]
+    TOKENS_FOLLOWING_T__15_IN_parameter_declaration_289 = Set[1]
+    TOKENS_FOLLOWING_parameters_IN_parameter_declaration_295 = Set[1]
+    TOKENS_FOLLOWING_parameter_IN_parameters_319 = Set[1, 16]
+    TOKENS_FOLLOWING_T__16_IN_parameters_324 = Set[5, 14, 17, 18]
+    TOKENS_FOLLOWING_parameter_IN_parameters_326 = Set[1, 16]
+    TOKENS_FOLLOWING_T__17_IN_parameter_344 = Set[5]
+    TOKENS_FOLLOWING_ID_IN_parameter_348 = Set[1]
+    TOKENS_FOLLOWING_T__18_IN_parameter_356 = Set[5]
+    TOKENS_FOLLOWING_ID_IN_parameter_360 = Set[1]
+    TOKENS_FOLLOWING_ID_IN_parameter_370 = Set[1, 19]
+    TOKENS_FOLLOWING_T__19_IN_parameter_384 = Set[7]
+    TOKENS_FOLLOWING_STRING_IN_parameter_388 = Set[1]
 
   end # class Parser < ANTLR3::Parser
 

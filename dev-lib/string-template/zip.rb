@@ -35,7 +35,7 @@ module Zip
         open( member_file, 'w' ) do |f|
           f.write( source )
           if verbose
-            type = member.class.to_s.split('::').last.snakecase
+            type = member.class.to_s.split('::').last.snake_case
             $stderr.printf( "- wrote %s %s to %s\n", type, member.name, member_file )
           end
         end

@@ -281,21 +281,21 @@ module TokenSource
   
   def next
     token = next_token()
-    raise StopIteration if token.nil? or token.type == EOF
+    raise StopIteration if token.nil? || token.type == EOF
     return token
   end
   
   def to_stream(options = {})
     if block_given?
-      CommonTokenStream.new(self, options) { |t| yield(t) }
+      CommonTokenStream.new( self, options ) { | t, stream | yield( t, stream ) }
     else
-      CommonTokenStream.new(self, options)
+      CommonTokenStream.new( self, options )
     end
   end
   
   def each
     block_given? or return enum_for(:each)
-    loop { yield(self.next) }
+    loop { yield( self.next ) }
   rescue StopIteration
     return self
   end

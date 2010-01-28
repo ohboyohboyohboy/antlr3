@@ -362,12 +362,12 @@ element() ::= <<
 execForcedAction(action) ::= "<action>"
 
 globalAttributeScopeClass(scope) ::= <<
-<if(scope.attributes)>Scope<scope.name> = Struct.new( <scope.attributes:{:<it.decl>}; separator=", "> )<endif>
+<if(scope.attributes)>@@<scope.name> = Struct.new( <scope.attributes:{:<it.decl>}; separator=", "> )<\n><endif>
 >>
 
 
 globalAttributeScopeStack(scope) ::= <<
-<if(scope.attributes)>@<scope.name>_stack = []<endif>
+<if(scope.attributes)>@<scope.name>_stack = []<\n><endif>
 >>
 
 
@@ -405,28 +405,14 @@ returnScope(scope) ::= <<
 
 
 returnStructName(r) ::= "<r.name; format=\"camelcase\">ReturnValue"
-
-
-ruleAttributeScopeClass(scope) ::= <<
-<if(scope.attributes)>
-Scope<scope.name> = Struct.new(<scope.attributes:{:<it.decl>}; separator=", ">)<\n>
-<endif>
->>
-
-
-ruleAttributeScopeStack(scope) ::= <<
-<if(scope.attributes)>
-@<scope.name>_stack = []<\n>
-<endif>
->>
-
+ruleAttributeScopeClass ::= globalAttributeScopeClass
+ruleAttributeScopeStack ::= globalAttributeScopeStack
 
 ruleBacktrackFailure() ::= <<
 <if(backtracking)>
 @state.backtracking > 0 and raise(ANTLR3::Error::BacktrackingFailed)<\n>
 <endif>
 >>
-
 
 ruleBody() ::= <<
 <if(memoize)><if(backtracking)>
@@ -534,7 +520,7 @@ return_value.stop = @input.look(-1)<\n>
 ruleMemoization(name) ::= <<
 <if(memoize)>
 # rule memoization
-if @state.backtracking > 0 and already_parsed_rule?(__method__)
+if @state.backtracking > 0 and already_parsed_rule?( __method__ )
   success = true
   return <ruleReturnValue()>
 end<\n>
@@ -543,7 +529,7 @@ end<\n>
 
 
 ruleScopeSetUp() ::= <<
-<ruleDescriptor.useScopes:{@<it>_stack.push(Scope<it>.new)<\n>}><ruleDescriptor.ruleScope:{@<it.name>_stack.push(Scope<it.name>.new)<\n>}>
+<ruleDescriptor.useScopes:{@<it>_stack.push(@@<it>.new)<\n>}><ruleDescriptor.ruleScope:{@<it.name>_stack.push(@@<it.name>.new)<\n>}>
 >>
 
 
@@ -758,6 +744,7 @@ match(UP, nil)
   */
 validateSemanticPredicate(pred,description) ::= <<
 unless (<evalPredicate(...)>)
+  <ruleBacktrackFailure()>
   raise FailedPredicate("<ruleName>", "<description>")
 end
 >>
@@ -1504,4 +1491,4 @@ placeAction(scope, name) ::= <<
 <endif>
 >>
 
-runtimeLibraryVersion() ::= "1.5.0"
+runtimeLibraryVersion() ::= "1.6.0"

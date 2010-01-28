@@ -4,7 +4,7 @@
 # 
 name: antlr3
 
-version: "1.5.0"
+version: "1.6.0"
 antlr_version: "3.2.1"
 
 summary: |-
@@ -116,5 +116,5 @@ system_path:
 # via $project.load_environment
 environment_require:
   - pp
-  - facets/comparable/bound
   - ansi-color
+  - inflection

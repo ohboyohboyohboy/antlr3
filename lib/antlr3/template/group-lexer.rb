@@ -3,9 +3,9 @@
 # Group.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.3.1
+# Ruby runtime library version: 1.5.0
 # Input grammar file: Group.g
-# Generated at: 2010-01-17 06:59:16
+# Generated at: 2010-01-27 10:24:01
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.3.1):
+Failed to load the ANTLR3 runtime library (version 1.5.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -30,7 +30,7 @@ Current load path:
   END
 end
 
-defined?(ANTLR3) or begin
+defined?( ANTLR3 ) or begin
   
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
@@ -38,7 +38,7 @@ defined?(ANTLR3) or begin
 rescue LoadError
   
   # 2: try to load rubygems if it isn't already loaded
-  defined?(Gem) or begin
+  defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.3.1' )
+    Gem.activate( 'antlr3', '~> 1.5.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -75,10 +75,10 @@ class Group
   module TokenData
 
     # define the token constants
-    define_tokens(:ID => 5, :EOF => -1, :T__19 => 19, :WS => 9, :T__16 => 16, 
-                  :T__15 => 15, :T__18 => 18, :T__17 => 17, :T__12 => 12, 
-                  :TEMPLATE => 6, :T__11 => 11, :T__14 => 14, :T__13 => 13, 
-                  :T__10 => 10, :CONSTANT => 4, :COMMENT => 8, :STRING => 7)
+    define_tokens( :ID => 5, :EOF => -1, :T__19 => 19, :WS => 9, :T__16 => 16, 
+                   :T__15 => 15, :T__18 => 18, :T__17 => 17, :T__12 => 12, 
+                   :TEMPLATE => 6, :T__11 => 11, :T__14 => 14, :T__13 => 13, 
+                   :T__10 => 10, :CONSTANT => 4, :COMMENT => 8, :STRING => 7 )
     
   end
 
@@ -88,7 +88,7 @@ class Group
     include TokenData
 
     begin
-      generated_using( "Group.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.3.1" )
+      generated_using( "Group.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.5.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -358,10 +358,10 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 104:5: 'A' .. 'Z' ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      # at line 127:5: 'A' .. 'Z' ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
       match_range(?A, ?Z)
-      # at line 104:14: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
-      loop do # decision 1
+      # at line 127:14: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      while true # decision 1
         alt_1 = 2
         look_1_0 = @input.peek(1)
 
@@ -408,7 +408,7 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 108:5: ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      # at line 131:5: ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
       if @input.peek(1) == ?_ || @input.peek(1).between?(?a, ?z)
         @input.consume
       else
@@ -418,8 +418,8 @@ class Group
       end
 
 
-      # at line 109:5: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
-      loop do # decision 2
+      # at line 132:5: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      while true # decision 2
         alt_2 = 2
         look_2_0 = @input.peek(1)
 
@@ -466,10 +466,10 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 113:5: '<<<' ( options {greedy=false; } : '\\\\' . | . )* '>>>'
+      # at line 136:5: '<<<' ( options {greedy=false; } : '\\\\' . | . )* '>>>'
       match("<<<")
-      # at line 114:5: ( options {greedy=false; } : '\\\\' . | . )*
-      loop do # decision 3
+      # at line 137:5: ( options {greedy=false; } : '\\\\' . | . )*
+      while true # decision 3
         alt_3 = 3
         look_3_0 = @input.peek(1)
 
@@ -506,12 +506,12 @@ class Group
         end
         case alt_3
         when 1
-          # at line 114:35: '\\\\' .
+          # at line 137:35: '\\\\' .
           match(?\\)
           match_any
 
         when 2
-          # at line 114:44: .
+          # at line 137:44: .
           match_any
 
         else
@@ -541,7 +541,7 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 119:3: ( '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"' | '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\'' )
+      # at line 142:3: ( '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"' | '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\'' )
       alt_6 = 2
       look_6_0 = @input.peek(1)
 
@@ -555,10 +555,10 @@ class Group
       end
       case alt_6
       when 1
-        # at line 119:5: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
+        # at line 142:5: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
         match(?")
-        # at line 119:10: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
-        loop do # decision 4
+        # at line 142:10: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
+        while true # decision 4
           alt_4 = 3
           look_4_0 = @input.peek(1)
 
@@ -570,7 +570,7 @@ class Group
           end
           case alt_4
           when 1
-            # at line 119:12: ~ ( '\\\\' | '\"' )
+            # at line 142:12: ~ ( '\\\\' | '\"' )
             if @input.peek(1).between?(0x0000, ?!) || @input.peek(1).between?(?#, ?[) || @input.peek(1).between?(?], 0x00FF)
               @input.consume
             else
@@ -582,7 +582,7 @@ class Group
 
 
           when 2
-            # at line 119:31: '\\\\' .
+            # at line 142:31: '\\\\' .
             match(?\\)
             match_any
 
@@ -593,10 +593,10 @@ class Group
         match(?")
 
       when 2
-        # at line 120:5: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
+        # at line 143:5: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
         match(?\')
-        # at line 120:10: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
-        loop do # decision 5
+        # at line 143:10: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
+        while true # decision 5
           alt_5 = 3
           look_5_0 = @input.peek(1)
 
@@ -608,7 +608,7 @@ class Group
           end
           case alt_5
           when 1
-            # at line 120:12: ~ ( '\\\\' | '\\'' )
+            # at line 143:12: ~ ( '\\\\' | '\\'' )
             if @input.peek(1).between?(0x0000, ?&) || @input.peek(1).between?(?(, ?[) || @input.peek(1).between?(?], 0x00FF)
               @input.consume
             else
@@ -620,7 +620,7 @@ class Group
 
 
           when 2
-            # at line 120:31: '\\\\' .
+            # at line 143:31: '\\\\' .
             match(?\\)
             match_any
 
@@ -652,7 +652,7 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 125:3: ( ( '#' | '//' ) (~ '\\n' )* | '/*' ( . )* '*/' )
+      # at line 148:3: ( ( '#' | '//' ) (~ '\\n' )* | '/*' ( . )* '*/' )
       alt_10 = 2
       look_10_0 = @input.peek(1)
 
@@ -675,8 +675,8 @@ class Group
       end
       case alt_10
       when 1
-        # at line 125:5: ( '#' | '//' ) (~ '\\n' )*
-        # at line 125:5: ( '#' | '//' )
+        # at line 148:5: ( '#' | '//' ) (~ '\\n' )*
+        # at line 148:5: ( '#' | '//' )
         alt_7 = 2
         look_7_0 = @input.peek(1)
 
@@ -690,16 +690,16 @@ class Group
         end
         case alt_7
         when 1
-          # at line 125:7: '#'
+          # at line 148:7: '#'
           match(?#)
 
         when 2
-          # at line 125:13: '//'
+          # at line 148:13: '//'
           match("//")
 
         end
-        # at line 125:20: (~ '\\n' )*
-        loop do # decision 8
+        # at line 148:20: (~ '\\n' )*
+        while true # decision 8
           alt_8 = 2
           look_8_0 = @input.peek(1)
 
@@ -709,7 +709,7 @@ class Group
           end
           case alt_8
           when 1
-            # at line 125:20: ~ '\\n'
+            # at line 148:20: ~ '\\n'
             if @input.peek(1).between?(0x0000, ?\t) || @input.peek(1).between?(0x000B, 0x00FF)
               @input.consume
             else
@@ -726,10 +726,10 @@ class Group
         end # loop for decision 8
 
       when 2
-        # at line 126:5: '/*' ( . )* '*/'
+        # at line 149:5: '/*' ( . )* '*/'
         match("/*")
-        # at line 126:10: ( . )*
-        loop do # decision 9
+        # at line 149:10: ( . )*
+        while true # decision 9
           alt_9 = 2
           look_9_0 = @input.peek(1)
 
@@ -748,7 +748,7 @@ class Group
           end
           case alt_9
           when 1
-            # at line 126:10: .
+            # at line 149:10: .
             match_any
 
           else
@@ -781,10 +781,10 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 130:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
-      # at file 130:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+      # at line 153:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+      # at file 153:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
       match_count_11 = 0
-      loop do
+      while true
         alt_11 = 2
         look_11_0 = @input.peek(1)
 

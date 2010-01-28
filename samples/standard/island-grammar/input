@@ -1,0 +1,11 @@
+  int i = 0;
+/** @author foo {{z=3; q=4;}} {yy=33;}*/
+method foo() {
+  int j = i;
+  i = 4;
+}
+/**  @author    bar
+ */
+method zero() {
+  return 0;
+}

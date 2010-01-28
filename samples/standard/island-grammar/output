@@ -1,0 +1,16 @@
+enter javadoc
+enter embedded Simple escape
+exiting embedded simple
+assignment to z
+assignment to q
+enter embedded Simple escape
+exiting embedded simple
+assignment to yy
+exit javadoc
+author foo
+enter javadoc
+exit javadoc
+author bar
+enter method foo
+assignment to i
+enter method zero

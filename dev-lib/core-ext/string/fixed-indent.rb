@@ -1,5 +1,6 @@
 
-class String  
+class String
+  
   # Returns the shortest length of leading whitespace for all non-blank lines
   #
   #   n = %Q(
