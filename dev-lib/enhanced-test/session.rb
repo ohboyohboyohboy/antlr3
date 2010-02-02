@@ -11,9 +11,10 @@ require 'enhanced-test/ruby-command'
 
 module ANTLR3
 module Test
-  autoload :Grammar, 'antlr3/test/grammar'
-  autoload :OpenStruct, 'ostruct'
-  autoload :YAML, 'yaml'
+autoload :Grammar, 'antlr3/test/grammar'
+autoload :OpenStruct, 'ostruct'
+autoload :YAML, 'yaml'
+
 class Session
   TEST_TYPES = %w( unit functional benchmark profile ).freeze
   include Monocle
@@ -851,6 +852,6 @@ end
 __END__
 <%= sample.data %>
 BENCH
-end
-end
-end
+end  # class Session
+end  # module Test
+end  # module ANTLR3

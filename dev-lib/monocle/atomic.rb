@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-# encoding: utf-8
 
 module Monocle
   if RUBY_VERSION =~ /^1\.8/

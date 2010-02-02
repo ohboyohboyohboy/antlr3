@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# encoding: utf-8
+
 
 module Inflection
   LIBRARY_PATH = File.join( File.dirname(__FILE__), 'inflection' )

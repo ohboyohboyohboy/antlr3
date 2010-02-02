@@ -556,9 +556,9 @@ class StringStream
   # let go of the bookmark data for the marker and all marker
   # values created after the marker.
   # 
-  def release(marker = @markers.length - 1)
-    marker.between?(1, @markers.length - 1) or return
-    @markers[marker, @markers.length - marker ] = nil
+  def release( marker = @markers.length - 1 )
+    marker.between?( 1, @markers.length - 1 ) or return
+    @markers.pop( @markers.length - marker )
     return self
   end
   

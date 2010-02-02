@@ -1,0 +1,18 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+load '../../config/antlr3.rb'
+require 'antlr3/task'
+
+ANTLR3::CompileTask.define do | t |
+  for dir in Dir[ '*/' ]
+    grammars = Dir[ dir / '*.g' ]
+    t.grammar_set( grammars, :output_directory => dir )
+  end
+end
+
+desc( "compile all example grammars" )
+task( :default => 'antlr-grammars:compile' )
+
+desc( "trash all generated output" )
+task( :clean => 'antlr-grammars:clobber' )

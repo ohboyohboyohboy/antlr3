@@ -10,7 +10,7 @@ include ANTLR3
 
 class TestStringStream < Test::Unit::TestCase
   def setup
-    @stream = StringStream.new("oh\nhey!\n")
+    @stream = StringStream.new( "oh\nhey!\n" )
   end
   
   def test_size
@@ -202,6 +202,7 @@ class TestFileStream < Test::Unit::TestCase
   
   
   def test_no_encoding
+    
     path = File.join(File.dirname(__FILE__), 'sample-input/file-stream-1')
     @stream = FileStream.new(path)
     
@@ -253,23 +254,23 @@ class TestCommonTokenStream < Test::Unit::TestCase
   # vvvvvvvv tests vvvvvvvvv
   def test_init
     @source = MockSource.new
-    @stream = CommonTokenStream.new(@source)
+    @stream = CommonTokenStream.new( @source )
     @stream.position.should == 0
   end
   
   def test_rebuild
     @source1 = MockSource.new
     @source2 = MockSource.new
-    @source2.tokens << new_token(10, :channel => ANTLR3::HIDDEN) << new_token(11)
-    @stream = CommonTokenStream.new(@source1)
+    @source2.tokens << new_token( 10, :channel => ANTLR3::HIDDEN ) << new_token( 11 )
+    @stream = CommonTokenStream.new( @source1 )
     
     @stream.position.should == 0
-    @stream.tokens.should be_empty
+    @stream.tokens.length.should == 0
     
-    @stream.rebuild(@source2)
+    @stream.rebuild( @source2 )
     @stream.token_source.should == @source2
     @stream.position.should == 1
-    @stream.tokens.should have(2).things
+    @stream.tokens.should have( 2 ).things
   end
   
   def test_look_empty_source
@@ -326,7 +327,7 @@ class TestCommonTokenStream < Test::Unit::TestCase
     @source = MockSource.new
     @source.tokens << new_token(12) << new_token(13)
     @stream = CommonTokenStream.new(@source)
-    @stream.look(0).should be_nil
+    @stream.look(0).should == nil
   end
   
   def test_lb_beyond_begin
@@ -337,9 +338,9 @@ class TestCommonTokenStream < Test::Unit::TestCase
       new_token(13)
     @stream = CommonTokenStream.new(@source)
     
-    @stream.look(-1).should be_nil
+    @stream.look(-1).should == nil
     2.times { @stream.consume }
-    @stream.look(-3).should be_nil
+    @stream.look(-3).should == nil
   end
   
   def test_fill_buffer

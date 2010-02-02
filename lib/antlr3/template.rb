@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# encoding: utf-8
+
 
 require 'erb'
 require 'antlr3'
@@ -237,7 +237,7 @@ class Context
   
   def method_missing( method, *args )
     case name = method.to_s
-    when SETTER_FORM then return( self[ $1 ] = *args )
+    when SETTER_FORM then return( self[ $1 ] = args.first )
     when ATTR_FORM
       args.empty? and has_ivar?( name ) and return( self[ name ] )
     end

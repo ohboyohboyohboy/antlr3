@@ -386,6 +386,13 @@ generated parser file is run directly from the command line.
 
 =end
 class ParserMain < Main
+  attr_accessor :lexer_class_name,
+                :lexer_class,
+                :parser_class,
+                :parser_rule,
+                :port,
+                :log
+  
   def initialize(parser_class, options = {})
     super(options)
     @lexer_class_name = options[:lexer_class_name]

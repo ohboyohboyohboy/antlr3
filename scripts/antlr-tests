@@ -13,6 +13,22 @@ Main do
     arity( -1 )
   end
   
+  option( :ruby ) do
+    description( "the name (or path) of a ruby interpretter with which the tests will be run" )
+    argument_required
+    cast do | v |
+      if test( ?x, v ) then File.expand_path( v )
+      elsif $project.find_program( v ) then v
+      else
+        $stderr.puts( <<-END.here_flow! % v )
+        | `%s' does not appear to be a path to an executable program
+        | or a command found on PATH
+        END
+        exit( 1 )
+      end
+    end
+  end
+  
   def run_tests
     session do | s |
       yield( s )
@@ -36,14 +52,19 @@ Main do
   end
   
   def test_options
-    { :load_path => [ $project.dev_lib ],
+    options = {}
+    params[ :ruby ].given? and
+      options[ :ruby ] = params[ :ruby ].value
+    options.update(
+      :load_path => [ $project.dev_lib ],
       :require => $project.path( 'config/antlr3.rb' ),
       :arguments => [
         '--require', $project.dev_lib( 'enhanced-test.rb' ),
         '--format', "ANTLRFormatter",
         '--runner', "ANTLRRunner",
         '--backtrace'
-      ] }
+      ]
+    )
   end
   
   def self.test_mode( test_type, &block )

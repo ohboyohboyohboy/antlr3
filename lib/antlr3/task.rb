@@ -129,12 +129,12 @@ class CompileTask::GrammarSet
     @compile_options =
       case opts = options[ :compile_options ]
       when Array then opts
-      else Shellwords.shellsplit( opts.to_s )
+      else Shellwords.shellwords( opts.to_s )
       end
     @java_options =
       case opts = options[ :java_options ]
       when Array then opts
-      else Shellwords.shellsplit( opts.to_s )
+      else Shellwords.shellwords( opts.to_s )
       end
   end
   
@@ -201,8 +201,17 @@ class CompileTask::GrammarSet
     parts << '-trace' if @trace
     parts.concat( @compile_options )
     parts << grammar.path
-    return Shellwords.shelljoin( parts )
+    return parts.map! { | t | escape( t ) }.join( ' ' )
   end
+  
+  def escape( token )
+    token = token.to_s.dup
+    token.empty? and return( %('') )
+    token.gsub!( /([^A-Za-z0-9_\-.,:\/@\n])/n, "\\\\\\1" )
+    token.gsub!(/\n/, "'\n'")
+    return( token )
+  end
+  
 end
 
 class GrammarFile
