@@ -3,9 +3,9 @@
 # samples/CSS.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.4.0
+# Ruby runtime library version: 1.6.0
 # Input grammar file: samples/CSS.g
-# Generated at: 2010-01-25 13:58:24
+# Generated at: 2010-02-02 16:37:06
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.4.0):
+Failed to load the ANTLR3 runtime library (version 1.6.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.4.0' )
+    Gem.activate( 'antlr3', '~> 1.6.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -89,7 +89,7 @@ module CSS
     include TokenData
 
     begin
-      generated_using( "samples/CSS.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
+      generated_using( "samples/CSS.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.6.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -682,7 +682,7 @@ module CSS
       # at line 101:5: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+
       # at file 101:5: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+
       match_count_1 = 0
-      loop do
+      while true
         alt_1 = 2
         look_1_0 = @input.peek(1)
 
@@ -738,7 +738,7 @@ module CSS
       # at line 104:5: '/*' (~ '*' )* ( '*' )+ (~ ( '/' | '*' ) (~ '*' )* ( '*' )+ )* '/'
       match("/*")
       # at line 104:10: (~ '*' )*
-      loop do # decision 2
+      while true # decision 2
         alt_2 = 2
         look_2_0 = @input.peek(1)
 
@@ -765,7 +765,7 @@ module CSS
       end # loop for decision 2
       # at file 104:16: ( '*' )+
       match_count_3 = 0
-      loop do
+      while true
         alt_3 = 2
         look_3_0 = @input.peek(1)
 
@@ -789,7 +789,7 @@ module CSS
       end
 
       # at line 104:21: (~ ( '/' | '*' ) (~ '*' )* ( '*' )+ )*
-      loop do # decision 6
+      while true # decision 6
         alt_6 = 2
         look_6_0 = @input.peek(1)
 
@@ -810,7 +810,7 @@ module CSS
 
 
           # at line 104:36: (~ '*' )*
-          loop do # decision 4
+          while true # decision 4
             alt_4 = 2
             look_4_0 = @input.peek(1)
 
@@ -837,7 +837,7 @@ module CSS
           end # loop for decision 4
           # at file 104:42: ( '*' )+
           match_count_5 = 0
-          loop do
+          while true
             alt_5 = 2
             look_5_0 = @input.peek(1)
 
@@ -908,7 +908,7 @@ module CSS
         # at line 109:5: '\"' (~ ( '\\n' | '\\r' | '\\f' | '\\\\' | '\"' ) | '\\\\' NEWLINE | ESCAPE )* ( '\"' | )
         match(?")
         # at line 110:5: (~ ( '\\n' | '\\r' | '\\f' | '\\\\' | '\"' ) | '\\\\' NEWLINE | ESCAPE )*
-        loop do # decision 7
+        while true # decision 7
           alt_7 = 4
           look_7_0 = @input.peek(1)
 
@@ -979,7 +979,7 @@ module CSS
         # at line 117:5: '\\'' (~ ( '\\n' | '\\r' | '\\f' | '\\\\' | '\\'' ) | '\\\\' NEWLINE | ESCAPE )* ( '\\'' | )
         match(?\')
         # at line 118:5: (~ ( '\\n' | '\\r' | '\\f' | '\\\\' | '\\'' ) | '\\\\' NEWLINE | ESCAPE )*
-        loop do # decision 9
+        while true # decision 9
           alt_9 = 4
           look_9_0 = @input.peek(1)
 
@@ -1071,7 +1071,7 @@ module CSS
       # at line 128:5: '!' ( ' ' )* 'important'
       match(?!)
       # at line 128:9: ( ' ' )*
-      loop do # decision 12
+      while true # decision 12
         alt_12 = 2
         look_12_0 = @input.peek(1)
 
@@ -1120,7 +1120,7 @@ module CSS
         # at line 132:7: ( '0' .. '9' )+
         # at file 132:7: ( '0' .. '9' )+
         match_count_13 = 0
-        loop do
+        while true
           alt_13 = 2
           look_13_0 = @input.peek(1)
 
@@ -1147,7 +1147,7 @@ module CSS
       when 2
         # at line 133:7: ( '0' .. '9' )* '.' ( '0' .. '9' )+
         # at line 133:7: ( '0' .. '9' )*
-        loop do # decision 14
+        while true # decision 14
           alt_14 = 2
           look_14_0 = @input.peek(1)
 
@@ -1167,7 +1167,7 @@ module CSS
         match(?.)
         # at file 133:21: ( '0' .. '9' )+
         match_count_15 = 0
-        loop do
+        while true
           alt_15 = 2
           look_15_0 = @input.peek(1)
 
@@ -1441,7 +1441,7 @@ module CSS
 
       end
       # at line 149:5: ( '_' | 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | NONASCII | ESCAPE )*
-      loop do # decision 24
+      while true # decision 24
         alt_24 = 8
         look_24_0 = @input.peek(1)
 
@@ -1566,7 +1566,7 @@ module CSS
       match(?#)
       # at file 155:12: ( '_' | 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | NONASCII | ESCAPE )+
       match_count_26 = 0
-      loop do
+      while true
         alt_26 = 8
         look_26_0 = @input.peek(1)
 
@@ -1664,7 +1664,7 @@ module CSS
         match("url(")
         s!
         # at line 159:14: ( '!' | '#' | '$' | '%' | '&' | '*' | '-' | '~' | NONASCII | ESCAPE )*
-        loop do # decision 27
+        while true # decision 27
           alt_27 = 11
           alt_27 = @dfa27.predict(@input)
           case alt_27
@@ -1838,7 +1838,7 @@ module CSS
 
       end
       # at line 169:5: ( '_' | 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | NONASCII | ESCAPE )*
-      loop do # decision 32
+      while true # decision 32
         alt_32 = 8
         look_32_0 = @input.peek(1)
 
@@ -2064,7 +2064,7 @@ module CSS
       # - - - - main rule block - - - -
       # at line 189:5: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )*
       # at line 189:5: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )*
-      loop do # decision 35
+      while true # decision 35
         alt_35 = 2
         look_35_0 = @input.peek(1)
 

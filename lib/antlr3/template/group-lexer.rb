@@ -787,7 +787,7 @@ class Group
       while true
         alt_11 = 2
         look_11_0 = @input.peek(1)
-
+        
         if (look_11_0.between?(?\t, ?\n) || look_11_0.between?(?\f, ?\r) || look_11_0 == ?\s) 
           alt_11 = 1
 

@@ -3,9 +3,9 @@
 # samples/ANTLRv3Grammar.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.4.0
+# Ruby runtime library version: 1.6.0
 # Input grammar file: samples/ANTLRv3Grammar.g
-# Generated at: 2010-01-25 13:58:25
+# Generated at: 2010-02-02 16:37:08
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.4.0):
+Failed to load the ANTLR3 runtime library (version 1.6.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.4.0' )
+    Gem.activate( 'antlr3', '~> 1.6.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -140,12 +140,12 @@ module ANTLRv3Grammar
                      :rewrite_template_args, :rewrite_template_arg, :qid, 
                      :id, :synpred1_ANTLRv3Grammar, :synpred2_ANTLRv3Grammar ].freeze
 
-    Scoperule = Struct.new(:name)
+    @@rule = Struct.new( :name )
 
 
     include TokenData
 
-    generated_using( "samples/ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
+    generated_using( "samples/ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.6.0" )
 
     def initialize( input, options = {} )
       super( input, options )
@@ -340,7 +340,7 @@ module ANTLRv3Grammar
 
         end
         # at line 101:52: ( attr_scope )*
-        loop do # decision 5
+        while true # decision 5
           alt_5 = 2
           look_5_0 = @input.peek(1)
 
@@ -363,7 +363,7 @@ module ANTLRv3Grammar
           end
         end # loop for decision 5
         # at line 101:64: ( action )*
-        loop do # decision 6
+        while true # decision 6
           alt_6 = 2
           look_6_0 = @input.peek(1)
 
@@ -387,7 +387,7 @@ module ANTLRv3Grammar
         end # loop for decision 6
         # at file 102:6: ( rule )+
         match_count_7 = 0
-        loop do
+        while true
           alt_7 = 2
           look_7_0 = @input.peek(1)
 
@@ -550,7 +550,7 @@ module ANTLRv3Grammar
         end
         # at file 110:11: ( token_spec )+
         match_count_8 = 0
-        loop do
+        while true
           alt_8 = 2
           look_8_0 = @input.peek(1)
 
@@ -1202,7 +1202,7 @@ module ANTLRv3Grammar
         end
         # at file 140:12: ( option ';' )+
         match_count_13 = 0
-        loop do
+        while true
           alt_13 = 2
           look_13_0 = @input.peek(1)
 
@@ -1549,7 +1549,7 @@ module ANTLRv3Grammar
     def rule
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 10)
-      @rule_stack.push(Scoperule.new)
+      @rule_stack.push(@@rule.new)
       return_value = RuleReturnValue.new
 
       # $rule.start = the first token seen before matching
@@ -1797,7 +1797,7 @@ module ANTLRv3Grammar
 
         end
         # at line 165:47: ( rule_action )*
-        loop do # decision 24
+        while true # decision 24
           alt_24 = 2
           look_24_0 = @input.peek(1)
 
@@ -2100,7 +2100,7 @@ module ANTLRv3Grammar
           stream_id.add(id59.tree)
         end
         # at line 182:16: ( ',' id )*
-        loop do # decision 26
+        while true # decision 26
           alt_26 = 2
           look_26_0 = @input.peek(1)
 
@@ -2315,7 +2315,7 @@ module ANTLRv3Grammar
             stream_id.add(id65.tree)
           end
           # at line 187:15: ( ',' id )*
-          loop do # decision 27
+          while true # decision 27
             alt_27 = 2
             look_27_0 = @input.peek(1)
 
@@ -2403,7 +2403,7 @@ module ANTLRv3Grammar
             stream_id.add(id72.tree)
           end
           # at line 189:14: ( ',' id )*
-          loop do # decision 28
+          while true # decision 28
             alt_28 = 2
             look_28_0 = @input.peek(1)
 
@@ -2576,7 +2576,7 @@ module ANTLRv3Grammar
           stream_altpair.add(altpair77.tree)
         end
         # at line 196:11: ( '|' altpair )*
-        loop do # decision 32
+        while true # decision 32
           alt_32 = 2
           look_32_0 = @input.peek(1)
 
@@ -2771,7 +2771,7 @@ module ANTLRv3Grammar
           stream_altpair.add(altpair82.tree)
         end
         # at line 207:17: ( '|' altpair )*
-        loop do # decision 33
+        while true # decision 33
           alt_33 = 2
           look_33_0 = @input.peek(1)
 
@@ -2901,7 +2901,7 @@ module ANTLRv3Grammar
           # at line 215:9: ( element )+
           # at file 215:9: ( element )+
           match_count_34 = 0
-          loop do
+          while true
             alt_34 = 2
             look_34_0 = @input.peek(1)
 
@@ -3066,7 +3066,7 @@ module ANTLRv3Grammar
           # at line 220:4: ( exception_handler )+ ( finally_clause )?
           # at file 220:4: ( exception_handler )+
           match_count_36 = 0
-          loop do
+          while true
             alt_36 = 2
             look_36_0 = @input.peek(1)
 
@@ -4818,7 +4818,7 @@ module ANTLRv3Grammar
             stream_option.add(option122.tree)
           end
           # at line 284:15: ( ';' option )*
-          loop do # decision 58
+          while true # decision 58
             alt_58 = 2
             look_58_0 = @input.peek(1)
 
@@ -5042,7 +5042,7 @@ module ANTLRv3Grammar
         end
         # at file 292:17: ( element )+
         match_count_60 = 0
-        loop do
+        while true
           alt_60 = 2
           look_60_0 = @input.peek(1)
 
@@ -6119,7 +6119,7 @@ module ANTLRv3Grammar
         when 1
           # at line 352:4: (rew+= '->' preds+= SEMPRED predicated+= rewrite_alternative )* rew2= '->' last= rewrite_alternative
           # at line 352:4: (rew+= '->' preds+= SEMPRED predicated+= rewrite_alternative )*
-          loop do # decision 71
+          while true # decision 71
             alt_71 = 2
             look_71_0 = @input.peek(1)
 
@@ -6465,7 +6465,7 @@ module ANTLRv3Grammar
         # at line 371:7: ( rewrite_tree_element )+
         # at file 371:7: ( rewrite_tree_element )+
         match_count_74 = 0
-        loop do
+        while true
           alt_74 = 2
           look_74_0 = @input.peek(1)
 
@@ -7140,7 +7140,7 @@ module ANTLRv3Grammar
           stream_rewrite_tree_atom.add(rewrite_tree_atom172.tree)
         end
         # at line 407:27: ( rewrite_tree_element )*
-        loop do # decision 79
+        while true # decision 79
           alt_79 = 2
           look_79_0 = @input.peek(1)
 
@@ -7663,7 +7663,7 @@ module ANTLRv3Grammar
             stream_rewrite_template_arg.add(rewrite_template_arg189.tree)
           end
           # at line 451:25: ( ',' rewrite_template_arg )*
-          loop do # decision 82
+          while true # decision 82
             alt_82 = 2
             look_82_0 = @input.peek(1)
 
@@ -7899,7 +7899,7 @@ module ANTLRv3Grammar
           @adaptor.add_child(root_0, id195.tree)
         end
         # at line 460:10: ( '.' id )*
-        loop do # decision 84
+        while true # decision 84
           alt_84 = 2
           look_84_0 = @input.peek(1)
 

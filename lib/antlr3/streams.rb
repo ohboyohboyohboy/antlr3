@@ -251,7 +251,8 @@ to keep it simple and familliar in this Ruby runtime API.
 module CharacterStream
   include Stream
   extend ClassMacros
-  EOF = -1
+  include Constants
+  #EOF = -1
   
   ##
   # :method: substring(start,stop)
@@ -435,7 +436,7 @@ class StringStream
   # value of +k+ returns previous characters consumed, where <tt>k = -1</tt> is the last
   # character consumed. <tt>k = 0</tt> has undefined behavior and returns +nil+
   # 
-  def peek(k = 1)
+  def peek( k = 1 )
     k == 0 and return nil
     k += 1 if k < 0
     index = @position + k - 1

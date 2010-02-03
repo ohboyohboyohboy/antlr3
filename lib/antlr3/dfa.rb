@@ -166,73 +166,143 @@ class DFA
     END
   end
   
-  def predict(input)
-    mark = input.mark
-    state = 0
+  if RUBY_VERSION =~ /^1\.9/
     
-    50000.times do
-      special_state = @special[state]
-      if special_state >= 0
-        state = @special_block.call(special_state)
-        if state == -1
-          no_viable_alternative(state, input)
-          return 0
-        end
-        input.consume
-        next
-      end
-      @accept[state] >= 1 and return @accept[state]
+    def predict(input)
+      mark = input.mark
+      state = 0
       
-      # look for a normal char transition
-      
-      c = input.peek
-      # the @min and @max arrays contain the bounds of the character (or token type)
-      # ranges for the transition decisions
-      if c.between?( @min[ state ], @max[ state ] )
-        # c - @min[state] is the position of the character within the range
-        # so for a range like ?a..?z, a match of ?a would be 0,
-        # ?c would be 2, and ?z would be 25
-        next_state = @transition[state][c - @min[state]]
-        if next_state < 0
-          if @eot[state] >= 0
-            state = @eot[state]
-            input.consume
-            next
+      50000.times do
+        special_state = @special[ state ]
+        if special_state >= 0
+          state = @special_block.call( special_state )
+          if state == -1
+            no_viable_alternative( state, input )
+            return 0
           end
-          no_viable_alternative(state, input)
-          return 0
+          input.consume
+          next
+        end
+        @accept[ state ] >= 1 and return @accept[ state ]
+        
+        # look for a normal char transition
+        
+        c = input.peek.ord
+        # the @min and @max arrays contain the bounds of the character (or token type)
+        # ranges for the transition decisions
+        if c.between?( @min[ state ], @max[ state ] )
+          # c - @min[state] is the position of the character within the range
+          # so for a range like ?a..?z, a match of ?a would be 0,
+          # ?c would be 2, and ?z would be 25
+          next_state = @transition[ state ][ c - @min[state] ]
+          if next_state < 0
+            if @eot[ state ] >= 0
+              state = @eot[state]
+              input.consume
+              next
+            end
+            no_viable_alternative( state, input )
+            return 0
+          end
+          
+          state = next_state
+          input.consume
+          next
         end
         
-        state = next_state
-        input.consume()
-        next
+        if @eot[ state ] >= 0
+          state = @eot[ state ]
+          input.consume()
+          next
+        end
+        
+        ( c == EOF && @eof[state] >= 0 ) and return @accept[ @eof[state] ]
+        no_viable_alternative(state, input)
+        return 0
       end
-      if @eot[state] >= 0
-        state = @eot[state]
-        input.consume()
-        next
-      end
-      (c == EOF && @eof[state] >= 0) and return @accept[@eof[state]]
-      no_viable_alternative(state, input)
-      return 0
+      
+      ANTLR3.bug!( Util.tidy(<<-END) )
+      | DFA BANG!
+      |   The prediction loop has exceeded a maximum limit of 50000 iterations
+      | ----
+      | decision: #@decision_number
+      | description: #{description}
+      END
+    ensure
+      input.rewind(mark)
     end
     
-    ANTLR3.bug!( Util.tidy(<<-END) )
-    | DFA BANG!
-    |   The prediction loop has exceeded a maximum limit of 50000 iterations
-    | ----
-    | decision: #@decision_number
-    | description: #{description}
-    END
-  ensure
-    input.rewind(mark)
+  else
+    
+    def predict(input)
+      mark = input.mark
+      state = 0
+      
+      50000.times do
+        special_state = @special[state]
+        if special_state >= 0
+          state = @special_block.call(special_state)
+          if state == -1
+            no_viable_alternative(state, input)
+            return 0
+          end
+          input.consume
+          next
+        end
+        @accept[state] >= 1 and return @accept[state]
+        
+        # look for a normal char transition
+        
+        c = input.peek
+        # the @min and @max arrays contain the bounds of the character (or token type)
+        # ranges for the transition decisions
+        if c.between?( @min[ state ], @max[ state ] )
+          # c - @min[state] is the position of the character within the range
+          # so for a range like ?a..?z, a match of ?a would be 0,
+          # ?c would be 2, and ?z would be 25
+          next_state = @transition[state][c - @min[state]]
+          if next_state < 0
+            if @eot[state] >= 0
+              state = @eot[state]
+              input.consume
+              next
+            end
+            no_viable_alternative(state, input)
+            return 0
+          end
+          
+          state = next_state
+          input.consume()
+          next
+        end
+        if @eot[state] >= 0
+          state = @eot[state]
+          input.consume()
+          next
+        end
+        (c == EOF && @eof[state] >= 0) and return @accept[@eof[state]]
+        no_viable_alternative(state, input)
+        return 0
+      end
+      
+      ANTLR3.bug!( Util.tidy(<<-END) )
+      | DFA BANG!
+      |   The prediction loop has exceeded a maximum limit of 50000 iterations
+      | ----
+      | decision: #@decision_number
+      | description: #{description}
+      END
+    ensure
+      input.rewind(mark)
+    end
+    
   end
-
+  
   def no_viable_alternative(state, input)
-    raise(BacktrackingFailed) if @recognizer.state.backtracking > 0
-    except = NoViableAlternative.new(description, @decision_number, state, input)
-    error(except)
-    raise(except)
+    raise( BacktrackingFailed ) if @recognizer.state.backtracking > 0
+    except = NoViableAlternative.new( description, @decision_number, state, input )
+    error( except )
+    raise( except )
   end
   
   def error(except)

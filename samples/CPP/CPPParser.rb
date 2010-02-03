@@ -3,9 +3,9 @@
 # samples/CPP.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.4.0
+# Ruby runtime library version: 1.6.0
 # Input grammar file: samples/CPP.g
-# Generated at: 2010-01-25 13:58:34
+# Generated at: 2010-02-02 16:37:14
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.4.0):
+Failed to load the ANTLR3 runtime library (version 1.6.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.4.0' )
+    Gem.activate( 'antlr3', '~> 1.6.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -163,17 +163,19 @@ module CPP
                      :synpred106_CPP, :synpred108_CPP, :synpred110_CPP, 
                      :synpred112_CPP, :synpred115_CPP, :synpred121_CPP ].freeze
 
-    ScopeExpression = Struct.new(:flavor)
+    @@Expression = Struct.new( :flavor )
+
 
 
     include TokenData
 
-    generated_using( "samples/CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
+    generated_using( "samples/CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.6.0" )
 
     def initialize( input, options = {} )
       super( input, options )
       @state.rule_memory = {}
       @Expression_stack = []
+
 
 
     end
@@ -203,7 +205,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -213,7 +215,7 @@ module CPP
         # at line 86:7: ( proc_line )+
         # at file 86:7: ( proc_line )+
         match_count_1 = 0
-        loop do
+        while true
           alt_1 = 2
           look_1_0 = @input.peek(1)
 
@@ -305,7 +307,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -463,7 +465,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -638,7 +640,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -797,7 +799,7 @@ module CPP
 
             end
             # at line 110:64: ( COMMA ( WS )* arg+= macro_param ( WS )* )*
-            loop do # decision 10
+            while true # decision 10
               alt_10 = 2
               look_10_0 = @input.peek(1)
 
@@ -813,7 +815,7 @@ module CPP
                   stream_COMMA.add(__COMMA24__)
                 end
                 # at line 110:71: ( WS )*
-                loop do # decision 8
+                while true # decision 8
                   alt_8 = 2
                   look_8_0 = @input.peek(1)
 
@@ -842,7 +844,7 @@ module CPP
                 list_of_arg << arg.tree
 
                 # at line 110:92: ( WS )*
-                loop do # decision 9
+                while true # decision 9
                   alt_9 = 2
                   look_9_0 = @input.peek(1)
 
@@ -1059,7 +1061,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -1187,7 +1189,7 @@ module CPP
     def macro_execution
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 6)
-      @Expression_stack.push(ScopeExpression.new)
+      @Expression_stack.push(@@Expression.new)
       return_value = MacroExecutionReturnValue.new
 
       # $rule.start = the first token seen before matching
@@ -1205,7 +1207,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -1309,7 +1311,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -1385,7 +1387,7 @@ module CPP
     def conditional_compilation
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 8)
-      @Expression_stack.push(ScopeExpression.new)
+      @Expression_stack.push(@@Expression.new)
       return_value = ConditionalCompilationReturnValue.new
 
       # $rule.start = the first token seen before matching
@@ -1419,7 +1421,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -1451,7 +1453,7 @@ module CPP
         list_of_ifstmt << ifstmt.tree
 
         # at line 134:7: ( ELIF ifexp+= ifexpression ifstmt+= statement )*
-        loop do # decision 16
+        while true # decision 16
           alt_16 = 2
           look_16_0 = @input.peek(1)
 
@@ -1622,7 +1624,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -1745,7 +1747,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -1906,14 +1908,14 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
         # at line 151:7: ( source_text )+
         # at file 151:7: ( source_text )+
         match_count_20 = 0
-        loop do
+        while true
           alt_20 = 2
           look_20_0 = @input.peek(1)
 
@@ -2030,7 +2032,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -2040,7 +2042,7 @@ module CPP
         # at line 156:7: ( proc_line )+
         # at file 156:7: ( proc_line )+
         match_count_21 = 0
-        loop do
+        while true
           alt_21 = 2
           look_21_0 = @input.peek(1)
 
@@ -2122,7 +2124,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -2197,7 +2199,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -2308,7 +2310,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -2529,7 +2531,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -2635,7 +2637,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -2650,7 +2652,7 @@ module CPP
           @adaptor.add_child(root_0, logical_and_expression68.tree)
         end
         # at line 191:36: ( OR logical_and_expression )*
-        loop do # decision 25
+        while true # decision 25
           alt_25 = 2
           look_25_0 = @input.peek(1)
 
@@ -2733,7 +2735,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -2748,7 +2750,7 @@ module CPP
           @adaptor.add_child(root_0, inclusive_or_expression71.tree)
         end
         # at line 195:37: ( AND inclusive_or_expression )*
-        loop do # decision 26
+        while true # decision 26
           alt_26 = 2
           look_26_0 = @input.peek(1)
 
@@ -2831,7 +2833,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -2846,7 +2848,7 @@ module CPP
           @adaptor.add_child(root_0, exclusive_or_expression74.tree)
         end
         # at line 199:37: ( BITWISEOR exclusive_or_expression )*
-        loop do # decision 27
+        while true # decision 27
           alt_27 = 2
           look_27_0 = @input.peek(1)
 
@@ -2929,7 +2931,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -2944,7 +2946,7 @@ module CPP
           @adaptor.add_child(root_0, and_expression77.tree)
         end
         # at line 203:28: ( BITWISEXOR and_expression )*
-        loop do # decision 28
+        while true # decision 28
           alt_28 = 2
           look_28_0 = @input.peek(1)
 
@@ -3027,7 +3029,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -3042,7 +3044,7 @@ module CPP
           @adaptor.add_child(root_0, equality_expression80.tree)
         end
         # at line 207:33: ( AMPERSAND equality_expression )*
-        loop do # decision 29
+        while true # decision 29
           alt_29 = 2
           look_29_0 = @input.peek(1)
 
@@ -3127,7 +3129,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -3142,7 +3144,7 @@ module CPP
           @adaptor.add_child(root_0, relational_expression83.tree)
         end
         # at line 211:35: ( ( NOTEQUAL | EQUAL ) relational_expression )*
-        loop do # decision 31
+        while true # decision 31
           alt_31 = 2
           look_31_0 = @input.peek(1)
 
@@ -3259,7 +3261,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -3276,7 +3278,7 @@ module CPP
         # at line 216:13: ( ( ( LESSTHAN | GREATERTHAN | LESSTHANOREQUALTO | GREATERTHANOREQUALTO ) shift_expression )* )
         # at line 216:21: ( ( LESSTHAN | GREATERTHAN | LESSTHANOREQUALTO | GREATERTHANOREQUALTO ) shift_expression )*
         # at line 216:21: ( ( LESSTHAN | GREATERTHAN | LESSTHANOREQUALTO | GREATERTHANOREQUALTO ) shift_expression )*
-        loop do # decision 33
+        while true # decision 33
           alt_33 = 2
           look_33_0 = @input.peek(1)
 
@@ -3410,7 +3412,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -3425,7 +3427,7 @@ module CPP
           @adaptor.add_child(root_0, additive_expression93.tree)
         end
         # at line 226:33: ( ( SHIFTLEFT | SHIFTRIGHT ) additive_expression )*
-        loop do # decision 35
+        while true # decision 35
           alt_35 = 2
           look_35_0 = @input.peek(1)
 
@@ -3538,7 +3540,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -3553,7 +3555,7 @@ module CPP
           @adaptor.add_child(root_0, multiplicative_expression97.tree)
         end
         # at line 230:39: ( ( PLUS | MINUS ) multiplicative_expression )*
-        loop do # decision 37
+        while true # decision 37
           alt_37 = 2
           look_37_0 = @input.peek(1)
 
@@ -3668,7 +3670,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -3683,7 +3685,7 @@ module CPP
           @adaptor.add_child(root_0, unary_expression101.tree)
         end
         # at line 234:30: ( ( STAR | DIVIDE | MOD ) unary_expression )*
-        loop do # decision 39
+        while true # decision 39
           alt_39 = 2
           look_39_0 = @input.peek(1)
 
@@ -3833,7 +3835,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -4187,7 +4189,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -4563,7 +4565,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -4578,7 +4580,7 @@ module CPP
           @adaptor.add_child(root_0, primary_expression140.tree)
         end
         # at line 260:5: (l= LSQUARE assignment_expression RSQUARE | DOT IDENTIFIER | s= STAR IDENTIFIER | POINTERTO IDENTIFIER | p= PLUSPLUS | m= MINUSMINUS )*
-        loop do # decision 42
+        while true # decision 42
           alt_42 = 7
           alt_42 = @dfa42.predict(@input)
           case alt_42
@@ -4759,7 +4761,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -4926,7 +4928,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -5050,7 +5052,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -5062,7 +5064,7 @@ module CPP
           stream_assignment_expression.add(assignment_expression157.tree)
         end
         # at line 281:30: ( COMMA assignment_expression )*
-        loop do # decision 45
+        while true # decision 45
           alt_45 = 2
           look_45_0 = @input.peek(1)
 
@@ -5176,7 +5178,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -5258,7 +5260,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -5405,7 +5407,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -5759,7 +5761,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -5773,7 +5775,7 @@ module CPP
         list_of_marg << marg.tree
 
         # at line 308:30: ( ( WS )? COMMA ( WS )? marg+= m_arg )*
-        loop do # decision 55
+        while true # decision 55
           alt_55 = 2
           look_55_0 = @input.peek(1)
 
@@ -5931,7 +5933,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -5962,7 +5964,7 @@ module CPP
           # at line 311:18: ( source_expression )+
           # at file 311:18: ( source_expression )+
           match_count_56 = 0
-          loop do
+          while true
             alt_56 = 2
             look_56_0 = @input.peek(1)
 
@@ -6139,7 +6141,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -6413,7 +6415,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -6428,7 +6430,7 @@ module CPP
 
         # at file 329:34: ( ( WS )? SHARPSHARP ( WS )? prim+= primary_source )+
         match_count_62 = 0
-        loop do
+        while true
           alt_62 = 2
           look_62_0 = @input.peek(1)
 
@@ -6647,7 +6649,7 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
@@ -6821,14 +6823,14 @@ module CPP
 
       begin
         # rule memoization
-        if @state.backtracking > 0 and already_parsed_rule?(__method__)
+        if @state.backtracking > 0 and already_parsed_rule?( __method__ )
           success = true
           return return_value
         end
         # at line 691:7: ( source_text )+
         # at file 691:7: ( source_text )+
         match_count_65 = 0
-        loop do
+        while true
           alt_65 = 2
           look_65_0 = @input.peek(1)
 
@@ -7035,7 +7037,7 @@ module CPP
 
         end
         # at line 110:64: ( COMMA ( WS )* arg+= macro_param ( WS )* )*
-        loop do # decision 78
+        while true # decision 78
           alt_78 = 2
           look_78_0 = @input.peek(1)
 
@@ -7048,7 +7050,7 @@ module CPP
             # at line 110:65: COMMA ( WS )* arg+= macro_param ( WS )*
             match(COMMA, TOKENS_FOLLOWING_COMMA_IN_synpred22_CPP_679)
             # at line 110:71: ( WS )*
-            loop do # decision 76
+            while true # decision 76
               alt_76 = 2
               look_76_0 = @input.peek(1)
 
@@ -7071,7 +7073,7 @@ module CPP
             list_of_arg << arg
 
             # at line 110:92: ( WS )*
-            loop do # decision 77
+            while true # decision 77
               alt_77 = 2
               look_77_0 = @input.peek(1)
 
@@ -7436,7 +7438,7 @@ module CPP
       # at line 311:18: ( source_expression )+
       # at file 311:18: ( source_expression )+
       match_count_85 = 0
-      loop do
+      while true
         alt_85 = 2
         look_85_0 = @input.peek(1)
 

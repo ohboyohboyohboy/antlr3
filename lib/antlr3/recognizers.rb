@@ -33,7 +33,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =end
 
 module ANTLR3
-unless const_defined?(:RecognizerSharedState)
+unless const_defined?( :RecognizerSharedState )
 
 RecognizerSharedState = Struct.new(
   :following,
@@ -195,11 +195,11 @@ class BaseRecognizer
     # require additional custom members will have a rule-return
     # name constant that just points to the generic return
     # value. 
-    def define_return_scope(*members)
+    def define_return_scope( *members )
       if members.empty? then generic_return_scope
       else
         members += return_scope_members
-        Struct.new(*members)
+        Struct.new( *members )
       end
     end
     
@@ -216,7 +216,7 @@ class BaseRecognizer
     # scope for a recognizer
     def generic_return_scope
       @generic_return_scope ||= begin
-        struct = Struct.new(*return_scope_members)
+        struct = Struct.new( *return_scope_members )
         const_set(:Return, struct)
       end
     end
@@ -245,7 +245,7 @@ class BaseRecognizer
     
     def imports( *grammar_names )
       for grammar in grammar_names
-        imported_grammars.add?(grammar.to_sym) and
+        imported_grammars.add?( grammar.to_sym ) and
           attr_reader( Util.snake_case( grammar ) )
       end
       return imported_grammars
@@ -309,7 +309,7 @@ class BaseRecognizer
   def initialize(options = {})
     @state  = options[:state] || RecognizerSharedState.new
     @error_output = options.fetch(:error_output, $stderr)
-    defined?(@input) or @input = nil
+    defined?( @input ) or @input = nil
     initialize_dfas
   end
   
@@ -332,13 +332,13 @@ class BaseRecognizer
   # data provided by +follow+ to recover from the mismatched
   # token. 
   def match(type, follow)
-    matched_symbol = current_input_symbol
+    matched_symbol = current_symbol
     if @input.peek == type
       @input.consume
       @state.error_recovery = false
       return matched_symbol
     end
-    raise(BacktrackingFailed) if @state.backtracking > 0
+    raise( BacktrackingFailed ) if @state.backtracking > 0
     matched_symbol = recover_from_mismatched_token(type, follow)
     return matched_symbol
   end
@@ -372,86 +372,94 @@ class BaseRecognizer
   # and calls +emit_error_message+ to write the error
   # message out to some source
   def display_recognition_error(e = $!)
-    header = error_header(e)
-    message = error_message(e)
+    header = error_header( e )
+    message = error_message( e )
     emit_error_message("#{header} #{message}")
   end
   
   # used to construct an appropriate error message
   # based on the specific type of error and the
   # error's attributes
-  def error_message(e = $!)
+  def error_message( e = $! )
     case e
-    when Error::UnwantedToken
-      token_name = token_name(e.expecting)
-      "extraneous input #{token_error_display(e.unexpected_token)} expecting #{token_name}"
-    when Error::MissingToken
-      token_name = token_name(e.expecting)
-      "missing #{token_name} at #{token_error_display(e.symbol)}"
-    when Error::MismatchedToken
-      token_name = token_name(e.expecting)
-      "mismatched input #{token_error_display(e.symbol)} expecting #{token_name}"
-    when Error::MismatchedTreeNode
-      token_name = token_name(e.expecting)
+    when UnwantedToken
+      token_name = token_name( e.expecting )
+      "extraneous input #{token_error_display( e.unexpected_token )} expecting #{ token_name }"
+    when MissingToken
+      token_name = token_name( e.expecting )
+      "missing #{ token_name } at #{ token_error_display( e.symbol ) }"
+    when MismatchedToken
+      token_name = token_name( e.expecting )
+      "mismatched input #{token_error_display( e.symbol )} expecting #{token_name}"
+    when MismatchedTreeNode
+      token_name = token_name( e.expecting )
       "mismatched tree node: #{e.symbol} expecting #{token_name}"
-    when Error::NoViableAlternative
-      "no viable alternative at input " << token_error_display(e.symbol)
-    when Error::MismatchedSet
+    when NoViableAlternative
+      "no viable alternative at input " << token_error_display( e.symbol )
+    when MismatchedSet
       "mismatched input %s expecting set %s" %
-        [token_error_display(e.symbol), e.expecting.inspect]
-    when Error::MismatchedNotSet
+        [ token_error_display( e.symbol ), e.expecting.inspect ]
+    when MismatchedNotSet
       "mismatched input %s expecting set %s" %
-        [token_error_display(e.symbol), e.expecting.inspect]
-    when Error::FailedPredicate
-      "rule %s failed predicate: { %s }?" % [e.rule_name, e.predicate_text]
+        [ token_error_display( e.symbol ), e.expecting.inspect ]
+    when FailedPredicate
+      "rule %s failed predicate: { %s }?" % [ e.rule_name, e.predicate_text ]
     else e.message
     end
   end
   
+  # 
   # used to add a tag to the error message that indicates
   # the location of the input stream when the error
   # occurred
-  def error_header(e = $!)
+  # 
+  def error_header( e = $! )
     e.location
   end
   
+  # 
   # formats a token object appropriately for inspection
   # within an error message
-  def token_error_display(token)
-    unless text = token.text
-      if token.type == EOF then text = '<EOF>'
-      elsif name = token_name(token.type) rescue false
-        text = "<#{name}>"
-      elsif token.respond_to?(:name) then text = "<#{token.name}>"
-      else "<#{token.type}>"
-      end
+  # 
+  def token_error_display( token )
+    unless text = token.text || ( token.source_text rescue nil )
+      text =
+        case
+        when token.type == EOF then '<EOF>'
+        when name = token_name( token.type ) rescue nil then "<#{ name }>"
+        when token.respond_to?( :name ) then "<#{ token.name }>"
+        else "<#{ token.type }>"
+        end
     end
     return text.inspect
   end
   
+  # 
   # Write the error report data out to some source. By default,
   # the error message is written to $stderr
-  def emit_error_message(message)
-    @error_output.puts(message) if @error_output
+  # 
+  def emit_error_message( message )
+    @error_output.puts( message ) if @error_output
   end
   
   ##############################################################################################
   ###################################### Error Recovery ########################################
   ##############################################################################################
-  def recover(error = $!)
+  
+  def recover( error = $! )
     @state.last_error_index == @input.index and @input.consume
     @state.last_error_index = @input.index
     
     follow_set = compute_error_recovery_set
     
-    resync { consume_until(follow_set) }
+    resync { consume_until( follow_set ) }
   end
   
   def resync
     begin_resync
-    value = yield
+    return( yield )
+  ensure
     end_resync
-    return(value)
   end
   
   # overridable hook method that is executed at the start of the
@@ -504,9 +512,9 @@ class BaseRecognizer
   # that rule is pushed on a stack.  Here are the various "local"
   # follow sets:
   # 
-  #   FOLLOW(b1_in_a) = FIRST(']') = ']'
-  #   FOLLOW(b2_in_a) = FIRST(')') = ')'
-  #   FOLLOW(c_in_b) = FIRST('^') = '^'
+  #   FOLLOW( b1_in_a ) = FIRST( ']' ) = ']'
+  #   FOLLOW( b2_in_a ) = FIRST( ')' ) = ')'
+  #   FOLLOW( c_in_b ) = FIRST( '^' ) = '^'
   # 
   # Upon erroneous input "[]", the call chain is
   # 
@@ -515,7 +523,7 @@ class BaseRecognizer
   # and, hence, the follow context stack is:
   # 
   #   depth  local follow set     after call to rule
-  #     0         \<EOF>                   a (from main())
+  #     0         \<EOF>                   a (from main( ) )
   #     1          ']'                     b
   #     3          '^'                     c
   # 
@@ -563,42 +571,54 @@ class BaseRecognizer
   # Like Grosch I implemented local FOLLOW sets that are combined
   # at run-time upon error to avoid overhead during parsing.
   def compute_error_recovery_set
-    combine_follows(false)
+    combine_follows( false )
   end
-
-  def recover_from_mismatched_token(type, follow)
-    if mismatch_is_unwanted_token?(type)
-      err = UnwantedToken(type)
+  
+  def recover_from_mismatched_token( type, follow )
+    if mismatch_is_unwanted_token?( type )
+      err = UnwantedToken( type )
       
-      begin_resync
-      @input.consume
-      end_resync
+      resync do 
+        @input.consume
+      end
       
-      report_error(err)
+      report_error( err )
       
-      matched_symbol = current_input_symbol
+      matched_symbol = current_symbol
       @input.consume
       return matched_symbol
     end
     
-    if mismatch_is_missing_token?(follow)
-      inserted = missing_symbol(err, type, follow)
-      err = MissingToken(type, inserted)
+    if mismatch_is_missing_token?( follow )
+      inserted = missing_symbol( err, type, follow )
+      err = MissingToken( type, inserted )
       
-      report_error(err)
+      report_error( err )
       return inserted
     end
     
-    err = MismatchedToken(type)
-    raise err
+    raise MismatchedToken( type )
   end
   
-  def recover_from_mismatched_set(e, follow)
-    if mismatch_is_missing_token?(follow)
-      report_error(e)
-      return missing_symbol(e, INVALID_TOKEN_TYPE, follow)
+  def recover_from_mismatched_set( e, follow )
+    if mismatch_is_missing_token?( follow )
+      report_error( e )
+      return missing_symbol( e, INVALID_TOKEN_TYPE, follow )
     end
     raise e
+  end
+  
+  def recover_from_mismatched_element( e, follow )
+    follow.nil? and return false
+    if follow.include?( EOR_TOKEN_TYPE )
+      viable_tokens = compute_context_sensitive_rule_follow
+      follow = ( follow | viable_tokens ) - Set[ EOR_TOKEN_TYPE ]
+    end
+    if follow.include?( @input.peek )
+      report_error( e )
+      return true
+    end
+    return false
   end
   
   # Conjure up a missing token during error recovery.
@@ -619,39 +639,30 @@ class BaseRecognizer
   # a CommonToken of the appropriate type. The text will be the token.
   # If you change what tokens must be created by the lexer,
   # override this method to create the appropriate tokens.
-  def missing_symbol(error, expected_token_type, follow)
+  def missing_symbol( error, expected_token_type, follow )
     return nil
   end
   
-  def recover_from_mismatched_element(e, follow)
-    follow.nil? and return false
-    if follow.include?(EOR_TOKEN_TYPE)
-      viable_tokens = compute_context_sensitive_rule_follow()
-      follow = (follow | viable_tokens) - Set.new([EOR_TOKEN_TYPE])
-    end
-    if follow.include?(@input.peek)
-      report_error(e)
-      return true
-    end
-    return false
+  def mismatch_is_unwanted_token?( type )
+    @input.peek( 2 ) == type
   end
   
-  def mismatch_is_unwanted_token?(type)
-    @input.peek(2) == type
-  end
-  
-  def mismatch_is_missing_token?(follow)
+  def mismatch_is_missing_token?( follow )
     follow.nil? and return false
-    if follow.include?(EOR_TOKEN_TYPE)
+    if follow.include?( EOR_TOKEN_TYPE )
       viable_tokens = compute_context_sensitive_rule_follow
       follow = follow | viable_tokens
       
-      follow.delete(EOR_TOKEN_TYPE) unless @state.following.empty?
+      follow.delete( EOR_TOKEN_TYPE ) unless @state.following.empty?
     end
-    if follow.include?(@input.peek) or follow.include?(EOR_TOKEN_TYPE)
+    if follow.include?( @input.peek ) or follow.include?( EOR_TOKEN_TYPE )
       return true
     end
     return false
+  end
+  
+  def syntax_errors?
+    ( error_count = @state.syntax_errors ) > 0 and return( error_count )
   end
   
   # factor out what to do upon token mismatch so
@@ -666,7 +677,8 @@ class BaseRecognizer
     @state.syntax_errors
   end
   
-  # Compute the context-sensitive FOLLOW set for current rule.
+  # 
+  # Compute the context-sensitive +FOLLOW+ set for current rule.
   # This is set of token types that can follow a specific rule
   # reference given a specific call chain.  You get the set of
   # viable tokens that can possibly come next (look depth 1)
@@ -717,17 +729,18 @@ class BaseRecognizer
   # the viable next token set, then you know there is most likely
   # a missing token in the input stream.  "Insert" one by just not
   # throwing an exception.
+  # 
   def compute_context_sensitive_rule_follow
-    combine_follows(true)
+    combine_follows true
   end
-
-  def combine_follows(exact)
+  
+  def combine_follows( exact )
     follow_set = Set.new
     @state.following.each_with_index.reverse_each do |local_follow_set, index|
       follow_set |= local_follow_set
       if exact
-        if local_follow_set.include?(EOR_TOKEN_TYPE)
-          follow_set.delete(EOR_TOKEN_TYPE) if index > 0
+        if local_follow_set.include?( EOR_TOKEN_TYPE )
+          follow_set.delete( EOR_TOKEN_TYPE ) if index > 0
         else
           break
         end
@@ -736,6 +749,7 @@ class BaseRecognizer
     return follow_set
   end
   
+  # 
   # Match needs to return the current input symbol, which gets put
   # into the label for the associated token ref; e.g., x=ID.  Token
   # and tree parsers need to return different objects. Rather than test
@@ -744,28 +758,39 @@ class BaseRecognizer
   # input symbol is.
   # 
   # This is ignored for lexers.
-  def current_input_symbol
+  # 
+  def current_symbol
     @input.look
   end
   
-  # Consume tokens until one matches the given token or token set
   # 
-  # tokenTypes can be a single token type or a set of token types
-  def consume_until(token_types)
-    token_types.is_a?(Set) or token_types = Set.new(token_types.to_a)
+  # Consume input symbols until one matches a type within types
+  # 
+  # types can be a single symbol type or a set of symbol types
+  # 
+  def consume_until( types )
+    types.is_a?( Set ) or types = Set[ *types ]
     type = @input.peek
-    until type == EOF or token_types.include?(type)
+    until type == EOF or types.include?( type )
       @input.consume
       type = @input.peek
     end
-    return(type)
+    return( type )
+  end
+  
+  # 
+  # Returns true if the recognizer is currently in a decision for which
+  # backtracking has been enabled
+  # 
+  def backtracking?
+    @state.backtracking > 0
   end
   
   def backtracking_level
     @state.backtracking
   end
   
-  def backtracking_level=(n)
+  def backtracking_level=( n )
     @state.backtracking = n
   end
   
@@ -779,20 +804,21 @@ class BaseRecognizer
       end
     return success
   ensure
-    @input.rewind(start)
+    @input.rewind( start )
     @state.backtracking -= 1
   end
   
-  def syntactic_predicate?(name)
-    backtrack { send(name) }
+  def syntactic_predicate?( name )
+    backtrack { send name }
   end
   
   alias backtracking backtracking_level
   alias backtracking= backtracking_level=
   
   def rule_memoization( rule, start_index )
-    @state.rule_memory[ rule ] ||= Hash.new( MEMO_RULE_UNKNOWN )
-    @state.rule_memory[ rule ][ start_index ]
+    @state.rule_memory.fetch( rule ) do
+      @state.rule_memory[ rule ] = Hash.new( MEMO_RULE_UNKNOWN )
+    end[ start_index ]
   end
   
   def already_parsed_rule?( rule )
@@ -807,28 +833,28 @@ class BaseRecognizer
     return true
   end
   
-  def memoize(rule, start_index, success)
-    stop_index = success ? (@input.index - 1) : MEMO_RULE_FAILED
-    memo = @state.rule_memory[rule] and memo[start_index] = stop_index
+  def memoize( rule, start_index, success )
+    stop_index = success ? @input.index - 1 : MEMO_RULE_FAILED
+    memo = @state.rule_memory[ rule ] and memo[ start_index ] = stop_index
   end
   
-  def trace_in(rule_name, rule_index, input_symbol)
+  def trace_in( rule_name, rule_index, input_symbol )
     @error_output.printf( "--> enter %s on %s", rule_name, input_symbol )
     @state.backtracking > 0 and @error_output.printf(
       " (in backtracking mode: depth = %s)", @state.backtracking
     )
-    @error_output.print("\n")
+    @error_output.print( "\n" )
   end
   
-  def trace_out(rule_name, rule_index, input_symbol)
+  def trace_out( rule_name, rule_index, input_symbol )
     @error_output.printf("<-- exit %s on %s", rule_name, input_symbol)
     @state.backtracking > 0 and @error_output.printf(
       " (in backtracking mode: depth = %s)", @state.backtracking
     )
-    @error_output.print("\n")
+    @error_output.print( "\n" )
   end
   
-  private
+private
   
   def initialize_dfas
     # do nothing
@@ -899,16 +925,16 @@ demonstrates the typical setup for using ANTLR parsers and lexers in Ruby.
   
   source = "some hypothetical source code"
   input = ANTLR3::StringStream.new(source, :file => 'blah-de-blah.hyp')
-  lexer = Hypothetical::Lexer.new(input)
-  tokens = ANTLR3::CommonTokenStream.new(lexer)
-  parser = Hypothetical::Parser.new(tokens)
+  lexer = Hypothetical::Lexer.new( input )
+  tokens = ANTLR3::CommonTokenStream.new( lexer )
+  parser = Hypothetical::Parser.new( tokens )
   
   # if you're using the standard streams, ANTLR3::StringStream and
   # ANTLR3::CommonTokenStream, you can write the same process 
   # shown above more succinctly:
   
   lexer  = Hypothetical::Lexer.new("some hypothetical source code", :file => 'blah-de-blah.hyp')
-  parser = Hypothetical::Parser.new(lexer)
+  parser = Hypothetical::Parser.new( lexer )
 
 =end
 class Lexer < BaseRecognizer
@@ -919,17 +945,17 @@ class Lexer < BaseRecognizer
     @default_rule ||= :token!
   end
   
-  def self.main(argv = ARGV, options = {})
-    if argv.is_a?(::Hash) then argv, options = ARGV, argv end
+  def self.main( argv = ARGV, options = {} )
+    if argv.is_a?( ::Hash ) then argv, options = ARGV, argv end
     main = ANTLR3::Main::LexerMain.new(self, options)
-    block_given? ? yield(main) : main.execute(argv)
+    block_given? ? yield( main ) : main.execute( argv )
   end
   
   def self.associated_parser
     @associated_parser ||= begin
       @grammar_home and @grammar_home::Parser
     rescue NameError
-      grammar_name = @grammar_home.name.split("::").last
+      grammar_name = @grammar_home.name.split( "::" ).last
       begin
         require "#{grammar_name}Parser"
         @grammar_home::Parser
@@ -938,17 +964,12 @@ class Lexer < BaseRecognizer
     end
   end
 
-  def initialize(input, options = {})
+  def initialize( input, options = {} )
     super( options )
-    @input =
-      case input
-      when ::String then StringStream.new(input, options)
-      when ::IO then FileStream.new(input, options)
-      else input
-      end
+    @input = cast_input( input, options )
   end
   
-  def current_input_symbol
+  def current_symbol
     nil
   end
   
@@ -965,16 +986,16 @@ class Lexer < BaseRecognizer
         token!
         
         case token = @state.token
-        when nil then return(emit())
+        when nil then return( emit )
         when SKIP_TOKEN then next
         else
           return token
         end
       rescue NoViableAlternative => re
-        report_error(re)
-        recover(re)
+        report_error( re )
+        recover( re )
       rescue Error::RecognitionError => re
-        report_error(re)
+        report_error( re )
       end
     end
   end
@@ -989,7 +1010,7 @@ class Lexer < BaseRecognizer
     self.to_a
   end
   
-  def char_stream=(input)
+  def char_stream=( input )
     @input = nil
     reset()
     @input = input
@@ -1005,14 +1026,14 @@ class Lexer < BaseRecognizer
     return token
   end
   
-  def match(expected)
+  def match( expected )
     case expected
     when String
       expected.each_byte do |char|
         unless @input.peek == char
           @state.backtracking > 0 and raise BacktrackingFailed
-          error = MismatchedToken(char)
-          recover(error)
+          error = MismatchedToken( char )
+          recover( error )
           raise error
         end
         @input.consume()
@@ -1020,8 +1041,8 @@ class Lexer < BaseRecognizer
     else # single integer character
       unless @input.peek == expected
         @state.backtracking > 0 and raise BacktrackingFailed
-        error = MismatchedToken(expected)
-        recover(error)
+        error = MismatchedToken( expected )
+        recover( error )
         raise error
       end
       @input.consume
@@ -1039,8 +1060,8 @@ class Lexer < BaseRecognizer
     else
       @state.backtracking > 0 and raise BacktrackingFailed
       error = MismatchedRange(min.chr, max.chr)
-      recover(error)
-      raise(error)
+      recover( error )
+      raise( error )
     end
     return true
   end
@@ -1062,37 +1083,37 @@ class Lexer < BaseRecognizer
     @input.substring(@state.token_start_position, character_index - 1)
   end
   
-  def text=(text)
+  def text=( text )
     @state.text = text
   end
   
-  def report_error(e)
-    display_recognition_error(e)
+  def report_error( e )
+    display_recognition_error( e )
   end
   
-  def error_message(e)
-    char = character_error_display(e.symbol) rescue nil
+  def error_message( e )
+    char = character_error_display( e.symbol ) rescue nil
     case e
     when Error::MismatchedToken
-      expecting = character_error_display(e.expecting)
+      expecting = character_error_display( e.expecting )
       "mismatched character #{char}; expecting #{expecting}"
     when Error::NoViableAlternative
       "no viable alternative at character #{char}"
     when Error::EarlyExit
-      "required (...)+ loop did not match anything at character #{char}"
+      "required ( ... )+ loop did not match anything at character #{char}"
     when Error::MismatchedNotSet
       "mismatched character %s; expecting set %p" % [char, e.expecting]
     when Error::MismatchedSet
       "mismatched character %s; expecting set %p" % [char, e.expecting]
     when Error::MismatchedRange
-      a = character_error_display(e.min)
-      b = character_error_display(e.max)
+      a = character_error_display( e.min )
+      b = character_error_display( e.max )
       "mismatched character %s; expecting set %s..%s" % [char, a, b]
     else super
     end
   end
   
-  def character_error_display(char)
+  def character_error_display( char )
     case char
     when EOF then '<EOF>'
     when Integer then char.chr.inspect
@@ -1100,12 +1121,22 @@ class Lexer < BaseRecognizer
     end
   end
   
-  def recover(re)
+  def recover( re )
     @input.consume
   end
   
+  alias input= char_stream=
   
 private
+  
+  def cast_input( input, options )
+    case input
+    when CharStream then input
+    when ::String then StringStream.new( input, options )
+    when ::IO     then FileStream.new( input, options )
+    else input
+    end
+  end
   
   def trace_in(rule_name, rule_index)
     if symbol = @input.look and symbol != EOF then symbol = symbol.inspect
@@ -1121,8 +1152,8 @@ private
     super(rule_name, rule_index, input_symbol)
   end
   
-  def create_token(&b)
-    if block_given? then super(&b)
+  def create_token( &b )
+    if block_given? then super( &b )
     else
       super do |t|
         t.input = @input
@@ -1177,16 +1208,16 @@ thus the API closely mirrors BaseRecognizer.
 =end
 class Parser < BaseRecognizer
   def self.main(argv = ARGV, options = {})
-    if argv.is_a?(::Hash) then argv, options = ARGV, argv end
+    if argv.is_a?( ::Hash ) then argv, options = ARGV, argv end
     main = ANTLR3::Main::ParserMain.new(self, options)
-    block_given? ? yield(main) : main.execute(argv)
+    block_given? ? yield( main ) : main.execute( argv )
   end
   
   def self.associated_lexer
     @associated_lexer ||= begin
       @grammar_home and @grammar_home::Lexer
     rescue NameError
-      grammar_name = @grammar_home.name.split("::").last
+      grammar_name = @grammar_home.name.split( "::" ).last
       begin
         require "#{grammar_name}Lexer"
         @grammar_home::Lexer
@@ -1195,17 +1226,17 @@ class Parser < BaseRecognizer
     end
   end
   
+  
   def initialize( input, options = {} )
     super( options )
     @input = nil
     reset
-    input = cast_input( input, options ) unless TokenStream === input
-    @input = input
+    @input = cast_input( input, options )
   end
   
   def missing_symbol(error, expected_type, follow)
     current = @input.look
-    current = @input.look(-1) if current == ANTLR3::EOF_TOKEN
+    current = @input.look( -1 ) if current == ANTLR3::EOF_TOKEN
     t =
       case
       when current && current != ANTLR3::EOF_TOKEN then current.clone
@@ -1214,13 +1245,13 @@ class Parser < BaseRecognizer
       end
     
     t.type = expected_type
-    name = t.name.gsub(/(^<)|(>$)/,'')
+    name = t.name.gsub( /(^<)|(>$)/,'' )
     t.text = "<missing #{name}>"
     t.channel = DEFAULT_CHANNEL
-    return(t)
+    return( t )
   end
   
-  def token_stream=(input)
+  def token_stream=( input )
     @input = nil
     reset
     @input = input
@@ -1230,6 +1261,7 @@ class Parser < BaseRecognizer
   def source_name
     @input.source_name
   end
+  
   
 private
   
@@ -1243,6 +1275,7 @@ private
   
   def cast_input( input, options )
     case input
+    when TokenStream then input
     when TokenSource then CommonTokenStream.new( input, options )
     when IO, String, CharacterStream
       if lexer_class = self.class.associated_lexer

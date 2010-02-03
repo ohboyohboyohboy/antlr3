@@ -54,8 +54,8 @@ module Constants
   
   INVALID_TOKEN_TYPE = 0
   
-  # End of File / End of Input character and token type
   EOF = -1
+  
   
   # Imaginary tree-navigation token type indicating the ascent after moving through the
   # children of a node

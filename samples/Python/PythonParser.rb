@@ -3,9 +3,9 @@
 # samples/Python.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.4.0
+# Ruby runtime library version: 1.6.0
 # Input grammar file: samples/Python.g
-# Generated at: 2010-01-25 13:58:29
+# Generated at: 2010-02-02 16:37:11
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.4.0):
+Failed to load the ANTLR3 runtime library (version 1.6.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.4.0' )
+    Gem.activate( 'antlr3', '~> 1.6.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -148,7 +148,7 @@ module Python
 
     include TokenData
 
-    generated_using( "samples/Python.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
+    generated_using( "samples/Python.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.6.0" )
 
     def initialize( input, options = {} )
       super( input, options )
@@ -193,7 +193,7 @@ module Python
         when 1
           # at line 135:7: ( NEWLINE )* DOCUMENT
           # at line 135:7: ( NEWLINE )*
-          loop do # decision 1
+          while true # decision 1
             alt_1 = 2
             look_1_0 = @input.peek(1)
 
@@ -220,7 +220,7 @@ module Python
 
         end
         # at line 136:5: ( NEWLINE | statement )*
-        loop do # decision 3
+        while true # decision 3
           alt_3 = 3
           look_3_0 = @input.peek(1)
 
@@ -437,7 +437,7 @@ module Python
 
         # at line 146:5: ( NEWLINE )* test_list ( NEWLINE )*
         # at line 146:12: ( NEWLINE )*
-        loop do # decision 5
+        while true # decision 5
           alt_5 = 2
           look_5_0 = @input.peek(1)
 
@@ -461,7 +461,7 @@ module Python
           @adaptor.add_child(root_0, test_list10.tree)
         end
         # at line 146:32: ( NEWLINE )*
-        loop do # decision 6
+        while true # decision 6
           alt_6 = 2
           look_6_0 = @input.peek(1)
 
@@ -683,7 +683,7 @@ module Python
 
         end
         # at line 155:10: ( '.' NAME )*
-        loop do # decision 9
+        while true # decision 9
           alt_9 = 2
           look_9_0 = @input.peek(1)
 
@@ -775,7 +775,7 @@ module Python
           # at line 159:5: ( decorator )+
           # at file 159:5: ( decorator )+
           match_count_10 = 0
-          loop do
+          while true
             alt_10 = 2
             look_10_0 = @input.peek(1)
 
@@ -1197,7 +1197,7 @@ module Python
             stream_def_parameter.add(def_parameter33.tree)
           end
           # at line 173:21: ( ',' def_parameter )*
-          loop do # decision 14
+          while true # decision 14
             alt_14 = 2
             look_14_0 = @input.peek(1)
 
@@ -1856,7 +1856,7 @@ module Python
           stream_fp_def.add(fp_def53.tree)
         end
         # at line 199:12: ( ',' fp_def )*
-        loop do # decision 22
+        while true # decision 22
           alt_22 = 2
           look_22_0 = @input.peek(1)
 
@@ -2083,7 +2083,7 @@ module Python
           stream_small_statement.add(small_statement59.tree)
         end
         # at line 209:5: ( ';' small_statement )*
-        loop do # decision 25
+        while true # decision 25
           alt_25 = 2
           look_25_0 = @input.peek(1)
 
@@ -2620,7 +2620,7 @@ module Python
           # at line 244:7: ( '=' ( test_list | yield_expr ) )+
           # at file 244:7: ( '=' ( test_list | yield_expr ) )+
           match_count_31 = 0
-          loop do
+          while true
             alt_31 = 2
             look_31_0 = @input.peek(1)
 
@@ -2773,7 +2773,7 @@ module Python
             stream_test.add(test92.tree)
           end
           # at line 250:12: ( ',' test )*
-          loop do # decision 33
+          while true # decision 33
             alt_33 = 2
             look_33_0 = @input.peek(1)
 
@@ -2878,7 +2878,7 @@ module Python
             stream_test.add(dev.tree)
           end
           # at line 251:21: ( ',' obj= test )*
-          loop do # decision 35
+          while true # decision 35
             alt_35 = 2
             look_35_0 = @input.peek(1)
 
@@ -3841,7 +3841,7 @@ module Python
         when 1
           # at line 302:14: ( '.' )* dotted_name
           # at line 302:14: ( '.' )*
-          loop do # decision 44
+          while true # decision 44
             alt_44 = 2
             look_44_0 = @input.peek(1)
 
@@ -3875,7 +3875,7 @@ module Python
           # at line 302:33: ( '.' )+
           # at file 302:33: ( '.' )+
           match_count_45 = 0
-          loop do
+          while true
             alt_45 = 2
             look_45_0 = @input.peek(1)
 
@@ -4019,7 +4019,7 @@ module Python
           @adaptor.add_child(root_0, import_as_name130.tree)
         end
         # at line 310:20: ( ',' import_as_name )*
-        loop do # decision 48
+        while true # decision 48
           alt_48 = 2
           look_48_0 = @input.peek(1)
 
@@ -4288,7 +4288,7 @@ module Python
           @adaptor.add_child(root_0, dotted_as_name140.tree)
         end
         # at line 322:20: ( ',' dotted_as_name )*
-        loop do # decision 52
+        while true # decision 52
           alt_52 = 2
           look_52_0 = @input.peek(1)
 
@@ -4372,7 +4372,7 @@ module Python
 
         end
         # at line 326:10: ( '.' NAME )*
-        loop do # decision 53
+        while true # decision 53
           alt_53 = 2
           look_53_0 = @input.peek(1)
 
@@ -4472,7 +4472,7 @@ module Python
 
         end
         # at line 330:20: ( ',' NAME )*
-        loop do # decision 54
+        while true # decision 54
           alt_54 = 2
           look_54_0 = @input.peek(1)
 
@@ -4965,7 +4965,7 @@ module Python
           @adaptor.add_child(root_0, suite168.tree)
         end
         # at line 353:27: ( elif_clause )*
-        loop do # decision 59
+        while true # decision 59
           alt_59 = 2
           look_59_0 = @input.peek(1)
 
@@ -5386,7 +5386,7 @@ module Python
           # at line 372:7: ( except_clause )+ ( 'else' ':' suite )? ( 'finally' ':' suite )?
           # at file 372:7: ( except_clause )+
           match_count_63 = 0
-          loop do
+          while true
             alt_63 = 2
             look_63_0 = @input.peek(1)
 
@@ -5898,7 +5898,7 @@ module Python
           end
           # at file 390:20: ( statement )+
           match_count_70 = 0
-          loop do
+          while true
             alt_70 = 2
             look_70_0 = @input.peek(1)
 
@@ -6150,7 +6150,7 @@ module Python
           @adaptor.add_child(root_0, and_test231.tree)
         end
         # at line 400:14: ( 'or' and_test )*
-        loop do # decision 74
+        while true # decision 74
           alt_74 = 2
           look_74_0 = @input.peek(1)
 
@@ -6237,7 +6237,7 @@ module Python
           @adaptor.add_child(root_0, not_test234.tree)
         end
         # at line 404:14: ( 'and' not_test )*
-        loop do # decision 75
+        while true # decision 75
           alt_75 = 2
           look_75_0 = @input.peek(1)
 
@@ -6440,7 +6440,7 @@ module Python
           @adaptor.add_child(root_0, expr240.tree)
         end
         # at line 414:5: ( ( '<' | '>' | '==' | '>=' | '<=' | '<>' | '!=' | 'in' | 'not' 'in' | 'is' | 'is' 'not' ) expr )*
-        loop do # decision 78
+        while true # decision 78
           alt_78 = 2
           look_78_0 = @input.peek(1)
 
@@ -6649,7 +6649,7 @@ module Python
           @adaptor.add_child(root_0, xor_expr255.tree)
         end
         # at line 432:14: ( '|' xor_expr )*
-        loop do # decision 79
+        while true # decision 79
           alt_79 = 2
           look_79_0 = @input.peek(1)
 
@@ -6736,7 +6736,7 @@ module Python
           @adaptor.add_child(root_0, and_expr258.tree)
         end
         # at line 436:14: ( '^' and_expr )*
-        loop do # decision 80
+        while true # decision 80
           alt_80 = 2
           look_80_0 = @input.peek(1)
 
@@ -6823,7 +6823,7 @@ module Python
           @adaptor.add_child(root_0, shift_expr261.tree)
         end
         # at line 440:16: ( '&' shift_expr )*
-        loop do # decision 81
+        while true # decision 81
           alt_81 = 2
           look_81_0 = @input.peek(1)
 
@@ -6912,7 +6912,7 @@ module Python
           @adaptor.add_child(root_0, arith_expr264.tree)
         end
         # at line 444:16: ( ( '<<' | '>>' ) arith_expr )*
-        loop do # decision 83
+        while true # decision 83
           alt_83 = 2
           look_83_0 = @input.peek(1)
 
@@ -7029,7 +7029,7 @@ module Python
           @adaptor.add_child(root_0, term268.tree)
         end
         # at line 448:10: ( ( '+' | '-' ) term )*
-        loop do # decision 85
+        while true # decision 85
           alt_85 = 2
           look_85_0 = @input.peek(1)
 
@@ -7150,7 +7150,7 @@ module Python
           @adaptor.add_child(root_0, factor272.tree)
         end
         # at line 452:12: ( ( '*' | '/' | '%' | '//' ) factor )*
-        loop do # decision 87
+        while true # decision 87
           alt_87 = 2
           look_87_0 = @input.peek(1)
 
@@ -7422,7 +7422,7 @@ module Python
           @adaptor.add_child(root_0, atom285.tree)
         end
         # at line 463:10: ( trailer )*
-        loop do # decision 89
+        while true # decision 89
           alt_89 = 2
           look_89_0 = @input.peek(1)
 
@@ -7788,7 +7788,7 @@ module Python
           # at line 480:5: ( STRING )+
           # at file 480:5: ( STRING )+
           match_count_94 = 0
-          loop do
+          while true
             alt_94 = 2
             look_94_0 = @input.peek(1)
 
@@ -7906,7 +7906,7 @@ module Python
         when 2
           # at line 486:7: ( options {greedy=true; } : ',' test )*
           # at line 486:7: ( options {greedy=true; } : ',' test )*
-          loop do # decision 96
+          while true # decision 96
             alt_96 = 2
             look_96_0 = @input.peek(1)
 
@@ -8038,7 +8038,7 @@ module Python
         when 1
           # at line 492:7: ( options {k=2; } : ',' test )* ( ',' )?
           # at line 492:7: ( options {k=2; } : ',' test )*
-          loop do # decision 99
+          while true # decision 99
             alt_99 = 2
             alt_99 = @dfa99.predict(@input)
             case alt_99
@@ -8397,7 +8397,7 @@ module Python
           @adaptor.add_child(root_0, subscript330.tree)
         end
         # at line 507:28: ( options {greedy=true; } : ',' subscript )*
-        loop do # decision 105
+        while true # decision 105
           alt_105 = 2
           look_105_0 = @input.peek(1)
 
@@ -8799,7 +8799,7 @@ module Python
           @adaptor.add_child(root_0, expr346.tree)
         end
         # at line 518:17: ( options {k=2; } : ',' expr )*
-        loop do # decision 114
+        while true # decision 114
           alt_114 = 2
           alt_114 = @dfa114.predict(@input)
           case alt_114
@@ -8902,7 +8902,7 @@ module Python
           @adaptor.add_child(root_0, test350.tree)
         end
         # at line 522:12: ( options {k=2; } : ',' test )*
-        loop do # decision 116
+        while true # decision 116
           alt_116 = 2
           alt_116 = @dfa116.predict(@input)
           case alt_116
@@ -9024,7 +9024,7 @@ module Python
           @adaptor.add_child(root_0, test356.tree)
         end
         # at line 526:19: ( options {k=2; } : ',' test ':' test )*
-        loop do # decision 118
+        while true # decision 118
           alt_118 = 2
           alt_118 = @dfa118.predict(@input)
           case alt_118
@@ -9306,7 +9306,7 @@ module Python
             @adaptor.add_child(root_0, argument369.tree)
           end
           # at line 534:14: ( ',' argument )*
-          loop do # decision 122
+          while true # decision 122
             alt_122 = 2
             look_122_0 = @input.peek(1)
 

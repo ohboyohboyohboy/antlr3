@@ -3,9 +3,9 @@
 # samples/ANTLRv3Grammar.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.4.0
+# Ruby runtime library version: 1.6.0
 # Input grammar file: samples/ANTLRv3Grammar.g
-# Generated at: 2010-01-25 13:58:27
+# Generated at: 2010-02-02 16:37:09
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.4.0):
+Failed to load the ANTLR3 runtime library (version 1.6.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.4.0' )
+    Gem.activate( 'antlr3', '~> 1.6.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -101,7 +101,7 @@ module ANTLRv3Grammar
     include TokenData
 
     begin
-      generated_using( "samples/ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
+      generated_using( "samples/ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.6.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -1077,7 +1077,7 @@ module ANTLRv3Grammar
       when 2
         # at line 472:6: (~ ( '\\r' | '\\n' ) )*
         # at line 472:6: (~ ( '\\r' | '\\n' ) )*
-        loop do # decision 1
+        while true # decision 1
           alt_1 = 2
           look_1_0 = @input.peek(1)
 
@@ -1149,7 +1149,7 @@ module ANTLRv3Grammar
       if @input.peek(1) == ?* then type = DOC_COMMENT else channel = HIDDEN end 
       # <-- action
       # at line 478:88: ( . )*
-      loop do # decision 4
+      while true # decision 4
         alt_4 = 2
         look_4_0 = @input.peek(1)
 
@@ -1228,7 +1228,7 @@ module ANTLRv3Grammar
       match(?\')
       literal_char!
       # at line 486:22: ( LITERAL_CHAR )*
-      loop do # decision 5
+      while true # decision 5
         alt_5 = 2
         look_5_0 = @input.peek(1)
 
@@ -1315,7 +1315,7 @@ module ANTLRv3Grammar
       # at line 496:4: '\"' ( ESC | ~ ( '\\\\' | '\"' ) )* '\"'
       match(?")
       # at line 496:8: ( ESC | ~ ( '\\\\' | '\"' ) )*
-      loop do # decision 7
+      while true # decision 7
         alt_7 = 3
         look_7_0 = @input.peek(1)
 
@@ -1372,7 +1372,7 @@ module ANTLRv3Grammar
       # at line 500:4: '<<' ( . )* '>>'
       match("<<")
       # at line 500:9: ( . )*
-      loop do # decision 8
+      while true # decision 8
         alt_8 = 2
         look_8_0 = @input.peek(1)
 
@@ -1519,7 +1519,7 @@ module ANTLRv3Grammar
       # at line 526:7: ( '0' .. '9' )+
       # at file 526:7: ( '0' .. '9' )+
       match_count_10 = 0
-      loop do
+      while true
         alt_10 = 2
         look_10_0 = @input.peek(1)
 
@@ -1588,7 +1588,7 @@ module ANTLRv3Grammar
       # at line 535:2: '[' ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )* ']'
       match(?[)
       # at line 536:2: ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )*
-      loop do # decision 11
+      while true # decision 11
         alt_11 = 5
         look_11_0 = @input.peek(1)
 
@@ -1684,7 +1684,7 @@ module ANTLRv3Grammar
       # at line 552:2: '{' ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )* '}'
       match(?{)
       # at line 553:2: ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )*
-      loop do # decision 13
+      while true # decision 13
         alt_13 = 8
         alt_13 = @dfa13.predict(@input)
         case alt_13
@@ -1748,7 +1748,7 @@ module ANTLRv3Grammar
       # at line 567:4: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
       match(?\')
       # at line 567:9: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
-      loop do # decision 14
+      while true # decision 14
         alt_14 = 3
         look_14_0 = @input.peek(1)
 
@@ -1799,7 +1799,7 @@ module ANTLRv3Grammar
       # at line 572:4: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
       match(?")
       # at line 572:8: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
-      loop do # decision 15
+      while true # decision 15
         alt_15 = 3
         look_15_0 = @input.peek(1)
 
@@ -1871,7 +1871,7 @@ module ANTLRv3Grammar
       # at line 581:4: 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       match_range(?A, ?Z)
       # at line 581:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-      loop do # decision 16
+      while true # decision 16
         alt_16 = 2
         look_16_0 = @input.peek(1)
 
@@ -1921,7 +1921,7 @@ module ANTLRv3Grammar
       # at line 585:4: 'a' .. 'z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       match_range(?a, ?z)
       # at line 585:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-      loop do # decision 17
+      while true # decision 17
         alt_17 = 2
         look_17_0 = @input.peek(1)
 
@@ -2064,7 +2064,7 @@ module ANTLRv3Grammar
       # at line 607:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
       # at file 607:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
       match_count_19 = 0
-      loop do
+      while true
         alt_19 = 4
         case look_19 = @input.peek(1)
         when ?\s then alt_19 = 1
@@ -2131,7 +2131,7 @@ module ANTLRv3Grammar
       # - - - - main rule block - - - -
       # at line 616:4: ( WS | SL_COMMENT | ML_COMMENT )*
       # at line 616:4: ( WS | SL_COMMENT | ML_COMMENT )*
-      loop do # decision 20
+      while true # decision 20
         alt_20 = 4
         look_20_0 = @input.peek(1)
 

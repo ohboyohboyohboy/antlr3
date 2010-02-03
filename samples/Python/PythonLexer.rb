@@ -3,9 +3,9 @@
 # samples/Python.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.4.0
+# Ruby runtime library version: 1.6.0
 # Input grammar file: samples/Python.g
-# Generated at: 2010-01-25 13:58:32
+# Generated at: 2010-02-02 16:37:12
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.4.0):
+Failed to load the ANTLR3 runtime library (version 1.6.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.4.0' )
+    Gem.activate( 'antlr3', '~> 1.6.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -102,7 +102,7 @@ module Python
     include TokenData
 
     begin
-      generated_using( "samples/Python.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
+      generated_using( "samples/Python.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.6.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -2031,7 +2031,7 @@ module Python
         match(?.)
         # at file 593:11: ( '0' .. '9' )+
         match_count_1 = 0
-        loop do
+        while true
           alt_1 = 2
           look_1_0 = @input.peek(1)
 
@@ -2072,7 +2072,7 @@ module Python
         # at line 594:8: ( '0' .. '9' )+ ( '.' )? EXP
         # at file 594:8: ( '0' .. '9' )+
         match_count_3 = 0
-        loop do
+        while true
           alt_3 = 2
           look_3_0 = @input.peek(1)
 
@@ -2114,7 +2114,7 @@ module Python
         # at line 595:8: ( '0' .. '9' )+ '.' ( ( '0' .. '9' )+ ( EXP )? )?
         # at file 595:8: ( '0' .. '9' )+
         match_count_5 = 0
-        loop do
+        while true
           alt_5 = 2
           look_5_0 = @input.peek(1)
 
@@ -2150,7 +2150,7 @@ module Python
           # at line 595:30: ( '0' .. '9' )+ ( EXP )?
           # at file 595:30: ( '0' .. '9' )+
           match_count_6 = 0
-          loop do
+          while true
             alt_6 = 2
             look_6_0 = @input.peek(1)
 
@@ -2270,7 +2270,7 @@ module Python
 
         # at file 602:25: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
         match_count_11 = 0
-        loop do
+        while true
           alt_11 = 2
           look_11_0 = @input.peek(1)
 
@@ -2306,7 +2306,7 @@ module Python
         # at line 603:7: ( '0' .. '9' )+
         # at file 603:7: ( '0' .. '9' )+
         match_count_12 = 0
-        loop do
+        while true
           alt_12 = 2
           look_12_0 = @input.peek(1)
 
@@ -2405,7 +2405,7 @@ module Python
 
 
       # at line 611:9: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-      loop do # decision 15
+      while true # decision 15
         alt_15 = 2
         look_15_0 = @input.peek(1)
 
@@ -2537,7 +2537,7 @@ module Python
         # at line 619:7: '\\'\\'\\'' ( options {greedy=false; } : TRIAPOS )* '\\'\\'\\''
         match("'''")
         # at line 619:16: ( options {greedy=false; } : TRIAPOS )*
-        loop do # decision 17
+        while true # decision 17
           alt_17 = 2
           look_17_0 = @input.peek(1)
 
@@ -2579,7 +2579,7 @@ module Python
         # at line 620:7: '\"\"\"' ( options {greedy=false; } : TRIQUOTE )* '\"\"\"'
         match("\"\"\"")
         # at line 620:13: ( options {greedy=false; } : TRIQUOTE )*
-        loop do # decision 18
+        while true # decision 18
           alt_18 = 2
           look_18_0 = @input.peek(1)
 
@@ -2621,7 +2621,7 @@ module Python
         # at line 621:7: '\"' ( ESC | ~ ( '\\\\' | '\\n' | '\"' ) )* '\"'
         match(?")
         # at line 621:12: ( ESC | ~ ( '\\\\' | '\\n' | '\"' ) )*
-        loop do # decision 19
+        while true # decision 19
           alt_19 = 3
           look_19_0 = @input.peek(1)
 
@@ -2658,7 +2658,7 @@ module Python
         # at line 622:7: '\\'' ( ESC | ~ ( '\\\\' | '\\n' | '\\'' ) )* '\\''
         match(?\')
         # at line 622:12: ( ESC | ~ ( '\\\\' | '\\n' | '\\'' ) )*
-        loop do # decision 20
+        while true # decision 20
           alt_20 = 3
           look_20_0 = @input.peek(1)
 
@@ -2731,7 +2731,7 @@ module Python
       end
       match(?\n)
       # at line 631:21: ( ' ' | '\\t' )*
-      loop do # decision 23
+      while true # decision 23
         alt_23 = 2
         look_23_0 = @input.peek(1)
 
@@ -2814,7 +2814,7 @@ module Python
       # at line 653:5: ( ( '\\u000C' )? ( '\\r' )? '\\n' )+
       # at file 653:5: ( ( '\\u000C' )? ( '\\r' )? '\\n' )+
       match_count_27 = 0
-      loop do
+      while true
         alt_27 = 2
         look_27_0 = @input.peek(1)
 
@@ -2916,7 +2916,7 @@ module Python
         end
         # at file 665:33: ( ' ' | '\\t' )+
         match_count_28 = 0
-        loop do
+        while true
           alt_28 = 2
           look_28_0 = @input.peek(1)
 
@@ -2955,7 +2955,7 @@ module Python
         # at line 666:7: ( ' ' | '\\t' )+ ( '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )* )? ( ( '\\r' )? '\\n' )*
         # at file 666:7: ( ' ' | '\\t' )+
         match_count_29 = 0
-        loop do
+        while true
           alt_29 = 2
           look_29_0 = @input.peek(1)
 
@@ -2998,7 +2998,7 @@ module Python
           # at line 667:9: '#' (~ '\\n' )* ( ( '\\r' )? '\\n' )*
           match(?#)
           # at line 667:13: (~ '\\n' )*
-          loop do # decision 30
+          while true # decision 30
             alt_30 = 2
             look_30_0 = @input.peek(1)
 
@@ -3024,7 +3024,7 @@ module Python
             end
           end # loop for decision 30
           # at line 667:20: ( ( '\\r' )? '\\n' )*
-          loop do # decision 32
+          while true # decision 32
             alt_32 = 2
             look_32_0 = @input.peek(1)
 
@@ -3070,7 +3070,7 @@ module Python
 
         end
         # at line 673:7: ( ( '\\r' )? '\\n' )*
-        loop do # decision 35
+        while true # decision 35
           alt_35 = 2
           look_35_0 = @input.peek(1)
 
@@ -3132,7 +3132,7 @@ module Python
       # at line 697:5: '#' (~ '\\n' )*
       match(?#)
       # at line 697:9: (~ '\\n' )*
-      loop do # decision 37
+      while true # decision 37
         alt_37 = 2
         look_37_0 = @input.peek(1)
 
@@ -3185,7 +3185,7 @@ module Python
       # at line 701:5: ( ' ' | '\\t' )+
       # at file 701:5: ( ' ' | '\\t' )+
       match_count_38 = 0
-      loop do
+      while true
         alt_38 = 2
         look_38_0 = @input.peek(1)
 
@@ -3267,7 +3267,7 @@ module Python
       end
       # at file 706:15: ( ESC | ~ ( '\\\\' | '\"' ) )+
       match_count_41 = 0
-      loop do
+      while true
         alt_41 = 3
         look_41_0 = @input.peek(1)
 
@@ -3348,7 +3348,7 @@ module Python
       end
       # at file 711:17: ( ESC | ~ ( '\\\\' | '\\'' ) )+
       match_count_44 = 0
-      loop do
+      while true
         alt_44 = 3
         look_44_0 = @input.peek(1)
 
@@ -3451,7 +3451,7 @@ module Python
       end
       # at file 721:34: ( '0' .. '9' )+
       match_count_46 = 0
-      loop do
+      while true
         alt_46 = 2
         look_46_0 = @input.peek(1)
 

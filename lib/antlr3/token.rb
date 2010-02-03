@@ -115,7 +115,7 @@ module Token
     index <=> tk2.index
   end
   
-  def initialize_copy(orig)
+  def initialize_copy( orig )
     self.index   = -1
     self.type    = orig.type
     self.channel = orig.channel
@@ -237,16 +237,18 @@ class CommonToken
   end
   
   # allows you to make a copy of a token with a different class
-  def self.from_token(token)
-    new(token.type, token.channel, token.text ? token.text.clone : nil,
-        token.input, token.start, token.stop, -1, token.line, token.column)
+  def self.from_token( token )
+    new(
+      token.type,  token.channel, token.text ? token.text.clone : nil,
+      token.input, token.start,   token.stop, -1, token.line, token.column
+    )
   end
   
   def initialize(type = nil, channel = DEFAULT_CHANNEL, text = nil,
                  input = nil, start = nil, stop = nil, index = -1,
                  line = 0, column = -1)
     super
-    block_given? and yield(self)
+    block_given? and yield( self )
     self.text.nil? && self.start && self.stop and
       self.text = self.input.substring(self.start, self.stop)
   end
@@ -257,9 +259,15 @@ class CommonToken
   alias :token_index= :index=
 end
 
-Constants::EOF_TOKEN = CommonToken.new(EOF).freeze
-Constants::INVALID_TOKEN = CommonToken.new(INVALID_TOKEN_TYPE).freeze
-Constants::SKIP_TOKEN = CommonToken.new(INVALID_TOKEN_TYPE).freeze
+module Constants
+  
+  # End of File / End of Input character and token type
+  EOF_TOKEN = CommonToken.new( EOF ).freeze
+  INVALID_TOKEN = CommonToken.new( INVALID_TOKEN_TYPE ).freeze
+  SKIP_TOKEN = CommonToken.new( INVALID_TOKEN_TYPE ).freeze  
+end
+
+
 
 =begin rdoc ANTLR3::TokenSource
 

@@ -3,9 +3,9 @@
 # samples/CSS.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.4.0
+# Ruby runtime library version: 1.6.0
 # Input grammar file: samples/CSS.g
-# Generated at: 2010-01-25 13:58:23
+# Generated at: 2010-02-02 16:37:05
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.4.0):
+Failed to load the ANTLR3 runtime library (version 1.6.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.4.0' )
+    Gem.activate( 'antlr3', '~> 1.6.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -112,7 +112,7 @@ module CSS
 
     include TokenData
 
-    generated_using( "samples/CSS.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
+    generated_using( "samples/CSS.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.6.0" )
 
     def initialize( input, options = {} )
       super( input, options )
@@ -188,7 +188,7 @@ module CSS
 
         end
         # at line 17:5: ( WS | '<!--' | '-->' )*
-        loop do # decision 2
+        while true # decision 2
           alt_2 = 4
           case look_2 = @input.peek(1)
           when WS then alt_2 = 1
@@ -213,7 +213,7 @@ module CSS
           end
         end # loop for decision 2
         # at line 18:5: ( import_statement ( '<!--' ( WS )* | '-->' ( WS )* )* )*
-        loop do # decision 6
+        while true # decision 6
           alt_6 = 2
           look_6_0 = @input.peek(1)
 
@@ -229,7 +229,7 @@ module CSS
             @state.following.pop
             @adaptor.add_child(root_0, import_statement5.tree)
             # at line 18:24: ( '<!--' ( WS )* | '-->' ( WS )* )*
-            loop do # decision 5
+            while true # decision 5
               alt_5 = 3
               look_5_0 = @input.peek(1)
 
@@ -244,7 +244,7 @@ module CSS
                 # at line 18:26: '<!--' ( WS )*
                 string_literal6 = match(T__35, TOKENS_FOLLOWING_T__35_IN_stylesheet_128)
                 # at line 18:36: ( WS )*
-                loop do # decision 3
+                while true # decision 3
                   alt_3 = 2
                   look_3_0 = @input.peek(1)
 
@@ -266,7 +266,7 @@ module CSS
                 # at line 18:41: '-->' ( WS )*
                 string_literal8 = match(T__36, TOKENS_FOLLOWING_T__36_IN_stylesheet_137)
                 # at line 18:50: ( WS )*
-                loop do # decision 4
+                while true # decision 4
                   alt_4 = 2
                   look_4_0 = @input.peek(1)
 
@@ -294,7 +294,7 @@ module CSS
           end
         end # loop for decision 6
         # at line 19:5: ( ( rule | media | page ) ( '<!--' ( WS )* | '-->' ( WS )* )* )*
-        loop do # decision 11
+        while true # decision 11
           alt_11 = 2
           look_11_0 = @input.peek(1)
 
@@ -339,7 +339,7 @@ module CSS
 
             end
             # at line 19:31: ( '<!--' ( WS )* | '-->' ( WS )* )*
-            loop do # decision 10
+            while true # decision 10
               alt_10 = 3
               look_10_0 = @input.peek(1)
 
@@ -354,7 +354,7 @@ module CSS
                 # at line 19:33: '<!--' ( WS )*
                 string_literal13 = match(T__35, TOKENS_FOLLOWING_T__35_IN_stylesheet_172)
                 # at line 19:43: ( WS )*
-                loop do # decision 8
+                while true # decision 8
                   alt_8 = 2
                   look_8_0 = @input.peek(1)
 
@@ -376,7 +376,7 @@ module CSS
                 # at line 19:48: '-->' ( WS )*
                 string_literal15 = match(T__36, TOKENS_FOLLOWING_T__36_IN_stylesheet_181)
                 # at line 19:57: ( WS )*
-                loop do # decision 9
+                while true # decision 9
                   alt_9 = 2
                   look_9_0 = @input.peek(1)
 
@@ -529,7 +529,7 @@ module CSS
         root_0 = @adaptor.become_root(tree_for_string_literal20, root_0)
 
         # at line 27:18: ( WS )*
-        loop do # decision 12
+        while true # decision 12
           alt_12 = 2
           look_12_0 = @input.peek(1)
 
@@ -558,7 +558,7 @@ module CSS
 
 
         # at line 27:40: ( WS )*
-        loop do # decision 13
+        while true # decision 13
           alt_13 = 2
           look_13_0 = @input.peek(1)
 
@@ -593,7 +593,7 @@ module CSS
         end
         char_literal25 = match(T__38, TOKENS_FOLLOWING_T__38_IN_import_statement_248)
         # at line 27:62: ( WS )*
-        loop do # decision 15
+        while true # decision 15
           alt_15 = 2
           look_15_0 = @input.peek(1)
 
@@ -675,7 +675,7 @@ module CSS
         root_0 = @adaptor.become_root(tree_for_string_literal27, root_0)
 
         # at line 31:17: ( WS )*
-        loop do # decision 16
+        while true # decision 16
           alt_16 = 2
           look_16_0 = @input.peek(1)
 
@@ -698,7 +698,7 @@ module CSS
         @adaptor.add_child(root_0, media_list29.tree)
         char_literal30 = match(T__41, TOKENS_FOLLOWING_T__41_IN_media_275)
         # at line 31:38: ( WS )*
-        loop do # decision 17
+        while true # decision 17
           alt_17 = 2
           look_17_0 = @input.peek(1)
 
@@ -716,7 +716,7 @@ module CSS
           end
         end # loop for decision 17
         # at line 31:41: ( rule )*
-        loop do # decision 18
+        while true # decision 18
           alt_18 = 2
           look_18_0 = @input.peek(1)
 
@@ -738,7 +738,7 @@ module CSS
         end # loop for decision 18
         char_literal33 = match(T__42, TOKENS_FOLLOWING_T__42_IN_media_285)
         # at line 31:54: ( WS )*
-        loop do # decision 19
+        while true # decision 19
           alt_19 = 2
           look_19_0 = @input.peek(1)
 
@@ -815,7 +815,7 @@ module CSS
         __ID35__ = match(ID, TOKENS_FOLLOWING_ID_IN_media_list_303) 
         stream_ID.add(__ID35__)
         # at line 35:8: ( WS )*
-        loop do # decision 20
+        while true # decision 20
           alt_20 = 2
           look_20_0 = @input.peek(1)
 
@@ -834,7 +834,7 @@ module CSS
           end
         end # loop for decision 20
         # at line 35:12: ( ',' ( WS )* ID ( WS )* )*
-        loop do # decision 23
+        while true # decision 23
           alt_23 = 2
           look_23_0 = @input.peek(1)
 
@@ -848,7 +848,7 @@ module CSS
             char_literal37 = match(T__43, TOKENS_FOLLOWING_T__43_IN_media_list_310) 
             stream_T__43.add(char_literal37)
             # at line 35:18: ( WS )*
-            loop do # decision 21
+            while true # decision 21
               alt_21 = 2
               look_21_0 = @input.peek(1)
 
@@ -869,7 +869,7 @@ module CSS
             __ID39__ = match(ID, TOKENS_FOLLOWING_ID_IN_media_list_315) 
             stream_ID.add(__ID39__)
             # at line 35:25: ( WS )*
-            loop do # decision 22
+            while true # decision 22
               alt_22 = 2
               look_22_0 = @input.peek(1)
 
@@ -1002,7 +1002,7 @@ module CSS
         string_literal41 = match(T__44, TOKENS_FOLLOWING_T__44_IN_page_345) 
         stream_T__44.add(string_literal41)
         # at line 39:13: ( WS )*
-        loop do # decision 24
+        while true # decision 24
           alt_24 = 2
           look_24_0 = @input.peek(1)
 
@@ -1035,7 +1035,7 @@ module CSS
           __ID44__ = match(ID, TOKENS_FOLLOWING_ID_IN_page_354) 
           stream_ID.add(__ID44__)
           # at line 39:26: ( WS )*
-          loop do # decision 25
+          while true # decision 25
             alt_25 = 2
             look_25_0 = @input.peek(1)
 
@@ -1058,7 +1058,7 @@ module CSS
         char_literal46 = match(T__41, TOKENS_FOLLOWING_T__41_IN_page_366) 
         stream_T__41.add(char_literal46)
         # at line 40:9: ( WS )*
-        loop do # decision 27
+        while true # decision 27
           alt_27 = 2
           look_27_0 = @input.peek(1)
 
@@ -1093,7 +1093,7 @@ module CSS
 
         end
         # at line 40:26: ( ';' ( WS )* ( declaration )? )*
-        loop do # decision 31
+        while true # decision 31
           alt_31 = 2
           look_31_0 = @input.peek(1)
 
@@ -1107,7 +1107,7 @@ module CSS
             char_literal49 = match(T__38, TOKENS_FOLLOWING_T__38_IN_page_376) 
             stream_T__38.add(char_literal49)
             # at line 40:32: ( WS )*
-            loop do # decision 29
+            while true # decision 29
               alt_29 = 2
               look_29_0 = @input.peek(1)
 
@@ -1149,7 +1149,7 @@ module CSS
         char_literal52 = match(T__42, TOKENS_FOLLOWING_T__42_IN_page_387) 
         stream_T__42.add(char_literal52)
         # at line 40:56: ( WS )*
-        loop do # decision 32
+        while true # decision 32
           alt_32 = 2
           look_32_0 = @input.peek(1)
 
@@ -1273,7 +1273,7 @@ module CSS
         @state.following.pop
         stream_selector.add(selector54.tree)
         # at line 45:14: ( WS )*
-        loop do # decision 33
+        while true # decision 33
           alt_33 = 2
           look_33_0 = @input.peek(1)
 
@@ -1294,7 +1294,7 @@ module CSS
         char_literal56 = match(T__41, TOKENS_FOLLOWING_T__41_IN_rule_428) 
         stream_T__41.add(char_literal56)
         # at line 46:9: ( WS )*
-        loop do # decision 34
+        while true # decision 34
           alt_34 = 2
           look_34_0 = @input.peek(1)
 
@@ -1329,7 +1329,7 @@ module CSS
 
         end
         # at line 46:26: ( ';' ( WS )* ( declaration )? )*
-        loop do # decision 38
+        while true # decision 38
           alt_38 = 2
           look_38_0 = @input.peek(1)
 
@@ -1343,7 +1343,7 @@ module CSS
             char_literal59 = match(T__38, TOKENS_FOLLOWING_T__38_IN_rule_438) 
             stream_T__38.add(char_literal59)
             # at line 46:32: ( WS )*
-            loop do # decision 36
+            while true # decision 36
               alt_36 = 2
               look_36_0 = @input.peek(1)
 
@@ -1385,7 +1385,7 @@ module CSS
         char_literal62 = match(T__42, TOKENS_FOLLOWING_T__42_IN_rule_449) 
         stream_T__42.add(char_literal62)
         # at line 46:56: ( WS )*
-        loop do # decision 39
+        while true # decision 39
           alt_39 = 2
           look_39_0 = @input.peek(1)
 
@@ -1404,7 +1404,7 @@ module CSS
           end
         end # loop for decision 39
         # AST Rewrite
-        # elements: declaration, selector
+        # elements: selector, declaration
         # token labels: 
         # rule labels: return_value
         # token list labels: 
@@ -1493,7 +1493,7 @@ module CSS
         @state.following.pop
         stream_relational_selector.add(relational_selector64.tree)
         # at line 51:25: ( ',' ( WS )* relational_selector )*
-        loop do # decision 41
+        while true # decision 41
           alt_41 = 2
           look_41_0 = @input.peek(1)
 
@@ -1507,7 +1507,7 @@ module CSS
             char_literal65 = match(T__43, TOKENS_FOLLOWING_T__43_IN_selector_490) 
             stream_T__43.add(char_literal65)
             # at line 51:31: ( WS )*
-            loop do # decision 40
+            while true # decision 40
               alt_40 = 2
               look_40_0 = @input.peek(1)
 
@@ -1655,14 +1655,14 @@ module CSS
         return_value.tree = root_0
 
         # at line 57:5: ( ( WS )* '+' ( WS )* r= simple_selector -> ^( '+' $relational_selector $r) | ( WS )* '>' ( WS )* r= simple_selector -> ^( '>' $relational_selector $r) | ( WS )+ r= simple_selector -> ^( UNDER $relational_selector $r) )*
-        loop do # decision 47
+        while true # decision 47
           alt_47 = 4
           alt_47 = @dfa47.predict(@input)
           case alt_47
           when 1
             # at line 57:7: ( WS )* '+' ( WS )* r= simple_selector
             # at line 57:7: ( WS )*
-            loop do # decision 42
+            while true # decision 42
               alt_42 = 2
               look_42_0 = @input.peek(1)
 
@@ -1683,7 +1683,7 @@ module CSS
             char_literal70 = match(T__46, TOKENS_FOLLOWING_T__46_IN_relational_selector_543) 
             stream_T__46.add(char_literal70)
             # at line 57:15: ( WS )*
-            loop do # decision 43
+            while true # decision 43
               alt_43 = 2
               look_43_0 = @input.peek(1)
 
@@ -1735,7 +1735,7 @@ module CSS
           when 2
             # at line 58:7: ( WS )* '>' ( WS )* r= simple_selector
             # at line 58:7: ( WS )*
-            loop do # decision 44
+            while true # decision 44
               alt_44 = 2
               look_44_0 = @input.peek(1)
 
@@ -1756,7 +1756,7 @@ module CSS
             char_literal73 = match(T__47, TOKENS_FOLLOWING_T__47_IN_relational_selector_575) 
             stream_T__47.add(char_literal73)
             # at line 58:15: ( WS )*
-            loop do # decision 45
+            while true # decision 45
               alt_45 = 2
               look_45_0 = @input.peek(1)
 
@@ -1779,7 +1779,7 @@ module CSS
             @state.following.pop
             stream_simple_selector.add(r.tree)
             # AST Rewrite
-            # elements: relational_selector, r, T__47
+            # elements: T__47, relational_selector, r
             # token labels: 
             # rule labels: return_value, r
             # token list labels: 
@@ -1809,7 +1809,7 @@ module CSS
             # at line 59:7: ( WS )+ r= simple_selector
             # at file 59:7: ( WS )+
             match_count_46 = 0
-            loop do
+            while true
               alt_46 = 2
               look_46_0 = @input.peek(1)
 
@@ -1838,7 +1838,7 @@ module CSS
             @state.following.pop
             stream_simple_selector.add(r.tree)
             # AST Rewrite
-            # elements: r, relational_selector
+            # elements: relational_selector, r
             # token labels: 
             # rule labels: return_value, r
             # token list labels: 
@@ -1935,7 +1935,7 @@ module CSS
           @state.following.pop
           @adaptor.add_child(root_0, element76.tree)
           # at line 64:13: ( modifier )*
-          loop do # decision 48
+          while true # decision 48
             alt_48 = 2
             look_48_0 = @input.peek(1)
 
@@ -1963,7 +1963,7 @@ module CSS
           # at line 65:5: ( modifier )+
           # at file 65:5: ( modifier )+
           match_count_49 = 0
-          loop do
+          while true
             alt_49 = 2
             look_49_0 = @input.peek(1)
 
@@ -2214,7 +2214,7 @@ module CSS
           root_0 = @adaptor.become_root(tree_for_char_literal84, root_0)
 
           # at line 76:12: ( WS )*
-          loop do # decision 52
+          while true # decision 52
             alt_52 = 2
             look_52_0 = @input.peek(1)
 
@@ -2276,7 +2276,7 @@ module CSS
             @adaptor.add_child(root_0, tree_for_FUNCTION90)
 
             # at line 77:28: ( WS )*
-            loop do # decision 53
+            while true # decision 53
               alt_53 = 2
               look_53_0 = @input.peek(1)
 
@@ -2309,7 +2309,7 @@ module CSS
               @adaptor.add_child(root_0, tree_for_ID92)
 
               # at line 77:38: ( WS )*
-              loop do # decision 54
+              while true # decision 54
                 alt_54 = 2
                 look_54_0 = @input.peek(1)
 
@@ -2399,7 +2399,7 @@ module CSS
         @adaptor.add_child(root_0, tree_for_ID95)
 
         # at line 81:10: ( WS )*
-        loop do # decision 58
+        while true # decision 58
           alt_58 = 2
           look_58_0 = @input.peek(1)
 
@@ -2463,7 +2463,7 @@ module CSS
 
           end
           # at line 81:42: ( WS )*
-          loop do # decision 60
+          while true # decision 60
             alt_60 = 2
             look_60_0 = @input.peek(1)
 
@@ -2492,7 +2492,7 @@ module CSS
 
 
           # at line 81:63: ( WS )*
-          loop do # decision 61
+          while true # decision 61
             alt_61 = 2
             look_61_0 = @input.peek(1)
 
@@ -2575,7 +2575,7 @@ module CSS
         @adaptor.add_child(root_0, tree_for_ID103)
 
         # at line 85:10: ( WS )*
-        loop do # decision 63
+        while true # decision 63
           alt_63 = 2
           look_63_0 = @input.peek(1)
 
@@ -2598,7 +2598,7 @@ module CSS
         root_0 = @adaptor.become_root(tree_for_char_literal105, root_0)
 
         # at line 85:20: ( WS )*
-        loop do # decision 64
+        while true # decision 64
           alt_64 = 2
           look_64_0 = @input.peek(1)
 
@@ -2635,7 +2635,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_IMPORTANT108)
 
           # at line 85:41: ( WS )*
-          loop do # decision 65
+          while true # decision 65
             alt_65 = 2
             look_65_0 = @input.peek(1)
 
@@ -2714,7 +2714,7 @@ module CSS
         @state.following.pop
         @adaptor.add_child(root_0, term110.tree)
         # at line 89:10: ( ( '/' ( WS )* | ',' ( WS )* )? term )*
-        loop do # decision 70
+        while true # decision 70
           alt_70 = 2
           look_70_0 = @input.peek(1)
 
@@ -2743,7 +2743,7 @@ module CSS
               root_0 = @adaptor.become_root(tree_for_char_literal111, root_0)
 
               # at line 89:21: ( WS )*
-              loop do # decision 67
+              while true # decision 67
                 alt_67 = 2
                 look_67_0 = @input.peek(1)
 
@@ -2769,7 +2769,7 @@ module CSS
               root_0 = @adaptor.become_root(tree_for_char_literal113, root_0)
 
               # at line 89:33: ( WS )*
-              loop do # decision 68
+              while true # decision 68
                 alt_68 = 2
                 look_68_0 = @input.peek(1)
 
@@ -2923,7 +2923,7 @@ module CSS
 
 
           # at line 93:89: ( WS )*
-          loop do # decision 72
+          while true # decision 72
             alt_72 = 2
             look_72_0 = @input.peek(1)
 
@@ -2952,7 +2952,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_STRING119)
 
           # at line 94:14: ( WS )*
-          loop do # decision 73
+          while true # decision 73
             alt_73 = 2
             look_73_0 = @input.peek(1)
 
@@ -2981,7 +2981,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_ID121)
 
           # at line 95:10: ( WS )*
-          loop do # decision 74
+          while true # decision 74
             alt_74 = 2
             look_74_0 = @input.peek(1)
 
@@ -3010,7 +3010,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_URI123)
 
           # at line 96:11: ( WS )*
-          loop do # decision 75
+          while true # decision 75
             alt_75 = 2
             look_75_0 = @input.peek(1)
 
@@ -3039,7 +3039,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_HASH125)
 
           # at line 97:12: ( WS )*
-          loop do # decision 76
+          while true # decision 76
             alt_76 = 2
             look_76_0 = @input.peek(1)
 
@@ -3068,7 +3068,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_FUNCTION127)
 
           # at line 98:16: ( WS )*
-          loop do # decision 77
+          while true # decision 77
             alt_77 = 2
             look_77_0 = @input.peek(1)
 
@@ -3095,7 +3095,7 @@ module CSS
           @adaptor.add_child(root_0, tree_for_char_literal130)
 
           # at line 98:30: ( WS )*
-          loop do # decision 78
+          while true # decision 78
             alt_78 = 2
             look_78_0 = @input.peek(1)
 

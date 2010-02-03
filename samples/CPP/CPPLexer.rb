@@ -3,9 +3,9 @@
 # samples/CPP.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.4.0
+# Ruby runtime library version: 1.6.0
 # Input grammar file: samples/CPP.g
-# Generated at: 2010-01-25 13:58:35
+# Generated at: 2010-02-02 16:37:15
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.4.0):
+Failed to load the ANTLR3 runtime library (version 1.6.0):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '= 1.4.0' )
+    Gem.activate( 'antlr3', '~> 1.6.0' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -110,7 +110,7 @@ module CPP
     include TokenData
 
     begin
-      generated_using( "samples/CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.4.0" )
+      generated_using( "samples/CPP.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.6.0" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -203,6 +203,8 @@ module CPP
       # - - - - main rule block - - - -
       # at line 340:12: {...}? '#' ( WS )? id= IDENTIFIER
       unless (( @in_define_mode ))
+        @state.backtracking > 0 and raise(ANTLR3::Error::BacktrackingFailed)
+
         raise FailedPredicate("STRING_OP", " @in_define_mode ")
       end
       match(?#)
@@ -262,6 +264,8 @@ module CPP
       # - - - - main rule block - - - -
       # at line 345:10: {...}? '#' ( WS )? ( 'ifdef' | 'ifndef' | 'if' | 'elif' | 'else' | 'endif' | 'line' | 'undef' WS | 'define' WS | 'exec_macro_expression' | ( 'include' | 'include_next' ) WS f= IDENTIFIER | ( 'include' | 'include_next' ) WS f= INCLUDE_FILE | 'warning' m= MACRO_TEXT | 'error' (m= MACRO_TEXT )? | 'pragma' m= MACRO_TEXT )
       unless (( !@in_directive && !@in_define_mode ))
+        @state.backtracking > 0 and raise(ANTLR3::Error::BacktrackingFailed)
+
         raise FailedPredicate("DIRECTIVE", " !@in_directive && !@in_define_mode ")
       end
       match(?#)
@@ -610,7 +614,7 @@ module CPP
       # at line 424:13: ( ( '/*' )=> '/*' ( . )* '*/' | ( '\\\\\\n' )=> ( '\\\\\\n' ) | ( '\\\\\\r\\n' )=> ( '\\\\\\n' ) | ~ '\\n' )+
       # at file 424:13: ( ( '/*' )=> '/*' ( . )* '*/' | ( '\\\\\\n' )=> ( '\\\\\\n' ) | ( '\\\\\\r\\n' )=> ( '\\\\\\n' ) | ~ '\\n' )+
       match_count_8 = 0
-      loop do
+      while true
         alt_8 = 5
         alt_8 = @dfa8.predict(@input)
         case alt_8
@@ -618,7 +622,7 @@ module CPP
           # at line 424:15: ( '/*' )=> '/*' ( . )* '*/'
           match("/*")
           # at line 424:31: ( . )*
-          loop do # decision 7
+          while true # decision 7
             alt_7 = 2
             look_7_0 = @input.peek(1)
 
@@ -761,7 +765,7 @@ module CPP
       # at line 439:12: LETTER ( LETTER | '0' .. '9' )*
       letter!
       # at line 439:19: ( LETTER | '0' .. '9' )*
-      loop do # decision 9
+      while true # decision 9
         alt_9 = 2
         look_9_0 = @input.peek(1)
 
@@ -2105,7 +2109,7 @@ module CPP
         match(?<)
         # at file 575:15: ( ' ' | '!' | '#' .. ';' | '=' | '?' .. '[' | ']' .. '\\u00FF' )+
         match_count_10 = 0
-        loop do
+        while true
           alt_10 = 2
           look_10_0 = @input.peek(1)
 
@@ -2147,7 +2151,7 @@ module CPP
         match(?")
         # at file 576:17: ( ' ' | '!' | '#' .. ';' | '=' | '?' .. '[' | ']' .. '\\u00FF' )+
         match_count_11 = 0
-        loop do
+        while true
           alt_11 = 2
           look_11_0 = @input.peek(1)
 
@@ -2276,7 +2280,7 @@ module CPP
       # at line 585:13: '\"' ( EscapeSequence | ~ ( '\"' ) )* '\"'
       match(?")
       # at line 585:17: ( EscapeSequence | ~ ( '\"' ) )*
-      loop do # decision 15
+      while true # decision 15
         alt_15 = 3
         alt_15 = @dfa15.predict(@input)
         case alt_15
@@ -2340,7 +2344,7 @@ module CPP
 
       # at file 589:27: ( HexDigit )+
       match_count_16 = 0
-      loop do
+      while true
         alt_16 = 2
         look_16_0 = @input.peek(1)
 
@@ -2423,7 +2427,7 @@ module CPP
         # at line 593:20: '1' .. '9' ( '0' .. '9' )*
         match_range(?1, ?9)
         # at line 593:29: ( '0' .. '9' )*
-        loop do # decision 18
+        while true # decision 18
           alt_18 = 2
           look_18_0 = @input.peek(1)
 
@@ -2481,7 +2485,7 @@ module CPP
       match(?0)
       # at file 597:17: ( '0' .. '7' )+
       match_count_21 = 0
-      loop do
+      while true
         alt_21 = 2
         look_21_0 = @input.peek(1)
 
@@ -2641,7 +2645,7 @@ module CPP
         # at line 609:13: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )?
         # at file 609:13: ( '0' .. '9' )+
         match_count_24 = 0
-        loop do
+        while true
           alt_24 = 2
           look_24_0 = @input.peek(1)
 
@@ -2668,7 +2672,7 @@ module CPP
 
         match(?.)
         # at line 609:29: ( '0' .. '9' )*
-        loop do # decision 25
+        while true # decision 25
           alt_25 = 2
           look_25_0 = @input.peek(1)
 
@@ -2717,7 +2721,7 @@ module CPP
         match(?.)
         # at file 610:17: ( '0' .. '9' )+
         match_count_28 = 0
-        loop do
+        while true
           alt_28 = 2
           look_28_0 = @input.peek(1)
 
@@ -2773,7 +2777,7 @@ module CPP
         # at line 611:13: ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )?
         # at file 611:13: ( '0' .. '9' )+
         match_count_31 = 0
-        loop do
+        while true
           alt_31 = 2
           look_31_0 = @input.peek(1)
 
@@ -2817,7 +2821,7 @@ module CPP
         # at line 612:13: ( '0' .. '9' )+ FloatTypeSuffix
         # at file 612:13: ( '0' .. '9' )+
         match_count_33 = 0
-        loop do
+        while true
           alt_33 = 2
           look_33_0 = @input.peek(1)
 
@@ -2900,7 +2904,7 @@ module CPP
       end
       # at file 616:34: ( '0' .. '9' )+
       match_count_36 = 0
-      loop do
+      while true
         alt_36 = 2
         look_36_0 = @input.peek(1)
 
@@ -3009,7 +3013,7 @@ module CPP
         match(?x)
         # at file 625:22: ( HexDigit )+
         match_count_37 = 0
-        loop do
+        while true
           alt_37 = 2
           look_37_0 = @input.peek(1)
 
@@ -3196,7 +3200,7 @@ module CPP
         # at line 640:9: '/*' ( . )* '*/'
         match("/*")
         # at line 640:15: ( . )*
-        loop do # decision 40
+        while true # decision 40
           alt_40 = 2
           look_40_0 = @input.peek(1)
 
@@ -3237,7 +3241,7 @@ module CPP
         match(?\n)
         match(?*)
         # at line 641:27: ( . )*
-        loop do # decision 41
+        while true # decision 41
           alt_41 = 2
           look_41_0 = @input.peek(1)
 
@@ -3296,7 +3300,7 @@ module CPP
       # at line 645:8: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
       match("//")
       # at line 645:13: (~ ( '\\n' | '\\r' ) )*
-      loop do # decision 43
+      while true # decision 43
         alt_43 = 2
         look_43_0 = @input.peek(1)
 
@@ -3391,7 +3395,7 @@ module CPP
       end
       # at file 667:9: ( ' ' | '\\r' | '\\t' | '\\f' )+
       match_count_45 = 0
-      loop do
+      while true
         alt_45 = 2
         look_45_0 = @input.peek(1)
 
@@ -3600,6 +3604,8 @@ module CPP
       # - - - - main rule block - - - -
       # at line 725:11: {...}? ( COLON | QUESTIONMARK | POINTERTO | LCURLY | RCURLY | LSQUARE | RSQUARE | STAR | EQUAL | NOTEQUAL | LESSTHANOREQUALTO | LESSTHAN | GREATERTHANOREQUALTO | GREATERTHAN | DIVIDE | PLUSPLUS | MINUSMINUS | MOD | SHIFTRIGHT | SHIFTLEFT | AND | OR | BITWISEOR | BITWISEXOR | DOT | POINTERTOMBR | DOTMBR | SCOPE | AMPERSAND | PLUS | MINUS | TILDE | ASSIGNEQUAL | TIMESEQUAL | DIVIDEEQUAL | MODEQUAL | PLUSEQUAL | MINUSEQUAL | SHIFTLEFTEQUAL | SHIFTRIGHTEQUAL | BITWISEANDEQUAL | BITWISEXOREQUAL | BITWISEOREQUAL | NOT | ELLIPSIS )
       unless ((!@in_directive))
+        @state.backtracking > 0 and raise(ANTLR3::Error::BacktrackingFailed)
+
         raise FailedPredicate("COPERATOR", "!@in_directive")
       end
       # at line 726:9: ( COLON | QUESTIONMARK | POINTERTO | LCURLY | RCURLY | LSQUARE | RSQUARE | STAR | EQUAL | NOTEQUAL | LESSTHANOREQUALTO | LESSTHAN | GREATERTHANOREQUALTO | GREATERTHAN | DIVIDE | PLUSPLUS | MINUSMINUS | MOD | SHIFTRIGHT | SHIFTLEFT | AND | OR | BITWISEOR | BITWISEXOR | DOT | POINTERTOMBR | DOTMBR | SCOPE | AMPERSAND | PLUS | MINUS | TILDE | ASSIGNEQUAL | TIMESEQUAL | DIVIDEEQUAL | MODEQUAL | PLUSEQUAL | MINUSEQUAL | SHIFTLEFTEQUAL | SHIFTRIGHTEQUAL | BITWISEANDEQUAL | BITWISEXOREQUAL | BITWISEOREQUAL | NOT | ELLIPSIS )
@@ -3816,6 +3822,8 @@ module CPP
       when 1
         # at line 742:11: {...}? 'typedef'
         unless ((!@in_directive))
+          @state.backtracking > 0 and raise(ANTLR3::Error::BacktrackingFailed)
+
           raise FailedPredicate("CKEYWORD", "!@in_directive")
         end
         match("typedef")
