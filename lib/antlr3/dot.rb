@@ -49,26 +49,26 @@ library.
 
 module DOT
   class Context
-    def []=(var, value)
-      instance_variable_set(:"@#{var}", value)
+    def []=( var, value )
+      instance_variable_set( :"@#{ var }", value )
     end
-    def [](var)
-      instance_variable_get(:"@#{var}")
+    def []( var )
+      instance_variable_get( :"@#{ var }" )
     end
     
-    def initialize(template, vars = {})
+    def initialize( template, vars = {} )
       @__template__ = template
       vars.each do |var, value|
-        self[var] = value
+        self[ var ] = value
       end
     end
     
     def to_s
-      @__template__.result(binding)
+      @__template__.result( binding )
     end
   end
   class TreeGenerator
-    TREE_TEMPLATE = ERB.new( Util.tidy(<<-END) )
+    TREE_TEMPLATE = ERB.new( Util.tidy( <<-END ) )
     | digraph {
     |   ordering=out;
     |   ranksep=.4;
@@ -80,33 +80,33 @@ module DOT
     | }
     END
     
-    NODE_TEMPLATE = ERB.new( Util.tidy(<<-END) )
+    NODE_TEMPLATE = ERB.new( Util.tidy( <<-END ) )
     | <%= @name %> [label="<%= @text %>"];
     END
     
-    EDGE_TEMPLATE = ERB.new( Util.tidy(<<-END) )
+    EDGE_TEMPLATE = ERB.new( Util.tidy( <<-END ) )
     | <%= @parent %> -> <%= @child %>; // "<%= @parent_text %>" -> "<%= @child_text %>"
     END
     
-    def self.generate(tree, adaptor = nil, tree_template = TREE_TEMPLATE,
-                      edge_template = EDGE_TEMPLATE)
-      new.to_dot(tree, adaptor, tree_template, edge_template)
+    def self.generate( tree, adaptor = nil, tree_template = TREE_TEMPLATE,
+                      edge_template = EDGE_TEMPLATE )
+      new.to_dot( tree, adaptor, tree_template, edge_template )
     end
     
     def initialize
       @node_number = 0
       @node_to_number_map = Hash.new do |map, node|
-        map[node] = @node_number
+        map[ node ] = @node_number
         @node_number += 1
         @node_number - 1
       end
     end
     
-    def to_dot(tree, adaptor = nil, tree_template = TREE_TEMPLATE,
-               edge_template = EDGE_TEMPLATE)
+    def to_dot( tree, adaptor = nil, tree_template = TREE_TEMPLATE,
+               edge_template = EDGE_TEMPLATE )
       adaptor ||= AST::CommonTreeAdaptor.new
       @node_number = 0
-      tree_template = Context.new(tree_template, :nodes => [], :edges => [])
+      tree_template = Context.new( tree_template, :nodes => [], :edges => [] )
       define_nodes( tree, adaptor, tree_template )
       
       @node_number = 0
@@ -114,28 +114,28 @@ module DOT
       return tree_template.to_s
     end
     
-    def define_nodes( tree, adaptor, tree_template, known_nodes = nil)
+    def define_nodes( tree, adaptor, tree_template, known_nodes = nil )
       known_nodes ||= Set.new
       tree.nil? and return
       n = adaptor.child_count( tree )
       n == 0 and return
       number = node_number( tree )
       unless known_nodes.include?( number )
-        parent_node_template = node_template_for(adaptor, child)
-        tree_template[:nodes] << parent_node_template
+        parent_node_template = node_template_for( adaptor, child )
+        tree_template[ :nodes ] << parent_node_template
         known_nodes.add( number )
       end
       
       n.times do |index|
         child = adaptor.child_of( tree, index )
         number = @node_to_number_map[ child ]
-        unless known_nodes.include?(number)
+        unless known_nodes.include?( number )
           node_template = node_template_for( adaptor, child )
-          tree_template[:nodes] << node_template
+          tree_template[ :nodes ] << node_template
           known_nodes.add( number )
         end
         
-        define_nodes(child, adaptor, tree_template, edge_template)
+        define_nodes( child, adaptor, tree_template, edge_template )
       end
     end
     
@@ -151,22 +151,22 @@ module DOT
         child = adaptor.child_of( tree, index )
         child_text = adaptor.text_of( child )
         child_name = 'n%i' % @node_to_number_map[ tree ]
-        edge_template = Context.new(edge_template,
+        edge_template = Context.new( edge_template,
           :parent => parent_name, :child => child_name,
           :parent_text => parent_text, :child_text => child_text
         )
-        tree_template[:edges] << edge_template
+        tree_template[ :edges ] << edge_template
         define_edges( child, adaptor, tree_template, edge_template )
       end
     end
     
-    def node_template_for(adaptor, tree)
+    def node_template_for( adaptor, tree )
       text = adaptor.text_of( tree )
-      node_template = Context.new(NODE_TEMPLATE)
+      node_template = Context.new( NODE_TEMPLATE )
       unique_name = 'n%i' % @node_to_number_map[ tree ]
-      node_template[:name] = unique_name
-      text and text = text.gsub(/"/, '\\"')
-      node_template[:text] = text
+      node_template[ :name ] = unique_name
+      text and text = text.gsub( /"/, '\\"' )
+      node_template[ :text ] = text
       return node_template
     end
   end

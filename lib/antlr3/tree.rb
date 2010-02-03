@@ -104,7 +104,7 @@ See Tree and TreeAdaptor for more information.
 class TreeParser < BaseRecognizer
   def self.main( argv = ARGV, options = {} )
     if ::Hash === argv then argv, options = ARGV, argv end
-    main = ANTLR3::Main::WalkerMain.new(self, options)
+    main = ANTLR3::Main::WalkerMain.new( self, options )
     block_given? ? yield( main ) : main.execute( argv )
   end
   
@@ -121,7 +121,7 @@ class TreeParser < BaseRecognizer
   end
   
   def missing_symbol( error, expected_token_type, follow )
-    name = token_name(expected_token_type).to_s
+    name = token_name( expected_token_type ).to_s
     text = "<missing " << name << '>'
     tk = create_token do |t|
       t.text = text
@@ -152,13 +152,13 @@ class TreeParser < BaseRecognizer
     end
   end
   
-  def mismatch(input, type, follow = nil)
+  def mismatch( input, type, follow = nil )
     raise MismatchedTreeNode.new( type, input )
   end
   
   def error_header( e )
     <<-END.strip!
-    #{ grammar_file_name }: node from #{
+    #{ grammar_file_name }: node from #{ 
       e.approximate_line_info? ? 'after ' : ''
     } line #{ e.line }:#{ e.column }
     END
@@ -383,15 +383,15 @@ class BaseTree < ::Array
 
   def replace_children( start, stop, new_tree )
     start >= length or stop >= length and
-      raise IndexError, (<<-END).gsub!(/^\s+\| /,'')
+      raise IndexError, ( <<-END ).gsub!( /^\s+\| /,'' )
       | indices span beyond the number of children:
-      |  children.length = #{length}
-      |  start = #{start_index.inspect}
-      |  stop  = #{stop_index.inspect}
+      |  children.length = #{ length }
+      |  start = #{ start_index.inspect }
+      |  stop  = #{ stop_index.inspect }
       END
     new_children = new_tree.flat_list? ? new_tree : [ new_tree ]
     self[ start .. stop ] = new_children
-    freshen(start_index)
+    freshen( start_index )
     return self
   end
   
@@ -586,7 +586,7 @@ class CommonTree < BaseTree
     flat_list? ? 'nil' : @token.text.to_s
   end
   
-  def pretty_print(printer)
+  def pretty_print( printer )
     if empty?
       to_s.each_line do | line |
         nl = line.chomp!
@@ -597,11 +597,11 @@ class CommonTree < BaseTree
         end
       end
     else
-      endpoints = flat_list? ? ['', ''] : ["(#{self}", ')']
-      printer.group(1, *endpoints) do
+      endpoints = flat_list? ? [ '', '' ] : [ "(#{ self }", ')' ]
+      printer.group( 1, *endpoints ) do
         for child in self
           printer.breakable
-          printer.pp(child)
+          printer.pp( child )
         end
       end
     end
@@ -622,9 +622,9 @@ class CommonErrorNode < CommonTree
   attr_accessor :input, :start, :stop, :error
   
   def initialize( input, start, stop, error )
-    super(nil)
+    super( nil )
     stop = start if stop.nil? or
-      (stop.token_index < start.token_index and stop.type != EOF)
+      ( stop.token_index < start.token_index and stop.type != EOF )
     @input = input
     @start = start
     @stop = stop
@@ -643,7 +643,7 @@ class CommonErrorNode < CommonTree
     case @start
     when Token
       i = @start.token_index
-      j = (@stop.type == EOF) ? @input.size : @stop.token_index
+      j = ( @stop.type == EOF ) ? @input.size : @stop.token_index
       @input.to_s( i, j )            # <- the bad text
     when Tree
       @input.to_s( @start, @stop )   # <- the bad text
@@ -655,13 +655,13 @@ class CommonErrorNode < CommonTree
   def to_s
     case @error
     when MissingToken
-      "<missing type: #{@error.missing_type}>"
+      "<missing type: #{ @error.missing_type }>"
     when UnwantedToken
-      "<extraneous: #{@error.token.inspect}, resync = #{ text }>"
+      "<extraneous: #{ @error.token.inspect }, resync = #{ text }>"
     when MismatchedToken
-      "<mismatched token: #{@error.token.inspect}, resync = #{ text }>"
+      "<mismatched token: #{ @error.token.inspect }, resync = #{ text }>"
     when NoViableAlternative
-      "<unexpected: #{@error.token.inspect}, resync = #{ text }>"
+      "<unexpected: #{ @error.token.inspect }, resync = #{ text }>"
     else "<error: #{ text }>"
     end
   end
@@ -888,13 +888,13 @@ class CommonTreeAdaptor
   
   def create!( *args )
     n = args.length
-    if n == 1 and args.first.is_a?( Token ) then create_with_payload!( args[0] )
-    elsif n == 2 and Integer === args.first and String === args[1]
-      create_from_type!(*args)
+    if n == 1 and args.first.is_a?( Token ) then create_with_payload!( args[ 0 ] )
+    elsif n == 2 and Integer === args.first and String === args[ 1 ]
+      create_from_type!( *args )
     elsif n >= 2 and Integer === args.first
       create_from_token!( *args )
     else
-      sig = args.map { |f| f.class }.join(', ')
+      sig = args.map { |f| f.class }.join( ', ' )
       raise TypeError, "No create method with this signature found: (#{ sig })"
     end
   end
@@ -980,7 +980,7 @@ class CommonTreeNodeStream
   attr_accessor :token_stream
   attr_reader :adaptor, :position
   
-  def initialize(*args)
+  def initialize( *args )
     options = args.last.is_a?( ::Hash ) ? args.pop : {}
     case n = args.length
     when 1
@@ -1093,7 +1093,7 @@ class CommonTreeNodeStream
   end
   
   alias >> peek
-  def <<(k)
+  def <<( k )
     self >> -k
   end
   
@@ -1135,7 +1135,7 @@ class CommonTreeNodeStream
   end
   
   def replace_children( parent, start, stop, replacement )
-    parent and @adaptor.replace_children(parent, start, stop, replacement)
+    parent and @adaptor.replace_children( parent, start, stop, replacement )
   end
   
   def size
@@ -1145,7 +1145,7 @@ class CommonTreeNodeStream
   
   def inspect
     @position == -1 and fill_buffer
-    @nodes.map { |nd| @adaptor.type_name( nd ) }.join(' ')
+    @nodes.map { |nd| @adaptor.type_name( nd ) }.join( ' ' )
   end
   
   def extract_text( start = nil, stop = nil )
@@ -1205,7 +1205,7 @@ class CommonTreeNodeStream
     else
       start_index = @nodes.index( start ) || @nodes.length
       stop_index  = @nodes.index( stop )  || @nodes.length
-      return(
+      return( 
         @nodes[ start_index .. stop_index ].map do | n |
           @adaptor.text_of( n ) or " " + @adaptor.type_of( n ).to_s
         end.join( '' )

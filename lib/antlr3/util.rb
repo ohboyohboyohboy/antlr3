@@ -6,10 +6,10 @@ module Util
 
 module_function
   
-  def snake_case(str)
-    str = str.to_s.gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
-    str.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
-    str.tr!("-", "_")
+  def snake_case( str )
+    str = str.to_s.gsub( /([A-Z]+)([A-Z][a-z])/,'\1_\2' )
+    str.gsub!( /([a-z\d])([A-Z])/,'\1_\2' )
+    str.tr!( "-", "_" )
     str.downcase!
     str
   end
@@ -21,10 +21,10 @@ module_function
   end
   
   def tidy( here_doc, flow = false )
-    here_doc.gsub!(/^ *\| ?/, '')
+    here_doc.gsub!( /^ *\| ?/, '' )
     if flow
       here_doc.strip!
-      here_doc.gsub!(/\s+/, ' ')
+      here_doc.gsub!( /\s+/, ' ' )
     end
     return here_doc
   end
@@ -45,37 +45,37 @@ private
   def shared_attribute( name, *additional_members )
     attr_reader name
     
-    additional_writers = additional_members.inject('') do |src, attr|
-      src << "@#{attr} = value if @#{attr}\n"
+    additional_writers = additional_members.inject( '' ) do |src, attr|
+      src << "@#{ attr } = value if @#{ attr }\n"
     end
     
-    file, line, = caller[1].split(':', 3)
-    class_eval(<<-END, file, line.to_i)
-      def #{name}= value
-        @#{name} = value
+    file, line, = caller[ 1 ].split( ':', 3 )
+    class_eval( <<-END, file, line.to_i )
+      def #{ name }= value
+        @#{ name } = value
         
         each_delegate do |del|
-          del.#{name} = value
+          del.#{ name } = value
         end
         
-        #{additional_writers}
+        #{ additional_writers }
       end
     END
   end
   
   def abstract( name, message = nil )
-    message ||= "abstract method -- #{self.class}::#{name} has not been implemented"
-    file, line, = caller[1].split(':', 3)
-    class_eval(<<-END, file, line.to_i)
-      def #{name}( * )
-        raise TypeError, #{message.to_s.inspect}
+    message ||= "abstract method -- #{ self.class }::#{ name } has not been implemented"
+    file, line, = caller[ 1 ].split( ':', 3 )
+    class_eval( <<-END, file, line.to_i )
+      def #{ name }( * )
+        raise TypeError, #{ message.to_s.inspect }
       end
     END
   end
   
   def alias_accessor( alias_name, attr_name )
     alias_method( alias_name, attr_name )
-    alias_method( :"#{alias_name}=", :"#{attr_name}=" )
+    alias_method( :"#{ alias_name }=", :"#{ attr_name }=" )
   end
 
 end
@@ -91,8 +91,8 @@ class Integer
   #
   #   CREDIT Florian Gross
 
-  def at_least(x)
-    (self >= x) ? self : x
+  def at_least( x )
+    ( self >= x ) ? self : x
   end
 
   # Returns the greater of self or x.
@@ -102,8 +102,8 @@ class Integer
   #
   #   CREDIT Florian Gross
 
-  def at_most(x)
-    (self <= x) ? self : x
+  def at_most( x )
+    ( self <= x ) ? self : x
   end
 
   # Returns self if above the given lower bound, or
@@ -119,7 +119,7 @@ class Integer
   #
   #   CREDIT Trans
 
-  def bound(lower, upper=nil)
+  def bound( lower, upper=nil )
     return lower if self < lower
     return self unless upper
     return upper if self > upper
@@ -130,7 +130,7 @@ end
 
 
 class Range
-  def covers?(range)
+  def covers?( range )
     range.first >= first or return false
     if exclude_end?
       range.exclude_end? ? last >= range.last : last > range.last
@@ -139,17 +139,16 @@ class Range
     end
   end
   
-  def covered_by?(range)
-    range.covers?(self)
+  def covered_by?( range )
+    range.covers?( self )
   end
   
-  def overlaps?(range)
-    range.include?(first) or include?(range.first)
+  def overlaps?( range )
+    range.include?( first ) or include?( range.first )
   end
   
-  def disjoint?(range)
-    not overlaps?(range)
+  def disjoint?( range )
+    not overlaps?( range )
   end
   
 end
-

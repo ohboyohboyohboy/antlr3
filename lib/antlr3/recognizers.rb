@@ -35,7 +35,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 module ANTLR3
 unless const_defined?( :RecognizerSharedState )
 
-RecognizerSharedState = Struct.new(
+RecognizerSharedState = Struct.new( 
   :following,
   :error_recovery,
   :last_error_index,
@@ -91,7 +91,7 @@ text::
 =end
 class RecognizerSharedState
   def initialize
-    super([], false, -1, 0, nil, 0, nil, -1)
+    super( [], false, -1, 0, nil, 0, nil, -1 )
     # ^-- same as this --v 
     # self.following = []
     # self.error_recovery = false
@@ -178,7 +178,7 @@ class BaseRecognizer
       @antlr_version_string = antlr_version.freeze
       @library_version = Util.parse_version( library_version )
       if @antlr_version_string =~ /^(\d+)\.(\d+)(?:\.(\d+)(?:b(\d+))?)?(.*)$/
-        @antlr_version = [$1, $2, $3, $4].map! { |str| str.to_i }
+        @antlr_version = [ $1, $2, $3, $4 ].map! { |str| str.to_i }
         timestamp = $5.strip
         #@antlr_release_time = $5.empty? ? nil : Time.parse($5)
       else
@@ -209,7 +209,7 @@ class BaseRecognizer
     # this method to add an extra +:tree+ field to
     # all rule return structures.
     def return_scope_members
-      [:start, :stop]
+      [ :start, :stop ]
     end
     
     # sets up and returns the generic rule return
@@ -217,7 +217,7 @@ class BaseRecognizer
     def generic_return_scope
       @generic_return_scope ||= begin
         struct = Struct.new( *return_scope_members )
-        const_set(:Return, struct)
+        const_set( :Return, struct )
       end
     end
     
@@ -306,9 +306,9 @@ class BaseRecognizer
   # See the main recognizer subclasses for more specific
   # information about creating recognizer objects like
   # lexers and parsers.
-  def initialize(options = {})
-    @state  = options[:state] || RecognizerSharedState.new
-    @error_output = options.fetch(:error_output, $stderr)
+  def initialize( options = {} )
+    @state  = options[ :state ] || RecognizerSharedState.new
+    @error_output = options.fetch( :error_output, $stderr )
     defined?( @input ) or @input = nil
     initialize_dfas
   end
@@ -331,7 +331,7 @@ class BaseRecognizer
   # the symbol doesn't match, attempt to use the follow-set
   # data provided by +follow+ to recover from the mismatched
   # token. 
-  def match(type, follow)
+  def match( type, follow )
     matched_symbol = current_symbol
     if @input.peek == type
       @input.consume
@@ -339,7 +339,7 @@ class BaseRecognizer
       return matched_symbol
     end
     raise( BacktrackingFailed ) if @state.backtracking > 0
-    matched_symbol = recover_from_mismatched_token(type, follow)
+    matched_symbol = recover_from_mismatched_token( type, follow )
     return matched_symbol
   end
   
@@ -359,7 +359,7 @@ class BaseRecognizer
   # hook for carrying out the error reporting process. The
   # default implementation calls +display_recognition_error+
   # to display the error info on $stderr. 
-  def report_error(e = $!)
+  def report_error( e = $! )
     @state.error_recovery and return
     @state.syntax_errors += 1
     @state.error_recovery = true
@@ -371,10 +371,10 @@ class BaseRecognizer
   # message text using +error_header+ and +error_message+,
   # and calls +emit_error_message+ to write the error
   # message out to some source
-  def display_recognition_error(e = $!)
+  def display_recognition_error( e = $! )
     header = error_header( e )
     message = error_message( e )
-    emit_error_message("#{header} #{message}")
+    emit_error_message( "#{ header } #{ message }" )
   end
   
   # used to construct an appropriate error message
@@ -384,16 +384,16 @@ class BaseRecognizer
     case e
     when UnwantedToken
       token_name = token_name( e.expecting )
-      "extraneous input #{token_error_display( e.unexpected_token )} expecting #{ token_name }"
+      "extraneous input #{ token_error_display( e.unexpected_token ) } expecting #{ token_name }"
     when MissingToken
       token_name = token_name( e.expecting )
       "missing #{ token_name } at #{ token_error_display( e.symbol ) }"
     when MismatchedToken
       token_name = token_name( e.expecting )
-      "mismatched input #{token_error_display( e.symbol )} expecting #{token_name}"
+      "mismatched input #{ token_error_display( e.symbol ) } expecting #{ token_name }"
     when MismatchedTreeNode
       token_name = token_name( e.expecting )
-      "mismatched tree node: #{e.symbol} expecting #{token_name}"
+      "mismatched tree node: #{ e.symbol } expecting #{ token_name }"
     when NoViableAlternative
       "no viable alternative at input " << token_error_display( e.symbol )
     when MismatchedSet
@@ -840,15 +840,15 @@ class BaseRecognizer
   
   def trace_in( rule_name, rule_index, input_symbol )
     @error_output.printf( "--> enter %s on %s", rule_name, input_symbol )
-    @state.backtracking > 0 and @error_output.printf(
+    @state.backtracking > 0 and @error_output.printf( 
       " (in backtracking mode: depth = %s)", @state.backtracking
     )
     @error_output.print( "\n" )
   end
   
   def trace_out( rule_name, rule_index, input_symbol )
-    @error_output.printf("<-- exit %s on %s", rule_name, input_symbol)
-    @state.backtracking > 0 and @error_output.printf(
+    @error_output.printf( "<-- exit %s on %s", rule_name, input_symbol )
+    @state.backtracking > 0 and @error_output.printf( 
       " (in backtracking mode: depth = %s)", @state.backtracking
     )
     @error_output.print( "\n" )
@@ -947,7 +947,7 @@ class Lexer < BaseRecognizer
   
   def self.main( argv = ARGV, options = {} )
     if argv.is_a?( ::Hash ) then argv, options = ARGV, argv end
-    main = ANTLR3::Main::LexerMain.new(self, options)
+    main = ANTLR3::Main::LexerMain.new( self, options )
     block_given? ? yield( main ) : main.execute( argv )
   end
   
@@ -957,7 +957,7 @@ class Lexer < BaseRecognizer
     rescue NameError
       grammar_name = @grammar_home.name.split( "::" ).last
       begin
-        require "#{grammar_name}Parser"
+        require "#{ grammar_name }Parser"
         @grammar_home::Parser
       rescue LoadError, NameError
       end
@@ -1054,12 +1054,12 @@ class Lexer < BaseRecognizer
     @input.consume
   end
   
-  def match_range(min, max)
+  def match_range( min, max )
     char = @input.peek
-    if char.between?(min, max) then @input.consume
+    if char.between?( min, max ) then @input.consume
     else
       @state.backtracking > 0 and raise BacktrackingFailed
-      error = MismatchedRange(min.chr, max.chr)
+      error = MismatchedRange( min.chr, max.chr )
       recover( error )
       raise( error )
     end
@@ -1080,7 +1080,7 @@ class Lexer < BaseRecognizer
   
   def text
     @state.text and return @state.text
-    @input.substring(@state.token_start_position, character_index - 1)
+    @input.substring( @state.token_start_position, character_index - 1 )
   end
   
   def text=( text )
@@ -1096,19 +1096,19 @@ class Lexer < BaseRecognizer
     case e
     when Error::MismatchedToken
       expecting = character_error_display( e.expecting )
-      "mismatched character #{char}; expecting #{expecting}"
+      "mismatched character #{ char }; expecting #{ expecting }"
     when Error::NoViableAlternative
-      "no viable alternative at character #{char}"
+      "no viable alternative at character #{ char }"
     when Error::EarlyExit
-      "required ( ... )+ loop did not match anything at character #{char}"
+      "required ( ... )+ loop did not match anything at character #{ char }"
     when Error::MismatchedNotSet
-      "mismatched character %s; expecting set %p" % [char, e.expecting]
+      "mismatched character %s; expecting set %p" % [ char, e.expecting ]
     when Error::MismatchedSet
-      "mismatched character %s; expecting set %p" % [char, e.expecting]
+      "mismatched character %s; expecting set %p" % [ char, e.expecting ]
     when Error::MismatchedRange
       a = character_error_display( e.min )
       b = character_error_display( e.max )
-      "mismatched character %s; expecting set %s..%s" % [char, a, b]
+      "mismatched character %s; expecting set %s..%s" % [ char, a, b ]
     else super
     end
   end
@@ -1131,25 +1131,25 @@ private
   
   def cast_input( input, options )
     case input
-    when CharStream then input
+    when CharacterStream then input
     when ::String then StringStream.new( input, options )
     when ::IO     then FileStream.new( input, options )
     else input
     end
   end
   
-  def trace_in(rule_name, rule_index)
+  def trace_in( rule_name, rule_index )
     if symbol = @input.look and symbol != EOF then symbol = symbol.inspect
     else symbol = '<EOF>' end
-    input_symbol = "#{symbol} @ line #{line} / col #{column}"
-    super(rule_name, rule_index, input_symbol)
+    input_symbol = "#{ symbol } @ line #{ line } / col #{ column }"
+    super( rule_name, rule_index, input_symbol )
   end
   
-  def trace_out(rule_name, rule_index)
+  def trace_out( rule_name, rule_index )
     if symbol = @input.look and symbol != EOF then symbol = symbol.inspect
     else symbol = '<EOF>' end
-    input_symbol = "#{symbol} @ line #{line} / col #{column}"
-    super(rule_name, rule_index, input_symbol)
+    input_symbol = "#{ symbol } @ line #{ line } / col #{ column }"
+    super( rule_name, rule_index, input_symbol )
   end
   
   def create_token( &b )
@@ -1207,9 +1207,9 @@ thus the API closely mirrors BaseRecognizer.
 
 =end
 class Parser < BaseRecognizer
-  def self.main(argv = ARGV, options = {})
+  def self.main( argv = ARGV, options = {} )
     if argv.is_a?( ::Hash ) then argv, options = ARGV, argv end
-    main = ANTLR3::Main::ParserMain.new(self, options)
+    main = ANTLR3::Main::ParserMain.new( self, options )
     block_given? ? yield( main ) : main.execute( argv )
   end
   
@@ -1219,7 +1219,7 @@ class Parser < BaseRecognizer
     rescue NameError
       grammar_name = @grammar_home.name.split( "::" ).last
       begin
-        require "#{grammar_name}Lexer"
+        require "#{ grammar_name }Lexer"
         @grammar_home::Lexer
       rescue LoadError, NameError
       end
@@ -1234,19 +1234,19 @@ class Parser < BaseRecognizer
     @input = cast_input( input, options )
   end
   
-  def missing_symbol(error, expected_type, follow)
+  def missing_symbol( error, expected_type, follow )
     current = @input.look
     current = @input.look( -1 ) if current == ANTLR3::EOF_TOKEN
     t =
       case
       when current && current != ANTLR3::EOF_TOKEN then current.clone
       when @input.token_class then @input.token_class.new
-      else (create_token rescue CommonToken.new)
+      else ( create_token rescue CommonToken.new )
       end
     
     t.type = expected_type
     name = t.name.gsub( /(^<)|(>$)/,'' )
-    t.text = "<missing #{name}>"
+    t.text = "<missing #{ name }>"
     t.channel = DEFAULT_CHANNEL
     return( t )
   end
@@ -1265,11 +1265,11 @@ class Parser < BaseRecognizer
   
 private
   
-  def trace_in(rule_name, rule_index)
+  def trace_in( rule_name, rule_index )
     super( rule_name, rule_index, @input.look.inspect )
   end
   
-  def trace_out(rule_name, rule_index)
+  def trace_out( rule_name, rule_index )
     super( rule_name, rule_index, @input.look.inspect )
   end
   
@@ -1290,7 +1290,7 @@ private
     else
       # assume it's a stream if it at least implements peek and consume
       unless input.respond_to?( :peek ) and input.respond_to?( :consume )
-        raise ArgumentError, Util.tidy(<<-END, true)
+        raise ArgumentError, Util.tidy( <<-END, true )
         | #{ self.class } requires a token stream as input, but
         | #{ input.inspect } was provided
         END

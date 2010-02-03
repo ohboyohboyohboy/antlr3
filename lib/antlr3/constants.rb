@@ -74,10 +74,10 @@ module Constants
   # returning a string "<UNKNOWN: #{type}>" for non-builtin token
   # types
   BUILT_IN_TOKEN_NAMES = Hash.new do |h, k|
-    "<UNKNOWN: #{k}>"
+    "<UNKNOWN: #{ k }>"
   end
   
-  BUILT_IN_TOKEN_NAMES.update(
+  BUILT_IN_TOKEN_NAMES.update( 
     0 => "<invalid>".freeze, 1 => "<EOR>".freeze, 
     2 => "<DOWN>".freeze, 3 => "<UP>".freeze, 
     -1 => "<EOF>".freeze

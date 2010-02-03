@@ -61,7 +61,7 @@ class CompileTask < Rake::TaskLib
   
   def grammar_set( *grammar_files )
     grammar_files = [ grammar_files ].flatten!
-    options = @options.merge(
+    options = @options.merge( 
       Hash === grammar_files.last ? grammar_files.pop : {}
     )
     set = GrammarSet.new( grammar_files, options )
@@ -71,18 +71,18 @@ class CompileTask < Rake::TaskLib
   end
   
   def compile_task
-    full_name = ( @namespace + [ @name, 'compile' ] ).join(':')
+    full_name = ( @namespace + [ @name, 'compile' ] ).join( ':' )
     Rake::Task[ full_name ]
   end
   
   def clobber_task
-    full_name = ( @namespace + [ @name, 'clobber' ] ).join(':')
+    full_name = ( @namespace + [ @name, 'clobber' ] ).join( ':' )
     Rake::Task[ full_name ]
   end
   
   def define
     namespace( @name ) do
-      desc( "trash all ANTLR-generated source code")
+      desc( "trash all ANTLR-generated source code" )
       task( 'clobber' ) do
         for set in @grammar_sets
           set.clean
@@ -208,26 +208,26 @@ class CompileTask::GrammarSet
     token = token.to_s.dup
     token.empty? and return( %('') )
     token.gsub!( /([^A-Za-z0-9_\-.,:\/@\n])/n, "\\\\\\1" )
-    token.gsub!(/\n/, "'\n'")
+    token.gsub!( /\n/, "'\n'" )
     return( token )
   end
   
 end
 
 class GrammarFile
-  LANGUAGES = {
-    "ActionScript" => [".as"],
-    "CSharp2" => [".cs"],
-    "C" => [".c", ".h"],
-    "ObjC" => [".m", ".h"],
-    "CSharp3" => [".cs"],
-    "Cpp" => [".cpp", ".h"],
-    "Ruby" => [".rb"],
-    "Java" => [".java"],
-    "JavaScript" => [".js"],
-    "Python" => [".py"],
-    "Delphi" => [".pas"],
-    "Perl5" => [".pm"]
+  LANGUAGES = { 
+    "ActionScript" => [ ".as" ],
+    "CSharp2" => [ ".cs" ],
+    "C" => [ ".c", ".h" ],
+    "ObjC" => [ ".m", ".h" ],
+    "CSharp3" => [ ".cs" ],
+    "Cpp" => [ ".cpp", ".h" ],
+    "Ruby" => [ ".rb" ],
+    "Java" => [ ".java" ],
+    "JavaScript" => [ ".js" ],
+    "Python" => [ ".py" ],
+    "Delphi" => [ ".pas" ],
+    "Perl5" => [ ".pm" ]
   }.freeze
   GRAMMAR_TYPES = %w(lexer parser tree combined)
   
@@ -314,7 +314,7 @@ class GrammarFile
     targets = [ tokens_file ]
     
     for target_type in %w( lexer parser tree_parser )
-      for file in self.send( :"#{ target_type }_files")
+      for file in self.send( :"#{ target_type }_files" )
         targets << file
       end
     end
@@ -404,7 +404,7 @@ private
         @token_vocab = $1
     end
     
-    @source.scan(/^\s*import\s+(\w+\s*(?:,\s*\w+\s*)*);/) do
+    @source.scan( /^\s*import\s+(\w+\s*(?:,\s*\w+\s*)*);/ ) do
       list = $1.strip
       @imports.concat( list.split( /\s*,\s*/ ) )
     end
@@ -444,32 +444,32 @@ end
 class GrammarFile::FormatError < StandardError
   attr_reader :file, :source
   
-  def self.[](*args)
-    new(*args)
+  def self.[]( *args )
+    new( *args )
   end
   
-  def initialize(source, file = nil)
+  def initialize( source, file = nil )
     @file = file
     @source = source
     message = ''
     if file.nil? # inline
       message << "bad inline grammar source:\n"
-      message << ("-" * 80) << "\n"
+      message << ( "-" * 80 ) << "\n"
       message << @source
-      message[-1] == ?\n or message << "\n"
-      message << ("-" * 80) << "\n"
+      message[ -1 ] == ?\n or message << "\n"
+      message << ( "-" * 80 ) << "\n"
       message << "could not locate a grammar name and type declaration matching\n"
       message << "/^\s*(lexer|parser|tree)?\s*grammar\s*(\S+)\s*;/"
     else
       message << 'bad grammar source in file %p' % @file
-      message << ("-" * 80) << "\n"
+      message << ( "-" * 80 ) << "\n"
       message << @source
-      message[-1] == ?\n or message << "\n"
-      message << ("-" * 80) << "\n"
+      message[ -1 ] == ?\n or message << "\n"
+      message << ( "-" * 80 ) << "\n"
       message << "could not locate a grammar name and type declaration matching\n"
       message << "/^\s*(lexer|parser|tree)?\s*grammar\s*(\S+)\s*;/"
     end
-    super(message)
+    super( message )
   end
 end # error Grammar::FormatError
 end # class CompileTask

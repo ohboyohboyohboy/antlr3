@@ -58,7 +58,7 @@ autoload :EventHub, 'antlr3/debug/event-hub'
 autoload :TreeAdaptor, 'antlr3/tree/debug'
 autoload :TreeNodeStream, 'antlr3/tree/debug'
 
-RecognizerSharedState = Struct.new(
+RecognizerSharedState = Struct.new( 
   # the rule invocation depth
   :rule_invocation_stack,
   # a boolean flag to indicate whether or not the current decision is cyclic
@@ -101,7 +101,7 @@ generated in debug or profiling mode.
 =end
 class RecognizerSharedState
   def initialize
-    super([], false, [], false, -1, 0, nil, 0, nil, -1)
+    super( [], false, [], false, -1, 0, nil, 0, nil, -1 )
     # ^-- same as this --v 
     # self.following = []
     # self.error_recovery = false
@@ -141,9 +141,9 @@ switch.
 module ParserEvents
   include ANTLR3::Error
   
-  def self.included(klass)
+  def self.included( klass )
     super
-    if klass.is_a?(::Class)
+    if klass.is_a?( ::Class )
       def klass.debug?
         true
       end
@@ -153,16 +153,16 @@ module ParserEvents
   
   attr_reader :debug_listener
   
-  def initialize(stream, options = {})
-    @debug_listener = options[:debug_listener] ||= begin
+  def initialize( stream, options = {} )
+    @debug_listener = options[ :debug_listener ] ||= begin
       EventSocketProxy.new( self, options ).handshake
     end
-    options[:state] ||= Debug::RecognizerSharedState.new
-    super(stream, options)
-    if @input.is_a?(Debug::TokenStream)
+    options[ :state ] ||= Debug::RecognizerSharedState.new
+    super( stream, options )
+    if @input.is_a?( Debug::TokenStream )
       @input.debug_listener ||= @debug_listener
     else
-      @input = Debug::TokenStream.wrap(@input, @debug_listener)
+      @input = Debug::TokenStream.wrap( @input, @debug_listener )
     end
   end
   
@@ -174,14 +174,14 @@ module ParserEvents
     @state.cyclic_decision
   end
   
-  def cyclic_decision=(flag)
+  def cyclic_decision=( flag )
     @state.cyclic_decision = flag
   end
   
   # custom attribute writer for debug_listener
   # propegates the change in listener to the
   # parser's debugging input stream
-  def debug_listener=(dbg)
+  def debug_listener=( dbg )
     @debug_listener = dbg
     @input.debug_listener = dbg rescue nil
   end
@@ -199,22 +199,22 @@ module ParserEvents
   # TO-DO: is this pointless?
   def resync
     begin_resync
-    yield(self)
+    yield( self )
   ensure
     end_resync
   end
   
   def begin_backtrack
-    @debug_listener.begin_backtrack(@state.backtracking)
+    @debug_listener.begin_backtrack( @state.backtracking )
   end
   
-  def end_backtrack(successful)
-    @debug_listener.end_backtrack(@state.backtracking, successful)
+  def end_backtrack( successful )
+    @debug_listener.end_backtrack( @state.backtracking, successful )
   end
   
   def backtrack
     @state.backtracking += 1
-    @debug_listener.begin_backtrack(@state.backtracking)
+    @debug_listener.begin_backtrack( @state.backtracking )
     start = @input.mark
     success =
       begin yield
@@ -223,8 +223,8 @@ module ParserEvents
       end
     return success
   ensure
-    @input.rewind(start)
-    @debug_listener.end_backtrack(@state.backtracking, (success rescue nil))
+    @input.rewind( start )
+    @debug_listener.end_backtrack( @state.backtracking, ( success rescue nil ) )
     @state.backtracking -= 1
   end
   
@@ -240,43 +240,43 @@ module ParserEvents
     return( symbol )
   end
   
-  def in_rule(grammar_file, rule_name)
+  def in_rule( grammar_file, rule_name )
     @state.rule_invocation_stack.empty? and @debug_listener.commence
-    @debug_listener.enter_rule(grammar_file, rule_name)
-    @state.rule_invocation_stack.push(grammar_file, rule_name)
+    @debug_listener.enter_rule( grammar_file, rule_name )
+    @state.rule_invocation_stack.push( grammar_file, rule_name )
     yield
   ensure
-    @state.rule_invocation_stack.pop(2)
-    @debug_listener.exit_rule(grammar_file, rule_name)
+    @state.rule_invocation_stack.pop( 2 )
+    @debug_listener.exit_rule( grammar_file, rule_name )
     @state.rule_invocation_stack.empty? and @debug_listener.terminate
   end
   
   def rule_invocation_stack
-    @state.rule_invocation_stack.each_slice(2).to_a
+    @state.rule_invocation_stack.each_slice( 2 ).to_a
   end
   
-  def predicate?(description)
+  def predicate?( description )
     result = yield
-    @debug_listener.semantic_predicate(result, description)
+    @debug_listener.semantic_predicate( result, description )
     return result
   end
   
-  def in_alternative(alt_number)
-    @debug_listener.enter_alternative(alt_number)
+  def in_alternative( alt_number )
+    @debug_listener.enter_alternative( alt_number )
   end
   
-  def in_subrule(decision_number)
-    @debug_listener.enter_subrule(decision_number)
+  def in_subrule( decision_number )
+    @debug_listener.enter_subrule( decision_number )
     yield
   ensure
-    @debug_listener.exit_subrule(decision_number)
+    @debug_listener.exit_subrule( decision_number )
   end
   
-  def in_decision(decision_number)
-    @debug_listener.enter_decision(decision_number)
+  def in_decision( decision_number )
+    @debug_listener.enter_decision( decision_number )
     yield
   ensure
-    @debug_listener.exit_decision(decision_number)
+    @debug_listener.exit_decision( decision_number )
   end
 end
 
@@ -290,14 +290,14 @@ not already a Debug::TokenStream.
 =end
 module TokenStream
   
-  def self.wrap(stream, debug_listener = nil)
-    stream.extend(self)
+  def self.wrap( stream, debug_listener = nil )
+    stream.extend( self )
     stream.instance_eval do
       @initial_stream_state = true
       @debug_listener = debug_listener
       @last_marker = nil
     end
-    return(stream)
+    return( stream )
   end
   attr_reader :last_marker
   attr_accessor :debug_listener
@@ -307,11 +307,11 @@ module TokenStream
     a = index + 1 # the next position IF there are no hidden tokens in between
     t = super
     b = index     # the actual position after consuming
-    @debug_listener.consume_token(t) if @debug_listener
+    @debug_listener.consume_token( t ) if @debug_listener
     
     # if b > a, report the consumption of hidden tokens
     for i in a...b
-      @debug_listener.consume_hidden_token at(i)
+      @debug_listener.consume_hidden_token at( i )
     end
   end
   
@@ -330,7 +330,7 @@ module TokenStream
   def consume_initial_hidden_tokens
     first_on_channel_token_index = self.index
     first_on_channel_token_index.times do |index|
-      @debug_listener.consume_hidden_token at(index)
+      @debug_listener.consume_hidden_token at( index )
     end
     @initial_stream_state = false
   end
@@ -341,20 +341,20 @@ module TokenStream
   ###################################### Stream Methods ######################################
   ############################################################################################
   
-  def look(steps = 1)
+  def look( steps = 1 )
     @initial_stream_state and consume_initial_hidden_tokens
-    token = super(steps)
-    @debug_listener.look(steps, token)
+    token = super( steps )
+    @debug_listener.look( steps, token )
     return token
   end
   
-  def peek(steps = 1)
-    look(steps).type
+  def peek( steps = 1 )
+    look( steps ).type
   end
   
   def mark
     @last_marker = super
-    @debug_listener.mark(@last_marker)
+    @debug_listener.mark( @last_marker )
     return @last_marker
   end
   
@@ -379,14 +379,14 @@ module EventListener
   # The grammarFileName allows composite grammars to jump around among
   # multiple grammar files.
   
-  def enter_rule(grammar_file, rule_name)
+  def enter_rule( grammar_file, rule_name )
     # do nothing
   end
   
   # Because rules can have lots of alternatives, it is very useful to
   # know which alt you are entering.  This is 1..n for n alts.
   
-  def enter_alternative(alt)
+  def enter_alternative( alt )
     # do nothing
   end
   
@@ -397,7 +397,7 @@ module EventListener
   # The grammarFileName allows composite grammars to jump around among
   # multiple grammar files.
   
-  def exit_rule(grammar_file, rule_name)
+  def exit_rule( grammar_file, rule_name )
     # do nothing
   end
 
@@ -476,7 +476,7 @@ module EventListener
   
   def backtrack( level )
     begin_backtrack( level )
-    successful = yield(self)
+    successful = yield( self )
     end_backtrack( level, successful )
   end
 
@@ -567,7 +567,7 @@ module EventListener
   
   def resync
     begin_resync
-    yield(self)
+    yield( self )
     end_resync
   end
 
@@ -670,16 +670,16 @@ module EventListener
     # do nothing
   end
   
-  def examine_rule_memoization(rule)
+  def examine_rule_memoization( rule )
     # do nothing
   end
   
-  def on(event_name, &block)
+  def on( event_name, &block )
     sclass = class << self; self; end
-    sclass.send(:define_method, event_name, &block)
+    sclass.send( :define_method, event_name, &block )
   end
   
-  EVENTS = [
+  EVENTS = [ 
     :add_child, :backtrack, :become_root, :begin_backtrack,
     :begin_resync, :commence, :consume_hidden_token,
     :consume_node, :consume_token, :create_node, :end_backtrack,

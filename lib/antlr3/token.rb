@@ -136,7 +136,7 @@ module Token
   end
   
   def name
-    token_name(type)
+    token_name( type )
   end
   
   def hidden?
@@ -144,7 +144,7 @@ module Token
   end
   
   def source_text
-    concrete? ? input.substring(start, stop) : text
+    concrete? ? input.substring( start, stop ) : text
   end
   
   def hide!
@@ -165,30 +165,30 @@ module Token
   
   def inspect
     text_inspect    = text  ? '[%p] ' % text : ' '
-    text_position   = line != 0  ? '@ line %s col %s ' % [line, column] : ''
-    stream_position = start ? '(%s..%s)' % [start, stop] : ''
+    text_position   = line != 0  ? '@ line %s col %s ' % [ line, column ] : ''
+    stream_position = start ? '(%s..%s)' % [ start, stop ] : ''
     
     front =  index != -1 ? index.to_s << ' ' : ''
     rep = front << name << text_inspect <<
                 text_position << stream_position
     rep.strip!
-    channel == DEFAULT_CHANNEL or rep << " (#{channel.to_s})"
-    return(rep)
+    channel == DEFAULT_CHANNEL or rep << " (#{ channel.to_s })"
+    return( rep )
   end
   
-  def pretty_print(printer)
+  def pretty_print( printer )
     printer.text( inspect )
   end
   
 private
   
-  def token_name(type)
-    BUILT_IN_TOKEN_NAMES[type]
+  def token_name( type )
+    BUILT_IN_TOKEN_NAMES[ type ]
   end
 end
 
-CommonToken = Struct.new(:type, :channel, :text, :input, :start,
-                         :stop, :index, :line, :column)
+CommonToken = Struct.new( :type, :channel, :text, :input, :start,
+                         :stop, :index, :line, :column )
 
 =begin rdoc ANTLR3::CommonToken
 
@@ -219,38 +219,38 @@ Here is the token structure attribute list in order:
 
 class CommonToken
   include Token
-  DEFAULT_VALUES = {
+  DEFAULT_VALUES = { 
     :channel => DEFAULT_CHANNEL,
     :index   => -1,
     :line    =>  0,
     :column  => -1
   }.freeze
   
-  def self.token_name(type)
-    BUILT_IN_TOKEN_NAMES[type]
+  def self.token_name( type )
+    BUILT_IN_TOKEN_NAMES[ type ]
   end
   
-  def self.create(fields = {})
-    fields = DEFAULT_VALUES.merge(fields)
-    args = members.map { |name| fields[name.to_sym] }
-    new(*args)
+  def self.create( fields = {} )
+    fields = DEFAULT_VALUES.merge( fields )
+    args = members.map { |name| fields[ name.to_sym ] }
+    new( *args )
   end
   
   # allows you to make a copy of a token with a different class
   def self.from_token( token )
-    new(
+    new( 
       token.type,  token.channel, token.text ? token.text.clone : nil,
       token.input, token.start,   token.stop, -1, token.line, token.column
     )
   end
   
-  def initialize(type = nil, channel = DEFAULT_CHANNEL, text = nil,
+  def initialize( type = nil, channel = DEFAULT_CHANNEL, text = nil,
                  input = nil, start = nil, stop = nil, index = -1,
-                 line = 0, column = -1)
+                 line = 0, column = -1 )
     super
     block_given? and yield( self )
     self.text.nil? && self.start && self.stop and
-      self.text = self.input.substring(self.start, self.stop)
+      self.text = self.input.substring( self.start, self.stop )
   end
   
   alias :input_stream :input
@@ -293,7 +293,7 @@ module TokenSource
     return token
   end
   
-  def to_stream(options = {})
+  def to_stream( options = {} )
     if block_given?
       CommonTokenStream.new( self, options ) { | t, stream | yield( t, stream ) }
     else
@@ -302,7 +302,7 @@ module TokenSource
   end
   
   def each
-    block_given? or return enum_for(:each)
+    block_given? or return enum_for( :each )
     loop { yield( self.next ) }
   rescue StopIteration
     return self
@@ -334,13 +334,13 @@ module TokenFactory
     end
   end
   
-  def create_token(*args)
+  def create_token( *args )
     if block_given?
-      token_class.new(*args) do |*targs|
-        yield(*targs)
+      token_class.new( *args ) do |*targs|
+        yield( *targs )
       end
     else
-      token_class.new(*args)
+      token_class.new( *args )
     end
   end
 end
@@ -475,9 +475,9 @@ dynamically-created CommonToken subclass.
 class TokenScheme < ::Module
   include TokenFactory
   
-  def self.new(tk_class = nil, &body)
+  def self.new( tk_class = nil, &body )
     super() do
-      tk_class ||= Class.new(::ANTLR3::CommonToken)
+      tk_class ||= Class.new( ::ANTLR3::CommonToken )
       self.token_class = tk_class
       
       const_set( :TOKEN_NAMES, ::ANTLR3::Constants::BUILT_IN_TOKEN_NAMES.clone )
@@ -492,14 +492,14 @@ class TokenScheme < ::Module
         begin
           token_names[ type ] or super
         rescue NoMethodError
-          ::ANTLR3::CommonToken.token_name(type)
+          ::ANTLR3::CommonToken.token_name( type )
         end
       end
       module_function :token_name, :token_names
       
       include ANTLR3::Constants
       
-      body and module_eval(&body)
+      body and module_eval( &body )
     end
   end
   
@@ -521,16 +521,16 @@ class TokenScheme < ::Module
   end
   
   
-  def included(mod)
+  def included( mod )
     super
-    mod.extend(self)
+    mod.extend( self )
   end
   private :included
   attr_reader :unused, :types
   
   def define_tokens( token_map = {} )
     for token_name, token_value in token_map
-      define_token(token_name, token_value)
+      define_token( token_name, token_value )
     end
     return self
   end
@@ -543,9 +543,9 @@ class TokenScheme < ::Module
       # raise an error unless value is the same as the current value
       value ||= current_value
       unless current_value == value
-        raise NameError.new(
-          "new token type definition ``#{name} = #{value}'' conflicts " <<
-          "with existing type definition ``#{name} = #{current_value}''", name
+        raise NameError.new( 
+          "new token type definition ``#{ name } = #{ value }'' conflicts " <<
+          "with existing type definition ``#{ name } = #{ current_value }''", name
         )
       end
     else
@@ -564,58 +564,58 @@ class TokenScheme < ::Module
     return self
   end
   
-  def register_names(*names)
+  def register_names( *names )
     if names.length == 1 and Hash === names.first
       names.first.each do |value, name|
-        register_name(value, name)
+        register_name( value, name )
       end
     else
       names.each_with_index do |name, i|
         type_value = Constants::MIN_TOKEN_TYPE + i
-        register_name(type_value, name)
+        register_name( type_value, name )
       end
     end
   end
   
   def register_name( type_value, name )
     name = name.to_s.freeze
-    if token_names.has_key?(type_value)
-      current_name = token_names[type_value]
+    if token_names.has_key?( type_value )
+      current_name = token_names[ type_value ]
       current_name == name and return name
       
       if current_name == "T__#{ type_value }"
         # only an anonymous name is registered -- upgrade the name to the full literal name
-        token_names[type_value] = name
-      elsif name == "T__#{type_value}"
+        token_names[ type_value ] = name
+      elsif name == "T__#{ type_value }"
         # ignore name downgrade from literal to anonymous constant
         return current_name
       else
-        error = NameError.new(
-          "attempted assignment of token type #{type_value}" <<
-          " to name #{name} conflicts with existing name #{current_name}", name
+        error = NameError.new( 
+          "attempted assignment of token type #{ type_value }" <<
+          " to name #{ name } conflicts with existing name #{ current_name }", name
         )
         raise error
       end
     else
-      token_names[type_value] = name.to_s.freeze
+      token_names[ type_value ] = name.to_s.freeze
     end
   end
   
-  def built_in_type?(type_value)
-    Constants::BUILT_IN_TOKEN_NAMES.fetch(type_value, false) and true
+  def built_in_type?( type_value )
+    Constants::BUILT_IN_TOKEN_NAMES.fetch( type_value, false ) and true
   end
   
-  def token_defined?(name_or_value)
+  def token_defined?( name_or_value )
     case value
-    when Integer then token_names.has_key?(name_or_value)
-    else const_defined?(name_or_value.to_s)
+    when Integer then token_names.has_key?( name_or_value )
+    else const_defined?( name_or_value.to_s )
     end
   end
   
-  def [](name_or_value)
+  def []( name_or_value )
     case name_or_value
-    when Integer then token_names.fetch(name_or_value, nil)
-    else const_get(name_or_value.to_s) rescue token_names.index(name_or_value)
+    when Integer then token_names.fetch( name_or_value, nil )
+    else const_get( name_or_value.to_s ) rescue token_names.index( name_or_value )
     end
   end
   
@@ -623,10 +623,10 @@ class TokenScheme < ::Module
     self::Token
   end
   
-  def token_class=(klass)
-    Class === klass or raise(TypeError, "token_class must be a Class")
+  def token_class=( klass )
+    Class === klass or raise( TypeError, "token_class must be a Class" )
     Util.silence_warnings do
-      klass < self or klass.send(:include, self)
+      klass < self or klass.send( :include, self )
       const_set( :Token, klass )
     end
   end
