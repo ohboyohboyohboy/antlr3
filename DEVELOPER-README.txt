@@ -52,13 +52,15 @@ general:
   - ruby 1.8.7
   - ruby 1.9.1 (optional)
   - java
+  - graphviz (optional)
   
 for documentation:
-  - pygmentize
+  - pygmentize (optional)
   
 for building ANTLR:
   - javac
   - fastjar or jar
+
 
 ==============================================================================
 Development Dependencies / Third-Party Gems

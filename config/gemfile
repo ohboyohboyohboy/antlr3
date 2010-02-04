@@ -11,6 +11,7 @@ gem 'rubyforge'
 gem 'gemcutter'
 
 gem 'rake', "0.8.7"
+gem 'rdoc', "2.4.3"
 
 # antlr tests use a rspec environment with a test/unit structure
 gem "rspec", "1.1.11"
