@@ -25,7 +25,7 @@ doc: !group
   rdoc: !path doc/rdoc
   ri:   !path doc/ri
   options:
-    - "-Nd"
+    - "-N"
   files: !pathlist
     include:
       - lib/**/*.rb

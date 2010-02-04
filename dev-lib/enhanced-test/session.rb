@@ -306,8 +306,10 @@ class TestFile < Item
 private
   
   def compute_weight
-    source.lines.grep( /^ *(def test_|example\b|ast_test\b)/ ).
+    source.scan( /^ *(?:def test_|example\b|ast_test\b)/ ).
       length * EXAMPLE_WEIGHT
+  rescue
+    1
   end
   
   def progress( bar, pipe )
@@ -448,6 +450,8 @@ private
     @source = nil
     
     return( super + GRAMMAR_WEIGHT * compile_weight )
+  rescue
+    10
   end
   
 end
@@ -577,6 +581,8 @@ class PerformanceTest < Item
 private
   def compute_weight
     @grammar.stale? ? GRAMMAR_WEIGHT : 0
+  rescue
+    5
   end
   
   def progress( bar, out ) end # do nothing
