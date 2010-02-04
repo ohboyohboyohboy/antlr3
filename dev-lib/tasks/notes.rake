@@ -12,7 +12,7 @@ namespace :notes do
   task :FIXME do
     require 'source-notes'
     color_map = { :tag => 'red', :text => 'yellow' }
-    files = $project.package_files.select { |path| test( ?f, path ) }
+    files = $project.package.files.select { |path| test( ?f, path ) }
     SourceNote.scan( 'FIXME', files ) do |note|
       puts( note.to_s( color_map ) )
     end
@@ -22,7 +22,7 @@ namespace :notes do
   task :TODO do
     require 'source-notes'
     color_map = { :tag => 'magenta', :text => 'yellow' }
-    files = $project.package_files.select { |path| test( ?f, path ) }
+    files = $project.package.files.select { |path| test( ?f, path ) }
     SourceNote.scan( 'TODO', files ) do |note|
       puts( note.to_s( color_map ) )
     end
@@ -34,7 +34,7 @@ namespace :notes do
     
     require 'source-notes'
     color_map = { :tag => 'blue', :text => 'yellow' }
-    files = $project.package_files.select { |path| test( ?f, path ) }
+    files = $project.package.files.select { |path| test( ?f, path ) }
     
     SourceNote.scan( tag, files ) do |note|
       puts( note.to_s( color_map ) )

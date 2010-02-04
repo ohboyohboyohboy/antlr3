@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
 
 set -x ANTLR3_BASE (realpath .)
 set -x PATH (realpath ./bin) (realpath ./scripts) (realpath ./vendor/bin) $PATH

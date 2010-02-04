@@ -1,9 +1,6 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 
-path = ENV.read( :PATH, Array )
-path.unshift( $project.path( 'scripts' ) )
-
 namespace :test do
   
   desc "run functional and unit tests, as well as benchmarks and profile"

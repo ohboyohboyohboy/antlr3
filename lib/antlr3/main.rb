@@ -101,7 +101,8 @@ module Options
     return oparser.parse( argv )
   end
   
-  private
+private
+  
   def setup_options( oparser )
     # overridable hook to modify / append options
   end
