@@ -45,10 +45,18 @@ module Constants
   # built-in token channel IDs
   
   # the channel to which most tokens will be assigned
-  DEFAULT = DEFAULT_CHANNEL = :default
+  DEFAULT = DEFAULT_CHANNEL = DEFAULT_TOKEN_CHANNEL = :default
   
   # the channel for tokens which should not be passed to a parser by a token stream
   HIDDEN  = HIDDEN_CHANNEL  = :hidden
+  
+  # flag used by recognizers during memoization to
+  # represent a previous prediction failure
+  MEMO_RULE_FAILED = -2
+  
+  # flag used by recognizers during memoization to indicate
+  # that the rule has not been memoized yet
+  MEMO_RULE_UNKNOWN = -1
   
   # built-in token types used internally by ANTLR3
   

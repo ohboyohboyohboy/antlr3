@@ -57,7 +57,7 @@ autoload :Visitor, 'antlr3/tree/visitor'
 = TreeParser
 
 TreeParser is the default base class of ANTLR-generated tree parsers. The class
-tailors the functionality provided by BaseRecognizer to the task of tree-pattern
+tailors the functionality provided by Recognizer to the task of tree-pattern
 recognition.
 
 == About Tree Parsers
@@ -85,7 +85,7 @@ For more in-depth coverage of the topic, check out the ANTLR documentation
 
 == The Tree Parser API
 
-Like Parser, the class does not stray too far from the BaseRecognizer API.
+Like Parser, the class does not stray too far from the Recognizer API.
 Mainly, it customizes a few methods specifically to deal with tree nodes
 (instead of basic tokens), and adds some helper methods for working with trees.
 
@@ -101,7 +101,7 @@ See Tree and TreeAdaptor for more information.
 
 =end
 
-class TreeParser < BaseRecognizer
+class TreeParser < Recognizer
   def self.main( argv = ARGV, options = {} )
     if ::Hash === argv then argv, options = ARGV, argv end
     main = ANTLR3::Main::WalkerMain.new( self, options )

@@ -156,7 +156,8 @@ builds a simple report to present the various statistics.
 
 =end
 class Profiler
-  include ANTLR3::Debug::EventListener
+  include Debug::EventListener
+  include Constants
   
   PROTOCOL_VERSION = 2
   
@@ -215,7 +216,7 @@ class Profiler
 
   def examine_rule_memoization( rule )
     stop_index = parser.rule_memoization( rule, @parser.input.index )
-    if stop_index == BaseRecognizer::MEMO_RULE_UNKNOWN
+    if stop_index == MEMO_RULE_UNKNOWN
       @profile.memoization_cache_misses += 1
       @profile.guessing_rule_invocations += 1
     else

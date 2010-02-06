@@ -58,7 +58,7 @@ private
   def fill_through( position )
     @eof and return
     if position < 0 then fill_out
-    else readline until ( @size > position or @eof )
+    else readline until ( @data.size > position or @eof )
     end
   end
   
