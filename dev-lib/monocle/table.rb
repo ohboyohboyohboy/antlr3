@@ -42,9 +42,14 @@ class Table
     map { |i| i.inspect }.join( "\n" )
   end
   
-  def render
-    OutputDevice.buffer do | out |
+  def render( out = nil )
+    if out
       lock { each { | member | member.render( out ) } }
+      return( out )
+    else
+      OutputDevice.buffer do | out |
+        lock { each { | member | member.render( out ) } }
+      end
     end
   end
   

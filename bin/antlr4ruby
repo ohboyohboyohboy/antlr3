@@ -1,12 +1,106 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-__DIR__ = File.expand_path( File.dirname __FILE__ )
-project_top = File.dirname __DIR__
-lib = File.join( project_top, 'lib' )
-$:.unshift( lib )
-require 'antlr3'
+=begin LICENSE
+
+[The "BSD licence"]
+Copyright (c) 2009 Kyle Yetter
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. The name of the author may not be used to endorse or promote products
+    derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+=end
+
+=begin rdoc antlr4ruby
+
+A simple wrapper script to run the ANTLR tool with the ruby antlr3
+target modifications in place of the default Ruby target data.
+It essentially does two things:
+
+* locate the `customized' ANTLR v.3 JAR archive file
+* exec the command <tt>java -cp path/to/jar $ARGV</tt>
+
+Thus, for ANTLR tool usage, refer to ANTLR's main documentation
+at http://www.antlr.org .
+
+There are a small number of additional options available
+in addition to ANTLR's options:
+
+  --version         display the Ruby target version and then the
+                    ANTLR tool's version information
+  
+  --help, -h        as ANTLR does not provide these standard switches,
+                    it executes the ANTLR tool without arguments to make
+                    it print out usage information
+                    
+  --keep-classpath  Do not unset the CLASSPATH environmental variable before
+                    executing the java command (*)
+
+
+(*) This script unsets CLASSPATH to avoid interference from system installations
+    of prior versions of ANTLR. The jar that is distributed with this package
+    is complete, and thus does not generally require any external libraries, so
+    this shouldn't cause any major problems. However, if for some reason you
+    need to keep this variable to execute the command properly, you can use
+    the --keep-classpath option.
+=end
+
+$0 = 'antlr4ruby'
+
+begin
+  require 'antlr3'
+rescue LoadError
+  __DIR__ = File.expand_path( File.dirname __FILE__ )
+  project_top = File.dirname __DIR__
+  lib = File.join( project_top, 'lib' )
+  $LOAD_PATH.unshift( lib )
+  require 'antlr3'
+end
 
 jar = ANTLR3.antlr_jar or fail( "cannot find antlr4ruby's customized ANTLR jar" )
 
-exec( 'java', '-jar', jar, *ARGV )
+run = proc do | *args |
+  exec( 'java', '-jar', jar, *args )
+end
+
+ARGV.delete( '--keep-classpath' ) or
+  ENV.delete( 'CLASSPATH' )
+
+if ARGV.include?( '--version' )
+  
+  puts( "Ruby Target and Runtime Library Version: #{ ANTLR3::VERSION_STRING }" )
+  run.call( '-version' )
+  
+elsif ARGV.include?( '--help' ) or ARGV.include?( '-h' )
+  
+  # the ANTLR tool doesn't follow the --help/-h convention
+  # -- it provides help only if no arguments are specified
+  run.call
+  
+else
+  
+  # run the tool
+  run.call( *ARGV )
+  
+end

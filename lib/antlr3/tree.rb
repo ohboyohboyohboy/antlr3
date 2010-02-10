@@ -4,7 +4,7 @@
 =begin LICENSE
 
 [The "BSD licence"]
-Copyright (c) 2009 Kyle Yetter
+Copyright (c) 2009-2010 Kyle Yetter
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -230,85 +230,72 @@ module Tree
   #attr_reader :children
   attr_reader :token
   
-  #def [](index, length = nil)           # getChild(index)
-  #  length.nil? ? self.children[index] : self.children[index, length]
-  #end
-  #
-  #alias child []
-  #
-  #def child_count                       # getChildCount
-  #  self.children.length
-  #end
-  #
-  #def push(node, *nodes)
-  #  self.children.push(node, *nodes)
-  #end
-  #
-  #alias << push
-  #
-  #def shift
-  #  self.children.shift
-  #end
-  #
-  #def unshift(node, *nodes)
-  #  self.children.unshift(node, *nodes)
-  #end
-  #
-  #alias add_child shift
   
-  #def set_child(index, tree)
-  #  self.children[index] = tree
-  #end
+  def root?
+    parent.nil?
+  end
+  alias detached? root?
   
-  #alias []= set_child
+  def root
+    cursor = self
+    until cursor.root?
+      yield( parent_node = cursor.parent )
+      cursor = parent_node
+    end
+    return( cursor )
+  end
   
-  #def delete_child(index)
-  #  self.children.delete(index)
-  #end
   #
-  #def replace_children(start, stop, trees)
-  #  self.children[start..stop] = trees
-  #end
-  #
-  #def to_a
-  #  child_arrays = children.map { |child| child.to_a }
-  #  [token, *child_arrays]
-  #end
+  def leaf?
+    children.nil? or children.empty?
+  end
   
-  #include Enumerable
-  #
-  #def each_child
-  #  block_given? or return enum_for(__method__)
-  #  self.children.each { |child| yield(child)  }
-  #end
-  #
-  #def each_ancestor
-  #  block_given? or return enum_for(__method__)
-  #  self.ancestors.each { |anc| yield(anc) }
-  #end
+  def has_child?( node )
+    children and children.include?( node )
+  end
   
+  def depth
+    root? ? 0 : parent.depth + 1
+  end
   
-
+  def siblings
+    root? and return []
+    parent.children.reject { | c | c.equal?( self ) }
+  end
   
-  #alias :each :walk
-  #
-  #def root?
-  #  parent.nil?
-  #end
-  #
-  #def leaf?
-  #  children.empty?
-  #end
+  def each_ancestor
+    block_given? or return( enum_for( :each_ancestor ) )
+    cursor = self
+    until cursor.root?
+      yield( parent_node = cursor.parent )
+      cursor = parent_node
+    end
+    return( self )
+  end
   
-  #def ancestors
-  #  a = []
-  #  cursor = self
-  #  until cursor.root?
-  #    a.push(cursor.parent)
-  #    cursor = cursor.parent
-  #  end
-  #  return a
-  #end
+  def ancestors
+    each_ancestor.to_a
+  end
+  
+  def walk
+    block_given? or return( enum_for( :walk ) )
+    stack = []
+    cursor = self
+    while true
+      begin
+        yield( cursor )
+        stack.push( cursor.children.dup ) unless cursor.empty?
+      rescue StopIteration
+        # skips adding children to prune the node
+      ensure
+        break if stack.empty?
+        cursor = stack.last.shift
+        stack.pop if stack.last.empty?
+      end
+    end
+    return self
+  end
+  
 end
 
 
@@ -344,9 +331,8 @@ class BaseTree < ::Array
   def add_child( child_tree )
     child_tree.nil? and return
     if child_tree.flat_list?
-      if equal?( child_tree.children )
+      self.equal?( child_tree.children ) and
         raise ArgumentError, "attempt to add child list to itself"
-      end
       child_tree.each_with_index do | child, index |
         child.parent = self
         child.child_index = length + index
@@ -367,6 +353,9 @@ class BaseTree < ::Array
   end
   
   alias add_children concat
+  alias each_child each
+  
+  
   
   def set_child( index, tree )
     return if tree.nil?
@@ -451,6 +440,12 @@ class BaseTree < ::Array
   
   abstract :to_s
   #protected :sanity_check, :freshen
+  
+  def root?() @parent.nil? end
+  alias leaf? empty?
+  
+  
+  
 end
 
 
@@ -587,17 +582,14 @@ class CommonTree < BaseTree
   end
   
   def pretty_print( printer )
+    text = @token ? @token.text : 'nil'
+    text =~ /\s+/ and
+      text = text.dump
+    
     if empty?
-      to_s.each_line do | line |
-        nl = line.chomp!
-        printer.text( line )
-        if nl
-          printer.text( printer.newline )
-          printer.text( printer.genspace[ printer.indent ] )
-        end
-      end
+      printer.text( text )
     else
-      endpoints = flat_list? ? [ '', '' ] : [ "(#{ self }", ')' ]
+      endpoints = @token ? [ "(#{ text }", ')' ] : [ '', '' ]
       printer.group( 1, *endpoints ) do
         for child in self
           printer.breakable
@@ -843,9 +835,10 @@ class CommonTreeAdaptor
     @token_class = token_class
   end
   
-  def create_flat_list!
+  def create_flat_list
     return create_with_payload!( nil )
   end
+  alias create_flat_list! create_flat_list
   
   def become_root( new_root, old_root )
     new_root = create!( new_root ) if new_root.is_a?( Token )
@@ -865,7 +858,7 @@ class CommonTreeAdaptor
     return new_root
   end
   
-  def create_from_token!( token_type, from_token, text = nil )
+  def create_from_token( token_type, from_token, text = nil )
     from_token = from_token.dup
     from_token.type = token_type
     from_token.text = text.to_s if text
@@ -873,20 +866,20 @@ class CommonTreeAdaptor
     return tree
   end
   
-  def create_from_type!( token_type, text )
+  def create_from_type( token_type, text )
     from_token = create_token( token_type, DEFAULT_CHANNEL, text )
     create_with_payload!( from_token )
   end
   
-  def create_error_node!( input, start, stop, exc )
+  def create_error_node( input, start, stop, exc )
     CommonErrorNode.new( input, start, stop, exc )
   end
   
-  def create_with_payload!( payload )
+  def create_with_payload( payload )
     return CommonTree.new( payload )
   end
-  
-  def create!( *args )
+
+  def create( *args )
     n = args.length
     if n == 1 and args.first.is_a?( Token ) then create_with_payload!( args[ 0 ] )
     elsif n == 2 and Integer === args.first and String === args[ 1 ]
@@ -898,6 +891,17 @@ class CommonTreeAdaptor
       raise TypeError, "No create method with this signature found: (#{ sig })"
     end
   end
+  
+  # TODO: deprecate create...! methods -- they don't make sense
+  
+  # aliases in preparation for deprecation to avoid breaking
+  # backward compatibility
+  
+  alias create_from_token! create_from_token
+  alias create_from_type! create_from_type
+  alias create_error_node! create_error_node
+  alias create_with_payload! create_with_payload
+  alias create! create
   
   def rule_post_processing( root )
     if root and root.flat_list?

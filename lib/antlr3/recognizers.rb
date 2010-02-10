@@ -4,7 +4,7 @@
 =begin LICENSE
 
 [The "BSD licence"]
-Copyright (c) 2009 Kyle Yetter
+Copyright (c) 2009-2010 Kyle Yetter
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -89,6 +89,7 @@ text::
   the text of the target token
 
 =end
+
 class RecognizerSharedState
   def initialize
     super( [], false, -1, 0, nil, 0, nil, -1 )
@@ -145,6 +146,7 @@ defines methods related to:
 * simple rule tracing and debugging
 
 =end
+
 class Recognizer
   include Constants
   include Error

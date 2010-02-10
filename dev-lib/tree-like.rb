@@ -52,8 +52,8 @@ module TreeLike
   ##### Properties ###########################################################
   attr_reader :parent
   def parent=(node)
-    previous = @parent
-    @parent = node
+    previous, @parent = @parent, node
+    
     if previous and previous.children.include?(self)
       previous.children.delete(self)
     end
@@ -127,18 +127,17 @@ module TreeLike
     its_parent  = node.parent
     its_depth   = node.depth
     its_index   = node.index_in_parent
-    my_parent   = self.parent
-    my_depth    = self.depth
-    my_index    = self.index_in_parent
+    my_parent   = parent
+    my_depth    = depth
+    my_index    = index_in_parent
     
     its_parent.children[its_index] = self
     my_parent.children[my_index] = node
     
-    self.instance_variable_set(:@parent, its_parent)
-    self.instance_variable_set(:@depth, its_depth)
-    
+    @parent, @depth = its_parent, its_depth
     node.instance_variable_set(:@parent, my_parent)
     node.instance_variable_set(:@depth,  my_depth)
+    return( node )
   end
 
   def replace_with(node)

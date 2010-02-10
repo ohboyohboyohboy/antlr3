@@ -4,7 +4,7 @@
 =begin LICENSE
 
 [The "BSD licence"]
-Copyright (c) 2009 Kyle Yetter
+Copyright (c) 2009-2010 Kyle Yetter
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -96,7 +96,7 @@ antlr3/dot.rb::
 =end
 
 module ANTLR3
-
+  
   LIBRARY_PATH  = ::File.expand_path(::File.dirname(__FILE__))
   # :startdoc:
   
@@ -126,8 +126,27 @@ module ANTLR3
     raise(bug)
   end
   
+  @antlr_jar = nil
+  
+  def self.antlr_jar=( path )
+    @antlr_jar = path ? File.expand_path( path.to_s ) : path
+  end
+  
   def self.antlr_jar
-    path = project_path "java/antlr-full-#{ANTLR_VERSION_STRING}.jar"
+    @antlr_jar and return( @antlr_jar )
+    
+    path = project_path "java/antlr-full-#{ ANTLR_VERSION_STRING }.jar"
+    if env_path = ENV[ 'RUBY_ANTLR_JAR' ]
+      if File.file?( env_path ) then return File.expand_path( env_path ) end
+      
+      warn(
+        "#{ __FILE__ }:#{ __LINE__ }: " <<
+        "ignoring environmental variable RUBY_ANTLR_JAR (=%p) " % env_path <<
+        "as it is not the path to an existing file\n" <<
+        "  -> trying default jar path %p instead" % path
+      )
+    end
+    
     File.exists?( path ) ? path : nil
   end
   
@@ -138,6 +157,8 @@ module ANTLR3
   # Tree classes are only used by tree parsers or AST-building parsers
   # Thus, they're not essential for everything ANTLR generates and
   # are autoloaded on-demand
+  autoload :AST, 'antlr3/tree'
+  
   tree_classes = [
     :Tree, :TreeAdaptor, :BaseTree, :BaseTreeAdaptor,
     :CommonTree, :CommonErrorNode, :CommonTreeAdaptor,
@@ -146,7 +167,7 @@ module ANTLR3
     :RewriteRuleTokenStream, :RewriteRuleSubtreeStream,
     :RewriteRuleNodeStream
   ]
-  autoload :AST, 'antlr3/tree'
+  
   for klass in tree_classes
     autoload klass, 'antlr3/tree'
   end
@@ -167,12 +188,16 @@ module ANTLR3
   
 end  # module ANTLR3
 
+
 require 'set'
 require 'antlr3/util'
 require 'antlr3/version'
-require 'antlr3/constants'
-require 'antlr3/error'
-require 'antlr3/token'
-require 'antlr3/recognizers'
-require 'antlr3/dfa'
-require 'antlr3/streams'
+
+unless $0 == 'antlr4ruby'
+  require 'antlr3/constants'
+  require 'antlr3/error'
+  require 'antlr3/token'
+  require 'antlr3/recognizers'
+  require 'antlr3/dfa'
+  require 'antlr3/streams'
+end

@@ -257,14 +257,11 @@ class TestFile < Item
     tests = self.tests.sort_by { | t | t.name }
     summaries = tests.map { | t | t.summary }
     total = summaries.inject( Summary.new, :<< )
-    table = Table.build( table_head, options ) do | table |
+    out.table( table_head, options ) do | table |
       yield( tests, total, table )
     end
-    
-    out.puts( table )
     out.puts
   end
-  
   
   attr_reader :summary, :results
   
@@ -681,13 +678,11 @@ class BenchmarkTest < PerformanceTest
     super( out, options )
     bench_tests = tests.sort_by { | t | t.name }
     columns = %w( Action Item Trials Total User System Real )
-    out.puts(
-      Table.build( columns ) do | table |
-        for test in bench_tests
-          test.summarize( table )
-        end
+    out.table( columns, options ) do | table |
+      for test in bench_tests
+        test.summarize( table )
       end
-    )
+    end
     out.puts
   end
   

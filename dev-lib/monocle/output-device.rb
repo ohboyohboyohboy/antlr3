@@ -166,6 +166,13 @@ class OutputDevice < DelegateClass( IO )
     return( self )
   end
   
+  def table( *args )
+    tb = Table.new( *args ) do | table |
+      block_given? and yield( table )
+    end
+    tb.render( self )
+  end
+  
   def print( *objs )
     text = Text( [ objs ].flatten!.join )
     @use_color or text.bleach!
