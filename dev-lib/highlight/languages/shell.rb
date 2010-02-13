@@ -35,13 +35,31 @@ class Shell
   def initialize(source, options = {})
     @source = source.to_s
     @lexer  = ::Shell::Lexer.new(source)
-    @html = Formatters::HTML::CodeBlock.new('shell', options[:id] || __id__.to_s, options)
+    @tokens = ANTLR3::CommonTokenStream.new( @lexer )
+    @html = Formatters::HTML::CodeBlock.new('shell', options[:id] || __id__.abs.to_s, options)
     if @prompt = options[:prompt]
       @html.add_token('gp', @prompt)
       @html.add_token('w', ' ')
     end
-    for token in @lexer
+    
+    while token = @tokens.look and token.type != EOF
       @html.add_token( categorize(token), token.text )
+      @tokens.consume
+      
+      if @prompt and token.type == COMMAND_END and token.text =~ /[\r\n]/
+        @tokens.mark
+        
+        while token = @tokens.look and token.type == WS
+          @tokens.consume
+        end
+        
+        if token = @tokens.look and token.type != EOF
+          @html.add_token( 'gp', @prompt )
+          @html.add_token( 'w', ' ' )
+        end
+        
+        @tokens.rewind
+      end
     end
   end
   

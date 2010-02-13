@@ -8,17 +8,17 @@ namespace :test do
     sh "antlr-tests run"
   end
   
-  desc "run unit tests"
+  desc "run the runtime library unit tests"
   task :unit => %w(antlr) do
     sh "antlr-tests unit"
   end
   
-  desc "run functional tests"
+  desc "test the functionality of ANTLR generated code"
   task :functional => %w(antlr) do
     sh "antlr-tests functional"
   end
   
-  desc "run benchmarking and profiling scripts and save the data"
+  desc "benchmark and profile ANTLR generated code"
   task :performance => %w(antlr) do
     sh "antlr-tests run benchmark profile -s"
   end

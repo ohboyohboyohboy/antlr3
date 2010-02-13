@@ -1,3 +1,11 @@
+=== 1.6.3 / 02-12-10
+
+* 4 Minor Enhancements
+  - added --help and --version options to antlr4ruby
+  - documented the antlr4ruby source and added license information
+  - prettied up the source code in all of the library files a little
+  - added a hoe-based rakefile with the gem distribution of the source code
+
 === 1.6.0 / 01-27-10
 
 * 4 Minor Enhancements to runtime library

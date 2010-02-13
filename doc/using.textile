@@ -2,18 +2,29 @@ h1. Getting Started With ANTLR3 For Ruby
 
 div(step). Step 1: Download / Install
 
-* If you have rubygems:
+h2. Two Ways To Install
+
+h3. Rubygems
 
 « cmd
 sudo gem install antlr3   # or whatever form of this command appropriate for your system
 »
 
-* Otherwise, get a tarball or zip from "rubyforge":http://rubyforge.org/projects/antlr3 , unpack, and ensure @lib/antlr3.rb@ can be loaded with <tt>require 'antlr3'</tt>
+* this will install the runtime library and customized ANTLR jar as a ruby gem
+
+h3. Git
+
+« cmd
+git clone http://github.com/ohboyohboyohboy/antlr3
+cd antlr3
+ruby setup.rb
+rake install
+»
 
 div(step). Step 2: Write an ANTLR Grammar
 
 * For general information on writing grammars, read up on ANTLR's "official documentation":http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+printable+documentation
-* For ruby output, the grammar must declare <<tt>language = Ruby;</tt> in its top-level @options@ block
+* For ruby output, the grammar must declare <tt>language = Ruby;</tt> in its top-level @options@ block
 
 div(step). Step 3: Run the ANTLR Tool
 

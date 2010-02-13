@@ -1,0 +1,18 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+load './config/antlr3.rb'
+
+require 'antlr3'
+require 'hoe'
+
+Hoe.plugin :doofus
+
+Hoe.spec $project.name do
+  self.version = ANTLR3::VERSION_STRING
+  self.rubyforge_name = $project.rubyforge_project
+  
+  
+  developer $project.author, $project.email
+end
+

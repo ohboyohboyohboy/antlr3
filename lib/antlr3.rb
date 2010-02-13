@@ -93,10 +93,13 @@ antlr3/dot.rb::
   extra utilities to generate DOT map specifications for graphical.
   representations of ASTs
 
+@author Kyle Yetter
+
 =end
 
 module ANTLR3
   
+  # :stopdoc:
   LIBRARY_PATH  = ::File.expand_path(::File.dirname(__FILE__))
   # :startdoc:
   

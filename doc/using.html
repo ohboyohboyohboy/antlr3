@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+
+Design by NodeThirtyThree <http://www.nodethirtythree.com>
+Published by Free CSS Templates <http://www.freecsstemplates.org/>
+Released for free under a Creative Commons Attribution 2.5 License
+
+Title      : stylized
+Version    : 1.1
+Released   : 20070716
+Description: A two-column fixed width template for 1024x768 resolutions.
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="general.css" rel="stylesheet" type="text/css" media="screen" />
+
+<link rel="stylesheet" type="text/css" href="shell.css" />
+
+<style type="text/css">
+
+</style>
+</head>
+<body>
+  <h1>Getting Started With ANTLR3 For Ruby</h1>
+  <div class="step">Step 1: Download / Install</div>
+  <h2>Two Ways To Install</h2>
+  <h3>Rubygems</h3>
+  <notextile>
+  <table class="shell" id="609840498">
+  <tr class="code_line" id="609840498-1">
+      <td class="code"><pre><span class="gp">%</span><span class="w">&nbsp;</span><span class="k">sudo</span><span class="w">&nbsp;</span><span class="nv">gem</span><span class="w">&nbsp;</span><span class="nv">install</span><span class="w">&nbsp;</span><span class="nv">antlr3</span><span class="w">&nbsp;&nbsp;&nbsp;</span><span class="c">#&nbsp;or&nbsp;whatever&nbsp;form&nbsp;of&nbsp;this&nbsp;command&nbsp;appropriate&nbsp;for&nbsp;your&nbsp;system</span></pre></td>
+  </tr>
+  </table>
+  </notextile>
+  <ul>
+  	<li>this will install the runtime library and customized <span class="caps">ANTLR</span> jar as a ruby gem</li>
+  </ul>
+  <h3>Git</h3>
+  <notextile>
+  <table class="shell" id="608492388">
+  <tr class="code_line" id="608492388-1">
+      <td class="code"><pre><span class="gp">%</span><span class="w">&nbsp;</span><span class="k">git</span><span class="w">&nbsp;</span><span class="nv">clone</span><span class="w">&nbsp;</span><span class="nv">http://github.com/ohboyohboyohboy/antlr3</span><span class="kp"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="608492388-2">
+      <td class="code"><pre><span class="gp">%</span><span class="w">&nbsp;</span><span class="k">cd</span><span class="w">&nbsp;</span><span class="nv">antlr3</span><span class="kp"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="608492388-3">
+      <td class="code"><pre><span class="gp">%</span><span class="w">&nbsp;</span><span class="k">ruby</span><span class="w">&nbsp;</span><span class="nv">setup.rb</span><span class="kp"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="608492388-4">
+      <td class="code"><pre><span class="gp">%</span><span class="w">&nbsp;</span><span class="k">rake</span><span class="w">&nbsp;</span><span class="nv">install</span></pre></td>
+  </tr>
+  </table>
+  </notextile>
+  <div class="step">Step 2: Write an <span class="caps">ANTLR</span> Grammar</div>
+  <ul>
+  	<li>For general information on writing grammars, read up on ANTLR&#8217;s <a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+printable+documentation">official documentation</a></li>
+  	<li>For ruby output, the grammar must declare <tt>language = Ruby;</tt> in its top-level <code>options</code> block</li>
+  </ul>
+  <div class="step">Step 3: Run the <span class="caps">ANTLR</span> Tool</div>
+  <notextile>
+  <table class="shell" id="608529958">
+  <tr class="code_line" id="608529958-1">
+      <td class="code"><pre><span class="gp">%</span><span class="w">&nbsp;</span><span class="k">antlr4ruby</span><span class="w">&nbsp;</span><span class="nv">path/to/your/Grammar.g</span></pre></td>
+  </tr>
+  </table>
+  </notextile>
+  <ul>
+  	<li>the <code>antlr4ruby</code> command is just a simple wrapper around the command <tt>java org.antlr.Tool</tt>. It makes sure the customized <span class="caps">ANTLR</span> jar bundled up with this package is in the java class path to get correct output.</li>
+  	<li>for information on using the <span class="caps">ANTLR</span> tool command, refer to the <a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+printable+documentation">official documentation</a></li>
+  	<li>assuming <span class="caps">ANTLR</span> doesn&#8217;t have any serious complaints about your grammar, you should now have a number of ruby output files containing your recognition code</li>
+  </ul>
+</body>
+</html>

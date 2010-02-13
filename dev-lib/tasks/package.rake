@@ -25,6 +25,8 @@ namespace :package do
           safe_ln( f, target )
         end
       end
+      
+      $project.generate_hoe( package.dir )
     end
     
     file( zip => [ package.dir ] ) do
@@ -36,9 +38,12 @@ namespace :package do
     end
     
     spec = $project.gem_spec
-    file( gem => spec.files ) do
-      Gem::Builder.new( spec ).build
-      mv( File.basename( gem ), gem )
+    file( gem => [ package.dir ] ) do
+      dest = abs( package.base )
+      cd( package.dir ) do
+        Gem::Builder.new( spec ).build
+        mv( File.basename( gem ), dest )
+      end
     end
     
     run_task( zip )
@@ -52,3 +57,9 @@ namespace :package do
 end
 
 task :package => %w( package:build )
+
+desc( "build the project gem and install it to the system" )
+task( :install => %w( package ) ) do
+  gem = $project.package.base( '$(name)-$(version).gem' ).to_s
+  sh %(gem install #{ gem.inspect })
+end

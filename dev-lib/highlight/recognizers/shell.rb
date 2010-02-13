@@ -1,19 +1,60 @@
 #!/usr/bin/env ruby
+#
+# SimpleShell.g
 # 
-# generated using ANTLR Version: 3.2 Oct 17, 2009 11:23:44
-# input grammar file: SimpleShell.g
-# generated at: 2009-10-22 14:39:42
+# Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
+# Ruby runtime library version: 1.6.1
+# Input grammar file: SimpleShell.g
+# Generated at: 2010-02-10 23:57:59
+# 
 
+# ~~~> start load path setup
 this_directory = File.expand_path( File.dirname( __FILE__ ) )
 $:.unshift( this_directory ) unless $:.include?( this_directory )
 
-begin
-  require 'rubygems'
-  gem 'antlr3'
-rescue LoadError
+antlr_load_failed = proc do
+  load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
+  raise LoadError, <<-END.strip!
+  
+Failed to load the ANTLR3 runtime library (version 1.6.1):
+
+Ensure the library has been installed on your system and is available
+on the load path. If rubygems is available on your system, this can
+be done with the command:
+  
+  gem install antlr3
+
+Current load path:
+#{ load_path }
+
+  END
 end
 
-require 'antlr3'
+defined?( ANTLR3 ) or begin
+  
+  # 1: try to load the ruby antlr3 runtime library from the system path
+  require 'antlr3'
+  
+rescue LoadError
+  
+  # 2: try to load rubygems if it isn't already loaded
+  defined?( Gem ) or begin
+    require 'rubygems'
+  rescue LoadError
+    antlr_load_failed.call
+  end
+  
+  # 3: try to activate the antlr3 gem
+  begin
+    Gem.activate( 'antlr3', '~> 1.6.1' )
+  rescue Gem::LoadError
+    antlr_load_failed.call
+  end
+  
+  require 'antlr3'
+  
+end
+# <~~~ end load path setup
 
 
 module Shell
@@ -25,22 +66,22 @@ module Shell
   module TokenData
 
     # define the token constants
-    define_tokens(:GLOB => 11, :WS => 8, :VARIABLE => 10, :PIPELINE_OPERATOR => 16, 
-                  :REDIRECT => 17, :CHUNK => 13, :COMMAND_NAME => 4, :CLOSE_PAR => 15, 
-                  :SWITCH => 5, :COMMAND_END => 9, :CHUNK_CHAR => 12, :SHELL_STRING => 7, 
-                  :COMMENT => 18, :EOF => -1, :OPEN_PAR => 14, :STRING => 6)
+    define_tokens( :GLOB => 11, :WS => 8, :VARIABLE => 10, :PIPELINE_OPERATOR => 16, 
+                   :REDIRECT => 17, :CHUNK => 13, :COMMAND_NAME => 4, :CLOSE_PAR => 15, 
+                   :SWITCH => 5, :COMMAND_END => 9, :CHUNK_CHAR => 12, :SHELL_STRING => 7, 
+                   :COMMENT => 18, :EOF => -1, :OPEN_PAR => 14, :STRING => 6 )
+    
   end
 
 
   class Lexer < ANTLR3::Lexer
     @grammar_home = Shell
-    
     include TokenData
 
     begin
-      generated_using('SimpleShell.g', '3.2 Oct 17, 2009 11:23:44')
+      generated_using( "SimpleShell.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.6.1" )
     rescue NoMethodError => error
-      error.name == :generated_using or raise
+      error.name.to_sym == :generated_using or raise
     end
     
     RULE_NAMES   = ["STRING", "SHELL_STRING", "WS", "COMMAND_END", "VARIABLE", 
@@ -52,7 +93,6 @@ module Shell
 
     
     def initialize(input=nil, options = {})
-      
       super(input, options)
 
       
@@ -91,7 +131,7 @@ module Shell
         # at line 15:5: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"'
         match(?")
         # at line 15:10: (~ ( '\"' | '\\\\' ) | '\\\\' . )*
-        loop do  #loop 1
+        while true # decision 1
           alt_1 = 3
           look_1_0 = @input.peek(1)
 
@@ -120,16 +160,16 @@ module Shell
             match_any
 
           else
-            break #loop 1
+            break # out of loop for decision 1
           end
-        end
+        end # loop for decision 1
         match(?")
 
       when 2
         # at line 16:5: '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\''
         match(?\')
         # at line 16:10: (~ ( '\\'' | '\\\\' ) | '\\\\' . )*
-        loop do  #loop 2
+        while true # decision 2
           alt_2 = 3
           look_2_0 = @input.peek(1)
 
@@ -158,9 +198,9 @@ module Shell
             match_any
 
           else
-            break #loop 2
+            break # out of loop for decision 2
           end
-        end
+        end # loop for decision 2
         match(?\')
 
       end
@@ -188,7 +228,7 @@ module Shell
       # at line 20:5: '`' (~ ( '`' | '\\\\' ) | '\\\\' . )* '`'
       match(?`)
       # at line 20:9: (~ ( '`' | '\\\\' ) | '\\\\' . )*
-      loop do  #loop 4
+      while true # decision 4
         alt_4 = 3
         look_4_0 = @input.peek(1)
 
@@ -217,9 +257,9 @@ module Shell
           match_any
 
         else
-          break #loop 4
+          break # out of loop for decision 4
         end
-      end
+      end # loop for decision 4
       match(?`)
 
       
@@ -246,7 +286,7 @@ module Shell
       # at line 23:5: ( ' ' | '\\t' )+
       # at file 23:5: ( ' ' | '\\t' )+
       match_count_5 = 0
-      loop do
+      while true
         alt_5 = 2
         look_5_0 = @input.peek(1)
 
@@ -361,7 +401,7 @@ module Shell
       match(?$)
       # at file 32:9: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | '_' )+
       match_count_8 = 0
-      loop do
+      while true
         alt_8 = 2
         look_8_0 = @input.peek(1)
 
@@ -417,7 +457,7 @@ module Shell
       # at line 36:5: ( '?' | '*' )+
       # at file 36:5: ( '?' | '*' )+
       match_count_9 = 0
-      loop do
+      while true
         alt_9 = 2
         look_9_0 = @input.peek(1)
 
@@ -476,7 +516,7 @@ module Shell
 
       if (look_13_0 == ?-) 
         alt_13 = 1
-      elsif (look_13_0.between?(0x0000, ?\b) || look_13_0.between?(?\n, 0x001F) || look_13_0 == ?! || look_13_0.between?(?%, ?&) || look_13_0.between?(?+, ?,) || look_13_0.between?(?., ?:) || look_13_0 == ?= || look_13_0.between?(?@, ?_) || look_13_0.between?(?a, ?z) || look_13_0.between?(0x007F, 0xFFFF)) 
+      elsif (look_13_0.between?(0x0000, ?\b) || look_13_0.between?(0x000B, ?\f) || look_13_0.between?(0x000E, 0x001F) || look_13_0 == ?! || look_13_0.between?(?%, ?&) || look_13_0.between?(?+, ?,) || look_13_0.between?(?., ?:) || look_13_0 == ?= || look_13_0.between?(?@, ?_) || look_13_0.between?(?a, ?z) || look_13_0.between?(0x007F, 0xFFFF)) 
         alt_13 = 2
       else
       nvae = NoViableAlternative("", 13, 0)
@@ -487,7 +527,7 @@ module Shell
         # at line 41:5: ( '-' )+ ( CHUNK_CHAR )*
         # at file 41:5: ( '-' )+
         match_count_10 = 0
-        loop do
+        while true
           alt_10 = 2
           look_10_0 = @input.peek(1)
 
@@ -511,11 +551,11 @@ module Shell
         end
 
         # at line 41:10: ( CHUNK_CHAR )*
-        loop do  #loop 11
+        while true # decision 11
           alt_11 = 2
           look_11_0 = @input.peek(1)
 
-          if (look_11_0.between?(0x0000, ?\b) || look_11_0.between?(?\n, 0x001F) || look_11_0 == ?! || look_11_0.between?(?%, ?&) || look_11_0.between?(?+, ?:) || look_11_0 == ?= || look_11_0.between?(?@, ?_) || look_11_0.between?(?a, ?z) || look_11_0.between?(0x007F, 0xFFFF)) 
+          if (look_11_0.between?(0x0000, ?\b) || look_11_0.between?(0x000B, ?\f) || look_11_0.between?(0x000E, 0x001F) || look_11_0 == ?! || look_11_0.between?(?%, ?&) || look_11_0.between?(?+, ?:) || look_11_0 == ?= || look_11_0.between?(?@, ?_) || look_11_0.between?(?a, ?z) || look_11_0.between?(0x007F, 0xFFFF)) 
             alt_11 = 1
 
           end
@@ -525,9 +565,9 @@ module Shell
             chunk_char!
 
           else
-            break #loop 11
+            break # out of loop for decision 11
           end
-        end
+        end # loop for decision 11
         # --> action
          type = SWITCH 
         # <-- action
@@ -536,11 +576,11 @@ module Shell
         # at line 42:5: ( CHUNK_CHAR )+
         # at file 42:5: ( CHUNK_CHAR )+
         match_count_12 = 0
-        loop do
+        while true
           alt_12 = 2
           look_12_0 = @input.peek(1)
 
-          if (look_12_0.between?(0x0000, ?\b) || look_12_0.between?(?\n, 0x001F) || look_12_0 == ?! || look_12_0.between?(?%, ?&) || look_12_0.between?(?+, ?:) || look_12_0 == ?= || look_12_0.between?(?@, ?_) || look_12_0.between?(?a, ?z) || look_12_0.between?(0x007F, 0xFFFF)) 
+          if (look_12_0.between?(0x0000, ?\b) || look_12_0.between?(0x000B, ?\f) || look_12_0.between?(0x000E, 0x001F) || look_12_0 == ?! || look_12_0.between?(?%, ?&) || look_12_0.between?(?+, ?:) || look_12_0 == ?= || look_12_0.between?(?@, ?_) || look_12_0.between?(?a, ?z) || look_12_0.between?(0x007F, 0xFFFF)) 
             alt_12 = 1
 
           end
@@ -703,7 +743,7 @@ module Shell
       # - - - - main rule block - - - -
       # at line 53:5: ( '0' .. '9' )* ( '>>' | '>' | '<<' | '<' ) ( '&' ( '0' .. '9' )+ )?
       # at line 53:5: ( '0' .. '9' )*
-      loop do  #loop 15
+      while true # decision 15
         alt_15 = 2
         look_15_0 = @input.peek(1)
 
@@ -717,9 +757,9 @@ module Shell
           match_range(?0, ?9)
 
         else
-          break #loop 15
+          break # out of loop for decision 15
         end
-      end
+      end # loop for decision 15
       # at line 53:17: ( '>>' | '>' | '<<' | '<' )
       alt_16 = 4
       look_16_0 = @input.peek(1)
@@ -775,7 +815,7 @@ module Shell
         match(?&)
         # at file 53:48: ( '0' .. '9' )+
         match_count_17 = 0
-        loop do
+        while true
           alt_17 = 2
           look_17_0 = @input.peek(1)
 
@@ -825,7 +865,7 @@ module Shell
       # at line 57:5: '#' (~ ( '\\r' | '\\n' ) )*
       match(?#)
       # at line 57:9: (~ ( '\\r' | '\\n' ) )*
-      loop do  #loop 19
+      while true # decision 19
         alt_19 = 2
         look_19_0 = @input.peek(1)
 
@@ -847,9 +887,9 @@ module Shell
 
 
         else
-          break #loop 19
+          break # out of loop for decision 19
         end
-      end
+      end # loop for decision 19
 
       
       @state.type = type
@@ -869,14 +909,11 @@ module Shell
 
       
       # - - - - main rule block - - - -
-      # at line 62:3: (~ ( '>' | '<' | '#' | '`' | '\"' | '\\'' | '|' | '(' | ')' | '$' | ';' | ' ' | '?' | '*' | '~' | '\\\\' | '\\t' | '{' | '}' ) | '\\\\' . )
+      # at line 62:3: (~ ( '>' | '<' | '#' | '`' | '\"' | '\\'' | '|' | '(' | ')' | '$' | ';' | ' ' | '?' | '*' | '~' | '\\\\' | '\\t' | '{' | '}' | '\\n' | '\\r' ) | '\\\\' . )
       alt_20 = 2
       look_20_0 = @input.peek(1)
 
-      if (look_20_0.between?(0x0000, ?\b) || look_20_0.between?(?\n, 0x001F) ||
-          look_20_0 == ?! || look_20_0.between?(?%, ?&) || look_20_0.between?(?+, ?:) ||
-          look_20_0 == ?= || look_20_0.between?(?@, ?[) || look_20_0.between?(?], ?_) ||
-          look_20_0.between?(?a, ?z) || look_20_0.between?(0x007F, 0xFFFF))
+      if (look_20_0.between?(0x0000, ?\b) || look_20_0.between?(0x000B, ?\f) || look_20_0.between?(0x000E, 0x001F) || look_20_0 == ?! || look_20_0.between?(?%, ?&) || look_20_0.between?(?+, ?:) || look_20_0 == ?= || look_20_0.between?(?@, ?[) || look_20_0.between?(?], ?_) || look_20_0.between?(?a, ?z) || look_20_0.between?(0x007F, 0xFFFF)) 
         alt_20 = 1
       elsif (look_20_0 == ?\\) 
         alt_20 = 2
@@ -886,18 +923,22 @@ module Shell
       end
       case alt_20
       when 1
-        # at line 62:5: ~ ( '>' | '<' | '#' | '`' | '\"' | '\\'' | '|' | '(' | ')' | '$' | ';' | ' ' | '?' | '*' | '~' | '\\\\' | '\\t' | '{' | '}' )
-        if @input.peek(1).between?(0x0000, ?\b) || @input.peek(1).between?(?\n, 0x001F) || @input.peek(1) == ?! || @input.peek(1).between?(?%, ?&) || @input.peek(1).between?(?+, ?:) || @input.peek(1) == ?= || @input.peek(1).between?(?@, ?[) || @input.peek(1).between?(?], ?_) || @input.peek(1).between?(?a, ?z) || @input.peek(1).between?(0x007F, 0x00FF)
+        # at line 62:5: ~ ( '>' | '<' | '#' | '`' | '\"' | '\\'' | '|' | '(' | ')' | '$' | ';' | ' ' | '?' | '*' | '~' | '\\\\' | '\\t' | '{' | '}' | '\\n' | '\\r' )
+        if @input.peek(1).between?(0x0000, ?\b) || @input.peek(1).between?(0x000B, ?\f) || @input.peek(1).between?(0x000E, 0x001F) || @input.peek(1) == ?! || @input.peek(1).between?(?%, ?&) || @input.peek(1).between?(?+, ?:) || @input.peek(1) == ?= || @input.peek(1).between?(?@, ?[) || @input.peek(1).between?(?], ?_) || @input.peek(1).between?(?a, ?z) || @input.peek(1).between?(0x007F, 0x00FF)
           @input.consume
         else
           mse = MismatchedSet(nil)
           recover(mse)
           raise mse
         end
+
+
+
       when 2
         # at line 64:5: '\\\\' .
         match(?\\)
         match_any
+
       end
     ensure
       # -> uncomment the next line to manually enable rule tracing
@@ -971,41 +1012,40 @@ module Shell
     
     # - - - - - - - - - - DFA definitions - - - - - - - - - - -
     class DFA21 < ANTLR3::DFA
-      EOT = unpack(4, -1, 1, 9, 1, 6, 4, -1, 1, 9, 2, -1, 1, 9, 4, -1)
-      EOF = unpack(18, -1)
-      MIN = unpack(1, 0, 3, -1, 1, 10, 1, 0, 4, -1, 1, 38, 2, -1, 1, 48, 
-                   4, -1)
-      MAX = unpack(1, -1, 3, -1, 1, 10, 1, -1, 4, -1, 1, 38, 2, -1, 1, 62, 
-                   4, -1)
-      ACCEPT = unpack(1, -1, 1, 1, 1, 2, 1, 3, 2, -1, 1, 4, 1, 5, 1, 6, 
-                      1, 7, 1, -1, 1, 8, 1, 9, 1, -1, 1, 10, 1, 11, 1, 12, 
-                      1, 7)
-      SPECIAL = unpack(1, 0, 4, -1, 1, 1, 12, -1)
+      EOT = unpack(8, -1, 1, 7, 2, -1, 1, 7, 4, -1)
+      EOF = unpack(16, -1)
+      MIN = unpack(1, 0, 7, -1, 1, 38, 2, -1, 1, 48, 4, -1)
+      MAX = unpack(1, -1, 7, -1, 1, 38, 2, -1, 1, 62, 4, -1)
+      ACCEPT = unpack(1, -1, 1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1, 7, 1, 
+                      -1, 1, 8, 1, 9, 1, -1, 1, 10, 1, 11, 1, 12, 1, 7)
+      SPECIAL = unpack(1, 0, 15, -1)
       TRANSITION = [
-        unpack(9, 9, 1, 3, 1, 5, 2, 9, 1, 4, 18, 9, 1, 3, 1, 9, 1, 1, 1, 
-               16, 1, 7, 1, 9, 1, 10, 1, 1, 1, 11, 1, 12, 1, 8, 5, 9, 10, 
-               13, 1, 9, 1, 6, 1, 15, 1, 9, 1, 15, 1, 8, 32, 9, 1, 2, 26, 
-               9, 1, -1, 1, 14, 2, -1, 65409, 9),
-        unpack(),
-        unpack(),
-        unpack(),
-        unpack(1, 5),
-        unpack(9, 9, 1, -1, 22, 9, 1, -1, 1, 9, 3, -1, 2, 9, 4, -1, 16, 
-                9, 2, -1, 1, 9, 2, -1, 32, 9, 1, -1, 26, 9, 4, -1, 65409, 
-                9),
+        unpack(9, 7, 1, 3, 1, 4, 2, 7, 1, 4, 18, 7, 1, 3, 1, 7, 1, 1, 1, 
+               14, 1, 5, 1, 7, 1, 8, 1, 1, 1, 9, 1, 10, 1, 6, 5, 7, 10, 
+               11, 1, 7, 1, 4, 1, 13, 1, 7, 1, 13, 1, 6, 32, 7, 1, 2, 26, 
+               7, 1, -1, 1, 12, 2, -1, 65409, 7),
         unpack(),
         unpack(),
         unpack(),
         unpack(),
-        unpack(1, 17),
         unpack(),
         unpack(),
-        unpack(10, 13, 2, -1, 1, 15, 1, -1, 1, 15),
+        unpack(),
+        unpack(1, 15),
+        unpack(),
+        unpack(),
+        unpack(10, 11, 2, -1, 1, 13, 1, -1, 1, 13),
         unpack(),
         unpack(),
         unpack(),
         unpack()
       ].freeze
+      
+      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
+        if a > 0 and z < 0
+          MAX[ i ] %= 0x10000
+        end
+      end
       
       @decision = 21
       
@@ -1025,7 +1065,7 @@ module Shell
       @dfa21 = DFA21.new(self, 21) do |s|
         case s
         when 0
-          look_21_0 = input.peek
+          look_21_0 = @input.peek
           s = -1
           if (look_21_0 == ?" || look_21_0 == ?\')
             s = 1
@@ -1033,41 +1073,28 @@ module Shell
             s = 2
           elsif (look_21_0 == ?\t || look_21_0 == ?\s)
             s = 3
-          elsif (look_21_0 == ?\r)
+          elsif (look_21_0 == ?\n || look_21_0 == ?\r || look_21_0 == ?;)
             s = 4
-          elsif (look_21_0 == ?\n)
-            s = 5
-          elsif (look_21_0 == ?;)
-            s = 6
           elsif (look_21_0 == ?$)
-            s = 7
+            s = 5
           elsif (look_21_0 == ?* || look_21_0 == ??)
-            s = 8
-          elsif (look_21_0.between?(0x0000, ?\b) || look_21_0.between?(0x000B, ?\f) || look_21_0.between?(0x000E, 0x001F) || look_21_0 == ?! || look_21_0 == ?% || look_21_0.between?(?+, ?/) || look_21_0 == ?: || look_21_0 == ?= || look_21_0.between?(?@, ?_) || look_21_0.between?(?a, ?z) || look_21_0.between?(0x007F, 0xFFFF))
-            s = 9
-          elsif (look_21_0 == ?&)
-            s = 10
-          elsif (look_21_0 == ?()
-            s = 11
-          elsif (look_21_0 == ?))
-            s = 12
-          elsif (look_21_0.between?(?0, ?9))
-            s = 13
-          elsif (look_21_0 == ?|)
-            s = 14
-          elsif (look_21_0 == ?< || look_21_0 == ?>)
-            s = 15
-          elsif (look_21_0 == ?#)
-            s = 16
-          end
-
-        when 1
-          look_21_5 = input.peek
-          s = -1
-          if (look_21_5.between?(0x0000, ?\b) || look_21_5.between?(?\n, 0x001F) || look_21_5 == ?! || look_21_5.between?(?%, ?&) || look_21_5.between?(?+, ?:) || look_21_5 == ?= || look_21_5.between?(?@, ?_) || look_21_5.between?(?a, ?z) || look_21_5.between?(0x007F, 0xFFFF))
-            s = 9
-          else
             s = 6
+          elsif (look_21_0.between?(0x0000, ?\b) || look_21_0.between?(0x000B, ?\f) || look_21_0.between?(0x000E, 0x001F) || look_21_0 == ?! || look_21_0 == ?% || look_21_0.between?(?+, ?/) || look_21_0 == ?: || look_21_0 == ?= || look_21_0.between?(?@, ?_) || look_21_0.between?(?a, ?z) || look_21_0.between?(0x007F, 0xFFFF))
+            s = 7
+          elsif (look_21_0 == ?&)
+            s = 8
+          elsif (look_21_0 == ?()
+            s = 9
+          elsif (look_21_0 == ?))
+            s = 10
+          elsif (look_21_0.between?(?0, ?9))
+            s = 11
+          elsif (look_21_0 == ?|)
+            s = 12
+          elsif (look_21_0 == ?< || look_21_0 == ?>)
+            s = 13
+          elsif (look_21_0 == ?#)
+            s = 14
           end
 
         end
@@ -1082,10 +1109,8 @@ module Shell
       end
 
     end
-  end # class Lexer
+  end # class Lexer < ANTLR3::Lexer
+
+  at_exit { Lexer.main(ARGV) } if __FILE__ == $0
 end
 
-if __FILE__ == $0 and ARGV.first != '--'
-  main = ANTLR3::Main::LexerMain.new(SimpleShell::Lexer)
-  main.execute(ARGV)
-end

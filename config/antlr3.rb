@@ -57,11 +57,29 @@ $proj = $project = Project.load( project_top, config_file ) do
         spec.send( "#{field}=", value )
       end
       
-      spec.files = package.files.to_a
+      spec.files = package.files.to_a + %w( Rakefile Manifest.txt )
       spec.test_files = unit_tests.to_a + functional_tests.to_a
       
       spec.executables.push( *executables )
       spec.requirements.push( *requirements )
+    end
+  end
+  
+  def generate_hoe( target_directory )
+    require 'erb'
+    template = ERB.new( File.read( dev_lib( 'dist-rakefile.erb' ) ) )
+    code = template.result( binding )
+    
+    rakefile = target_directory / 'Rakefile'
+    manifest = target_directory / 'Manifest.txt'
+    
+    open( rakefile, 'w' ) { | out | out.write( code ) }
+    open( manifest, 'w' ) do | out |
+      for f in package.files
+        out.puts( f ) if File.file?( f )
+      end
+      out.puts( "Manifest.txt" )
+      out.puts( "Rakefile" )
     end
   end
   
