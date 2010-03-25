@@ -70,6 +70,7 @@ rescue LoadError
 end
 # \<~~~ end load path setup
 
+<placeAction(scope="all", name="header")>
 <placeAction(scope=actionScope,name="header")>
 
 <if(recognizer.grammar.grammarIsRoot)>
@@ -79,6 +80,7 @@ end
 <endif>
 
 <placeAction(scope=actionScope,name="footer")>
+<placeAction(scope="all", name="footer")>
 
 <if(actions.(actionScope).main)>
 if __FILE__ == $0 and ARGV.first != '--'

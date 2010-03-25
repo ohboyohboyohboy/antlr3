@@ -8,6 +8,7 @@ unless $project.jar_command
 end
 
 def javac( java )
+  # sh( "javac -classpath #{ $antlr.jar }:/usr/share/java/pf-joi-full.jar #{ java }" )
   sh( "javac -classpath #{ $antlr.jar } #{ java }" )
   return( Dir[ File.dirname( java ) / '*.class' ] )
 end

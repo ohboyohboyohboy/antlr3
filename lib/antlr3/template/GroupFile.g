@@ -1,8 +1,6 @@
-grammar Group;
+grammar GroupFile;
 
-options {
-  language = Ruby;
-}
+options { language = Ruby; }
 
 @parser::header {
 module ANTLR3
@@ -25,8 +23,8 @@ end # module ANTLR3
 }
 
 @parser::main {
-  defined?(ANTLR3::Template::Group::Lexer) or require 'antlr3/template/group-lexer'
-  ANTLR3::Template::Group::Parser.main( ARGV )
+  defined?(ANTLR3::Template::GroupFile::Lexer) or require 'antlr3/template/group-file'
+  ANTLR3::Template::GroupFile::Parser.main( ARGV )
 }
 
 @parser::members {

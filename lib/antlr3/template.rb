@@ -84,9 +84,12 @@ private
   
 end
 
+
+autoload :GroupFile, 'antlr3/template/group-file'
+
 class Group < Module
-  autoload :Lexer, 'antlr3/template/group-lexer'
-  autoload :Parser, 'antlr3/template/group-parser'
+  autoload :Lexer, 'antlr3/template/group-file'
+  autoload :Parser, 'antlr3/template/group-file'
   
   def self.parse( source, options = {} )
     namespace = options.fetch( :namespace, ::Object )

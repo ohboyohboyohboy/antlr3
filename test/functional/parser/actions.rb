@@ -152,6 +152,16 @@ class TestActionScopes < ANTLR3::Test::Functional
     grammar SpecialActionScopes;
     options { language=Ruby; }
     
+    @all::header {
+      \$all_header_files ||= []
+      \$all_header_files << File.basename( __FILE__ )
+    }
+    
+    @all::footer {
+      \$all_footer_files ||= []
+      \$all_footer_files << File.basename( __FILE__ )
+    }
+    
     @header {
       \$header_location = __LINE__
       \$header_context = self
@@ -161,7 +171,6 @@ class TestActionScopes < ANTLR3::Test::Functional
       \$footer_location = __LINE__
       \$footer_context = self
     }
-    
     
     @module::head {
       \$module_head_location = __LINE__
@@ -213,6 +222,11 @@ class TestActionScopes < ANTLR3::Test::Functional
   end
   
   example 'special action scope locations' do
+    $all_header_files.should include "SpecialActionScopesLexer.rb"
+    $all_header_files.should include "SpecialActionScopesParser.rb"
+    $all_footer_files.should include "SpecialActionScopesLexer.rb"
+    $all_footer_files.should include "SpecialActionScopesParser.rb"
+    
     $header_location.should be < $module_head_location
     $module_head_location.should be < $token_scheme_location
     $token_scheme_location.should be < $token_members_location

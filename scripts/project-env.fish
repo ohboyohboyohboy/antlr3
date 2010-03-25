@@ -1,5 +1,8 @@
 #!/usr/bin/env fish
 
+set -g __PATH $PATH
+set -g __RUBYLIB $RUBYLIB
+
 set -x ANTLR3_BASE (realpath .)
 set -x PATH (realpath ./bin) (realpath ./scripts) (realpath ./vendor/bin) $PATH
 set -x RUBYLIB (realpath ./lib) $RUBYLIB
@@ -14,4 +17,11 @@ end
 
 function top!
   cd $ANTLR3_BASE
+end
+
+function quit-project
+  set -e ANTLR3_BASE
+  set -e IRB_EXTRA
+  set -x PATH $__PATH
+  set -x RUBYLIB $__RUBYLIB
 end

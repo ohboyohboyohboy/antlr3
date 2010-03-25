@@ -170,6 +170,7 @@ options {backtrack=true; memoize=true; language=Ruby;}
 @enum_is_keyword = true
 @assert_is_keyword = true
 }
+
 @lexer::members {
 attr_reader :enum_is_keyword, :assert_is_keyword
 }

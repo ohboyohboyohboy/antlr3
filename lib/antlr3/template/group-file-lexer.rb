@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 #
-# Group.g
+# GroupFile.g
 # 
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Dec 18, 2009 04:29:28
-# Ruby runtime library version: 1.5.0
-# Input grammar file: Group.g
-# Generated at: 2010-01-27 10:24:01
+# Ruby runtime library version: 1.6.3
+# Input grammar file: GroupFile.g
+# Generated at: 2010-03-19 19:43:54
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.5.0):
+Failed to load the ANTLR3 runtime library (version 1.6.3):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '~> 1.5.0' )
+    Gem.activate( 'antlr3', '~> 1.6.3' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -57,7 +57,7 @@ end
 # <~~~ end load path setup
 
 # - - - - - - begin action @lexer::header - - - - - -
-# Group.g
+# GroupFile.g
 
 
 module ANTLR3
@@ -66,7 +66,7 @@ module Template
 # - - - - - - end action @lexer::header - - - - - - -
 
 
-class Group
+module GroupFile
   # TokenData defines all of the token type integer values
   # as constants, which will be included in all 
   # ANTLR-generated recognizers.
@@ -84,11 +84,11 @@ class Group
 
 
   class Lexer < ANTLR3::Lexer
-    @grammar_home = Group
+    @grammar_home = GroupFile
     include TokenData
 
     begin
-      generated_using( "Group.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.5.0" )
+      generated_using( "GroupFile.g", "3.2.1-SNAPSHOT Dec 18, 2009 04:29:28", "1.6.3" )
     rescue NoMethodError => error
       error.name.to_sym == :generated_using or raise
     end
@@ -108,7 +108,7 @@ class Group
     
     # - - - - - - - - - - - lexer rules - - - - - - - - - - - -
     # lexer rule t__10! (T__10)
-    # (in Group.g)
+    # (in GroupFile.g)
     def t__10!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 1)
@@ -132,7 +132,7 @@ class Group
     end
 
     # lexer rule t__11! (T__11)
-    # (in Group.g)
+    # (in GroupFile.g)
     def t__11!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 2)
@@ -156,7 +156,7 @@ class Group
     end
 
     # lexer rule t__12! (T__12)
-    # (in Group.g)
+    # (in GroupFile.g)
     def t__12!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 3)
@@ -180,7 +180,7 @@ class Group
     end
 
     # lexer rule t__13! (T__13)
-    # (in Group.g)
+    # (in GroupFile.g)
     def t__13!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 4)
@@ -204,7 +204,7 @@ class Group
     end
 
     # lexer rule t__14! (T__14)
-    # (in Group.g)
+    # (in GroupFile.g)
     def t__14!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 5)
@@ -228,7 +228,7 @@ class Group
     end
 
     # lexer rule t__15! (T__15)
-    # (in Group.g)
+    # (in GroupFile.g)
     def t__15!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 6)
@@ -252,7 +252,7 @@ class Group
     end
 
     # lexer rule t__16! (T__16)
-    # (in Group.g)
+    # (in GroupFile.g)
     def t__16!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 7)
@@ -276,7 +276,7 @@ class Group
     end
 
     # lexer rule t__17! (T__17)
-    # (in Group.g)
+    # (in GroupFile.g)
     def t__17!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 8)
@@ -300,7 +300,7 @@ class Group
     end
 
     # lexer rule t__18! (T__18)
-    # (in Group.g)
+    # (in GroupFile.g)
     def t__18!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 9)
@@ -324,7 +324,7 @@ class Group
     end
 
     # lexer rule t__19! (T__19)
-    # (in Group.g)
+    # (in GroupFile.g)
     def t__19!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 10)
@@ -348,7 +348,7 @@ class Group
     end
 
     # lexer rule constant! (CONSTANT)
-    # (in Group.g)
+    # (in GroupFile.g)
     def constant!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 11)
@@ -358,9 +358,9 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 127:5: 'A' .. 'Z' ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      # at line 125:5: 'A' .. 'Z' ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
       match_range(?A, ?Z)
-      # at line 127:14: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      # at line 125:14: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
       while true # decision 1
         alt_1 = 2
         look_1_0 = @input.peek(1)
@@ -398,7 +398,7 @@ class Group
     end
 
     # lexer rule id! (ID)
-    # (in Group.g)
+    # (in GroupFile.g)
     def id!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 12)
@@ -408,7 +408,7 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 131:5: ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      # at line 129:5: ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
       if @input.peek(1) == ?_ || @input.peek(1).between?(?a, ?z)
         @input.consume
       else
@@ -418,7 +418,7 @@ class Group
       end
 
 
-      # at line 132:5: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
+      # at line 130:5: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
       while true # decision 2
         alt_2 = 2
         look_2_0 = @input.peek(1)
@@ -456,7 +456,7 @@ class Group
     end
 
     # lexer rule template! (TEMPLATE)
-    # (in Group.g)
+    # (in GroupFile.g)
     def template!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 13)
@@ -466,9 +466,9 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 136:5: '<<<' ( options {greedy=false; } : '\\\\' . | . )* '>>>'
+      # at line 134:5: '<<<' ( options {greedy=false; } : '\\\\' . | . )* '>>>'
       match("<<<")
-      # at line 137:5: ( options {greedy=false; } : '\\\\' . | . )*
+      # at line 135:5: ( options {greedy=false; } : '\\\\' . | . )*
       while true # decision 3
         alt_3 = 3
         look_3_0 = @input.peek(1)
@@ -506,12 +506,12 @@ class Group
         end
         case alt_3
         when 1
-          # at line 137:35: '\\\\' .
+          # at line 135:35: '\\\\' .
           match(?\\)
           match_any
 
         when 2
-          # at line 137:44: .
+          # at line 135:44: .
           match_any
 
         else
@@ -531,7 +531,7 @@ class Group
     end
 
     # lexer rule string! (STRING)
-    # (in Group.g)
+    # (in GroupFile.g)
     def string!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 14)
@@ -541,7 +541,7 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 142:3: ( '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"' | '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\'' )
+      # at line 140:3: ( '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"' | '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\'' )
       alt_6 = 2
       look_6_0 = @input.peek(1)
 
@@ -555,9 +555,9 @@ class Group
       end
       case alt_6
       when 1
-        # at line 142:5: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
+        # at line 140:5: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
         match(?")
-        # at line 142:10: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
+        # at line 140:10: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
         while true # decision 4
           alt_4 = 3
           look_4_0 = @input.peek(1)
@@ -570,7 +570,7 @@ class Group
           end
           case alt_4
           when 1
-            # at line 142:12: ~ ( '\\\\' | '\"' )
+            # at line 140:12: ~ ( '\\\\' | '\"' )
             if @input.peek(1).between?(0x0000, ?!) || @input.peek(1).between?(?#, ?[) || @input.peek(1).between?(?], 0x00FF)
               @input.consume
             else
@@ -582,7 +582,7 @@ class Group
 
 
           when 2
-            # at line 142:31: '\\\\' .
+            # at line 140:31: '\\\\' .
             match(?\\)
             match_any
 
@@ -593,9 +593,9 @@ class Group
         match(?")
 
       when 2
-        # at line 143:5: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
+        # at line 141:5: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
         match(?\')
-        # at line 143:10: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
+        # at line 141:10: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
         while true # decision 5
           alt_5 = 3
           look_5_0 = @input.peek(1)
@@ -608,7 +608,7 @@ class Group
           end
           case alt_5
           when 1
-            # at line 143:12: ~ ( '\\\\' | '\\'' )
+            # at line 141:12: ~ ( '\\\\' | '\\'' )
             if @input.peek(1).between?(0x0000, ?&) || @input.peek(1).between?(?(, ?[) || @input.peek(1).between?(?], 0x00FF)
               @input.consume
             else
@@ -620,7 +620,7 @@ class Group
 
 
           when 2
-            # at line 143:31: '\\\\' .
+            # at line 141:31: '\\\\' .
             match(?\\)
             match_any
 
@@ -642,7 +642,7 @@ class Group
     end
 
     # lexer rule comment! (COMMENT)
-    # (in Group.g)
+    # (in GroupFile.g)
     def comment!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 15)
@@ -652,7 +652,7 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 148:3: ( ( '#' | '//' ) (~ '\\n' )* | '/*' ( . )* '*/' )
+      # at line 146:3: ( ( '#' | '//' ) (~ '\\n' )* | '/*' ( . )* '*/' )
       alt_10 = 2
       look_10_0 = @input.peek(1)
 
@@ -675,8 +675,8 @@ class Group
       end
       case alt_10
       when 1
-        # at line 148:5: ( '#' | '//' ) (~ '\\n' )*
-        # at line 148:5: ( '#' | '//' )
+        # at line 146:5: ( '#' | '//' ) (~ '\\n' )*
+        # at line 146:5: ( '#' | '//' )
         alt_7 = 2
         look_7_0 = @input.peek(1)
 
@@ -690,15 +690,15 @@ class Group
         end
         case alt_7
         when 1
-          # at line 148:7: '#'
+          # at line 146:7: '#'
           match(?#)
 
         when 2
-          # at line 148:13: '//'
+          # at line 146:13: '//'
           match("//")
 
         end
-        # at line 148:20: (~ '\\n' )*
+        # at line 146:20: (~ '\\n' )*
         while true # decision 8
           alt_8 = 2
           look_8_0 = @input.peek(1)
@@ -709,7 +709,7 @@ class Group
           end
           case alt_8
           when 1
-            # at line 148:20: ~ '\\n'
+            # at line 146:20: ~ '\\n'
             if @input.peek(1).between?(0x0000, ?\t) || @input.peek(1).between?(0x000B, 0x00FF)
               @input.consume
             else
@@ -726,9 +726,9 @@ class Group
         end # loop for decision 8
 
       when 2
-        # at line 149:5: '/*' ( . )* '*/'
+        # at line 147:5: '/*' ( . )* '*/'
         match("/*")
-        # at line 149:10: ( . )*
+        # at line 147:10: ( . )*
         while true # decision 9
           alt_9 = 2
           look_9_0 = @input.peek(1)
@@ -748,7 +748,7 @@ class Group
           end
           case alt_9
           when 1
-            # at line 149:10: .
+            # at line 147:10: .
             match_any
 
           else
@@ -771,7 +771,7 @@ class Group
     end
 
     # lexer rule ws! (WS)
-    # (in Group.g)
+    # (in GroupFile.g)
     def ws!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in(__method__, 16)
@@ -781,13 +781,13 @@ class Group
 
       
       # - - - - main rule block - - - -
-      # at line 153:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
-      # at file 153:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+      # at line 151:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+      # at file 151:5: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
       match_count_11 = 0
       while true
         alt_11 = 2
         look_11_0 = @input.peek(1)
-        
+
         if (look_11_0.between?(?\t, ?\n) || look_11_0.between?(?\f, ?\r) || look_11_0 == ?\s) 
           alt_11 = 1
 
@@ -981,7 +981,7 @@ class Group
   at_exit { Lexer.main(ARGV) } if __FILE__ == $0
 end
 # - - - - - - begin action @lexer::footer - - - - - -
-# Group.g
+# GroupFile.g
 
 
 end # module Template

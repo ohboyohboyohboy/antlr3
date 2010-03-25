@@ -31,4 +31,6 @@ namespace :test do
 end
 
 desc "run all tests"
-task :test => %w( test:all )
+task :test do
+  sh "antlr-tests run unit functional"
+end
