@@ -38,9 +38,9 @@ import org.antlr.tool.Grammar;
 public class RubyTarget
             extends Target
 {
-		/** A set of ruby keywords which are used to escape labels and method names
-		 *  which will cause parse errors in the ruby source
-		 */
+    /** A set of ruby keywords which are used to escape labels and method names
+     *  which will cause parse errors in the ruby source
+     */
     public static final Set rubyKeywords =
     new HashSet() {
         {
@@ -82,10 +82,10 @@ public class RubyTarget
             add( "when" );
             add( "while" );
             add( "yield" );
-			  }
+        }
     };
-		
-		public static HashMap sharedActionBlocks = new HashMap();
+
+    public static HashMap sharedActionBlocks = new HashMap();
 
     public class RubyRenderer
                 implements AttributeRenderer
@@ -121,7 +121,7 @@ public class RubyTarget
                 throw new IllegalArgumentException( "Unsupported format name" );
             }
         }
-				
+
         /** given an input string, which is presumed
          * to contain a word, which may potentially be camelcased,
          * and convert it to snake_case underscore style.
@@ -191,15 +191,15 @@ public class RubyTarget
 
             return output_buffer.toString();
         }
-				
+
         private String constantcase( String value ) {
             return snakecase( value ).toUpperCase();
         }
-				
+
         private String platform( String value ) {
             return ( "__" + value + "__" );
         }
-				
+
         private String symbol( String value ) {
             if ( value.matches( "[a-zA-Z_]\\w*[\\?\\!\\=]?" ) ) {
                 return ( ":" + value );
@@ -207,7 +207,7 @@ public class RubyTarget
                 return ( "%s(" + value + ")" );
             }
         }
-				
+
         private String lexerRule( String value ) {
             if ( value.equals( "Tokens" ) ) {
                 return "token!";
@@ -215,11 +215,11 @@ public class RubyTarget
                 return ( snakecase( value ) + "!" );
             }
         }
-				
+
         private String constantPath( String value ) {
             return value.replaceAll( "\\.", "::" );
         }
-				
+
         private String camelcase( String value ) {
             StringBuilder output_buffer = new StringBuilder();
             int cliff = value.length();
@@ -255,7 +255,7 @@ public class RubyTarget
 
             return output_buffer.toString();
         }
-				
+
         private String label( String value ) {
             if ( rubyKeywords.contains( value ) ) {
                 return platform( value );
@@ -271,7 +271,7 @@ public class RubyTarget
                 return value;
             }
         }
-				
+
         private String subcamelcase( String value ) {
             value = camelcase( value );
             if ( value.isEmpty() )
@@ -288,49 +288,49 @@ public class RubyTarget
                                       StringTemplate outputFileST )
     throws IOException
     {
-			  /*
-				  Below is an experimental attempt at providing a few named action blocks
-				  that are printed in both lexer and parser files from combined grammars.
-				  ANTLR appears to first generate a parser, then generate an independent lexer,
-				  and then generate code from that. It keeps the combo/parser grammar object
-				  and the lexer grammar object, as well as their respective code generator and
-				  target instances, completely independent. So, while a bit hack-ish, this is
-				  a solution that should work without having to modify Terrence Parr's
-				  core tool code.
-				  
-				  - sharedActionBlocks is a class variable containing a hash map
-				  - if this method is called with a combo grammar, and the action map
-				    in the grammar contains an entry for the named scope "all", 
-				    add an entry to sharedActionBlocks mapping the grammar name to
-				    the "all" action map.
-				  - if this method is called with an `implicit lexer'
-				    (one that's extracted from a combo grammar), check to see if
-				    there's an entry in sharedActionBlocks for the lexer's grammar name.
-				  - if there is an action map entry, place it in the lexer's action map
-				  - the recognizerFile template has code to place the
-				    "all" actions appropriately
-				  
-				  problems:
-				    - This solution assumes that the parser will be generated
-				      before the lexer. If that changes at some point, this will
-				      not work.
-				    - I have not investigated how this works with delegation yet
-				      
-				  Kyle Yetter - March 25, 2010
-			  */
-				
-			  if ( grammar.type == Grammar.COMBINED ) {
-						Map actions = grammar.getActions();
-						if ( actions.containsKey( "all" ) ) {
-							sharedActionBlocks.put( grammar.name, actions.get( "all" ) );
-						}
-				} else if ( grammar.implicitLexer ) {
-						if ( sharedActionBlocks.containsKey( grammar.name ) ) {
-							Map actions = grammar.getActions();
-							actions.put( "all", sharedActionBlocks.get( grammar.name ) );
-						}
-				}
-				
+        /*
+            Below is an experimental attempt at providing a few named action blocks
+            that are printed in both lexer and parser files from combined grammars.
+            ANTLR appears to first generate a parser, then generate an independent lexer,
+            and then generate code from that. It keeps the combo/parser grammar object
+            and the lexer grammar object, as well as their respective code generator and
+            target instances, completely independent. So, while a bit hack-ish, this is
+            a solution that should work without having to modify Terrence Parr's
+            core tool code.
+
+            - sharedActionBlocks is a class variable containing a hash map
+            - if this method is called with a combo grammar, and the action map
+              in the grammar contains an entry for the named scope "all",
+              add an entry to sharedActionBlocks mapping the grammar name to
+              the "all" action map.
+            - if this method is called with an `implicit lexer'
+              (one that's extracted from a combo grammar), check to see if
+              there's an entry in sharedActionBlocks for the lexer's grammar name.
+            - if there is an action map entry, place it in the lexer's action map
+            - the recognizerFile template has code to place the
+              "all" actions appropriately
+
+            problems:
+              - This solution assumes that the parser will be generated
+                before the lexer. If that changes at some point, this will
+                not work.
+              - I have not investigated how this works with delegation yet
+
+            Kyle Yetter - March 25, 2010
+        */
+
+        if ( grammar.type == Grammar.COMBINED ) {
+            Map actions = grammar.getActions();
+            if ( actions.containsKey( "all" ) ) {
+                sharedActionBlocks.put( grammar.name, actions.get( "all" ) );
+            }
+        } else if ( grammar.implicitLexer ) {
+            if ( sharedActionBlocks.containsKey( grammar.name ) ) {
+                Map actions = grammar.getActions();
+                actions.put( "all", sharedActionBlocks.get( grammar.name ) );
+            }
+        }
+
         StringTemplateGroup group = generator.getTemplates();
         RubyRenderer renderer = new RubyRenderer();
         try {
@@ -413,7 +413,7 @@ public class RubyTarget
             if ( scope.equals( "parser" ) ) {
                 return true;
             }
-						if ( scope.equals( "lexer" ) ) {
+            if ( scope.equals( "lexer" ) ) {
                 return true;
             }
             break;
@@ -428,13 +428,13 @@ public class RubyTarget
 
     public String encodeIntAsCharEscape( final int v ) {
         final int intValue;
-				
+
         if ( v == 65535 ) {
             intValue = -1;
         } else {
             intValue = v;
         }
-				
+
         return String.valueOf( intValue );
     }
 }
