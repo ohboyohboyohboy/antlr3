@@ -245,7 +245,7 @@ private
     case nm = token.name
     when /^'\w+'$/ then 'k'
     when /^'.+'$/ then 'o'
-    else nm.snakecase
+    else nm.inflect( :snakecase )
     end
   end
 end

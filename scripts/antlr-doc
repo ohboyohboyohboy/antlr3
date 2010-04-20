@@ -12,7 +12,6 @@ __DIR__ = File.dirname( __FILE__ )
 load File.join( __DIR__, 'script-helper.rb' )
 
 require 'main'
-require 'doc-utils'
 
 Main do
   argument( :files ) do
@@ -20,7 +19,12 @@ Main do
     arity( -2 )
   end
   
+  option :wiki
+  
   def run
+    $wiki_mode = params[ :wiki ].given?
+    require 'doc-utils'
+    
     for file in params[ :files ].values
       ANTLRDoc.convert( file )
     end

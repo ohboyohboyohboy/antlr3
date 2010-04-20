@@ -444,8 +444,8 @@ class ParserMain < Main
       parser_options[ :log ]  = @log
     end
     lexer = @lexer_class.new( in_stream )
-    token_stream = CommonTokenStream.new( lexer )
-    parser = @parser_class.new( token_stream, parser_options )
+    # token_stream = CommonTokenStream.new( lexer )
+    parser = @parser_class.new( lexer, parser_options )
     result = parser.send( @parser_rule ) and present( result )
   end
   

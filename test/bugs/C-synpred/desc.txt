@@ -1,0 +1,7 @@
+Problem:
+  Syntactic predicate method calls appear to be generated improperly in some situations.
+Example:
+  from CParser.rb
+    line 7837:   elsif (look_2_0 == T__52) && (syntactic_predicate?( :synpred4_C ))
+    line 7839:   elsif (look_2_0 == T__48) && (syntactic_predicate?( :synpred4_C ))
+  -> `synpred4_C' should be `synpred_4_c!'

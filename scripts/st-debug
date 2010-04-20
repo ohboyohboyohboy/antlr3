@@ -1,0 +1,175 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+__DIR__ = File.dirname( __FILE__ )
+load File.join( __DIR__, 'script-helper.rb' )
+
+require 'main'
+require 'string-template'
+
+class Range
+
+  def overlap?( other )
+    include?( other.first ) or other.include?( first )
+  end
+
+end
+
+Main do
+  
+  mixin :Completion do
+    def complete( description, names, partial)
+      matches = names.select { |name| name.start_with?( partial ) }
+      case matches.length
+      when 0
+        return( nil )
+      when 1 then return( matches.first )
+      else
+        ambiguous_completion!( description, matches, partial )
+      end
+    end
+    
+    def ambiguous_completion!( description, matches, partial )
+      require 'text'
+      stderr.puts( <<-END.here_flow! )
+      | cannot unambiguously complete partial #{ description }
+      | #{ partial.inspect }
+      END
+      stderr.puts Text::ColumnList.new(
+        matches, :width_limit => (stderr.screen_width * 0.8).round
+      ).render
+      
+      exit( 1 )
+    end
+  end
+  
+  mixin :TextFormatting do
+    def initialize
+      require 'text'
+      @width = (stdout.screen_width * 0.9).round
+      @indent = 0
+      super
+    end
+    
+    def leading_space
+      ' ' * @indent
+    end
+    
+    def print_line( line )
+      stdout.print( leading_space )
+      stdout.puts( line )
+    end
+    
+    def puts( text )
+      for line in text.split( $/, -1 )
+        print_line( line )
+      end
+    end
+    
+    def indent( spaces = 2 )
+      @indent += spaces; @width -= spaces
+      yield
+    ensure
+      @indent -= spaces; @width += spaces
+    end
+    
+    def column_list( items )
+      puts(
+        Text::ColumnList.new( items, :width_limit => @width ).render
+      )
+    end
+    
+    def table( title_row, *rows )
+      puts Text::Table.build( title_row ) do | table |
+        for row in rows
+          table.row( row )
+        end
+        
+        block_given? and yield( table )
+        
+        table.width > @width and table.width = @width
+      end
+    end
+    
+    def title_bar( title )
+      bar = "===[ #{ title } ]".ljust( @width, '=' )
+      puts( bar )
+    end
+    
+    def blank
+      print_line( '' )
+    end
+    
+  end
+  
+  mode( :convert ) do
+    argument( :ruby_files ) do
+      description( "The ANTLR output files compiled with -XdbgST" )
+      validate { | f | test( ?f, f ) }
+    end
+    
+    def run
+      for file in params[ :ruby_files ].values
+        StringTemplate::Markup.convert( file )
+      end
+    end
+  end
+  
+  mode :tree do
+    argument :file do
+      arity(1)
+      description('a ruby source code file with embedded String Template markup data')
+      cast do |path|
+        begin StringTemplate::Markup.load(path)
+        rescue => e; raise ArgumentError, "failed to load ST markup from #{path} -- received error #{e}\n#{e.backtrace}"
+        end
+      end
+    end
+    
+    option('line', 'l') do
+      argument_required
+      description("line number or a range start..finish (or start...finish)")
+      arity(1)
+      cast do |num|
+        case num
+        when /^(\d+)\.\.\.(\d+)$/ then $1.to_i...$2.to_i
+        when /^(\d+)\.\.(\d+)$/ then $1.to_i..$2.to_i
+        when /^\d+$/
+          i = num.to_i
+          i..i
+        else
+          raise ArgumentError, "line number argument is not a valid integer or integer range"
+        end
+      end
+    end
+    
+    def run
+      markup = params[:file].value
+      range = params[:line].value || markup.top.line_span
+      rows = []
+      
+      nodes = markup.index.select do | node |
+        node.line_span.overlap?( range )
+      end
+      
+      for node in nodes
+        puts( node.node_display )
+      end
+      
+      #markup.top.walk do |node|
+      #  node.root? and next
+      #  span = node.line_span
+      #  span.overlap?(range) and rows << [(' ' * (node.depth - 1)) << node.tag,
+      #    node.start.to_s, node.finish.to_s]
+      #end
+      #unless rows.empty?
+      #  table( [ "Tag Tree", "Start", "End" ], *rows )
+      #end
+    end
+    
+  end
+
+  run { help! }
+end
+
+

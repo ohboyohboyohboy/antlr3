@@ -143,6 +143,17 @@ class OutputDevice < DelegateClass( IO )
     @tabs[ :end ] = -( n.to_i.at_least( 0 ) + 1 )
   end
   
+  def indent( left = 0, right = 0 )
+    self.left_margin += left
+    self.right_margin -= right
+    block_given? and begin
+      yield
+    ensure
+      self.left_margin -= left
+      self.right_margin += right
+    end
+  end
+  
   def reset!
     @fg_stack.clear
     @bg_stack.clear

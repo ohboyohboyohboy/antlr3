@@ -204,7 +204,11 @@ imports( <grammar.directDelegates:{d|:<d.name>}; separator=", "> )<\n>
 
 include TokenData
 
-generated_using( "<fileName>", "<ANTLRVersion>", "<runtimeLibraryVersion()>" )
+begin
+  generated_using( "<fileName>", "<ANTLRVersion>", "<runtimeLibraryVersion()>" )
+rescue NoMethodError => error
+  # ignore
+end
 
 <if(!grammar.grammarIsRoot)>
 require '<grammar.composite.rootGrammar.recognizerName>'
@@ -998,7 +1002,7 @@ notPredicate(pred) ::= "not (<evalPredicate(...)>)"
 evalPredicate(pred,description) ::= "(<pred>)"
 
 evalSynPredicate(pred,description) ::= <<
-syntactic_predicate?(<pred:{<it; format="lexerRule">}; format="symbol">)
+syntactic_predicate?( :<pred:{<it; format="lexerRule">}> )
 >>
 
 
@@ -1165,7 +1169,7 @@ class <if(grammar.delegator)><grammar.name><else>Lexer<endif> \< <superClass>
   begin
     generated_using( "<fileName>", "<ANTLRVersion>", "<runtimeLibraryVersion()>" )
   rescue NoMethodError => error
-    error.name.to_sym == :generated_using or raise
+    # ignore
   end
   
   RULE_NAMES   = [<trunc(rules):{r|"<r.ruleName>"}; separator=", ", wrap="\n", anchor>].freeze
@@ -1493,4 +1497,4 @@ placeAction(scope, name) ::= <<
 <endif>
 >>
 
-runtimeLibraryVersion() ::= "1.6.4"
+runtimeLibraryVersion() ::= "1.7.0"

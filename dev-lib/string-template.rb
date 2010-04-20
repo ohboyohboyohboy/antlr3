@@ -25,7 +25,7 @@ module StringTemplate
     ::File.join(PROJECT_PATH, *args)
   end
   
-  
+  autoload :Markup, 'string-template/markup'
   autoload :Zip, 'string-template/zip'
   
 end

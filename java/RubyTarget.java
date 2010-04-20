@@ -44,44 +44,19 @@ public class RubyTarget
     public static final Set rubyKeywords =
     new HashSet() {
         {
-            add( "alias" );
-            add( "and" );
-            add( "BEGIN" );
-            add( "begin" );
-            add( "break" );
-            add( "case" );
-            add( "class" );
-            add( "def" );
-            add( "defined?" );
-            add( "do" );
-            add( "else" );
-            add( "elsif" );
-            add( "end" );
-            add( "END" );
-            add( "ensure" );
-            add( "false" );
-            add( "for" );
-            add( "if" );
-            add( "in" );
-            add( "module" );
-            add( "next" );
-            add( "nil" );
-            add( "not" );
-            add( "or" );
-            add( "redo" );
-            add( "rescue" );
-            add( "retry" );
-            add( "return" );
-            add( "self" );
-            add( "super" );
-            add( "then" );
-            add( "true" );
-            add( "undef" );
-            add( "unless" );
-            add( "until" );
-            add( "when" );
-            add( "while" );
-            add( "yield" );
+        	add( "alias" );     add( "END" );     add( "retry" );                                                                                                
+        	add( "and" );       add( "ensure" );  add( "return" );                                                                                               
+        	add( "BEGIN" );     add( "false" );   add( "self" );                                                                                                 
+        	add( "begin" );     add( "for" );     add( "super" );                                                                                                
+        	add( "break" );     add( "if" );      add( "then" );                                                                                                 
+        	add( "case" );      add( "in" );      add( "true" );                                                                                                 
+        	add( "class" );     add( "module" );  add( "undef" );                                                                                                
+        	add( "def" );       add( "next" );    add( "unless" );                                                                                               
+        	add( "defined?" );  add( "nil" );     add( "until" );                                                                                                
+        	add( "do" );        add( "not" );     add( "when" );                                                                                                 
+        	add( "else" );      add( "or" );      add( "while" );                                                                                                
+        	add( "elsif" );     add( "redo" );    add( "yield" );                                                                                                
+        	add( "end" );       add( "rescue" );                                                                                                                 
         }
     };
 
@@ -209,9 +184,13 @@ public class RubyTarget
         }
 
         private String lexerRule( String value ) {
+					  // System.out.print( "lexerRule( \"" + value + "\") => " );
             if ( value.equals( "Tokens" ) ) {
+							  // System.out.println( "\"token!\"" );
                 return "token!";
             } else {
+							  // String result = snakecase( value ) + "!";
+								// System.out.println( "\"" + result + "\"" );
                 return ( snakecase( value ) + "!" );
             }
         }
@@ -282,11 +261,12 @@ public class RubyTarget
         }
     }
 
-    protected void genRecognizerFile( Tool tool,
-                                      CodeGenerator generator,
-                                      Grammar grammar,
-                                      StringTemplate outputFileST )
-    throws IOException
+    protected void genRecognizerFile( 
+    		Tool tool,
+    		CodeGenerator generator,
+    		Grammar grammar,
+    		StringTemplate outputFileST
+    ) throws IOException
     {
         /*
             Below is an experimental attempt at providing a few named action blocks
@@ -318,7 +298,7 @@ public class RubyTarget
 
             Kyle Yetter - March 25, 2010
         */
-
+    	
         if ( grammar.type == Grammar.COMBINED ) {
             Map actions = grammar.getActions();
             if ( actions.containsKey( "all" ) ) {
@@ -347,7 +327,8 @@ public class RubyTarget
 
     public String getTargetCharLiteralFromANTLRCharLiteral(
         CodeGenerator generator,
-        String literal )
+        String literal
+    )
     {
         literal = literal.substring( 1, literal.length() - 1 );
 
@@ -384,6 +365,7 @@ public class RubyTarget
         }
         return name;
     }
+    
     public boolean isValidActionScope( int grammarType, String scope ) {
         if ( scope.equals( "all" ) )       {
             return true;
@@ -397,7 +379,7 @@ public class RubyTarget
         if ( scope.equals( "overrides" ) ) {
             return true;
         }
-
+				
         switch ( grammarType ) {
         case Grammar.LEXER:
             if ( scope.equals( "lexer" ) ) {

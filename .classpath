@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="samples/other/cgram/examples"/>
+	<classpathentry kind="src" path="samples/other/cgram/grammars"/>
+	<classpathentry kind="src" path="vendor/antlr/antlr-ant/main/antlr3-task/antlr3-src"/>
+	<classpathentry kind="src" path="vendor/antlr/antlr3-maven-archetype/src/main/resources/archetype-resources/src/main/java"/>
+	<classpathentry kind="src" path="vendor/antlr/antlr3-maven-archetype/target/classes/archetype-resources/src/main/java"/>
+	<classpathentry kind="src" path="vendor/antlr/antlr3-maven-plugin/src/main/java"/>
+	<classpathentry kind="src" path="vendor/antlr/gunit-maven-plugin/src/main/java"/>
+	<classpathentry kind="src" path="vendor/antlr/gunit/src/main/java"/>
+	<classpathentry kind="src" path="vendor/antlr/gunit/src/test/java"/>
+	<classpathentry kind="src" path="vendor/antlr/gunit/target/generated-sources/antlr3"/>
+	<classpathentry kind="src" path="vendor/antlr/runtime/Java/src/main/java"/>
+	<classpathentry kind="src" path="vendor/antlr/tool/src/main/java"/>
+	<classpathentry kind="src" path="vendor/antlr/tool/src/test/java"/>
+	<classpathentry kind="src" path="vendor/antlr/tool/target/generated-sources/antlr"/>
+	<classpathentry kind="src" path="vendor/antlr/tool/target/generated-sources/antlr3"/>
+	<classpathentry kind="src" path="vendor/stringtemplate-3.2/build/src"/>
+	<classpathentry kind="src" path="vendor/stringtemplate-3.2/src"/>
+	<classpathentry kind="lib" path="java/antlr-full-3.2.1.jar"/>
+	<classpathentry kind="lib" path="vendor/antlr/antlr-ant/main/antlr3-task/antlr3.jar"/>
+	<classpathentry kind="lib" path="vendor/antlr/antlr3-maven-archetype/target/antlr3-maven-archetype-3.2.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="vendor/antlr/antlr3-maven-plugin/target/antlr3-maven-plugin-3.2.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="vendor/antlr/gunit-maven-plugin/target/maven-gunit-plugin-3.2.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="vendor/antlr/gunit/target/gunit-3.2.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="vendor/antlr/runtime/ActionScript/project/lib/FlexAntTasks.jar"/>
+	<classpathentry kind="lib" path="vendor/antlr/runtime/Java/target/antlr-runtime-3.2.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="vendor/antlr/target/antlr-master-3.2.1-SNAPSHOT-completejar.jar"/>
+	<classpathentry kind="lib" path="vendor/antlr/target/antlr-master-3.2.1-SNAPSHOT-src.jar"/>
+	<classpathentry kind="lib" path="vendor/antlr/tool/target/antlr-3.2.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="vendor/stringtemplate-3.2/build/stringtemplate.jar"/>
+	<classpathentry kind="lib" path="vendor/stringtemplate-3.2/lib/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="vendor/stringtemplate-3.2/lib/stringtemplate-3.2.jar"/>
+	<classpathentry kind="lib" path="vendor/stringtemplate-3.2/stringtemplate-custom-3.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="vendor/stringtemplate-3.2/bin"/>
+</classpath>

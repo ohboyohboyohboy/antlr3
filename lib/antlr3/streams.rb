@@ -646,6 +646,9 @@ class FileStream < StringStream
     when $stdin then
       data = $stdin.read
       @name = '(stdin)'
+    when ARGF
+      data = file.read
+      @name = file.path
     when ::File then
       file = file.clone
       file.reopen( file.path, 'r' )
@@ -935,6 +938,41 @@ class CommonTokenStream
   def each( *args )
     block_given? or return enum_for( :each, *args )
     tokens( *args ).each { |token| yield( token ) }
+  end
+  
+  
+  #
+  # yields each token in the stream with the given channel value
+  # If no channel value is given, the stream's tuned channel value will be used.
+  # If no block is given, an enumerator will be returned. 
+  # 
+  def each_on_channel( channel = @channel )
+    block_given? or return enum_for( :each_on_channel, channel )
+    for token in @tokens
+      token.channel == channel and yield( token )
+    end
+  end
+  
+  #
+  # iterates through the token stream, yielding each on channel token along the way.
+  # After iteration has completed, the stream's position will be restored to where
+  # it was before #walk was called. While #each or #each_on_channel does not change
+  # the positions stream during iteration, #walk advances through the stream. This
+  # makes it possible to look ahead and behind the current token during iteration.
+  # If no block is given, an enumerator will be returned. 
+  # 
+  def walk
+    block_given? or return enum_for( :walk )
+    initial_position = @position
+    begin
+      while token = look and token.type != EOF
+        consume
+        yield( token )
+      end
+      return self
+    ensure
+      @position = initial_position
+    end
   end
   
   # 

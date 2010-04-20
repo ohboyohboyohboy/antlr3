@@ -1135,7 +1135,7 @@ private
     case input
     when CharacterStream then input
     when ::String then StringStream.new( input, options )
-    when ::IO     then FileStream.new( input, options )
+    when ::IO, ARGF then FileStream.new( input, options )
     else input
     end
   end

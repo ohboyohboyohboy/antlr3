@@ -7,70 +7,123 @@ require 'highlight'
 module ANTLRDoc
   module_function
   
-  def raw_html(src)
-    RAW_HTML % src.to_s
-  end
-  
-  def embed(path)
-    raw_html('<iframe src=%p />' % path)
-  end
-  
-  def highlight_cmd(code, prompt = nil)
-    high = Highlight::Languages::Shell.new(code, :number_lines => false, :prompt => prompt)
-    @stylesheets << 'shell.css'
-    raw_html( high )
-  end
-  
-  def highlight_antlr(antlr_code)
-    high = Highlight::Languages::ANTLR.new(antlr_code)
-    @stylesheets << 'ANTLR3.css'
-    raw_html( high )
-  end
-  
-  def highlight(lang, code)
-    high = Highlight::Languages::Generic.new(lang, code)
-    @stylesheets << "#{lang}.css"
-    raw_html( high.to_s )
-  end
-  
-  def inline_style content
-    @inline_style_sections << content
-    ''
-  end
-  
-  def preprocess(src)
-    src.gsub!(REGION) do
-      region = $1
-      tag = $2.downcase.to_sym
-      content = $3
-      case tag
-      when :raw then raw_html(content)
-      when :antlr then highlight_antlr(content)
-      when :ruby then highlight('ruby', content)
-      when :style then inline_style(content)
-      when :cmd then highlight_cmd(content, '%')
+  if $wiki_mode
+    require 'strscan'
+    require 'stringio'
+    
+    def preprocess( source )
+      out = StringIO.new( '' )
+      source = StringScanner.new( source )
+      
+      until source.eos?
+        text = source.scan_until( /(?=«)/ ) or break
+        out.print( text )
+        
+        source.scan( /^«([^\n]*)\n(.*?)^»\s*/m ) or break
+        tag, body = source[ 1 ], source[ 2 ]
+        
+        if tag.strip == 'raw'
+          out.puts( "<notextile>" )
+          out.puts( body )
+          out.puts( '</notextile>' )
+        elsif body !~ /\A\s*\Z/
+          body.rstrip!
+          
+          lines = body.split( $/ )
+          lines = lines.drop_while { | ln | ln =~ /^\s*$/ }
+          out.puts( "bc.. #{ lines.shift }" )
+          for line in lines
+            out.puts( line )
+          end
+          
+          out.puts
+          
+          source.scan_until( /(?=\S)/ )
+          if text = source.scan( /\S+\. / )
+            out.print( text )
+          else
+            out.print( "p. " )
+          end
+        end
+      end
+      
+      out.print( source.rest )
+      
+      return out.string
+    end
+    
+    def convert( file )
+      puts preprocess( File.read( file ) )
+    end
+    
+  else
+    
+    def raw_html(src)
+      RAW_HTML % src.to_s
+    end
+    
+    def embed(path)
+      raw_html('<iframe src=%p />' % path)
+    end
+    
+    def highlight_cmd(code, prompt = nil)
+      high = Highlight::Languages::Shell.new(code, :number_lines => false, :prompt => prompt)
+      @stylesheets << 'shell.css'
+      raw_html( high )
+    end
+    
+    def highlight_antlr(antlr_code)
+      high = Highlight::Languages::ANTLR.new(antlr_code)
+      @stylesheets << 'ANTLR3.css'
+      raw_html( high )
+    end
+    
+    def highlight(lang, code)
+      high = Highlight::Languages::Generic.new(lang, code)
+      @stylesheets << "#{lang}.css"
+      raw_html( high.to_s )
+    end
+    
+    def inline_style content
+      @inline_style_sections << content
+      ''
+    end
+    
+    def preprocess(src)
+      src.gsub!(REGION) do
+        region = $1
+        tag = $2.downcase.to_sym
+        content = $3
+        case tag
+        when :raw then raw_html(content)
+        when :antlr then highlight_antlr(content)
+        when :ruby then highlight('ruby', content)
+        when :style then inline_style(content)
+        when :cmd then highlight_cmd(content, '%')
+        end
       end
     end
-  end
-  
-  def postprocess(html)
-    @html = DOCUMENT.result(binding)
-  end
-  
-  def convert(file)
-    @path = file
-    @directory = File.dirname(file)
-    @name = File.basename(file, '.*')
-    @source = File.read(file)
-    @stylesheets = []
-    @inline_style_sections = []
-    preprocess(@source)
-    @html = RedCloth.new(@source).to_html
-    postprocess(@html)
-    @out_path = File.join(@directory, @name + '.html')
-    open(@out_path, 'w') do |f|
-      f.write(@html)
+    
+    def postprocess(html)
+      @html = DOCUMENT.result(binding)
     end
+    
+    def convert(file)
+      @path = file
+      @directory = File.dirname(file)
+      @name = File.basename(file, '.*')
+      @source = File.read(file)
+      @stylesheets = []
+      @inline_style_sections = []
+      preprocess(@source)
+      @html = RedCloth.new(@source).to_html
+      postprocess(@html)
+      @out_path = File.join(@directory, @name + '.html')
+      open(@out_path, 'w') do |f|
+        f.write(@html)
+      end
+    end
+    
   end
 
 REGION = /^(
