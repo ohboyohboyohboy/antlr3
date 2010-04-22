@@ -1,4 +1,0 @@
-h1. ANTLR(ANother Tool For Language Recognition): ANother Tool For Language Recognition
-
-
-
