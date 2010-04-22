@@ -3,10 +3,12 @@
 
 require 'redcloth'
 require 'highlight'
+require 'hpricot'   # <- TODO: this isn't on the bundler list right now
 
 module ANTLRDoc
-  
   class Article
+    Outline = Struct.new( :id, :title )
+    
     REGION = %r<
       ^(
         « \ * (\S+) \ * \n    # tag line:     « ruby
@@ -71,6 +73,7 @@ module ANTLRDoc
     
     def generate
       @body ||= RedCloth.new( preprocess ).to_html
+      outline
       @template.result( binding )
     end
     
@@ -80,6 +83,19 @@ module ANTLRDoc
     
     def raw_html( src )
       RAW_HTML % src.to_s
+    end
+    
+    def outline
+      @outline ||= begin
+        count = 0
+        doc = Hpricot( body )
+        headers = ( doc / 'h1' ).map do | header |
+          header[ :id ] ||= "section-#{ count += 1 }"
+          [ header[ :id ], header.inner_text.strip ]
+        end
+        @body = doc.to_html
+        headers
+      end
     end
     
     def preprocess
@@ -161,6 +177,11 @@ module ANTLRDoc
     #  
     #end
     
+    def relative_path( file )
+      File.relative_path( file, @output_directory )
+    end
+    
     private :raw_html
   end
+  
 end

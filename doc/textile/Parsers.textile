@@ -1,4 +1,4 @@
-h2. Parser Code and Class Structure
+h1. Parser Code and Class Structure
 
 For a @combined@ or pure @parser@ grammar named @Language@, @antlr4ruby@ will generate a parser class. In other ANTLR targets, the generated class is named @LanguageParser@. However, this ruby implementation will generate a top level module named @Language@, which serves as a general namespace for the various entites required by the code. The actual parser class is simply named @Parser@, so the full name of the generated parser will be @Language::Parser@. Consider this combined grammar:
 
@@ -79,9 +79,9 @@ Thus, the generated code for a parser creates the following named entities:
 # @module Language::TokenData@ - an @ANTLR3::TokenScheme@ (subclass of @Module@), which is used to define token types and a token class
 # @class Language::TokenData::Token < ANTLR3::CommonToken@ - not apparent in the code above, this class is dynamically created along with @Language::TokenData@
 
-h2. Instantiating Parsers
+h1. Instantiating Parsers
 
-h3. Providing a Token Stream
+h2. Providing a Token Stream
 
 A parser must be provided with a stream of tokens to recognize. 
 
@@ -91,14 +91,14 @@ tokens = ANTLR3::CommonTokenStream.new( lexer )
 parser = AddingMachine::Parser.new( tokens )
 »
 
-h3. Providing a Lexer or ANTLR3::TokenSource Object
+h2. Providing a Lexer or ANTLR3::TokenSource Object
 
 « ruby
 lexer = AddingMachine::Lexer.new( "1 + 1" )
 parser = AddingMachine::Parser.new( lexer )
 »
 
-h3. Providing an Input String or File
+h2. Providing an Input String or File
 
 If the parser class is able to automatically figure out which lexer class to use to tokenize the input, the four-step instantiation process can be reduced to a single step as demonstrated below.
 

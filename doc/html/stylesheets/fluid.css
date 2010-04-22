@@ -14,6 +14,7 @@ Feel free to use and modify but please provide credits.
 	margin: 0;
 	padding: 0;
 }
+
 a {
 	text-decoration: none;
 }
@@ -21,7 +22,7 @@ a {
 body {
 	background: #FFF url(../images/bg.gif) repeat-x;
 	color: #444;
-	font: normal "Lucida Sans Unicode",Verdana,sans-serif;
+	font: normal 90% Verdana,"Lucida Sans Unicode",sans-serif;
 	padding-top: 40px;
 }
 
@@ -53,7 +54,7 @@ blockquote {
 	padding: 12px;
 }
 h1,h2,h3,h4 {
-	font: normal 1.2em "Trebuchet MS",sans-serif;
+	font: normal 1.2em "Century Gothic","Trebuchet MS",sans-serif;
 	color: #F06;
 }
 /* misc */
@@ -82,7 +83,30 @@ h1,h2,h3,h4 {
 .header h2 span {
 	background: #222;
 	color: #EEE;
-	padding: 0 6px;
+	font-weight: bold;
+	font-size: 0.9em;
+	font-family: "Century Gothic",Verdana,"Lucida Sans Unicode",sans-serif;
+	padding: 0 10px;
+}
+.annotation {
+	background: url(img/bgcode.gif);
+	border: 1px solid #F0F0F0;
+	border-left: 6px solid #F06;	
+	color: #06F;
+	display: block;
+	font: normal 1.4em "Lucida Sans Unicode",serif;
+	margin-bottom: 12px;
+	padding: 8px 10px;
+}
+
+.annotation .author {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+.annotation .timestamp {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 
 /* left side (main content) */
@@ -158,7 +182,7 @@ h1,h2,h3,h4 {
 .subnav {
 	padding: 12px 12px 0;
 }
-.subnav h1 {
+.subnav h1 a {
 	color: #F06;
 	font-size: 1.4em;
 	height: 20px;

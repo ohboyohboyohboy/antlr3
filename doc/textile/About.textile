@@ -1,8 +1,8 @@
-h2. About *ANTLR*
+h1. About *ANTLR*
 
 <b>ANTLR(ANother Tool for Language Recognition)</b> is a program that generates code for performing a variety of language recognition tasks: lexing, parsing, abstract syntax tree construction and manipulation, tree structure recognition, and input translation. The tool operates simillarly to other parser generators, taking in a grammar specification written in the special ANTLR metalanguage and producing source code that implements the recognition functionality.
 
 While the tool itself is implemented in Java, it has an extensible design that allows for code generation in other programming languages. To implement an ANTLR language target, a developer may supply a set of templates written in the "StringTemplate":http://www.stringtemplate.org language.
 
-h2. About the @antlr3@ Gem
+h1. About the @antlr3@ Gem
 

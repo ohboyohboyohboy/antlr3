@@ -1,10 +1,12 @@
+h1. Overview
+
 A lexer's job is to take a stream of text and chop it up into a sequence of *tokens* -- little strings categorized with type codes like @NUMBER@ or @KEYWORD@. For more information on tokens and their characteristics, read [[Tokens]].
 
 For a general overview of lexers, check out:
 * "Lexical Analysis (from Wikipedia)":http://en.wikipedia.org/wiki/Lexical_analysis
 * "ANTLRv3 Documentation":http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation
 
-h3. How Lexers Differ from Parsers
+h2. How Lexers Differ from Parsers
 
 I do not intend to cover many details of lexical analysis in this article. However, highlighting a few of the key differences between lexers and parsers should help clarify the documentation below for users who are new to ANTLR. 
 
@@ -14,7 +16,7 @@ A parser's task is to then take the stream of tokens extracted by the lexer and 
 
 In contrast, lexers typically have a single point of entry  A grammar will define a number of different tokens that are possible within a language using lexer rules. ANTLR will derive an additional lexer rule that combines all of the lexical rules, invoking the most appropriate token rule based upon the next few characters in the input stream. Thus, while parsers can have any number of independent entry points, lexers automatically choose the most appropriate rule for the current input. 
 
-h2. Lexer Code and Class Structure
+h1. Lexer Code and Class Structure
 
 For a @combined@ or @lexer@ grammar named @Language@, @antlr4ruby@ will generate a lexer class. In other ANTLR targets, the generated class is named @LanguageLexer@. However, this ruby implementation will generate a top level module named @Language@, which serves as a general namespace for the various entites required by the code. The actual lexer class is simply named @Lexer@, so the full name of the generated lexer will be @Language::Lexer@. Consider this really simple lexer grammar:
 
@@ -93,9 +95,9 @@ Thus, the generated code for a lexer creates the following named entities:
 # @module Language::TokenData@ - an @ANTLR3::TokenScheme@ (subclass of @Module@), which is used to define token types and a token class
 # @class Language::TokenData::Token < ANTLR3::CommonToken@ - not apparent in the code above, this class is dynamically created along with @Language::TokenData@
 
-h2. Instantiating Lexers
+h1. Instantiating Lexers
 
-h3. Providing an Input Stream
+h2. Providing an Input Stream
 
 A lexer must be provided with a text source to tokenize. More specifically, a lexer takes in a *stream* object, which feeds it characters from a text source, and produces a series of *token* objects. For example, below is an illustration of creating an instance of @Digit::Lexer@ with a stream object:
 
@@ -107,7 +109,7 @@ input = ANTLR3::FileStream.new( 'numbers.txt' )
 lexer = Digit::Lexer.new( input )
 »
 
-h3. Providing Strings or Files Directly
+h2. Providing Strings or Files Directly
 
 More often than not, the stream a lexer will operate upon will be an instance of @ANTLR3::StringStream@ or @ANTLR3::FileStream@. Thus, the runtime library for this binding provides convenience casting for the most common cases. The @initialize@ method of a lexer will automatically cast plain strings and file objects into appropriate stream objects. 
 
@@ -120,7 +122,7 @@ lexer =
   end
 »
 
-h2. Fetching Tokens
+h1. Fetching Tokens
 
 « ruby
 require 'Digit'
@@ -141,7 +143,7 @@ lexer.map { | tk | tk.text.to_i }
 # => [1, 2, 3]
 »
 
-h2. Preparing a Lexer for Parser Input
+h1. Preparing a Lexer for Parser Input
 
 « ruby
 lexer = Digit::Lexer.new( "123" )
@@ -149,7 +151,7 @@ tokens = ANTLR3::CommonTokenStream.new( lexer )
 # `tokens' can be passed to the constructor of an ANTLR parser for parsing
 »
 
-h2. Rule to Method Name Mapping
+h1. Rule to Method Name Mapping
 
 In most usage scenarios, a developer does not need to invoke lexer rule methods directly; most lexer work is done by invoking Lexer#next_token. However, it is important to illustrate how a grammar's identifiers are user in the output ruby code. This is an area in which the @antlr3@ package diverges from other ANTLR target conventions.
 
@@ -199,7 +201,7 @@ The method naming convention for lexer rule methods works as follows:
 ## @CamelCase@ names become @camel_case@ names, as in Rails
 # append an exclaimation point
 
-h4. Rationale For Lexer Rule Naming Convention
+h3. Rationale For Lexer Rule Naming Convention
 
 Clearly there's a bit of opinionated design in this naming convention. Ruby does allow method names to begin with a capital letter, as in @Kernel#Array@ or @Kernel#String@. So why aren't lexer rule methods named with the same rule name? Well,
 
@@ -215,7 +217,7 @@ So why the exclamation point?
 # It prevents lexer rule methods from conflicting with ruby keywords. A lexer rule named @FOR@ or @DEF@ will be defined with method name @for!@ or @def!@, avoiding potential syntax errors.
 # It allows lexer rule methods to be referenced privately without parentheses, making code a little cleaner. While @id@ may refer to a local variable or a method call, @id!@ always refers to a method call. 
 
-h3. Important Note About Lexer Rule Names
+h2. Important Note About Lexer Rule Names
 
 This naming convention for lexer rules could potentially cause a significant bug in the generated code in one particular situation. Consider this grammar:
 
