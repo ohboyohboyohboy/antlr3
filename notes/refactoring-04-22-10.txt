@@ -1,0 +1,9 @@
+== refactoring
+
+- all streams should have #consume return the stepped-over symbol
+- if so, all match methods can be refactored to take out superfluous "current_symbol" assignments
+- template code can be reduced a decent bet by joining everything that's like
+    label = @input.look
+    match_method
+  to
+    label = match_method

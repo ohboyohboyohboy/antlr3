@@ -9,22 +9,17 @@ end
 <endif>
 >>
 
-
-
 ruleDeclarations() ::= <<
 <super.ruleDeclarations()>
-_first_0 = nil
-_last = nil<\n>
+_last = _first_0 = nil<\n>
 >>
-
-
 
 noRewrite(rewriteBlockLevel, treeLevel) ::= <<
 <gatedAction({
 <if(rewriteMode)>
 return_value.tree = _first_0
-if @adaptor.parent(return_value.tree) && @adaptor.flat_list?(@adaptor.parent(return_value.tree))
-  return_value.tree = @adaptor.parent(return_value.tree)
+if @adaptor.parent( return_value.tree ) && @adaptor.flat_list?( @adaptor.parent( return_value.tree ) )
+  return_value.tree = @adaptor.parent( return_value.tree )
 end
 <endif>
 })>
@@ -32,42 +27,39 @@ end
 
 tree(root, actionsAfterRoot, children, nullableChildList,
      enclosingTreeLevel, treeLevel) ::= <<
-_last = @input.look
-_save_last_<treeLevel> = _last
+_save_last_<treeLevel> = _last = @input.look
 _first_<treeLevel> = nil
 <if(!rewriteMode)>
-root_<treeLevel> = @adaptor.create_flat_list!<\n>
+root_<treeLevel> = @adaptor.create_flat_list<\n>
 <endif>
 <root:element()>
 <if(rewriteMode)>
 <gatedAction({
 <if(root.el.rule)>
-_first_<enclosingTreeLevel>.nil? and _first_<enclosingTreeLevel> = <root.el.label; format="label">.tree<\n>
+_first_<enclosingTreeLevel> ||= <root.el.label; format="label">.tree<\n>
 <else>
-_first_<enclosingTreeLevel>.nil? and _first_<enclosingTreeLevel> = <root.el.label; format="label"><\n>
+_first_<enclosingTreeLevel> ||= <root.el.label; format="label"><\n>
 <endif>
 })>
 <endif>
 <actionsAfterRoot:element()>
 <if(nullableChildList)>
 if @input.peek == DOWN
-  match(DOWN, nil)
+  match( DOWN, nil )
   <children:element()>
-  match(UP, nil)
-end
+  match( UP, nil )
+end<\n>
 <else>
-match(DOWN, nil)
+match( DOWN, nil )
 <children:element()>
-match(UP, nil)<\n>
+match( UP, nil )<\n>
 <endif>
 <if(!rewriteMode)>
-@adaptor.add_child(root_<enclosingTreeLevel>, root_<treeLevel>)<\n>
+@adaptor.add_child( root_<enclosingTreeLevel>, root_<treeLevel> )<\n>
 <endif>
 _last = _save_last_<treeLevel>
 
 >>
-
-
 
 tokenRefBang(token,label,elementIndex) ::= <<
 _last = @input.look
@@ -80,11 +72,11 @@ _last = @input.look
 <if(!rewriteMode)>
 <gatedAction({
 <if(hetero)>
-tree_for_<label> = <hetero; format="constantPath">.new(<label; format="label">)
+tree_for_<label> = <hetero; format="constantPath">.new( <label; format="label"> )
 <else>
-tree_for_<label> = @adaptor.copy_node(<label; format="label">)
+tree_for_<label> = @adaptor.copy_node( <label; format="label"> )
 <endif><\n>
-@adaptor.add_child(root_<treeLevel>, tree_for_<label>)
+@adaptor.add_child( root_<treeLevel>, tree_for_<label> )
 })>
 <else> <! rewrite mode !>
 <gatedAction({
@@ -106,31 +98,27 @@ _last = @input.look
 <if(!rewriteMode)>
 <gatedAction({
 <if(hetero)>
-tree_for_<label> = <hetero; format="constantPath">.new(<label; format="label">)
+tree_for_<label> = <hetero; format="constantPath">.new( <label; format="label"> )
 <else>
-tree_for_<label> = @adaptor.copy_node(<label; format="label">)
+tree_for_<label> = @adaptor.copy_node( <label; format="label"> )
 <endif><\n>
-root_<treeLevel> = @adaptor.become_root(tree_for_<label>, root_<treeLevel>)
+root_<treeLevel> = @adaptor.become_root( tree_for_<label>, root_<treeLevel> )
 })>
 <endif>
 >>
-
-
 
 tokenRefRuleRootAndListLabel(token,label,elementIndex,hetero) ::= <<
 <tokenRefRuleRoot(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
 
-
-
 wildcard(token,label,elementIndex,hetero) ::= <<
 _last = @input.look
 <super.wildcard(...)>
 <if(!rewriteMode)>
 <gatedAction({
-tree_for_<label> = @adaptor.copy_tree(<label; format="label">)
-@adaptor.add_child(root_<treeLevel>, tree_for_<label>)
+tree_for_<label> = @adaptor.copy_tree( <label; format="label"> )
+@adaptor.add_child( root_<treeLevel>, tree_for_<label> )
 })>
 <else> <! rewrite mode !>
 <gatedAction({
@@ -145,11 +133,11 @@ _last = @input.look
 <if(!rewriteMode)>
 <gatedAction({
 <if(hetero)>
-tree_for_<label> = <hetero; format="constantPath">.new(<label; format="label">)
+tree_for_<label> = <hetero; format="constantPath">.new( <label; format="label"> )
 <else>
-tree_for_<label> = @adaptor.copy_node(<label; format="label">)
+tree_for_<label> = @adaptor.copy_node( <label; format="label"> )
 <endif><\n>
-@adaptor.add_child(root_<treeLevel>, tree_for_<label>)
+@adaptor.add_child( root_<treeLevel>, tree_for_<label> )
 })>
 <endif>
 })>
@@ -159,7 +147,7 @@ tree_for_<label> = @adaptor.copy_node(<label; format="label">)
 
 matchRuleBlockSet(s,label,hetero,elementIndex,postmatchCode,treeLevel="0") ::= <<
 <matchSet(...)>
-<noRewrite()> <! set return tree !>
+<noRewrite()>
 >>
 
 
@@ -174,78 +162,62 @@ matchSetRuleRoot(s,label,hetero,elementIndex,debug) ::= <<
 <if(!rewriteMode)>
 <gatedAction({
 <if(hetero)>
-tree_for_<label> = <hetero; format="constantPath">.new(<label; format="label">)
+tree_for_<label> = <hetero; format="constantPath">.new( <label; format="label"> )
 <else>
-tree_for_<label> = @adaptor.copy_node(<label; format="label">)
+tree_for_<label> = @adaptor.copy_node( <label; format="label"> )
 <endif><\n>
-root_<treeLevel> = @adaptor.become_root(tree_for_<label>, root_<treeLevel>)
+root_<treeLevel> = @adaptor.become_root( tree_for_<label>, root_<treeLevel> )
 })>
 <endif>
 })>
 >>
-
-
 
 ruleRef(rule,label,elementIndex,args,scope) ::= <<
 _last = @input.look
 <super.ruleRef(...)>
 <gatedAction({
 <if(!rewriteMode)>
-@adaptor.add_child(root_<treeLevel>, <label; format="label">.tree)
-<else> <! rewrite mode !>
-_first_<treeLevel>.nil? and _first_<treeLevel> = <label; format="label">.tree<\n>
+@adaptor.add_child( root_<treeLevel>, <label; format="label">.tree )
+<else>
+_first_<treeLevel> ||= <label; format="label">.tree<\n>
 <endif>
 })>
 >>
-
-
 
 ruleRefAndListLabel(rule,label,elementIndex,args,scope) ::= <<
 <ruleRef(...)>
 <addToList(elem={<label; format="label">.tree},...)>
 >>
 
-
-
 ruleRefRuleRoot(rule,label,elementIndex,args,scope) ::= <<
 _last = @input.look
 <super.ruleRef(...)>
 <if(!rewriteMode)>
 <gatedAction({
-root_<treeLevel> = @adaptor.become_root(<label; format="label">.tree, root_<treeLevel>)
+root_<treeLevel> = @adaptor.become_root( <label; format="label">.tree, root_<treeLevel> )
 })>
 <endif>
 >>
-
-
 
 ruleRefRuleRootAndListLabel(rule,label,elementIndex,args,scope) ::= <<
 <ruleRefRuleRoot(...)>
 <addToList(elem={<label; format="label">.tree},...)>
 >>
 
-
-
 ruleRefTrack(rule,label,elementIndex,args,scope) ::= <<
 _last = @input.look
 <super.ruleRefTrack(...)>
 >>
-
-
 
 ruleRefTrackAndListLabel(rule,label,elementIndex,args,scope) ::= <<
 _last = @input.look
 <super.ruleRefTrackAndListLabel(...)>
 >>
 
-
-
 ruleRefRuleRootTrack(rule,label,elementIndex,args,scope) ::= <<
 _last = @input.look
 <super.ruleRefRootTrack(...)>
 >>
-
-
 
 ruleRefRuleRootTrackAndListLabel(rule,label,elementIndex,args,scope) ::= <<
 _last = @input.look
@@ -254,7 +226,7 @@ _last = @input.look
 
 createRewriteNodeFromElement(token,hetero,scope) ::= <<
 <if(hetero)>
-<hetero; format="constantPath">.new(stream_<token>.next_node)
+<hetero; format="constantPath">.new( stream_<token>.next_node )
 <else>
 stream_<token>.next_node
 <endif>
@@ -264,9 +236,7 @@ ruleCleanUp() ::= <<
 <super.ruleCleanUp()>
 <if(!rewriteMode)>
 <gatedAction({
-return_value.tree = @adaptor.rule_post_processing(root_0)
+return_value.tree = @adaptor.rule_post_processing( root_0 )
 })>
 <endif>
 >>
-
-

@@ -121,7 +121,8 @@ class RecognizerSharedState
     self.text = nil
   end
 end
-end
+
+end # unless const_defined?( :RecognizerSharedState )
 
 
 =begin rdoc ANTLR3::Recognizer
@@ -336,8 +337,7 @@ class Recognizer
       return matched_symbol
     end
     raise( BacktrackingFailed ) if @state.backtracking > 0
-    matched_symbol = recover_from_mismatched_token( type, follow )
-    return matched_symbol
+    return recover_from_mismatched_token( type, follow )
   end
   
   # match anything -- i.e. wildcard match. Simply consume
@@ -574,23 +574,15 @@ class Recognizer
   def recover_from_mismatched_token( type, follow )
     if mismatch_is_unwanted_token?( type )
       err = UnwantedToken( type )
-      
-      resync do 
-        @input.consume
-      end
-      
+      resync { @input.consume }
       report_error( err )
       
-      matched_symbol = current_symbol
-      @input.consume
-      return matched_symbol
+      return @input.consume
     end
     
     if mismatch_is_missing_token?( follow )
-      inserted = missing_symbol( err, type, follow )
-      err = MissingToken( type, inserted )
-      
-      report_error( err )
+      inserted = missing_symbol( nil, type, follow )
+      report_error( MissingToken( type, inserted ) )
       return inserted
     end
     

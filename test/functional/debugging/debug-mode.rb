@@ -169,7 +169,6 @@ class TestDebugGrammars < ANTLR3::Test::Functional
       ["consume_token", "2", "4", "default", "1", "2", "\"b\""],
       ["end_resync"],
       ["recognition_exception", "ANTLR3::Error::UnwantedToken", "2", "1", "2"],
-      ["look", "1", "-1", "-1", "default", "0", "-1", "nil"],
       ["consume_token", "-1", "-1", "default", "0", "-1", "nil"],
       ["location", "3", "11"],
       ["exit_rule", @grammar_path, "a"],

@@ -43,7 +43,7 @@ class TestTreeNodeStream < Test::Unit::TestCase
       end
     end
     
-    root_0 = @adaptor.create_flat_list!
+    root_0 = @adaptor.create_flat_list
     t = v.new(nil, 101, 2)
     u = v.new CommonToken.create(:type => 102, :text => '102')
     @adaptor.add_child(root_0, t)
@@ -614,8 +614,8 @@ class TestCommonTree < Test::Unit::TestCase
   end
   
   def test_become_root6
-    root_0 = @adaptor.create_flat_list!
-    root_1 = @adaptor.create_flat_list!
+    root_0 = @adaptor.create_flat_list
+    root_1 = @adaptor.create_flat_list
     root_1 = @adaptor.become_root( new_node( new_token 5 ), root_1 )
     
     @adaptor.add_child( root_1, new_node( new_token 6 ) )
@@ -686,7 +686,7 @@ class TestCommonTree < Test::Unit::TestCase
     t.add_child new_node( new_token 99, :text => 'c' )
     t.add_child new_node( new_token 99, :text => 'd' )
     
-    new_children = @adaptor.create_flat_list!
+    new_children = @adaptor.create_flat_list
     new_children.add_child new_node( new_token 99, :text => 'x' )
     new_children.add_child new_node( new_token 99, :text => 'y' )
     
@@ -701,7 +701,7 @@ class TestCommonTree < Test::Unit::TestCase
     t.add_child new_node( new_token 99, :text => 'c' )
     t.add_child new_node( new_token 99, :text => 'd' )
     
-    new_children = @adaptor.create_flat_list!
+    new_children = @adaptor.create_flat_list
     new_children.add_child new_node( new_token 99, :text => 'x' )
     new_children.add_child new_node( new_token 99, :text => 'y' )
     
@@ -716,7 +716,7 @@ class TestCommonTree < Test::Unit::TestCase
     t.add_child new_node( new_token 99, :text => 'c' )
     t.add_child new_node( new_token 99, :text => 'd' )
     
-    new_children = @adaptor.create_flat_list!
+    new_children = @adaptor.create_flat_list
     new_children.add_child new_node( new_token 99, :text => 'x' )
     new_children.add_child new_node( new_token 99, :text => 'y' )
     
@@ -770,7 +770,7 @@ class TestCommonTree < Test::Unit::TestCase
     t.add_child new_node( new_token 99, :text => 'c' )
     t.add_child new_node( new_token 99, :text => 'd' )
     
-    new_children = @adaptor.create_flat_list!
+    new_children = @adaptor.create_flat_list
     new_children.add_child new_node( new_token 99, :text => 'x' )
     new_children.add_child new_node( new_token 99, :text => 'y' )
     

@@ -12,21 +12,51 @@ __DIR__ = File.dirname( __FILE__ )
 load File.join( __DIR__, 'script-helper.rb' )
 
 require 'main'
+require 'erb'
 
 Main do
   argument( :files ) do
     description( "documentation files" )
+    validate { | f | File.file?( f ) }
     arity( -2 )
   end
   
-  option :wiki
+  option 'template', 't' do
+    argument_required
+    arity( 1 )
+    cast do | file |
+      ERB.new( File.read( file ), nil, '%' )
+    end
+    default( $project.path( 'doc/erb/template.erb' ) )
+  end
+  
+  option 'author', 'a' do
+    argument_required
+    arity( 1 )
+    default( $project.author )
+  end
+  
+  option 'output-directory', 'o' do
+    argument_required
+    arity( 1 )
+    default( $project.path( 'doc/html' ) )
+  end
   
   def run
-    $wiki_mode = params[ :wiki ].given?
+    #$wiki_mode = params[ :wiki ].given?
     require 'doc-utils'
+    options = {
+      :output_directory => params[ 'output-directory' ].value,
+      :author => params[ :author ].value
+    }
+    template = params[ :template ].value
     
-    for file in params[ :files ].values
-      ANTLRDoc.convert( file )
+    articles =
+      params[ :files ].values.map do | file |
+        ANTLRDoc::Article.load( file, template, options )
+      end
+    for article in articles
+      article.convert
     end
   end
 end

@@ -5,170 +5,162 @@ require 'redcloth'
 require 'highlight'
 
 module ANTLRDoc
-  module_function
   
-  if $wiki_mode
-    require 'strscan'
-    require 'stringio'
+  class Article
+    REGION = %r<
+      ^(
+        « \ * (\S+) \ * \n    # tag line:     « ruby
+          (.*?) \n            # body:         some = ruby.code
+        » \ * \n              # closing line: »
+      )
+    >mx
     
-    def preprocess( source )
-      out = StringIO.new( '' )
-      source = StringScanner.new( source )
-      
-      until source.eos?
-        text = source.scan_until( /(?=«)/ ) or break
-        out.print( text )
-        
-        source.scan( /^«([^\n]*)\n(.*?)^»\s*/m ) or break
-        tag, body = source[ 1 ], source[ 2 ]
-        
-        if tag.strip == 'raw'
-          out.puts( "<notextile>" )
-          out.puts( body )
-          out.puts( '</notextile>' )
-        elsif body !~ /\A\s*\Z/
-          body.rstrip!
-          
-          lines = body.split( $/ )
-          lines = lines.drop_while { | ln | ln =~ /^\s*$/ }
-          out.puts( "bc.. #{ lines.shift }" )
-          for line in lines
-            out.puts( line )
-          end
-          
-          out.puts
-          
-          source.scan_until( /(?=\S)/ )
-          if text = source.scan( /\S+\. / )
-            out.print( text )
-          else
-            out.print( "p. " )
-          end
-        end
+    RAW_HTML = <<-END.gsub( /^\s+/, '' )
+      <notextile>
+      %s
+      </notextile>
+    END
+    
+    defined?( @@articles ) or
+      @@articles = {}
+    
+    def self.articles
+      @@articles.values
+    end
+    
+    def self.load( file, template, options = {} )
+      @@articles.fetch( file ) do
+        @@articles[ file ] = new( file )
+      end.configure( template, options )
+    end
+    
+    attr_accessor :source_file, :source, :title, :time, :stylesheets, :scripts,
+                  :author, :output_directory, :template
+    
+    def initialize( source_file )
+      @source_file = source_file
+      @template = nil
+      @source = File.read( source_file )
+      @time = File.mtime( source_file )
+      @title = File.basename( source_file, '.*' )
+      @output_directory = File.dirname( source_file )
+      @author = nil
+      @stylesheets = []
+      @scripts = []
+      @inline_styles = []
+    end
+    
+    def configure( template, options = {} )
+      @template = template
+      title = options[ :title ] and @title = title
+      time  = options[ :time ]  and @time  = time
+      author = options[ :author ] and @author = author
+      dir = options[ :output_directory ] and @output_directory = dir
+      return( self )
+    end
+    
+    def convert( dest = output_file )
+      open( dest, 'w' ) do | out |
+        out.write( generate )
       end
-      
-      out.print( source.rest )
-      
-      return out.string
     end
     
-    def convert( file )
-      puts preprocess( File.read( file ) )
+    def output_file
+      File.join( @output_directory, "#@title.html" )
     end
     
-  else
+    def generate
+      @body ||= RedCloth.new( preprocess ).to_html
+      @template.result( binding )
+    end
     
-    def raw_html(src)
+    def body
+      @body ||= RedCloth.new( preprocess ).to_html
+    end
+    
+    def raw_html( src )
       RAW_HTML % src.to_s
     end
     
-    def embed(path)
-      raw_html('<iframe src=%p />' % path)
-    end
-    
-    def highlight_cmd(code, prompt = nil)
-      high = Highlight::Languages::Shell.new(code, :number_lines => false, :prompt => prompt)
-      @stylesheets << 'shell.css'
-      raw_html( high )
-    end
-    
-    def highlight_antlr(antlr_code)
-      high = Highlight::Languages::ANTLR.new(antlr_code)
-      @stylesheets << 'ANTLR3.css'
-      raw_html( high )
-    end
-    
-    def highlight(lang, code)
-      high = Highlight::Languages::Generic.new(lang, code)
-      @stylesheets << "#{lang}.css"
-      raw_html( high.to_s )
-    end
-    
-    def inline_style content
-      @inline_style_sections << content
-      ''
-    end
-    
-    def preprocess(src)
-      src.gsub!(REGION) do
-        region = $1
-        tag = $2.downcase.to_sym
-        content = $3
+    def preprocess
+      [ @stylesheets, @scripts, @inline_styles ].each { | list | list.clear }
+      
+      src = @source.gsub( REGION ) do
+        region, tag, content = $1, $2.downcase.to_sym, $3
+        
         case tag
-        when :raw then raw_html(content)
-        when :antlr then highlight_antlr(content)
-        when :ruby then highlight('ruby', content)
-        when :style then inline_style(content)
-        when :cmd then highlight_cmd(content, '%')
+        when :raw then raw_html( content )
+        when :antlr then
+          @stylesheets << 'ANTLR3.css'
+          raw_html( Highlight::Languages::ANTLR.new( content ) )
+        when :ruby then
+          @stylesheets << "ruby.css"
+          raw_html( Highlight::Languages::Generic.new( 'ruby', content ) )
+        when :style
+          @inline_styles << content
+          ''
+        when :cmd
+          @stylesheets << 'shell.css'
+          raw_html(
+            Highlight::Languages::Shell.new(
+              content, :number_lines => false, :prompt => '> '
+            )
+          )
         end
       end
+      
+      [ @stylesheets, @scripts, @inline_styles ].each { | list | list.uniq! }
+      
+      return( src )
     end
     
-    def postprocess(html)
-      @html = DOCUMENT.result(binding)
-    end
+    #if $wiki_mode
+    #  require 'strscan'
+    #  require 'stringio'
+    #  
+    #  def preprocess( source )
+    #    out = StringIO.new( '' )
+    #    source = StringScanner.new( source )
+    #    
+    #    until source.eos?
+    #      text = source.scan_until( /(?=«)/ ) or break
+    #      out.print( text )
+    #      
+    #      source.scan( REGION )
+    #      tag, body = source[ 2 ], source[ 3 ]
+    #      
+    #      if tag.strip == 'raw'
+    #        out.puts( "<notextile>" )
+    #        out.puts( body )
+    #        out.puts( '</notextile>' )
+    #      elsif body !~ /\A\s*\Z/
+    #        body.rstrip!
+    #        
+    #        lines = body.split( $/ )
+    #        lines = lines.drop_while { | ln | ln =~ /^\s*$/ }
+    #        out.puts( "bc.. #{ lines.shift }" )
+    #        for line in lines
+    #          out.puts( line )
+    #        end
+    #        
+    #        out.puts
+    #        
+    #        source.scan_until( /(?=\S)/ )
+    #        if text = source.scan( /\S+\. / )
+    #          out.print( text )
+    #        else
+    #          out.print( "p. " ) unless source.eos?
+    #        end
+    #      end
+    #    end
+    #    
+    #    out.print( source.rest )
+    #    
+    #    return out.string
+    #  end
+    #  
+    #end
     
-    def convert(file)
-      @path = file
-      @directory = File.dirname(file)
-      @name = File.basename(file, '.*')
-      @source = File.read(file)
-      @stylesheets = []
-      @inline_style_sections = []
-      preprocess(@source)
-      @html = RedCloth.new(@source).to_html
-      postprocess(@html)
-      @out_path = File.join(@directory, @name + '.html')
-      open(@out_path, 'w') do |f|
-        f.write(@html)
-      end
-    end
-    
+    private :raw_html
   end
-
-REGION = /^(
-  « \ * (\S+) \ * \n    # tag line:     « ruby
-    (.*?) \n            # body:         some = ruby.code
-  » \ * \n )            # closing line: »
-  /mx
-
-RAW_HTML = <<-END
-  <notextile>
-  %s
-  </notextile>
-END
-
-DOCUMENT = ERB.new(<<-END)
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-
-Design by NodeThirtyThree <http://www.nodethirtythree.com>
-Published by Free CSS Templates <http://www.freecsstemplates.org/>
-Released for free under a Creative Commons Attribution 2.5 License
-
-Title      : stylized
-Version    : 1.1
-Released   : 20070716
-Description: A two-column fixed width template for 1024x768 resolutions.
-
--->
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="general.css" rel="stylesheet" type="text/css" media="screen" />
-<% for css in @stylesheets.uniq %>
-<link rel="stylesheet" type="text/css" href="<%= css %>" />
-<% end %>
-<style type="text/css">
-<% for style in @inline_style_sections %>
-<%= style.fixed_indent(6) %>
-<% end %>
-</style>
-</head>
-<body>
-<%= html.fixed_indent(2) %>
-</body>
-</html>
-END
-
 end

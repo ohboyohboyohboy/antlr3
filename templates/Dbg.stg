@@ -156,16 +156,16 @@ element() ::= <<
 
 
 @dfaState.noViableAltException() ::= <<
-@debug_listener.recognition_exception(nvae)
-raise(nvae)
+nvae = NoViableAlternative( "<description>", <decisionNumber>, <stateNumber> )
+@debug_listener.recognition_exception( nvae )
+raise( nvae )<\n>
 >>
-
 
 @dfaStateSwitch.noViableAltException() ::= <<
-@debug_listener.recognition_exception nvae
-raise nvae
+nvae = NoViableAlternative( "<description>", <decisionNumber>, <stateNumber> )
+@debug_listener.recognition_exception( nvae )
+raise( nvae )<\n>
 >>
-
 
 dfaDecision(decisionNumber,description) ::= <<
 begin

@@ -18,25 +18,25 @@ module TreeAdaptor
   
   attr_accessor :debug_listener
   
-  def create_with_payload!(payload)
+  def create_with_payload(payload)
     node = super
     @debug_listener.create_node(node, payload)
     return node
   end
   
-  def create_from_token!(token_type, from_token, text = nil)
+  def create_from_token(token_type, from_token, text = nil)
     node = super
     @debug_listener.create_node(node)
     return node
   end
   
-  def create_from_type!(token_type, text)
+  def create_from_type(token_type, text)
     node = super
     @debug_listener.create_node(node)
     return node
   end
   
-  def create_error_node!(input, start, stop, exc)
+  def create_error_node(input, start, stop, exc)
     node = super
     node.nil? or @debug_listener.error_node(node)
     return node
@@ -63,7 +63,7 @@ module TreeAdaptor
     return duplicate
   end
   
-  def create_flat_list!
+  def create_flat_list
     node = super
     @debug_listener.flat_node(node)
     return node
@@ -72,7 +72,7 @@ module TreeAdaptor
   def add_child(tree, child)
     case child
     when Token
-      node = create_with_payload!(child)
+      node = create_with_payload(child)
       add_child(tree, node)
     else
       tree.nil? || child.nil? and return
@@ -84,7 +84,7 @@ module TreeAdaptor
   def become_root(new_root, old_root)
     case new_root
     when Token
-      n = create_with_payload!(new_root)
+      n = create_with_payload(new_root)
       super(n, old_root)
     else
       n = super(new_root, old_root)

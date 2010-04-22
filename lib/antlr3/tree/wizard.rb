@@ -251,7 +251,7 @@ from a tokenized tree pattern
       @token_type == :identifier or return nil
       token_name = @tokenizer.text
       @token_type = @tokenizer.next_token
-      token_name == 'nil' and return @adaptor.create_flat_list!
+      token_name == 'nil' and return @adaptor.create_flat_list
       
       text = token_name
       arg = nil
@@ -262,7 +262,7 @@ from a tokenized tree pattern
       end
       
       node_type = @token_scheme[ token_name ] || INVALID_TOKEN_TYPE
-      node = @adaptor.create_from_type!( node_type, text )
+      node = @adaptor.create_from_type( node_type, text )
       
       if Pattern === node
         node.label, node.has_text_arg = label, arg
@@ -318,7 +318,7 @@ A customized TreeAdaptor used by AST::Wizards to build tree patterns.
 =end
 
   class PatternAdaptor < CommonTreeAdaptor
-    def create_with_payload!( payload )
+    def create_with_payload( payload )
       return Pattern.new( payload )
     end
   end

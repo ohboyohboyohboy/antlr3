@@ -836,15 +836,15 @@ class CommonTreeAdaptor
   end
   
   def create_flat_list
-    return create_with_payload!( nil )
+    return create_with_payload( nil )
   end
   alias create_flat_list! create_flat_list
   
   def become_root( new_root, old_root )
-    new_root = create!( new_root ) if new_root.is_a?( Token )
+    new_root = create( new_root ) if new_root.is_a?( Token )
     old_root or return( new_root )
     
-    new_root = create_with_payload!( new_root ) unless CommonTree === new_root
+    new_root = create_with_payload( new_root ) unless CommonTree === new_root
     if new_root.flat_list?
       count = new_root.child_count
       if count == 1
@@ -862,13 +862,13 @@ class CommonTreeAdaptor
     from_token = from_token.dup
     from_token.type = token_type
     from_token.text = text.to_s if text
-    tree = create_with_payload!( from_token )
+    tree = create_with_payload( from_token )
     return tree
   end
   
   def create_from_type( token_type, text )
     from_token = create_token( token_type, DEFAULT_CHANNEL, text )
-    create_with_payload!( from_token )
+    create_with_payload( from_token )
   end
   
   def create_error_node( input, start, stop, exc )
@@ -881,11 +881,11 @@ class CommonTreeAdaptor
 
   def create( *args )
     n = args.length
-    if n == 1 and args.first.is_a?( Token ) then create_with_payload!( args[ 0 ] )
+    if n == 1 and args.first.is_a?( Token ) then create_with_payload( args[ 0 ] )
     elsif n == 2 and Integer === args.first and String === args[ 1 ]
-      create_from_type!( *args )
+      create_from_type( *args )
     elsif n >= 2 and Integer === args.first
-      create_from_token!( *args )
+      create_from_token( *args )
     else
       sig = args.map { |f| f.class }.join( ', ' )
       raise TypeError, "No create method with this signature found: (#{ sig })"
@@ -1008,9 +1008,9 @@ class CommonTreeNodeStream
     end
     @adaptor ||= options.fetch( :adaptor ) { CommonTreeAdaptor.new }
     @token_stream ||= options[ :token_stream ]
-    @down  ||= options.fetch( :down ) { @adaptor.create_from_type!( DOWN, 'DOWN' ) }
-    @up    ||= options.fetch( :up )   { @adaptor.create_from_type!( UP, 'UP' ) }
-    @eof   ||= options.fetch( :eof )  { @adaptor.create_from_type!( EOF, 'EOF' ) }
+    @down  ||= options.fetch( :down ) { @adaptor.create_from_type( DOWN, 'DOWN' ) }
+    @up    ||= options.fetch( :up )   { @adaptor.create_from_type( UP, 'UP' ) }
+    @eof   ||= options.fetch( :eof )  { @adaptor.create_from_type( EOF, 'EOF' ) }
     @nodes ||= []
     
     @unique_navigation_nodes = options.fetch( :unique_navigation_nodes, false )
@@ -1039,9 +1039,9 @@ class CommonTreeNodeStream
     navigation_node =
       case type
       when DOWN
-        has_unique_navigation_nodes? ? @adaptor.create_from_type!( DOWN, 'DOWN' ) : @down
+        has_unique_navigation_nodes? ? @adaptor.create_from_type( DOWN, 'DOWN' ) : @down
       else
-        has_unique_navigation_nodes? ? @adaptor.create_from_type!( UP, 'UP' ) : @up
+        has_unique_navigation_nodes? ? @adaptor.create_from_type( UP, 'UP' ) : @up
       end
     @nodes << navigation_node
   end
@@ -1089,7 +1089,9 @@ class CommonTreeNodeStream
   
   def consume
     @position == -1 and fill_buffer
+    node = @nodes.fetch( @position, @eof )
     @position += 1
+    return( node )
   end
   
   def peek( i = 1 )
@@ -1329,7 +1331,7 @@ rewriting parsers.
 =end
 class RewriteRuleTokenStream < RewriteRuleElementStream
   def next_node
-    return @adaptor.create_with_payload!( __next__ )
+    return @adaptor.create_with_payload( __next__ )
   end
   
   alias :next :__next__
