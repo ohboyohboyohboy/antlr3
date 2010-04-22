@@ -1,0 +1,240 @@
+/*#############################################################
+Name: Fluid Solution
+Date: 2006-09-06
+Description: Totally liquid three-column layout, clean and simple.
+Author: Viktor Persson
+URL: http://arcsin.se
+
+Feel free to use and modify but please provide credits.
+#############################################################*/
+
+/* standard elements */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+body {
+	background: #FFF url(../images/bg.gif) repeat-x;
+	color: #444;
+	font: normal 90% Verdana,"Lucida Sans Unicode",sans-serif;
+	padding-top: 40px;
+}
+
+p,code,ul {
+	font-size: 1.2em;
+	padding-bottom: 1.2em;
+}
+li {
+	list-style: none;
+}
+h1 {
+	font-size: 1.4em;
+}
+
+code {
+	color: #444;
+	font: monofur,monospace;
+	white-space: pre;
+}
+
+blockquote {
+	background: #FBFCF5;
+	border-bottom: 1px solid #EED;
+	border-top: 1px solid #EED;
+	color: #444;
+	display: block;
+	font: normal 0.9em Verdana,sans-serif;
+	margin-bottom: 12px;
+	padding: 12px;
+}
+h1,h2,h3,h4 {
+	font: normal 1.2em "Century Gothic","Trebuchet MS",sans-serif;
+	color: #F06;
+}
+/* misc */
+.clearer {
+	clear: both;
+}
+
+/* header */
+.header {
+	background: url(../images/stripes.gif) no-repeat;
+	border-bottom: 1px solid #EEE;
+	height: 160px;
+	margin-bottom: 24px;
+}
+.header h1 {
+	color: #222;
+	font: normal 4em sans-serif;
+	margin-top: 40px;
+	text-align: center;
+}
+.header h2 {
+	border-top: 1px solid #EEE;
+	color: #666;
+	text-align: right;
+}
+.header h2 span {
+	background: #222;
+	color: #EEE;
+	font-weight: bold;
+	font-size: 0.9em;
+	font-family: "Century Gothic",Verdana,"Lucida Sans Unicode",sans-serif;
+	padding: 0 10px;
+}
+.annotation {
+	background: url(img/bgcode.gif);
+	border: 1px solid #F0F0F0;
+	border-left: 6px solid #F06;	
+	color: #06F;
+	display: block;
+	font: normal 1.4em "Lucida Sans Unicode",serif;
+	margin-bottom: 12px;
+	padding: 8px 10px;
+}
+
+.annotation .author {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+.annotation .timestamp {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+/* left side (main content) */
+.left {
+	margin: 0 42% 20px 3%;
+}
+.content .descr {
+	color: #06F;
+	font-size: 1.2em;
+	margin-bottom: 6px;
+}
+.content li {
+	list-style: url(../images/li.gif);
+	margin-left: 18px;
+}
+.content h1 {
+	font-size: 2.4em;
+	margin-bottom: 4px;
+}
+.content a,.footer a {
+	color: #F06;
+	text-decoration: none;
+}
+.content a:hover,.footer a:hover {
+	color: #444;
+	border-bottom: 1px solid #F06;
+}
+
+/* nav & subnavigation */
+.nav,.right {
+	margin-bottom: 20px;
+	position: absolute;
+	top: 40px;
+}	
+
+/* navigation */
+.nav {
+	right: 23%;
+	text-align: center;
+	width: 17%;
+}
+.nav .logo {
+	background: url(../images/logo.gif) no-repeat center top;
+	border-bottom: 1px solid #EEE;
+	border-top: 1px solid #EEE;
+	height: 159px;	
+}
+
+.nav h1 {
+	color: #F60;
+	margin: 12px 0;
+}
+.nav li {
+	border-bottom: 1px solid #EEE;
+}
+.nav li a {
+	color: #888;
+	display: block;
+	font: normal 1.4em serif;
+	padding: 8px 0;
+}
+.nav li a:hover {
+	background: #FAFAFA;
+	color: #F06;
+}
+
+/* subnav */
+.right {
+	background: #222;
+	right: 3%;
+	width: 18%;
+}
+.subnav {
+	padding: 12px 12px 0;
+}
+.subnav h1 a {
+	color: #F06;
+	font-size: 1.4em;
+	height: 20px;
+	margin-left: 8px;
+}
+.subnav ul {
+	margin: 0 0 16px;
+	padding: 0;
+}
+.subnav li { 
+	list-style: none;
+	margin: 0;
+	border-bottom: 1px solid #333;
+}
+.subnav li a {	
+	color: #777;
+	display: block;
+	font-size: 0.9em;
+	padding: 3px 6px 3px 8px;
+	text-decoration: none;
+}
+.subnav li a:hover {
+	color: #DDD;
+}
+
+/* round edges */
+.roundtl,.roundtr,.roundbl,.roundbr {
+	background: url(../images/round.gif);
+	height: 16px;
+	width: 14px;
+}
+.roundtl,.roundbl {
+	float: left;
+}
+.roundtr,.roundbr {
+	float: right;
+}
+.roundtr {
+	background-position: right top;
+}
+.roundbr {
+	background-position: right bottom;
+}
+.roundbl {
+	background-position: left bottom;
+}
+
+/* footer */
+.footer {
+	color: #666;
+	border-top: 1px solid #EEE;
+	font: normal 1em Verdana,sans-serif;
+	margin: 0 42% 0 3%;
+	padding: 8px 6px;
+}
