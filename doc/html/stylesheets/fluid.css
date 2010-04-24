@@ -118,10 +118,18 @@ h1,h2,h3,h4 {
 	font-size: 1.2em;
 	margin-bottom: 6px;
 }
+
 .content li {
 	list-style: url(../images/li.gif);
 	margin-left: 18px;
 }
+.content li li {
+  list-style: url(../images/li2.gif);
+  margin-left: 18px;
+  font-size: 0.8em;
+}
+
+
 .content h1 {
 	font-size: 2.4em;
 	margin-bottom: 4px;

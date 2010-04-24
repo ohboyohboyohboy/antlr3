@@ -1,3 +1,5 @@
+title: "About ..."
+======================================================
 h1. About ANTLR
 
 h2. What's <a href="http://www.antlr.org">ANTLR</a>?
@@ -9,12 +11,12 @@ While the tool itself is implemented in Java, it has an extensible design that a
 h2. What does it offer over other parser generators?
 
 * ANTLR's grammar specifications are more human-readable and logical than most other language recognition tools (like YACC)
-** it uses its own concept of "LL(*)" arbitrary lookahead to permit a developer to write a language using a structure close to how a person understands the language
-** it uses familliar aspects of EBNF:http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form and regular expression syntax, such as repetition operators like @*@, @+@, and @?@
+** it uses its own concept of "<notextile>LL(*)</notextile>" arbitrary lookahead to permit a developer to write a language using a structure close to how a person understands the language
+** it uses familliar aspects of "EBNF":http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form and regular expression syntax, such as repetition operators like @*@, @+@, and @?@
 * it combines lexer and parser design. You don't have to provide your own lexer code (though you still can if you need to)
 * all generated code is object-oriented and organized into classes
 * it is tailored for common language recognition tasks
-** it features integrated optional AST(Abstract Syntax Tree) generation
+** it features integrated optional Abstract Syntax Tree generation
 ** it can generate tree parsers to rewrite, translate, and/or evaluate ASTs
 ** it features integrated automatic input translation using templates
 
@@ -26,10 +28,16 @@ It's a collection of ruby code and templates, with a dash of Java code, wrapped 
 
 h2. Doesn't ANTLR already have a Ruby target?
 
-Yes, it does (well, sort of). With all due respect to the author of the original ruby target, it is severely limited. Most of ANTLR's key features are not implemented and it only features very basic parser/lexer generation. 
+Yes, it does (well, sort of). With all due respect to the author of the original ruby target, the target only features rudimentary parser/lexer generation, making writing recognizers for more sophisticated languages difficult or even impossible.
 
-h2. So how is this project different than what comes with ANTLR by default?
+h2. So how does this project differ from ANTLR's default ruby target?
 
-This project completely implements all of ANTLR's features. It is as fully-featured as ANTLR's Java and Python targets.
+This project completely implements all of ANTLR's features. It provides all of the features implemented in ANTLR's Java and Python targets, including:
 
-
+* AST(Abstract Syntax Tree) construction
+* Built-in automatic test scripts to quickly try out your recognizer
+* AST parser generation
+* Debug mode features
+* Grammar profiling features
+* Template output mode (using a variation of @ERB@ instead of @StringTemplate@)
+* Lexer filter mode
