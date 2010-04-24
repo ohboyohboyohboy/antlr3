@@ -26,7 +26,7 @@ function fish_prompt --description 'Write out the prompt'
 end
 
 function top!
-5Z5a5r5  cd $ANTLR3_BASE
+  cd $ANTLR3_BASE
 end
 
 function git-ignore

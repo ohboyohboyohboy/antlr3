@@ -11,8 +11,10 @@ $proj = $project = Project.load( project_top, config_file ) do
   # load external rake task setup script from the
   # project's rake library directory
   def load_task( *name )
-    name.map! { |n| n.to_s }
-    load( rake_tasks( *name ) << '.rake' )
+    files = name.map { |n| rake_tasks!( n.to_s << '.rake' ) }.flatten
+    for f in files
+      load( f )
+    end
   end
   
   # run the gem-bundle.rb script to reflect any

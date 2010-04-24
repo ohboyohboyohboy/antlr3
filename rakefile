@@ -49,6 +49,8 @@ if $project.setup?
   desc( "clean up all project by-products" )
   task :clean => %w( test:clean package:clobber doc:clobber doc:samples:clobber )
   
+  $project.load_task( 'private/*' )
+  
 else
   
   puts( <<-END.here_indent! )
