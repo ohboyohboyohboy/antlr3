@@ -1,0 +1,3 @@
+---
+target: |-
+  A set of templates and source code that may be added to the ANTLR core package to generate recognition source code for a specific programming language, such as Ruby, Python, or C.

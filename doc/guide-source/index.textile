@@ -1,0 +1,59 @@
+p. This is a guide for using the ruby @antlr3@ project. Currently, it's a work in progress, so bear with me as I work to cover all of the important details.
+
+h1. Scope
+
+p. This guide is not intended to cover ANTLR's metalanguage, grammar specifications, or other conceptual aspects of the tool. For a full introduction to ANTLR and writing grammars, refer to <a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation">ANTLR's primary documentation</a>. For the most part, the documentation is written with the assumption that the reader has, at a minimum, basic familiarity with ANTLR's grammar language, terminology, and the command line ANTLR tool. 
+
+p. This guide targets the particulars of using the @antlr3@ ruby project. It attempts to tailor the general concepts covered in ANTLR's Java-oriented documentation for usage in ruby. The guide also attempts to cover all places in which this ruby target diverges from conventions followed by the other language targets.
+
+h1. Getting Involved
+
+p. If you have any suggestions, complaints, requests, or compliments about this guide, or the ruby @antlr3@ project in general, feel free to <a href="mailto:kcy5b@yahoo.com">let me know</a>. I have written most of the target code on my own, and thus I have made various design decisions using my own judgment and style preferences. Thus, I am certainly open for discussion, feedback, and collaboration for any developers using this package. Also, if you're interested enough to join in on the development work, such as contributing extra features, enhancing the runtime library, writing more test code, or improving on the project documentation, please get in touch.
+
+h2. Bug Reports / Issues
+
+p. This software's primarily been tested with my own system and configuration (Linux using standard "matz" ruby, version 1.8.7). I have tried my best to create a thorough suite of test code, using the Python and Java targets' extensive test code as a basis and then expanding it to cover issues specific to Ruby. However, given the complexity of the ANTLR code generation system and the various components of the runtime library, bugs are bound to have been overlooked. More information on issues or general design considerations from users working with other operating systems or alternate flavors or ruby would be incredibly helpful at this stage in the project. 
+
+p. Open issue reports on the "github repository":http://github.com/ohboyohboyohboy/antlr3/issues page.
+
+h1. About ANTLR
+
+h2. What's <a href="http://www.antlr.org">ANTLR</a>?
+
+<b>ANTLR(ANother Tool for Language Recognition)</b> is a program that generates code for performing a variety of language recognition tasks: lexing, parsing, abstract syntax tree construction and manipulation, tree structure recognition, and input translation. The tool is simillar to other parser generators: ANTLR takes in a grammar specification and then produces source code that recognizes the language.
+
+While the tool itself is implemented in Java, it has an extensible design that allows for code generation in other programming languages. To implement an ANTLR language target, a developer may supply a set of templates written in the "StringTemplate":http://www.stringtemplate.org language. The grammar specification is written in a combination of ANTLR's metalanguage and the target programming language.
+
+h2. What does it offer over other parser generators?
+
+* ANTLR's grammar specifications are more human-readable and logical than most other language recognition tools (like YACC)
+** it uses its own concept of "<notextile>LL(*)</notextile>" arbitrary lookahead to permit a developer to write a language using a structure close to how a person understands the language
+** it uses familliar aspects of "EBNF":http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form and regular expression syntax, such as repetition operators like @*@, @+@, and @?@
+* it combines lexer and parser design. You don't have to provide your own lexer code (though you still can if you need to)
+* all generated code is object-oriented and organized into classes
+* it is tailored for common language recognition tasks
+** it features integrated optional Abstract Syntax Tree generation
+** it can generate tree parsers to rewrite, translate, and/or evaluate ASTs
+** it features integrated automatic input translation using templates
+
+h1. About the Ruby @antlr3@ Project
+
+h2. What's the Ruby @antlr3@ project?
+
+It's a collection of ruby code and templates, with a dash of Java code, wrapped into a standard ANTLR package. This package permits Ruby developers to use ANTLR to generate recognizers written in Ruby.
+
+h2. Doesn't ANTLR already have a Ruby target?
+
+Yes, it does (well, sort of). With all due respect to the author of the original ruby target, the target only features rudimentary parser/lexer generation, making writing recognizers for more sophisticated languages difficult or even impossible.
+
+h2. So how does this project differ from ANTLR's default ruby target?
+
+This project completely implements all of ANTLR's features. It provides all of the features implemented in ANTLR's Java and Python targets, including:
+
+* AST(Abstract Syntax Tree) construction
+* Built-in automatic test scripts to quickly try out your recognizer
+* AST parser generation
+* Debug mode features
+* Grammar profiling features
+* Template output mode (using a variation of @ERB@ instead of @StringTemplate@)
+* Lexer filter mode
