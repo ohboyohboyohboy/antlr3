@@ -4,11 +4,10 @@
 require 'redcloth'
 require 'highlight'
 require 'hpricot'   # <- TODO: this isn't on the bundler list right now
+require 'delegate'
 
 module ANTLRDoc
   class Article
-    Outline = Struct.new( :id, :title )
-    
     REGION = %r<
       ^(
         « \ * (\S+) \ * \n    # tag line:     « ruby
@@ -23,24 +22,29 @@ module ANTLRDoc
       </notextile>
     END
     
-    defined?( @@articles ) or
-      @@articles = {}
-    
-    def self.articles
-      @@articles.values
-    end
+    $articles = []
     
     def self.load( file, template, options = {} )
-      @@articles.fetch( file ) do
-        @@articles[ file ] = new( file )
-      end.configure( template, options )
+      file = File.expand_path( file )
+      unless article = $articles.find { | a | a.source_file == file }
+        article = new( file )
+        $articles << article
+      end
+      article.configure( template, options )
     end
     
-    attr_accessor :source_file, :source, :title, :time, :stylesheets, :scripts,
+    attr_accessor :source_file, :name, :source, :title, :time, :stylesheets, :scripts,
                   :author, :output_directory, :template
     
     def initialize( source_file )
       @source_file = source_file
+      if not test( ?f, @source_file ) and test( ?d, File.dirname( @source_file ) )
+        warn( "article source #{ source_file } does not exist" )
+        warn( "creating an empty source file at #{ source_file }" )
+        open( @source_file, 'w' ) { | f | f.write( '' ) }
+      end
+      
+      @name = File.basename( @source_file, '.*' )
       @template = nil
       @source = File.read( source_file )
       @time = File.mtime( source_file )
@@ -68,7 +72,7 @@ module ANTLRDoc
     end
     
     def output_file
-      File.join( @output_directory, "#@title.html" )
+      File.join( @output_directory, "#@name.html" )
     end
     
     def generate
@@ -130,58 +134,19 @@ module ANTLRDoc
       return( src )
     end
     
-    #if $wiki_mode
-    #  require 'strscan'
-    #  require 'stringio'
-    #  
-    #  def preprocess( source )
-    #    out = StringIO.new( '' )
-    #    source = StringScanner.new( source )
-    #    
-    #    until source.eos?
-    #      text = source.scan_until( /(?=«)/ ) or break
-    #      out.print( text )
-    #      
-    #      source.scan( REGION )
-    #      tag, body = source[ 2 ], source[ 3 ]
-    #      
-    #      if tag.strip == 'raw'
-    #        out.puts( "<notextile>" )
-    #        out.puts( body )
-    #        out.puts( '</notextile>' )
-    #      elsif body !~ /\A\s*\Z/
-    #        body.rstrip!
-    #        
-    #        lines = body.split( $/ )
-    #        lines = lines.drop_while { | ln | ln =~ /^\s*$/ }
-    #        out.puts( "bc.. #{ lines.shift }" )
-    #        for line in lines
-    #          out.puts( line )
-    #        end
-    #        
-    #        out.puts
-    #        
-    #        source.scan_until( /(?=\S)/ )
-    #        if text = source.scan( /\S+\. / )
-    #          out.print( text )
-    #        else
-    #          out.print( "p. " ) unless source.eos?
-    #        end
-    #      end
-    #    end
-    #    
-    #    out.print( source.rest )
-    #    
-    #    return out.string
-    #  end
-    #  
-    #end
-    
     def relative_path( file )
       File.relative_path( file, @output_directory )
     end
     
     private :raw_html
+  end
+  
+  defined?( Guide ) or Guide = Class.new( DelegateClass( ::Array ) )
+  
+  class Guide
+    def initialize( config = {} )
+      super( [] )
+    end
   end
   
 end

@@ -22,24 +22,24 @@ a {
 body {
 	background: #FFF url(../images/bg.gif) repeat-x;
 	color: #444;
-	font: normal 90% Verdana,"Lucida Sans Unicode",sans-serif;
+	font: normal Verdana,"Lucida Sans Unicode",sans-serif;
 	padding-top: 40px;
 }
 
 p,code,ul {
-	font-size: 1.2em;
 	padding-bottom: 1.2em;
 }
+p, ul {
+  font-family: Verdana,"Lucida Sans Unicode",sans-serif;
+}
+
 li {
 	list-style: none;
-}
-h1 {
-	font-size: 1.4em;
 }
 
 code {
 	color: #444;
-	font: monofur,monospace;
+	font-family: monofur,Lucida Console,Monaco,monospace;
 	white-space: pre;
 }
 
@@ -49,14 +49,19 @@ blockquote {
 	border-top: 1px solid #EED;
 	color: #444;
 	display: block;
-	font: normal 0.9em Verdana,sans-serif;
+	font: normal "Century Schoolbook","Bookman Old Style","Palatino Linotype","Book Antiqua",Palatino,serif;
 	margin-bottom: 12px;
 	padding: 12px;
 }
-h1,h2,h3,h4 {
+
+
+h1, h2, h3, h4 {
 	font: normal 1.2em "Century Gothic","Trebuchet MS",sans-serif;
 	color: #F06;
+	font-size: 1.2em;
+	margin-bottom: 5px;
 }
+
 /* misc */
 .clearer {
 	clear: both;
@@ -71,7 +76,7 @@ h1,h2,h3,h4 {
 }
 .header h1 {
 	color: #222;
-	font: normal 4em sans-serif;
+	font: normal 2.6em "Century Schoolbook","Bookman Old Style","Palatino Linotype","Book Antiqua",Palatino,serif;
 	margin-top: 40px;
 	text-align: center;
 }
@@ -85,16 +90,17 @@ h1,h2,h3,h4 {
 	color: #EEE;
 	font-weight: bold;
 	font-size: 0.9em;
-	font-family: "Century Gothic",Verdana,"Lucida Sans Unicode",sans-serif;
+	font-family: "Century Gothic","Trebuchet MS",sans-serif;
 	padding: 0 10px;
 }
+
 .annotation {
 	background: url(img/bgcode.gif);
 	border: 1px solid #F0F0F0;
 	border-left: 6px solid #F06;	
 	color: #06F;
 	display: block;
-	font: normal 1.4em "Lucida Sans Unicode",serif;
+	font: normal Verdana,"Lucida Sans Unicode",sans-serif;
 	margin-bottom: 12px;
 	padding: 8px 10px;
 }
@@ -113,12 +119,12 @@ h1,h2,h3,h4 {
 .left {
 	margin: 0 42% 20px 3%;
 }
+
 .content .descr {
 	color: #06F;
 	font-size: 1.2em;
 	margin-bottom: 6px;
 }
-
 .content li {
 	list-style: url(../images/li.gif);
 	margin-left: 18px;
@@ -129,11 +135,22 @@ h1,h2,h3,h4 {
   font-size: 0.8em;
 }
 
-
 .content h1 {
-	font-size: 2.4em;
+	font-size: 1.6em;
 	margin-bottom: 4px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px dashed #333;
 }
+
+.content h2 {
+  font-size: 1.2em;
+	margin-bottom: 4px;
+	/* color: #06F; */
+	font-weight: bold;
+	color: #333;
+}
+
 .content a,.footer a {
 	color: #F06;
 	text-decoration: none;
@@ -173,7 +190,7 @@ h1,h2,h3,h4 {
 .nav li a {
 	color: #888;
 	display: block;
-	font: normal 1.4em serif;
+	font: normal 1.4em "Century Gothic","Trebuchet MS",sans-serif;
 	padding: 8px 0;
 }
 .nav li a:hover {
@@ -190,9 +207,9 @@ h1,h2,h3,h4 {
 .subnav {
 	padding: 12px 12px 0;
 }
-.subnav h1 a {
+.subnav h1 {
 	color: #F06;
-	font-size: 1.4em;
+	font: normal 1.4em "Century Gothic","Trebuchet MS",sans-serif;
 	height: 20px;
 	margin-left: 8px;
 }
@@ -203,17 +220,28 @@ h1,h2,h3,h4 {
 .subnav li { 
 	list-style: none;
 	margin: 0;
+	margin-left: 8px;
 	border-bottom: 1px solid #333;
 }
+.subnav .current {
+	color: #FFF;
+	font: bold 1.0em "Century Gothic","Trebuchet MS",sans-serif;
+	height: 20px;
+	padding: 3px 6px 3px 8px;
+	margin-left: 8px;
+}
 .subnav li a {	
-	color: #777;
+	color: #999;
 	display: block;
-	font-size: 0.9em;
+	font: normal 1.0em "Century Gothic","Trebuchet MS",sans-serif;
 	padding: 3px 6px 3px 8px;
 	text-decoration: none;
 }
 .subnav li a:hover {
-	color: #DDD;
+	color: #FFAA00;
+}
+.subnav li a:visted {
+	color: #777;
 }
 
 /* round edges */

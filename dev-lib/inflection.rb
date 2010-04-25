@@ -235,9 +235,11 @@ module Inflection
       end
       
       def title_case( string )
-        snake_case( string.to_s ).split( '_' ).map do | word |
-          word.capitalize
-        end.join( ' ' )
+        camel_case( string ).gsub(/::/,'/').tap do |str|
+          str.gsub!( /([A-Z]+)([A-Z][a-z\x80-\xff])/, '\1 \2' )
+          str.gsub!( /([a-z\x80-\xff])([A-Z])/, '\1 \2' )
+          str.tr!( '-', ' ' )
+        end
       end
       
       alias title title_case

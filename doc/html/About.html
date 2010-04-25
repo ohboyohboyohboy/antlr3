@@ -7,18 +7,18 @@
   <meta name="author" content="Kyle Yetter"/>
 	<link rel="stylesheet" type="text/css" href="stylesheets/fluid.css" media="screen"/>
 
-	<title>ANTLR For Ruby: About</title>
+	<title>ANTLR For Ruby: About ...</title>
 </head>
 
 <body>
 <div class="left">
 	<div class="header">
 		<h2><span>ANTLR for Ruby</span></h2>
-		<h1>About</h1>
+		<h1>About ...</h1>
 	</div>
 	<div class="annotation">
 		<div class="author">by Kyle Yetter</div>
-    <div class="timestamp">updated Saturday, April 24, 2010 at 11:26AM EDT</div>
+    <div class="timestamp">updated Saturday, April 24, 2010 at 04:14PM EDT</div>
 	</div>
 	<div class="content">
 <h1 id="section-1">About <span class="caps">ANTLR</span></h1>
@@ -36,7 +36,7 @@
 	<li>all generated code is object-oriented and organized into classes</li>
 	<li>it is tailored for common language recognition tasks
 	<ul>
-		<li>it features integrated optional <acronym title="Abstract Syntax Tree"><span class="caps">AST</span></acronym> generation</li>
+		<li>it features integrated optional Abstract Syntax Tree generation</li>
 		<li>it can generate tree parsers to rewrite, translate, and/or evaluate ASTs</li>
 		<li>it features integrated automatic input translation using templates</li>
 	</ul></li>
@@ -45,9 +45,18 @@
 <h2>What&#8217;s the Ruby <code>antlr3</code> project?</h2>
 <p>It&#8217;s a collection of ruby code and templates, with a dash of Java code, wrapped into a standard <span class="caps">ANTLR</span> package. This package permits Ruby developers to use <span class="caps">ANTLR</span> to generate recognizers written in Ruby.</p>
 <h2>Doesn&#8217;t <span class="caps">ANTLR</span> already have a Ruby target?</h2>
-<p>Yes, it does (well, sort of). With all due respect to the author of the original ruby target, it is severely limited. Most of ANTLR&#8217;s key features are not implemented and it only features very basic parser/lexer generation.</p>
-<h2>So how is this project different than what comes with <span class="caps">ANTLR</span> by default?</h2>
-<p>This project completely implements all of ANTLR&#8217;s features. It is as fully-featured as ANTLR&#8217;s Java and Python targets.</p>
+<p>Yes, it does (well, sort of). With all due respect to the author of the original ruby target, the target only features rudimentary parser/lexer generation, making writing recognizers for more sophisticated languages difficult or even impossible.</p>
+<h2>So how does this project differ from ANTLR&#8217;s default ruby target?</h2>
+<p>This project completely implements all of ANTLR&#8217;s features. It provides all of the features implemented in ANTLR&#8217;s Java and Python targets, including:</p>
+<ul>
+	<li><acronym title="Abstract Syntax Tree"><span class="caps">AST</span></acronym> construction</li>
+	<li>Built-in automatic test scripts to quickly try out your recognizer</li>
+	<li><span class="caps">AST</span> parser generation</li>
+	<li>Debug mode features</li>
+	<li>Grammar profiling features</li>
+	<li>Template output mode (using a variation of <code>ERB</code> instead of <code>StringTemplate</code>)</li>
+	<li>Lexer filter mode</li>
+</ul>
 	</div>
 </div>
 
@@ -68,25 +77,25 @@
 	</div>
 
 	<div class="subnav">
-		<h1><a href="./Lexers.html">Lexers</a></h1>
+		<h1>Sections</h1>
 		<ul>
-			<li><a href="./Lexers.html#section-1">Overview</a></li>
-			<li><a href="./Lexers.html#section-2">Lexer Code and Class Structure</a></li>
-			<li><a href="./Lexers.html#section-3">Instantiating Lexers</a></li>
-			<li><a href="./Lexers.html#section-4">Fetching Tokens</a></li>
-			<li><a href="./Lexers.html#section-5">Preparing a Lexer for Parser Input</a></li>
-			<li><a href="./Lexers.html#section-6">Rule to Method Name Mapping</a></li>
+      <li><a href="./index.html">Home</a></li>
+  		<li class="current">About ...</li>
+      <li><a href="./Lexers.html">Lexers</a></li>
+      <li><a href="./Parsers.html">Parsers</a></li>
+      <li><a href="./Tokens.html">Tokens</a></li>
+      <li><a href="./ActionBlocks.html">Action Blocks</a></li>
+      <li><a href="./TreeParsers.html">Tree Parsers</a></li>
+      <li><a href="./ASTs.html">Abstract Syntax Trees</a></li>
+      <li><a href="./TemplateMode.html">Template Mode</a></li>
+      <li><a href="./DebugMode.html">Debug Mode</a></li>
+      <li><a href="./ProfileMode.html">Profile Mode</a></li>
+      <li><a href="./Extras.html">Extras</a></li>
 		</ul>
-		<h1><a href="./Parsers.html">Parsers</a></h1>
-		<ul>
-			<li><a href="./Parsers.html#section-1">Parser Code and Class Structure</a></li>
-			<li><a href="./Parsers.html#section-2">Instantiating Parsers</a></li>
-		</ul>
-		<h1><a href="./About.html">About</a></h1>
-		<ul>
-			<li><a href="./About.html#section-1">About ANTLR</a></li>
-			<li><a href="./About.html#section-2">About the Ruby antlr3 Project</a></li>
-		</ul>
+		
+		<h1>Project Pages</h1>
+		
+		<h1>Useful Links</h1>
 	</div>
 
 	<div class="round">

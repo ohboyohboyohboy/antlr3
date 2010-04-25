@@ -29,7 +29,7 @@
 <div class="left">
 	<div class="header">
 		<h2><span>ANTLR for Ruby</span></h2>
-		<h1><%= @title %></h1>
+		<h1><%= @title == 'Home' ? 'Guide to ANTLR for Ruby' : @title %></h1>
 	</div>
 	<div class="annotation">
 % if @author
@@ -60,14 +60,20 @@
 	</div>
 
 	<div class="subnav">
-% for article in Article.articles
-		<h1><a href="<%= relative_path( article.output_file ) %>"><%= article.title %></a></h1>
+		<h1>Sections</h1>
 		<ul>
-% for id, title in article.outline
-			<li><a href="<%= relative_path( article.output_file ) %>#<%= id %>"><%= title %></a></li>
+% for article in $articles
+% if article == self
+  		<li class="current"><%= article.title %></li>
+% else
+      <li><a href="<%= relative_path( article.output_file ) %>"><%= article.title %></a></li>
+% end
 % end
 		</ul>
-% end
+		
+		<h1>Project Pages</h1>
+		
+		<h1>Useful Links</h1>
 	</div>
 
 	<div class="round">

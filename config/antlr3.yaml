@@ -32,6 +32,12 @@ doc: !group
     exclude:
       - lib/antlr3/token/*.rb
 
+guide: !group
+  input: !path doc/guide-source
+  article_list: doc/guide-source/articles.txt
+  template: doc/erb/template.erb
+  output: !path doc/html
+
 package: !group
   base: !path pkg
   dir:  !path pkg/$(name)-$(version)
