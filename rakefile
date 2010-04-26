@@ -51,7 +51,10 @@ if $project.setup?
   
   #$project.load_task( 'private/*' )
   
-  if $project.bundler_stale? and not ARGV.include?( "setup" ) and $stdout.tty? and $stdin.tty?
+  interactive = ( $stdout.tty? && $stdin.tty? )
+  task_list = Rake.application.options.show_tasks
+  
+  if $project.bundler_stale? and interactive and not task_list
     puts( <<-END.here_indent! )
     | ** Warning **
     | Bundler config `#{ $project.bundler.config }' appears to have been modified recently.
