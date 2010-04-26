@@ -3,16 +3,6 @@
 
 require 'redcloth'
 require 'highlight'
-require 'hpricot'   # <- TODO: this isn't on the bundler list right now
-require 'delegate'
-
-# hack to dodge interference to the RDoc library
-if defined?( Encoding ) and not Encoding.respond_to?( :find )
-  def Encoding.find( *args )
-    nil
-  end
-end
-
 
 module ANTLRDoc
   class Article
@@ -108,12 +98,19 @@ module ANTLRDoc
     def outline
       @outline ||= begin
         count = 0
-        doc = Hpricot( body )
-        headers = ( doc / 'h1' ).map do | header |
-          header[ :id ] ||= "section-#{ count += 1 }"
-          [ header[ :id ], header.inner_text.strip ]
+        headers = []
+        body.gsub!( %r(<h1([^\n<>]*)>(.+?)</h1>)m ) do
+          attrs, title = $1, $2
+          if attrs =~ /id="(.+?)"/
+            id = $1
+          else
+            id = "section-#{ count += 1 }"
+            attrs << %( id="#{ id }")
+          end
+          headers << [ id, title.strip ]
+          p( %(<h1#{ attrs }>#{ title }</h1>) )
+          %(<h1#{ attrs }>#{ title }</h1>)
         end
-        @body = doc.to_html
         headers
       end
     end
@@ -162,14 +159,6 @@ module ANTLRDoc
     end
     
     private :raw_html
-  end
-  
-  defined?( Guide ) or Guide = Class.new( DelegateClass( ::Array ) )
-  
-  class Guide
-    def initialize( config = {} )
-      super( [] )
-    end
   end
   
 end
