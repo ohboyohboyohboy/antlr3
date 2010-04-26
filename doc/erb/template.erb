@@ -71,9 +71,19 @@
 % end
 		</ul>
 		
-		<h1>Project Pages</h1>
+    <h1>Project Links</h1>
+		<ul>
+% for title, url in $project_links
+      <li><a href="<%= url %>"><%= title %></a></li>
+% end
+		</ul>
 		
-		<h1>Useful Links</h1>
+    <h1>External Links</h1>
+		<ul>
+% for title, url in $external_links
+      <li><a href="<%= url %>"><%= title %></a></li>
+% end
+		</ul>
 	</div>
 
 	<div class="round">
