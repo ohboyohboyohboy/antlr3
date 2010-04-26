@@ -1,0 +1,2387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::Test::Grammar</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (G)</a> &raquo; 
+    <span class='title'><a href="../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../Test.html" title="ANTLR3::Test (module)">Test</a></span>
+     &raquo; 
+    <span class="title">Grammar</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::Test::Grammar 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ANTLR3::Test::Grammar</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><a href="DependantFile.html" title="ANTLR3::Test::DependantFile (module)">DependantFile</a></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/antlr3/test/grammar.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><a href="Grammar/InlineGrammar.html" title="ANTLR3::Test::Grammar::InlineGrammar (class)">Grammar::InlineGrammar</a></p>
+</div>
+<h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+   
+    
+      <strong class="classes">Classes:</strong> <a href="Grammar/CompilationFailure.html" title="ANTLR3::Test::Grammar::CompilationFailure (class)">CompilationFailure</a>, <a href="Grammar/FormatError.html" title="ANTLR3::Test::Grammar::FormatError (class)">FormatError</a>, <a href="Grammar/InlineGrammar.html" title="ANTLR3::Test::Grammar::InlineGrammar (class)">InlineGrammar</a>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="GRAMMAR_TYPES-constant" class="">GRAMMAR_TYPES =
+          
+        </dt>
+        <dd><pre class="code"><span class='dstring node'>%w(lexer parser tree combined)</span>
+</pre></dd>
+      
+        <dt id="TYPE_TO_CLASS-constant" class="">TYPE_TO_CLASS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace token'>{</span>
+  <span class='string val'>'lexer'</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'Lexer'</span><span class='comma token'>,</span>
+  <span class='string val'>'parser'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'Parser'</span><span class='comma token'>,</span>
+  <span class='string val'>'tree'</span>   <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'TreeParser'</span>
+<span class='rbrace token'>}</span>
+</pre></dd>
+      
+        <dt id="CLASS_TO_TYPE-constant" class="">CLASS_TO_TYPE =
+          
+        </dt>
+        <dd><pre class="code"><span class='TYPE_TO_CLASS constant id'>TYPE_TO_CLASS</span><span class='dot token'>.</span><span class='invert identifier id'>invert</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="DependantFile.html" title="ANTLR3::Test::DependantFile (module)">DependantFile</a></h3>
+  <p class="inherited"><a href="DependantFile.html#GLOBAL_DEPENDENCIES-constant" title="ANTLR3::Test::DependantFile::GLOBAL_DEPENDENCIES (constant)">GLOBAL_DEPENDENCIES</a></p>
+
+  <h2>Instance Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-instance_method" title="#name (instance method)">- (Object) <strong>name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+ATTRIBUTES AND ATTRIBUTE-ISH METHODS ####################.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#output_directory-instance_method" title="#output_directory (instance method)">- (Object) <strong>output_directory</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute output_directory.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#source-instance_method" title="#source (instance method)">- (Object) <strong>source</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+ATTRIBUTES AND ATTRIBUTE-ISH METHODS ####################.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#type-instance_method" title="#type (instance method)">- (Object) <strong>type</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+ATTRIBUTES AND ATTRIBUTE-ISH METHODS ####################.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#verbose-instance_method" title="#verbose (instance method)">- (Object) <strong>verbose</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute verbose.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>Class Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#global_dependency-class_method" title="global_dependency (class method)">+ (Object) <strong>global_dependency</strong>(path) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inline-class_method" title="inline (class method)">+ (Object) <strong>inline</strong>(source, *args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#blab-instance_method" title="#blab (instance method)">- (Object) <strong>blab</strong>(string, *args) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#build_command-instance_method" title="#build_command (instance method)">- (Object) <strong>build_command</strong>(options) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#build_dependencies-instance_method" title="#build_dependencies (instance method)">- (Object) <strong>build_dependencies</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#clean%21-instance_method" title="#clean! (instance method)">- (Object) <strong>clean!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#combined%3F-instance_method" title="#combined? (instance method)">- (Boolean) <strong>combined?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#compilation_failure%21-instance_method" title="#compilation_failure! (instance method)">- (Object) <strong>compilation_failure!</strong>(command, status, output) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#compile-instance_method" title="#compile (instance method)">- (Object) <strong>compile</strong>(options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+COMMAND METHODS ############################################.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#compile%21-instance_method" title="#compile! (instance method)">- (Object) <strong>compile!</strong>(options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#default_antlr_jar-instance_method" title="#default_antlr_jar (instance method)">- (Object) <strong>default_antlr_jar</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_lexer%3F-instance_method" title="#has_lexer? (instance method)">- (Boolean) <strong>has_lexer?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_parser%3F-instance_method" title="#has_parser? (instance method)">- (Boolean) <strong>has_parser?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#imported_target_files-instance_method" title="#imported_target_files (instance method)">- (Object) <strong>imported_target_files</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#imports-instance_method" title="#imports (instance method)">- (Object) <strong>imports</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Grammar) <strong>initialize</strong>(path, options = {}) {|_self| ... }</a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+CONSTRUCTOR #############################################.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inspect-instance_method" title="#inspect (instance method)">- (Object) <strong>inspect</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lexer%3F-instance_method" title="#lexer? (instance method)">- (Boolean) <strong>lexer?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lexer_class_name-instance_method" title="#lexer_class_name (instance method)">- (Object) <strong>lexer_class_name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lexer_file_name-instance_method" title="#lexer_file_name (instance method)">- (Object) <strong>lexer_file_name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parser%3F-instance_method" title="#parser? (instance method)">- (Boolean) <strong>parser?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parser_class_name-instance_method" title="#parser_class_name (instance method)">- (Object) <strong>parser_class_name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parser_file_name-instance_method" title="#parser_file_name (instance method)">- (Object) <strong>parser_file_name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#post_compile-instance_method" title="#post_compile (instance method)">- (Object) <strong>post_compile</strong>(options) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#shell_escape-instance_method" title="#shell_escape (instance method)">- (Object) <strong>shell_escape</strong>(token) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#study-instance_method" title="#study (instance method)">- (Object) <strong>study</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#target_files-instance_method" title="#target_files (instance method)">- (Object) <strong>target_files</strong>(include_imports = true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tree%3F-instance_method" title="#tree? (instance method)">- (Boolean) <strong>tree?</strong> </a>
+    
+
+    
+      (also: #has_tree?)
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tree_parser_class_name-instance_method" title="#tree_parser_class_name (instance method)">- (Object) <strong>tree_parser_class_name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tree_parser_file_name-instance_method" title="#tree_parser_file_name (instance method)">- (Object) <strong>tree_parser_file_name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="DependantFile.html" title="ANTLR3::Test::DependantFile (module)">DependantFile</a></h3>
+  <p class="inherited"><a href="DependantFile.html#dependencies-instance_method" title="ANTLR3::Test::DependantFile#dependencies (method)">#dependencies</a>, <a href="DependantFile.html#depends_on-instance_method" title="ANTLR3::Test::DependantFile#depends_on (method)">#depends_on</a>, <a href="DependantFile.html#stale%3F-instance_method" title="ANTLR3::Test::DependantFile#stale? (method)">#stale?</a></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::Test::Grammar (class)">Grammar</a></tt>) <strong>initialize</strong>(path, options = {}) {|_self| ... }
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+CONSTRUCTOR #############################################
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Yields:</h3>
+<ul class="yield">
+  
+    <li>
+      
+        <span class='type'>(<tt>_self</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+<h3>Yield Parameters:</h3>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="" title="ANTLR3::Test::Grammar (class)">ANTLR3::Test::Grammar</a></tt>)</span>
+      
+      
+        <span class='name'>_self</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the object that the method was called on
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 66</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='@path ivar id'>@path</span> <span class='assign token'>=</span> <span class='path identifier id'>path</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+  <span class='@source ivar id'>@source</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='read identifier id'>read</span><span class='lparen token'>(</span> <span class='@path ivar id'>@path</span> <span class='rparen token'>)</span>
+  <span class='@output_directory ivar id'>@output_directory</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span><span class='symbol val'>:output_directory</span><span class='comma token'>,</span> <span class='string val'>'.'</span><span class='rparen token'>)</span>
+  <span class='@verbose ivar id'>@verbose</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:verbose</span><span class='comma token'>,</span> <span class='$VERBOSE gvar id'>$VERBOSE</span> <span class='rparen token'>)</span>
+  <span class='study identifier id'>study</span>
+  <span class='build_dependencies identifier id'>build_dependencies</span>
+  
+  <span class='yield yield kw'>yield</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='block_given? fid id'>block_given?</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="name-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>name</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+ATTRIBUTES AND ATTRIBUTE-ISH METHODS ####################
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+80
+81
+82</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 80</span>
+
+<span class='def def kw'>def</span> <span class='name identifier id'>name</span>
+  <span class='@name ivar id'>@name</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="output_directory=-instance_method"></span>
+      <span id="output_directory-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="output_directory-instance_method">
+  
+    - (<tt>Object</tt>) <strong>output_directory</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute output_directory
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 81</span>
+
+<span class='def def kw'>def</span> <span class='output_directory identifier id'>output_directory</span>
+  <span class='@output_directory ivar id'>@output_directory</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="source-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="source-instance_method">
+  
+    - (<tt>Object</tt>) <strong>source</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+ATTRIBUTES AND ATTRIBUTE-ISH METHODS ####################
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+80
+81
+82</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 80</span>
+
+<span class='def def kw'>def</span> <span class='source identifier id'>source</span>
+  <span class='@source ivar id'>@source</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="type-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="type-instance_method">
+  
+    - (<tt>Object</tt>) <strong>type</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+ATTRIBUTES AND ATTRIBUTE-ISH METHODS ####################
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+80
+81
+82</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 80</span>
+
+<span class='def def kw'>def</span> <span class='type identifier id'>type</span>
+  <span class='@type ivar id'>@type</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="verbose=-instance_method"></span>
+      <span id="verbose-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="verbose-instance_method">
+  
+    - (<tt>Object</tt>) <strong>verbose</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute verbose
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 81</span>
+
+<span class='def def kw'>def</span> <span class='verbose identifier id'>verbose</span>
+  <span class='@verbose ivar id'>@verbose</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="global_dependency-class_method">
+  
+    + (<tt>Object</tt>) <strong>global_dependency</strong>(path) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 53</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='global_dependency identifier id'>global_dependency</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='path identifier id'>path</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span> <span class='path identifier id'>path</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+  <span class='GLOBAL_DEPENDENCIES constant id'>GLOBAL_DEPENDENCIES</span> <span class='lshft op'>&lt;&lt;</span> <span class='path identifier id'>path</span> <span class='if if_mod kw'>if</span> <span class='test identifier id'>test</span><span class='lparen token'>(</span><span class='integer val'>?f</span><span class='comma token'>,</span> <span class='path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='path identifier id'>path</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="inline-class_method">
+  
+    + (<tt>Object</tt>) <strong>inline</strong>(source, *args) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+59
+60
+61</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 59</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='inline identifier id'>inline</span><span class='lparen token'>(</span><span class='source identifier id'>source</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='InlineGrammar constant id'>InlineGrammar</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='source identifier id'>source</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="blab-instance_method">
+  
+    - (<tt>Object</tt>) <strong>blab</strong>(string, *args)  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+211
+212
+213</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 211</span>
+
+<span class='def def kw'>def</span> <span class='blab identifier id'>blab</span><span class='lparen token'>(</span> <span class='string identifier id'>string</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span>
+  <span class='$stderr gvar id'>$stderr</span><span class='dot token'>.</span><span class='printf identifier id'>printf</span><span class='lparen token'>(</span> <span class='string identifier id'>string</span> <span class='plus op'>+</span> <span class='string val'>&quot;\n&quot;</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='@verbose ivar id'>@verbose</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="build_command-instance_method">
+  
+    - (<tt>Object</tt>) <strong>build_command</strong>(options)  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 246</span>
+
+<span class='def def kw'>def</span> <span class='build_command identifier id'>build_command</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='parts identifier id'>parts</span> <span class='assign token'>=</span> <span class='dstring node'>%w(java)</span>
+  <span class='jar_path identifier id'>jar_path</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:antlr_jar</span><span class='comma token'>,</span> <span class='default_antlr_jar identifier id'>default_antlr_jar</span> <span class='rparen token'>)</span>
+  <span class='parts identifier id'>parts</span><span class='dot token'>.</span><span class='push identifier id'>push</span><span class='lparen token'>(</span><span class='string val'>'-cp'</span><span class='comma token'>,</span> <span class='jar_path identifier id'>jar_path</span><span class='rparen token'>)</span>
+  <span class='parts identifier id'>parts</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>'org.antlr.Tool'</span>
+  <span class='parts identifier id'>parts</span><span class='dot token'>.</span><span class='push identifier id'>push</span><span class='lparen token'>(</span><span class='string val'>'-fo'</span><span class='comma token'>,</span> <span class='output_directory identifier id'>output_directory</span><span class='rparen token'>)</span>
+  <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:profile</span><span class='rbrack token'>]</span> <span class='and and kw'>and</span> <span class='parts identifier id'>parts</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>'-profile'</span>
+  <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:debug</span><span class='rbrack token'>]</span>   <span class='and and kw'>and</span> <span class='parts identifier id'>parts</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>'-debug'</span>
+  <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:trace</span><span class='rbrack token'>]</span>   <span class='and and kw'>and</span> <span class='parts identifier id'>parts</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>'-trace'</span>
+  <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:debug_st</span><span class='rbrack token'>]</span> <span class='and and kw'>and</span> <span class='parts identifier id'>parts</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>'-XdbgST'</span>
+  <span class='parts identifier id'>parts</span> <span class='lshft op'>&lt;&lt;</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='@path ivar id'>@path</span><span class='rparen token'>)</span>
+  <span class='parts identifier id'>parts</span><span class='dot token'>.</span><span class='map! fid id'>map!</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='part identifier id'>part</span><span class='bitor op'>|</span> <span class='shell_escape identifier id'>shell_escape</span><span class='lparen token'>(</span><span class='part identifier id'>part</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>' '</span><span class='rparen token'>)</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>' 2&gt;&amp;1'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="build_dependencies-instance_method">
+  
+    - (<tt>Object</tt>) <strong>build_dependencies</strong>  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 226</span>
+
+<span class='def def kw'>def</span> <span class='build_dependencies identifier id'>build_dependencies</span>
+  <span class='depends_on identifier id'>depends_on</span><span class='lparen token'>(</span><span class='@path ivar id'>@path</span><span class='rparen token'>)</span>
+  
+  <span class='if if kw'>if</span> <span class='@source ivar id'>@source</span> <span class='match op'>=~</span> <span class='regexp val'>/tokenVocab\s*=\s*(\S+)\s*;/</span>
+    <span class='foreign_grammar_name identifier id'>foreign_grammar_name</span> <span class='assign token'>=</span> <span class='$1 nth_ref id'>$1</span>
+    <span class='token_file identifier id'>token_file</span> <span class='assign token'>=</span> <span class='output_directory identifier id'>output_directory</span> <span class='div op'>/</span> <span class='foreign_grammar_name identifier id'>foreign_grammar_name</span> <span class='plus op'>+</span> <span class='string val'>'.tokens'</span>
+    <span class='grammar_file identifier id'>grammar_file</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span> <span class='path identifier id'>path</span> <span class='rparen token'>)</span> <span class='div op'>/</span> <span class='foreign_grammar_name identifier id'>foreign_grammar_name</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>'.g'</span>
+    <span class='depends_on identifier id'>depends_on</span><span class='lparen token'>(</span><span class='token_file identifier id'>token_file</span><span class='rparen token'>)</span>
+    <span class='depends_on identifier id'>depends_on</span><span class='lparen token'>(</span><span class='grammar_file identifier id'>grammar_file</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>    
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="clean!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>clean!</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 190</span>
+
+<span class='def def kw'>def</span> <span class='clean! fid id'>clean!</span>
+  <span class='deleted identifier id'>deleted</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='for for kw'>for</span> <span class='target identifier id'>target</span> <span class='in in kw'>in</span> <span class='target_files identifier id'>target_files</span>
+    <span class='if if kw'>if</span> <span class='test identifier id'>test</span><span class='lparen token'>(</span><span class='integer val'>?f</span><span class='comma token'>,</span> <span class='target identifier id'>target</span><span class='rparen token'>)</span>
+      <span class='File constant id'>File</span><span class='dot token'>.</span><span class='delete identifier id'>delete</span><span class='lparen token'>(</span><span class='target identifier id'>target</span><span class='rparen token'>)</span>
+      <span class='deleted identifier id'>deleted</span> <span class='lshft op'>&lt;&lt;</span> <span class='target identifier id'>target</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='return return kw'>return</span> <span class='deleted identifier id'>deleted</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="combined?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>combined?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+137
+138
+139</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 137</span>
+
+<span class='def def kw'>def</span> <span class='combined? fid id'>combined?</span>
+  <span class='@type ivar id'>@type</span> <span class='eq op'>==</span> <span class='string val'>&quot;combined&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="compilation_failure!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>compilation_failure!</strong>(command, status, output)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="Grammar/CompilationFailure.html" title="ANTLR3::Test::Grammar::CompilationFailure (class)">CompilationFailure</a></tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+219
+220
+221
+222
+223
+224</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 219</span>
+
+<span class='def def kw'>def</span> <span class='compilation_failure! fid id'>compilation_failure!</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='comma token'>,</span> <span class='status identifier id'>status</span><span class='comma token'>,</span> <span class='output identifier id'>output</span><span class='rparen token'>)</span>
+  <span class='for for kw'>for</span> <span class='f identifier id'>f</span> <span class='in in kw'>in</span> <span class='target_files identifier id'>target_files</span>
+    <span class='test identifier id'>test</span><span class='lparen token'>(</span><span class='integer val'>?f</span><span class='comma token'>,</span> <span class='f identifier id'>f</span><span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='delete identifier id'>delete</span><span class='lparen token'>(</span><span class='f identifier id'>f</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='raise identifier id'>raise</span> <span class='CompilationFailure constant id'>CompilationFailure</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='comma token'>,</span> <span class='command identifier id'>command</span><span class='comma token'>,</span> <span class='status identifier id'>status</span><span class='comma token'>,</span> <span class='output identifier id'>output</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="compile-instance_method">
+  
+    - (<tt>Object</tt>) <strong>compile</strong>(options = {}) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+COMMAND METHODS ############################################
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+167
+168
+169
+170
+171</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 167</span>
+
+<span class='def def kw'>def</span> <span class='compile identifier id'>compile</span><span class='lparen token'>(</span><span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:force</span><span class='rbrack token'>]</span> <span class='or or kw'>or</span> <span class='stale? fid id'>stale?</span>
+    <span class='compile! fid id'>compile!</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="compile!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>compile!</strong>(options = {}) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 173</span>
+
+<span class='def def kw'>def</span> <span class='compile! fid id'>compile!</span><span class='lparen token'>(</span><span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='command identifier id'>command</span> <span class='assign token'>=</span> <span class='build_command identifier id'>build_command</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+  
+  <span class='blab identifier id'>blab</span><span class='lparen token'>(</span> <span class='command identifier id'>command</span> <span class='rparen token'>)</span>
+  <span class='output identifier id'>output</span> <span class='assign token'>=</span> <span class='IO constant id'>IO</span><span class='dot token'>.</span><span class='popen identifier id'>popen</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='pipe identifier id'>pipe</span><span class='bitor op'>|</span>
+    <span class='pipe identifier id'>pipe</span><span class='dot token'>.</span><span class='read identifier id'>read</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='case case kw'>case</span> <span class='status identifier id'>status</span> <span class='assign token'>=</span> <span class='$? gvar id'>$?</span><span class='dot token'>.</span><span class='exitstatus identifier id'>exitstatus</span>
+  <span class='when when kw'>when</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='integer val'>130</span>
+    <span class='post_compile identifier id'>post_compile</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span> <span class='compilation_failure! fid id'>compilation_failure!</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='comma token'>,</span> <span class='status identifier id'>status</span><span class='comma token'>,</span> <span class='output identifier id'>output</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='return return kw'>return</span> <span class='target_files identifier id'>target_files</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="default_antlr_jar-instance_method">
+  
+    - (<tt>Object</tt>) <strong>default_antlr_jar</strong>  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+215
+216
+217</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 215</span>
+
+<span class='def def kw'>def</span> <span class='default_antlr_jar identifier id'>default_antlr_jar</span>
+  <span class='ENV constant id'>ENV</span><span class='lbrack token'>[</span> <span class='string val'>'ANTLR_JAR'</span> <span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='ANTLR3 constant id'>ANTLR3</span><span class='dot token'>.</span><span class='antlr_jar identifier id'>antlr_jar</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="has_lexer?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>has_lexer?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+115
+116
+117</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 115</span>
+
+<span class='def def kw'>def</span> <span class='has_lexer? fid id'>has_lexer?</span>
+  <span class='@type ivar id'>@type</span> <span class='eq op'>==</span> <span class='string val'>'combined'</span> <span class='orop op'>||</span> <span class='@type ivar id'>@type</span> <span class='eq op'>==</span> <span class='string val'>'lexer'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="has_parser?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>has_parser?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+119
+120
+121</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 119</span>
+
+<span class='def def kw'>def</span> <span class='has_parser? fid id'>has_parser?</span>
+  <span class='@type ivar id'>@type</span> <span class='eq op'>==</span> <span class='string val'>'combined'</span> <span class='orop op'>||</span> <span class='@type ivar id'>@type</span> <span class='eq op'>==</span> <span class='string val'>'parser'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="imported_target_files-instance_method">
+  
+    - (<tt>Object</tt>) <strong>imported_target_files</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+158
+159
+160
+161
+162</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 158</span>
+
+<span class='def def kw'>def</span> <span class='imported_target_files identifier id'>imported_target_files</span>
+  <span class='imports identifier id'>imports</span><span class='dot token'>.</span><span class='map! fid id'>map!</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='delegate identifier id'>delegate</span><span class='bitor op'>|</span>
+    <span class='output_directory identifier id'>output_directory</span> <span class='div op'>/</span> <span class='dstring node'>&quot;#{@name}_#{delegate}.rb&quot;</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="imports-instance_method">
+  
+    - (<tt>Object</tt>) <strong>imports</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+153
+154
+155
+156</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 153</span>
+
+<span class='def def kw'>def</span> <span class='imports identifier id'>imports</span>
+  <span class='@source ivar id'>@source</span><span class='dot token'>.</span><span class='scan identifier id'>scan</span><span class='lparen token'>(</span><span class='regexp val'>/^\s*import\s+(\w+)\s*;/</span><span class='rparen token'>)</span><span class='dot token'>.</span>
+    <span class='tap identifier id'>tap</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='list identifier id'>list</span><span class='bitor op'>|</span> <span class='list identifier id'>list</span><span class='dot token'>.</span><span class='flatten! fid id'>flatten!</span> <span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="inspect-instance_method">
+  
+    - (<tt>Object</tt>) <strong>inspect</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+201
+202
+203</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 201</span>
+
+<span class='def def kw'>def</span> <span class='inspect identifier id'>inspect</span>
+  <span class='sprintf identifier id'>sprintf</span><span class='lparen token'>(</span> <span class='string val'>&quot;grammar %s (%s)&quot;</span><span class='comma token'>,</span> <span class='@name ivar id'>@name</span><span class='comma token'>,</span> <span class='@path ivar id'>@path</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="lexer?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>lexer?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 123</span>
+
+<span class='def def kw'>def</span> <span class='lexer? fid id'>lexer?</span>
+  <span class='@type ivar id'>@type</span> <span class='eq op'>==</span> <span class='string val'>&quot;lexer&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="lexer_class_name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>lexer_class_name</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 83</span>
+
+<span class='def def kw'>def</span> <span class='lexer_class_name identifier id'>lexer_class_name</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='name identifier id'>name</span> <span class='plus op'>+</span> <span class='string val'>&quot;::Lexer&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="lexer_file_name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>lexer_file_name</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+87
+88
+89
+90
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 87</span>
+
+<span class='def def kw'>def</span> <span class='lexer_file_name identifier id'>lexer_file_name</span>
+  <span class='if if kw'>if</span> <span class='lexer? fid id'>lexer?</span> <span class='then then kw'>then</span> <span class='base identifier id'>base</span> <span class='assign token'>=</span> <span class='name identifier id'>name</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='combined? fid id'>combined?</span> <span class='then then kw'>then</span> <span class='base identifier id'>base</span> <span class='assign token'>=</span> <span class='name identifier id'>name</span> <span class='plus op'>+</span> <span class='string val'>'Lexer'</span>
+  <span class='else else kw'>else</span> <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='base identifier id'>base</span> <span class='plus op'>+</span> <span class='string val'>'.rb'</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="parser?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>parser?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+127
+128
+129</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 127</span>
+
+<span class='def def kw'>def</span> <span class='parser? fid id'>parser?</span>
+  <span class='@type ivar id'>@type</span> <span class='eq op'>==</span> <span class='string val'>&quot;parser&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="parser_class_name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>parser_class_name</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 95</span>
+
+<span class='def def kw'>def</span> <span class='parser_class_name identifier id'>parser_class_name</span>
+  <span class='name identifier id'>name</span> <span class='plus op'>+</span> <span class='string val'>&quot;::Parser&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="parser_file_name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>parser_file_name</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+99
+100
+101
+102
+103
+104
+105</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 99</span>
+
+<span class='def def kw'>def</span> <span class='parser_file_name identifier id'>parser_file_name</span>
+  <span class='if if kw'>if</span> <span class='parser? fid id'>parser?</span> <span class='then then kw'>then</span> <span class='base identifier id'>base</span> <span class='assign token'>=</span> <span class='name identifier id'>name</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='combined? fid id'>combined?</span> <span class='then then kw'>then</span> <span class='base identifier id'>base</span> <span class='assign token'>=</span> <span class='name identifier id'>name</span> <span class='plus op'>+</span> <span class='string val'>'Parser'</span>
+  <span class='else else kw'>else</span> <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='base identifier id'>base</span> <span class='plus op'>+</span> <span class='string val'>'.rb'</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="post_compile-instance_method">
+  
+    - (<tt>Object</tt>) <strong>post_compile</strong>(options)  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+207
+208
+209</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 207</span>
+
+<span class='def def kw'>def</span> <span class='post_compile identifier id'>post_compile</span><span class='lparen token'>(</span><span class='options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='comment val'># do nothing for now</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="shell_escape-instance_method">
+  
+    - (<tt>Object</tt>) <strong>shell_escape</strong>(token)  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+238
+239
+240
+241
+242
+243
+244</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 238</span>
+
+<span class='def def kw'>def</span> <span class='shell_escape identifier id'>shell_escape</span><span class='lparen token'>(</span><span class='token identifier id'>token</span><span class='rparen token'>)</span>
+  <span class='token identifier id'>token</span> <span class='assign token'>=</span> <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='dup identifier id'>dup</span>
+  <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span> <span class='string val'>&quot;''&quot;</span>
+  <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='gsub! fid id'>gsub!</span><span class='lparen token'>(</span><span class='regexp val'>/([^A-Za-z0-9_\-.,:\/@\n])/n</span><span class='comma token'>,</span> <span class='string val'>'\\\1'</span><span class='rparen token'>)</span>
+  <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='gsub! fid id'>gsub!</span><span class='lparen token'>(</span><span class='regexp val'>/\n/</span><span class='comma token'>,</span> <span class='string val'>&quot;'\n'&quot;</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='token identifier id'>token</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="study-instance_method">
+  
+    - (<tt>Object</tt>) <strong>study</strong>  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+260
+261
+262
+263
+264
+265</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 260</span>
+
+<span class='def def kw'>def</span> <span class='study identifier id'>study</span>
+  <span class='@source ivar id'>@source</span> <span class='match op'>=~</span> <span class='regexp val'>/^\s*(lexer|parser|tree)?\s*grammar\s*(\S+)\s*;/</span> <span class='or or kw'>or</span>
+    <span class='raise identifier id'>raise</span> <span class='Grammar constant id'>Grammar</span><span class='colon2 op'>::</span><span class='FormatError constant id'>FormatError</span><span class='lbrack token'>[</span><span class='source identifier id'>source</span><span class='comma token'>,</span> <span class='path identifier id'>path</span><span class='rbrack token'>]</span>
+  <span class='@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='$2 nth_ref id'>$2</span>
+  <span class='@type ivar id'>@type</span> <span class='assign token'>=</span> <span class='$1 nth_ref id'>$1</span> <span class='orop op'>||</span> <span class='string val'>'combined'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="target_files-instance_method">
+  
+    - (<tt>Object</tt>) <strong>target_files</strong>(include_imports = true) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 141</span>
+
+<span class='def def kw'>def</span> <span class='target_files identifier id'>target_files</span><span class='lparen token'>(</span><span class='include_imports identifier id'>include_imports</span> <span class='assign token'>=</span> <span class='true true kw'>true</span><span class='rparen token'>)</span>
+  <span class='targets identifier id'>targets</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  
+  <span class='for for kw'>for</span> <span class='target_type identifier id'>target_type</span> <span class='in in kw'>in</span> <span class='dstring node'>%w(lexer parser tree_parser)</span>
+    <span class='target_name identifier id'>target_name</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='symbol val'>:&quot;#{target_type}_file_name&quot;</span><span class='rparen token'>)</span> <span class='and and kw'>and</span>
+      <span class='targets identifier id'>targets</span><span class='dot token'>.</span><span class='push identifier id'>push</span><span class='lparen token'>(</span> <span class='output_directory identifier id'>output_directory</span> <span class='div op'>/</span> <span class='target_name identifier id'>target_name</span> <span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='targets identifier id'>targets</span><span class='dot token'>.</span><span class='concat identifier id'>concat</span><span class='lparen token'>(</span> <span class='imported_target_files identifier id'>imported_target_files</span> <span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='include_imports identifier id'>include_imports</span>
+  <span class='return return kw'>return</span> <span class='targets identifier id'>targets</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="tree?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>tree?</strong> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='has_tree?-instance_method'>has_tree?</span></span>
+    </span>
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+131
+132
+133</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 131</span>
+
+<span class='def def kw'>def</span> <span class='tree? fid id'>tree?</span>
+  <span class='@type ivar id'>@type</span> <span class='eq op'>==</span> <span class='string val'>&quot;tree&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="tree_parser_class_name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>tree_parser_class_name</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+107
+108
+109</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 107</span>
+
+<span class='def def kw'>def</span> <span class='tree_parser_class_name identifier id'>tree_parser_class_name</span>
+  <span class='name identifier id'>name</span> <span class='plus op'>+</span> <span class='string val'>&quot;::TreeParser&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="tree_parser_file_name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>tree_parser_file_name</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+111
+112
+113</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/test/grammar.rb', line 111</span>
+
+<span class='def def kw'>def</span> <span class='tree_parser_file_name identifier id'>tree_parser_file_name</span>
+  <span class='tree? fid id'>tree?</span> <span class='and and kw'>and</span> <span class='name identifier id'>name</span> <span class='plus op'>+</span> <span class='string val'>'.rb'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:11 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,853 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Module: ANTLR3::Debug::TreeAdaptor</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (T)</a> &raquo; 
+    <span class='title'><a href="../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../Debug.html" title="ANTLR3::Debug (module)">Debug</a></span>
+     &raquo; 
+    <span class="title">TreeAdaptor</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: ANTLR3::Debug::TreeAdaptor 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/antlr3/tree/debug.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+  <h2>Instance Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#debug_listener-instance_method" title="#debug_listener (instance method)">- (Object) <strong>debug_listener</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute debug_listener.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>Class Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wrap-class_method" title="wrap (class method)">+ (Object) <strong>wrap</strong>(adaptor, debug_listener = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_child-instance_method" title="#add_child (instance method)">- (Object) <strong>add_child</strong>(tree, child) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#become_root-instance_method" title="#become_root (instance method)">- (Object) <strong>become_root</strong>(new_root, old_root) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#copy_node-instance_method" title="#copy_node (instance method)">- (Object) <strong>copy_node</strong>(tree_node) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#copy_tree-instance_method" title="#copy_tree (instance method)">- (Object) <strong>copy_tree</strong>(tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_error_node-instance_method" title="#create_error_node (instance method)">- (Object) <strong>create_error_node</strong>(input, start, stop, exc) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_flat_list-instance_method" title="#create_flat_list (instance method)">- (Object) <strong>create_flat_list</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_from_token-instance_method" title="#create_from_token (instance method)">- (Object) <strong>create_from_token</strong>(token_type, from_token, text = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_from_type-instance_method" title="#create_from_type (instance method)">- (Object) <strong>create_from_type</strong>(token_type, text) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_with_payload-instance_method" title="#create_with_payload (instance method)">- (Object) <strong>create_with_payload</strong>(payload) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_token_boundaries-instance_method" title="#set_token_boundaries (instance method)">- (Object) <strong>set_token_boundaries</strong>(tree, start_token, stop_token) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#simulate_tree_construction-instance_method" title="#simulate_tree_construction (instance method)">- (Object) <strong>simulate_tree_construction</strong>(tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="debug_listener=-instance_method"></span>
+      <span id="debug_listener-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="debug_listener-instance_method">
+  
+    - (<tt>Object</tt>) <strong>debug_listener</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute debug_listener
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 19</span>
+
+<span class='def def kw'>def</span> <span class='debug_listener identifier id'>debug_listener</span>
+  <span class='@debug_listener ivar id'>@debug_listener</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="wrap-class_method">
+  
+    + (<tt>Object</tt>) <strong>wrap</strong>(adaptor, debug_listener = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+13
+14
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 13</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='wrap identifier id'>wrap</span><span class='lparen token'>(</span> <span class='adaptor identifier id'>adaptor</span><span class='comma token'>,</span> <span class='debug_listener identifier id'>debug_listener</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='adaptor identifier id'>adaptor</span><span class='dot token'>.</span><span class='extend identifier id'>extend</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='rparen token'>)</span>
+  <span class='adaptor identifier id'>adaptor</span><span class='dot token'>.</span><span class='debug_listener identifier id'>debug_listener</span> <span class='assign token'>=</span> <span class='debug_listener identifier id'>debug_listener</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='adaptor identifier id'>adaptor</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="add_child-instance_method">
+  
+    - (<tt>Object</tt>) <strong>add_child</strong>(tree, child) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 72</span>
+
+<span class='def def kw'>def</span> <span class='add_child identifier id'>add_child</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='child identifier id'>child</span><span class='rparen token'>)</span>
+  <span class='case case kw'>case</span> <span class='child identifier id'>child</span>
+  <span class='when when kw'>when</span> <span class='Token constant id'>Token</span>
+    <span class='node identifier id'>node</span> <span class='assign token'>=</span> <span class='create_with_payload identifier id'>create_with_payload</span><span class='lparen token'>(</span><span class='child identifier id'>child</span><span class='rparen token'>)</span>
+    <span class='add_child identifier id'>add_child</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='node identifier id'>node</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='tree identifier id'>tree</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='orop op'>||</span> <span class='child identifier id'>child</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span>
+    <span class='super super kw'>super</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='child identifier id'>child</span><span class='rparen token'>)</span>
+    <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='add_child identifier id'>add_child</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='child identifier id'>child</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="become_root-instance_method">
+  
+    - (<tt>Object</tt>) <strong>become_root</strong>(new_root, old_root) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 84</span>
+
+<span class='def def kw'>def</span> <span class='become_root identifier id'>become_root</span><span class='lparen token'>(</span><span class='new_root identifier id'>new_root</span><span class='comma token'>,</span> <span class='old_root identifier id'>old_root</span><span class='rparen token'>)</span>
+  <span class='case case kw'>case</span> <span class='new_root identifier id'>new_root</span>
+  <span class='when when kw'>when</span> <span class='Token constant id'>Token</span>
+    <span class='n identifier id'>n</span> <span class='assign token'>=</span> <span class='create_with_payload identifier id'>create_with_payload</span><span class='lparen token'>(</span><span class='new_root identifier id'>new_root</span><span class='rparen token'>)</span>
+    <span class='super super kw'>super</span><span class='lparen token'>(</span><span class='n identifier id'>n</span><span class='comma token'>,</span> <span class='old_root identifier id'>old_root</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='n identifier id'>n</span> <span class='assign token'>=</span> <span class='super super kw'>super</span><span class='lparen token'>(</span><span class='new_root identifier id'>new_root</span><span class='comma token'>,</span> <span class='old_root identifier id'>old_root</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='become_root identifier id'>become_root</span><span class='lparen token'>(</span><span class='new_root identifier id'>new_root</span><span class='comma token'>,</span> <span class='old_root identifier id'>old_root</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='n identifier id'>n</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="copy_node-instance_method">
+  
+    - (<tt>Object</tt>) <strong>copy_node</strong>(tree_node) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+60
+61
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 60</span>
+
+<span class='def def kw'>def</span> <span class='copy_node identifier id'>copy_node</span><span class='lparen token'>(</span><span class='tree_node identifier id'>tree_node</span><span class='rparen token'>)</span>
+  <span class='duplicate identifier id'>duplicate</span> <span class='assign token'>=</span> <span class='super super kw'>super</span>
+  <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='create_node identifier id'>create_node</span> <span class='duplicate identifier id'>duplicate</span>
+  <span class='return return kw'>return</span> <span class='duplicate identifier id'>duplicate</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="copy_tree-instance_method">
+  
+    - (<tt>Object</tt>) <strong>copy_tree</strong>(tree) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 45</span>
+
+<span class='def def kw'>def</span> <span class='copy_tree identifier id'>copy_tree</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='rparen token'>)</span>
+  <span class='t identifier id'>t</span> <span class='assign token'>=</span> <span class='super super kw'>super</span>
+  <span class='simulate_tree_construction identifier id'>simulate_tree_construction</span><span class='lparen token'>(</span><span class='t identifier id'>t</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='t identifier id'>t</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_error_node-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_error_node</strong>(input, start, stop, exc) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+39
+40
+41
+42
+43</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 39</span>
+
+<span class='def def kw'>def</span> <span class='create_error_node identifier id'>create_error_node</span><span class='lparen token'>(</span><span class='input identifier id'>input</span><span class='comma token'>,</span> <span class='start identifier id'>start</span><span class='comma token'>,</span> <span class='stop identifier id'>stop</span><span class='comma token'>,</span> <span class='exc identifier id'>exc</span><span class='rparen token'>)</span>
+  <span class='node identifier id'>node</span> <span class='assign token'>=</span> <span class='super super kw'>super</span>
+  <span class='node identifier id'>node</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='or or kw'>or</span> <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='error_node identifier id'>error_node</span><span class='lparen token'>(</span><span class='node identifier id'>node</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='node identifier id'>node</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_flat_list-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_flat_list</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+66
+67
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 66</span>
+
+<span class='def def kw'>def</span> <span class='create_flat_list identifier id'>create_flat_list</span>
+  <span class='node identifier id'>node</span> <span class='assign token'>=</span> <span class='super super kw'>super</span>
+  <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='flat_node identifier id'>flat_node</span><span class='lparen token'>(</span><span class='node identifier id'>node</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='node identifier id'>node</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_from_token-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_from_token</strong>(token_type, from_token, text = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 27</span>
+
+<span class='def def kw'>def</span> <span class='create_from_token identifier id'>create_from_token</span><span class='lparen token'>(</span><span class='token_type identifier id'>token_type</span><span class='comma token'>,</span> <span class='from_token identifier id'>from_token</span><span class='comma token'>,</span> <span class='text identifier id'>text</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='node identifier id'>node</span> <span class='assign token'>=</span> <span class='super super kw'>super</span>
+  <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='create_node identifier id'>create_node</span><span class='lparen token'>(</span><span class='node identifier id'>node</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='node identifier id'>node</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_from_type-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_from_type</strong>(token_type, text) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36
+37</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 33</span>
+
+<span class='def def kw'>def</span> <span class='create_from_type identifier id'>create_from_type</span><span class='lparen token'>(</span><span class='token_type identifier id'>token_type</span><span class='comma token'>,</span> <span class='text identifier id'>text</span><span class='rparen token'>)</span>
+  <span class='node identifier id'>node</span> <span class='assign token'>=</span> <span class='super super kw'>super</span>
+  <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='create_node identifier id'>create_node</span><span class='lparen token'>(</span><span class='node identifier id'>node</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='node identifier id'>node</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_with_payload-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_with_payload</strong>(payload) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 21</span>
+
+<span class='def def kw'>def</span> <span class='create_with_payload identifier id'>create_with_payload</span><span class='lparen token'>(</span><span class='payload identifier id'>payload</span><span class='rparen token'>)</span>
+  <span class='node identifier id'>node</span> <span class='assign token'>=</span> <span class='super super kw'>super</span>
+  <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='create_node identifier id'>create_node</span><span class='lparen token'>(</span><span class='node identifier id'>node</span><span class='comma token'>,</span> <span class='payload identifier id'>payload</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='node identifier id'>node</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="set_token_boundaries-instance_method">
+  
+    - (<tt>Object</tt>) <strong>set_token_boundaries</strong>(tree, start_token, stop_token) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+96
+97
+98
+99
+100
+101</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 96</span>
+
+<span class='def def kw'>def</span> <span class='set_token_boundaries identifier id'>set_token_boundaries</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='start_token identifier id'>start_token</span><span class='comma token'>,</span> <span class='stop_token identifier id'>stop_token</span><span class='rparen token'>)</span>
+  <span class='super super kw'>super</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='start_token identifier id'>start_token</span><span class='comma token'>,</span> <span class='stop_token identifier id'>stop_token</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='unless unless_mod kw'>unless</span> <span class='tree identifier id'>tree</span> <span class='andop op'>&amp;&amp;</span> <span class='start_token identifier id'>start_token</span> <span class='andop op'>&amp;&amp;</span> <span class='stop_token identifier id'>stop_token</span>
+  <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='set_token_boundaries identifier id'>set_token_boundaries</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span>
+    <span class='start_token identifier id'>start_token</span><span class='dot token'>.</span><span class='token_index identifier id'>token_index</span><span class='comma token'>,</span> <span class='stop_token identifier id'>stop_token</span><span class='dot token'>.</span><span class='token_index identifier id'>token_index</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="simulate_tree_construction-instance_method">
+  
+    - (<tt>Object</tt>) <strong>simulate_tree_construction</strong>(tree) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53
+54
+55
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/debug.rb', line 51</span>
+
+<span class='def def kw'>def</span> <span class='simulate_tree_construction identifier id'>simulate_tree_construction</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='rparen token'>)</span>
+  <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='create_node identifier id'>create_node</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='rparen token'>)</span>
+  <span class='child_count identifier id'>child_count</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='times identifier id'>times</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='i identifier id'>i</span><span class='bitor op'>|</span>
+    <span class='child identifier id'>child</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='child_of identifier id'>child_of</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='i identifier id'>i</span><span class='rparen token'>)</span>
+    <span class='simulate_tree_construction identifier id'>simulate_tree_construction</span><span class='lparen token'>(</span><span class='child identifier id'>child</span><span class='rparen token'>)</span>
+    <span class='@debug_listener ivar id'>@debug_listener</span><span class='dot token'>.</span><span class='add_child identifier id'>add_child</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='child identifier id'>child</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:22 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

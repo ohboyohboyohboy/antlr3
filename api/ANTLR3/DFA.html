@@ -1,0 +1,2004 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::DFA</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (D)</a> &raquo; 
+    <span class='title'><a href="../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span>
+     &raquo; 
+    <span class="title">DFA</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::DFA 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ANTLR3::DFA</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><a href="Constants.html" title="ANTLR3::Constants (module)">Constants</a>, <a href="Error.html" title="ANTLR3::Error (module)">Error</a></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/antlr3/dfa.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><a href="Template/GroupFile/Lexer/DFA12.html" title="ANTLR3::Template::GroupFile::Lexer::DFA12 (class)">Template::GroupFile::Lexer::DFA12</a></p>
+</div>
+
+  <h2>Constant Summary</h2>
+  
+
+
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="Constants.html" title="ANTLR3::Constants (module)">Constants</a></h3>
+  <p class="inherited"><a href="Constants.html#BUILT_IN_TOKEN_NAMES-constant" title="ANTLR3::Constants::BUILT_IN_TOKEN_NAMES (constant)">BUILT_IN_TOKEN_NAMES</a>, <a href="Constants.html#DEFAULT-constant" title="ANTLR3::Constants::DEFAULT (constant)">DEFAULT</a>, <a href="Constants.html#DOWN-constant" title="ANTLR3::Constants::DOWN (constant)">DOWN</a>, <a href="Constants.html#EOF-constant" title="ANTLR3::Constants::EOF (constant)">EOF</a>, <a href="Constants.html#EOF_TOKEN-constant" title="ANTLR3::Constants::EOF_TOKEN (constant)">EOF_TOKEN</a>, <a href="Constants.html#EOR_TOKEN_TYPE-constant" title="ANTLR3::Constants::EOR_TOKEN_TYPE (constant)">EOR_TOKEN_TYPE</a>, <a href="Constants.html#HIDDEN-constant" title="ANTLR3::Constants::HIDDEN (constant)">HIDDEN</a>, <a href="Constants.html#INVALID_TOKEN-constant" title="ANTLR3::Constants::INVALID_TOKEN (constant)">INVALID_TOKEN</a>, <a href="Constants.html#INVALID_TOKEN_TYPE-constant" title="ANTLR3::Constants::INVALID_TOKEN_TYPE (constant)">INVALID_TOKEN_TYPE</a>, <a href="Constants.html#MEMO_RULE_FAILED-constant" title="ANTLR3::Constants::MEMO_RULE_FAILED (constant)">MEMO_RULE_FAILED</a>, <a href="Constants.html#MEMO_RULE_UNKNOWN-constant" title="ANTLR3::Constants::MEMO_RULE_UNKNOWN (constant)">MEMO_RULE_UNKNOWN</a>, <a href="Constants.html#MIN_TOKEN_TYPE-constant" title="ANTLR3::Constants::MIN_TOKEN_TYPE (constant)">MIN_TOKEN_TYPE</a>, <a href="Constants.html#SKIP_TOKEN-constant" title="ANTLR3::Constants::SKIP_TOKEN (constant)">SKIP_TOKEN</a>, <a href="Constants.html#UP-constant" title="ANTLR3::Constants::UP (constant)">UP</a></p>
+
+  
+  
+  
+  
+  <h2>Class Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#accept-class_method" title="accept (class method)">+ (Object) <strong>accept</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute accept.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#decision-class_method" title="decision (class method)">+ (Object) <strong>decision</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute decision.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eof-class_method" title="eof (class method)">+ (Object) <strong>eof</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute eof.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eot-class_method" title="eot (class method)">+ (Object) <strong>eot</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute eot.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#max-class_method" title="max (class method)">+ (Object) <strong>max</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute max.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#min-class_method" title="min (class method)">+ (Object) <strong>min</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute min.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#special-class_method" title="special (class method)">+ (Object) <strong>special</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute special.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#transition-class_method" title="transition (class method)">+ (Object) <strong>transition</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute transition.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+  <h2>Instance Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#accept-instance_method" title="#accept (instance method)">- (Object) <strong>accept</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute accept.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#decision_number-instance_method" title="#decision_number (instance method)">- (Object) <strong>decision_number</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute decision_number.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eof-instance_method" title="#eof (instance method)">- (Object) <strong>eof</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute eof.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eot-instance_method" title="#eot (instance method)">- (Object) <strong>eot</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute eot.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#max-instance_method" title="#max (instance method)">- (Object) <strong>max</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute max.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#min-instance_method" title="#min (instance method)">- (Object) <strong>min</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute min.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#recognizer-instance_method" title="#recognizer (instance method)">- (Object) <strong>recognizer</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute recognizer.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#special-instance_method" title="#special (instance method)">- (Object) <strong>special</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute special.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#special_block-instance_method" title="#special_block (instance method)">- (Object) <strong>special_block</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute special_block.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#transition-instance_method" title="#transition (instance method)">- (Object) <strong>transition</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute transition.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>Class Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unpack-class_method" title="unpack (class method)">+ (Object) <strong>unpack</strong>(*data) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#description-instance_method" title="#description (instance method)">- (Object) <strong>description</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#error-instance_method" title="#error (instance method)">- (Object) <strong>error</strong>(except) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (DFA) <strong>initialize</strong>(recognizer, decision_number = nil, eot = nil, eof = nil, min = nil, max = nil, accept = nil, special = nil, transition = nil, &amp;special_block) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of DFA.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#no_viable_alternative-instance_method" title="#no_viable_alternative (instance method)">- (Object) <strong>no_viable_alternative</strong>(state, input) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#predict-instance_method" title="#predict (instance method)">- (Object) <strong>predict</strong>(input) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#special_state_transition-instance_method" title="#special_state_transition (instance method)">- (Object) <strong>special_state_transition</strong>(state, input) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="Error.html" title="ANTLR3::Error (module)">Error</a></h3>
+  <p class="inherited"><a href="Error.html#EarlyExit-instance_method" title="ANTLR3::Error#EarlyExit (method)">#EarlyExit</a>, <a href="Error.html#FailedPredicate-instance_method" title="ANTLR3::Error#FailedPredicate (method)">#FailedPredicate</a>, <a href="Error.html#MismatchedNotSet-instance_method" title="ANTLR3::Error#MismatchedNotSet (method)">#MismatchedNotSet</a>, <a href="Error.html#MismatchedRange-instance_method" title="ANTLR3::Error#MismatchedRange (method)">#MismatchedRange</a>, <a href="Error.html#MismatchedSet-instance_method" title="ANTLR3::Error#MismatchedSet (method)">#MismatchedSet</a>, <a href="Error.html#MismatchedToken-instance_method" title="ANTLR3::Error#MismatchedToken (method)">#MismatchedToken</a>, <a href="Error.html#MismatchedTreeNode-instance_method" title="ANTLR3::Error#MismatchedTreeNode (method)">#MismatchedTreeNode</a>, <a href="Error.html#MissingToken-instance_method" title="ANTLR3::Error#MissingToken (method)">#MissingToken</a>, <a href="Error.html#NoViableAlternative-instance_method" title="ANTLR3::Error#NoViableAlternative (method)">#NoViableAlternative</a>, <a href="Error.html#RewriteCardinalityError-instance_method" title="ANTLR3::Error#RewriteCardinalityError (method)">#RewriteCardinalityError</a>, <a href="Error.html#RewriteEarlyExit-instance_method" title="ANTLR3::Error#RewriteEarlyExit (method)">#RewriteEarlyExit</a>, <a href="Error.html#RewriteEmptyStream-instance_method" title="ANTLR3::Error#RewriteEmptyStream (method)">#RewriteEmptyStream</a>, <a href="Error.html#UnwantedToken-instance_method" title="ANTLR3::Error#UnwantedToken (method)">#UnwantedToken</a></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::DFA (class)">DFA</a></tt>) <strong>initialize</strong>(recognizer, decision_number = nil, eot = nil, eof = nil, min = nil, max = nil, accept = nil, special = nil, transition = nil, &amp;special_block) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of DFA
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 144</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span> <span class='recognizer identifier id'>recognizer</span><span class='comma token'>,</span> <span class='decision_number identifier id'>decision_number</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span>
+               <span class='eot identifier id'>eot</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='eof identifier id'>eof</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='min identifier id'>min</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='max identifier id'>max</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span>
+               <span class='accept identifier id'>accept</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='special identifier id'>special</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span>
+               <span class='transition identifier id'>transition</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='special_block identifier id'>special_block</span> <span class='rparen token'>)</span>
+  <span class='@recognizer ivar id'>@recognizer</span> <span class='assign token'>=</span> <span class='recognizer identifier id'>recognizer</span>
+  <span class='@decision_number ivar id'>@decision_number</span> <span class='assign token'>=</span> <span class='decision_number identifier id'>decision_number</span> <span class='orop op'>||</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='decision identifier id'>decision</span>
+  <span class='@eot ivar id'>@eot</span> <span class='assign token'>=</span> <span class='eot identifier id'>eot</span> <span class='orop op'>||</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='colon2 op'>::</span><span class='EOT constant id'>EOT</span> <span class='comment val'>#.eot</span>
+  <span class='@eof ivar id'>@eof</span> <span class='assign token'>=</span> <span class='eof identifier id'>eof</span> <span class='orop op'>||</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='colon2 op'>::</span><span class='EOF constant id'>EOF</span> <span class='comment val'>#.eof</span>
+  <span class='@min ivar id'>@min</span> <span class='assign token'>=</span> <span class='min identifier id'>min</span> <span class='orop op'>||</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='colon2 op'>::</span><span class='MIN constant id'>MIN</span> <span class='comment val'>#.min</span>
+  <span class='@max ivar id'>@max</span> <span class='assign token'>=</span> <span class='max identifier id'>max</span> <span class='orop op'>||</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='colon2 op'>::</span><span class='MAX constant id'>MAX</span> <span class='comment val'>#.max</span>
+  <span class='@accept ivar id'>@accept</span> <span class='assign token'>=</span> <span class='accept identifier id'>accept</span> <span class='orop op'>||</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='colon2 op'>::</span><span class='ACCEPT constant id'>ACCEPT</span> <span class='comment val'>#.accept</span>
+  <span class='@special ivar id'>@special</span> <span class='assign token'>=</span> <span class='special identifier id'>special</span> <span class='orop op'>||</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='colon2 op'>::</span><span class='SPECIAL constant id'>SPECIAL</span> <span class='comment val'>#.special</span>
+  <span class='@transition ivar id'>@transition</span> <span class='assign token'>=</span> <span class='transition identifier id'>transition</span> <span class='orop op'>||</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='colon2 op'>::</span><span class='TRANSITION constant id'>TRANSITION</span> <span class='comment val'>#.transition</span>
+  <span class='@special_block ivar id'>@special_block</span> <span class='assign token'>=</span> <span class='special_block identifier id'>special_block</span>
+<span class='rescue rescue kw'>rescue</span> <span class='NameError constant id'>NameError</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='e identifier id'>e</span>
+  <span class='raise identifier id'>raise</span> <span class='unless unless_mod kw'>unless</span> <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='message identifier id'>message</span> <span class='match op'>=~</span> <span class='regexp val'>/uninitialized constant/</span>
+  <span class='constant identifier id'>constant</span> <span class='assign token'>=</span> <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='name identifier id'>name</span>
+  <span class='message identifier id'>message</span> <span class='assign token'>=</span> <span class='Util constant id'>Util</span><span class='dot token'>.</span><span class='tidy identifier id'>tidy</span><span class='lparen token'>(</span> <span class='string val'>&quot;| No \#{ constant } information provided.\n| DFA cannot be instantiated without providing state array information.\n| When DFAs are generated by ANTLR, this information should already be\n| provided in the DFA subclass constants.\n&quot;</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="class_attr_details" class="attr_details">
+    <h2>Class Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="accept-class_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="accept-class_method">
+  
+    + (<tt>Object</tt>) <strong>accept</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute accept
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 108</span>
+
+<span class='def def kw'>def</span> <span class='accept identifier id'>accept</span>
+  <span class='@accept ivar id'>@accept</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="decision-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="decision-class_method">
+  
+    + (<tt>Object</tt>) <strong>decision</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute decision
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 108</span>
+
+<span class='def def kw'>def</span> <span class='decision identifier id'>decision</span>
+  <span class='@decision ivar id'>@decision</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="eof-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="eof-class_method">
+  
+    + (<tt>Object</tt>) <strong>eof</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute eof
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 108</span>
+
+<span class='def def kw'>def</span> <span class='eof identifier id'>eof</span>
+  <span class='@eof ivar id'>@eof</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="eot-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="eot-class_method">
+  
+    + (<tt>Object</tt>) <strong>eot</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute eot
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 108</span>
+
+<span class='def def kw'>def</span> <span class='eot identifier id'>eot</span>
+  <span class='@eot ivar id'>@eot</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="max-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="max-class_method">
+  
+    + (<tt>Object</tt>) <strong>max</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute max
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 108</span>
+
+<span class='def def kw'>def</span> <span class='max identifier id'>max</span>
+  <span class='@max ivar id'>@max</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="min-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="min-class_method">
+  
+    + (<tt>Object</tt>) <strong>min</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute min
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 108</span>
+
+<span class='def def kw'>def</span> <span class='min identifier id'>min</span>
+  <span class='@min ivar id'>@min</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="special-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="special-class_method">
+  
+    + (<tt>Object</tt>) <strong>special</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute special
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 108</span>
+
+<span class='def def kw'>def</span> <span class='special identifier id'>special</span>
+  <span class='@special ivar id'>@special</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="transition-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="transition-class_method">
+  
+    + (<tt>Object</tt>) <strong>transition</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute transition
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 108</span>
+
+<span class='def def kw'>def</span> <span class='transition identifier id'>transition</span>
+  <span class='@transition ivar id'>@transition</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="accept-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="accept-instance_method">
+  
+    - (<tt>Object</tt>) <strong>accept</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute accept
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 104</span>
+
+<span class='def def kw'>def</span> <span class='accept identifier id'>accept</span>
+  <span class='@accept ivar id'>@accept</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="decision_number-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="decision_number-instance_method">
+  
+    - (<tt>Object</tt>) <strong>decision_number</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute decision_number
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 104</span>
+
+<span class='def def kw'>def</span> <span class='decision_number identifier id'>decision_number</span>
+  <span class='@decision_number ivar id'>@decision_number</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="eof-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="eof-instance_method">
+  
+    - (<tt>Object</tt>) <strong>eof</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute eof
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 104</span>
+
+<span class='def def kw'>def</span> <span class='eof identifier id'>eof</span>
+  <span class='@eof ivar id'>@eof</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="eot-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="eot-instance_method">
+  
+    - (<tt>Object</tt>) <strong>eot</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute eot
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 104</span>
+
+<span class='def def kw'>def</span> <span class='eot identifier id'>eot</span>
+  <span class='@eot ivar id'>@eot</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="max-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="max-instance_method">
+  
+    - (<tt>Object</tt>) <strong>max</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute max
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 104</span>
+
+<span class='def def kw'>def</span> <span class='max identifier id'>max</span>
+  <span class='@max ivar id'>@max</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="min-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="min-instance_method">
+  
+    - (<tt>Object</tt>) <strong>min</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute min
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 104</span>
+
+<span class='def def kw'>def</span> <span class='min identifier id'>min</span>
+  <span class='@min ivar id'>@min</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="recognizer-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="recognizer-instance_method">
+  
+    - (<tt>Object</tt>) <strong>recognizer</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute recognizer
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 104</span>
+
+<span class='def def kw'>def</span> <span class='recognizer identifier id'>recognizer</span>
+  <span class='@recognizer ivar id'>@recognizer</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="special-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="special-instance_method">
+  
+    - (<tt>Object</tt>) <strong>special</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute special
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 104</span>
+
+<span class='def def kw'>def</span> <span class='special identifier id'>special</span>
+  <span class='@special ivar id'>@special</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="special_block-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="special_block-instance_method">
+  
+    - (<tt>Object</tt>) <strong>special_block</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute special_block
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 104</span>
+
+<span class='def def kw'>def</span> <span class='special_block identifier id'>special_block</span>
+  <span class='@special_block ivar id'>@special_block</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="transition-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="transition-instance_method">
+  
+    - (<tt>Object</tt>) <strong>transition</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute transition
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 104</span>
+
+<span class='def def kw'>def</span> <span class='transition identifier id'>transition</span>
+  <span class='@transition ivar id'>@transition</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="unpack-class_method">
+  
+    + (<tt>Object</tt>) <strong>unpack</strong>(*data) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 111</span>
+
+<span class='def def kw'>def</span> <span class='unpack identifier id'>unpack</span><span class='lparen token'>(</span> <span class='mult op'>*</span><span class='data identifier id'>data</span> <span class='rparen token'>)</span>
+  <span class='data identifier id'>data</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='freeze identifier id'>freeze</span>
+  
+  <span class='n identifier id'>n</span> <span class='assign token'>=</span> <span class='data identifier id'>data</span><span class='dot token'>.</span><span class='length identifier id'>length</span> <span class='div op'>/</span> <span class='integer val'>2</span>
+  <span class='size identifier id'>size</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='n identifier id'>n</span><span class='dot token'>.</span><span class='times identifier id'>times</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='i identifier id'>i</span><span class='bitor op'>|</span> <span class='size identifier id'>size</span> <span class='opasgn op'>+=</span> <span class='data identifier id'>data</span><span class='lbrack token'>[</span> <span class='integer val'>2</span><span class='mult op'>*</span><span class='i identifier id'>i</span> <span class='rbrack token'>]</span> <span class='rbrace token'>}</span>
+  <span class='if if kw'>if</span> <span class='size identifier id'>size</span> <span class='gt op'>&gt;</span> <span class='integer val'>1024</span>
+    <span class='values identifier id'>values</span> <span class='assign token'>=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span> <span class='integer val'>0</span> <span class='rparen token'>)</span>
+    <span class='data identifier id'>data</span><span class='dot token'>.</span><span class='each_slice identifier id'>each_slice</span><span class='lparen token'>(</span> <span class='integer val'>2</span> <span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='count identifier id'>count</span><span class='comma token'>,</span> <span class='value identifier id'>value</span><span class='bitor op'>|</span>
+      <span class='values identifier id'>values</span><span class='lbrack token'>[</span> <span class='value identifier id'>value</span> <span class='rbrack token'>]</span> <span class='opasgn op'>+=</span> <span class='count identifier id'>count</span>
+    <span class='end end kw'>end</span>
+    <span class='default identifier id'>default</span> <span class='assign token'>=</span> <span class='values identifier id'>values</span><span class='dot token'>.</span><span class='keys identifier id'>keys</span><span class='dot token'>.</span><span class='max_by identifier id'>max_by</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='v identifier id'>v</span><span class='bitor op'>|</span> <span class='values identifier id'>values</span><span class='lbrack token'>[</span> <span class='v identifier id'>v</span> <span class='rbrack token'>]</span> <span class='rbrace token'>}</span>
+    
+    <span class='unpacked identifier id'>unpacked</span> <span class='assign token'>=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span> <span class='default identifier id'>default</span> <span class='rparen token'>)</span>
+    <span class='position identifier id'>position</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+    <span class='data identifier id'>data</span><span class='dot token'>.</span><span class='each_slice identifier id'>each_slice</span><span class='lparen token'>(</span> <span class='integer val'>2</span> <span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='count identifier id'>count</span><span class='comma token'>,</span> <span class='value identifier id'>value</span><span class='bitor op'>|</span>
+      <span class='unless unless kw'>unless</span> <span class='value identifier id'>value</span> <span class='eq op'>==</span> <span class='default identifier id'>default</span>
+        <span class='count identifier id'>count</span><span class='dot token'>.</span><span class='times identifier id'>times</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='i identifier id'>i</span><span class='bitor op'>|</span> <span class='unpacked identifier id'>unpacked</span><span class='lbrack token'>[</span> <span class='position identifier id'>position</span> <span class='plus op'>+</span> <span class='i identifier id'>i</span> <span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span> <span class='rbrace token'>}</span>
+      <span class='end end kw'>end</span>
+      <span class='position identifier id'>position</span> <span class='opasgn op'>+=</span> <span class='count identifier id'>count</span>
+    <span class='end end kw'>end</span>
+  <span class='else else kw'>else</span>
+    <span class='unpacked identifier id'>unpacked</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+    <span class='data identifier id'>data</span><span class='dot token'>.</span><span class='each_slice identifier id'>each_slice</span><span class='lparen token'>(</span> <span class='integer val'>2</span> <span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='count identifier id'>count</span><span class='comma token'>,</span> <span class='value identifier id'>value</span><span class='bitor op'>|</span>
+      <span class='unpacked identifier id'>unpacked</span><span class='dot token'>.</span><span class='fill identifier id'>fill</span><span class='lparen token'>(</span> <span class='value identifier id'>value</span><span class='comma token'>,</span> <span class='unpacked identifier id'>unpacked</span><span class='dot token'>.</span><span class='length identifier id'>length</span><span class='comma token'>,</span> <span class='count identifier id'>count</span> <span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='return return kw'>return</span> <span class='unpacked identifier id'>unpacked</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="description-instance_method">
+  
+    - (<tt>Object</tt>) <strong>description</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+319
+320
+321</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 319</span>
+
+<span class='def def kw'>def</span> <span class='description identifier id'>description</span>
+  <span class='return return kw'>return</span> <span class='string val'>&quot;n/a&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="error-instance_method">
+  
+    - (<tt>Object</tt>) <strong>error</strong>(except) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+311
+312
+313</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 311</span>
+
+<span class='def def kw'>def</span> <span class='error identifier id'>error</span><span class='lparen token'>(</span> <span class='except identifier id'>except</span> <span class='rparen token'>)</span>
+  <span class='comment val'># overridable debugging hook</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="no_viable_alternative-instance_method">
+  
+    - (<tt>Object</tt>) <strong>no_viable_alternative</strong>(state, input) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="Error/BacktrackingFailed.html" title="ANTLR3::Error::BacktrackingFailed (class)">BacktrackingFailed</a></tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+304
+305
+306
+307
+308
+309</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 304</span>
+
+<span class='def def kw'>def</span> <span class='no_viable_alternative identifier id'>no_viable_alternative</span><span class='lparen token'>(</span> <span class='state identifier id'>state</span><span class='comma token'>,</span> <span class='input identifier id'>input</span> <span class='rparen token'>)</span>
+  <span class='raise identifier id'>raise</span><span class='lparen token'>(</span> <span class='BacktrackingFailed constant id'>BacktrackingFailed</span> <span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='@recognizer ivar id'>@recognizer</span><span class='dot token'>.</span><span class='state identifier id'>state</span><span class='dot token'>.</span><span class='backtracking identifier id'>backtracking</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span>
+  <span class='except identifier id'>except</span> <span class='assign token'>=</span> <span class='NoViableAlternative constant id'>NoViableAlternative</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span> <span class='description identifier id'>description</span><span class='comma token'>,</span> <span class='@decision_number ivar id'>@decision_number</span><span class='comma token'>,</span> <span class='state identifier id'>state</span><span class='comma token'>,</span> <span class='input identifier id'>input</span> <span class='rparen token'>)</span>
+  <span class='error identifier id'>error</span><span class='lparen token'>(</span> <span class='except identifier id'>except</span> <span class='rparen token'>)</span>
+  <span class='raise identifier id'>raise</span><span class='lparen token'>(</span> <span class='except identifier id'>except</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="predict-instance_method">
+  
+    - (<tt>Object</tt>) <strong>predict</strong>(input) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 172</span>
+
+<span class='def def kw'>def</span> <span class='predict identifier id'>predict</span><span class='lparen token'>(</span> <span class='input identifier id'>input</span> <span class='rparen token'>)</span>
+  <span class='mark identifier id'>mark</span> <span class='assign token'>=</span> <span class='input identifier id'>input</span><span class='dot token'>.</span><span class='mark identifier id'>mark</span>
+  <span class='state identifier id'>state</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  
+  <span class='float val'>50000</span><span class='dot token'>.</span><span class='times identifier id'>times</span> <span class='do do kw'>do</span>
+    <span class='special_state identifier id'>special_state</span> <span class='assign token'>=</span> <span class='@special ivar id'>@special</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span>
+    <span class='if if kw'>if</span> <span class='special_state identifier id'>special_state</span> <span class='geq op'>&gt;=</span> <span class='integer val'>0</span>
+      <span class='state identifier id'>state</span> <span class='assign token'>=</span> <span class='@special_block ivar id'>@special_block</span><span class='dot token'>.</span><span class='call identifier id'>call</span><span class='lparen token'>(</span> <span class='special_state identifier id'>special_state</span> <span class='rparen token'>)</span>
+      <span class='if if kw'>if</span> <span class='state identifier id'>state</span> <span class='eq op'>==</span> <span class='integer val'>-1</span>
+        <span class='no_viable_alternative identifier id'>no_viable_alternative</span><span class='lparen token'>(</span> <span class='state identifier id'>state</span><span class='comma token'>,</span> <span class='input identifier id'>input</span> <span class='rparen token'>)</span>
+        <span class='return return kw'>return</span> <span class='integer val'>0</span>
+      <span class='end end kw'>end</span>
+      <span class='input identifier id'>input</span><span class='dot token'>.</span><span class='consume identifier id'>consume</span>
+      <span class='next next kw'>next</span>
+    <span class='end end kw'>end</span>
+    <span class='@accept ivar id'>@accept</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span> <span class='geq op'>&gt;=</span> <span class='integer val'>1</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span> <span class='@accept ivar id'>@accept</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span>
+    
+    <span class='comment val'># look for a normal char transition</span>
+    
+    <span class='c identifier id'>c</span> <span class='assign token'>=</span> <span class='input identifier id'>input</span><span class='dot token'>.</span><span class='peek identifier id'>peek</span><span class='dot token'>.</span><span class='ord identifier id'>ord</span>
+    <span class='comment val'># the @min and @max arrays contain the bounds of the character (or token type)</span>
+    <span class='comment val'># ranges for the transition decisions</span>
+    <span class='if if kw'>if</span> <span class='c identifier id'>c</span><span class='dot token'>.</span><span class='between? fid id'>between?</span><span class='lparen token'>(</span> <span class='@min ivar id'>@min</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='@max ivar id'>@max</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span> <span class='rparen token'>)</span>
+      <span class='comment val'># c - @min[state] is the position of the character within the range</span>
+      <span class='comment val'># so for a range like ?a..?z, a match of ?a would be 0,</span>
+      <span class='comment val'># ?c would be 2, and ?z would be 25</span>
+      <span class='next_state identifier id'>next_state</span> <span class='assign token'>=</span> <span class='@transition ivar id'>@transition</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span><span class='lbrack token'>[</span> <span class='c identifier id'>c</span> <span class='minus op'>-</span> <span class='@min ivar id'>@min</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span> <span class='rbrack token'>]</span>
+      <span class='if if kw'>if</span> <span class='next_state identifier id'>next_state</span> <span class='lt op'>&lt;</span> <span class='integer val'>0</span>
+        <span class='if if kw'>if</span> <span class='@eot ivar id'>@eot</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span> <span class='geq op'>&gt;=</span> <span class='integer val'>0</span>
+          <span class='state identifier id'>state</span> <span class='assign token'>=</span> <span class='@eot ivar id'>@eot</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span>
+          <span class='input identifier id'>input</span><span class='dot token'>.</span><span class='consume identifier id'>consume</span>
+          <span class='next next kw'>next</span>
+        <span class='end end kw'>end</span>
+        <span class='no_viable_alternative identifier id'>no_viable_alternative</span><span class='lparen token'>(</span> <span class='state identifier id'>state</span><span class='comma token'>,</span> <span class='input identifier id'>input</span> <span class='rparen token'>)</span>
+        <span class='return return kw'>return</span> <span class='integer val'>0</span>
+      <span class='end end kw'>end</span>
+      
+      <span class='state identifier id'>state</span> <span class='assign token'>=</span> <span class='next_state identifier id'>next_state</span>
+      <span class='input identifier id'>input</span><span class='dot token'>.</span><span class='consume identifier id'>consume</span>
+      <span class='next next kw'>next</span>
+    <span class='end end kw'>end</span>
+    
+    <span class='if if kw'>if</span> <span class='@eot ivar id'>@eot</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span> <span class='geq op'>&gt;=</span> <span class='integer val'>0</span>
+      <span class='state identifier id'>state</span> <span class='assign token'>=</span> <span class='@eot ivar id'>@eot</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span>
+      <span class='input identifier id'>input</span><span class='dot token'>.</span><span class='consume identifier id'>consume</span><span class='lparen token'>(</span><span class='rparen token'>)</span>
+      <span class='next next kw'>next</span>
+    <span class='end end kw'>end</span>
+    
+    <span class='lparen token'>(</span> <span class='c identifier id'>c</span> <span class='eq op'>==</span> <span class='EOF constant id'>EOF</span> <span class='andop op'>&amp;&amp;</span> <span class='@eof ivar id'>@eof</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span> <span class='geq op'>&gt;=</span> <span class='integer val'>0</span> <span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span> <span class='@accept ivar id'>@accept</span><span class='lbrack token'>[</span> <span class='@eof ivar id'>@eof</span><span class='lbrack token'>[</span> <span class='state identifier id'>state</span> <span class='rbrack token'>]</span> <span class='rbrack token'>]</span>
+    <span class='no_viable_alternative identifier id'>no_viable_alternative</span><span class='lparen token'>(</span> <span class='state identifier id'>state</span><span class='comma token'>,</span> <span class='input identifier id'>input</span> <span class='rparen token'>)</span>
+    <span class='return return kw'>return</span> <span class='integer val'>0</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='ANTLR3 constant id'>ANTLR3</span><span class='dot token'>.</span><span class='bug! fid id'>bug!</span><span class='lparen token'>(</span> <span class='Util constant id'>Util</span><span class='dot token'>.</span><span class='tidy identifier id'>tidy</span><span class='lparen token'>(</span> <span class='string val'>&quot;| DFA BANG!\n|   The prediction loop has exceeded a maximum limit of 50000 iterations\n| ----\n| decision: \#@decision_number\n| description: \#{ description }\n&quot;</span> <span class='rparen token'>)</span> <span class='rparen token'>)</span>
+<span class='ensure ensure kw'>ensure</span>
+  <span class='input identifier id'>input</span><span class='dot token'>.</span><span class='rewind identifier id'>rewind</span><span class='lparen token'>(</span> <span class='mark identifier id'>mark</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="special_state_transition-instance_method">
+  
+    - (<tt>Object</tt>) <strong>special_state_transition</strong>(state, input) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+315
+316
+317</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/dfa.rb', line 315</span>
+
+<span class='def def kw'>def</span> <span class='special_state_transition identifier id'>special_state_transition</span><span class='lparen token'>(</span> <span class='state identifier id'>state</span><span class='comma token'>,</span> <span class='input identifier id'>input</span> <span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='integer val'>-1</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:26 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

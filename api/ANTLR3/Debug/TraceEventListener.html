@@ -1,0 +1,920 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::Debug::TraceEventListener</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (T)</a> &raquo; 
+    <span class='title'><a href="../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../Debug.html" title="ANTLR3::Debug (module)">Debug</a></span>
+     &raquo; 
+    <span class="title">TraceEventListener</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::Debug::TraceEventListener 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ANTLR3::Debug::TraceEventListener</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><a href="EventListener.html" title="ANTLR3::Debug::EventListener (module)">EventListener</a></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/antlr3/debug/trace-event-listener.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><a href="RecordEventListener.html" title="ANTLR3::Debug::RecordEventListener (class)">RecordEventListener</a></p>
+</div>
+
+  <h2>Constant Summary</h2>
+  
+
+
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="EventListener.html" title="ANTLR3::Debug::EventListener (module)">EventListener</a></h3>
+  <p class="inherited"><a href="EventListener.html#EVENTS-constant" title="ANTLR3::Debug::EventListener::EVENTS (constant)">EVENTS</a>, <a href="EventListener.html#PROTOCOL_VERSION-constant" title="ANTLR3::Debug::EventListener::PROTOCOL_VERSION (constant)">PROTOCOL_VERSION</a></p>
+
+
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_child-instance_method" title="#add_child (instance method)">- (Object) <strong>add_child</strong>(root, child) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#become_root-instance_method" title="#become_root (instance method)">- (Object) <strong>become_root</strong>(new_root, old_root) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#consume_node-instance_method" title="#consume_node (instance method)">- (Object) <strong>consume_node</strong>(tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_node-instance_method" title="#create_node (instance method)">- (Object) <strong>create_node</strong>(tree, token = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enter_alternative-instance_method" title="#enter_alternative (instance method)">- (Object) <strong>enter_alternative</strong>(alt_number) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enter_rule-instance_method" title="#enter_rule (instance method)">- (Object) <strong>enter_rule</strong>(grammar_file_name, rule_name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enter_subrule-instance_method" title="#enter_subrule (instance method)">- (Object) <strong>enter_subrule</strong>(decision_number) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#exit_rule-instance_method" title="#exit_rule (instance method)">- (Object) <strong>exit_rule</strong>(grammar_file_name, rule_name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#exit_subrule-instance_method" title="#exit_subrule (instance method)">- (Object) <strong>exit_subrule</strong>(decision_number) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#flat_node-instance_method" title="#flat_node (instance method)">- (Object) <strong>flat_node</strong>(tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (TraceEventListener) <strong>initialize</strong>(adaptor = nil, device = $stderr) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of TraceEventListener.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#location-instance_method" title="#location (instance method)">- (Object) <strong>location</strong>(line, position) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#look-instance_method" title="#look (instance method)">- (Object) <strong>look</strong>(i, tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#record-instance_method" title="#record (instance method)">- (Object) <strong>record</strong>(event_message, *interpolation_arguments) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_token_boundaries-instance_method" title="#set_token_boundaries (instance method)">- (Object) <strong>set_token_boundaries</strong>(tree, token_start_index, token_stop_index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="EventListener.html" title="ANTLR3::Debug::EventListener (module)">EventListener</a></h3>
+  <p class="inherited"><a href="EventListener.html#backtrack-instance_method" title="ANTLR3::Debug::EventListener#backtrack (method)">#backtrack</a>, <a href="EventListener.html#begin_backtrack-instance_method" title="ANTLR3::Debug::EventListener#begin_backtrack (method)">#begin_backtrack</a>, <a href="EventListener.html#begin_resync-instance_method" title="ANTLR3::Debug::EventListener#begin_resync (method)">#begin_resync</a>, <a href="EventListener.html#commence-instance_method" title="ANTLR3::Debug::EventListener#commence (method)">#commence</a>, <a href="EventListener.html#consume_hidden_token-instance_method" title="ANTLR3::Debug::EventListener#consume_hidden_token (method)">#consume_hidden_token</a>, <a href="EventListener.html#consume_token-instance_method" title="ANTLR3::Debug::EventListener#consume_token (method)">#consume_token</a>, <a href="EventListener.html#end_backtrack-instance_method" title="ANTLR3::Debug::EventListener#end_backtrack (method)">#end_backtrack</a>, <a href="EventListener.html#end_resync-instance_method" title="ANTLR3::Debug::EventListener#end_resync (method)">#end_resync</a>, <a href="EventListener.html#enter_decision-instance_method" title="ANTLR3::Debug::EventListener#enter_decision (method)">#enter_decision</a>, <a href="EventListener.html#error_node-instance_method" title="ANTLR3::Debug::EventListener#error_node (method)">#error_node</a>, <a href="EventListener.html#examine_rule_memoization-instance_method" title="ANTLR3::Debug::EventListener#examine_rule_memoization (method)">#examine_rule_memoization</a>, <a href="EventListener.html#exit_decision-instance_method" title="ANTLR3::Debug::EventListener#exit_decision (method)">#exit_decision</a>, <a href="EventListener.html#mark-instance_method" title="ANTLR3::Debug::EventListener#mark (method)">#mark</a>, <a href="EventListener.html#on-instance_method" title="ANTLR3::Debug::EventListener#on (method)">#on</a>, <a href="EventListener.html#recognition_exception-instance_method" title="ANTLR3::Debug::EventListener#recognition_exception (method)">#recognition_exception</a>, <a href="EventListener.html#resync-instance_method" title="ANTLR3::Debug::EventListener#resync (method)">#resync</a>, <a href="EventListener.html#rewind-instance_method" title="ANTLR3::Debug::EventListener#rewind (method)">#rewind</a>, <a href="EventListener.html#semantic_predicate-instance_method" title="ANTLR3::Debug::EventListener#semantic_predicate (method)">#semantic_predicate</a>, <a href="EventListener.html#terminate-instance_method" title="ANTLR3::Debug::EventListener#terminate (method)">#terminate</a></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::Debug::TraceEventListener (class)">TraceEventListener</a></tt>) <strong>initialize</strong>(adaptor = nil, device = $stderr) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of TraceEventListener
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 17</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='adaptor identifier id'>adaptor</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='device identifier id'>device</span> <span class='assign token'>=</span> <span class='$stderr gvar id'>$stderr</span><span class='rparen token'>)</span>
+  <span class='super super kw'>super</span><span class='lparen token'>(</span><span class='rparen token'>)</span>
+  <span class='@device ivar id'>@device</span> <span class='assign token'>=</span> <span class='device identifier id'>device</span>
+  <span class='@adaptor ivar id'>@adaptor</span> <span class='assign token'>=</span> <span class='adaptor identifier id'>adaptor</span> <span class='opasgn op'>||=</span> <span class='ANTLR3 constant id'>ANTLR3</span><span class='colon2 op'>::</span><span class='AST constant id'>AST</span><span class='colon2 op'>::</span><span class='CommonTreeAdaptor constant id'>CommonTreeAdaptor</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="add_child-instance_method">
+  
+    - (<tt>Object</tt>) <strong>add_child</strong>(root, child) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 81</span>
+
+<span class='def def kw'>def</span> <span class='add_child identifier id'>add_child</span><span class='lparen token'>(</span> <span class='root identifier id'>root</span><span class='comma token'>,</span> <span class='child identifier id'>child</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>'(%s): root_id=%s child_id=%s'</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='unique_id identifier id'>unique_id</span><span class='lparen token'>(</span> <span class='root identifier id'>root</span> <span class='rparen token'>)</span><span class='comma token'>,</span>
+          <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='unique_id identifier id'>unique_id</span><span class='lparen token'>(</span> <span class='child identifier id'>child</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="become_root-instance_method">
+  
+    - (<tt>Object</tt>) <strong>become_root</strong>(new_root, old_root) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+76
+77
+78
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 76</span>
+
+<span class='def def kw'>def</span> <span class='become_root identifier id'>become_root</span><span class='lparen token'>(</span> <span class='new_root identifier id'>new_root</span><span class='comma token'>,</span> <span class='old_root identifier id'>old_root</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>'(%s): old_root_id=%s new_root_id=%s'</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='unique_id identifier id'>unique_id</span><span class='lparen token'>(</span> <span class='new_root identifier id'>new_root</span> <span class='rparen token'>)</span><span class='comma token'>,</span>
+          <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='unique_id identifier id'>unique_id</span><span class='lparen token'>(</span> <span class='old_root identifier id'>old_root</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="consume_node-instance_method">
+  
+    - (<tt>Object</tt>) <strong>consume_node</strong>(tree) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+52
+53
+54
+55</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 52</span>
+
+<span class='def def kw'>def</span> <span class='consume_node identifier id'>consume_node</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>'(%s) unique_id=%s text=%p type=%s[%s]'</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='unique_id identifier id'>unique_id</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+         <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='text_of identifier id'>text_of</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_name identifier id'>type_name</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_node-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_node</strong>(tree, token = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+66
+67
+68
+69
+70
+71
+72
+73
+74</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 66</span>
+
+<span class='def def kw'>def</span> <span class='create_node identifier id'>create_node</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='token identifier id'>token</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='unless unless kw'>unless</span> <span class='token identifier id'>token</span>
+    <span class='record identifier id'>record</span> <span class='string val'>'(%s): unique_id=%s text=%p type=%s[%s]'</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='unique_id identifier id'>unique_id</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span>
+          <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='text_of identifier id'>text_of</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_name identifier id'>type_name</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='record identifier id'>record</span> <span class='string val'>'(%s): unique_id=%s type=%s[%s]'</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='unique_id identifier id'>unique_id</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span>
+            <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_name identifier id'>type_name</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="enter_alternative-instance_method">
+  
+    - (<tt>Object</tt>) <strong>enter_alternative</strong>(alt_number) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 28</span>
+
+<span class='def def kw'>def</span> <span class='enter_alternative identifier id'>enter_alternative</span><span class='lparen token'>(</span> <span class='alt_number identifier id'>alt_number</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>&quot;(%s): number=%s&quot;</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='alt_number identifier id'>alt_number</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="enter_rule-instance_method">
+  
+    - (<tt>Object</tt>) <strong>enter_rule</strong>(grammar_file_name, rule_name) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 32</span>
+
+<span class='def def kw'>def</span> <span class='enter_rule identifier id'>enter_rule</span><span class='lparen token'>(</span> <span class='grammar_file_name identifier id'>grammar_file_name</span><span class='comma token'>,</span> <span class='rule_name identifier id'>rule_name</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>&quot;(%s): rule=%s&quot;</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='rule_name identifier id'>rule_name</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="enter_subrule-instance_method">
+  
+    - (<tt>Object</tt>) <strong>enter_subrule</strong>(decision_number) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 40</span>
+
+<span class='def def kw'>def</span> <span class='enter_subrule identifier id'>enter_subrule</span><span class='lparen token'>(</span> <span class='decision_number identifier id'>decision_number</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>&quot;(%s): decision=%s&quot;</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='decision_number identifier id'>decision_number</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="exit_rule-instance_method">
+  
+    - (<tt>Object</tt>) <strong>exit_rule</strong>(grammar_file_name, rule_name) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 36</span>
+
+<span class='def def kw'>def</span> <span class='exit_rule identifier id'>exit_rule</span><span class='lparen token'>(</span> <span class='grammar_file_name identifier id'>grammar_file_name</span><span class='comma token'>,</span> <span class='rule_name identifier id'>rule_name</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>&quot;(%s): rule=%s&quot;</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='rule_name identifier id'>rule_name</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="exit_subrule-instance_method">
+  
+    - (<tt>Object</tt>) <strong>exit_subrule</strong>(decision_number) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 44</span>
+
+<span class='def def kw'>def</span> <span class='exit_subrule identifier id'>exit_subrule</span><span class='lparen token'>(</span> <span class='decision_number identifier id'>decision_number</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>&quot;(%s): decision=%s&quot;</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='decision_number identifier id'>decision_number</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="flat_node-instance_method">
+  
+    - (<tt>Object</tt>) <strong>flat_node</strong>(tree) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 62</span>
+
+<span class='def def kw'>def</span> <span class='flat_node identifier id'>flat_node</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>'(%s): unique_id=%s'</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='unique_id identifier id'>unique_id</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="location-instance_method">
+  
+    - (<tt>Object</tt>) <strong>location</strong>(line, position) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 48</span>
+
+<span class='def def kw'>def</span> <span class='location identifier id'>location</span><span class='lparen token'>(</span> <span class='line identifier id'>line</span><span class='comma token'>,</span> <span class='position identifier id'>position</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>'(%s): line=%s position=%s'</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='line identifier id'>line</span><span class='comma token'>,</span> <span class='position identifier id'>position</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="look-instance_method">
+  
+    - (<tt>Object</tt>) <strong>look</strong>(i, tree) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+57
+58
+59
+60</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 57</span>
+
+<span class='def def kw'>def</span> <span class='look identifier id'>look</span><span class='lparen token'>(</span><span class='i identifier id'>i</span><span class='comma token'>,</span> <span class='tree identifier id'>tree</span><span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>'(%s): k=%s unique_id=%s text=%p type=%s[%s]'</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='i identifier id'>i</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='unique_id identifier id'>unique_id</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span>
+          <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='text_of identifier id'>text_of</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_name identifier id'>type_name</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="record-instance_method">
+  
+    - (<tt>Object</tt>) <strong>record</strong>(event_message, *interpolation_arguments) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 23</span>
+
+<span class='def def kw'>def</span> <span class='record identifier id'>record</span><span class='lparen token'>(</span><span class='event_message identifier id'>event_message</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='interpolation_arguments identifier id'>interpolation_arguments</span><span class='rparen token'>)</span>
+  <span class='event_message identifier id'>event_message</span> <span class='assign token'>=</span> <span class='event_message identifier id'>event_message</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>&quot;\n&quot;</span>
+  <span class='@device ivar id'>@device</span><span class='dot token'>.</span><span class='printf identifier id'>printf</span><span class='lparen token'>(</span><span class='event_message identifier id'>event_message</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='interpolation_arguments identifier id'>interpolation_arguments</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="set_token_boundaries-instance_method">
+  
+    - (<tt>Object</tt>) <strong>set_token_boundaries</strong>(tree, token_start_index, token_stop_index) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/trace-event-listener.rb', line 86</span>
+
+<span class='def def kw'>def</span> <span class='set_token_boundaries identifier id'>set_token_boundaries</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='token_start_index identifier id'>token_start_index</span><span class='comma token'>,</span> <span class='token_stop_index identifier id'>token_stop_index</span> <span class='rparen token'>)</span>
+  <span class='record identifier id'>record</span> <span class='string val'>'(%s): unique_id=%s index_range=%s..%s'</span><span class='comma token'>,</span> <span class='__method__ identifier id'>__method__</span><span class='comma token'>,</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='unique_id identifier id'>unique_id</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span><span class='comma token'>,</span>
+          <span class='token_start_index identifier id'>token_start_index</span><span class='comma token'>,</span> <span class='token_stop_index identifier id'>token_stop_index</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:36 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

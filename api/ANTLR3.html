@@ -1,0 +1,600 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Module: ANTLR3</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (A)</a> &raquo; 
+    
+    
+    <span class="title">ANTLR3</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: ANTLR3 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+      <dt class="r1">Includes:</dt>
+      <dd class="r1"><a href="ANTLR3/Constants.html" title="ANTLR3::Constants (module)">ANTLR3::Constants</a>, <a href="ANTLR3/Error.html" title="ANTLR3::Error (module)">ANTLR3::Error</a></dd>
+      
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/antlr3/dfa.rb<span class="defines">,<br />
+  lib/antlr3.rb,<br /> lib/antlr3/dot.rb,<br /> lib/antlr3/task.rb,<br /> lib/antlr3/util.rb,<br /> lib/antlr3/tree.rb,<br /> lib/antlr3/main.rb,<br /> lib/antlr3/debug.rb,<br /> lib/antlr3/token.rb,<br /> lib/antlr3/error.rb,<br /> lib/antlr3/streams.rb,<br /> lib/antlr3/version.rb,<br /> lib/antlr3/profile.rb,<br /> lib/antlr3/template.rb,<br /> lib/antlr3/constants.rb,<br /> lib/antlr3/tree/debug.rb,<br /> lib/antlr3/recognizers.rb,<br /> lib/antlr3/tree/wizard.rb,<br /> lib/antlr3/modes/filter.rb,<br /> lib/antlr3/debug/socket.rb,<br /> lib/antlr3/tree/visitor.rb,<br /> lib/antlr3/test/grammar.rb,<br /> lib/antlr3/streams/rewrite.rb,<br /> lib/antlr3/test/functional.rb,<br /> lib/antlr3/debug/event-hub.rb,<br /> lib/antlr3/debug/rule-tracer.rb,<br /> lib/antlr3/modes/ast-builder.rb,<br /> lib/antlr3/template/parameter.rb,<br /> lib/antlr3/template/group-file.rb,<br /> lib/antlr3/streams/interactive.rb,<br /> lib/antlr3/template/group-file-lexer.rb,<br /> lib/antlr3/debug/trace-event-listener.rb,<br /> lib/antlr3/template/group-file-parser.rb,<br /> lib/antlr3/debug/record-event-listener.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+!/usr/bin/ruby encoding: utf-8
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <a href="ANTLR3/AST.html" title="ANTLR3::AST (module)">AST</a>, <a href="ANTLR3/ASTBuilder.html" title="ANTLR3::ASTBuilder (module)">ASTBuilder</a>, <a href="ANTLR3/CharacterStream.html" title="ANTLR3::CharacterStream (module)">CharacterStream</a>, <a href="ANTLR3/ClassMacros.html" title="ANTLR3::ClassMacros (module)">ClassMacros</a>, <a href="ANTLR3/Constants.html" title="ANTLR3::Constants (module)">Constants</a>, <a href="ANTLR3/DOT.html" title="ANTLR3::DOT (module)">DOT</a>, <a href="ANTLR3/Debug.html" title="ANTLR3::Debug (module)">Debug</a>, <a href="ANTLR3/Error.html" title="ANTLR3::Error (module)">Error</a>, <a href="ANTLR3/FilterMode.html" title="ANTLR3::FilterMode (module)">FilterMode</a>, <a href="ANTLR3/Main.html" title="ANTLR3::Main (module)">Main</a>, <a href="ANTLR3/Profile.html" title="ANTLR3::Profile (module)">Profile</a>, <a href="ANTLR3/Stream.html" title="ANTLR3::Stream (module)">Stream</a>, <a href="ANTLR3/Template.html" title="ANTLR3::Template (module)">Template</a>, <a href="ANTLR3/Test.html" title="ANTLR3::Test (module)">Test</a>, <a href="ANTLR3/Token.html" title="ANTLR3::Token (module)">Token</a>, <a href="ANTLR3/TokenFactory.html" title="ANTLR3::TokenFactory (module)">TokenFactory</a>, <a href="ANTLR3/TokenSource.html" title="ANTLR3::TokenSource (module)">TokenSource</a>, <a href="ANTLR3/TokenStream.html" title="ANTLR3::TokenStream (module)">TokenStream</a>, <a href="ANTLR3/Util.html" title="ANTLR3::Util (module)">Util</a>
+    
+   
+    
+      <strong class="classes">Classes:</strong> <a href="ANTLR3/Bug.html" title="ANTLR3::Bug (class)">Bug</a>, <a href="ANTLR3/CommonToken.html" title="ANTLR3::CommonToken (class)">CommonToken</a>, <a href="ANTLR3/CommonTokenStream.html" title="ANTLR3::CommonTokenStream (class)">CommonTokenStream</a>, <a href="ANTLR3/CompileTask.html" title="ANTLR3::CompileTask (class)">CompileTask</a>, <a href="ANTLR3/DFA.html" title="ANTLR3::DFA (class)">DFA</a>, <a href="ANTLR3/FileStream.html" title="ANTLR3::FileStream (class)">FileStream</a>, <a href="ANTLR3/InteractiveStringStream.html" title="ANTLR3::InteractiveStringStream (class)">InteractiveStringStream</a>, <a href="ANTLR3/Lexer.html" title="ANTLR3::Lexer (class)">Lexer</a>, <a href="ANTLR3/Parser.html" title="ANTLR3::Parser (class)">Parser</a>, <a href="ANTLR3/Recognizer.html" title="ANTLR3::Recognizer (class)">Recognizer</a>, <a href="ANTLR3/RecognizerSharedState.html" title="ANTLR3::RecognizerSharedState (class)">RecognizerSharedState</a>, <a href="ANTLR3/StringStream.html" title="ANTLR3::StringStream (class)">StringStream</a>, <a href="ANTLR3/TokenRewriteStream.html" title="ANTLR3::TokenRewriteStream (class)">TokenRewriteStream</a>, <a href="ANTLR3/TokenScheme.html" title="ANTLR3::TokenScheme (class)">TokenScheme</a>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="LIBRARY_PATH-constant" class="">LIBRARY_PATH =
+          <div class="docstring">
+  <div class="discussion">
+    <p>
+:stopdoc:
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+        </dt>
+        <dd><pre class="code"><span class='colon3 op'>::</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='colon3 op'>::</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='__FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+</pre></dd>
+      
+        <dt id="ANTLR_MAJOR_VERSION-constant" class="">ANTLR_MAJOR_VERSION =
+          <div class="docstring">
+  <div class="discussion">
+    <p>
+The version of the ANTLR tool used while designing and testing the current
+version of this library
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+        </dt>
+        <dd><pre class="code"><span class='integer val'>3</span>
+</pre></dd>
+      
+        <dt id="ANTLR_MINOR_VERSION-constant" class="">ANTLR_MINOR_VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='integer val'>2</span>
+</pre></dd>
+      
+        <dt id="ANTLR_PATCH_VERSION-constant" class="">ANTLR_PATCH_VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='integer val'>1</span>
+</pre></dd>
+      
+        <dt id="ANTLR_VERSION-constant" class="">ANTLR_VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrack token'>[</span> <span class='ANTLR_MAJOR_VERSION constant id'>ANTLR_MAJOR_VERSION</span><span class='comma token'>,</span> <span class='ANTLR_MINOR_VERSION constant id'>ANTLR_MINOR_VERSION</span><span class='comma token'>,</span> <span class='ANTLR_PATCH_VERSION constant id'>ANTLR_PATCH_VERSION</span> <span class='rbrack token'>]</span><span class='dot token'>.</span><span class='freeze identifier id'>freeze</span>
+</pre></dd>
+      
+        <dt id="ANTLR_VERSION_STRING-constant" class="">ANTLR_VERSION_STRING =
+          
+        </dt>
+        <dd><pre class="code"><span class='ANTLR_VERSION constant id'>ANTLR_VERSION</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span> <span class='string val'>'.'</span> <span class='rparen token'>)</span>
+</pre></dd>
+      
+        <dt id="MAJOR_VERSION-constant" class="">MAJOR_VERSION =
+          <div class="docstring">
+  <div class="discussion">
+    <p>
+The version data for the current state the library itself
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+        </dt>
+        <dd><pre class="code"><span class='integer val'>1</span>
+</pre></dd>
+      
+        <dt id="MINOR_VERSION-constant" class="">MINOR_VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='integer val'>7</span>
+</pre></dd>
+      
+        <dt id="PATCH_VERSION-constant" class="">PATCH_VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='integer val'>0</span>
+</pre></dd>
+      
+        <dt id="VERSION-constant" class="">VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrack token'>[</span> <span class='MAJOR_VERSION constant id'>MAJOR_VERSION</span><span class='comma token'>,</span> <span class='MINOR_VERSION constant id'>MINOR_VERSION</span><span class='comma token'>,</span> <span class='PATCH_VERSION constant id'>PATCH_VERSION</span> <span class='rbrack token'>]</span>
+</pre></dd>
+      
+        <dt id="VERSION_STRING-constant" class="">VERSION_STRING =
+          
+        </dt>
+        <dd><pre class="code"><span class='VERSION constant id'>VERSION</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span> <span class='string val'>'.'</span> <span class='rparen token'>)</span><span class='dot token'>.</span><span class='freeze identifier id'>freeze</span>
+</pre></dd>
+      
+        <dt id="BaseRecognizer-constant" class="">BaseRecognizer =
+          <div class="docstring">
+  <div class="discussion">
+    <p>
+constant alias for compatibility with older versions of the runtime library
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+        </dt>
+        <dd><pre class="code"><span class='Recognizer constant id'>Recognizer</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="ANTLR3/Constants.html" title="ANTLR3::Constants (module)">ANTLR3::Constants</a></h3>
+  <p class="inherited"><a href="ANTLR3/Constants.html#BUILT_IN_TOKEN_NAMES-constant" title="ANTLR3::Constants::BUILT_IN_TOKEN_NAMES (constant)">BUILT_IN_TOKEN_NAMES</a>, <a href="ANTLR3/Constants.html#DEFAULT-constant" title="ANTLR3::Constants::DEFAULT (constant)">DEFAULT</a>, <a href="ANTLR3/Constants.html#DOWN-constant" title="ANTLR3::Constants::DOWN (constant)">DOWN</a>, <a href="ANTLR3/Constants.html#EOF-constant" title="ANTLR3::Constants::EOF (constant)">EOF</a>, <a href="ANTLR3/Constants.html#EOF_TOKEN-constant" title="ANTLR3::Constants::EOF_TOKEN (constant)">EOF_TOKEN</a>, <a href="ANTLR3/Constants.html#EOR_TOKEN_TYPE-constant" title="ANTLR3::Constants::EOR_TOKEN_TYPE (constant)">EOR_TOKEN_TYPE</a>, <a href="ANTLR3/Constants.html#HIDDEN-constant" title="ANTLR3::Constants::HIDDEN (constant)">HIDDEN</a>, <a href="ANTLR3/Constants.html#INVALID_TOKEN-constant" title="ANTLR3::Constants::INVALID_TOKEN (constant)">INVALID_TOKEN</a>, <a href="ANTLR3/Constants.html#INVALID_TOKEN_TYPE-constant" title="ANTLR3::Constants::INVALID_TOKEN_TYPE (constant)">INVALID_TOKEN_TYPE</a>, <a href="ANTLR3/Constants.html#MEMO_RULE_FAILED-constant" title="ANTLR3::Constants::MEMO_RULE_FAILED (constant)">MEMO_RULE_FAILED</a>, <a href="ANTLR3/Constants.html#MEMO_RULE_UNKNOWN-constant" title="ANTLR3::Constants::MEMO_RULE_UNKNOWN (constant)">MEMO_RULE_UNKNOWN</a>, <a href="ANTLR3/Constants.html#MIN_TOKEN_TYPE-constant" title="ANTLR3::Constants::MIN_TOKEN_TYPE (constant)">MIN_TOKEN_TYPE</a>, <a href="ANTLR3/Constants.html#SKIP_TOKEN-constant" title="ANTLR3::Constants::SKIP_TOKEN (constant)">SKIP_TOKEN</a>, <a href="ANTLR3/Constants.html#UP-constant" title="ANTLR3::Constants::UP (constant)">UP</a></p>
+
+
+  
+    <h2>Class Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#antlr_jar-class_method" title="antlr_jar (class method)">+ (Object) <strong>antlr_jar</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#antlr_jar%3D-class_method" title="antlr_jar= (class method)">+ (Object) <strong>antlr_jar</strong>(path) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bug%21-class_method" title="bug! (class method)">+ (Object) <strong>bug!</strong>(message = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+This is used internally in a handful of locations in the runtime library
+where assumptions have been made that a condition will never happen under
+normal usage conditions and thus an ANTLR3::Bug error will be raised if the
+condition does occur.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#library_path-class_method" title="library_path (class method)">+ (Object) <strong>library_path</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the library path for the module.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#project_path-class_method" title="project_path (class method)">+ (Object) <strong>project_path</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the lpath for the module.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="ANTLR3/Error.html" title="ANTLR3::Error (module)">ANTLR3::Error</a></h3>
+  <p class="inherited"><a href="ANTLR3/Error.html#EarlyExit-instance_method" title="ANTLR3::Error#EarlyExit (method)">#EarlyExit</a>, <a href="ANTLR3/Error.html#FailedPredicate-instance_method" title="ANTLR3::Error#FailedPredicate (method)">#FailedPredicate</a>, <a href="ANTLR3/Error.html#MismatchedNotSet-instance_method" title="ANTLR3::Error#MismatchedNotSet (method)">#MismatchedNotSet</a>, <a href="ANTLR3/Error.html#MismatchedRange-instance_method" title="ANTLR3::Error#MismatchedRange (method)">#MismatchedRange</a>, <a href="ANTLR3/Error.html#MismatchedSet-instance_method" title="ANTLR3::Error#MismatchedSet (method)">#MismatchedSet</a>, <a href="ANTLR3/Error.html#MismatchedToken-instance_method" title="ANTLR3::Error#MismatchedToken (method)">#MismatchedToken</a>, <a href="ANTLR3/Error.html#MismatchedTreeNode-instance_method" title="ANTLR3::Error#MismatchedTreeNode (method)">#MismatchedTreeNode</a>, <a href="ANTLR3/Error.html#MissingToken-instance_method" title="ANTLR3::Error#MissingToken (method)">#MissingToken</a>, <a href="ANTLR3/Error.html#NoViableAlternative-instance_method" title="ANTLR3::Error#NoViableAlternative (method)">#NoViableAlternative</a>, <a href="ANTLR3/Error.html#RewriteCardinalityError-instance_method" title="ANTLR3::Error#RewriteCardinalityError (method)">#RewriteCardinalityError</a>, <a href="ANTLR3/Error.html#RewriteEarlyExit-instance_method" title="ANTLR3::Error#RewriteEarlyExit (method)">#RewriteEarlyExit</a>, <a href="ANTLR3/Error.html#RewriteEmptyStream-instance_method" title="ANTLR3::Error#RewriteEmptyStream (method)">#RewriteEmptyStream</a>, <a href="ANTLR3/Error.html#UnwantedToken-instance_method" title="ANTLR3::Error#UnwantedToken (method)">#UnwantedToken</a></p>
+
+  
+  
+  
+  
+  
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="antlr_jar-class_method">
+  
+    + (<tt>Object</tt>) <strong>antlr_jar</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3.rb', line 138</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='antlr_jar identifier id'>antlr_jar</span>
+  <span class='@antlr_jar ivar id'>@antlr_jar</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='@antlr_jar ivar id'>@antlr_jar</span> <span class='rparen token'>)</span>
+  
+  <span class='path identifier id'>path</span> <span class='assign token'>=</span> <span class='project_path identifier id'>project_path</span> <span class='dstring node'>&quot;java/antlr-full-#{ ANTLR_VERSION_STRING }.jar&quot;</span>
+  <span class='if if kw'>if</span> <span class='env_path identifier id'>env_path</span> <span class='assign token'>=</span> <span class='ENV constant id'>ENV</span><span class='lbrack token'>[</span> <span class='string val'>'RUBY_ANTLR_JAR'</span> <span class='rbrack token'>]</span>
+    <span class='if if kw'>if</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='file? fid id'>file?</span><span class='lparen token'>(</span> <span class='env_path identifier id'>env_path</span> <span class='rparen token'>)</span> <span class='then then kw'>then</span> <span class='return return kw'>return</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span> <span class='env_path identifier id'>env_path</span> <span class='rparen token'>)</span> <span class='end end kw'>end</span>
+    
+    <span class='warn identifier id'>warn</span><span class='lparen token'>(</span>
+      <span class='dstring node'>&quot;#{ __FILE__ }:#{ __LINE__ }: &quot;</span> <span class='lshft op'>&lt;&lt;</span>
+      <span class='string val'>&quot;ignoring environmental variable RUBY_ANTLR_JAR (=%p) &quot;</span> <span class='mod op'>%</span> <span class='env_path identifier id'>env_path</span> <span class='lshft op'>&lt;&lt;</span>
+      <span class='string val'>&quot;as it is not the path to an existing file\n&quot;</span> <span class='lshft op'>&lt;&lt;</span>
+      <span class='string val'>&quot;  -&gt; trying default jar path %p instead&quot;</span> <span class='mod op'>%</span> <span class='path identifier id'>path</span>
+    <span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exists? fid id'>exists?</span><span class='lparen token'>(</span> <span class='path identifier id'>path</span> <span class='rparen token'>)</span> <span class='question op'>?</span> <span class='path identifier id'>path</span> <span class='colon op'>:</span> <span class='nil nil kw'>nil</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="antlr_jar=-class_method">
+  
+    + (<tt>Object</tt>) <strong>antlr_jar=</strong>(path) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3.rb', line 134</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='antlr_jar identifier id'>antlr_jar</span><span class='assign token'>=</span><span class='lparen token'>(</span> <span class='path identifier id'>path</span> <span class='rparen token'>)</span>
+  <span class='@antlr_jar ivar id'>@antlr_jar</span> <span class='assign token'>=</span> <span class='path identifier id'>path</span> <span class='integer val'>? </span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span> <span class='path identifier id'>path</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span> <span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='path identifier id'>path</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="bug!-class_method">
+  
+    + (<tt>Object</tt>) <strong>bug!</strong>(message = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+This is used internally in a handful of locations in the runtime library
+where assumptions have been made that a condition will never happen under
+normal usage conditions and thus an ANTLR3::Bug error will be raised if the
+condition does occur.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+126
+127
+128
+129
+130</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3.rb', line 126</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='bug! fid id'>bug!</span><span class='lparen token'>(</span><span class='message identifier id'>message</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='bug identifier id'>bug</span> <span class='assign token'>=</span> <span class='Bug constant id'>Bug</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='message identifier id'>message</span><span class='rparen token'>)</span>
+  <span class='bug identifier id'>bug</span><span class='dot token'>.</span><span class='set_backtrace identifier id'>set_backtrace</span><span class='lparen token'>(</span><span class='caller identifier id'>caller</span><span class='rparen token'>)</span>
+  <span class='raise identifier id'>raise</span><span class='lparen token'>(</span><span class='bug identifier id'>bug</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="library_path-class_method">
+  
+    + (<tt>Object</tt>) <strong>library_path</strong>(*args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the library path for the module. If any arguments are given, they
+will be joined to the end of the libray path using <tt>File.join</tt>.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+110
+111
+112</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3.rb', line 110</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='library_path identifier id'>library_path</span><span class='lparen token'>(</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='colon3 op'>::</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='LIBRARY_PATH constant id'>LIBRARY_PATH</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="project_path-class_method">
+  
+    + (<tt>Object</tt>) <strong>project_path</strong>(*args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the lpath for the module. If any arguments are given, they will be
+joined to the end of the path using <tt>File.join</tt>.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+118
+119
+120</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3.rb', line 118</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='project_path identifier id'>project_path</span><span class='lparen token'>(</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span>
+  <span class='library_path identifier id'>library_path</span><span class='lparen token'>(</span><span class='string val'>'..'</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:42 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

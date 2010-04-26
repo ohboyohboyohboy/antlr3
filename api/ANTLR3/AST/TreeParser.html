@@ -1,0 +1,742 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::AST::TreeParser</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (T)</a> &raquo; 
+    <span class='title'><a href="../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../AST.html" title="ANTLR3::AST (module)">AST</a></span>
+     &raquo; 
+    <span class="title">TreeParser</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::AST::TreeParser 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName"><a href="../Recognizer.html" title="ANTLR3::Recognizer (class)">ANTLR3::Recognizer</a></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><a href="../Recognizer.html" title="ANTLR3::Recognizer (class)">ANTLR3::Recognizer</a></li>
+          
+            <li class="next">ANTLR3::AST::TreeParser</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/antlr3/tree.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="../Constants.html" title="ANTLR3::Constants (module)">ANTLR3::Constants</a></h3>
+  <p class="inherited"><a href="../Constants.html#BUILT_IN_TOKEN_NAMES-constant" title="ANTLR3::Constants::BUILT_IN_TOKEN_NAMES (constant)">BUILT_IN_TOKEN_NAMES</a>, <a href="../Constants.html#DEFAULT-constant" title="ANTLR3::Constants::DEFAULT (constant)">DEFAULT</a>, <a href="../Constants.html#DOWN-constant" title="ANTLR3::Constants::DOWN (constant)">DOWN</a>, <a href="../Constants.html#EOF-constant" title="ANTLR3::Constants::EOF (constant)">EOF</a>, <a href="../Constants.html#EOF_TOKEN-constant" title="ANTLR3::Constants::EOF_TOKEN (constant)">EOF_TOKEN</a>, <a href="../Constants.html#EOR_TOKEN_TYPE-constant" title="ANTLR3::Constants::EOR_TOKEN_TYPE (constant)">EOR_TOKEN_TYPE</a>, <a href="../Constants.html#HIDDEN-constant" title="ANTLR3::Constants::HIDDEN (constant)">HIDDEN</a>, <a href="../Constants.html#INVALID_TOKEN-constant" title="ANTLR3::Constants::INVALID_TOKEN (constant)">INVALID_TOKEN</a>, <a href="../Constants.html#INVALID_TOKEN_TYPE-constant" title="ANTLR3::Constants::INVALID_TOKEN_TYPE (constant)">INVALID_TOKEN_TYPE</a>, <a href="../Constants.html#MEMO_RULE_FAILED-constant" title="ANTLR3::Constants::MEMO_RULE_FAILED (constant)">MEMO_RULE_FAILED</a>, <a href="../Constants.html#MEMO_RULE_UNKNOWN-constant" title="ANTLR3::Constants::MEMO_RULE_UNKNOWN (constant)">MEMO_RULE_UNKNOWN</a>, <a href="../Constants.html#MIN_TOKEN_TYPE-constant" title="ANTLR3::Constants::MIN_TOKEN_TYPE (constant)">MIN_TOKEN_TYPE</a>, <a href="../Constants.html#SKIP_TOKEN-constant" title="ANTLR3::Constants::SKIP_TOKEN (constant)">SKIP_TOKEN</a>, <a href="../Constants.html#UP-constant" title="ANTLR3::Constants::UP (constant)">UP</a></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <h2>Class Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#main-class_method" title="main (class method)">+ (Object) <strong>main</strong>(argv = ARGV, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#error_header-instance_method" title="#error_header (instance method)">- (Object) <strong>error_header</strong>(e) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#error_message-instance_method" title="#error_message (instance method)">- (Object) <strong>error_message</strong>(e) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (TreeParser) <strong>initialize</strong>(input, options = {}) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of TreeParser.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_any-instance_method" title="#match_any (instance method)">- (Object) <strong>match_any</strong>(ignore = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mismatch-instance_method" title="#mismatch (instance method)">- (Object) <strong>mismatch</strong>(input, type, follow = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#missing_symbol-instance_method" title="#missing_symbol (instance method)">- (Object) <strong>missing_symbol</strong>(error, expected_token_type, follow) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trace_in-instance_method" title="#trace_in (instance method)">- (Object) <strong>trace_in</strong>(rule_name, rule_index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trace_out-instance_method" title="#trace_out (instance method)">- (Object) <strong>trace_out</strong>(rule_name, rule_index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <a href="../Recognizer.html" title="ANTLR3::Recognizer (class)">ANTLR3::Recognizer</a></h3>
+  <p class="inherited"><a href="../Recognizer.html#already_parsed_rule%3F-instance_method" title="ANTLR3::Recognizer#already_parsed_rule? (method)">#already_parsed_rule?</a>, <a href="../Recognizer.html#antlr_version-instance_method" title="ANTLR3::Recognizer#antlr_version (method)">#antlr_version</a>, <a href="../Recognizer.html#antlr_version_string-instance_method" title="ANTLR3::Recognizer#antlr_version_string (method)">#antlr_version_string</a>, <a href="../Recognizer.html#backtrack-instance_method" title="ANTLR3::Recognizer#backtrack (method)">#backtrack</a>, <a href="../Recognizer.html#backtracking%3F-instance_method" title="ANTLR3::Recognizer#backtracking? (method)">#backtracking?</a>, <a href="../Recognizer.html#backtracking_level-instance_method" title="ANTLR3::Recognizer#backtracking_level (method)">#backtracking_level</a>, <a href="../Recognizer.html#backtracking_level%3D-instance_method" title="ANTLR3::Recognizer#backtracking_level= (method)">#backtracking_level=</a>, <a href="../Recognizer.html#begin_resync-instance_method" title="ANTLR3::Recognizer#begin_resync (method)">#begin_resync</a>, <a href="../Recognizer.html#combine_follows-instance_method" title="ANTLR3::Recognizer#combine_follows (method)">#combine_follows</a>, <a href="../Recognizer.html#compute_context_sensitive_rule_follow-instance_method" title="ANTLR3::Recognizer#compute_context_sensitive_rule_follow (method)">#compute_context_sensitive_rule_follow</a>, <a href="../Recognizer.html#compute_error_recovery_set-instance_method" title="ANTLR3::Recognizer#compute_error_recovery_set (method)">#compute_error_recovery_set</a>, <a href="../Recognizer.html#consume_until-instance_method" title="ANTLR3::Recognizer#consume_until (method)">#consume_until</a>, <a href="../Recognizer.html#current_symbol-instance_method" title="ANTLR3::Recognizer#current_symbol (method)">#current_symbol</a>, <a href="../Recognizer.html#debug%3F-class_method" title="ANTLR3::Recognizer.debug? (method)">debug?</a>, <a href="../Recognizer.html#define_return_scope-class_method" title="ANTLR3::Recognizer.define_return_scope (method)">define_return_scope</a>, <a href="../Recognizer.html#display_recognition_error-instance_method" title="ANTLR3::Recognizer#display_recognition_error (method)">#display_recognition_error</a>, <a href="../Recognizer.html#each_delegate-instance_method" title="ANTLR3::Recognizer#each_delegate (method)">#each_delegate</a>, <a href="../Recognizer.html#emit_error_message-instance_method" title="ANTLR3::Recognizer#emit_error_message (method)">#emit_error_message</a>, <a href="../Recognizer.html#end_resync-instance_method" title="ANTLR3::Recognizer#end_resync (method)">#end_resync</a>, <a href="../Recognizer.html#generated_using-class_method" title="ANTLR3::Recognizer.generated_using (method)">generated_using</a>, <a href="../Recognizer.html#generic_return_scope-class_method" title="ANTLR3::Recognizer.generic_return_scope (method)">generic_return_scope</a>, <a href="../Recognizer.html#grammar_file_name-instance_method" title="ANTLR3::Recognizer#grammar_file_name (method)">#grammar_file_name</a>, <a href="../Recognizer.html#imported_grammars-class_method" title="ANTLR3::Recognizer.imported_grammars (method)">imported_grammars</a>, <a href="../Recognizer.html#imports-class_method" title="ANTLR3::Recognizer.imports (method)">imports</a>, <a href="../Recognizer.html#initialize_dfas-instance_method" title="ANTLR3::Recognizer#initialize_dfas (method)">#initialize_dfas</a>, <a href="../Recognizer.html#master-class_method" title="ANTLR3::Recognizer.master (method)">master</a>, <a href="../Recognizer.html#master_grammars-class_method" title="ANTLR3::Recognizer.master_grammars (method)">master_grammars</a>, <a href="../Recognizer.html#masters-class_method" title="ANTLR3::Recognizer.masters (method)">masters</a>, <a href="../Recognizer.html#match-instance_method" title="ANTLR3::Recognizer#match (method)">#match</a>, <a href="../Recognizer.html#memoize-instance_method" title="ANTLR3::Recognizer#memoize (method)">#memoize</a>, <a href="../Recognizer.html#mismatch_is_missing_token%3F-instance_method" title="ANTLR3::Recognizer#mismatch_is_missing_token? (method)">#mismatch_is_missing_token?</a>, <a href="../Recognizer.html#mismatch_is_unwanted_token%3F-instance_method" title="ANTLR3::Recognizer#mismatch_is_unwanted_token? (method)">#mismatch_is_unwanted_token?</a>, <a href="../Recognizer.html#number_of_syntax_errors-instance_method" title="ANTLR3::Recognizer#number_of_syntax_errors (method)">#number_of_syntax_errors</a>, <a href="../Recognizer.html#recover-instance_method" title="ANTLR3::Recognizer#recover (method)">#recover</a>, <a href="../Recognizer.html#recover_from_mismatched_element-instance_method" title="ANTLR3::Recognizer#recover_from_mismatched_element (method)">#recover_from_mismatched_element</a>, <a href="../Recognizer.html#recover_from_mismatched_set-instance_method" title="ANTLR3::Recognizer#recover_from_mismatched_set (method)">#recover_from_mismatched_set</a>, <a href="../Recognizer.html#recover_from_mismatched_token-instance_method" title="ANTLR3::Recognizer#recover_from_mismatched_token (method)">#recover_from_mismatched_token</a>, <a href="../Recognizer.html#report_error-instance_method" title="ANTLR3::Recognizer#report_error (method)">#report_error</a>, <a href="../Recognizer.html#reset-instance_method" title="ANTLR3::Recognizer#reset (method)">#reset</a>, <a href="../Recognizer.html#resync-instance_method" title="ANTLR3::Recognizer#resync (method)">#resync</a>, <a href="../Recognizer.html#return_scope_members-class_method" title="ANTLR3::Recognizer.return_scope_members (method)">return_scope_members</a>, <a href="../Recognizer.html#rules-class_method" title="ANTLR3::Recognizer.rules (method)">rules</a>, <a href="../Recognizer.html#syntactic_predicate%3F-instance_method" title="ANTLR3::Recognizer#syntactic_predicate? (method)">#syntactic_predicate?</a>, <a href="../Recognizer.html#syntax_errors%3F-instance_method" title="ANTLR3::Recognizer#syntax_errors? (method)">#syntax_errors?</a>, <a href="../Recognizer.html#token_class-class_method" title="ANTLR3::Recognizer.token_class (method)">token_class</a>, <a href="../Recognizer.html#token_error_display-instance_method" title="ANTLR3::Recognizer#token_error_display (method)">#token_error_display</a></p>
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="../ClassMacros.html" title="ANTLR3::ClassMacros (module)">ANTLR3::ClassMacros</a></h3>
+  <p class="inherited"><a href="../ClassMacros.html#abstract-instance_method" title="ANTLR3::ClassMacros#abstract (method)">#abstract</a>, <a href="../ClassMacros.html#alias_accessor-instance_method" title="ANTLR3::ClassMacros#alias_accessor (method)">#alias_accessor</a>, <a href="../ClassMacros.html#shared_attribute-instance_method" title="ANTLR3::ClassMacros#shared_attribute (method)">#shared_attribute</a></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="../Error.html" title="ANTLR3::Error (module)">ANTLR3::Error</a></h3>
+  <p class="inherited"><a href="../Error.html#EarlyExit-instance_method" title="ANTLR3::Error#EarlyExit (method)">#EarlyExit</a>, <a href="../Error.html#FailedPredicate-instance_method" title="ANTLR3::Error#FailedPredicate (method)">#FailedPredicate</a>, <a href="../Error.html#MismatchedNotSet-instance_method" title="ANTLR3::Error#MismatchedNotSet (method)">#MismatchedNotSet</a>, <a href="../Error.html#MismatchedRange-instance_method" title="ANTLR3::Error#MismatchedRange (method)">#MismatchedRange</a>, <a href="../Error.html#MismatchedSet-instance_method" title="ANTLR3::Error#MismatchedSet (method)">#MismatchedSet</a>, <a href="../Error.html#MismatchedToken-instance_method" title="ANTLR3::Error#MismatchedToken (method)">#MismatchedToken</a>, <a href="../Error.html#MismatchedTreeNode-instance_method" title="ANTLR3::Error#MismatchedTreeNode (method)">#MismatchedTreeNode</a>, <a href="../Error.html#MissingToken-instance_method" title="ANTLR3::Error#MissingToken (method)">#MissingToken</a>, <a href="../Error.html#NoViableAlternative-instance_method" title="ANTLR3::Error#NoViableAlternative (method)">#NoViableAlternative</a>, <a href="../Error.html#RewriteCardinalityError-instance_method" title="ANTLR3::Error#RewriteCardinalityError (method)">#RewriteCardinalityError</a>, <a href="../Error.html#RewriteEarlyExit-instance_method" title="ANTLR3::Error#RewriteEarlyExit (method)">#RewriteEarlyExit</a>, <a href="../Error.html#RewriteEmptyStream-instance_method" title="ANTLR3::Error#RewriteEmptyStream (method)">#RewriteEmptyStream</a>, <a href="../Error.html#UnwantedToken-instance_method" title="ANTLR3::Error#UnwantedToken (method)">#UnwantedToken</a></p>
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="../TokenFactory.html" title="ANTLR3::TokenFactory (module)">ANTLR3::TokenFactory</a></h3>
+  <p class="inherited"><a href="../TokenFactory.html#create_token-instance_method" title="ANTLR3::TokenFactory#create_token (method)">#create_token</a></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::AST::TreeParser (class)">TreeParser</a></tt>) <strong>initialize</strong>(input, options = {}) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of TreeParser
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+111
+112
+113
+114</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 111</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span> <span class='input identifier id'>input</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span> <span class='rparen token'>)</span>
+  <span class='super super kw'>super</span><span class='lparen token'>(</span> <span class='options identifier id'>options</span> <span class='rparen token'>)</span>
+  <span class='@input ivar id'>@input</span> <span class='assign token'>=</span> <span class='input identifier id'>input</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="main-class_method">
+  
+    + (<tt>Object</tt>) <strong>main</strong>(argv = ARGV, options = {}) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+105
+106
+107
+108
+109</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 105</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='main identifier id'>main</span><span class='lparen token'>(</span> <span class='argv identifier id'>argv</span> <span class='assign token'>=</span> <span class='ARGV constant id'>ARGV</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span> <span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='colon3 op'>::</span><span class='Hash constant id'>Hash</span> <span class='eqq op'>===</span> <span class='argv identifier id'>argv</span> <span class='then then kw'>then</span> <span class='argv identifier id'>argv</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='ARGV constant id'>ARGV</span><span class='comma token'>,</span> <span class='argv identifier id'>argv</span> <span class='end end kw'>end</span>
+  <span class='main identifier id'>main</span> <span class='assign token'>=</span> <span class='ANTLR3 constant id'>ANTLR3</span><span class='colon2 op'>::</span><span class='Main constant id'>Main</span><span class='colon2 op'>::</span><span class='WalkerMain constant id'>WalkerMain</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span> <span class='self self kw'>self</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='rparen token'>)</span>
+  <span class='block_given? fid id'>block_given?</span> <span class='integer val'>? </span><span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='main identifier id'>main</span> <span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='main identifier id'>main</span><span class='dot token'>.</span><span class='execute identifier id'>execute</span><span class='lparen token'>(</span> <span class='argv identifier id'>argv</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="error_header-instance_method">
+  
+    - (<tt>Object</tt>) <strong>error_header</strong>(e) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 159</span>
+
+<span class='def def kw'>def</span> <span class='error_header identifier id'>error_header</span><span class='lparen token'>(</span> <span class='e identifier id'>e</span> <span class='rparen token'>)</span>
+  <span class='string val'>&quot;\#{ grammar_file_name }: node from \#{\ne.approximate_line_info? ? 'after ' : ''\n} line \#{ e.line }:\#{ e.column }\n&quot;</span><span class='dot token'>.</span><span class='strip! fid id'>strip!</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="error_message-instance_method">
+  
+    - (<tt>Object</tt>) <strong>error_message</strong>(e) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+168
+169
+170
+171
+172
+173
+174
+175
+176</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 168</span>
+
+<span class='def def kw'>def</span> <span class='error_message identifier id'>error_message</span><span class='lparen token'>(</span> <span class='e identifier id'>e</span> <span class='rparen token'>)</span>
+  <span class='adaptor identifier id'>adaptor</span> <span class='assign token'>=</span> <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='input identifier id'>input</span><span class='dot token'>.</span><span class='adaptor identifier id'>adaptor</span>
+  <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='token identifier id'>token</span> <span class='assign token'>=</span> <span class='adaptor identifier id'>adaptor</span><span class='dot token'>.</span><span class='token identifier id'>token</span><span class='lparen token'>(</span> <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='node identifier id'>node</span> <span class='rparen token'>)</span>
+  <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='token identifier id'>token</span> <span class='opasgn op'>||=</span> <span class='create_token identifier id'>create_token</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span> <span class='tok identifier id'>tok</span> <span class='bitor op'>|</span>
+    <span class='tok identifier id'>tok</span><span class='dot token'>.</span><span class='type identifier id'>type</span> <span class='assign token'>=</span> <span class='adaptor identifier id'>adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span><span class='lparen token'>(</span> <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='node identifier id'>node</span> <span class='rparen token'>)</span>
+    <span class='tok identifier id'>tok</span><span class='dot token'>.</span><span class='text identifier id'>text</span> <span class='assign token'>=</span> <span class='adaptor identifier id'>adaptor</span><span class='dot token'>.</span><span class='text_of identifier id'>text_of</span><span class='lparen token'>(</span> <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='node identifier id'>node</span> <span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='return return kw'>return</span> <span class='super super kw'>super</span><span class='lparen token'>(</span> <span class='e identifier id'>e</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_any-instance_method">
+  
+    - (<tt>Object</tt>) <strong>match_any</strong>(ignore = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 133</span>
+
+<span class='def def kw'>def</span> <span class='match_any identifier id'>match_any</span><span class='lparen token'>(</span> <span class='ignore identifier id'>ignore</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='@state ivar id'>@state</span><span class='dot token'>.</span><span class='error_recovery identifier id'>error_recovery</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+  
+  <span class='look identifier id'>look</span><span class='comma token'>,</span> <span class='adaptor identifier id'>adaptor</span> <span class='assign token'>=</span> <span class='@input ivar id'>@input</span><span class='dot token'>.</span><span class='look identifier id'>look</span><span class='comma token'>,</span> <span class='@input ivar id'>@input</span><span class='dot token'>.</span><span class='tree_adaptor identifier id'>tree_adaptor</span>
+  <span class='if if kw'>if</span> <span class='adaptor identifier id'>adaptor</span><span class='dot token'>.</span><span class='child_count identifier id'>child_count</span><span class='lparen token'>(</span> <span class='look identifier id'>look</span> <span class='rparen token'>)</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
+    <span class='@input ivar id'>@input</span><span class='dot token'>.</span><span class='consume identifier id'>consume</span>
+    <span class='return return kw'>return</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='level identifier id'>level</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='while while kw'>while</span> <span class='type identifier id'>type</span> <span class='assign token'>=</span> <span class='@input ivar id'>@input</span><span class='dot token'>.</span><span class='peek identifier id'>peek</span> <span class='and and kw'>and</span> <span class='type identifier id'>type</span> <span class='neq op'>!=</span> <span class='EOF constant id'>EOF</span>
+    <span class='comment val'>#token_type == EOF or ( token_type == UP &amp;&amp; level == 0 )</span>
+    <span class='@input ivar id'>@input</span><span class='dot token'>.</span><span class='consume identifier id'>consume</span>
+    <span class='case case kw'>case</span> <span class='type identifier id'>type</span>
+    <span class='when when kw'>when</span> <span class='DOWN constant id'>DOWN</span> <span class='then then kw'>then</span> <span class='level identifier id'>level</span> <span class='opasgn op'>+=</span> <span class='integer val'>1</span>
+    <span class='when when kw'>when</span> <span class='UP constant id'>UP</span>
+      <span class='level identifier id'>level</span> <span class='opasgn op'>-=</span> <span class='integer val'>1</span>
+      <span class='level identifier id'>level</span><span class='dot token'>.</span><span class='zero? fid id'>zero?</span> <span class='and and kw'>and</span> <span class='break break kw'>break</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="mismatch-instance_method">
+  
+    - (<tt>Object</tt>) <strong>mismatch</strong>(input, type, follow = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="../Error/MismatchedTreeNode.html" title="ANTLR3::Error::MismatchedTreeNode (class)">MismatchedTreeNode</a></tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+155
+156
+157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 155</span>
+
+<span class='def def kw'>def</span> <span class='mismatch identifier id'>mismatch</span><span class='lparen token'>(</span> <span class='input identifier id'>input</span><span class='comma token'>,</span> <span class='type identifier id'>type</span><span class='comma token'>,</span> <span class='follow identifier id'>follow</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='raise identifier id'>raise</span> <span class='MismatchedTreeNode constant id'>MismatchedTreeNode</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span> <span class='type identifier id'>type</span><span class='comma token'>,</span> <span class='input identifier id'>input</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="missing_symbol-instance_method">
+  
+    - (<tt>Object</tt>) <strong>missing_symbol</strong>(error, expected_token_type, follow) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+123
+124
+125
+126
+127
+128
+129
+130
+131</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 123</span>
+
+<span class='def def kw'>def</span> <span class='missing_symbol identifier id'>missing_symbol</span><span class='lparen token'>(</span> <span class='error identifier id'>error</span><span class='comma token'>,</span> <span class='expected_token_type identifier id'>expected_token_type</span><span class='comma token'>,</span> <span class='follow identifier id'>follow</span> <span class='rparen token'>)</span>
+  <span class='name identifier id'>name</span> <span class='assign token'>=</span> <span class='token_name identifier id'>token_name</span><span class='lparen token'>(</span> <span class='expected_token_type identifier id'>expected_token_type</span> <span class='rparen token'>)</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+  <span class='text identifier id'>text</span> <span class='assign token'>=</span> <span class='string val'>&quot;&lt;missing &quot;</span> <span class='lshft op'>&lt;&lt;</span> <span class='name identifier id'>name</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>'&gt;'</span>
+  <span class='tk identifier id'>tk</span> <span class='assign token'>=</span> <span class='create_token identifier id'>create_token</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='t identifier id'>t</span><span class='bitor op'>|</span>
+    <span class='t identifier id'>t</span><span class='dot token'>.</span><span class='text identifier id'>text</span> <span class='assign token'>=</span> <span class='text identifier id'>text</span>
+    <span class='t identifier id'>t</span><span class='dot token'>.</span><span class='type identifier id'>type</span> <span class='assign token'>=</span> <span class='expected_token_type identifier id'>expected_token_type</span>
+  <span class='end end kw'>end</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='CommonTree constant id'>CommonTree</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span> <span class='tk identifier id'>tk</span> <span class='rparen token'>)</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="trace_in-instance_method">
+  
+    - (<tt>Object</tt>) <strong>trace_in</strong>(rule_name, rule_index) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+178
+179
+180</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 178</span>
+
+<span class='def def kw'>def</span> <span class='trace_in identifier id'>trace_in</span><span class='lparen token'>(</span> <span class='rule_name identifier id'>rule_name</span><span class='comma token'>,</span> <span class='rule_index identifier id'>rule_index</span> <span class='rparen token'>)</span>
+  <span class='super super kw'>super</span><span class='lparen token'>(</span> <span class='rule_name identifier id'>rule_name</span><span class='comma token'>,</span> <span class='rule_index identifier id'>rule_index</span><span class='comma token'>,</span> <span class='@input ivar id'>@input</span><span class='dot token'>.</span><span class='look identifier id'>look</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="trace_out-instance_method">
+  
+    - (<tt>Object</tt>) <strong>trace_out</strong>(rule_name, rule_index) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+182
+183
+184</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 182</span>
+
+<span class='def def kw'>def</span> <span class='trace_out identifier id'>trace_out</span><span class='lparen token'>(</span> <span class='rule_name identifier id'>rule_name</span><span class='comma token'>,</span> <span class='rule_index identifier id'>rule_index</span> <span class='rparen token'>)</span>
+  <span class='super super kw'>super</span><span class='lparen token'>(</span> <span class='rule_name identifier id'>rule_name</span><span class='comma token'>,</span> <span class='rule_index identifier id'>rule_index</span><span class='comma token'>,</span> <span class='@input ivar id'>@input</span><span class='dot token'>.</span><span class='look identifier id'>look</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:28 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,2188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Module: ANTLR3::Debug::EventListener</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (E)</a> &raquo; 
+    <span class='title'><a href="../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../Debug.html" title="ANTLR3::Debug (module)">Debug</a></span>
+     &raquo; 
+    <span class="title">EventListener</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: ANTLR3::Debug::EventListener 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r1">Included in:</dt>
+    <dd class="r1"><a href="EventHub.html" title="ANTLR3::Debug::EventHub (class)">EventHub</a>, <a href="EventSocketProxy.html" title="ANTLR3::Debug::EventSocketProxy (class)">EventSocketProxy</a>, <a href="RuleTracer.html" title="ANTLR3::Debug::RuleTracer (class)">RuleTracer</a>, <a href="TraceEventListener.html" title="ANTLR3::Debug::TraceEventListener (class)">TraceEventListener</a>, <a href="../Profile/Profiler.html" title="ANTLR3::Profile::Profiler (class)">ANTLR3::Profile::Profiler</a></dd>
+    
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/antlr3/debug.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="PROTOCOL_VERSION-constant" class="">PROTOCOL_VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='string val'>'2'</span>
+</pre></dd>
+      
+        <dt id="EVENTS-constant" class="">EVENTS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrack token'>[</span> 
+  <span class='symbol val'>:add_child</span><span class='comma token'>,</span> <span class='symbol val'>:backtrack</span><span class='comma token'>,</span> <span class='symbol val'>:become_root</span><span class='comma token'>,</span> <span class='symbol val'>:begin_backtrack</span><span class='comma token'>,</span>
+  <span class='symbol val'>:begin_resync</span><span class='comma token'>,</span> <span class='symbol val'>:commence</span><span class='comma token'>,</span> <span class='symbol val'>:consume_hidden_token</span><span class='comma token'>,</span>
+  <span class='symbol val'>:consume_node</span><span class='comma token'>,</span> <span class='symbol val'>:consume_token</span><span class='comma token'>,</span> <span class='symbol val'>:create_node</span><span class='comma token'>,</span> <span class='symbol val'>:end_backtrack</span><span class='comma token'>,</span>
+  <span class='symbol val'>:end_resync</span><span class='comma token'>,</span> <span class='symbol val'>:enter_alternative</span><span class='comma token'>,</span> <span class='symbol val'>:enter_decision</span><span class='comma token'>,</span> <span class='symbol val'>:enter_rule</span><span class='comma token'>,</span>
+  <span class='symbol val'>:enter_sub_rule</span><span class='comma token'>,</span> <span class='symbol val'>:error_node</span><span class='comma token'>,</span> <span class='symbol val'>:exit_decision</span><span class='comma token'>,</span> <span class='symbol val'>:exit_rule</span><span class='comma token'>,</span>
+  <span class='symbol val'>:exit_sub_rule</span><span class='comma token'>,</span> <span class='symbol val'>:flat_node</span><span class='comma token'>,</span> <span class='symbol val'>:location</span><span class='comma token'>,</span> <span class='symbol val'>:look</span><span class='comma token'>,</span> <span class='symbol val'>:mark</span><span class='comma token'>,</span>
+  <span class='symbol val'>:recognition_exception</span><span class='comma token'>,</span> <span class='symbol val'>:resync</span><span class='comma token'>,</span> <span class='symbol val'>:rewind</span><span class='comma token'>,</span>
+  <span class='symbol val'>:semantic_predicate</span><span class='comma token'>,</span> <span class='symbol val'>:set_token_boundaries</span><span class='comma token'>,</span> <span class='symbol val'>:terminate</span>
+<span class='rbrack token'>]</span><span class='dot token'>.</span><span class='freeze identifier id'>freeze</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_child-instance_method" title="#add_child (instance method)">- (Object) <strong>add_child</strong>(root, child) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Make childID a child of rootID.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#backtrack-instance_method" title="#backtrack (instance method)">- (Object) <strong>backtrack</strong>(level) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#become_root-instance_method" title="#become_root (instance method)">- (Object) <strong>become_root</strong>(new_root, old_root) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Make a node the new root of an existing root.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#begin_backtrack-instance_method" title="#begin_backtrack (instance method)">- (Object) <strong>begin_backtrack</strong>(level) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#begin_resync-instance_method" title="#begin_resync (instance method)">- (Object) <strong>begin_resync</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Indicates the recognizer is about to consume tokens to resynchronize the
+parser.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#commence-instance_method" title="#commence (instance method)">- (Object) <strong>commence</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Announce that parsing has begun.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#consume_hidden_token-instance_method" title="#consume_hidden_token (instance method)">- (Object) <strong>consume_hidden_token</strong>(tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+An off-channel input token was consumed.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#consume_node-instance_method" title="#consume_node (instance method)">- (Object) <strong>consume_node</strong>(tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Input for a tree parser is an AST, but we know nothing for sure about a
+node except its type and text (obtained from the adaptor).
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#consume_token-instance_method" title="#consume_token (instance method)">- (Object) <strong>consume_token</strong>(tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+An input token was consumed; matched by any kind of element.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_node-instance_method" title="#create_node (instance method)">- (Object) <strong>create_node</strong>(node, token = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Announce a new node built from token elements such as type etc&#8230;
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#end_backtrack-instance_method" title="#end_backtrack (instance method)">- (Object) <strong>end_backtrack</strong>(level, successful) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#end_resync-instance_method" title="#end_resync (instance method)">- (Object) <strong>end_resync</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Indicates that the recognizer has finished consuming tokens in order to
+resychronize.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enter_alternative-instance_method" title="#enter_alternative (instance method)">- (Object) <strong>enter_alternative</strong>(alt) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Because rules can have lots of alternatives, it is very useful to know
+which alt you are entering.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enter_decision-instance_method" title="#enter_decision (instance method)">- (Object) <strong>enter_decision</strong>(decision_number) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Every decision, fixed k or arbitrary, has an enter/exit event so that a GUI
+can easily track what look/consume events are associated with prediction.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enter_rule-instance_method" title="#enter_rule (instance method)">- (Object) <strong>enter_rule</strong>(grammar_file, rule_name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+The parser has just entered a rule.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enter_subrule-instance_method" title="#enter_subrule (instance method)">- (Object) <strong>enter_subrule</strong>(decision_number) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Track entry into any (&#8230;) subrule other EBNF construct.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#error_node-instance_method" title="#error_node (instance method)">- (Object) <strong>error_node</strong>(tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Upon syntax error, recognizers bracket the error with an error node if they
+are building ASTs.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#examine_rule_memoization-instance_method" title="#examine_rule_memoization (instance method)">- (Object) <strong>examine_rule_memoization</strong>(rule) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#exit_decision-instance_method" title="#exit_decision (instance method)">- (Object) <strong>exit_decision</strong>(decision_number) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#exit_rule-instance_method" title="#exit_rule (instance method)">- (Object) <strong>exit_rule</strong>(grammar_file, rule_name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+This is the last thing executed before leaving a rule.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#exit_subrule-instance_method" title="#exit_subrule (instance method)">- (Object) <strong>exit_subrule</strong>(decision_number) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#flat_node-instance_method" title="#flat_node (instance method)">- (Object) <strong>flat_node</strong>(tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A nil was created (even nil nodes have a unique ID&#8230; they are not
+&#8220;null&#8221; per se).
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#location-instance_method" title="#location (instance method)">- (Object) <strong>location</strong>(line, position) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+To watch a parser move through the grammar, the parser needs to inform the
+debugger what line/charPos it is passing in the grammar.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#look-instance_method" title="#look (instance method)">- (Object) <strong>look</strong>(i, tree) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Somebody (anybody) looked ahead.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mark-instance_method" title="#mark (instance method)">- (Object) <strong>mark</strong>(marker) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+The parser is going to look arbitrarily ahead; mark this location, the
+token stream&#8217;s marker is sent in case you need it.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#on-instance_method" title="#on (instance method)">- (Object) <strong>on</strong>(event_name, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#recognition_exception-instance_method" title="#recognition_exception (instance method)">- (Object) <strong>recognition_exception</strong>(exception) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A recognition exception occurred such as NoViableAltError.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#resync-instance_method" title="#resync (instance method)">- (Object) <strong>resync</strong> {|_self| ... }</a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rewind-instance_method" title="#rewind (instance method)">- (Object) <strong>rewind</strong>(marker = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+After an arbitrairly long look as with a cyclic DFA (or with any
+backtrack), this informs the debugger that stream should be rewound to the
+position associated with marker.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#semantic_predicate-instance_method" title="#semantic_predicate (instance method)">- (Object) <strong>semantic_predicate</strong>(result, predicate) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A semantic predicate was evaluate with this result and action text.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_token_boundaries-instance_method" title="#set_token_boundaries (instance method)">- (Object) <strong>set_token_boundaries</strong>(tree, token_start_index, token_stop_index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Set the token start/stop token index for a subtree root or node.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#terminate-instance_method" title="#terminate (instance method)">- (Object) <strong>terminate</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Parsing is over; successfully or not.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="add_child-instance_method">
+  
+    - (<tt>Object</tt>) <strong>add_child</strong>(root, child) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Make childID a child of rootID. If you are receiving this event over a
+socket via RemoteDebugEventSocketListener then only IDs are set.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <h3>See Also:</h3>
+  <ul class="see">
+    
+      <li>antlr3.tree.TreeAdaptor.addChild()</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+661
+662
+663</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 661</span>
+
+<span class='def def kw'>def</span> <span class='add_child identifier id'>add_child</span><span class='lparen token'>(</span> <span class='root identifier id'>root</span><span class='comma token'>,</span> <span class='child identifier id'>child</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="backtrack-instance_method">
+  
+    - (<tt>Object</tt>) <strong>backtrack</strong>(level) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+477
+478
+479
+480
+481</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 477</span>
+
+<span class='def def kw'>def</span> <span class='backtrack identifier id'>backtrack</span><span class='lparen token'>(</span> <span class='level identifier id'>level</span> <span class='rparen token'>)</span>
+  <span class='begin_backtrack identifier id'>begin_backtrack</span><span class='lparen token'>(</span> <span class='level identifier id'>level</span> <span class='rparen token'>)</span>
+  <span class='successful identifier id'>successful</span> <span class='assign token'>=</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='self self kw'>self</span> <span class='rparen token'>)</span>
+  <span class='end_backtrack identifier id'>end_backtrack</span><span class='lparen token'>(</span> <span class='level identifier id'>level</span><span class='comma token'>,</span> <span class='successful identifier id'>successful</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="become_root-instance_method">
+  
+    - (<tt>Object</tt>) <strong>become_root</strong>(new_root, old_root) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Make a node the new root of an existing root. Note: the newRootID parameter
+is possibly different than the TreeAdaptor.becomeRoot() newRoot parameter.
+In our case, it will always be the result of calling
+TreeAdaptor.becomeRoot() and not root_n or whatever. The listener should
+assume that this event occurs only when the current subrule (or rule)
+subtree is being reset to newRootID. If you are receiving this event over a
+socket via RemoteDebugEventSocketListener then only IDs are set.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <h3>See Also:</h3>
+  <ul class="see">
+    
+      <li>antlr3.tree.TreeAdaptor.becomeRoot()</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+652
+653
+654</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 652</span>
+
+<span class='def def kw'>def</span> <span class='become_root identifier id'>become_root</span><span class='lparen token'>(</span> <span class='new_root identifier id'>new_root</span><span class='comma token'>,</span> <span class='old_root identifier id'>old_root</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="begin_backtrack-instance_method">
+  
+    - (<tt>Object</tt>) <strong>begin_backtrack</strong>(level) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+469
+470
+471</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 469</span>
+
+<span class='def def kw'>def</span> <span class='begin_backtrack identifier id'>begin_backtrack</span><span class='lparen token'>(</span> <span class='level identifier id'>level</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="begin_resync-instance_method">
+  
+    - (<tt>Object</tt>) <strong>begin_resync</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Indicates the recognizer is about to consume tokens to resynchronize the
+parser. Any consume events from here until the recovered event are not part
+of the parse--they are dead tokens.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+552
+553
+554</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 552</span>
+
+<span class='def def kw'>def</span> <span class='begin_resync identifier id'>begin_resync</span><span class='lparen token'>(</span><span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="commence-instance_method">
+  
+    - (<tt>Object</tt>) <strong>commence</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Announce that parsing has begun. Not technically useful except for sending
+events over a socket. A GUI for example will launch a thread to connect and
+communicate with a remote parser. The thread will want to notify the GUI
+when a connection is made. ANTLR parsers trigger this upon entry to the
+first rule (the ruleLevel is used to figure this out).
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+587
+588
+589</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 587</span>
+
+<span class='def def kw'>def</span> <span class='commence identifier id'>commence</span><span class='lparen token'>(</span>  <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="consume_hidden_token-instance_method">
+  
+    - (<tt>Object</tt>) <strong>consume_hidden_token</strong>(tree) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+An off-channel input token was consumed. Trigger after the token was
+matched by things like match(), matchAny(). (unless of course the hidden
+token is first stuff in the input stream).
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+439
+440
+441</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 439</span>
+
+<span class='def def kw'>def</span> <span class='consume_hidden_token identifier id'>consume_hidden_token</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="consume_node-instance_method">
+  
+    - (<tt>Object</tt>) <strong>consume_node</strong>(tree) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Input for a tree parser is an AST, but we know nothing for sure about a
+node except its type and text (obtained from the adaptor). This is the
+analog of the consumeToken method. Again, the ID is the hashCode usually of
+the node so it only works if hashCode is not implemented. If the type is UP
+or DOWN, then the ID is not really meaningful as it&#8217;s
+fixed--there is just one UP node and one DOWN navigation node.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+608
+609
+610</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 608</span>
+
+<span class='def def kw'>def</span> <span class='consume_node identifier id'>consume_node</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="consume_token-instance_method">
+  
+    - (<tt>Object</tt>) <strong>consume_token</strong>(tree) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+An input token was consumed; matched by any kind of element. Trigger after
+the token was matched by things like match(), matchAny().
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+431
+432
+433</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 431</span>
+
+<span class='def def kw'>def</span> <span class='consume_token identifier id'>consume_token</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_node-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_node</strong>(node, token = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Announce a new node built from token elements such as type etc&#8230; If
+you are receiving this event over a socket via
+RemoteDebugEventSocketListener then only tree.ID, type, text are set.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+636
+637
+638</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 636</span>
+
+<span class='def def kw'>def</span> <span class='create_node identifier id'>create_node</span><span class='lparen token'>(</span> <span class='node identifier id'>node</span><span class='comma token'>,</span> <span class='token identifier id'>token</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="end_backtrack-instance_method">
+  
+    - (<tt>Object</tt>) <strong>end_backtrack</strong>(level, successful) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+473
+474
+475</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 473</span>
+
+<span class='def def kw'>def</span> <span class='end_backtrack identifier id'>end_backtrack</span><span class='lparen token'>(</span> <span class='level identifier id'>level</span><span class='comma token'>,</span> <span class='successful identifier id'>successful</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="end_resync-instance_method">
+  
+    - (<tt>Object</tt>) <strong>end_resync</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Indicates that the recognizer has finished consuming tokens in order to
+resychronize. There may be multiple beginResync/endResync pairs before the
+recognizer comes out of errorRecovery mode (in which multiple errors are
+suppressed). This will be useful in a gui where you want to probably grey
+out tokens that are consumed but not matched to anything in grammar.
+Anything between a beginResync/endResync pair was tossed out by the parser.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+564
+565
+566</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 564</span>
+
+<span class='def def kw'>def</span> <span class='end_resync identifier id'>end_resync</span><span class='lparen token'>(</span><span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="enter_alternative-instance_method">
+  
+    - (<tt>Object</tt>) <strong>enter_alternative</strong>(alt) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Because rules can have lots of alternatives, it is very useful to know
+which alt you are entering. This is 1..n for n alts.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+389
+390
+391</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 389</span>
+
+<span class='def def kw'>def</span> <span class='enter_alternative identifier id'>enter_alternative</span><span class='lparen token'>(</span> <span class='alt identifier id'>alt</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="enter_decision-instance_method">
+  
+    - (<tt>Object</tt>) <strong>enter_decision</strong>(decision_number) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Every decision, fixed k or arbitrary, has an enter/exit event so that a GUI
+can easily track what look/consume events are associated with prediction.
+You will see a single enter/exit subrule but multiple enter/exit decision
+events, one for each loop iteration.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+420
+421
+422</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 420</span>
+
+<span class='def def kw'>def</span> <span class='enter_decision identifier id'>enter_decision</span><span class='lparen token'>(</span> <span class='decision_number identifier id'>decision_number</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="enter_rule-instance_method">
+  
+    - (<tt>Object</tt>) <strong>enter_rule</strong>(grammar_file, rule_name) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+The parser has just entered a rule. No decision has been made about which
+alt is predicted. This is fired AFTER init actions have been executed.
+Attributes are defined and available etc&#8230; The grammarFileName allows
+composite grammars to jump around among multiple grammar files.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+382
+383
+384</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 382</span>
+
+<span class='def def kw'>def</span> <span class='enter_rule identifier id'>enter_rule</span><span class='lparen token'>(</span> <span class='grammar_file identifier id'>grammar_file</span><span class='comma token'>,</span> <span class='rule_name identifier id'>rule_name</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="enter_subrule-instance_method">
+  
+    - (<tt>Object</tt>) <strong>enter_subrule</strong>(decision_number) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Track entry into any (&#8230;) subrule other EBNF construct
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+406
+407
+408</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 406</span>
+
+<span class='def def kw'>def</span> <span class='enter_subrule identifier id'>enter_subrule</span><span class='lparen token'>(</span> <span class='decision_number identifier id'>decision_number</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="error_node-instance_method">
+  
+    - (<tt>Object</tt>) <strong>error_node</strong>(tree) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Upon syntax error, recognizers bracket the error with an error node if they
+are building ASTs.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+627
+628
+629</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 627</span>
+
+<span class='def def kw'>def</span> <span class='error_node identifier id'>error_node</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="examine_rule_memoization-instance_method">
+  
+    - (<tt>Object</tt>) <strong>examine_rule_memoization</strong>(rule) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+673
+674
+675</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 673</span>
+
+<span class='def def kw'>def</span> <span class='examine_rule_memoization identifier id'>examine_rule_memoization</span><span class='lparen token'>(</span> <span class='rule identifier id'>rule</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="exit_decision-instance_method">
+  
+    - (<tt>Object</tt>) <strong>exit_decision</strong>(decision_number) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+424
+425
+426</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 424</span>
+
+<span class='def def kw'>def</span> <span class='exit_decision identifier id'>exit_decision</span><span class='lparen token'>(</span> <span class='decision_number identifier id'>decision_number</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="exit_rule-instance_method">
+  
+    - (<tt>Object</tt>) <strong>exit_rule</strong>(grammar_file, rule_name) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+This is the last thing executed before leaving a rule. It is executed even
+if an exception is thrown. This is triggered after error reporting and
+recovery have occurred (unless the exception is not caught in this rule).
+This implies an &#8220;exitAlt&#8221; event. The grammarFileName allows
+composite grammars to jump around among multiple grammar files.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+400
+401
+402</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 400</span>
+
+<span class='def def kw'>def</span> <span class='exit_rule identifier id'>exit_rule</span><span class='lparen token'>(</span> <span class='grammar_file identifier id'>grammar_file</span><span class='comma token'>,</span> <span class='rule_name identifier id'>rule_name</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="exit_subrule-instance_method">
+  
+    - (<tt>Object</tt>) <strong>exit_subrule</strong>(decision_number) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+410
+411
+412</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 410</span>
+
+<span class='def def kw'>def</span> <span class='exit_subrule identifier id'>exit_subrule</span><span class='lparen token'>(</span> <span class='decision_number identifier id'>decision_number</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="flat_node-instance_method">
+  
+    - (<tt>Object</tt>) <strong>flat_node</strong>(tree) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A nil was created (even nil nodes have a unique ID&#8230; they are not
+&#8220;null&#8221; per se). As of 4/28/2006, this seems to be uniquely
+triggered when starting a new subtree such as when entering a subrule in
+automatic mode and when building a tree in rewrite mode. If you are
+receiving this event over a socket via RemoteDebugEventSocketListener then
+only tree.ID is set.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+620
+621
+622</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 620</span>
+
+<span class='def def kw'>def</span> <span class='flat_node identifier id'>flat_node</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="location-instance_method">
+  
+    - (<tt>Object</tt>) <strong>location</strong>(line, position) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+To watch a parser move through the grammar, the parser needs to inform the
+debugger what line/charPos it is passing in the grammar. For now, this does
+not know how to switch from one grammar to the other and back for island
+grammars etc&#8230; This should also allow breakpoints because the debugger
+can stop the parser whenever it hits this line/pos.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+490
+491
+492</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 490</span>
+
+<span class='def def kw'>def</span> <span class='location identifier id'>location</span><span class='lparen token'>(</span> <span class='line identifier id'>line</span><span class='comma token'>,</span> <span class='position identifier id'>position</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="look-instance_method">
+  
+    - (<tt>Object</tt>) <strong>look</strong>(i, tree) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Somebody (anybody) looked ahead. Note that this actually gets triggered by
+both peek and look calls. The debugger will want to know which Token object
+was examined. Like consumeToken, this indicates what token was seen at that
+depth. A remote debugger cannot look ahead into a file it doesn&#8217;t
+have so look events must pass the token even if the info is redundant.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+450
+451
+452</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 450</span>
+
+<span class='def def kw'>def</span> <span class='look identifier id'>look</span><span class='lparen token'>(</span> <span class='i identifier id'>i</span><span class='comma token'>,</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="mark-instance_method">
+  
+    - (<tt>Object</tt>) <strong>mark</strong>(marker) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+The parser is going to look arbitrarily ahead; mark this location, the
+token stream&#8217;s marker is sent in case you need it.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+457
+458
+459</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 457</span>
+
+<span class='def def kw'>def</span> <span class='mark identifier id'>mark</span><span class='lparen token'>(</span> <span class='marker identifier id'>marker</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="on-instance_method">
+  
+    - (<tt>Object</tt>) <strong>on</strong>(event_name, &amp;block) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+677
+678
+679
+680</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 677</span>
+
+<span class='def def kw'>def</span> <span class='on identifier id'>on</span><span class='lparen token'>(</span> <span class='event_name identifier id'>event_name</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span> <span class='rparen token'>)</span>
+  <span class='sclass identifier id'>sclass</span> <span class='assign token'>=</span> <span class='class class kw'>class</span> <span class='lshft op'>&lt;&lt;</span> <span class='self self kw'>self</span><span class='semicolon token'>;</span> <span class='self self kw'>self</span><span class='semicolon token'>;</span> <span class='end end kw'>end</span>
+  <span class='sclass identifier id'>sclass</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span> <span class='symbol val'>:define_method</span><span class='comma token'>,</span> <span class='event_name identifier id'>event_name</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="recognition_exception-instance_method">
+  
+    - (<tt>Object</tt>) <strong>recognition_exception</strong>(exception) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A recognition exception occurred such as NoViableAltError. I made this a
+generic event so that I can alter the exception hierachy later without
+having to alter all the debug objects. Upon error, the stack of enter
+rule/subrule must be properly unwound. If no viable alt occurs it is within
+an enter/exit decision, which also must be rewound. Even the rewind for
+each mark must be unwount. In the Java target this is pretty easy using
+try/finally, if a bit ugly in the generated code. The rewind is generated
+in DFA.predict() actually so no code needs to be generated for that. For
+languages w/o this &#8220;finally&#8221; feature (C++?), the target
+implementor will have to build an event stack or something. Across a socket
+for remote debugging, only the RecognitionError data fields are
+transmitted. The token object or whatever that caused the problem was the
+last object referenced by look. The immediately preceding look event should
+hold the unexpected Token or char. Here is a sample event trace for
+grammar: b : C (<tt>// {;</tt> is there to prevent A|B becoming a set | D ;
+The sequence for this rule (with no viable alt in the subrule) for input
+&#8216;c c&#8217; (there are 3 tokens) is: commence look enterRule b
+location 7 1 enter decision 3 look exit decision 3 enterAlt1 location 7 5
+look consumeToken [c/<4>,1:0] location 7 7 enterSubRule 2 enter decision 2
+look look recognitionError NoViableAltError 2 1 2 exit decision 2
+exitSubRule 2 beginResync look consumeToken [c/<4>,1:1] look endResync
+look(-1) exitRule b terminate
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+544
+545
+546</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 544</span>
+
+<span class='def def kw'>def</span> <span class='recognition_exception identifier id'>recognition_exception</span><span class='lparen token'>(</span> <span class='exception identifier id'>exception</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="resync-instance_method">
+  
+    - (<tt>Object</tt>) <strong>resync</strong> {|_self| ... }
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Yields:</h3>
+<ul class="yield">
+  
+    <li>
+      
+        <span class='type'>(<tt>_self</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+<h3>Yield Parameters:</h3>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="" title="ANTLR3::Debug::EventListener (module)">ANTLR3::Debug::EventListener</a></tt>)</span>
+      
+      
+        <span class='name'>_self</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the object that the method was called on
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+568
+569
+570
+571
+572</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 568</span>
+
+<span class='def def kw'>def</span> <span class='resync identifier id'>resync</span>
+  <span class='begin_resync identifier id'>begin_resync</span>
+  <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='self self kw'>self</span> <span class='rparen token'>)</span>
+  <span class='end_resync identifier id'>end_resync</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="rewind-instance_method">
+  
+    - (<tt>Object</tt>) <strong>rewind</strong>(marker = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+After an arbitrairly long look as with a cyclic DFA (or with any
+backtrack), this informs the debugger that stream should be rewound to the
+position associated with marker.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+465
+466
+467</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 465</span>
+
+<span class='def def kw'>def</span> <span class='rewind identifier id'>rewind</span><span class='lparen token'>(</span> <span class='marker identifier id'>marker</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="semantic_predicate-instance_method">
+  
+    - (<tt>Object</tt>) <strong>semantic_predicate</strong>(result, predicate) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A semantic predicate was evaluate with this result and action text
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+576
+577
+578</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 576</span>
+
+<span class='def def kw'>def</span> <span class='semantic_predicate identifier id'>semantic_predicate</span><span class='lparen token'>(</span> <span class='result identifier id'>result</span><span class='comma token'>,</span> <span class='predicate identifier id'>predicate</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="set_token_boundaries-instance_method">
+  
+    - (<tt>Object</tt>) <strong>set_token_boundaries</strong>(tree, token_start_index, token_stop_index) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Set the token start/stop token index for a subtree root or node. If you are
+receiving this event over a socket via RemoteDebugEventSocketListener then
+only tree.ID is set.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+669
+670
+671</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 669</span>
+
+<span class='def def kw'>def</span> <span class='set_token_boundaries identifier id'>set_token_boundaries</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='token_start_index identifier id'>token_start_index</span><span class='comma token'>,</span> <span class='token_stop_index identifier id'>token_stop_index</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="terminate-instance_method">
+  
+    - (<tt>Object</tt>) <strong>terminate</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Parsing is over; successfully or not. Mostly useful for telling remote
+debugging listeners that it&#8217;s time to quit. When the rule invocation
+level goes to zero at the end of a rule, we are done parsing.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+596
+597
+598</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug.rb', line 596</span>
+
+<span class='def def kw'>def</span> <span class='terminate identifier id'>terminate</span><span class='lparen token'>(</span>  <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:50 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
