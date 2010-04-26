@@ -1,0 +1,21 @@
+---
+project_links:
+  - - API Docs (YARD)
+    - http://ohboyohboyohboy.github.com/antlr3/api
+  - - Gem Cutter Project
+    - http://rubygems.org/gems/antlr3
+  - - Rubyforge Project
+    - http://rubyforge.org/projects/antlr3
+  - - Bug Reports
+    - http://github.com/ohboyohboyohboy/antlr3/issues
+  - - GitHub Repository
+    - http://github.com/ohboyohboyohboy/antlr3
+external_links:
+  - - ANTLR.org
+    - http://www.antlr.org
+  - - ANTLR Cheat Sheet
+    - http://www.antlr.org/wiki/display/ANTLR3/ANTLR+Cheat+Sheet
+  - - ANTLR Documentation
+    - http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation
+  - - Sample Grammar Exchange
+    - http://www.antlr.org/grammar/list
