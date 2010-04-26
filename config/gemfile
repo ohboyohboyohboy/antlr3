@@ -25,6 +25,9 @@ gem "ruby-prof", "0.7.3"
 # textile markup for documentation
 gem "RedCloth", "4.2.2"
 
+# HTML parsing
+gem "hpricot", "0.8.2"
+
 # where the gem libs go
 bundle_path '../vendor'
 

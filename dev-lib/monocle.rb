@@ -2,11 +2,17 @@
 # encoding: utf-8
 
 module Monocle
+  VERSION = '0.5.0'
+  
   def self.included( kl )
     super
     kl.extend( self )
   end
-
+  
+  def self.library_path( *args )
+    File.join( File.dirname( __FILE__ ), *args )
+  end
+  
 module_function
   
   def Line( obj )
@@ -20,7 +26,7 @@ module_function
   def Text( obj )
     case obj
     when Text then obj
-    when nil then Text.new
+    when nil then Text.new( '' )
     else Text.new( obj.to_s )
     end
   end
@@ -39,7 +45,6 @@ module_function
   end
   
 end
-
 
 %w(
   utils presentation terminal-escapes

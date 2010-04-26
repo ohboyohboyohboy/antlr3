@@ -6,6 +6,14 @@ require 'highlight'
 require 'hpricot'   # <- TODO: this isn't on the bundler list right now
 require 'delegate'
 
+# hack to dodge interference to the RDoc library
+if defined?( Encoding ) and not Encoding.respond_to?( :find )
+  def Encoding.find( *args )
+    nil
+  end
+end
+
+
 module ANTLRDoc
   class Article
     REGION = %r<
@@ -23,6 +31,7 @@ module ANTLRDoc
     END
     
     $articles = []
+    $article_index = {}
     
     def self.load( file, template, options = {} )
       file = File.expand_path( file )
@@ -30,11 +39,17 @@ module ANTLRDoc
         article = new( file )
         $articles << article
       end
+      
       article.configure( template, options )
+      $article_index[ article.title ] =
+        $article_index[ article.name ] =
+        article
+      
+      return( article )
     end
     
     attr_accessor :source_file, :name, :source, :title, :time, :stylesheets, :scripts,
-                  :author, :output_directory, :template
+                  :author, :email, :output_directory, :template
     
     def initialize( source_file )
       @source_file = source_file
@@ -50,7 +65,7 @@ module ANTLRDoc
       @time = File.mtime( source_file )
       @title = File.basename( source_file, '.*' )
       @output_directory = File.dirname( source_file )
-      @author = nil
+      @email = @author = nil
       @stylesheets = []
       @scripts = []
       @inline_styles = []
@@ -61,6 +76,7 @@ module ANTLRDoc
       title = options[ :title ] and @title = title
       time  = options[ :time ]  and @time  = time
       author = options[ :author ] and @author = author
+      email = options[ :email ] and @email = email
       dir = options[ :output_directory ] and @output_directory = dir
       return( self )
     end
@@ -104,8 +120,10 @@ module ANTLRDoc
     
     def preprocess
       [ @stylesheets, @scripts, @inline_styles ].each { | list | list.clear }
-      
-      src = @source.gsub( REGION ) do
+      src = @source.gsub( /(\[\[((?:\S| (?=\S))+?)\]\])/ ) do
+        ( article = $article_index[ $2 ] ) ? link_article( article ) : $1
+      end
+      src.gsub!( REGION ) do
         region, tag, content = $1, $2.downcase.to_sym, $3
         
         case tag
@@ -132,6 +150,11 @@ module ANTLRDoc
       [ @stylesheets, @scripts, @inline_styles ].each { | list | list.uniq! }
       
       return( src )
+    end
+    
+    def link_article( article )
+      href = File.relative_path( article.output_file, @output_directory )
+      %(<a href="#{ href }">#{ article.title }</a>)
     end
     
     def relative_path( file )

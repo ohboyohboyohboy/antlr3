@@ -5,7 +5,8 @@ template = ERB.new( File.read( guide.template ), nil, '%' )
 
 options = {
   :output_directory => guide.output,
-  :author => $project.author
+  :author => $project.author,
+  :email  => $project.email
 }
 articles = []
 

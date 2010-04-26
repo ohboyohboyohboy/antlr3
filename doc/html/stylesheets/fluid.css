@@ -26,14 +26,14 @@ body {
 	padding-top: 40px;
 }
 
-p,code,ul {
+p,code,ul, ol {
 	padding-bottom: 1.2em;
 }
-p, ul {
+p, ul, ol {
   font-family: Verdana,"Lucida Sans Unicode",sans-serif;
 }
 
-li {
+ul li {
 	list-style: none;
 }
 
@@ -115,6 +115,21 @@ h1, h2, h3, h4 {
 	margin: 0px 0px 0px 0px;
 }
 
+.annotation a {
+	color: #F06;
+	text-decoration: none;
+}
+.annotation a:hover {
+	color: #444;
+	border-bottom: 1px solid #F06;
+}
+
+.annotation a:visited {
+	color: #777;
+	border-bottom: 1px solid #F06;
+}
+
+
 /* left side (main content) */
 .left {
 	margin: 0 42% 20px 3%;
@@ -125,31 +140,43 @@ h1, h2, h3, h4 {
 	font-size: 1.2em;
 	margin-bottom: 6px;
 }
-.content li {
+.content ul li {
 	list-style: url(../images/li.gif);
 	margin-left: 18px;
 }
-.content li li {
+.content ul li li {
   list-style: url(../images/li2.gif);
+  margin-left: 18px;
+  font-size: 0.8em;
+}
+.content ol li {
+	margin-left: 18px;
+}
+.content ol li li {
+  list-style: url(../images/li.gif);
   margin-left: 18px;
   font-size: 0.8em;
 }
 
 .content h1 {
 	font-size: 1.6em;
-	margin-bottom: 4px;
-	margin-top: 10px;
 	margin-bottom: 10px;
 	border-bottom: 1px dashed #333;
 }
 
+.content * + h1 {
+  margin-top: 25px;
+}
+
 .content h2 {
   font-size: 1.2em;
+	margin-top: 10px;
 	margin-bottom: 4px;
 	/* color: #06F; */
 	font-weight: bold;
 	color: #333;
 }
+
 
 .content a,.footer a {
 	color: #F06;

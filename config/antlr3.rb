@@ -103,7 +103,12 @@ $proj = $project = Project.load( project_top, config_file ) do
       load( bundler.environment )
       
       for lib in environment_require
-        require lib
+        begin
+          require lib
+        rescue => e
+          warn( "error raised while requiring `#{ lib }':" )
+          e.dump
+        end
       end
       
       true
