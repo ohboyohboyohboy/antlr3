@@ -1,0 +1,2216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::AST::CommonTree::TreeAdaptor::CommonTreeNodeStream</title>
+<link rel="stylesheet" href="../../../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../../../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../../../_index.html">Index (C)</a> &raquo; 
+    <span class='title'><a href="../../../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../../../AST.html" title="ANTLR3::AST (module)">AST</a></span> &raquo; <span class='title'><a href="../../CommonTree.html" title="ANTLR3::AST::CommonTree (class)">CommonTree</a></span> &raquo; <span class='title'><a href="../TreeAdaptor.html" title="ANTLR3::AST::CommonTree::TreeAdaptor (module)">TreeAdaptor</a></span>
+     &raquo; 
+    <span class="title">CommonTreeNodeStream</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::AST::CommonTree::TreeAdaptor::CommonTreeNodeStream 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ANTLR3::AST::CommonTree::TreeAdaptor::CommonTreeNodeStream</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><a href="TreeNodeStream.html" title="ANTLR3::AST::CommonTree::TreeAdaptor::TreeNodeStream (module)">TreeNodeStream</a>, Enumerable</dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/antlr3/tree.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+   
+    
+      <strong class="classes">Classes:</strong> <a href="CommonTreeNodeStream/RewriteRuleElementStream.html" title="ANTLR3::AST::CommonTree::TreeAdaptor::CommonTreeNodeStream::RewriteRuleElementStream (class)">RewriteRuleElementStream</a>, <a href="CommonTreeNodeStream/RewriteRuleNodeStream.html" title="ANTLR3::AST::CommonTree::TreeAdaptor::CommonTreeNodeStream::RewriteRuleNodeStream (class)">RewriteRuleNodeStream</a>, <a href="CommonTreeNodeStream/RewriteRuleSubtreeStream.html" title="ANTLR3::AST::CommonTree::TreeAdaptor::CommonTreeNodeStream::RewriteRuleSubtreeStream (class)">RewriteRuleSubtreeStream</a>, <a href="CommonTreeNodeStream/RewriteRuleTokenStream.html" title="ANTLR3::AST::CommonTree::TreeAdaptor::CommonTreeNodeStream::RewriteRuleTokenStream (class)">RewriteRuleTokenStream</a>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="../../../Constants.html" title="ANTLR3::Constants (module)">ANTLR3::Constants</a></h3>
+  <p class="inherited"><a href="../../../Constants.html#BUILT_IN_TOKEN_NAMES-constant" title="ANTLR3::Constants::BUILT_IN_TOKEN_NAMES (constant)">BUILT_IN_TOKEN_NAMES</a>, <a href="../../../Constants.html#DEFAULT-constant" title="ANTLR3::Constants::DEFAULT (constant)">DEFAULT</a>, <a href="../../../Constants.html#DOWN-constant" title="ANTLR3::Constants::DOWN (constant)">DOWN</a>, <a href="../../../Constants.html#EOF-constant" title="ANTLR3::Constants::EOF (constant)">EOF</a>, <a href="../../../Constants.html#EOF_TOKEN-constant" title="ANTLR3::Constants::EOF_TOKEN (constant)">EOF_TOKEN</a>, <a href="../../../Constants.html#EOR_TOKEN_TYPE-constant" title="ANTLR3::Constants::EOR_TOKEN_TYPE (constant)">EOR_TOKEN_TYPE</a>, <a href="../../../Constants.html#HIDDEN-constant" title="ANTLR3::Constants::HIDDEN (constant)">HIDDEN</a>, <a href="../../../Constants.html#INVALID_TOKEN-constant" title="ANTLR3::Constants::INVALID_TOKEN (constant)">INVALID_TOKEN</a>, <a href="../../../Constants.html#INVALID_TOKEN_TYPE-constant" title="ANTLR3::Constants::INVALID_TOKEN_TYPE (constant)">INVALID_TOKEN_TYPE</a>, <a href="../../../Constants.html#MEMO_RULE_FAILED-constant" title="ANTLR3::Constants::MEMO_RULE_FAILED (constant)">MEMO_RULE_FAILED</a>, <a href="../../../Constants.html#MEMO_RULE_UNKNOWN-constant" title="ANTLR3::Constants::MEMO_RULE_UNKNOWN (constant)">MEMO_RULE_UNKNOWN</a>, <a href="../../../Constants.html#MIN_TOKEN_TYPE-constant" title="ANTLR3::Constants::MIN_TOKEN_TYPE (constant)">MIN_TOKEN_TYPE</a>, <a href="../../../Constants.html#SKIP_TOKEN-constant" title="ANTLR3::Constants::SKIP_TOKEN (constant)">SKIP_TOKEN</a>, <a href="../../../Constants.html#UP-constant" title="ANTLR3::Constants::UP (constant)">UP</a></p>
+
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="../../../Constants.html" title="ANTLR3::Constants (module)">ANTLR3::Constants</a></h3>
+  <p class="inherited"><a href="../../../Constants.html#BUILT_IN_TOKEN_NAMES-constant" title="ANTLR3::Constants::BUILT_IN_TOKEN_NAMES (constant)">BUILT_IN_TOKEN_NAMES</a>, <a href="../../../Constants.html#DEFAULT-constant" title="ANTLR3::Constants::DEFAULT (constant)">DEFAULT</a>, <a href="../../../Constants.html#DOWN-constant" title="ANTLR3::Constants::DOWN (constant)">DOWN</a>, <a href="../../../Constants.html#EOF-constant" title="ANTLR3::Constants::EOF (constant)">EOF</a>, <a href="../../../Constants.html#EOF_TOKEN-constant" title="ANTLR3::Constants::EOF_TOKEN (constant)">EOF_TOKEN</a>, <a href="../../../Constants.html#EOR_TOKEN_TYPE-constant" title="ANTLR3::Constants::EOR_TOKEN_TYPE (constant)">EOR_TOKEN_TYPE</a>, <a href="../../../Constants.html#HIDDEN-constant" title="ANTLR3::Constants::HIDDEN (constant)">HIDDEN</a>, <a href="../../../Constants.html#INVALID_TOKEN-constant" title="ANTLR3::Constants::INVALID_TOKEN (constant)">INVALID_TOKEN</a>, <a href="../../../Constants.html#INVALID_TOKEN_TYPE-constant" title="ANTLR3::Constants::INVALID_TOKEN_TYPE (constant)">INVALID_TOKEN_TYPE</a>, <a href="../../../Constants.html#MEMO_RULE_FAILED-constant" title="ANTLR3::Constants::MEMO_RULE_FAILED (constant)">MEMO_RULE_FAILED</a>, <a href="../../../Constants.html#MEMO_RULE_UNKNOWN-constant" title="ANTLR3::Constants::MEMO_RULE_UNKNOWN (constant)">MEMO_RULE_UNKNOWN</a>, <a href="../../../Constants.html#MIN_TOKEN_TYPE-constant" title="ANTLR3::Constants::MIN_TOKEN_TYPE (constant)">MIN_TOKEN_TYPE</a>, <a href="../../../Constants.html#SKIP_TOKEN-constant" title="ANTLR3::Constants::SKIP_TOKEN (constant)">SKIP_TOKEN</a>, <a href="../../../Constants.html#UP-constant" title="ANTLR3::Constants::UP (constant)">UP</a></p>
+
+  
+  <h2>Instance Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#adaptor-instance_method" title="#adaptor (instance method)">- (Object) <strong>adaptor</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute adaptor.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#position-instance_method" title="#position (instance method)">- (Object) <strong>position</strong> </a>
+    
+
+    
+      (also: #index)
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute position.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#token_stream-instance_method" title="#token_stream (instance method)">- (Object) <strong>token_stream</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute token_stream.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unique_navigation_nodes%3D-instance_method" title="#unique_navigation_nodes= (instance method)">- (Object) <strong>unique_navigation_nodes</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    <span class="note title writeonly">writeonly</span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Sets the attribute unique_navigation_nodes.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%3C%3C-instance_method" title="#&lt;&lt; (instance method)">- (Object) <strong>&lt;&lt;</strong>(k) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_navigation_node-instance_method" title="#add_navigation_node (instance method)">- (Object) <strong>add_navigation_node</strong>(type) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#at-instance_method" title="#at (instance method)">- (Object) <strong>at</strong>(index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#consume-instance_method" title="#consume (instance method)">- (Object) <strong>consume</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#current_symbol-instance_method" title="#current_symbol (instance method)">- (Object) <strong>current_symbol</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each-instance_method" title="#each (instance method)">- (Object) <strong>each</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#extract_text-instance_method" title="#extract_text (instance method)">- (Object) <strong>extract_text</strong>(start = nil, stop = nil) </a>
+    
+
+    
+      (also: #to_s)
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fill_buffer-instance_method" title="#fill_buffer (instance method)">- (Object) <strong>fill_buffer</strong>(tree = @root) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_unique_navigation_nodes%3F-instance_method" title="#has_unique_navigation_nodes? (instance method)">- (Boolean) <strong>has_unique_navigation_nodes?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (CommonTreeNodeStream) <strong>initialize</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of CommonTreeNodeStream.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inspect-instance_method" title="#inspect (instance method)">- (Object) <strong>inspect</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#look-instance_method" title="#look (instance method)">- (Object) <strong>look</strong>(k = 1) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#look_behind-instance_method" title="#look_behind (instance method)">- (Object) <strong>look_behind</strong>(k = 1) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mark-instance_method" title="#mark (instance method)">- (Object) <strong>mark</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#node_index-instance_method" title="#node_index (instance method)">- (Object) <strong>node_index</strong>(node) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#peek-instance_method" title="#peek (instance method)">- (Object) <strong>peek</strong>(i = 1) </a>
+    
+
+    
+      (also: #&gt;&gt;)
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pop-instance_method" title="#pop (instance method)">- (Object) <strong>pop</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#push-instance_method" title="#push (instance method)">- (Object) <strong>push</strong>(index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#release-instance_method" title="#release (instance method)">- (Object) <strong>release</strong>(marker = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#replace_children-instance_method" title="#replace_children (instance method)">- (Object) <strong>replace_children</strong>(parent, start, stop, replacement) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reset-instance_method" title="#reset (instance method)">- (Object) <strong>reset</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rewind-instance_method" title="#rewind (instance method)">- (Object) <strong>rewind</strong>(marker = @last_marker, release = true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#seek-instance_method" title="#seek (instance method)">- (Object) <strong>seek</strong>(index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#size-instance_method" title="#size (instance method)">- (Object) <strong>size</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#source_name-instance_method" title="#source_name (instance method)">- (Object) <strong>source_name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_a-instance_method" title="#to_a (instance method)">- (Object) <strong>to_a</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tree_adaptor-instance_method" title="#tree_adaptor (instance method)">- (Object) <strong>tree_adaptor</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tree_source-instance_method" title="#tree_source (instance method)">- (Object) <strong>tree_source</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="../../../ClassMacros.html" title="ANTLR3::ClassMacros (module)">ANTLR3::ClassMacros</a></h3>
+  <p class="inherited"><a href="../../../ClassMacros.html#abstract-instance_method" title="ANTLR3::ClassMacros#abstract (method)">#abstract</a>, <a href="../../../ClassMacros.html#alias_accessor-instance_method" title="ANTLR3::ClassMacros#alias_accessor (method)">#alias_accessor</a>, <a href="../../../ClassMacros.html#shared_attribute-instance_method" title="ANTLR3::ClassMacros#shared_attribute (method)">#shared_attribute</a></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="../../../ClassMacros.html" title="ANTLR3::ClassMacros (module)">ANTLR3::ClassMacros</a></h3>
+  <p class="inherited"><a href="../../../ClassMacros.html#abstract-instance_method" title="ANTLR3::ClassMacros#abstract (method)">#abstract</a>, <a href="../../../ClassMacros.html#alias_accessor-instance_method" title="ANTLR3::ClassMacros#alias_accessor (method)">#alias_accessor</a>, <a href="../../../ClassMacros.html#shared_attribute-instance_method" title="ANTLR3::ClassMacros#shared_attribute (method)">#shared_attribute</a></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::AST::CommonTree::TreeAdaptor::CommonTreeNodeStream (class)">CommonTreeNodeStream</a></tt>) <strong>initialize</strong>(*args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of CommonTreeNodeStream
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+989
+990
+991
+992
+993
+994
+995
+996
+997
+998
+999
+1000
+1001
+1002
+1003
+1004
+1005
+1006
+1007
+1008
+1009
+1010
+1011
+1012
+1013
+1014
+1015
+1016
+1017
+1018
+1019
+1020
+1021
+1022</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 989</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span>
+  <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='last identifier id'>last</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span> <span class='colon3 op'>::</span><span class='Hash constant id'>Hash</span> <span class='rparen token'>)</span> <span class='question op'>?</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='pop identifier id'>pop</span> <span class='colon op'>:</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='case case kw'>case</span> <span class='n identifier id'>n</span> <span class='assign token'>=</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+  <span class='when when kw'>when</span> <span class='integer val'>1</span>
+    <span class='@root ivar id'>@root</span> <span class='assign token'>=</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='first identifier id'>first</span>
+    <span class='@token_stream ivar id'>@token_stream</span> <span class='assign token'>=</span> <span class='@adaptor ivar id'>@adaptor</span> <span class='assign token'>=</span> <span class='@nodes ivar id'>@nodes</span> <span class='assign token'>=</span> <span class='@down ivar id'>@down</span> <span class='assign token'>=</span> <span class='@up ivar id'>@up</span> <span class='assign token'>=</span> <span class='@eof ivar id'>@eof</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='when when kw'>when</span> <span class='integer val'>2</span>
+    <span class='@adaptor ivar id'>@adaptor</span><span class='comma token'>,</span> <span class='@root ivar id'>@root</span> <span class='assign token'>=</span> <span class='args identifier id'>args</span>
+    <span class='@token_stream ivar id'>@token_stream</span> <span class='assign token'>=</span> <span class='@nodes ivar id'>@nodes</span> <span class='assign token'>=</span> <span class='@down ivar id'>@down</span> <span class='assign token'>=</span> <span class='@up ivar id'>@up</span> <span class='assign token'>=</span> <span class='@eof ivar id'>@eof</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='when when kw'>when</span> <span class='integer val'>3</span>
+    <span class='parent identifier id'>parent</span><span class='comma token'>,</span> <span class='start identifier id'>start</span><span class='comma token'>,</span> <span class='stop identifier id'>stop</span> <span class='assign token'>=</span> <span class='mult op'>*</span><span class='args identifier id'>args</span>
+    <span class='@adaptor ivar id'>@adaptor</span> <span class='assign token'>=</span> <span class='parent identifier id'>parent</span><span class='dot token'>.</span><span class='adaptor identifier id'>adaptor</span>
+    <span class='@root ivar id'>@root</span> <span class='assign token'>=</span> <span class='parent identifier id'>parent</span><span class='dot token'>.</span><span class='root identifier id'>root</span>
+    <span class='@nodes ivar id'>@nodes</span> <span class='assign token'>=</span> <span class='parent identifier id'>parent</span><span class='dot token'>.</span><span class='nodes identifier id'>nodes</span><span class='lbrack token'>[</span> <span class='start identifier id'>start</span> <span class='dot3 op'>...</span> <span class='stop identifier id'>stop</span> <span class='rbrack token'>]</span>
+    <span class='@down ivar id'>@down</span> <span class='assign token'>=</span> <span class='parent identifier id'>parent</span><span class='dot token'>.</span><span class='down identifier id'>down</span>
+    <span class='@up ivar id'>@up</span> <span class='assign token'>=</span> <span class='parent identifier id'>parent</span><span class='dot token'>.</span><span class='up identifier id'>up</span>
+    <span class='@eof ivar id'>@eof</span> <span class='assign token'>=</span> <span class='parent identifier id'>parent</span><span class='dot token'>.</span><span class='eof identifier id'>eof</span>
+    <span class='@token_stream ivar id'>@token_stream</span> <span class='assign token'>=</span> <span class='parent identifier id'>parent</span><span class='dot token'>.</span><span class='token_stream identifier id'>token_stream</span>
+  <span class='when when kw'>when</span> <span class='integer val'>0</span>
+    <span class='raise identifier id'>raise</span> <span class='ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;wrong number of arguments (0 for 1)&quot;</span>
+  <span class='else else kw'>else</span> <span class='raise identifier id'>raise</span> <span class='ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='dstring node'>&quot;wrong number of arguments (#{ n } for 3)&quot;</span>
+  <span class='end end kw'>end</span>
+  <span class='@adaptor ivar id'>@adaptor</span> <span class='opasgn op'>||=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:adaptor</span> <span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='CommonTreeAdaptor constant id'>CommonTreeAdaptor</span><span class='dot token'>.</span><span class='new identifier id'>new</span> <span class='rbrace token'>}</span>
+  <span class='@token_stream ivar id'>@token_stream</span> <span class='opasgn op'>||=</span> <span class='options identifier id'>options</span><span class='lbrack token'>[</span> <span class='symbol val'>:token_stream</span> <span class='rbrack token'>]</span>
+  <span class='@down ivar id'>@down</span>  <span class='opasgn op'>||=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:down</span> <span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='create_from_type identifier id'>create_from_type</span><span class='lparen token'>(</span> <span class='DOWN constant id'>DOWN</span><span class='comma token'>,</span> <span class='string val'>'DOWN'</span> <span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+  <span class='@up ivar id'>@up</span>    <span class='opasgn op'>||=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:up</span> <span class='rparen token'>)</span>   <span class='lbrace token'>{</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='create_from_type identifier id'>create_from_type</span><span class='lparen token'>(</span> <span class='UP constant id'>UP</span><span class='comma token'>,</span> <span class='string val'>'UP'</span> <span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+  <span class='@eof ivar id'>@eof</span>   <span class='opasgn op'>||=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:eof</span> <span class='rparen token'>)</span>  <span class='lbrace token'>{</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='create_from_type identifier id'>create_from_type</span><span class='lparen token'>(</span> <span class='EOF constant id'>EOF</span><span class='comma token'>,</span> <span class='string val'>'EOF'</span> <span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+  <span class='@nodes ivar id'>@nodes</span> <span class='opasgn op'>||=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  
+  <span class='@unique_navigation_nodes ivar id'>@unique_navigation_nodes</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:unique_navigation_nodes</span><span class='comma token'>,</span> <span class='false false kw'>false</span> <span class='rparen token'>)</span>
+  <span class='@position ivar id'>@position</span> <span class='assign token'>=</span> <span class='integer val'>-1</span>
+  <span class='@last_marker ivar id'>@last_marker</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='@calls ivar id'>@calls</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="adaptor-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="adaptor-instance_method">
+  
+    - (<tt>Object</tt>) <strong>adaptor</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute adaptor
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+987
+988
+989</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 987</span>
+
+<span class='def def kw'>def</span> <span class='adaptor identifier id'>adaptor</span>
+  <span class='@adaptor ivar id'>@adaptor</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="position-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="position-instance_method">
+  
+    - (<tt>Object</tt>) <strong>position</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='index-instance_method'>index</span></span>
+    </span>
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute position
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+987
+988
+989</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 987</span>
+
+<span class='def def kw'>def</span> <span class='position identifier id'>position</span>
+  <span class='@position ivar id'>@position</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="token_stream=-instance_method"></span>
+      <span id="token_stream-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="token_stream-instance_method">
+  
+    - (<tt>Object</tt>) <strong>token_stream</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute token_stream
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+986
+987
+988</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 986</span>
+
+<span class='def def kw'>def</span> <span class='token_stream identifier id'>token_stream</span>
+  <span class='@token_stream ivar id'>@token_stream</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="unique_navigation_nodes=-instance_method"></span>
+      <span id=""></span>
+      <div class="method_details ">
+  <p class="signature " id="unique_navigation_nodes=-instance_method">
+  
+    - (<tt>Object</tt>) <strong>unique_navigation_nodes=</strong>(value)  <span class="extras">(writeonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Sets the attribute unique_navigation_nodes
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'></span>
+      
+      
+        <span class='name'>value</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the value to set the attribute unique_navigation_nodes to.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1090
+1091
+1092</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1090</span>
+
+<span class='def def kw'>def</span> <span class='unique_navigation_nodes= identifier id'>unique_navigation_nodes=</span><span class='lparen token'>(</span><span class='value identifier id'>value</span><span class='rparen token'>)</span>
+  <span class='@unique_navigation_nodes ivar id'>@unique_navigation_nodes</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="<<-instance_method">
+  
+    - (<tt>Object</tt>) <strong>&lt;&lt;</strong>(k) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1104
+1105
+1106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1104</span>
+
+<span class='def def kw'>def</span> <span class='lshft op'>&lt;&lt;</span><span class='lparen token'>(</span> <span class='k identifier id'>k</span> <span class='rparen token'>)</span>
+  <span class='self self kw'>self</span> <span class='rshft op'>&gt;&gt;</span> <span class='minus op'>-</span><span class='k identifier id'>k</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="add_navigation_node-instance_method">
+  
+    - (<tt>Object</tt>) <strong>add_navigation_node</strong>(type) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1040
+1041
+1042
+1043
+1044
+1045
+1046
+1047
+1048
+1049</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1040</span>
+
+<span class='def def kw'>def</span> <span class='add_navigation_node identifier id'>add_navigation_node</span><span class='lparen token'>(</span> <span class='type identifier id'>type</span> <span class='rparen token'>)</span>
+  <span class='navigation_node identifier id'>navigation_node</span> <span class='assign token'>=</span>
+    <span class='case case kw'>case</span> <span class='type identifier id'>type</span>
+    <span class='when when kw'>when</span> <span class='DOWN constant id'>DOWN</span>
+      <span class='has_unique_navigation_nodes? fid id'>has_unique_navigation_nodes?</span> <span class='integer val'>? </span><span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='create_from_type identifier id'>create_from_type</span><span class='lparen token'>(</span> <span class='DOWN constant id'>DOWN</span><span class='comma token'>,</span> <span class='string val'>'DOWN'</span> <span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='@down ivar id'>@down</span>
+    <span class='else else kw'>else</span>
+      <span class='has_unique_navigation_nodes? fid id'>has_unique_navigation_nodes?</span> <span class='integer val'>? </span><span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='create_from_type identifier id'>create_from_type</span><span class='lparen token'>(</span> <span class='UP constant id'>UP</span><span class='comma token'>,</span> <span class='string val'>'UP'</span> <span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='@up ivar id'>@up</span>
+    <span class='end end kw'>end</span>
+  <span class='@nodes ivar id'>@nodes</span> <span class='lshft op'>&lt;&lt;</span> <span class='navigation_node identifier id'>navigation_node</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="at-instance_method">
+  
+    - (<tt>Object</tt>) <strong>at</strong>(index) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1051
+1052
+1053
+1054</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1051</span>
+
+<span class='def def kw'>def</span> <span class='at identifier id'>at</span><span class='lparen token'>(</span> <span class='index identifier id'>index</span> <span class='rparen token'>)</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='at identifier id'>at</span><span class='lparen token'>(</span> <span class='index identifier id'>index</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="consume-instance_method">
+  
+    - (<tt>Object</tt>) <strong>consume</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1092
+1093
+1094
+1095
+1096
+1097</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1092</span>
+
+<span class='def def kw'>def</span> <span class='consume identifier id'>consume</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  <span class='node identifier id'>node</span> <span class='assign token'>=</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='@position ivar id'>@position</span><span class='comma token'>,</span> <span class='@eof ivar id'>@eof</span> <span class='rparen token'>)</span>
+  <span class='@position ivar id'>@position</span> <span class='opasgn op'>+=</span> <span class='integer val'>1</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='node identifier id'>node</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="current_symbol-instance_method">
+  
+    - (<tt>Object</tt>) <strong>current_symbol</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1065
+1066
+1067</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1065</span>
+
+<span class='def def kw'>def</span> <span class='current_symbol identifier id'>current_symbol</span>
+  <span class='look identifier id'>look</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="each-instance_method">
+  
+    - (<tt>Object</tt>) <strong>each</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1183
+1184
+1185
+1186
+1187
+1188
+1189
+1190
+1191
+1192
+1193
+1194
+1195
+1196
+1197
+1198
+1199
+1200
+1201
+1202
+1203
+1204
+1205
+1206
+1207
+1208
+1209
+1210
+1211
+1212
+1213
+1214
+1215
+1216
+1217
+1218
+1219
+1220
+1221
+1222
+1223
+1224
+1225
+1226
+1227
+1228
+1229
+1230
+1231
+1232
+1233
+1234
+1235</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1183</span>
+
+<span class='def def kw'>def</span> <span class='each identifier id'>each</span>
+    <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+    <span class='block_given? fid id'>block_given?</span> <span class='or or kw'>or</span> <span class='return return kw'>return</span> <span class='enum_for identifier id'>enum_for</span><span class='lparen token'>(</span> <span class='symbol val'>:each</span> <span class='rparen token'>)</span>
+    <span class='for for kw'>for</span> <span class='node identifier id'>node</span> <span class='in in kw'>in</span> <span class='@nodes ivar id'>@nodes</span> <span class='do do kw'>do</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='node identifier id'>node</span> <span class='rparen token'>)</span> <span class='end end kw'>end</span>
+    <span class='self self kw'>self</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='include identifier id'>include</span> <span class='Enumerable constant id'>Enumerable</span>
+  
+  <span class='def def kw'>def</span> <span class='to_a identifier id'>to_a</span>
+    <span class='return return kw'>return</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='dup identifier id'>dup</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='def def kw'>def</span> <span class='extract_text identifier id'>extract_text</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='stop identifier id'>stop</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+    <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+    <span class='start identifier id'>start</span> <span class='opasgn op'>||=</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='first identifier id'>first</span>
+    <span class='stop identifier id'>stop</span>  <span class='opasgn op'>||=</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='last identifier id'>last</span>
+    
+    <span class='if if kw'>if</span> <span class='@token_stream ivar id'>@token_stream</span>
+      <span class='case case kw'>case</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span><span class='lparen token'>(</span> <span class='stop identifier id'>stop</span> <span class='rparen token'>)</span>
+      <span class='when when kw'>when</span> <span class='UP constant id'>UP</span>
+        <span class='stop_index identifier id'>stop_index</span> <span class='assign token'>=</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='token_stop_index identifier id'>token_stop_index</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span> <span class='rparen token'>)</span>
+      <span class='when when kw'>when</span> <span class='EOF constant id'>EOF</span>
+        <span class='return return kw'>return</span> <span class='extract_text identifier id'>extract_text</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span><span class='comma token'>,</span> <span class='@nodes ivar id'>@nodes</span><span class='lbrack token'>[</span> <span class='minus op'>-</span> <span class='integer val'>2</span> <span class='rbrack token'>]</span> <span class='rparen token'>)</span>
+      <span class='else else kw'>else</span>
+        <span class='stop_index identifier id'>stop_index</span> <span class='assign token'>=</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='token_stop_index identifier id'>token_stop_index</span><span class='lparen token'>(</span> <span class='stop identifier id'>stop</span> <span class='rparen token'>)</span>
+      <span class='end end kw'>end</span>
+      
+      <span class='start_index identifier id'>start_index</span> <span class='assign token'>=</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='token_start_index identifier id'>token_start_index</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span> <span class='rparen token'>)</span>
+      <span class='return return kw'>return</span> <span class='@token_stream ivar id'>@token_stream</span><span class='dot token'>.</span><span class='extract_text identifier id'>extract_text</span><span class='lparen token'>(</span> <span class='start_index identifier id'>start_index</span><span class='comma token'>,</span> <span class='stop_index identifier id'>stop_index</span> <span class='rparen token'>)</span>
+    <span class='else else kw'>else</span>
+      <span class='start_index identifier id'>start_index</span> <span class='assign token'>=</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='index identifier id'>index</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span> <span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+      <span class='stop_index identifier id'>stop_index</span>  <span class='assign token'>=</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='index identifier id'>index</span><span class='lparen token'>(</span> <span class='stop identifier id'>stop</span> <span class='rparen token'>)</span>  <span class='orop op'>||</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+      <span class='return return kw'>return</span><span class='lparen token'>(</span> 
+        <span class='@nodes ivar id'>@nodes</span><span class='lbrack token'>[</span> <span class='start_index identifier id'>start_index</span> <span class='dot2 op'>..</span> <span class='stop_index identifier id'>stop_index</span> <span class='rbrack token'>]</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span> <span class='n identifier id'>n</span> <span class='bitor op'>|</span>
+          <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='text_of identifier id'>text_of</span><span class='lparen token'>(</span> <span class='n identifier id'>n</span> <span class='rparen token'>)</span> <span class='or or kw'>or</span> <span class='string val'>&quot; &quot;</span> <span class='plus op'>+</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span><span class='lparen token'>(</span> <span class='n identifier id'>n</span> <span class='rparen token'>)</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+        <span class='end end kw'>end</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span> <span class='string val'>''</span> <span class='rparen token'>)</span>
+      <span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='alias alias kw'>alias</span> <span class='to_s identifier id'>to_s</span> <span class='extract_text identifier id'>extract_text</span>
+  
+<span class='comment val'>#private</span>
+<span class='comment val'>#  </span>
+<span class='comment val'>#  def linear_node_index( node )</span>
+<span class='comment val'>#    @position == -1 and fill_buffer</span>
+<span class='comment val'>#    @nodes.each_with_index do |n, i|</span>
+<span class='comment val'>#      node == n and return(i)</span>
+<span class='comment val'>#    end</span>
+<span class='comment val'>#    return -1</span>
+<span class='comment val'>#  end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="extract_text-instance_method">
+  
+    - (<tt>Object</tt>) <strong>extract_text</strong>(start = nil, stop = nil) 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='to_s-instance_method'>to_s</span></span>
+    </span>
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1159
+1160
+1161
+1162
+1163
+1164
+1165
+1166
+1167
+1168
+1169
+1170
+1171
+1172
+1173
+1174
+1175
+1176
+1177
+1178
+1179
+1180
+1181
+1182
+1183
+1184
+1185</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1159</span>
+
+<span class='def def kw'>def</span> <span class='extract_text identifier id'>extract_text</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='stop identifier id'>stop</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  <span class='start identifier id'>start</span> <span class='opasgn op'>||=</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='first identifier id'>first</span>
+  <span class='stop identifier id'>stop</span>  <span class='opasgn op'>||=</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='last identifier id'>last</span>
+  
+  <span class='if if kw'>if</span> <span class='@token_stream ivar id'>@token_stream</span>
+    <span class='case case kw'>case</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span><span class='lparen token'>(</span> <span class='stop identifier id'>stop</span> <span class='rparen token'>)</span>
+    <span class='when when kw'>when</span> <span class='UP constant id'>UP</span>
+      <span class='stop_index identifier id'>stop_index</span> <span class='assign token'>=</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='token_stop_index identifier id'>token_stop_index</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span> <span class='rparen token'>)</span>
+    <span class='when when kw'>when</span> <span class='EOF constant id'>EOF</span>
+      <span class='return return kw'>return</span> <span class='extract_text identifier id'>extract_text</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span><span class='comma token'>,</span> <span class='@nodes ivar id'>@nodes</span><span class='lbrack token'>[</span> <span class='minus op'>-</span> <span class='integer val'>2</span> <span class='rbrack token'>]</span> <span class='rparen token'>)</span>
+    <span class='else else kw'>else</span>
+      <span class='stop_index identifier id'>stop_index</span> <span class='assign token'>=</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='token_stop_index identifier id'>token_stop_index</span><span class='lparen token'>(</span> <span class='stop identifier id'>stop</span> <span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+    
+    <span class='start_index identifier id'>start_index</span> <span class='assign token'>=</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='token_start_index identifier id'>token_start_index</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span> <span class='rparen token'>)</span>
+    <span class='return return kw'>return</span> <span class='@token_stream ivar id'>@token_stream</span><span class='dot token'>.</span><span class='extract_text identifier id'>extract_text</span><span class='lparen token'>(</span> <span class='start_index identifier id'>start_index</span><span class='comma token'>,</span> <span class='stop_index identifier id'>stop_index</span> <span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='start_index identifier id'>start_index</span> <span class='assign token'>=</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='index identifier id'>index</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span> <span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+    <span class='stop_index identifier id'>stop_index</span>  <span class='assign token'>=</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='index identifier id'>index</span><span class='lparen token'>(</span> <span class='stop identifier id'>stop</span> <span class='rparen token'>)</span>  <span class='orop op'>||</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+    <span class='return return kw'>return</span><span class='lparen token'>(</span> 
+      <span class='@nodes ivar id'>@nodes</span><span class='lbrack token'>[</span> <span class='start_index identifier id'>start_index</span> <span class='dot2 op'>..</span> <span class='stop_index identifier id'>stop_index</span> <span class='rbrack token'>]</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span> <span class='n identifier id'>n</span> <span class='bitor op'>|</span>
+        <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='text_of identifier id'>text_of</span><span class='lparen token'>(</span> <span class='n identifier id'>n</span> <span class='rparen token'>)</span> <span class='or or kw'>or</span> <span class='string val'>&quot; &quot;</span> <span class='plus op'>+</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span><span class='lparen token'>(</span> <span class='n identifier id'>n</span> <span class='rparen token'>)</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+      <span class='end end kw'>end</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span> <span class='string val'>''</span> <span class='rparen token'>)</span>
+    <span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="fill_buffer-instance_method">
+  
+    - (<tt>Object</tt>) <strong>fill_buffer</strong>(tree = @root) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1024
+1025
+1026
+1027
+1028
+1029
+1030
+1031
+1032
+1033</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1024</span>
+
+<span class='def def kw'>def</span> <span class='fill_buffer identifier id'>fill_buffer</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='assign token'>=</span> <span class='@root ivar id'>@root</span> <span class='rparen token'>)</span>
+  <span class='@nodes ivar id'>@nodes</span> <span class='lshft op'>&lt;&lt;</span> <span class='tree identifier id'>tree</span> <span class='unless unless_mod kw'>unless</span> <span class='nil_tree identifier id'>nil_tree</span> <span class='assign token'>=</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='flat_list? fid id'>flat_list?</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+  <span class='unless unless kw'>unless</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span>
+    <span class='add_navigation_node identifier id'>add_navigation_node</span><span class='lparen token'>(</span> <span class='DOWN constant id'>DOWN</span> <span class='rparen token'>)</span> <span class='unless unless_mod kw'>unless</span> <span class='nil_tree identifier id'>nil_tree</span>
+    <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='each_child identifier id'>each_child</span><span class='lparen token'>(</span> <span class='tree identifier id'>tree</span> <span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span> <span class='c identifier id'>c</span> <span class='bitor op'>|</span> <span class='fill_buffer identifier id'>fill_buffer</span><span class='lparen token'>(</span> <span class='c identifier id'>c</span> <span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+    <span class='add_navigation_node identifier id'>add_navigation_node</span><span class='lparen token'>(</span> <span class='UP constant id'>UP</span> <span class='rparen token'>)</span> <span class='unless unless_mod kw'>unless</span> <span class='nil_tree identifier id'>nil_tree</span>
+  <span class='end end kw'>end</span>
+  <span class='@position ivar id'>@position</span> <span class='assign token'>=</span> <span class='integer val'>0</span> <span class='if if_mod kw'>if</span> <span class='tree identifier id'>tree</span> <span class='eq op'>==</span> <span class='@root ivar id'>@root</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='self self kw'>self</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="has_unique_navigation_nodes?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>has_unique_navigation_nodes?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1087
+1088
+1089</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1087</span>
+
+<span class='def def kw'>def</span> <span class='has_unique_navigation_nodes? fid id'>has_unique_navigation_nodes?</span>
+  <span class='return return kw'>return</span> <span class='@unique_navigation_nodes ivar id'>@unique_navigation_nodes</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="inspect-instance_method">
+  
+    - (<tt>Object</tt>) <strong>inspect</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1154
+1155
+1156
+1157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1154</span>
+
+<span class='def def kw'>def</span> <span class='inspect identifier id'>inspect</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='nd identifier id'>nd</span><span class='bitor op'>|</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_name identifier id'>type_name</span><span class='lparen token'>(</span> <span class='nd identifier id'>nd</span> <span class='rparen token'>)</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span> <span class='string val'>' '</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="look-instance_method">
+  
+    - (<tt>Object</tt>) <strong>look</strong>(k = 1) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1056
+1057
+1058
+1059
+1060
+1061
+1062
+1063</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1056</span>
+
+<span class='def def kw'>def</span> <span class='look identifier id'>look</span><span class='lparen token'>(</span> <span class='k identifier id'>k</span> <span class='assign token'>=</span> <span class='integer val'>1</span> <span class='rparen token'>)</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  <span class='k identifier id'>k</span> <span class='eq op'>==</span> <span class='integer val'>0</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span> <span class='nil nil kw'>nil</span>
+  <span class='k identifier id'>k</span> <span class='lt op'>&lt;</span> <span class='integer val'>0</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='look_behind identifier id'>look_behind</span><span class='lparen token'>(</span> <span class='minus op'>-</span><span class='k identifier id'>k</span> <span class='rparen token'>)</span>
+  
+  <span class='absolute identifier id'>absolute</span> <span class='assign token'>=</span> <span class='@position ivar id'>@position</span> <span class='plus op'>+</span> <span class='k identifier id'>k</span> <span class='minus op'>-</span> <span class='integer val'>1</span>
+  <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='absolute identifier id'>absolute</span><span class='comma token'>,</span> <span class='@eof ivar id'>@eof</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="look_behind-instance_method">
+  
+    - (<tt>Object</tt>) <strong>look_behind</strong>(k = 1) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1069
+1070
+1071
+1072
+1073</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1069</span>
+
+<span class='def def kw'>def</span> <span class='look_behind identifier id'>look_behind</span><span class='lparen token'>(</span> <span class='k identifier id'>k</span> <span class='assign token'>=</span> <span class='integer val'>1</span> <span class='rparen token'>)</span>
+  <span class='k identifier id'>k</span> <span class='eq op'>==</span> <span class='integer val'>0</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span> <span class='nil nil kw'>nil</span>
+  <span class='absolute identifier id'>absolute</span> <span class='assign token'>=</span> <span class='@position ivar id'>@position</span> <span class='minus op'>-</span> <span class='k identifier id'>k</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='absolute identifier id'>absolute</span> <span class='lt op'>&lt;</span> <span class='integer val'>0</span> <span class='question op'>?</span> <span class='nil nil kw'>nil</span> <span class='colon op'>:</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='absolute identifier id'>absolute</span><span class='comma token'>,</span> <span class='@eof ivar id'>@eof</span> <span class='rparen token'>)</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="mark-instance_method">
+  
+    - (<tt>Object</tt>) <strong>mark</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1108
+1109
+1110
+1111
+1112</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1108</span>
+
+<span class='def def kw'>def</span> <span class='mark identifier id'>mark</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  <span class='@last_marker ivar id'>@last_marker</span> <span class='assign token'>=</span> <span class='@position ivar id'>@position</span>
+  <span class='return return kw'>return</span> <span class='@last_marker ivar id'>@last_marker</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="node_index-instance_method">
+  
+    - (<tt>Object</tt>) <strong>node_index</strong>(node) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1035
+1036
+1037
+1038</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1035</span>
+
+<span class='def def kw'>def</span> <span class='node_index identifier id'>node_index</span><span class='lparen token'>(</span> <span class='node identifier id'>node</span> <span class='rparen token'>)</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  <span class='return return kw'>return</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='index identifier id'>index</span><span class='lparen token'>(</span> <span class='node identifier id'>node</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="peek-instance_method">
+  
+    - (<tt>Object</tt>) <strong>peek</strong>(i = 1) 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='>>-instance_method'>&gt;&gt;</span></span>
+    </span>
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1099
+1100
+1101</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1099</span>
+
+<span class='def def kw'>def</span> <span class='peek identifier id'>peek</span><span class='lparen token'>(</span> <span class='i identifier id'>i</span> <span class='assign token'>=</span> <span class='integer val'>1</span> <span class='rparen token'>)</span>
+  <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='type_of identifier id'>type_of</span> <span class='look identifier id'>look</span><span class='lparen token'>(</span> <span class='i identifier id'>i</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="pop-instance_method">
+  
+    - (<tt>Object</tt>) <strong>pop</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1134
+1135
+1136
+1137</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1134</span>
+
+<span class='def def kw'>def</span> <span class='pop identifier id'>pop</span>
+  <span class='pos identifier id'>pos</span> <span class='assign token'>=</span> <span class='@calls ivar id'>@calls</span><span class='dot token'>.</span><span class='pop identifier id'>pop</span> <span class='and and kw'>and</span> <span class='seek identifier id'>seek</span><span class='lparen token'>(</span> <span class='pos identifier id'>pos</span> <span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='pos identifier id'>pos</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="push-instance_method">
+  
+    - (<tt>Object</tt>) <strong>push</strong>(index) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1129
+1130
+1131
+1132</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1129</span>
+
+<span class='def def kw'>def</span> <span class='push identifier id'>push</span><span class='lparen token'>(</span> <span class='index identifier id'>index</span> <span class='rparen token'>)</span>
+  <span class='@calls ivar id'>@calls</span> <span class='lshft op'>&lt;&lt;</span> <span class='@position ivar id'>@position</span>
+  <span class='seek identifier id'>seek</span><span class='lparen token'>(</span> <span class='index identifier id'>index</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="release-instance_method">
+  
+    - (<tt>Object</tt>) <strong>release</strong>(marker = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1114
+1115
+1116</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1114</span>
+
+<span class='def def kw'>def</span> <span class='release identifier id'>release</span><span class='lparen token'>(</span> <span class='marker identifier id'>marker</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing?</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="replace_children-instance_method">
+  
+    - (<tt>Object</tt>) <strong>replace_children</strong>(parent, start, stop, replacement) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1145
+1146
+1147</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1145</span>
+
+<span class='def def kw'>def</span> <span class='replace_children identifier id'>replace_children</span><span class='lparen token'>(</span> <span class='parent identifier id'>parent</span><span class='comma token'>,</span> <span class='start identifier id'>start</span><span class='comma token'>,</span> <span class='stop identifier id'>stop</span><span class='comma token'>,</span> <span class='replacement identifier id'>replacement</span> <span class='rparen token'>)</span>
+  <span class='parent identifier id'>parent</span> <span class='and and kw'>and</span> <span class='@adaptor ivar id'>@adaptor</span><span class='dot token'>.</span><span class='replace_children identifier id'>replace_children</span><span class='lparen token'>(</span> <span class='parent identifier id'>parent</span><span class='comma token'>,</span> <span class='start identifier id'>start</span><span class='comma token'>,</span> <span class='stop identifier id'>stop</span><span class='comma token'>,</span> <span class='replacement identifier id'>replacement</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="reset-instance_method">
+  
+    - (<tt>Object</tt>) <strong>reset</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1139
+1140
+1141
+1142
+1143</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1139</span>
+
+<span class='def def kw'>def</span> <span class='reset identifier id'>reset</span>
+  <span class='@position ivar id'>@position</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='@last_marker ivar id'>@last_marker</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='@calls ivar id'>@calls</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="rewind-instance_method">
+  
+    - (<tt>Object</tt>) <strong>rewind</strong>(marker = @last_marker, release = true) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1120
+1121
+1122</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1120</span>
+
+<span class='def def kw'>def</span> <span class='rewind identifier id'>rewind</span><span class='lparen token'>(</span> <span class='marker identifier id'>marker</span> <span class='assign token'>=</span> <span class='@last_marker ivar id'>@last_marker</span><span class='comma token'>,</span> <span class='release identifier id'>release</span> <span class='assign token'>=</span> <span class='true true kw'>true</span> <span class='rparen token'>)</span>
+  <span class='seek identifier id'>seek</span><span class='lparen token'>(</span> <span class='marker identifier id'>marker</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="seek-instance_method">
+  
+    - (<tt>Object</tt>) <strong>seek</strong>(index) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1124
+1125
+1126
+1127</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1124</span>
+
+<span class='def def kw'>def</span> <span class='seek identifier id'>seek</span><span class='lparen token'>(</span> <span class='index identifier id'>index</span> <span class='rparen token'>)</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  <span class='@position ivar id'>@position</span> <span class='assign token'>=</span> <span class='index identifier id'>index</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="size-instance_method">
+  
+    - (<tt>Object</tt>) <strong>size</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1149
+1150
+1151
+1152</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1149</span>
+
+<span class='def def kw'>def</span> <span class='size identifier id'>size</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  <span class='return return kw'>return</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="source_name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>source_name</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1079
+1080
+1081</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1079</span>
+
+<span class='def def kw'>def</span> <span class='source_name identifier id'>source_name</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='token_stream identifier id'>token_stream</span><span class='dot token'>.</span><span class='source_name identifier id'>source_name</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="to_a-instance_method">
+  
+    - (<tt>Object</tt>) <strong>to_a</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1192
+1193
+1194</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1192</span>
+
+<span class='def def kw'>def</span> <span class='to_a identifier id'>to_a</span>
+  <span class='return return kw'>return</span> <span class='@nodes ivar id'>@nodes</span><span class='dot token'>.</span><span class='dup identifier id'>dup</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="tree_adaptor-instance_method">
+  
+    - (<tt>Object</tt>) <strong>tree_adaptor</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1083
+1084
+1085</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1083</span>
+
+<span class='def def kw'>def</span> <span class='tree_adaptor identifier id'>tree_adaptor</span>
+  <span class='@adaptor ivar id'>@adaptor</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="tree_source-instance_method">
+  
+    - (<tt>Object</tt>) <strong>tree_source</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1075
+1076
+1077</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree.rb', line 1075</span>
+
+<span class='def def kw'>def</span> <span class='tree_source identifier id'>tree_source</span>
+  <span class='@root ivar id'>@root</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:16 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -11,7 +11,6 @@ gem 'rubyforge'
 gem 'gemcutter'
 
 gem 'rake', "0.8.7"
-gem 'rdoc', "2.4.3"
 
 # antlr tests use a rspec environment with a test/unit structure
 gem "rspec", "1.1.11"
@@ -24,6 +23,9 @@ gem "ruby-prof", "0.7.3"
 
 # textile markup for documentation
 gem "RedCloth", "4.2.2"
+
+# enhanced rdoc
+gem "yard"
 
 # where the gem libs go
 bundle_path '../vendor'

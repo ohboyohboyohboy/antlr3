@@ -1,0 +1,1945 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::CommonTokenStream</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo; 
+    <span class='title'><a href="../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span>
+     &raquo; 
+    <span class="title">CommonTokenStream</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::CommonTokenStream 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ANTLR3::CommonTokenStream</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><a href="TokenStream.html" title="ANTLR3::TokenStream (module)">TokenStream</a>, Enumerable</dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/antlr3/streams.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><a href="TokenRewriteStream.html" title="ANTLR3::TokenRewriteStream (class)">TokenRewriteStream</a></p>
+</div>
+
+  <h2>Constant Summary</h2>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="Constants.html" title="ANTLR3::Constants (module)">Constants</a></h3>
+  <p class="inherited"><a href="Constants.html#BUILT_IN_TOKEN_NAMES-constant" title="ANTLR3::Constants::BUILT_IN_TOKEN_NAMES (constant)">BUILT_IN_TOKEN_NAMES</a>, <a href="Constants.html#DEFAULT-constant" title="ANTLR3::Constants::DEFAULT (constant)">DEFAULT</a>, <a href="Constants.html#DOWN-constant" title="ANTLR3::Constants::DOWN (constant)">DOWN</a>, <a href="Constants.html#EOF-constant" title="ANTLR3::Constants::EOF (constant)">EOF</a>, <a href="Constants.html#EOF_TOKEN-constant" title="ANTLR3::Constants::EOF_TOKEN (constant)">EOF_TOKEN</a>, <a href="Constants.html#EOR_TOKEN_TYPE-constant" title="ANTLR3::Constants::EOR_TOKEN_TYPE (constant)">EOR_TOKEN_TYPE</a>, <a href="Constants.html#HIDDEN-constant" title="ANTLR3::Constants::HIDDEN (constant)">HIDDEN</a>, <a href="Constants.html#INVALID_TOKEN-constant" title="ANTLR3::Constants::INVALID_TOKEN (constant)">INVALID_TOKEN</a>, <a href="Constants.html#INVALID_TOKEN_TYPE-constant" title="ANTLR3::Constants::INVALID_TOKEN_TYPE (constant)">INVALID_TOKEN_TYPE</a>, <a href="Constants.html#MEMO_RULE_FAILED-constant" title="ANTLR3::Constants::MEMO_RULE_FAILED (constant)">MEMO_RULE_FAILED</a>, <a href="Constants.html#MEMO_RULE_UNKNOWN-constant" title="ANTLR3::Constants::MEMO_RULE_UNKNOWN (constant)">MEMO_RULE_UNKNOWN</a>, <a href="Constants.html#MIN_TOKEN_TYPE-constant" title="ANTLR3::Constants::MIN_TOKEN_TYPE (constant)">MIN_TOKEN_TYPE</a>, <a href="Constants.html#SKIP_TOKEN-constant" title="ANTLR3::Constants::SKIP_TOKEN (constant)">SKIP_TOKEN</a>, <a href="Constants.html#UP-constant" title="ANTLR3::Constants::UP (constant)">UP</a></p>
+
+  
+
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%3C%3C-instance_method" title="#&lt;&lt; (instance method)">- (Object) <strong>&lt;&lt;</strong>(k) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%5B%5D-instance_method" title="#[] (instance method)">- (Object) <strong>[]</strong>(i, *args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+identical to Array#[], as applied to the stream&#8217;s token buffer.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#at-instance_method" title="#at (instance method)">- (Object) <strong>at</strong>(i) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#consume-instance_method" title="#consume (instance method)">- (Object) <strong>consume</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+advance the stream one step to the next on-channel token.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each-instance_method" title="#each (instance method)">- (Object) <strong>each</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+yields each token in the stream (including off-channel tokens) If no block
+is provided, the method returns an Enumerator object.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each_on_channel-instance_method" title="#each_on_channel (instance method)">- (Object) <strong>each_on_channel</strong>(channel = @channel) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+yields each token in the stream with the given channel value If no channel
+value is given, the stream&#8217;s tuned channel value will be used.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#extract_text-instance_method" title="#extract_text (instance method)">- (Object) <strong>extract_text</strong>(start = 0, stop = @tokens.length-1) </a>
+    
+
+    
+      (also: #to_s)
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+fetches the text content of all tokens between <tt>start</tt> and
+<tt>stop</tt> and joins the chunks into a single string.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#future%3F-instance_method" title="#future? (instance method)">- (Boolean) <strong>future?</strong>(k = 1) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+returns the index of the on-channel token at look-ahead position <tt>k</tt>
+or nil if no other on-channel tokens exist.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (CommonTokenStream) <strong>initialize</strong>(token_source, options = {}) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+constructs a new token stream using the <tt>token_source</tt> provided.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inspect-instance_method" title="#inspect (instance method)">- (Object) <strong>inspect</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Standard Conversion Methods ###############################.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#look-instance_method" title="#look (instance method)">- (Object) <strong>look</strong>(k = 1) </a>
+    
+
+    
+      (also: #&gt;&gt;)
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+operates simillarly to #peek, but returns the full token object at
+look-ahead position <tt>k</tt>.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mark-instance_method" title="#mark (instance method)">- (Object) <strong>mark</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+bookmark the current position of the input stream.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#past%3F-instance_method" title="#past? (instance method)">- (Boolean) <strong>past?</strong>(k = 1) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+returns the index of the on-channel token at look-behind position
+<tt>k</tt> or nil if no other on-channel tokens exist before the current
+token.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#peek-instance_method" title="#peek (instance method)">- (Object) <strong>peek</strong>(k = 1) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+return the type of the on-channel token at look-ahead distance <tt>k</tt>.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rebuild-instance_method" title="#rebuild (instance method)">- (Object) <strong>rebuild</strong>(token_source = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+resets the token stream and rebuilds it with a potentially new token
+source.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#release-instance_method" title="#release (instance method)">- (Object) <strong>release</strong>(marker = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reset-instance_method" title="#reset (instance method)">- (Object) <strong>reset</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+rewind the stream to its initial state.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rewind-instance_method" title="#rewind (instance method)">- (Object) <strong>rewind</strong>(marker = @last_marker, release = true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#seek-instance_method" title="#seek (instance method)">- (Object) <strong>seek</strong>(index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+jump to the stream position specified by <tt>index</tt> note: seek does not
+check whether or not the.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#size-instance_method" title="#size (instance method)">- (Object) <strong>size</strong> </a>
+    
+
+    
+      (also: #length)
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#token_class-instance_method" title="#token_class (instance method)">- (Object) <strong>token_class</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tokens-instance_method" title="#tokens (instance method)">- (Object) <strong>tokens</strong>(start = nil, stop = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+returns a copy of the token buffer.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tune_to-instance_method" title="#tune_to (instance method)">- (Object) <strong>tune_to</strong>(channel) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+tune the stream to a new channel value.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#walk-instance_method" title="#walk (instance method)">- (Object) <strong>walk</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+iterates through the token stream, yielding each on channel token along the
+way.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="ClassMacros.html" title="ANTLR3::ClassMacros (module)">ClassMacros</a></h3>
+  <p class="inherited"><a href="ClassMacros.html#abstract-instance_method" title="ANTLR3::ClassMacros#abstract (method)">#abstract</a>, <a href="ClassMacros.html#alias_accessor-instance_method" title="ANTLR3::ClassMacros#alias_accessor (method)">#alias_accessor</a>, <a href="ClassMacros.html#shared_attribute-instance_method" title="ANTLR3::ClassMacros#shared_attribute (method)">#shared_attribute</a></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="ClassMacros.html" title="ANTLR3::ClassMacros (module)">ClassMacros</a></h3>
+  <p class="inherited"><a href="ClassMacros.html#abstract-instance_method" title="ANTLR3::ClassMacros#abstract (method)">#abstract</a>, <a href="ClassMacros.html#alias_accessor-instance_method" title="ANTLR3::ClassMacros#alias_accessor (method)">#alias_accessor</a>, <a href="ClassMacros.html#shared_attribute-instance_method" title="ANTLR3::ClassMacros#shared_attribute (method)">#shared_attribute</a></p>
+
+  
+  
+  
+  
+  
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::CommonTokenStream (class)">CommonTokenStream</a></tt>) <strong>initialize</strong>(token_source, options = {}) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+constructs a new token stream using the <tt>token_source</tt> provided.
+<tt>token_source</tt> is usually a lexer, but can be any object that
+implements <tt>next_token</tt> and includes ANTLR3::TokenSource.
+</p>
+<p>
+If a block is provided, each token harvested will be yielded and if the
+block returns a <tt>nil</tt> or <tt>false</tt> value, the token will not be
+added to the stream &#8212; it will be discarded.
+</p>
+<h3>Options</h3>
+<dl>
+<dt>:channel</dt><dd>The channel value the stream should be tuned to initially
+
+</dd>
+<dt>:source_name</dt><dd>The source name (file name) attribute of the stream
+
+</dd>
+</dl>
+<h3>Example</h3>
+<pre class="code">
+  <span class='comment val'># create a new token stream that is tuned to channel :comment, and</span>
+  <span class='comment val'># discard all WHITE_SPACE tokens</span>
+  <span class='ANTLR3 constant id'>ANTLR3</span><span class='colon2 op'>::</span><span class='CommonTokenStream constant id'>CommonTokenStream</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='lexer identifier id'>lexer</span><span class='comma token'>,</span> <span class='symbol val'>:channel</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:comment</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='token identifier id'>token</span><span class='bitor op'>|</span>
+    <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='name identifier id'>name</span> <span class='neq op'>!=</span> <span class='string val'>'WHITE_SPACE'</span>
+  <span class='end end kw'>end</span>
+</pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 735</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span> <span class='token_source identifier id'>token_source</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span> <span class='rparen token'>)</span>
+  <span class='case case kw'>case</span> <span class='token_source identifier id'>token_source</span>
+  <span class='when when kw'>when</span> <span class='CommonTokenStream constant id'>CommonTokenStream</span>
+    <span class='comment val'># this is useful in cases where you want to convert a CommonTokenStream</span>
+    <span class='comment val'># to a RewriteTokenStream or other variation of the standard token stream</span>
+    <span class='stream identifier id'>stream</span> <span class='assign token'>=</span> <span class='token_source identifier id'>token_source</span>
+    <span class='@token_source ivar id'>@token_source</span> <span class='assign token'>=</span> <span class='stream identifier id'>stream</span><span class='dot token'>.</span><span class='token_source identifier id'>token_source</span>
+    <span class='@channel ivar id'>@channel</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:channel</span> <span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='stream identifier id'>stream</span><span class='dot token'>.</span><span class='channel identifier id'>channel</span> <span class='or or kw'>or</span> <span class='DEFAULT_CHANNEL constant id'>DEFAULT_CHANNEL</span> <span class='rbrace token'>}</span>
+    <span class='@source_name ivar id'>@source_name</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:source_name</span> <span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='stream identifier id'>stream</span><span class='dot token'>.</span><span class='source_name identifier id'>source_name</span> <span class='rbrace token'>}</span>
+    <span class='tokens identifier id'>tokens</span> <span class='assign token'>=</span> <span class='stream identifier id'>stream</span><span class='dot token'>.</span><span class='tokens identifier id'>tokens</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span> <span class='t identifier id'>t</span> <span class='bitor op'>|</span> <span class='t identifier id'>t</span><span class='dot token'>.</span><span class='dup identifier id'>dup</span> <span class='rbrace token'>}</span>
+  <span class='else else kw'>else</span>
+    <span class='@token_source ivar id'>@token_source</span> <span class='assign token'>=</span> <span class='token_source identifier id'>token_source</span>
+    <span class='@channel ivar id'>@channel</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:channel</span><span class='comma token'>,</span> <span class='DEFAULT_CHANNEL constant id'>DEFAULT_CHANNEL</span> <span class='rparen token'>)</span>
+    <span class='@source_name ivar id'>@source_name</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:source_name</span> <span class='rparen token'>)</span> <span class='lbrace token'>{</span>  <span class='@token_source ivar id'>@token_source</span><span class='dot token'>.</span><span class='source_name identifier id'>source_name</span> <span class='rescue rescue kw'>rescue</span> <span class='nil nil kw'>nil</span> <span class='rbrace token'>}</span>
+    <span class='tokens identifier id'>tokens</span> <span class='assign token'>=</span> <span class='@token_source ivar id'>@token_source</span><span class='dot token'>.</span><span class='to_a identifier id'>to_a</span>
+  <span class='end end kw'>end</span>
+  <span class='@last_marker ivar id'>@last_marker</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='@tokens ivar id'>@tokens</span> <span class='assign token'>=</span> <span class='block_given? fid id'>block_given?</span> <span class='integer val'>? </span><span class='tokens identifier id'>tokens</span><span class='dot token'>.</span><span class='select identifier id'>select</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span> <span class='t identifier id'>t</span> <span class='bitor op'>|</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='t identifier id'>t</span><span class='comma token'>,</span> <span class='self self kw'>self</span> <span class='rparen token'>)</span> <span class='rbrace token'>}</span> <span class='colon op'>:</span> <span class='tokens identifier id'>tokens</span>
+  <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='each_with_index identifier id'>each_with_index</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='t identifier id'>t</span><span class='comma token'>,</span> <span class='i identifier id'>i</span><span class='bitor op'>|</span> <span class='t identifier id'>t</span><span class='dot token'>.</span><span class='index identifier id'>index</span> <span class='assign token'>=</span> <span class='i identifier id'>i</span> <span class='rbrace token'>}</span>
+  <span class='@position ivar id'>@position</span> <span class='assign token'>=</span> 
+    <span class='if if kw'>if</span> <span class='first_token identifier id'>first_token</span> <span class='assign token'>=</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='find identifier id'>find</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='t identifier id'>t</span><span class='bitor op'>|</span> <span class='t identifier id'>t</span><span class='dot token'>.</span><span class='channel identifier id'>channel</span> <span class='eq op'>==</span> <span class='@channel ivar id'>@channel</span> <span class='rbrace token'>}</span>
+      <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='index identifier id'>index</span><span class='lparen token'>(</span> <span class='first_token identifier id'>first_token</span> <span class='rparen token'>)</span>
+    <span class='else else kw'>else</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+    <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="<<-instance_method">
+  
+    - (<tt>Object</tt>) <strong>&lt;&lt;</strong>(k) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+880
+881
+882</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 880</span>
+
+<span class='def def kw'>def</span> <span class='lshft op'>&lt;&lt;</span> <span class='k identifier id'>k</span>
+  <span class='self self kw'>self</span> <span class='rshft op'>&gt;&gt;</span> <span class='minus op'>-</span><span class='k identifier id'>k</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="[]-instance_method">
+  
+    - (<tt>Object</tt>) <strong>[]</strong>(i, *args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+identical to Array#[], as applied to the stream&#8217;s token buffer
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1006
+1007
+1008</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 1006</span>
+
+<span class='def def kw'>def</span> <span class='aref op'>[]</span><span class='lparen token'>(</span> <span class='i identifier id'>i</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span>
+  <span class='@tokens ivar id'>@tokens</span><span class='lbrack token'>[</span> <span class='i identifier id'>i</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="at-instance_method">
+  
+    - (<tt>Object</tt>) <strong>at</strong>(i) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+999
+1000
+1001</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 999</span>
+
+<span class='def def kw'>def</span> <span class='at identifier id'>at</span><span class='lparen token'>(</span> <span class='i identifier id'>i</span> <span class='rparen token'>)</span>
+  <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='at identifier id'>at</span> <span class='i identifier id'>i</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="consume-instance_method">
+  
+    - (<tt>Object</tt>) <strong>consume</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+advance the stream one step to the next on-channel token
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+843
+844
+845
+846
+847
+848
+849</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 843</span>
+
+<span class='def def kw'>def</span> <span class='consume identifier id'>consume</span>
+  <span class='token identifier id'>token</span> <span class='assign token'>=</span> <span class='@tokens ivar id'>@tokens</span><span class='lbrack token'>[</span> <span class='@position ivar id'>@position</span> <span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='EOF_TOKEN constant id'>EOF_TOKEN</span>
+  <span class='if if kw'>if</span> <span class='@position ivar id'>@position</span> <span class='lt op'>&lt;</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+    <span class='@position ivar id'>@position</span> <span class='assign token'>=</span> <span class='future? fid id'>future?</span><span class='lparen token'>(</span> <span class='integer val'>2</span> <span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+  <span class='end end kw'>end</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='token identifier id'>token</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="each-instance_method">
+  
+    - (<tt>Object</tt>) <strong>each</strong>(*args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+yields each token in the stream (including off-channel tokens) If no block
+is provided, the method returns an Enumerator object. #each accepts the
+same arguments as #tokens
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+938
+939
+940
+941</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 938</span>
+
+<span class='def def kw'>def</span> <span class='each identifier id'>each</span><span class='lparen token'>(</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span>
+  <span class='block_given? fid id'>block_given?</span> <span class='or or kw'>or</span> <span class='return return kw'>return</span> <span class='enum_for identifier id'>enum_for</span><span class='lparen token'>(</span> <span class='symbol val'>:each</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span>
+  <span class='tokens identifier id'>tokens</span><span class='lparen token'>(</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='token identifier id'>token</span><span class='bitor op'>|</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='token identifier id'>token</span> <span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="each_on_channel-instance_method">
+  
+    - (<tt>Object</tt>) <strong>each_on_channel</strong>(channel = @channel) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+yields each token in the stream with the given channel value If no channel
+value is given, the stream&#8217;s tuned channel value will be used. If no
+block is given, an enumerator will be returned.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+949
+950
+951
+952
+953
+954</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 949</span>
+
+<span class='def def kw'>def</span> <span class='each_on_channel identifier id'>each_on_channel</span><span class='lparen token'>(</span> <span class='channel identifier id'>channel</span> <span class='assign token'>=</span> <span class='@channel ivar id'>@channel</span> <span class='rparen token'>)</span>
+  <span class='block_given? fid id'>block_given?</span> <span class='or or kw'>or</span> <span class='return return kw'>return</span> <span class='enum_for identifier id'>enum_for</span><span class='lparen token'>(</span> <span class='symbol val'>:each_on_channel</span><span class='comma token'>,</span> <span class='channel identifier id'>channel</span> <span class='rparen token'>)</span>
+  <span class='for for kw'>for</span> <span class='token identifier id'>token</span> <span class='in in kw'>in</span> <span class='@tokens ivar id'>@tokens</span>
+    <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='channel identifier id'>channel</span> <span class='eq op'>==</span> <span class='channel identifier id'>channel</span> <span class='and and kw'>and</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='token identifier id'>token</span> <span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="extract_text-instance_method">
+  
+    - (<tt>Object</tt>) <strong>extract_text</strong>(start = 0, stop = @tokens.length-1) 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='to_s-instance_method'>to_s</span></span>
+    </span>
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+fetches the text content of all tokens between <tt>start</tt> and
+<tt>stop</tt> and joins the chunks into a single string
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1023
+1024
+1025
+1026
+1027</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 1023</span>
+
+<span class='def def kw'>def</span> <span class='extract_text identifier id'>extract_text</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span> <span class='assign token'>=</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='stop identifier id'>stop</span> <span class='assign token'>=</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span> <span class='minus op'>-</span> <span class='integer val'>1</span> <span class='rparen token'>)</span>
+  <span class='start identifier id'>start</span> <span class='assign token'>=</span> <span class='start identifier id'>start</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='dot token'>.</span><span class='at_least identifier id'>at_least</span><span class='lparen token'>(</span> <span class='integer val'>0</span> <span class='rparen token'>)</span>
+  <span class='stop identifier id'>stop</span> <span class='assign token'>=</span> <span class='stop identifier id'>stop</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='dot token'>.</span><span class='at_most identifier id'>at_most</span><span class='lparen token'>(</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span> <span class='rparen token'>)</span>
+  <span class='@tokens ivar id'>@tokens</span><span class='lbrack token'>[</span> <span class='start identifier id'>start</span><span class='dot2 op'>..</span><span class='stop identifier id'>stop</span> <span class='rbrack token'>]</span><span class='dot token'>.</span><span class='map! fid id'>map!</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='t identifier id'>t</span><span class='bitor op'>|</span> <span class='t identifier id'>t</span><span class='dot token'>.</span><span class='text identifier id'>text</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span> <span class='string val'>''</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="future?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>future?</strong>(k = 1) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+returns the index of the on-channel token at look-ahead position <tt>k</tt>
+or nil if no other on-channel tokens exist
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 888</span>
+
+<span class='def def kw'>def</span> <span class='future? fid id'>future?</span><span class='lparen token'>(</span> <span class='k identifier id'>k</span> <span class='assign token'>=</span> <span class='integer val'>1</span> <span class='rparen token'>)</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  
+  <span class='case case kw'>case</span>
+  <span class='when when kw'>when</span> <span class='k identifier id'>k</span> <span class='eq op'>==</span> <span class='integer val'>0</span> <span class='then then kw'>then</span> <span class='nil nil kw'>nil</span>
+  <span class='when when kw'>when</span> <span class='k identifier id'>k</span> <span class='lt op'>&lt;</span> <span class='integer val'>0</span> <span class='then then kw'>then</span> <span class='past? fid id'>past?</span><span class='lparen token'>(</span> <span class='minus op'>-</span><span class='k identifier id'>k</span> <span class='rparen token'>)</span>
+  <span class='when when kw'>when</span> <span class='k identifier id'>k</span> <span class='eq op'>==</span> <span class='integer val'>1</span> <span class='then then kw'>then</span> <span class='@position ivar id'>@position</span>
+  <span class='else else kw'>else</span>
+    <span class='comment val'># since the stream only yields on-channel</span>
+    <span class='comment val'># tokens, the stream can't just go to the</span>
+    <span class='comment val'># next position, but rather must skip</span>
+    <span class='comment val'># over off-channel tokens</span>
+    <span class='lparen token'>(</span> <span class='k identifier id'>k</span> <span class='minus op'>-</span> <span class='integer val'>1</span> <span class='rparen token'>)</span><span class='dot token'>.</span><span class='times identifier id'>times</span><span class='dot token'>.</span><span class='inject identifier id'>inject</span><span class='lparen token'>(</span> <span class='@position ivar id'>@position</span> <span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='cursor identifier id'>cursor</span><span class='comma token'>,</span> <span class='bitor op'>|</span>
+      <span class='begin begin kw'>begin</span>
+        <span class='tk identifier id'>tk</span> <span class='assign token'>=</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='at identifier id'>at</span><span class='lparen token'>(</span> <span class='cursor identifier id'>cursor</span> <span class='opasgn op'>+=</span> <span class='integer val'>1</span> <span class='rparen token'>)</span> <span class='or or kw'>or</span> <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='cursor identifier id'>cursor</span> <span class='rparen token'>)</span>
+        <span class='comment val'># ^- if tk is nil (i.e. i is outside array limits)</span>
+      <span class='end end kw'>end</span> <span class='until until_mod kw'>until</span> <span class='tk identifier id'>tk</span><span class='dot token'>.</span><span class='channel identifier id'>channel</span> <span class='eq op'>==</span> <span class='@channel ivar id'>@channel</span>
+      <span class='cursor identifier id'>cursor</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="inspect-instance_method">
+  
+    - (<tt>Object</tt>) <strong>inspect</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Standard Conversion Methods ###############################
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1011
+1012
+1013
+1014
+1015
+1016
+1017</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 1011</span>
+
+<span class='def def kw'>def</span> <span class='inspect identifier id'>inspect</span>
+  <span class='string identifier id'>string</span> <span class='assign token'>=</span> <span class='string val'>&quot;#&lt;%p: @token_source=%p @ %p/%p&quot;</span> <span class='mod op'>%</span>
+    <span class='lbrack token'>[</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='comma token'>,</span> <span class='@token_source ivar id'>@token_source</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='comma token'>,</span> <span class='@position ivar id'>@position</span><span class='comma token'>,</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span> <span class='rbrack token'>]</span>
+  <span class='tk identifier id'>tk</span> <span class='assign token'>=</span> <span class='look identifier id'>look</span><span class='lparen token'>(</span> <span class='integer val'>-1</span> <span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='string identifier id'>string</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot; #{ tk.inspect } &lt;--&quot;</span>
+  <span class='tk identifier id'>tk</span> <span class='assign token'>=</span> <span class='look identifier id'>look</span><span class='lparen token'>(</span> <span class='integer val'>1</span> <span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='string identifier id'>string</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot; --&gt; #{ tk.inspect }&quot;</span>
+  <span class='string identifier id'>string</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>'&gt;'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="look-instance_method">
+  
+    - (<tt>Object</tt>) <strong>look</strong>(k = 1) 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='>>-instance_method'>&gt;&gt;</span></span>
+    </span>
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+operates simillarly to #peek, but returns the full token object at
+look-ahead position <tt>k</tt>
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+874
+875
+876
+877</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 874</span>
+
+<span class='def def kw'>def</span> <span class='look identifier id'>look</span><span class='lparen token'>(</span> <span class='k identifier id'>k</span> <span class='assign token'>=</span> <span class='integer val'>1</span> <span class='rparen token'>)</span>
+  <span class='index identifier id'>index</span> <span class='assign token'>=</span> <span class='future? fid id'>future?</span><span class='lparen token'>(</span> <span class='k identifier id'>k</span> <span class='rparen token'>)</span> <span class='or or kw'>or</span> <span class='return return kw'>return</span> <span class='nil nil kw'>nil</span>
+  <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='index identifier id'>index</span><span class='comma token'>,</span> <span class='EOF_TOKEN constant id'>EOF_TOKEN</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="mark-instance_method">
+  
+    - (<tt>Object</tt>) <strong>mark</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+bookmark the current position of the input stream
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+824
+825
+826</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 824</span>
+
+<span class='def def kw'>def</span> <span class='mark identifier id'>mark</span>
+  <span class='@last_marker ivar id'>@last_marker</span> <span class='assign token'>=</span> <span class='@position ivar id'>@position</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="past?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>past?</strong>(k = 1) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+returns the index of the on-channel token at look-behind position
+<tt>k</tt> or nil if no other on-channel tokens exist before the current
+token
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 914</span>
+
+<span class='def def kw'>def</span> <span class='past? fid id'>past?</span><span class='lparen token'>(</span> <span class='k identifier id'>k</span> <span class='assign token'>=</span> <span class='integer val'>1</span> <span class='rparen token'>)</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  
+  <span class='case case kw'>case</span>
+  <span class='when when kw'>when</span> <span class='k identifier id'>k</span> <span class='eq op'>==</span> <span class='integer val'>0</span> <span class='then then kw'>then</span> <span class='nil nil kw'>nil</span>
+  <span class='when when kw'>when</span> <span class='@position ivar id'>@position</span> <span class='minus op'>-</span> <span class='k identifier id'>k</span> <span class='lt op'>&lt;</span> <span class='integer val'>0</span> <span class='then then kw'>then</span> <span class='nil nil kw'>nil</span>
+  <span class='else else kw'>else</span>
+    
+    <span class='k identifier id'>k</span><span class='dot token'>.</span><span class='times identifier id'>times</span><span class='dot token'>.</span><span class='inject identifier id'>inject</span><span class='lparen token'>(</span> <span class='@position ivar id'>@position</span> <span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='cursor identifier id'>cursor</span><span class='comma token'>,</span> <span class='bitor op'>|</span>
+      <span class='begin begin kw'>begin</span>
+        <span class='cursor identifier id'>cursor</span> <span class='leq op'>&lt;=</span> <span class='integer val'>0</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+        <span class='tk identifier id'>tk</span> <span class='assign token'>=</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='at identifier id'>at</span><span class='lparen token'>(</span> <span class='cursor identifier id'>cursor</span> <span class='opasgn op'>-=</span> <span class='integer val'>1</span> <span class='rparen token'>)</span> <span class='or or kw'>or</span> <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+      <span class='end end kw'>end</span> <span class='until until_mod kw'>until</span> <span class='tk identifier id'>tk</span><span class='dot token'>.</span><span class='channel identifier id'>channel</span> <span class='eq op'>==</span> <span class='@channel ivar id'>@channel</span>
+      <span class='cursor identifier id'>cursor</span>
+    <span class='end end kw'>end</span>
+    
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="peek-instance_method">
+  
+    - (<tt>Object</tt>) <strong>peek</strong>(k = 1) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+return the type of the on-channel token at look-ahead distance <tt>k</tt>.
+<tt>k = 1</tt> represents the current token. <tt>k</tt> greater than 1
+represents upcoming on-channel tokens. A negative value of <tt>k</tt>
+returns previous on-channel tokens consumed, where <tt>k = -1</tt> is the
+last on-channel token consumed. <tt>k = 0</tt> has undefined behavior and
+returns <tt>nil</tt>
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+867
+868
+869</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 867</span>
+
+<span class='def def kw'>def</span> <span class='peek identifier id'>peek</span><span class='lparen token'>(</span> <span class='k identifier id'>k</span> <span class='assign token'>=</span> <span class='integer val'>1</span> <span class='rparen token'>)</span>
+  <span class='tk identifier id'>tk</span> <span class='assign token'>=</span> <span class='look identifier id'>look</span><span class='lparen token'>(</span> <span class='k identifier id'>k</span> <span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='tk identifier id'>tk</span><span class='dot token'>.</span><span class='type identifier id'>type</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="rebuild-instance_method">
+  
+    - (<tt>Object</tt>) <strong>rebuild</strong>(token_source = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+resets the token stream and rebuilds it with a potentially new token
+source. If no <tt>token_source</tt> value is provided, the stream will
+attempt to reset the current <tt>token_source</tt> by calling
+<tt>reset</tt> on the object. The stream will then clear the token buffer
+and attempt to harvest new tokens. Identical in behavior to
+CommonTokenStream.new, if a block is provided, tokens will be yielded and
+discarded if the block returns a <tt>false</tt> or <tt>nil</tt> value.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 769</span>
+
+<span class='def def kw'>def</span> <span class='rebuild identifier id'>rebuild</span><span class='lparen token'>(</span> <span class='token_source identifier id'>token_source</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='token_source identifier id'>token_source</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span>
+    <span class='@token_source ivar id'>@token_source</span><span class='dot token'>.</span><span class='reset identifier id'>reset</span> <span class='rescue rescue kw'>rescue</span> <span class='nil nil kw'>nil</span>
+  <span class='else else kw'>else</span> <span class='@token_source ivar id'>@token_source</span> <span class='assign token'>=</span> <span class='token_source identifier id'>token_source</span>
+  <span class='end end kw'>end</span>
+  <span class='@tokens ivar id'>@tokens</span> <span class='assign token'>=</span> <span class='block_given? fid id'>block_given?</span> <span class='integer val'>? </span><span class='@token_source ivar id'>@token_source</span><span class='dot token'>.</span><span class='select identifier id'>select</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='token identifier id'>token</span><span class='bitor op'>|</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='token identifier id'>token</span> <span class='rparen token'>)</span> <span class='rbrace token'>}</span> <span class='colon op'>:</span>   
+                           <span class='@token_source ivar id'>@token_source</span><span class='dot token'>.</span><span class='to_a identifier id'>to_a</span>
+  <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='each_with_index identifier id'>each_with_index</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='t identifier id'>t</span><span class='comma token'>,</span> <span class='i identifier id'>i</span><span class='bitor op'>|</span> <span class='t identifier id'>t</span><span class='dot token'>.</span><span class='index identifier id'>index</span> <span class='assign token'>=</span> <span class='i identifier id'>i</span> <span class='rbrace token'>}</span>
+  <span class='@last_marker ivar id'>@last_marker</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='@position ivar id'>@position</span> <span class='assign token'>=</span> 
+    <span class='if if kw'>if</span> <span class='first_token identifier id'>first_token</span> <span class='assign token'>=</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='find identifier id'>find</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='t identifier id'>t</span><span class='bitor op'>|</span> <span class='t identifier id'>t</span><span class='dot token'>.</span><span class='channel identifier id'>channel</span> <span class='eq op'>==</span> <span class='@channel ivar id'>@channel</span> <span class='rbrace token'>}</span>
+      <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='index identifier id'>index</span><span class='lparen token'>(</span> <span class='first_token identifier id'>first_token</span> <span class='rparen token'>)</span>
+    <span class='else else kw'>else</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+    <span class='end end kw'>end</span>
+  <span class='return return kw'>return</span> <span class='self self kw'>self</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="release-instance_method">
+  
+    - (<tt>Object</tt>) <strong>release</strong>(marker = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+828
+829
+830</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 828</span>
+
+<span class='def def kw'>def</span> <span class='release identifier id'>release</span><span class='lparen token'>(</span> <span class='marker identifier id'>marker</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='comment val'># do nothing</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="reset-instance_method">
+  
+    - (<tt>Object</tt>) <strong>reset</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+rewind the stream to its initial state
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+813
+814
+815
+816
+817
+818
+819</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 813</span>
+
+<span class='def def kw'>def</span> <span class='reset identifier id'>reset</span>
+  <span class='@position ivar id'>@position</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='@position ivar id'>@position</span> <span class='opasgn op'>+=</span> <span class='integer val'>1</span> <span class='while while_mod kw'>while</span> <span class='token identifier id'>token</span> <span class='assign token'>=</span> <span class='@tokens ivar id'>@tokens</span><span class='lbrack token'>[</span> <span class='@position ivar id'>@position</span> <span class='rbrack token'>]</span> <span class='and and kw'>and</span>
+                       <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='channel identifier id'>channel</span> <span class='neq op'>!=</span> <span class='@channel ivar id'>@channel</span>
+  <span class='@last_marker ivar id'>@last_marker</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='return return kw'>return</span> <span class='self self kw'>self</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="rewind-instance_method">
+  
+    - (<tt>Object</tt>) <strong>rewind</strong>(marker = @last_marker, release = true) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+833
+834
+835</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 833</span>
+
+<span class='def def kw'>def</span> <span class='rewind identifier id'>rewind</span><span class='lparen token'>(</span> <span class='marker identifier id'>marker</span> <span class='assign token'>=</span> <span class='@last_marker ivar id'>@last_marker</span><span class='comma token'>,</span> <span class='release identifier id'>release</span> <span class='assign token'>=</span> <span class='true true kw'>true</span> <span class='rparen token'>)</span>
+  <span class='seek identifier id'>seek</span><span class='lparen token'>(</span> <span class='marker identifier id'>marker</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="seek-instance_method">
+  
+    - (<tt>Object</tt>) <strong>seek</strong>(index) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+jump to the stream position specified by <tt>index</tt> note: seek does not
+check whether or not the
+</p>
+<pre class="code">
+      <span class='token identifier id'>token</span> <span class='at identifier id'>at</span> <span class='the identifier id'>the</span> <span class='specified identifier id'>specified</span> <span class='position identifier id'>position</span> <span class='is identifier id'>is</span> <span class='on identifier id'>on</span><span class='minus op'>-</span><span class='channel identifier id'>channel</span><span class='comma token'>,</span>
+</pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+856
+857
+858
+859</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 856</span>
+
+<span class='def def kw'>def</span> <span class='seek identifier id'>seek</span><span class='lparen token'>(</span> <span class='index identifier id'>index</span> <span class='rparen token'>)</span>
+  <span class='@position ivar id'>@position</span> <span class='assign token'>=</span> <span class='index identifier id'>index</span><span class='dot token'>.</span><span class='to_i identifier id'>to_i</span><span class='dot token'>.</span><span class='bound identifier id'>bound</span><span class='lparen token'>(</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span> <span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='self self kw'>self</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="size-instance_method">
+  
+    - (<tt>Object</tt>) <strong>size</strong> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='length-instance_method'>length</span></span>
+    </span>
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+802
+803
+804</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 802</span>
+
+<span class='def def kw'>def</span> <span class='size identifier id'>size</span>
+  <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="token_class-instance_method">
+  
+    - (<tt>Object</tt>) <strong>token_class</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+793
+794
+795
+796
+797
+798</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 793</span>
+
+<span class='def def kw'>def</span> <span class='token_class identifier id'>token_class</span>
+  <span class='@token_source ivar id'>@token_source</span><span class='dot token'>.</span><span class='token_class identifier id'>token_class</span>
+<span class='rescue rescue kw'>rescue</span> <span class='NoMethodError constant id'>NoMethodError</span>
+  <span class='@position ivar id'>@position</span> <span class='eq op'>==</span> <span class='integer val'>-1</span> <span class='and and kw'>and</span> <span class='fill_buffer identifier id'>fill_buffer</span>
+  <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span> <span class='integer val'>? </span><span class='CommonToken constant id'>CommonToken</span> <span class='colon op'>:</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='first identifier id'>first</span><span class='dot token'>.</span><span class='class identifier id'>class</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="tokens-instance_method">
+  
+    - (<tt>Object</tt>) <strong>tokens</strong>(start = nil, stop = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+returns a copy of the token buffer. If <tt>start</tt> and <tt>stop</tt> are
+provided, tokens returns a slice of the token buffer from
+<tt>start..stop</tt>. The parameters are converted to integers with their
+<tt>to_i</tt> methods, and thus tokens can be provided to specify start and
+stop. If a block is provided, tokens are yielded and filtered out of the
+return array if the block returns a <tt>false</tt> or <tt>nil</tt> value.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+986
+987
+988
+989
+990
+991
+992
+993
+994
+995
+996</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 986</span>
+
+<span class='def def kw'>def</span> <span class='tokens identifier id'>tokens</span><span class='lparen token'>(</span> <span class='start identifier id'>start</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='stop identifier id'>stop</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='stop identifier id'>stop</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span>  <span class='orop op'>||</span> <span class='stop identifier id'>stop</span> <span class='geq op'>&gt;=</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span> <span class='and and kw'>and</span> <span class='stop identifier id'>stop</span> <span class='assign token'>=</span> <span class='@tokens ivar id'>@tokens</span><span class='dot token'>.</span><span class='length identifier id'>length</span> <span class='minus op'>-</span> <span class='integer val'>1</span>
+  <span class='start identifier id'>start</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='orop op'>||</span> <span class='stop identifier id'>stop</span> <span class='lt op'>&lt;</span> <span class='integer val'>0</span> <span class='and and kw'>and</span> <span class='start identifier id'>start</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='tokens identifier id'>tokens</span> <span class='assign token'>=</span> <span class='@tokens ivar id'>@tokens</span><span class='lbrack token'>[</span> <span class='start identifier id'>start</span><span class='dot2 op'>..</span><span class='stop identifier id'>stop</span> <span class='rbrack token'>]</span>
+  
+  <span class='if if kw'>if</span> <span class='block_given? fid id'>block_given?</span>
+    <span class='tokens identifier id'>tokens</span><span class='dot token'>.</span><span class='delete_if identifier id'>delete_if</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='t identifier id'>t</span><span class='bitor op'>|</span> <span class='not not kw'>not</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='t identifier id'>t</span> <span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+  
+  <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='tokens identifier id'>tokens</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="tune_to-instance_method">
+  
+    - (<tt>Object</tt>) <strong>tune_to</strong>(channel) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+tune the stream to a new channel value
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+789
+790
+791</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 789</span>
+
+<span class='def def kw'>def</span> <span class='tune_to identifier id'>tune_to</span><span class='lparen token'>(</span> <span class='channel identifier id'>channel</span> <span class='rparen token'>)</span>
+  <span class='@channel ivar id'>@channel</span> <span class='assign token'>=</span> <span class='channel identifier id'>channel</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="walk-instance_method">
+  
+    - (<tt>Object</tt>) <strong>walk</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+iterates through the token stream, yielding each on channel token along the
+way. After iteration has completed, the stream&#8217;s position will be
+restored to where it was before #walk was called. While #each or
+#each_on_channel does not change the positions stream during iteration,
+#walk advances through the stream. This makes it possible to look ahead and
+behind the current token during iteration. If no block is given, an
+enumerator will be returned.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/streams.rb', line 964</span>
+
+<span class='def def kw'>def</span> <span class='walk identifier id'>walk</span>
+  <span class='block_given? fid id'>block_given?</span> <span class='or or kw'>or</span> <span class='return return kw'>return</span> <span class='enum_for identifier id'>enum_for</span><span class='lparen token'>(</span> <span class='symbol val'>:walk</span> <span class='rparen token'>)</span>
+  <span class='initial_position identifier id'>initial_position</span> <span class='assign token'>=</span> <span class='@position ivar id'>@position</span>
+  <span class='begin begin kw'>begin</span>
+    <span class='while while kw'>while</span> <span class='token identifier id'>token</span> <span class='assign token'>=</span> <span class='look identifier id'>look</span> <span class='and and kw'>and</span> <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='type identifier id'>type</span> <span class='neq op'>!=</span> <span class='EOF constant id'>EOF</span>
+      <span class='consume identifier id'>consume</span>
+      <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='token identifier id'>token</span> <span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+    <span class='return return kw'>return</span> <span class='self self kw'>self</span>
+  <span class='ensure ensure kw'>ensure</span>
+    <span class='@position ivar id'>@position</span> <span class='assign token'>=</span> <span class='initial_position identifier id'>initial_position</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:17 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

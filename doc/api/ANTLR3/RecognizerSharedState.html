@@ -1,0 +1,765 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::RecognizerSharedState</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (R)</a> &raquo; 
+    <span class='title'><a href="../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span>
+     &raquo; 
+    <span class="title">RecognizerSharedState</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::RecognizerSharedState 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Struct</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Struct</li>
+          
+            <li class="next">ANTLR3::RecognizerSharedState</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/antlr3/recognizers.rb<span class="defines">,<br />
+  lib/antlr3/recognizers.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+  
+  <h2>Instance Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#backtracking-instance_method" title="#backtracking (instance method)">- (Object) <strong>backtracking</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#channel-instance_method" title="#channel (instance method)">- (Object) <strong>channel</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#error_recovery-instance_method" title="#error_recovery (instance method)">- (Object) <strong>error_recovery</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#following-instance_method" title="#following (instance method)">- (Object) <strong>following</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#last_error_index-instance_method" title="#last_error_index (instance method)">- (Object) <strong>last_error_index</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rule_memory-instance_method" title="#rule_memory (instance method)">- (Object) <strong>rule_memory</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#syntax_errors-instance_method" title="#syntax_errors (instance method)">- (Object) <strong>syntax_errors</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#text-instance_method" title="#text (instance method)">- (Object) <strong>text</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#token-instance_method" title="#token (instance method)">- (Object) <strong>token</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#token_start_column-instance_method" title="#token_start_column (instance method)">- (Object) <strong>token_start_column</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#token_start_line-instance_method" title="#token_start_line (instance method)">- (Object) <strong>token_start_line</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#token_start_position-instance_method" title="#token_start_position (instance method)">- (Object) <strong>token_start_position</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#type-instance_method" title="#type (instance method)">- (Object) <strong>type</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (RecognizerSharedState) <strong>initialize</strong> </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of RecognizerSharedState.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reset%21-instance_method" title="#reset! (instance method)">- (Object) <strong>reset!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+restores all of the state variables to their respective initial default
+values.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::RecognizerSharedState (class)">RecognizerSharedState</a></tt>) <strong>initialize</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of RecognizerSharedState
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/recognizers.rb', line 94</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span>
+  <span class='super super kw'>super</span><span class='lparen token'>(</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='false false kw'>false</span><span class='comma token'>,</span> <span class='integer val'>-1</span><span class='comma token'>,</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='integer val'>-1</span> <span class='rparen token'>)</span>
+  <span class='comment val'># ^-- same as this --v </span>
+  <span class='comment val'># self.following = []</span>
+  <span class='comment val'># self.error_recovery = false</span>
+  <span class='comment val'># self.last_error_index = -1</span>
+  <span class='comment val'># self.backtracking = 0</span>
+  <span class='comment val'># self.syntax_errors = 0</span>
+  <span class='comment val'># self.token_start_position = -1</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="backtracking=-instance_method"></span>
+      <span id="backtracking-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="backtracking-instance_method">
+  
+    - (<tt>Object</tt>) <strong>backtracking</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="channel=-instance_method"></span>
+      <span id="channel-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="channel-instance_method">
+  
+    - (<tt>Object</tt>) <strong>channel</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="error_recovery=-instance_method"></span>
+      <span id="error_recovery-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="error_recovery-instance_method">
+  
+    - (<tt>Object</tt>) <strong>error_recovery</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="following=-instance_method"></span>
+      <span id="following-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="following-instance_method">
+  
+    - (<tt>Object</tt>) <strong>following</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="last_error_index=-instance_method"></span>
+      <span id="last_error_index-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="last_error_index-instance_method">
+  
+    - (<tt>Object</tt>) <strong>last_error_index</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="rule_memory=-instance_method"></span>
+      <span id="rule_memory-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="rule_memory-instance_method">
+  
+    - (<tt>Object</tt>) <strong>rule_memory</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="syntax_errors=-instance_method"></span>
+      <span id="syntax_errors-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="syntax_errors-instance_method">
+  
+    - (<tt>Object</tt>) <strong>syntax_errors</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="text=-instance_method"></span>
+      <span id="text-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="text-instance_method">
+  
+    - (<tt>Object</tt>) <strong>text</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="token=-instance_method"></span>
+      <span id="token-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="token-instance_method">
+  
+    - (<tt>Object</tt>) <strong>token</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="token_start_column=-instance_method"></span>
+      <span id="token_start_column-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="token_start_column-instance_method">
+  
+    - (<tt>Object</tt>) <strong>token_start_column</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="token_start_line=-instance_method"></span>
+      <span id="token_start_line-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="token_start_line-instance_method">
+  
+    - (<tt>Object</tt>) <strong>token_start_line</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="token_start_position=-instance_method"></span>
+      <span id="token_start_position-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="token_start_position-instance_method">
+  
+    - (<tt>Object</tt>) <strong>token_start_position</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="type=-instance_method"></span>
+      <span id="type-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="type-instance_method">
+  
+    - (<tt>Object</tt>) <strong>type</strong> 
+  
+
+  
+</p>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="reset!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>reset!</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+restores all of the state variables to their respective initial default
+values
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/recognizers.rb', line 108</span>
+
+<span class='def def kw'>def</span> <span class='reset! fid id'>reset!</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='following identifier id'>following</span><span class='dot token'>.</span><span class='clear identifier id'>clear</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='error_recovery identifier id'>error_recovery</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='last_error_index identifier id'>last_error_index</span> <span class='assign token'>=</span> <span class='integer val'>-1</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='backtracking identifier id'>backtracking</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='rule_memory identifier id'>rule_memory</span> <span class='and and kw'>and</span> <span class='rule_memory identifier id'>rule_memory</span><span class='dot token'>.</span><span class='clear identifier id'>clear</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='syntax_errors identifier id'>syntax_errors</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='token identifier id'>token</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='token_start_position identifier id'>token_start_position</span> <span class='assign token'>=</span> <span class='integer val'>-1</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='token_start_line identifier id'>token_start_line</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='token_start_column identifier id'>token_start_column</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='channel identifier id'>channel</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='type identifier id'>type</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='text identifier id'>text</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:37 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

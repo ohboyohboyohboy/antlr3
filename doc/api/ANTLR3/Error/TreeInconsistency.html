@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Exception: ANTLR3::Error::TreeInconsistency</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (T)</a> &raquo; 
+    <span class='title'><a href="../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../Error.html" title="ANTLR3::Error (module)">Error</a></span>
+     &raquo; 
+    <span class="title">TreeInconsistency</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Exception: ANTLR3::Error::TreeInconsistency 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">StandardError</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">StandardError</li>
+          
+            <li class="next">ANTLR3::Error::TreeInconsistency</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/antlr3/error.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+  
+
+  
+    <h2>Class Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#failed_index_check%21-class_method" title="failed_index_check! (class method)">+ (Object) <strong>failed_index_check!</strong>(expected, real) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#failed_parent_check%21-class_method" title="failed_parent_check! (class method)">+ (Object) <strong>failed_parent_check!</strong>(expected, real) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#multiple_roots%21-class_method" title="multiple_roots! (class method)">+ (Object) <strong>multiple_roots!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="failed_index_check!-class_method">
+  
+    + (<tt>Object</tt>) <strong>failed_index_check!</strong>(expected, real) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+573
+574
+575
+576
+577
+578</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/error.rb', line 573</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='failed_index_check! fid id'>failed_index_check!</span><span class='lparen token'>(</span> <span class='expected identifier id'>expected</span><span class='comma token'>,</span> <span class='real identifier id'>real</span> <span class='rparen token'>)</span>
+  <span class='new identifier id'>new</span><span class='lparen token'>(</span> 
+    <span class='string val'>&quot;%s: child indexes don't match -&gt; expected %d found %d&quot;</span> <span class='mod op'>%</span>
+    <span class='lbrack token'>[</span> <span class='self self kw'>self</span><span class='comma token'>,</span> <span class='expected identifier id'>expected</span><span class='comma token'>,</span> <span class='real identifier id'>real</span> <span class='rbrack token'>]</span>
+  <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="failed_parent_check!-class_method">
+  
+    + (<tt>Object</tt>) <strong>failed_parent_check!</strong>(expected, real) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+580
+581
+582
+583
+584
+585</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/error.rb', line 580</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='failed_parent_check! fid id'>failed_parent_check!</span><span class='lparen token'>(</span> <span class='expected identifier id'>expected</span><span class='comma token'>,</span> <span class='real identifier id'>real</span> <span class='rparen token'>)</span>
+  <span class='new identifier id'>new</span><span class='lparen token'>(</span> 
+    <span class='string val'>&quot;%s: parents don't match; expected %p found %p&quot;</span> <span class='mod op'>%</span>
+    <span class='lbrack token'>[</span> <span class='self self kw'>self</span><span class='comma token'>,</span> <span class='expected identifier id'>expected</span><span class='comma token'>,</span> <span class='real identifier id'>real</span> <span class='rbrack token'>]</span>
+  <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="multiple_roots!-class_method">
+  
+    + (<tt>Object</tt>) <strong>multiple_roots!</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+587
+588
+589</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/error.rb', line 587</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='multiple_roots! fid id'>multiple_roots!</span>
+  <span class='new identifier id'>new</span> <span class='string val'>&quot;%s: attempted to change more than one node to root&quot;</span> <span class='mod op'>%</span> <span class='self self kw'>self</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:45 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

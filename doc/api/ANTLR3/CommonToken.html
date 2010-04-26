@@ -1,0 +1,767 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::CommonToken</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo; 
+    <span class='title'><a href="../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span>
+     &raquo; 
+    <span class="title">CommonToken</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::CommonToken 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Struct</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Struct</li>
+          
+            <li class="next">ANTLR3::CommonToken</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><a href="Token.html" title="ANTLR3::Token (module)">Token</a></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/antlr3/token.rb<span class="defines">,<br />
+  lib/antlr3/token.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="DEFAULT_VALUES-constant" class="">DEFAULT_VALUES =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace token'>{</span> 
+  <span class='symbol val'>:channel</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='DEFAULT_CHANNEL constant id'>DEFAULT_CHANNEL</span><span class='comma token'>,</span>
+  <span class='symbol val'>:index</span>   <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>-1</span><span class='comma token'>,</span>
+  <span class='symbol val'>:line</span>    <span class='assign token'>=</span><span class='gt op'>&gt;</span>  <span class='integer val'>0</span><span class='comma token'>,</span>
+  <span class='symbol val'>:column</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>-1</span>
+<span class='rbrace token'>}</span><span class='dot token'>.</span><span class='freeze identifier id'>freeze</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="Constants.html" title="ANTLR3::Constants (module)">Constants</a></h3>
+  <p class="inherited"><a href="Constants.html#BUILT_IN_TOKEN_NAMES-constant" title="ANTLR3::Constants::BUILT_IN_TOKEN_NAMES (constant)">BUILT_IN_TOKEN_NAMES</a>, <a href="Constants.html#DEFAULT-constant" title="ANTLR3::Constants::DEFAULT (constant)">DEFAULT</a>, <a href="Constants.html#DOWN-constant" title="ANTLR3::Constants::DOWN (constant)">DOWN</a>, <a href="Constants.html#EOF-constant" title="ANTLR3::Constants::EOF (constant)">EOF</a>, <a href="Constants.html#EOF_TOKEN-constant" title="ANTLR3::Constants::EOF_TOKEN (constant)">EOF_TOKEN</a>, <a href="Constants.html#EOR_TOKEN_TYPE-constant" title="ANTLR3::Constants::EOR_TOKEN_TYPE (constant)">EOR_TOKEN_TYPE</a>, <a href="Constants.html#HIDDEN-constant" title="ANTLR3::Constants::HIDDEN (constant)">HIDDEN</a>, <a href="Constants.html#INVALID_TOKEN-constant" title="ANTLR3::Constants::INVALID_TOKEN (constant)">INVALID_TOKEN</a>, <a href="Constants.html#INVALID_TOKEN_TYPE-constant" title="ANTLR3::Constants::INVALID_TOKEN_TYPE (constant)">INVALID_TOKEN_TYPE</a>, <a href="Constants.html#MEMO_RULE_FAILED-constant" title="ANTLR3::Constants::MEMO_RULE_FAILED (constant)">MEMO_RULE_FAILED</a>, <a href="Constants.html#MEMO_RULE_UNKNOWN-constant" title="ANTLR3::Constants::MEMO_RULE_UNKNOWN (constant)">MEMO_RULE_UNKNOWN</a>, <a href="Constants.html#MIN_TOKEN_TYPE-constant" title="ANTLR3::Constants::MIN_TOKEN_TYPE (constant)">MIN_TOKEN_TYPE</a>, <a href="Constants.html#SKIP_TOKEN-constant" title="ANTLR3::Constants::SKIP_TOKEN (constant)">SKIP_TOKEN</a>, <a href="Constants.html#UP-constant" title="ANTLR3::Constants::UP (constant)">UP</a></p>
+
+  
+  
+  <h2>Instance Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#channel-instance_method" title="#channel (instance method)">- (Object) <strong>channel</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#column-instance_method" title="#column (instance method)">- (Object) <strong>column</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#index-instance_method" title="#index (instance method)">- (Object) <strong>index</strong> </a>
+    
+
+    
+      (also: #token_index)
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#input-instance_method" title="#input (instance method)">- (Object) <strong>input</strong> </a>
+    
+
+    
+      (also: #input_stream)
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#line-instance_method" title="#line (instance method)">- (Object) <strong>line</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#start-instance_method" title="#start (instance method)">- (Object) <strong>start</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#stop-instance_method" title="#stop (instance method)">- (Object) <strong>stop</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#text-instance_method" title="#text (instance method)">- (Object) <strong>text</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#type-instance_method" title="#type (instance method)">- (Object) <strong>type</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>Class Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create-class_method" title="create (class method)">+ (Object) <strong>create</strong>(fields = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#from_token-class_method" title="from_token (class method)">+ (Object) <strong>from_token</strong>(token) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+allows you to make a copy of a token with a different class.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#token_name-class_method" title="token_name (class method)">+ (Object) <strong>token_name</strong>(type) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (CommonToken) <strong>initialize</strong>(type = nil, channel = DEFAULT_CHANNEL, text = nil, input = nil, start = nil, stop = nil, index = -1, line = 0, column = -1) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of CommonToken.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="Token.html" title="ANTLR3::Token (module)">Token</a></h3>
+  <p class="inherited"><a href="Token.html#%3C%3D%3E-instance_method" title="ANTLR3::Token#<=> (method)">#<=></a>, <a href="Token.html#%3D%7E-instance_method" title="ANTLR3::Token#=~ (method)">#=~</a>, <a href="Token.html#concrete%3F-instance_method" title="ANTLR3::Token#concrete? (method)">#concrete?</a>, <a href="Token.html#hidden%3F-instance_method" title="ANTLR3::Token#hidden? (method)">#hidden?</a>, <a href="Token.html#hide%21-instance_method" title="ANTLR3::Token#hide! (method)">#hide!</a>, <a href="Token.html#imaginary%3F-instance_method" title="ANTLR3::Token#imaginary? (method)">#imaginary?</a>, <a href="Token.html#initialize_copy-instance_method" title="ANTLR3::Token#initialize_copy (method)">#initialize_copy</a>, <a href="Token.html#inspect-instance_method" title="ANTLR3::Token#inspect (method)">#inspect</a>, <a href="Token.html#name-instance_method" title="ANTLR3::Token#name (method)">#name</a>, <a href="Token.html#pretty_print-instance_method" title="ANTLR3::Token#pretty_print (method)">#pretty_print</a>, <a href="Token.html#range-instance_method" title="ANTLR3::Token#range (method)">#range</a>, <a href="Token.html#source_text-instance_method" title="ANTLR3::Token#source_text (method)">#source_text</a>, <a href="Token.html#to_i-instance_method" title="ANTLR3::Token#to_i (method)">#to_i</a>, <a href="Token.html#to_s-instance_method" title="ANTLR3::Token#to_s (method)">#to_s</a>, <a href="Token.html#token_name-instance_method" title="ANTLR3::Token#token_name (method)">#token_name</a></p>
+
+  
+  
+  
+  
+  
+  
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::CommonToken (class)">CommonToken</a></tt>) <strong>initialize</strong>(type = nil, channel = DEFAULT_CHANNEL, text = nil, input = nil, start = nil, stop = nil, index = -1, line = 0, column = -1) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of CommonToken
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+247
+248
+249
+250
+251
+252
+253
+254</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/token.rb', line 247</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span> <span class='type identifier id'>type</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='channel identifier id'>channel</span> <span class='assign token'>=</span> <span class='DEFAULT_CHANNEL constant id'>DEFAULT_CHANNEL</span><span class='comma token'>,</span> <span class='text identifier id'>text</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span>
+               <span class='input identifier id'>input</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='start identifier id'>start</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='stop identifier id'>stop</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='index identifier id'>index</span> <span class='assign token'>=</span> <span class='integer val'>-1</span><span class='comma token'>,</span>
+               <span class='line identifier id'>line</span> <span class='assign token'>=</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='column identifier id'>column</span> <span class='assign token'>=</span> <span class='integer val'>-1</span> <span class='rparen token'>)</span>
+  <span class='super super kw'>super</span>
+  <span class='block_given? fid id'>block_given?</span> <span class='and and kw'>and</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='self self kw'>self</span> <span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='text identifier id'>text</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='andop op'>&amp;&amp;</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='start identifier id'>start</span> <span class='andop op'>&amp;&amp;</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='stop identifier id'>stop</span> <span class='and and kw'>and</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='text identifier id'>text</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='input identifier id'>input</span><span class='dot token'>.</span><span class='substring identifier id'>substring</span><span class='lparen token'>(</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='start identifier id'>start</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='stop identifier id'>stop</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="channel=-instance_method"></span>
+      <span id="channel-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="channel-instance_method">
+  
+    - (<tt>Object</tt>) <strong>channel</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="column=-instance_method"></span>
+      <span id="column-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="column-instance_method">
+  
+    - (<tt>Object</tt>) <strong>column</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="index=-instance_method"></span>
+      <span id="index-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="index-instance_method">
+  
+    - (<tt>Object</tt>) <strong>index</strong> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='token_index-instance_method'>token_index</span></span>
+    </span>
+  
+</p>
+</div>
+    
+      
+      <span id="input=-instance_method"></span>
+      <span id="input-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="input-instance_method">
+  
+    - (<tt>Object</tt>) <strong>input</strong> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='input_stream-instance_method'>input_stream</span></span>
+    </span>
+  
+</p>
+</div>
+    
+      
+      <span id="line=-instance_method"></span>
+      <span id="line-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="line-instance_method">
+  
+    - (<tt>Object</tt>) <strong>line</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="start=-instance_method"></span>
+      <span id="start-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="start-instance_method">
+  
+    - (<tt>Object</tt>) <strong>start</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="stop=-instance_method"></span>
+      <span id="stop-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="stop-instance_method">
+  
+    - (<tt>Object</tt>) <strong>stop</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="text=-instance_method"></span>
+      <span id="text-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="text-instance_method">
+  
+    - (<tt>Object</tt>) <strong>text</strong> 
+  
+
+  
+</p>
+</div>
+    
+      
+      <span id="type=-instance_method"></span>
+      <span id="type-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="type-instance_method">
+  
+    - (<tt>Object</tt>) <strong>type</strong> 
+  
+
+  
+</p>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="create-class_method">
+  
+    + (<tt>Object</tt>) <strong>create</strong>(fields = {}) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+233
+234
+235
+236
+237</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/token.rb', line 233</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span> <span class='fields identifier id'>fields</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span> <span class='rparen token'>)</span>
+  <span class='fields identifier id'>fields</span> <span class='assign token'>=</span> <span class='DEFAULT_VALUES constant id'>DEFAULT_VALUES</span><span class='dot token'>.</span><span class='merge identifier id'>merge</span><span class='lparen token'>(</span> <span class='fields identifier id'>fields</span> <span class='rparen token'>)</span>
+  <span class='args identifier id'>args</span> <span class='assign token'>=</span> <span class='members identifier id'>members</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='name identifier id'>name</span><span class='bitor op'>|</span> <span class='fields identifier id'>fields</span><span class='lbrack token'>[</span> <span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_sym identifier id'>to_sym</span> <span class='rbrack token'>]</span> <span class='rbrace token'>}</span>
+  <span class='new identifier id'>new</span><span class='lparen token'>(</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="from_token-class_method">
+  
+    + (<tt>Object</tt>) <strong>from_token</strong>(token) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+allows you to make a copy of a token with a different class
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+240
+241
+242
+243
+244
+245</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/token.rb', line 240</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='from_token identifier id'>from_token</span><span class='lparen token'>(</span> <span class='token identifier id'>token</span> <span class='rparen token'>)</span>
+  <span class='new identifier id'>new</span><span class='lparen token'>(</span> 
+    <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='type identifier id'>type</span><span class='comma token'>,</span>  <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='channel identifier id'>channel</span><span class='comma token'>,</span> <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='text identifier id'>text</span> <span class='integer val'>? </span><span class='token identifier id'>token</span><span class='dot token'>.</span><span class='text identifier id'>text</span><span class='dot token'>.</span><span class='clone identifier id'>clone</span> <span class='colon op'>:</span> <span class='nil nil kw'>nil</span><span class='comma token'>,</span>
+    <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='input identifier id'>input</span><span class='comma token'>,</span> <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='start identifier id'>start</span><span class='comma token'>,</span>   <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='stop identifier id'>stop</span><span class='comma token'>,</span> <span class='integer val'>-1</span><span class='comma token'>,</span> <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='line identifier id'>line</span><span class='comma token'>,</span> <span class='token identifier id'>token</span><span class='dot token'>.</span><span class='column identifier id'>column</span>
+  <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="token_name-class_method">
+  
+    + (<tt>Object</tt>) <strong>token_name</strong>(type) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+229
+230
+231</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/token.rb', line 229</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='token_name identifier id'>token_name</span><span class='lparen token'>(</span> <span class='type identifier id'>type</span> <span class='rparen token'>)</span>
+  <span class='BUILT_IN_TOKEN_NAMES constant id'>BUILT_IN_TOKEN_NAMES</span><span class='lbrack token'>[</span> <span class='type identifier id'>type</span> <span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:15 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -22,10 +22,12 @@ requirements: [java]
 required_ruby_version: ">= 1.8.7"
 
 doc: !group
-  rdoc: !path doc/rdoc
-  ri:   !path doc/ri
+  yard: !path doc/api
   options:
-    - "-N"
+    - '-r'
+    - 'README.txt'
+    - '--protected'
+    - '--private'
   files: !pathlist
     include:
       - lib/**/*.rb
@@ -33,10 +35,10 @@ doc: !group
       - lib/antlr3/token/*.rb
 
 guide: !group
-  input: !path doc/guide-source
-  article_list: doc/guide-source/articles.txt
-  template: doc/erb/template.erb
-  output: !path doc/html
+  input: !path doc/guide/source
+  output: !path doc/guide/html
+  article_list: doc/guide/source/articles.txt
+  template:     doc/guide/erb/template.erb
   project_links:
     - - Gem Cutter Project
       - http://rubygems.org/gems/antlr3

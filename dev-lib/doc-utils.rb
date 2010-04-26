@@ -108,7 +108,6 @@ module ANTLRDoc
             attrs << %( id="#{ id }")
           end
           headers << [ id, title.strip ]
-          p( %(<h1#{ attrs }>#{ title }</h1>) )
           %(<h1#{ attrs }>#{ title }</h1>)
         end
         headers

@@ -19,7 +19,7 @@ class File
   #    File.relative_path('rel/path')   # => './rel/path'
   #    File.relative_path('/some/abs/path', '/some')  # => './abs/path'
   #    File.relative_path('/some/file.txt', '/some/abs/path')  # => '../../file.txt'
-  def self.relative_path(target, reference = Dir.pwd)
+  def self.relative_path( target, reference = Dir.pwd )
     pair = [target, reference].map! do |path|
       File.expand_path(path.to_s).split(File::Separator).tap do |list|
         if list.empty? then list << String.new(File::Separator)

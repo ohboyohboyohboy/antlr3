@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Module: ANTLR3::Template::Builder</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (B)</a> &raquo; 
+    <span class='title'><a href="../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../Template.html" title="ANTLR3::Template (module)">Template</a></span>
+     &raquo; 
+    <span class="title">Builder</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: ANTLR3::Template::Builder 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+      <dt class="r1">Extends:</dt>
+      <dd class="r1"><a href="../ClassMacros.html" title="ANTLR3::ClassMacros (module)">ANTLR3::ClassMacros</a></dd>
+      
+    
+  
+    
+  
+  
+    <dt class="r2">Included in:</dt>
+    <dd class="r2"><a href="RewriteBuilder.html" title="ANTLR3::Template::RewriteBuilder (module)">RewriteBuilder</a></dd>
+    
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/antlr3/template.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <a href="Builder/ClassMethods.html" title="ANTLR3::Template::Builder::ClassMethods (module)">ClassMethods</a>
+    
+   
+    
+  
+</p>
+
+
+  
+  
+  
+  
+
+  
+    <h2>Class Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#included-class_method" title="included (class method)">+ (Object) <strong>included</strong>(klass) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_template-instance_method" title="#create_template (instance method)">- (Object) <strong>create_template</strong>(source, values = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fetch_template-instance_method" title="#fetch_template (instance method)">- (Object) <strong>fetch_template</strong>(name, values = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Builder) <strong>initialize</strong>(input, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of Builder.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="../ClassMacros.html" title="ANTLR3::ClassMacros (module)">ANTLR3::ClassMacros</a></h3>
+  <p class="inherited"><a href="../ClassMacros.html#abstract-instance_method" title="ANTLR3::ClassMacros#abstract (method)">abstract</a>, <a href="../ClassMacros.html#alias_accessor-instance_method" title="ANTLR3::ClassMacros#alias_accessor (method)">alias_accessor</a>, <a href="../ClassMacros.html#shared_attribute-instance_method" title="ANTLR3::ClassMacros#shared_attribute (method)">shared_attribute</a></p>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="included-class_method">
+  
+    + (<tt>Object</tt>) <strong>included</strong>(klass) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 33</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='included identifier id'>included</span><span class='lparen token'>(</span> <span class='klass identifier id'>klass</span> <span class='rparen token'>)</span>
+  <span class='super super kw'>super</span>
+  <span class='Class constant id'>Class</span> <span class='eqq op'>===</span> <span class='klass identifier id'>klass</span> <span class='and and kw'>and</span> <span class='klass identifier id'>klass</span><span class='dot token'>.</span><span class='extend identifier id'>extend</span><span class='lparen token'>(</span> <span class='ClassMethods constant id'>ClassMethods</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="create_template-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_template</strong>(source, values = {}) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 48</span>
+
+<span class='def def kw'>def</span> <span class='create_template identifier id'>create_template</span><span class='lparen token'>(</span> <span class='source identifier id'>source</span><span class='comma token'>,</span> <span class='values identifier id'>values</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span> <span class='rparen token'>)</span>
+  <span class='@templates ivar id'>@templates</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span> <span class='source identifier id'>source</span><span class='comma token'>,</span> <span class='values identifier id'>values</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="fetch_template-instance_method">
+  
+    - (<tt>Object</tt>) <strong>fetch_template</strong>(name, values = {}) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 52</span>
+
+<span class='def def kw'>def</span> <span class='fetch_template identifier id'>fetch_template</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='values identifier id'>values</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span> <span class='rparen token'>)</span>
+  <span class='@templates ivar id'>@templates</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='values identifier id'>values</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::Template::Builder (module)">Builder</a></tt>) <strong>initialize</strong>(input, options = {}) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of Builder
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40
+41
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 38</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span> <span class='input identifier id'>input</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span> <span class='rparen token'>)</span>
+  <span class='templates identifier id'>templates</span> <span class='assign token'>=</span> <span class='@templates ivar id'>@templates</span> <span class='orop op'>||</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='fetch identifier id'>fetch</span><span class='lparen token'>(</span> <span class='symbol val'>:templates</span> <span class='rparen token'>)</span> <span class='do do kw'>do</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='template_library identifier id'>template_library</span> <span class='or or kw'>or</span> <span class='ANTLR3 constant id'>ANTLR3</span><span class='colon2 op'>::</span><span class='Template constant id'>Template</span><span class='colon2 op'>::</span><span class='Group constant id'>Group</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+  <span class='end end kw'>end</span>
+  <span class='super super kw'>super</span><span class='lparen token'>(</span> <span class='input identifier id'>input</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='templates identifier id'>templates</span> <span class='assign token'>=</span> <span class='templates identifier id'>templates</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:50 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

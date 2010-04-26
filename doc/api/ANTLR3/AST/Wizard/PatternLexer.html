@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::AST::Wizard::PatternLexer</title>
+<link rel="stylesheet" href="../../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../../_index.html">Index (P)</a> &raquo; 
+    <span class='title'><a href="../../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../../AST.html" title="ANTLR3::AST (module)">AST</a></span> &raquo; <span class='title'><a href="../Wizard.html" title="ANTLR3::AST::Wizard (class)">Wizard</a></span>
+     &raquo; 
+    <span class="title">PatternLexer</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::AST::Wizard::PatternLexer 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ANTLR3::AST::Wizard::PatternLexer</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><a href="../../Constants.html" title="ANTLR3::Constants (module)">ANTLR3::Constants</a></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/antlr3/tree/wizard.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="PATTERNS-constant" class="">PATTERNS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrack token'>[</span>
+  <span class='lbrack token'>[</span><span class='symbol val'>:space</span><span class='comma token'>,</span> <span class='regexp val'>/\s+/</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+  <span class='lbrack token'>[</span><span class='symbol val'>:identifier</span><span class='comma token'>,</span> <span class='regexp val'>/[a-z_]\w*/i</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+  <span class='lbrack token'>[</span><span class='symbol val'>:open</span><span class='comma token'>,</span> <span class='regexp val'>/\(/</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+  <span class='lbrack token'>[</span><span class='symbol val'>:close</span><span class='comma token'>,</span> <span class='regexp val'>/\)/</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+  <span class='lbrack token'>[</span><span class='symbol val'>:percent</span><span class='comma token'>,</span> <span class='regexp val'>/%/</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+  <span class='lbrack token'>[</span><span class='symbol val'>:colon</span><span class='comma token'>,</span> <span class='regexp val'>/:/</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+  <span class='lbrack token'>[</span><span class='symbol val'>:dot</span><span class='comma token'>,</span> <span class='regexp val'>/\./</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+  <span class='lbrack token'>[</span><span class='symbol val'>:argument</span><span class='comma token'>,</span> <span class='regexp val'>/\[((?:[^\[\]\\]|\\\[|\\\]|\\.)*?)\]/</span><span class='rbrack token'>]</span>
+<span class='rbrack token'>]</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="../../Constants.html" title="ANTLR3::Constants (module)">ANTLR3::Constants</a></h3>
+  <p class="inherited"><a href="../../Constants.html#BUILT_IN_TOKEN_NAMES-constant" title="ANTLR3::Constants::BUILT_IN_TOKEN_NAMES (constant)">BUILT_IN_TOKEN_NAMES</a>, <a href="../../Constants.html#DEFAULT-constant" title="ANTLR3::Constants::DEFAULT (constant)">DEFAULT</a>, <a href="../../Constants.html#DOWN-constant" title="ANTLR3::Constants::DOWN (constant)">DOWN</a>, <a href="../../Constants.html#EOF-constant" title="ANTLR3::Constants::EOF (constant)">EOF</a>, <a href="../../Constants.html#EOF_TOKEN-constant" title="ANTLR3::Constants::EOF_TOKEN (constant)">EOF_TOKEN</a>, <a href="../../Constants.html#EOR_TOKEN_TYPE-constant" title="ANTLR3::Constants::EOR_TOKEN_TYPE (constant)">EOR_TOKEN_TYPE</a>, <a href="../../Constants.html#HIDDEN-constant" title="ANTLR3::Constants::HIDDEN (constant)">HIDDEN</a>, <a href="../../Constants.html#INVALID_TOKEN-constant" title="ANTLR3::Constants::INVALID_TOKEN (constant)">INVALID_TOKEN</a>, <a href="../../Constants.html#INVALID_TOKEN_TYPE-constant" title="ANTLR3::Constants::INVALID_TOKEN_TYPE (constant)">INVALID_TOKEN_TYPE</a>, <a href="../../Constants.html#MEMO_RULE_FAILED-constant" title="ANTLR3::Constants::MEMO_RULE_FAILED (constant)">MEMO_RULE_FAILED</a>, <a href="../../Constants.html#MEMO_RULE_UNKNOWN-constant" title="ANTLR3::Constants::MEMO_RULE_UNKNOWN (constant)">MEMO_RULE_UNKNOWN</a>, <a href="../../Constants.html#MIN_TOKEN_TYPE-constant" title="ANTLR3::Constants::MIN_TOKEN_TYPE (constant)">MIN_TOKEN_TYPE</a>, <a href="../../Constants.html#SKIP_TOKEN-constant" title="ANTLR3::Constants::SKIP_TOKEN (constant)">SKIP_TOKEN</a>, <a href="../../Constants.html#UP-constant" title="ANTLR3::Constants::UP (constant)">UP</a></p>
+
+  <h2>Instance Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#error-instance_method" title="#error (instance method)">- (Object) <strong>error</strong> </a>
+    
+
+    
+      (also: #error?)
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute error.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pattern-instance_method" title="#pattern (instance method)">- (Object) <strong>pattern</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute pattern.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#text-instance_method" title="#text (instance method)">- (Object) <strong>text</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute text.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (PatternLexer) <strong>initialize</strong>(pattern) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of PatternLexer.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#next_token-instance_method" title="#next_token (instance method)">- (Object) <strong>next_token</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::AST::Wizard::PatternLexer (class)">PatternLexer</a></tt>) <strong>initialize</strong>(pattern) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of PatternLexer
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+145
+146
+147
+148
+149
+150</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/wizard.rb', line 145</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span> <span class='pattern identifier id'>pattern</span> <span class='rparen token'>)</span>
+  <span class='@pattern ivar id'>@pattern</span> <span class='assign token'>=</span> <span class='pattern identifier id'>pattern</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+  <span class='@scanner ivar id'>@scanner</span> <span class='assign token'>=</span> <span class='StringScanner constant id'>StringScanner</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span> <span class='pattern identifier id'>pattern</span> <span class='rparen token'>)</span>
+  <span class='@text ivar id'>@text</span> <span class='assign token'>=</span> <span class='string val'>''</span>
+  <span class='@error ivar id'>@error</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="error-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="error-instance_method">
+  
+    - (<tt>Object</tt>) <strong>error</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='error?-instance_method'>error?</span></span>
+    </span>
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute error
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/wizard.rb', line 144</span>
+
+<span class='def def kw'>def</span> <span class='error identifier id'>error</span>
+  <span class='@error ivar id'>@error</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="pattern-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="pattern-instance_method">
+  
+    - (<tt>Object</tt>) <strong>pattern</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute pattern
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/wizard.rb', line 144</span>
+
+<span class='def def kw'>def</span> <span class='pattern identifier id'>pattern</span>
+  <span class='@pattern ivar id'>@pattern</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="text-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="text-instance_method">
+  
+    - (<tt>Object</tt>) <strong>text</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute text
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/wizard.rb', line 144</span>
+
+<span class='def def kw'>def</span> <span class='text identifier id'>text</span>
+  <span class='@text ivar id'>@text</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="next_token-instance_method">
+  
+    - (<tt>Object</tt>) <strong>next_token</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/tree/wizard.rb', line 152</span>
+
+<span class='def def kw'>def</span> <span class='next_token identifier id'>next_token</span>
+  <span class='begin begin kw'>begin</span>
+    <span class='@scanner ivar id'>@scanner</span><span class='dot token'>.</span><span class='eos? fid id'>eos?</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span> <span class='EOF constant id'>EOF</span>
+    
+    <span class='type identifier id'>type</span><span class='comma token'>,</span> <span class='assign token'>=</span> <span class='PATTERNS constant id'>PATTERNS</span><span class='dot token'>.</span><span class='find identifier id'>find</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='type identifier id'>type</span><span class='comma token'>,</span> <span class='pattern identifier id'>pattern</span><span class='bitor op'>|</span>
+      <span class='@scanner ivar id'>@scanner</span><span class='dot token'>.</span><span class='scan identifier id'>scan</span><span class='lparen token'>(</span><span class='pattern identifier id'>pattern</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+    
+    <span class='case case kw'>case</span> <span class='type identifier id'>type</span>
+    <span class='when when kw'>when</span> <span class='nil nil kw'>nil</span>
+      <span class='type identifier id'>type</span><span class='comma token'>,</span> <span class='@text ivar id'>@text</span><span class='comma token'>,</span> <span class='@error ivar id'>@error</span> <span class='assign token'>=</span> <span class='EOF constant id'>EOF</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='comma token'>,</span> <span class='true true kw'>true</span>
+      <span class='break break kw'>break</span>
+    <span class='when when kw'>when</span> <span class='symbol val'>:identifier</span> <span class='then then kw'>then</span> <span class='@text ivar id'>@text</span> <span class='assign token'>=</span> <span class='@scanner ivar id'>@scanner</span><span class='dot token'>.</span><span class='matched identifier id'>matched</span>
+    <span class='when when kw'>when</span> <span class='symbol val'>:argument</span>
+      <span class='comment val'># remove escapes from \] sequences in the text argument</span>
+      <span class='lparen token'>(</span><span class='@text ivar id'>@text</span> <span class='assign token'>=</span> <span class='@scanner ivar id'>@scanner</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='gsub! fid id'>gsub!</span><span class='lparen token'>(</span><span class='regexp val'>/\\(?=[\[\]])/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span> <span class='while while_mod kw'>while</span> <span class='type identifier id'>type</span> <span class='eq op'>==</span> <span class='symbol val'>:space</span>
+  
+  <span class='return return kw'>return</span> <span class='type identifier id'>type</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:29 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

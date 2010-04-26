@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::Debug::RecordEventListener</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (R)</a> &raquo; 
+    <span class='title'><a href="../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../Debug.html" title="ANTLR3::Debug (module)">Debug</a></span>
+     &raquo; 
+    <span class="title">RecordEventListener</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::Debug::RecordEventListener 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName"><a href="TraceEventListener.html" title="ANTLR3::Debug::TraceEventListener (class)">TraceEventListener</a></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><a href="TraceEventListener.html" title="ANTLR3::Debug::TraceEventListener (class)">TraceEventListener</a></li>
+          
+            <li class="next">ANTLR3::Debug::RecordEventListener</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/antlr3/debug/record-event-listener.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Constants included from <a href="EventListener.html" title="ANTLR3::Debug::EventListener (module)">EventListener</a></h3>
+  <p class="inherited"><a href="EventListener.html#EVENTS-constant" title="ANTLR3::Debug::EventListener::EVENTS (constant)">EVENTS</a>, <a href="EventListener.html#PROTOCOL_VERSION-constant" title="ANTLR3::Debug::EventListener::PROTOCOL_VERSION (constant)">PROTOCOL_VERSION</a></p>
+
+  <h2>Instance Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#events-instance_method" title="#events (instance method)">- (Object) <strong>events</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute events.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (RecordEventListener) <strong>initialize</strong>(adaptor = nil) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of RecordEventListener.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#record-instance_method" title="#record (instance method)">- (Object) <strong>record</strong>(event_message, *interpolation_arguments) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <a href="TraceEventListener.html" title="ANTLR3::Debug::TraceEventListener (class)">TraceEventListener</a></h3>
+  <p class="inherited"><a href="TraceEventListener.html#add_child-instance_method" title="ANTLR3::Debug::TraceEventListener#add_child (method)">#add_child</a>, <a href="TraceEventListener.html#become_root-instance_method" title="ANTLR3::Debug::TraceEventListener#become_root (method)">#become_root</a>, <a href="TraceEventListener.html#consume_node-instance_method" title="ANTLR3::Debug::TraceEventListener#consume_node (method)">#consume_node</a>, <a href="TraceEventListener.html#create_node-instance_method" title="ANTLR3::Debug::TraceEventListener#create_node (method)">#create_node</a>, <a href="TraceEventListener.html#enter_alternative-instance_method" title="ANTLR3::Debug::TraceEventListener#enter_alternative (method)">#enter_alternative</a>, <a href="TraceEventListener.html#enter_rule-instance_method" title="ANTLR3::Debug::TraceEventListener#enter_rule (method)">#enter_rule</a>, <a href="TraceEventListener.html#enter_subrule-instance_method" title="ANTLR3::Debug::TraceEventListener#enter_subrule (method)">#enter_subrule</a>, <a href="TraceEventListener.html#exit_rule-instance_method" title="ANTLR3::Debug::TraceEventListener#exit_rule (method)">#exit_rule</a>, <a href="TraceEventListener.html#exit_subrule-instance_method" title="ANTLR3::Debug::TraceEventListener#exit_subrule (method)">#exit_subrule</a>, <a href="TraceEventListener.html#flat_node-instance_method" title="ANTLR3::Debug::TraceEventListener#flat_node (method)">#flat_node</a>, <a href="TraceEventListener.html#location-instance_method" title="ANTLR3::Debug::TraceEventListener#location (method)">#location</a>, <a href="TraceEventListener.html#look-instance_method" title="ANTLR3::Debug::TraceEventListener#look (method)">#look</a>, <a href="TraceEventListener.html#set_token_boundaries-instance_method" title="ANTLR3::Debug::TraceEventListener#set_token_boundaries (method)">#set_token_boundaries</a></p>
+
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <a href="EventListener.html" title="ANTLR3::Debug::EventListener (module)">EventListener</a></h3>
+  <p class="inherited"><a href="EventListener.html#add_child-instance_method" title="ANTLR3::Debug::EventListener#add_child (method)">#add_child</a>, <a href="EventListener.html#backtrack-instance_method" title="ANTLR3::Debug::EventListener#backtrack (method)">#backtrack</a>, <a href="EventListener.html#become_root-instance_method" title="ANTLR3::Debug::EventListener#become_root (method)">#become_root</a>, <a href="EventListener.html#begin_backtrack-instance_method" title="ANTLR3::Debug::EventListener#begin_backtrack (method)">#begin_backtrack</a>, <a href="EventListener.html#begin_resync-instance_method" title="ANTLR3::Debug::EventListener#begin_resync (method)">#begin_resync</a>, <a href="EventListener.html#commence-instance_method" title="ANTLR3::Debug::EventListener#commence (method)">#commence</a>, <a href="EventListener.html#consume_hidden_token-instance_method" title="ANTLR3::Debug::EventListener#consume_hidden_token (method)">#consume_hidden_token</a>, <a href="EventListener.html#consume_node-instance_method" title="ANTLR3::Debug::EventListener#consume_node (method)">#consume_node</a>, <a href="EventListener.html#consume_token-instance_method" title="ANTLR3::Debug::EventListener#consume_token (method)">#consume_token</a>, <a href="EventListener.html#create_node-instance_method" title="ANTLR3::Debug::EventListener#create_node (method)">#create_node</a>, <a href="EventListener.html#end_backtrack-instance_method" title="ANTLR3::Debug::EventListener#end_backtrack (method)">#end_backtrack</a>, <a href="EventListener.html#end_resync-instance_method" title="ANTLR3::Debug::EventListener#end_resync (method)">#end_resync</a>, <a href="EventListener.html#enter_alternative-instance_method" title="ANTLR3::Debug::EventListener#enter_alternative (method)">#enter_alternative</a>, <a href="EventListener.html#enter_decision-instance_method" title="ANTLR3::Debug::EventListener#enter_decision (method)">#enter_decision</a>, <a href="EventListener.html#enter_rule-instance_method" title="ANTLR3::Debug::EventListener#enter_rule (method)">#enter_rule</a>, <a href="EventListener.html#enter_subrule-instance_method" title="ANTLR3::Debug::EventListener#enter_subrule (method)">#enter_subrule</a>, <a href="EventListener.html#error_node-instance_method" title="ANTLR3::Debug::EventListener#error_node (method)">#error_node</a>, <a href="EventListener.html#examine_rule_memoization-instance_method" title="ANTLR3::Debug::EventListener#examine_rule_memoization (method)">#examine_rule_memoization</a>, <a href="EventListener.html#exit_decision-instance_method" title="ANTLR3::Debug::EventListener#exit_decision (method)">#exit_decision</a>, <a href="EventListener.html#exit_rule-instance_method" title="ANTLR3::Debug::EventListener#exit_rule (method)">#exit_rule</a>, <a href="EventListener.html#exit_subrule-instance_method" title="ANTLR3::Debug::EventListener#exit_subrule (method)">#exit_subrule</a>, <a href="EventListener.html#flat_node-instance_method" title="ANTLR3::Debug::EventListener#flat_node (method)">#flat_node</a>, <a href="EventListener.html#location-instance_method" title="ANTLR3::Debug::EventListener#location (method)">#location</a>, <a href="EventListener.html#look-instance_method" title="ANTLR3::Debug::EventListener#look (method)">#look</a>, <a href="EventListener.html#mark-instance_method" title="ANTLR3::Debug::EventListener#mark (method)">#mark</a>, <a href="EventListener.html#on-instance_method" title="ANTLR3::Debug::EventListener#on (method)">#on</a>, <a href="EventListener.html#recognition_exception-instance_method" title="ANTLR3::Debug::EventListener#recognition_exception (method)">#recognition_exception</a>, <a href="EventListener.html#resync-instance_method" title="ANTLR3::Debug::EventListener#resync (method)">#resync</a>, <a href="EventListener.html#rewind-instance_method" title="ANTLR3::Debug::EventListener#rewind (method)">#rewind</a>, <a href="EventListener.html#semantic_predicate-instance_method" title="ANTLR3::Debug::EventListener#semantic_predicate (method)">#semantic_predicate</a>, <a href="EventListener.html#set_token_boundaries-instance_method" title="ANTLR3::Debug::EventListener#set_token_boundaries (method)">#set_token_boundaries</a>, <a href="EventListener.html#terminate-instance_method" title="ANTLR3::Debug::EventListener#terminate (method)">#terminate</a></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::Debug::RecordEventListener (class)">RecordEventListener</a></tt>) <strong>initialize</strong>(adaptor = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of RecordEventListener
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/record-event-listener.rb', line 14</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span> <span class='adaptor identifier id'>adaptor</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='super super kw'>super</span>
+  <span class='@events ivar id'>@events</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="events-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="events-instance_method">
+  
+    - (<tt>Object</tt>) <strong>events</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute events
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/record-event-listener.rb', line 13</span>
+
+<span class='def def kw'>def</span> <span class='events identifier id'>events</span>
+  <span class='@events ivar id'>@events</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="record-instance_method">
+  
+    - (<tt>Object</tt>) <strong>record</strong>(event_message, *interpolation_arguments) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21
+22</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/debug/record-event-listener.rb', line 19</span>
+
+<span class='def def kw'>def</span> <span class='record identifier id'>record</span><span class='lparen token'>(</span><span class='event_message identifier id'>event_message</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='interpolation_arguments identifier id'>interpolation_arguments</span><span class='rparen token'>)</span>
+  <span class='event_message identifier id'>event_message</span> <span class='assign token'>=</span> <span class='event_message identifier id'>event_message</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+  <span class='@events ivar id'>@events</span> <span class='lshft op'>&lt;&lt;</span> <span class='event_message identifier id'>event_message</span> <span class='mod op'>%</span> <span class='interpolation_arguments identifier id'>interpolation_arguments</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:37 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

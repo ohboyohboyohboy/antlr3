@@ -1,0 +1,52 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+require 'doc-utils'
+
+guide = $project.guide
+template = ERB.new( File.read( guide.template ), nil, '%' )
+
+options = {
+  :output_directory => guide.output,
+  :author => $project.author,
+  :email  => $project.email
+}
+articles = []
+
+$project_links = guide.project_links
+$external_links = guide.external_links
+
+for line in File.read( guide.article_list ).split( $/ )
+  line.strip!
+  line.empty? and next
+  name, title = line.split( /\s*:\s*/, 2 )
+  title ||= Inflection.title_case( name )
+  source_file = guide.input( "#{ name }.textile" )
+  
+  articles << ANTLRDoc::Article.load(
+    source_file, template, options.merge( :title => title )
+  )
+end
+
+file( guide.article_list )
+file( guide.template )
+
+articles.each do | article |
+  source_file = article.source_file
+  
+  file( source_file )
+  file( article.output_file => [ guide.template, guide.article_list, source_file, __FILE__ ] ) do
+    article.convert
+    puts( "wrote #{ article.output_file }" )
+  end
+end
+
+
+desc( "assemble the HTML output for the #{ $project.name } guide" )
+task( :guide => articles.map { | a | a.output_file } )
+
+task( :clobber_guide ) do
+  articles.each { | article |
+    test( ?f, article.output_file ) and rm( article.output_file )
+  }
+end

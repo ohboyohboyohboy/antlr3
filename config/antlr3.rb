@@ -124,6 +124,10 @@ $proj = $project = Project.load( project_top, config_file ) do
     bundler.environment? or bundler_environment_missing!
   end
   
+  def bundler_stale?
+    Kernel.test( ?>, bundler.config, bundler.environment )
+  end
+  
   def bundler_missing!
     dir = File.relative_path( bundler.top, base )
     error!(<<-END.here_indent!, dir, dir)
@@ -162,6 +166,21 @@ $proj = $project = Project.load( project_top, config_file ) do
     return true
   rescue Project::Error
     return false
+  end
+  
+  def confirm( message )
+    loop do
+      print( "#{ message } [yN] " )
+      $stdout.flush
+      case gets.strip
+      when /^y/i
+        return( true )
+      when /^n/i
+        return( false )
+      else
+        puts( "Please answer `yes' or `no'" )
+      end
+    end
   end
 end
 

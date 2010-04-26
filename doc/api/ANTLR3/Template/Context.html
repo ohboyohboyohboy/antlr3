@@ -1,0 +1,903 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: ANTLR3::Template::Context</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (C)</a> &raquo; 
+    <span class='title'><a href="../../ANTLR3.html" title="ANTLR3 (module)">ANTLR3</a></span> &raquo; <span class='title'><a href="../Template.html" title="ANTLR3::Template (module)">Template</a></span>
+     &raquo; 
+    <span class="title">Context</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: ANTLR3::Template::Context 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ANTLR3::Template::Context</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/antlr3/template.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="VARIABLE_FORM-constant" class="">VARIABLE_FORM =
+          
+        </dt>
+        <dd><pre class="code"><span class='regexp val'>/^(@)?[a-z_\x80-\xff][\w\x80-\xff]*$/</span>
+</pre></dd>
+      
+        <dt id="SETTER_FORM-constant" class="">SETTER_FORM =
+          
+        </dt>
+        <dd><pre class="code"><span class='regexp val'>/^([a-z_\x80-\xff][\w\x80-\xff]*)=$/</span>
+</pre></dd>
+      
+        <dt id="ATTR_FORM-constant" class="">ATTR_FORM =
+          
+        </dt>
+        <dd><pre class="code"><span class='regexp val'>/^[a-z_\x80-\xff][\w\x80-\xff]*$/</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+  <h2>Class Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#group-class_method" title="group (class method)">+ (Object) <strong>group</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute group.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-class_method" title="name (class method)">+ (Object) <strong>name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute name.
+</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parameters-class_method" title="parameters (class method)">+ (Object) <strong>parameters</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the value of attribute parameters.
+</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  
+    <h2>Class Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define-class_method" title="define (class method)">+ (Object) <strong>define</strong>(group, name, parameters) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define_alias-class_method" title="define_alias (class method)">+ (Object) <strong>define_alias</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%3C%3C-instance_method" title="#&lt;&lt; (instance method)">- (Object) <strong>&lt;&lt;</strong>(variable_map) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%5B%5D-instance_method" title="#[] (instance method)">- (Object) <strong>[]</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%5B%5D%3D-instance_method" title="#[]= (instance method)">- (Object) <strong>[]=</strong>(name, value) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#has_ivar%3F-instance_method" title="#has_ivar? (instance method)">- (Boolean) <strong>has_ivar?</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Context) <strong>initialize</strong>(variable_map = nil) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+A new instance of Context.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#make_ivar-instance_method" title="#make_ivar (instance method)">- (Object) <strong>make_ivar</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#method_missing-instance_method" title="#method_missing (instance method)">- (Object) <strong>method_missing</strong>(method, *args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="ANTLR3::Template::Context (class)">Context</a></tt>) <strong>initialize</strong>(variable_map = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of Context
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+269
+270
+271
+272</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 269</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span> <span class='variable_map identifier id'>variable_map</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='variable_map identifier id'>variable_map</span> <span class='and and kw'>and</span> <span class='self self kw'>self</span> <span class='lshft op'>&lt;&lt;</span> <span class='variable_map identifier id'>variable_map</span>
+  <span class='block_given? fid id'>block_given?</span> <span class='and and kw'>and</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='self self kw'>self</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+<div id="method_missing_details" class="method_details_list">
+  <h2>Dynamic Method Handling</h2>
+  <p class="notice this">
+    This class handles dynamic methods through the <tt>method_missing</tt> method
+    
+  </p>
+  
+    <div class="method_details first">
+  <p class="signature first" id="method_missing-instance_method">
+  
+    - (<tt>Object</tt>) <strong>method_missing</strong>(method, *args) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+244
+245
+246
+247
+248
+249
+250
+251</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 244</span>
+
+<span class='def def kw'>def</span> <span class='method_missing identifier id'>method_missing</span><span class='lparen token'>(</span> <span class='method identifier id'>method</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span> <span class='rparen token'>)</span>
+  <span class='case case kw'>case</span> <span class='name identifier id'>name</span> <span class='assign token'>=</span> <span class='method identifier id'>method</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+  <span class='when when kw'>when</span> <span class='SETTER_FORM constant id'>SETTER_FORM</span> <span class='then then kw'>then</span> <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='self self kw'>self</span><span class='lbrack token'>[</span> <span class='$1 nth_ref id'>$1</span> <span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='first identifier id'>first</span> <span class='rparen token'>)</span>
+  <span class='when when kw'>when</span> <span class='ATTR_FORM constant id'>ATTR_FORM</span>
+    <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span> <span class='and and kw'>and</span> <span class='has_ivar? fid id'>has_ivar?</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span> <span class='rparen token'>)</span> <span class='and and kw'>and</span> <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='self self kw'>self</span><span class='lbrack token'>[</span> <span class='name identifier id'>name</span> <span class='rbrack token'>]</span> <span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='super super kw'>super</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="class_attr_details" class="attr_details">
+    <h2>Class Attribute Details</h2>
+    
+      
+      <span id="group=-class_method"></span>
+      <span id="group-class_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="group-class_method">
+  
+    + (<tt>Object</tt>) <strong>group</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute group
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+220
+221
+222</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 220</span>
+
+<span class='def def kw'>def</span> <span class='group identifier id'>group</span>
+  <span class='@group ivar id'>@group</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="name=-class_method"></span>
+      <span id="name-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="name-class_method">
+  
+    + (<tt>Object</tt>) <strong>name</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute name
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+220
+221
+222</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 220</span>
+
+<span class='def def kw'>def</span> <span class='name identifier id'>name</span>
+  <span class='@name ivar id'>@name</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="parameters=-class_method"></span>
+      <span id="parameters-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="parameters-class_method">
+  
+    + (<tt>Object</tt>) <strong>parameters</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the value of attribute parameters
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+220
+221
+222</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 220</span>
+
+<span class='def def kw'>def</span> <span class='parameters identifier id'>parameters</span>
+  <span class='@parameters ivar id'>@parameters</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="define-class_method">
+  
+    + (<tt>Object</tt>) <strong>define</strong>(group, name, parameters) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 231</span>
+
+<span class='def def kw'>def</span> <span class='define identifier id'>define</span><span class='lparen token'>(</span> <span class='group identifier id'>group</span><span class='comma token'>,</span> <span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='parameters identifier id'>parameters</span> <span class='rparen token'>)</span>
+  <span class='Class constant id'>Class</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span> <span class='self self kw'>self</span> <span class='rparen token'>)</span> <span class='do do kw'>do</span>
+    <span class='include identifier id'>include</span><span class='lparen token'>(</span> <span class='group identifier id'>group</span> <span class='rparen token'>)</span>
+    
+    <span class='@group ivar id'>@group</span> <span class='assign token'>=</span> <span class='group identifier id'>group</span>
+    <span class='@name ivar id'>@name</span>  <span class='assign token'>=</span> <span class='name identifier id'>name</span>
+    <span class='@parameters ivar id'>@parameters</span> <span class='assign token'>=</span> <span class='parameters identifier id'>parameters</span>
+    
+    <span class='block_given? fid id'>block_given?</span> <span class='and and kw'>and</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='self self kw'>self</span> <span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="define_alias-class_method">
+  
+    + (<tt>Object</tt>) <strong>define_alias</strong>(name) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+223
+224
+225
+226
+227
+228
+229</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 223</span>
+
+<span class='def def kw'>def</span> <span class='define_alias identifier id'>define_alias</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span> <span class='rparen token'>)</span>
+  <span class='new identifier id'>new</span> <span class='assign token'>=</span> <span class='clone identifier id'>clone</span>
+  <span class='new identifier id'>new</span><span class='dot token'>.</span><span class='name identifier id'>name</span> <span class='assign token'>=</span> <span class='name identifier id'>name</span>
+  <span class='new identifier id'>new</span><span class='dot token'>.</span><span class='group identifier id'>group</span> <span class='assign token'>=</span> <span class='@group ivar id'>@group</span>
+  <span class='block_given? fid id'>block_given?</span> <span class='and and kw'>and</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span> <span class='new identifier id'>new</span> <span class='rparen token'>)</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='new identifier id'>new</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="<<-instance_method">
+  
+    - (<tt>Object</tt>) <strong>&lt;&lt;</strong>(variable_map) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+262
+263
+264
+265
+266
+267</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 262</span>
+
+<span class='def def kw'>def</span> <span class='lshft op'>&lt;&lt;</span><span class='lparen token'>(</span> <span class='variable_map identifier id'>variable_map</span> <span class='rparen token'>)</span>
+  <span class='variable_map identifier id'>variable_map</span><span class='dot token'>.</span><span class='each_pair identifier id'>each_pair</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span> <span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='value identifier id'>value</span> <span class='bitor op'>|</span>
+    <span class='self self kw'>self</span><span class='lbrack token'>[</span> <span class='name identifier id'>name</span> <span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span>
+  <span class='end end kw'>end</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span> <span class='self self kw'>self</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="[]-instance_method">
+  
+    - (<tt>Object</tt>) <strong>[]</strong>(name) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+257
+258
+259
+260</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 257</span>
+
+<span class='def def kw'>def</span> <span class='aref op'>[]</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span> <span class='rparen token'>)</span>
+  <span class='name identifier id'>name</span> <span class='assign token'>=</span> <span class='make_ivar identifier id'>make_ivar</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span> <span class='rparen token'>)</span>
+  <span class='instance_variable_defined? fid id'>instance_variable_defined?</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span> <span class='rparen token'>)</span> <span class='question op'>?</span> <span class='instance_variable_get identifier id'>instance_variable_get</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span> <span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='nil nil kw'>nil</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="[]=-instance_method">
+  
+    - (<tt>Object</tt>) <strong>[]=</strong>(name, value) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+253
+254
+255</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 253</span>
+
+<span class='def def kw'>def</span> <span class='aset op'>[]=</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='value identifier id'>value</span> <span class='rparen token'>)</span>
+  <span class='instance_variable_set identifier id'>instance_variable_set</span><span class='lparen token'>(</span> <span class='make_ivar identifier id'>make_ivar</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span> <span class='rparen token'>)</span><span class='comma token'>,</span> <span class='value identifier id'>value</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="has_ivar?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>has_ivar?</strong>(name)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+276
+277
+278</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 276</span>
+
+<span class='def def kw'>def</span> <span class='has_ivar? fid id'>has_ivar?</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span> <span class='rparen token'>)</span>
+  <span class='instance_variable_defined? fid id'>instance_variable_defined?</span><span class='lparen token'>(</span> <span class='make_ivar identifier id'>make_ivar</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span> <span class='rparen token'>)</span> <span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="make_ivar-instance_method">
+  
+    - (<tt>Object</tt>) <strong>make_ivar</strong>(name)  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+280
+281
+282
+283
+284
+285</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/antlr3/template.rb', line 280</span>
+
+<span class='def def kw'>def</span> <span class='make_ivar identifier id'>make_ivar</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span> <span class='rparen token'>)</span>
+  <span class='name identifier id'>name</span> <span class='assign token'>=</span> <span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+  <span class='VARIABLE_FORM constant id'>VARIABLE_FORM</span> <span class='match op'>=~</span> <span class='name identifier id'>name</span> <span class='or or kw'>or</span>
+    <span class='raise identifier id'>raise</span> <span class='ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;cannot convert %p to an instance variable name&quot;</span> <span class='mod op'>%</span> <span class='name identifier id'>name</span>
+  <span class='$1 nth_ref id'>$1</span> <span class='question op'>?</span> <span class='name identifier id'>name</span> <span class='colon op'>:</span> <span class='dstring node'>&quot;@#{ name }&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Apr 26 03:51:29 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
