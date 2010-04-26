@@ -1,6 +1,3 @@
-#!/usr/bin/ruby
-# encoding: utf-8
-
 require 'doc-utils'
 
 guide = $project.guide
@@ -13,8 +10,9 @@ options = {
 }
 articles = []
 
-$project_links = guide.project_links
-$external_links = guide.external_links
+links = YAML.load_file( guide.links )
+$project_links = links[ 'project_links' ]
+$external_links = links[ 'external_links' ]
 
 for line in File.read( guide.article_list ).split( $/ )
   line.strip!
@@ -35,18 +33,12 @@ articles.each do | article |
   source_file = article.source_file
   
   file( source_file )
-  file( article.output_file => [ guide.template, guide.article_list, source_file, __FILE__ ] ) do
+  file( article.output_file => [ guide.template, guide.links, guide.article_list, source_file, __FILE__ ] ) do
     article.convert
     puts( "wrote #{ article.output_file }" )
   end
 end
 
 
-desc( "assemble the HTML output for the #{ $project.name } guide" )
+desc( "construct the ANTLR guide" )
 task( :guide => articles.map { | a | a.output_file } )
-
-task( :clobber_guide ) do
-  articles.each { | article |
-    test( ?f, article.output_file ) and rm( article.output_file )
-  }
-end
