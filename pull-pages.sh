@@ -25,6 +25,14 @@ fi
 mv doc/guide/html/* .
 mv doc/api .
 
+if [[ -f api/_index.html ]]; then
+  mv api/index.html api/readme.html
+  mv api/_index.html api/index.html
+  files=$(find api -type f)
+  ruby -i -pe 'gsub /\bindex\.html/, "readme.html"' -- $files
+  ruby -i -pe 'gsub /\b_index\.html/, "index.html"' -- $files
+fi
+
 git add .
 git commit -a -m "publishing HTML documentation work"
 
