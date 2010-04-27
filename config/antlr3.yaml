@@ -1,7 +1,7 @@
 ---
-# 
+#
 # project meta-data used for various project tasks like building gem packages
-# 
+#
 name: antlr3
 
 version: "1.7.0"
@@ -37,14 +37,13 @@ doc: !group
 guide: !group
   input: !path doc/guide/source
   output: !path doc/guide/html
+  template: doc/guide/erb/template.erb
   article_list: doc/guide/source/articles.txt
-  links:        doc/guide/source/links.yaml
-  template:     doc/guide/erb/template.erb
-  
+  links: doc/guide/source/links.yaml
 
 package: !group
   base: !path pkg
-  dir:  !path pkg/$(name)-$(version)
+  dir: !path pkg/$(name)-$(version)
   files: !pathlist
     include:
       - bin/antlr4ruby
@@ -60,10 +59,9 @@ package: !group
     exclude:
       - DEVELOPER-README.txt
       - lib/antlr3/token/*.rb
-  
-# 
+#
 # important paths in the project tree
-# 
+#
 antlr: !pathmap
   jar: java/antlr-full-$(antlr_version).jar
   templates: java/org/antlr/codegen/templates/Ruby
@@ -93,7 +91,7 @@ functional_testing: !path test/functional
 
 #
 # project file lists for various purposes
-# 
+#
 lib_jars:
   - antlr-2.7.7.jar
   - antlr-runtime-$(antlr_version).jar
@@ -108,9 +106,9 @@ functional_tests: !pathlist
 templates: !pathlist
   - templates/*.stg
 
-#   
+#
 # project environment setup
-# 
+#
 load:
   - dev-lib/core-ext/**/*.rb
 

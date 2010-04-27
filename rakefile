@@ -13,8 +13,29 @@ def run_task( name )
   else task.invoke
   end
 end
+
 def abs( path ); File.expand_path( path ); end
-def rel( path, dir = '.' ); File.relative_path( path, dir ); end
+
+def rel( target, reference = Dir.pwd )
+  pair = [ target, reference ].map! do |path|
+    File.expand_path( path.to_s ).split( File::Separator ).tap do |list|
+      if list.empty? then list << String.new( File::Separator )
+      elsif list.first.empty? then list.first.replace( File::Separator )
+      end
+    end
+  end
+
+  target_list, reference_list = pair
+  while target_list.first == reference_list.first
+    target_list.shift
+    reference_list.shift or break
+  end
+  
+  relative_list = Array.new( reference_list.length, '..' )
+  relative_list.empty? and relative_list << '.'
+  relative_list.concat( target_list ).compact!
+  return relative_list.join( File::Separator )
+end
 
 
 ####################################################################################################

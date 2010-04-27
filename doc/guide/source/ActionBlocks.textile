@@ -1,0 +1,13 @@
+ANTLR grammars are basically composed of a few different types of optional configuration blocks, several optional *named action blocks*, and a series of grammar *rules*. Rules, in turn, are essentially composed of *alternatives*, *subrules*, *token references*, *rule references*, and *action blocks*.
+
+Action blocks are snippets of ruby code enclosed in curly braces; they allow a developer to execute arbitrary code at various points of the recognition process. This article covers syntactic restrictions developers should be aware of when writing code blocks, as well as the named actions available for use with this ANTLR target.
+
+h1. Action Block Syntax
+
+« antlr
+grammar Actions;
+
+
+
+// leaving out lexer rules
+»

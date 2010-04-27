@@ -149,12 +149,12 @@ module ANTLRDoc
     end
     
     def link_article( article )
-      href = File.relative_path( article.output_file, @output_directory )
+      href = File.relative( article.output_file, @output_directory )
       %(<a href="#{ href }">#{ article.title }</a>)
     end
     
-    def relative_path( file )
-      File.relative_path( file, @output_directory )
+    def relative( file )
+      File.relative( file, @output_directory )
     end
     
     private :raw_html

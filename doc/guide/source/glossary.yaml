@@ -1,3 +1,6 @@
 ---
 target: |-
   A set of templates and source code that may be added to the ANTLR core package to generate recognition source code for a specific programming language, such as Ruby, Python, or C.
+symbol: |-
+  An abstract term for a single item in an input sequence, where the actual item of interest depends on the type of recognizer. For lexers, a symbol is a character in a string. For parsers, a symbol is a token. For tree parsers, a symbol is a tree node, which itself is essentially a token wrapped in a tree structure. The term _symbol_ is primarily used when referring to aspects of all three types of recognizers.
+  

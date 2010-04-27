@@ -11,7 +11,7 @@ SourceNote = Struct.new( :tag, :file, :line, :text ) do
     for path in paths
       open( path ) do | file |
         file.grep( tag_pattern ) do
-          yield( SourceNote[ $1, File.relative_path( path ), file.lineno, $2 ] )
+          yield( SourceNote[ $1, File.relative( path ), file.lineno, $2 ] )
         end
       end
     end

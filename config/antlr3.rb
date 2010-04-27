@@ -172,7 +172,7 @@ $proj = $project = Project.load( project_top, config_file ) do
     loop do
       print( "#{ message } [yN] " )
       $stdout.flush
-      case gets.strip
+      case $stdin.gets.strip
       when /^y/i
         return( true )
       when /^n/i
