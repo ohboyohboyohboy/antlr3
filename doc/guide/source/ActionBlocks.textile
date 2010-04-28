@@ -1,13 +1,56 @@
 ANTLR grammars are basically composed of a few different types of optional configuration blocks, several optional *named action blocks*, and a series of grammar *rules*. Rules, in turn, are essentially composed of *alternatives*, *subrules*, *token references*, *rule references*, and *action blocks*.
 
-Action blocks are snippets of ruby code enclosed in curly braces; they allow a developer to execute arbitrary code at various points of the recognition process. This article covers syntactic restrictions developers should be aware of when writing code blocks, as well as the named actions available for use with this ANTLR target.
+Action blocks are snippets of ruby code enclosed in curly braces; they allow a developer to execute arbitrary code at various points of the recognition process. This article covers aspects of referencing rule components within action blocks, syntactic restrictions developers should be aware of when writing code blocks, and the named actions available for use with this ANTLR target.
 
 h1. Action Block Syntax
 
+ANTLR is designed allow developers to plug-in implementations for other languages. The tool is designed to parse grammar files without knowledge of the syntax in code blocks; it generally does a good job of extracting source code without knowing how to tokenize the target language, as mainstream programming languages usually share a set of standard lexical conventions. However, as ANTLR wasn't designed with Ruby's complicated syntax in mind, occasionally, you may stumble across a frustrating or confusing clash between ANTLR syntax and Ruby syntax.
+
+h2. How ANTLR Extracts Source Code Blocks
+
+Basically, when ANTLR is lexing the grammar source file, and it hits an open brace @{@, it tries to skip over every character until it finds what appears to be a matching closing brace @}@. The action lexer assumes:
+
+# block comments look like <code>/* ... */</code>
+# single-line comments look like <code>// ...<code> (and not <code># ...</code>, as it is in Ruby)
+# strings are enclosed by single or double quotes: <code>'blah blah'</code> or <code>"blah"</code>
+# an open brace @{@ will be closed by @}@
+# a slash @\@ escapes the value of the next character outside of quoted strings
+# any other characters are skipped over until it meets an outer brace @}@
+
+Additionally, action blocks would not be especially powerful if they were not able to reference contextual information, such as tokens, tree nodes, or parameters, among other objects. Thus, there are two syntactic "enhancements" to blocks, both of which clash with Ruby's semantic structure.
+
+h2. Global Variables vs. Property/Parameter References
+
+ANTLR interprets names prefixed with <code>$</code> are references to rule properties, labels, arguments, return values, ANTLR scopes, or tokens. Ruby developers understand names prefixed with <code>$</code> as global variables, such as <code>$LOAD_PATH</code>. Thus, *references to global variables must be escaped in code blocks*. <code>$LOAD_PATH</code> must be written as <code>\$LOAD_PATH</code> in a code block, or the ANTLR tool will think it is a reference to something that does not exist within the grammar specification.
+
 « antlr
-grammar Actions;
+grammar DollarSignUsage;
 
+wrong
+  : ID { $global_name = $ID.text; }
+  ;
 
-
-// leaving out lexer rules
+correct
+  : ID { \$global_name = $ID.text; }
+  ;
 »
+
+h2. Template Literals
+
+ANTLR features a template output mode, which can be useful for many language translation tasks. It also introduces the idea of "template literals" into action blocks, which are used to create anonymous template objects or to reference specific named templates. Refer to the article on [[TemplateMode]] for more information on templates and template literals. However, a developer should be aware that these constructs are introduced with a percent character @%@. Thus, *anytime a @%@ is used in code, even inside of a quoted string, it must be escaped if it is not part of an actual template literal*.
+
+« antlr
+grammar PercentSignUsage;
+
+wrong
+  : ID { puts( "id = %p" % $ID ) }
+  ;
+
+correct
+  : ID { puts( "id = \%p" \% $ID ) }
+  ;
+»
+
+
+h1. Label, Token, and Rule References in Blocks
+

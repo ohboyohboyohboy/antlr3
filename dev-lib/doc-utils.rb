@@ -82,13 +82,16 @@ module ANTLRDoc
     end
     
     def generate
-      @body ||= RedCloth.new( preprocess ).to_html
       outline
       @template.result( binding )
     end
     
     def body
-      @body ||= RedCloth.new( preprocess ).to_html
+      @body ||= begin
+        rc = RedCloth.new( preprocess )
+        rc.hard_breaks = false
+        rc.to_html
+      end
     end
     
     def raw_html( src )
