@@ -33,7 +33,11 @@ if [[ -f api/_index.html ]]; then
   ruby -i -pe 'gsub /\b_index\.html/, "index.html"' -- $files
 fi
 
+set +e
+
 git add .
 git commit -a -m "publishing HTML documentation work"
+
+set -e
 
 git push github gh-pages
