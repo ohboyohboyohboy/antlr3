@@ -1,4 +1,17 @@
 ---
+articles:
+  - [ index, Home ]
+  - GettingStarted
+  - Lexers
+  - Parsers
+  - Tokens
+  - ActionBlocks
+  - TreeParsers
+  - [ ASTs, Abstract Syntax Trees ]
+  - TemplateMode
+  - DebugMode
+  - ProfileMode
+  - Extras
 project_links:
   - - Gem Cutter Project
     - http://rubygems.org/gems/antlr3

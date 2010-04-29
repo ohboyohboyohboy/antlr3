@@ -34,6 +34,7 @@ grammar AnyRubyGrammarYouWrite;
 options { language = Ruby; }
 
 // ...
+
 »
 
 If you do not set this option, ANTLR assumes @language = Java;@. You will generate Java source code.

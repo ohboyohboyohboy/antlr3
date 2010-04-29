@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 require 'antlr3'
+require 'rake'
 require 'rake/tasklib'
 require 'shellwords'
 

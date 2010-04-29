@@ -38,8 +38,7 @@ guide: !group
   input: !path doc/guide/source
   output: !path doc/guide/html
   template: doc/guide/erb/template.erb
-  article_list: doc/guide/source/articles.txt
-  links: doc/guide/source/links.yaml
+  config: doc/guide/source/guide.yaml
 
 package: !group
   base: !path pkg

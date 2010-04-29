@@ -226,7 +226,7 @@ h2. Important Note About Lexer Rule Names
 This naming convention for lexer rules could potentially cause a significant bug in the generated code in one particular situation. Consider this grammar:
 
 « antlr
-lexer grammar Strings
+lexer grammar Strings;
 
 FLOAT:   Integer '.' Integer;
 INTEGER: Integer ( 'l' | 'L' )?;
