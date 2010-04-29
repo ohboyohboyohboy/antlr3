@@ -19,7 +19,7 @@
 	</div>
 	<div class="annotation">
 		<div class="author">by <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a></div>
-    <div class="timestamp">updated Tuesday, April 27, 2010 at 08:42PM EDT</div>
+    <div class="timestamp">updated Wednesday, April 28, 2010 at 11:56PM EDT</div>
 	</div>
 	<div class="content">
 <p><span class="caps">ANTLR</span> grammars are basically composed of a few different types of optional configuration blocks, several optional <strong>named action blocks</strong>, and a series of grammar <strong>rules</strong>. Rules, in turn, are essentially composed of <strong>alternatives</strong>, <strong>subrules</strong>, <strong>token references</strong>, <strong>rule references</strong>, and <strong>action blocks</strong>.</p>
@@ -39,6 +39,7 @@
 <p>Additionally, action blocks would not be especially powerful if they were not able to reference contextual information, such as tokens, tree nodes, or parameters, among other objects. Thus, there are two syntactic &#8220;enhancements&#8221; to blocks, both of which clash with Ruby&#8217;s semantic structure.</p>
 <h2>Global Variables vs. Property/Parameter References</h2>
 <p><span class="caps">ANTLR</span> interprets names prefixed with <code>$</code> are references to rule properties, labels, arguments, return values, <span class="caps">ANTLR</span> scopes, or tokens. Ruby developers understand names prefixed with <code>$</code> as global variables, such as <code>$LOAD_PATH</code>. Thus, <strong>references to global variables must be escaped in code blocks</strong>. <code>$LOAD_PATH</code> must be written as <code>\$LOAD_PATH</code> in a code block, or the <span class="caps">ANTLR</span> tool will think it is a reference to something that does not exist within the grammar specification.</p>
+<div class="code-frame">
 <table class="ANTLR3" id="DollarSignUsage">
   <tr class="code_line" id="DollarSignUsage-1">
     <td class="line_number odd"><pre>01</pre></td>
@@ -78,8 +79,10 @@
   </tr>
 </table>
 
+</div>
 <h2>Template Literals</h2>
 <p><span class="caps">ANTLR</span> features a template output mode, which can be useful for many language translation tasks. It also introduces the idea of &#8220;template literals&#8221; into action blocks, which are used to create anonymous template objects or to reference specific named templates. Refer to the article on <a href="./TemplateMode.html">Template Mode</a> for more information on templates and template literals. However, a developer should be aware that these constructs are introduced with a percent character <code>%</code>. Thus, <strong>anytime a <code>%</code> is used in code, even inside of a quoted string, it must be escaped if it is not part of an actual template literal</strong>.</p>
+<div class="code-frame">
 <table class="ANTLR3" id="PercentSignUsage">
   <tr class="code_line" id="PercentSignUsage-1">
     <td class="line_number odd"><pre>01</pre></td>
@@ -119,6 +122,7 @@
   </tr>
 </table>
 
+</div>
 <h1 id="section-2">Label, Token, and Rule References in Blocks</h1>
 	</div>
 </div>
@@ -140,9 +144,10 @@
 	</div>
 
 	<div class="subnav">
-		<h1>Sections</h1>
+		<h1>Guide Contents</h1>
 		<ul>
       <li><a href="./index.html">Home</a></li>
+      <li><a href="./GettingStarted.html">Getting Started</a></li>
       <li><a href="./Lexers.html">Lexers</a></li>
       <li><a href="./Parsers.html">Parsers</a></li>
       <li><a href="./Tokens.html">Tokens</a></li>
