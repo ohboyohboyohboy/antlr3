@@ -78,15 +78,6 @@ tokens {
   LIST_LABEL_ASSIGN='+=';
 }
 
-/* action -> @parser::header
-{
-    package org.antlr.grammar.v3;
-} */
-/* action -> @lexer::header
-{
-    package org.antlr.grammar.v3;
-} */
-
 @members {
 	attr_reader :grammar_type
 }

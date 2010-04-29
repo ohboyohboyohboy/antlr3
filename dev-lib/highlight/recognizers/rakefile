@@ -1,0 +1,18 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+file( 'ANTLRv3Grammar.g' )
+
+file( 'antlr3-parser.rb' => %w(ANTLRv3Grammar.g) ) do
+  
+  require 'antlr3/task'
+  tasks = ANTLR3::CompileTask.define( 'ANTLRv3Grammar.g' )
+  tasks.compile_task.invoke
+  
+  mv( 'ANTLRv3GrammarParser.rb', 'antlr3-parser.rb' )
+  mv( 'ANTLRv3GrammarLexer.rb',  'antlr3-lexer.rb'  )
+  rm( 'ANTLRv3Grammar.tokens' )
+  
+end
+
+task( :default => 'antlr3-parser.rb' )

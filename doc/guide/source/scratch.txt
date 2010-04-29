@@ -1,0 +1,17 @@
+<!-- Taken out of GettingStarted.textile -- too much unnecessary info -->
+h1. How @antlr3@ Works
+
+The core components of the package include:
+
+* a complete ANTLRv3 JAR-file distribution
+* a ruby-based runtime library
+* a set of StringTemplate code generation templates for Ruby code output
+* an additional Java class (@RubyTarget@), which assists in the code generation process
+* a wrapper script, @antlr4ruby@, which is used to execute ANTLR
+
+
+
+* , including its StringTemplate and ANTLRv2 dependencies
+* a series of StringTemplate code-generation templates that specify the ruby code output
+Contained within the package is 
+

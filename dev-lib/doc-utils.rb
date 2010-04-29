@@ -3,8 +3,75 @@
 
 require 'redcloth'
 require 'highlight'
+require 'erb'
 
 module ANTLRDoc
+  RAW_HTML = <<-END.gsub( /^\s+/, '' )
+    <notextile>
+    %s
+    </notextile>
+  END
+  
+  class Markup < RedCloth::TextileDoc
+    def self.convert( source, *args )
+      m = new( source, *args )
+      block_given? and yield( m )
+      return( m.to_html )
+    end
+    
+    def initialize( source, *args )
+      super( source, args )
+      self.hard_breaks = false
+    end
+  end
+  
+  class CodeFrame
+    SOURCE = ERB.new( <<-END.gsub( /^\s+/, '' ), nil, '%' )
+      <notextile>
+      <div class="code-frame">
+      % if @header
+        <div class="code-header"><%= Markup.convert( @header, :lite_mode ) %></div>
+      % end
+        <%= @body %>
+      % if @footer
+        <div class="code-footer"><%= Markup.convert( @footer, :lite_mode ) %></div>
+      % end
+      </div>
+      </notextile>
+    END
+    
+    attr_accessor :language, :body
+    
+    def initialize( language, source, options = {} )
+      @header = @footer = nil
+      if source =~ /\A(.+?)\n={3,}\n(.+)/m
+        @header, source = $1, $2
+        options[ :line ] and options[ :line ] += @header.count( $/ ) + 2
+        @header.strip!
+      end
+      if source =~ /\A(.+?)\n\-{3,}\n(.+)/m
+        source, @footer = $1, $2.strip
+      end
+      
+      @body = 
+        case @language = language
+        when :antlr
+          Highlight::Languages::ANTLR.new( source, options )
+        when :ruby then
+          Highlight::Languages::Generic.new( 'ruby', source )
+        when :cmd, :shell
+          Highlight::Languages::Shell.new(
+            source, options.merge( :number_lines => false, :prompt => '> ' )
+          )
+        end
+    end
+    
+    def to_s
+      SOURCE.result( binding )
+    end
+    
+  end
+  
   class Article
     REGION = %r<
       ^(
@@ -13,12 +80,6 @@ module ANTLRDoc
         » \ * \n              # closing line: »
       )
     >mx
-    
-    RAW_HTML = <<-END.gsub( /^\s+/, '' )
-      <notextile>
-      %s
-      </notextile>
-    END
     
     $articles = []
     $article_index = {}
@@ -119,36 +180,56 @@ module ANTLRDoc
     
     def preprocess
       [ @stylesheets, @scripts, @inline_styles ].each { | list | list.clear }
-      src = @source.gsub( /(\[\[((?:\S| (?=\S))+?)\]\])/ ) do
+      
+      source = @source.gsub( /(\[\[((?:\S| (?=\S))+?)\]\])/ ) do
         ( article = $article_index[ $2 ] ) ? link_article( article ) : $1
       end
-      src.gsub!( REGION ) do
-        region, tag, content = $1, $2.downcase.to_sym, $3
-        
-        case tag
-        when :raw then raw_html( content )
-        when :antlr then
-          @stylesheets << 'ANTLR3.css'
-          raw_html( Highlight::Languages::ANTLR.new( content ) )
-        when :ruby then
-          @stylesheets << "ruby.css"
-          raw_html( Highlight::Languages::Generic.new( 'ruby', content ) )
-        when :style
-          @inline_styles << content
-          ''
-        when :cmd
-          @stylesheets << 'shell.css'
-          raw_html(
-            Highlight::Languages::Shell.new(
-              content, :number_lines => false, :prompt => '> '
-            )
-          )
+      
+      line_no = 0
+      out = []
+      block_line = block = tag = nil
+      for line in source.split( $/ )
+        line_no += 1
+        if ( line =~ /^« *(\S+)\ */ ) ... ( line =~ /^»/ )
+          if tag.nil? then
+            tag = $1.downcase.to_sym
+            block = ''
+            block_line = line_no + 1
+          elsif line =~ /^»/
+            out << special_block( tag, block.chomp, block_line )
+            tag = block = block_line = nil
+          else
+            block << line << $/
+          end
+        else
+          out << line
         end
       end
       
       [ @stylesheets, @scripts, @inline_styles ].each { | list | list.uniq! }
       
-      return( src )
+      return( out.join( $/ ) )
+    end
+    
+    def special_block( tag, content, block_line )
+      case tag
+      when :raw then raw_html( content )
+      when :antlr then
+        @stylesheets << 'ANTLR3.css'
+        CodeFrame.new(
+          tag, content,
+          :line => block_line, :file => File.relative( @source_file )
+        )
+      when :ruby then
+        @stylesheets << "ruby.css"
+        CodeFrame.new( tag, content )
+      when :style
+        @inline_styles << content
+        ''
+      when :cmd
+        @stylesheets << 'shell.css'
+        CodeFrame.new( tag, content, :number_lines => false, :prompt => '> ' )
+      end
     end
     
     def link_article( article )

@@ -1,4 +1,5 @@
 index: Home
+GettingStarted
 Lexers
 Parsers
 Tokens

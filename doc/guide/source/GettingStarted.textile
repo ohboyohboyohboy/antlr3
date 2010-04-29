@@ -1,0 +1,39 @@
+h1. Installing
+
+h2. Rubygems
+
+The simplest way to install the @antlr3@ ruby project is via "rubygems":http://www.rubygems.org.
+
+« shell
+gem install antlr3
+»
+
+h2. Source Archive
+
+There are source zip-file distributions of the source code available for download at "Rubyforge":http://rubyforge.org/frs/?group_id=8857&release_id=42688. However, be aware that the zip distribution does not include any setup/installation script currently and the @antlr4ruby@ tool must be able to locate the file java/antlr-full-3.x.x.jar in the project's base directory. <!-- TODO: explain this better -->
+
+h2. GitHub
+
+The full source code and development history can be cloned from my "GitHub repository":http://github.com/ohboyohboyohboy/antlr3. Note that the repository code is much larger and full of dependencies than the source packages listed above. If you are primarily interested in simply using this package to generate recognition code, you are probably better off installing the gem or source package as described above. The gem and zip package distributions contain everything needed to use the ruby target without any external dependencies.
+
+h1. Running ANTLR
+
+Included in the package is the program @antlr4ruby@, which is a thin wrapper around the ANTLR tool command. Thus, it is invoked exactly like the ANTLR tool. Refer to "this list of ANTLR tool command-line options":http://www.antlr.org/wiki/display/ANTLR3/Command+line+options for more information. So, to generate recognition code for input grammar @Whatevs.g@,
+
+« shell
+antlr4ruby Whatevs.g
+»
+
+h1. Grammar File Options
+
+To generate ruby code, you must specify a top-level option block that sets @language = Ruby;@
+
+« antlr
+grammar AnyRubyGrammarYouWrite;
+
+options { language = Ruby; }
+
+// ...
+»
+
+If you do not set this option, ANTLR assumes @language = Java;@. You will generate Java source code.

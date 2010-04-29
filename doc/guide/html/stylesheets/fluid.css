@@ -67,6 +67,27 @@ h1, h2, h3, h4 {
 	clear: both;
 }
 
+.code-frame {
+	padding: 0px;
+	border: 1px solid black;
+	margin: 10px 0px 10px 20px;
+	display: block;
+}
+.code-frame div {
+	margin: 0px;
+	padding: 0px;
+	display: block;
+}
+
+.code-frame .code-header {
+	font-weight: bold;
+	padding: 1px 3px;
+	border-bottom: 1px dashed black;
+	background: #ffaa00;
+	color: #111;
+}
+
+
 /* header */
 .header {
 	background: url(../images/stripes.gif) no-repeat;
