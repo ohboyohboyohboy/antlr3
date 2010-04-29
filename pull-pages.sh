@@ -4,7 +4,7 @@
 set -e
 
 git checkout master doc/guide/html
-git checkout master doc/api
+# git checkout master doc/api
 
 if [[ -e stylesheets ]]; then
   rm -R stylesheets
@@ -18,12 +18,13 @@ if [[ -e index.html ]]; then
   rm *.html
 fi
 
-if [[ -d api ]]; then
-  rm -R api
+mv doc/guide/html/* .
+
+if [[ api/index.html -ot doc/api/index.html ]]; then
+  rm -fR api
+  cp -R ./doc/api ./api
 fi
 
-mv doc/guide/html/* .
-mv doc/api .
 
 if [[ -f api/_index.html ]]; then
   mv api/index.html api/readme.html
