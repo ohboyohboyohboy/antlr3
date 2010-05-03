@@ -9,9 +9,9 @@ options = {
   :email  => $project.email
 }
 
-
 $project_links  = config.fetch( 'project_links', [] )
 $external_links = config.fetch( 'external_links', [] )
+
 articles = config.fetch( 'articles', [] ).map do | name, title |
   title ||= Inflection.title_case( name )
   source_file = guide.input( "#{ name }.textile" )
@@ -33,7 +33,6 @@ articles.each do | article |
     puts( "wrote #{ article.output_file }" )
   end
 end
-
 
 desc( "construct the ANTLR guide" )
 task( :guide => articles.map { | a | a.output_file } )
