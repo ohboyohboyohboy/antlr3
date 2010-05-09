@@ -6,6 +6,7 @@
 	<meta name="keywords" content="keywords"/>
   <meta name="author" content="Kyle Yetter"/>
 	<link rel="stylesheet" type="text/css" href="stylesheets/fluid.css" media="screen"/>
+  <link rel="stylesheet" type="text/css" href="stylesheets/shell.css" media="screen"/>
   <link rel="stylesheet" type="text/css" href="stylesheets/ANTLR3.css" media="screen"/>
 
 	<title>ANTLR For Ruby: Getting Started</title>
@@ -19,21 +20,40 @@
 	</div>
 	<div class="annotation">
 		<div class="author">by <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a></div>
-    <div class="timestamp">updated Thursday, April 29, 2010 at 11:30AM EDT</div>
+    <div class="timestamp">updated Sunday, May 09, 2010 at 08:56AM EDT</div>
 	</div>
 	<div class="content">
 <h1 id="section-1">Installing</h1>
 <h2>Rubygems</h2>
 <p>The simplest way to install the <code>antlr3</code> ruby project is via <a href="http://www.rubygems.org">rubygems</a>.</p>
+<div class="code-frame">
+<div class="code-header">Installing Via Rubygems</div>
+<table class="shell" id="608781698">
+  <tr class="code_line" id="608781698-1">
+    <td class="code"><pre><span class="gp">~&gt;</span><span class="w">&nbsp;</span><span class="k">gem</span><span class="w">&nbsp;</span><span class="nv">install</span><span class="w">&nbsp;</span><span class="nv">antlr3</span></pre></td>
+  </tr>
+</table>
+
+</div>
 <h2>Source Archive</h2>
 <p>There are source zip-file distributions of the source code available for download at <a href="http://rubyforge.org/frs/?group_id=8857&amp;release_id=42688">Rubyforge</a>. However, be aware that the zip distribution does not include any setup/installation script currently and the <code>antlr4ruby</code> tool must be able to locate the file java/antlr-full-3.&#215;.&#215;.jar in the project&#8217;s base directory. <!-- TODO: explain this better --></p>
 <h2>GitHub</h2>
 <p>The full source code and development history can be cloned from my <a href="http://github.com/ohboyohboyohboy/antlr3">GitHub repository</a>. Note that the repository code is much larger and full of dependencies than the source packages listed above. If you are primarily interested in simply using this package to generate recognition code, you are probably better off installing the gem or source package as described above. The gem and zip package distributions contain everything needed to use the ruby target without any external dependencies.</p>
 <h1 id="section-2">Running <span class="caps">ANTLR</span></h1>
 <p>Included in the package is the program <code>antlr4ruby</code>, which is a thin wrapper around the <span class="caps">ANTLR</span> tool command. Thus, it is invoked exactly like the <span class="caps">ANTLR</span> tool. Refer to <a href="http://www.antlr.org/wiki/display/ANTLR3/Command+line+options">this list of <span class="caps">ANTLR</span> tool command-line options</a> for more information. So, to generate recognition code for input grammar <code>Whatevs.g</code>,</p>
+<div class="code-frame">
+<div class="code-header">Generating Ruby Code From a Sample <span class="caps">ANTLR</span> Grammar, <code>Whatevs.g</code></div>
+<table class="shell" id="609496368">
+  <tr class="code_line" id="609496368-1">
+    <td class="code"><pre><span class="gp">~&gt;</span><span class="w">&nbsp;</span><span class="k">antlr4ruby</span><span class="w">&nbsp;</span><span class="nv">Whatevs.g</span></pre></td>
+  </tr>
+</table>
+
+</div>
 <h1 id="section-3">Grammar File Options</h1>
 <p>To generate ruby code, you must specify a top-level option block that sets <code>language = Ruby;</code></p>
 <div class="code-frame">
+<div class="code-header">Ruby-Targetted Grammars Require <code>language</code> Option</div>
 <table class="ANTLR3" id="AnyRubyGrammarYouWrite">
   <tr class="code_line" id="AnyRubyGrammarYouWrite-1">
     <td class="line_number odd"><pre>01</pre></td>

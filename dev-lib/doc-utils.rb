@@ -60,9 +60,10 @@ module ANTLRDoc
         when :ruby then
           Highlight::Languages::Generic.new( 'ruby', source )
         when :cmd, :shell
-          Highlight::Languages::Shell.new(
-            source, options.merge( :number_lines => false, :prompt => '> ' )
-          )
+          options[ :prompt ] ||= '~>'
+          options.has_key?( :number_lines ) or
+            options[ :number_lines ] = false
+          Highlight::Languages::Shell.new( source, options )
         end
     end
     
@@ -226,9 +227,9 @@ module ANTLRDoc
       when :style
         @inline_styles << content
         ''
-      when :cmd
+      when :cmd, :shell
         @stylesheets << 'shell.css'
-        CodeFrame.new( tag, content, :number_lines => false, :prompt => '> ' )
+        CodeFrame.new( tag, content, :number_lines => false, :prompt => '~>' )
       end
     end
     

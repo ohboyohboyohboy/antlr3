@@ -286,7 +286,7 @@ Your grammar may specify additional lexer rules that function purely as helpers 
 
 « antlr
 Numbers.g : fragment lexer rule demonstration
-===
+=========
 lexer grammar Numbers;
 
 tokens {

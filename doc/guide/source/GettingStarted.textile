@@ -5,6 +5,8 @@ h2. Rubygems
 The simplest way to install the @antlr3@ ruby project is via "rubygems":http://www.rubygems.org.
 
 « shell
+Installing Via Rubygems
+============
 gem install antlr3
 »
 
@@ -21,6 +23,8 @@ h1. Running ANTLR
 Included in the package is the program @antlr4ruby@, which is a thin wrapper around the ANTLR tool command. Thus, it is invoked exactly like the ANTLR tool. Refer to "this list of ANTLR tool command-line options":http://www.antlr.org/wiki/display/ANTLR3/Command+line+options for more information. So, to generate recognition code for input grammar @Whatevs.g@,
 
 « shell
+Generating Ruby Code From a Sample ANTLR Grammar, @Whatevs.g@
+==========
 antlr4ruby Whatevs.g
 »
 
@@ -29,12 +33,13 @@ h1. Grammar File Options
 To generate ruby code, you must specify a top-level option block that sets @language = Ruby;@
 
 « antlr
+Ruby-Targetted Grammars Require @language@ Option
+==========
 grammar AnyRubyGrammarYouWrite;
 
 options { language = Ruby; }
 
 // ...
-
 »
 
 If you do not set this option, ANTLR assumes @language = Java;@. You will generate Java source code.
