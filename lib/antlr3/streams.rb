@@ -834,6 +834,19 @@ class CommonTokenStream
     seek( marker )
   end
   
+  #
+  # saves the current stream position, yields to the block,
+  # and then ensures the stream's position is restored before
+  # returning the value of the block
+  #  
+  def hold( pos = @position )
+    block_given? or return enum_for( :hold, pos )
+    begin
+      yield
+    ensure
+      seek( pos )
+    end
+  end
   
   ###### Stream Navigation ###########################################
   

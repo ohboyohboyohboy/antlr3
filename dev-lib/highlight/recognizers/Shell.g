@@ -1,4 +1,4 @@
-lexer grammar SimpleShell;
+lexer grammar Shell;
 
 options { language = Ruby; }
 
@@ -20,7 +20,13 @@ SHELL_STRING
   : '`' ( ~('`' | '\\') | '\\' . )* '`'
   ;
 
-WS: (' ' | '\t')+ ;
+CMD_OUTPUT
+  : { @cmd_start }?=> WS ~'\n'+ ( '\n' WS ~'\n'* )* '\n'*
+  ;
+
+SPACE
+  : WS
+  ;
 
 COMMAND_END
 @after { @cmd_start = true }
@@ -62,4 +68,8 @@ CHUNK_CHAR
   : ~( '>' | '<' | '#' | '`'  | '"'  | '\'' | '|' | '(' | ')' | '$' | ';'
      | ' ' | '?' | '*'  | '~' | '\\' | '\t' | '{' | '}' | '\n' | '\r' )
   | '\\' .
+  ;
+
+fragment
+WS: ( ' ' | '\t' )+
   ;

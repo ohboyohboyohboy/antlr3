@@ -8,6 +8,7 @@ articles:
   - ActionBlocks
   - TreeParsers
   - [ ASTs, Abstract Syntax Trees ]
+  - BuiltInDrivers
   - TemplateMode
   - DebugMode
   - ProfileMode

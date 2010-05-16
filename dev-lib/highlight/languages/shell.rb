@@ -14,13 +14,14 @@ class Shell
   
   def self.add_category(name, *types)
     for type in types
-      Integer === type or type = ::Shell::TokenData[type]
-      CATEGORIES[type] = name
+      Integer === type or type = ::Shell::TokenData[ type ]
+      CATEGORIES[ type ] = name
     end
     return nil
   end
   
   add_category( "c", COMMENT )
+  add_category( 'go', CMD_OUTPUT )
   add_category( "k", COMMAND_NAME )
   add_category( "kp", COMMAND_END, CLOSE_PAR, OPEN_PAR )
   add_category( "nv", CHUNK )
@@ -30,35 +31,34 @@ class Shell
   add_category( "sb", SHELL_STRING )
   add_category( "ss", SWITCH )
   add_category( "vg", VARIABLE )
-  add_category( "w", WS )  
+  add_category( "w", SPACE )
   
   def initialize(source, options = {})
     @source = source.to_s
     @lexer  = ::Shell::Lexer.new(source)
     @tokens = ANTLR3::CommonTokenStream.new( @lexer )
+    
     @html = Formatters::HTML::CodeBlock.new('shell', options[:id] || __id__.abs.to_s, options)
     if @prompt = options[:prompt]
       @html.add_token('gp', @prompt)
       @html.add_token('w', ' ')
     end
     
-    while token = @tokens.look and token.type != EOF
-      @html.add_token( categorize(token), token.text )
-      @tokens.consume
+    @tokens.walk do | token |
+      text = ( token.type == CMD_OUTPUT ? token.text.fixed_indent( 0 ) : token.text )
+      @html.add_token( categorize( token ), text )
       
       if @prompt and token.type == COMMAND_END and token.text =~ /[\r\n]/
-        @tokens.mark
-        
-        while token = @tokens.look and token.type == WS
-          @tokens.consume
+        @tokens.hold do
+          while token = @tokens.look and token.type == SPACE || token.type == CMD_OUTPUT
+            @tokens.consume
+          end
+          
+          if token = @tokens.look and token.type != EOF
+            @html.add_token( 'gp', @prompt )
+            @html.add_token( 'w', ' ' )
+          end
         end
-        
-        if token = @tokens.look and token.type != EOF
-          @html.add_token( 'gp', @prompt )
-          @html.add_token( 'w', ' ' )
-        end
-        
-        @tokens.rewind
       end
     end
   end
@@ -68,9 +68,9 @@ class Shell
   end
   
 private
-
-  def categorize(token)
-    CATEGORIES[token.type]
+  
+  def categorize( token )
+    CATEGORIES[ token.type ]
   end
 end
 end

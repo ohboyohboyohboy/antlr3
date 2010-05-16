@@ -624,7 +624,7 @@ def EarlyExit( decision, input = @input )
 end
 
 def FailedPredicate( rule, predicate, input = @input )
-  FailedPredicate.new( input, rule_name, predicate )
+  FailedPredicate.new( input, rule, predicate )
 end
 
 def MismatchedTreeNode( expecting, input = @input )

@@ -60,7 +60,7 @@
 .shell .gr { } /* Generic.Error */
 .shell .gh { } /* Generic.Heading */
 .shell .gi { } /* Generic.Inserted */
-.shell .go { } /* Generic.Output */
+.shell .go { color: #e7d8f3; font-size: 0.8em; font-style: italic; } /* Generic.Output */
 .shell .gp { } /* Generic.Prompt */
 .shell .gs { } /* Generic.Strong */
 .shell .gu { } /* Generic.Subheading */
