@@ -241,6 +241,7 @@ h1, h2, h3, h4 {
 	font: normal 1.4em "Century Gothic","Trebuchet MS",sans-serif;
 	padding: 8px 0;
 }
+
 .nav li a:hover {
 	background: #FAFAFA;
 	color: #F06;
@@ -271,6 +272,7 @@ h1, h2, h3, h4 {
 	margin-left: 8px;
 	border-bottom: 1px solid #333;
 }
+
 .subnav .current {
 	color: #FFF;
 	font: bold 1.0em "Century Gothic","Trebuchet MS",sans-serif;
@@ -278,6 +280,7 @@ h1, h2, h3, h4 {
 	padding: 3px 6px 3px 8px;
 	margin-left: 8px;
 }
+
 .subnav li a {	
 	color: #999;
 	display: block;
@@ -285,12 +288,20 @@ h1, h2, h3, h4 {
 	padding: 3px 6px 3px 8px;
 	text-decoration: none;
 }
+
 .subnav li a:hover {
 	color: #FFAA00;
 }
+
 .subnav li a:visted {
 	color: #777;
 }
+
+.subnav .todo a {
+  color: #444;
+}
+
+
 
 /* round edges */
 .roundtl,.roundtr,.roundbl,.roundbr {

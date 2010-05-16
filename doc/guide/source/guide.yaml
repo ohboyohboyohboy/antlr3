@@ -8,20 +8,20 @@ articles:
   - ActionBlocks
   - TreeParsers
   - [ ASTs, Abstract Syntax Trees ]
-  - BuiltInDrivers
+  - [ BuiltInDrivers, Built-In Drivers ]
   - TemplateMode
   - DebugMode
   - ProfileMode
   - Extras
 project_links:
-  - - Gem Cutter Project
+  - - GitHub
+    - http://github.com/ohboyohboyohboy/antlr3
+  - - Gem Cutter
     - http://rubygems.org/gems/antlr3
-  - - Rubyforge Project
+  - - Rubyforge
     - http://rubyforge.org/projects/antlr3
   - - Bug Reports
     - http://github.com/ohboyohboyohboy/antlr3/issues
-  - - GitHub Repository
-    - http://github.com/ohboyohboyohboy/antlr3
 external_links:
   - - ANTLR.org
     - http://www.antlr.org

@@ -70,7 +70,7 @@
 % if article == self
   		<li class="current"><%= article.title %></li>
 % else
-      <li><%= link_article( article ) %></li>
+      <li<% if article.empty? %> class="todo"<% end %>><%= link_article( article ) %></li>
 % end
 % end
 		</ul>

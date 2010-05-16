@@ -101,7 +101,7 @@ module ANTLRDoc
     end
     
     attr_accessor :source_file, :name, :source, :title, :time, :stylesheets, :scripts,
-                  :author, :email, :output_directory, :template
+                  :author, :email, :output_directory, :template, :empty
     
     def initialize( source_file )
       @source_file = source_file
@@ -111,9 +111,15 @@ module ANTLRDoc
         open( @source_file, 'w' ) { | f | f.write( '' ) }
       end
       
+      @empty = false
       @name = File.basename( @source_file, '.*' )
       @template = nil
       @source = File.read( source_file )
+      if @source.empty?
+        @empty = true
+        @source = "h1. Coming Soon"
+      end
+      
       @time = File.mtime( source_file )
       @title = File.basename( source_file, '.*' )
       @output_directory = File.dirname( source_file )
@@ -122,6 +128,8 @@ module ANTLRDoc
       @scripts = []
       @inline_styles = []
     end
+    
+    alias :empty? :empty
     
     def configure( template, options = {} )
       @template = template
