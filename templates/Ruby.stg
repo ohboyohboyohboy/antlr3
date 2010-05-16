@@ -1459,4 +1459,4 @@ placeAction(scope, name) ::= <<
 <endif>
 >>
 
-runtimeLibraryVersion() ::= "1.7.1"
+runtimeLibraryVersion() ::= "1.7.2"
