@@ -1,3 +1,32 @@
+=== 1.7.2 / 05-16-10
+
+* Minor Enhancements
+  - added new #hold convenience method to ANTLR3::CommonTokenStream
+
+* Bug Fixes
+  - corrected a typo in ANTLR3::Error#FailedPredicate which caused a
+    NoMethodError to raise instead of FailedPredicate when semantic
+    predicates failed
+
+* Documentation
+  - added more content to the ruby antlr3 guide
+  - set up an official project website at
+    http://antlr.ohboyohboyohboy.org
+
+=== 1.7.0 / 04-20-10
+
+* Minor Enhancements
+  - added new #each_on_channel and #walk convenience methods to ANTLR3::CommonTokenStream
+
+* Bug Fixes
+  - discovered and fixed a rare but serious bug in the way the output code evaluates
+    syntactic predicates
+
+* Documentation
+  - began developing a more thorough usage guide for the package
+  - the guide is currently available on GitHub at
+    http://ohboyohboyohboy.github.com/antlr3
+
 === 1.6.3 / 02-12-10
 
 * 4 Minor Enhancements
