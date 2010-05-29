@@ -187,11 +187,23 @@ module ANTLRDoc
       end
     end
     
+    WIKI_LINK_RX = %r<
+      \[{2}
+      ( (?:\S|\ (?=\S))+? )
+      (?: : \ ? ( (?:\S|\ (?=\S))+? ) )?
+      \]{2}
+    >x
+    
     def preprocess
       [ @stylesheets, @scripts, @inline_styles ].each { | list | list.clear }
       
-      source = @source.gsub( /(\[\[((?:\S| (?=\S))+?)\]\])/ ) do
-        ( article = $article_index[ $2 ] ) ? link_article( article ) : $1
+      source = @source.gsub( WIKI_LINK_RX ) do
+        raw, article_name, link_text = $~[ 0..2 ]
+        if article = $article_index[ article_name ]
+          link_text ||= article.title
+          link_article( article, link_text )
+        else raw
+        end
       end
       
       line_no = 0
@@ -241,9 +253,9 @@ module ANTLRDoc
       end
     end
     
-    def link_article( article )
+    def link_article( article, link_text = article.title )
       href = File.relative( article.output_file, @output_directory )
-      %(<a href="#{ href }">#{ article.title }</a>)
+      %(<a href="#{ href }">#{ link_text }</a>)
     end
     
     def relative( file )

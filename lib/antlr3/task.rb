@@ -462,7 +462,7 @@ class GrammarFile::FormatError < StandardError
       message << "could not locate a grammar name and type declaration matching\n"
       message << "/^\s*(lexer|parser|tree)?\s*grammar\s*(\S+)\s*;/"
     else
-      message << 'bad grammar source in file %p' % @file
+      message << 'bad grammar source in file %p\n' % @file
       message << ( "-" * 80 ) << "\n"
       message << @source
       message[ -1 ] == ?\n or message << "\n"

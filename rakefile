@@ -47,15 +47,15 @@ task :update do
   $project.load_task 'update_gems'
 end
 
-desc "update gems and setup project development environment"
-task :setup => %w( update ) do
+desc "setup project development environment and download/update bundled gems"
+task :boot => %w( update ) do
   $project.load_environment
 end
 
 # task :default => %w( setup )
-# $project.setup? or run_task( :setup )
+# $project.booted? or run_task( :setup )
 
-if $project.setup?
+if $project.booted?
   
   # tasks concerning the ANTLR java package
   desc "update the antlr jar if necessary"

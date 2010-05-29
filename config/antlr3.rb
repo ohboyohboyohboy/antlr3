@@ -4,6 +4,8 @@ __DIR__ = File.dirname( __FILE__ )
 project_top = File.dirname( __DIR__ )
 config_file = File.join( __DIR__, 'antlr3.yaml' )
 
+autoload :FileUtils, 'fileutils'
+
 load File.join( __DIR__, 'project.rb' )
 
 $proj = $project = Project.load( project_top, config_file ) do
@@ -53,36 +55,91 @@ $proj = $project = Project.load( project_top, config_file ) do
       name author email has_rdoc rubyforge_project summary
       version description required_ruby_version homepage
     )
+    
+    gem_config = package.gem
+    path_map = gem_config.path_map
+    
     Gem::Specification.new do | spec |
       for field in spec_fields
         value = self.send( field )
         spec.send( "#{field}=", value )
       end
       
-      spec.files = package.files.to_a + %w( Rakefile Manifest.txt )
-      spec.test_files = unit_tests.to_a + functional_tests.to_a
+      spec.files = package_transform(
+        package.files.to_a + %w( Manifest.txt ), path_map
+      )
+      
+      spec.test_files = package_transform(
+        unit_tests.to_a + functional_tests.to_a, path_map
+      )
       
       spec.executables.push( *executables )
       spec.requirements.push( *requirements )
     end
   end
   
-  def generate_hoe( target_directory )
-    require 'erb'
-    template = ERB.new( File.read( dev_lib( 'dist-rakefile.erb' ) ) )
-    code = template.result( binding )
+  def package_skeleton( package_dir, core_files, support_files, name_map )
+    defined?( Rake ) or require 'rake'
     
-    rakefile = target_directory / 'Rakefile'
-    manifest = target_directory / 'Manifest.txt'
+    manifest = []
+    mappings = []
     
-    open( rakefile, 'w' ) { | out | out.write( code ) }
-    open( manifest, 'w' ) do | out |
-      for f in package.files
-        out.puts( f ) if File.file?( f )
+    for file in core_files
+      target_suffix = package_target_name( file, name_map )
+      target = File.join( package_dir, target_suffix )
+      
+      if File.directory?( file )
+        mkpath( target )
+      else
+        mkpath( File.dirname( target ) )
+        File.exist?( target ) and rm( target )
+        safe_ln( file, target )
+        manifest << target_suffix
       end
-      out.puts( "Manifest.txt" )
-      out.puts( "Rakefile" )
     end
+    
+    for file in support_files
+      target_suffix = package_target_name( file, name_map )
+      target = File.join( package_dir, target_suffix )
+      
+      if File.directory?( file )
+        mkpath( target )
+      else
+        mkpath( File.dirname( target ) )
+        File.exist?( target ) and rm( target )
+        safe_ln( file, target )
+      end
+    end
+    
+    manifest_file = File.join( package_dir, 'Manifest.txt' )
+    File.open( manifest_file, 'w' ) do | f |
+      f.puts( manifest )
+    end
+  end
+  
+  
+  def package_transform( file_list, mapping_rules )
+    file_list.map { | f | package_target_name( f, mapping_rules ) }
+  end
+  
+  def package_target_name( source_path, name_map )
+    pattern, map = name_map.find { | glob, m | File.fnmatch?( glob, source_path ) }
+    map ? source_path.pathmap( map ) : source_path
+  end
+  
+  def process_template( template_file, target = template_file.ext )
+    require 'erb'
+    template_file = path( template_file )
+    target = path( target )
+    
+    template_file == target and raise(
+      ArgumentError, "target argument `#{ target }' will overwrite source `#{ template_file }'"
+    )
+    
+    template = ERB.new( File.read( template_file ), nil, '%' )
+    code = template.result( binding )
+    open( target, 'w' ) { | f | f.write( code ) }
+    return target
   end
   
   def jar_command
@@ -146,7 +203,7 @@ $proj = $project = Project.load( project_top, config_file ) do
     | Afterward, the full bundler library should appear within %s.
     | To complete the development environment set up, run:
     | 
-    |   rake setup
+    |   rake boot
     | 
     END
   end
@@ -156,12 +213,12 @@ $proj = $project = Project.load( project_top, config_file ) do
     | Unable to locate bundler gem environment at %s
     | To create this file, run:
     | 
-    |    rake setup
+    |    rake boot
     | 
     END
   end
   
-  def setup?
+  def booted?
     verify_environment
     return true
   rescue Project::Error
@@ -184,5 +241,5 @@ $proj = $project = Project.load( project_top, config_file ) do
   end
 end
 
-$project.setup? and $project.load_environment
+$project.booted? and $project.load_environment
 

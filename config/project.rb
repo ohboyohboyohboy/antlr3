@@ -113,7 +113,10 @@ class PropertyGroup < ::Hash
   end
   
   def []( name )
-    super( name.to_s )
+    name = name.to_s
+    if has_key?( name ) then super( name )
+    elsif @path_map then @path_map[ name ]
+    end
   end
   
   def merge( h )
@@ -192,6 +195,7 @@ private
       map
     end
   end
+  
   def normalize( hash )
     stringified = {}
     for key, value in hash

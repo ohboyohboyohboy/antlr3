@@ -39,10 +39,11 @@ guide: !group
   output: !path doc/guide/html
   template: doc/guide/erb/template.erb
   config: doc/guide/source/guide.yaml
+  changelog: doc/guide/source/changelog.yaml
 
 package: !group
   base: !path pkg
-  dir: !path pkg/$(name)-$(version)
+  name: $(name)-$(version)
   files: !pathlist
     include:
       - bin/antlr4ruby
@@ -55,9 +56,35 @@ package: !group
       - *.txt
       - java/antlr-full-$(antlr_version).jar
       - java/*.java
+      - dev-lib/dist/rakefile
     exclude:
       - DEVELOPER-README.txt
       - lib/antlr3/token/*.rb
+  zip: !group
+    dir:   !path pkg/zip/$(name)-$(version)
+    ext:   .zip
+    files: !pathlist
+      - dev-lib/dist/setup.rb
+      - dev-lib/dist/pre-setup.rb
+    path_map:
+      - - lib/antlr3.rb
+        - %f.pre
+      - - java/*
+        - data/antlr4ruby/%f
+      - - templates/*
+        - data/antlr4ruby/%p
+      - - samples/**/*
+        - doc/%p
+      - - dev-lib/dist/*
+        - %f
+  gem: !group
+    dir:    !path pkg/gem
+    ext:    .gem
+    files:  !pathlist []
+    path_map:
+      - - dev-lib/dist/rakefile
+        - rakefile
+  
 #
 # important paths in the project tree
 #

@@ -33,7 +33,7 @@ If you haven't already:
 
 2. from the project's top directory, run the simple setup script
   
-  ruby setup.rb
+  ruby bootstrap.rb
 
 Assuming everything worked without a hitch, modify your
 PATH environmental variable to add the following directories:
@@ -83,7 +83,7 @@ Development Dependencies / Third-Party Gems
     of the antlr3 library, as generated code will always try to
     activate the antlr3 gem before loading the runtime library
   
-* the setup.rb script should install bundler in vendor/bundler by importing
+* the bootstrap.rb script should install bundler in vendor/bundler by importing
   the library as a git submodule. This can also be done manually via:
   
     git submodule init
@@ -278,7 +278,7 @@ Programs / Utility Scripts
 = gem-bundle.rb
 
 * only works once the third party bundler library has been pulled
-  by the setup.rb script
+  by the bootstrap.rb script
   
 * a script to run the gem bundle command to update the project's
   isolated gem repository

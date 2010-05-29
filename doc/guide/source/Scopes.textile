@@ -1,0 +1,49 @@
+The term __scope__ can be a little confusing, as it used to describe a number of different constructs within ANTLR, each with its own purpose. Furthermore, when the discussion begins to inject the word __scope__ as it is generally understood in theoretical computing, as in "dynamically-scoped language," the term's meaning becomes increasingly vague. 
+
+For the purposes of this article, the term __scope__ refers to an abstract data object used to store information during the recognition process. In the ruby source code, scopes are mostly implmented as simple @Struct@ classes. Therefore, references to scope objects in [[ActionBlocks: action blocks]] are @Struct@ objects, which respond to the standard @Struct@ methods. 
+
+There are several different types of scopes in ANTLR grammars. *Rule* and *global scopes* are general structures that are maintained on a stack to hold arbitrary values; they provide a convenient way to exchange information with other rules. *Return scopes* are used to specify an arbitrary number of return values for a rule. Additionally, they are used provide useful information about the recognition work performed by the rule to an outer rule that referenced it, such as the range of tokens advanced during the rule. Finally, *parameter scopes* refer to the named arguments of a rule.
+
+
+h1. Rule Scopes
+
+« antlr
+parser grammar IUseARuleScope;
+
+@header { require 'set' }
+
+boring_block
+scope {
+  symbols;
+}
+@init {
+    $boring_block::symbols = Set.new;
+}
+@after {
+    puts( "Found declarations for these variables: " )
+    $boring_block::symbols.sort.each { | n | puts( "  - #{ n }" ) }
+}
+    : '{' number_declarations* assignments+ '}'
+    ;
+
+number_declarations
+    : 'int' ID { $boring_block::symbols.add( $ID.text ) } ';'
+    ;
+
+assignments
+  : ID '=' NUM ';'
+    {
+        $boring_block::symbols.include?( $ID.text ) or 
+          raise( "%p has not been declared" % $ID.text )
+    }
+  ;
+»
+
+
+h1. Global / Grammar Scopes
+
+h1. Return Scopes
+
+h1. Parameter Scopes
+
+

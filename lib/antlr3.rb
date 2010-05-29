@@ -100,7 +100,13 @@ antlr3/dot.rb::
 module ANTLR3
   
   # :stopdoc:
-  LIBRARY_PATH  = ::File.expand_path(::File.dirname(__FILE__))
+  # BEGIN PATHS -- do not modify
+  
+  LIBRARY_PATH  = ::File.expand_path( ::File.dirname( __FILE__ ) ).freeze
+  PROJECT_PATH  = ::File.dirname( LIBRARY_PATH ).freeze
+  DATA_PATH     = ::File.join( PROJECT_PATH, 'java' ).freeze
+  
+  # END PATHS
   # :startdoc:
   
   # Returns the library path for the module. If any arguments are given,
@@ -108,25 +114,25 @@ module ANTLR3
   # <tt>File.join</tt>.
   #
   def self.library_path( *args )
-    File.expand_path(::File.join(LIBRARY_PATH, *args))
+    ::File.expand_path( ::File.join( LIBRARY_PATH, *args ) )
   end
   
   # Returns the lpath for the module. If any arguments are given,
   # they will be joined to the end of the path using
   # <tt>File.join</tt>.
   #
-  def self.project_path( *args )
-    library_path('..', *args)
+  def self.data_path( *args )
+    ::File.expand_path( ::File.join( DATA_PATH, *args ) )
   end
   
   # This is used internally in a handful of locations in the runtime library
   # where assumptions have been made that a condition will never happen
   # under normal usage conditions and thus an ANTLR3::Bug error will be
   # raised if the condition does occur.
-  def self.bug!(message = nil)
-    bug = Bug.new(message)
-    bug.set_backtrace(caller)
-    raise(bug)
+  def self.bug!( message = nil )
+    bug = Bug.new( message )
+    bug.set_backtrace( caller )
+    raise( bug )
   end
   
   @antlr_jar = nil
@@ -138,11 +144,11 @@ module ANTLR3
   def self.antlr_jar
     @antlr_jar and return( @antlr_jar )
     
-    path = project_path "java/antlr-full-#{ ANTLR_VERSION_STRING }.jar"
+    path = data_path "antlr-full-#{ ANTLR_VERSION_STRING }.jar"
     if env_path = ENV[ 'RUBY_ANTLR_JAR' ]
       if File.file?( env_path ) then return File.expand_path( env_path ) end
       
-      warn(
+      warn( 
         "#{ __FILE__ }:#{ __LINE__ }: " <<
         "ignoring environmental variable RUBY_ANTLR_JAR (=%p) " % env_path <<
         "as it is not the path to an existing file\n" <<
@@ -162,7 +168,7 @@ module ANTLR3
   # are autoloaded on-demand
   autoload :AST, 'antlr3/tree'
   
-  tree_classes = [
+  tree_classes = [ 
     :Tree, :TreeAdaptor, :BaseTree, :BaseTreeAdaptor,
     :CommonTree, :CommonErrorNode, :CommonTreeAdaptor,
     :TreeNodeStream, :CommonTreeNodeStream, :TreeParser,
@@ -187,7 +193,7 @@ module ANTLR3
   
   autoload :Template, 'antlr3/template'
   
-  $LOAD_PATH.include?(library_path) or $LOAD_PATH.unshift(library_path)
+  $LOAD_PATH.include?( library_path ) or $LOAD_PATH.unshift( library_path )
   
 end  # module ANTLR3
 

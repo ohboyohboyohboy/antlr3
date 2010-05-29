@@ -6,6 +6,7 @@ articles:
   - Parsers
   - Tokens
   - ActionBlocks
+  - Scopes
   - TreeParsers
   - [ ASTs, Abstract Syntax Trees ]
   - [ BuiltInDrivers, Built-In Drivers ]

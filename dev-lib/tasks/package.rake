@@ -1,54 +1,66 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 
-namespace :package do
-  desc( "build the zip and gem packages" )
-  task :build do
-    require 'rubygems'
-    require 'rubygems/user_interaction'
-    require 'rubygems/builder'
-    
-    package = $project.package
-    mkpath( package.base )
-    
-    zip = package.base( '$(name)-$(version).zip' )
-    gem = package.base( '$(name)-$(version).gem' )
-    
-    file( package.dir => package.files ) do
-      for f in package.files
-        target = package.dir( f )
-        if test( ?d, f )
-          mkpath( target )
-        else
-          mkpath( File.dirname( target ) )
-          test( ?e, target ) and rm( target )
-          safe_ln( f, target )
-        end
-      end
-      
-      $project.generate_hoe( package.dir )
-    end
-    
-    file( zip => [ package.dir ] ) do
-      zip_base = File.basename( zip )
-      dir_base = File.basename( package.dir )
-      cd package.base do
-        sh "zip -r #{ zip_base } #{ dir_base }"
-      end
-    end
-    
-    spec = $project.gem_spec
-    file( gem => [ package.dir ] ) do
-      dest = abs( package.base )
-      cd( package.dir ) do
-        Gem::Builder.new( spec ).build
-        mv( File.basename( gem ), dest )
-      end
-    end
-    
-    run_task( zip )
-    run_task( gem )
+$package_targets = []
+
+def package_task( config, &build_block )
+  package       = $project.package
+  pkg_file      = package.name + config.ext
+  core_files    = $project.package.files
+  transforms    = config.path_map
+  all_files     = ( core_files + config.files ).to_a
+  target        = package.base( pkg_file )
+  
+  config.target    = target
+  config.file_name = pkg_file
+  
+  file( target => all_files ) do
+    $project.package_skeleton( config.dir, core_files, config.files, transforms )
+    result = config.instance_eval( &build_block )
+    mv( result, target )
   end
+  
+  $package_targets << target
+end
+
+$project.package.files.each { | f |  file( f )  }
+
+hoe_rakefile = 'dev-lib/dist/rakefile'
+hoe_template = 'dev-lib/dist/rakefile.erb'
+hoe_depends  = [
+  hoe_template,
+  'config/antlr3.yaml',
+  'config/antlr3.rb'
+]
+hoe_depends.each { | f | file( f ) }
+
+file( hoe_rakefile => hoe_depends ) do
+  $project.process_template( hoe_template, hoe_rakefile )
+end
+
+
+namespace :package do
+  
+  package_task( $project.package.zip ) do
+    parent, base = File.split( dir )
+    Dir.chdir( parent ) do
+      sh "zip -r #{ file_name } #{ base }"
+      File.expand_path( file_name )
+    end
+  end
+  
+  package_task( $project.package.gem ) do
+    require 'rubygems'
+    require 'rubygems/builder.rb'
+    
+    Dir.chdir( dir ) do
+      Gem::Builder.new( $project.gem_spec ).build
+      File.expand_path( file_name )
+    end
+  end
+
+  desc( "build the zip and gem packages" )
+  task :build => $package_targets
 
   desc( "trash the build files from the zip and gem packages" )
   task :clobber do
