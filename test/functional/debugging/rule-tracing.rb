@@ -66,7 +66,7 @@ class TestRuleTracing < ANTLR3::Test::Functional
             '>t__7!', '<t__7!'
     ]
     parser.traces.should == [
-      '>a', '>synpred_1_traced!', '<synpred_1_traced!',
+      '>a', '>synpred1_Traced', '<synpred1_Traced',
       '>b', '>c', '<c', '>c', '<c', '>c', '<c', '<b', '<a'
     ]
   end

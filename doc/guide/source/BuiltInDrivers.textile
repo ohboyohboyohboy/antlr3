@@ -1,0 +1,101 @@
+As an additional feature to speed up the grammar development process, each generated recognizer class produced by @antlr4ruby@ includes a built in driver program. Thus, when the generated file is run directly as a ruby script, it will behave as a command line application that may be used to parse given source input for the language. The driver code is never executed when the recognizer is loaded as a library via @require@ or @load@; the driver code is guarded with a standard <code>if $0 == __FILE__</code> block. 
+
+h2. Sample Usage
+
+To demonstrate how this built-in driver feature could be used, imagine developing a grammar to recognize CSS(Cascading Style Sheets). You have written a combined grammar file, @CSS.g@, and you have some sample CSS source code in a file, @sample.css@. 
+
+« css naked: true, number_lines: false
+sample.css
+======================================
+/* super grey paragraphs */
+p {
+    left-margin: 10px;
+    background: #EEEEEE;
+}
+»
+
+Generate the ruby recognizer files, @CSSLexer.rb@ and @CSSParser.rb@:
+
+« shell  naked: true
+antlr4ruby -fo CSS CSS.g
+»
+
+Now, if you just want to get a quick sense of how the recognizers function, you do not need to go through the extra trouble of writing a driver for the recognizer classes. You can simply run the script with @sample.css@ as an argument:
+
+« shell
+Using the Built-In Lexer Driver Script to See How @sample.css@ Is Tokenized
+=====================
+ruby CSS/CSSLexer.rb CSS/sample.css
+  #   COMMENT         "/* super grey paragraphs */" @ line 1   col 0   (hidden)
+  --> WS              "\n"            @ line 1   col 27
+  --> ID              "p"             @ line 2   col 0
+  --> WS              " "             @ line 2   col 1
+  --> T__41           "{"             @ line 2   col 2
+  --> WS              "\n    "        @ line 2   col 3
+  --> ID              "left-margin"   @ line 3   col 4
+  --> T__45           ":"             @ line 3   col 15
+  --> WS              " "             @ line 3   col 16
+  --> LENGTH          "10px"          @ line 3   col 17
+  --> T__38           ";"             @ line 3   col 21
+  --> WS              "\n    "        @ line 3   col 22
+  --> ID              "background"    @ line 4   col 4
+  --> T__45           ":"             @ line 4   col 14
+  --> WS              " "             @ line 4   col 15
+  --> HASH            "#EEEEEE"       @ line 4   col 16
+  --> T__38           ";"             @ line 4   col 23
+  --> WS              "\n"            @ line 4   col 24
+  --> T__42           "}"             @ line 5   col 0
+»
+
+As shown above, the lexer driver will tokenize the input source file and display each token on a single line. You can also try out the parser, though, by default, the output is much more minimal if the source code does not have any recognition errors. However, if the source has improper syntax, the recognition errors will be displayed.
+
+« shell
+Using the Built-In Parser Driver Script to Check Input For Recognition Errors
+========================
+ruby CSS/CSSParser.rb sample.css
+ruby CSS/CSSParser.rb -i "p { /* incomplete */"
+  line 0:-1 mismatched input "<EOF>" expecting '}'
+»
+
+h1. Lexer Drivers
+
+« shell
+ruby CSS/CSSLexer.rb --help
+  Usage: CSSLexer [options]
+  Input Options:
+      -i, --input "text to process"    a string to use as direct input to the recognizer
+      -I, --interactive                run an interactive session with the recognizer
+»
+
+h1. Parser Drivers
+
+« shell
+ruby CSS/CSSParser.rb --help
+  Usage: CSSParser [options]
+  Input Options:
+      -i, --input "text to process"    a string to use as direct input to the recognizer
+      -I, --interactive                run an interactive session with the recognizer
+  
+  Parser Configuration:
+          --lexer-name CLASS_NAME      name of the lexer class to use
+          --lexer-file PATH_TO_LIBRARY path to library defining the lexer class
+          --rule NAME                  name of the parser rule to execute
+»
+
+h1. Tree Parser Drivers
+
+« shell
+ruby CSS/CSSWalker.rb --help
+  Usage: CSSWalker [options]
+  Input Options:
+      -i, --input "text to process"    a string to use as direct input to the recognizer
+      -I, --interactive                run an interactive session with the recognizer
+  
+  Tree Parser Configuration:
+          --lexer-name CLASS_NAME
+          --lexer-file PATH_TO_LIBRARY
+          --parser-name CLASS_NAME
+          --parser-file PATH_TO_LIBRARY
+          --parser-rule NAME
+          --rule NAME
+»

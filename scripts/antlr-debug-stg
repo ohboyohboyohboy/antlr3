@@ -1,0 +1,17 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+__DIR__ = File.dirname( __FILE__ )
+load File.join( __DIR__, 'script-helper.rb' )
+
+require 'antlr3/task'
+require 'string-template/markup'
+
+
+grammars = ARGV.grep( /\.g$/i )
+tasks = ANTLR3::CompileTask.define( grammars )
+targets = tasks.target_files.delete_if { | t | File.extname( t ).downcase == '.tokens' }
+
+
+system( 'antlr4ruby', '-XdbgST', *ARGV )
+targets.each { | file | test( ?f, file ) and StringTemplate::Markup.convert( file ) }

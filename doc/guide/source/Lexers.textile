@@ -1,6 +1,6 @@
 h1. Overview
 
-A lexer's job is to take a stream of text and chop it up into a sequence of *tokens* -- little strings categorized with type codes like @NUMBER@ or @KEYWORD@. For more information on tokens and their characteristics, read [[Tokens]].
+A lexer's job is to take a stream of text and chop it up into a sequence of *tokens* -- little strings categorized with type codes like @NUMBER@ or @KEYWORD@. For more information on tokens and their characteristics, read ‹Tokens›.
 
 For a general overview of lexers, check out:
 * "Lexical Analysis (from Wikipedia)":http://en.wikipedia.org/wiki/Lexical_analysis

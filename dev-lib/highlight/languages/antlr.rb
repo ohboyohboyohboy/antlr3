@@ -212,9 +212,9 @@ module Highlight
 
       def tweak( tree )
         # change the grammar -> NAME <-; declaration token from "TOKEN_REF"
-        name_token = @token_index[ tree[ 0 ].token.start ]
-        name_token.type = NAME
-
+        name_token = @token_index[ tree[ 0 ].token.start ] and
+          name_token.type = NAME
+        
         option_blocks = []
         token_list = nil
         rules = []

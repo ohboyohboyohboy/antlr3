@@ -5,7 +5,7 @@
 	<meta name="description" content="description"/>
 	<meta name="keywords" content="keywords"/>
   <meta name="author" content="Kyle Yetter"/>
-	<link rel="stylesheet" type="text/css" href="stylesheets/fluid.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="stylesheets/article.css" media="screen"/>
   <link rel="stylesheet" type="text/css" href="stylesheets/ANTLR3.css" media="screen"/>
 
 	<title>ANTLR For Ruby: Action Blocks</title>
@@ -19,7 +19,7 @@
 	</div>
 	<div class="annotation">
 		<div class="author">by <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a></div>
-    <div class="timestamp">updated Tuesday, May 18, 2010 at 01:12AM EDT</div>
+    <div class="timestamp">updated Saturday, June 12, 2010 at 01:38AM EDT</div>
 	</div>
 	<div class="content">
 <p><span class="caps">ANTLR</span> grammars are basically composed of a few different types of optional configuration blocks, several optional <strong>named action blocks</strong>, and a series of grammar <strong>rules</strong>. Rules, in turn, are essentially composed of <strong>alternatives</strong>, <strong>subrules</strong>, <strong>token references</strong>, <strong>rule references</strong>, and <strong>action blocks</strong>.</p>
@@ -36,11 +36,11 @@
 	<li>a slash <code>\</code> escapes the value of the next character outside of quoted strings</li>
 	<li>any other characters are skipped over until it meets an outer brace <code>}</code></li>
 </ol>
-<p>Additionally, action blocks would not be especially powerful if they were not able to reference contextual information, such as tokens, tree nodes, or parameters, among other objects. Thus, there are two syntactic &#8220;enhancements&#8221; to blocks, both of which clash with Ruby&#8217;s semantic structure.</p>
+<p>Additionally, action blocks would not be especially powerful if they were not able to reference contextual information, such as tokens, tree nodes, or parameters, among other objects. Thus, there are two syntactic &#8220;enhancements&#8221; to blocks, both of which clash with Ruby&#8217;s syntax.</p>
 <h2>Global Variables vs. Property/Parameter References</h2>
 <p><span class="caps">ANTLR</span> interprets names prefixed with <code>$</code> are references to rule properties, labels, arguments, return values, <span class="caps">ANTLR</span> scopes, or tokens. Ruby developers understand names prefixed with <code>$</code> as global variables, such as <code>$LOAD_PATH</code>. Thus, <strong>references to global variables must be escaped in code blocks</strong>. <code>$LOAD_PATH</code> must be written as <code>\$LOAD_PATH</code> in a code block, or the <span class="caps">ANTLR</span> tool will think it is a reference to something that does not exist within the grammar specification.</p>
 <div class="code-frame">
-<table class="ANTLR3" id="DollarSignUsage">
+  <table class="ANTLR3" id="DollarSignUsage">
   <tr class="code_line" id="DollarSignUsage-1">
     <td class="line_number odd"><pre>01</pre></td>
     <td class="code"><pre><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name">DollarSignUsage</span><span class="p">;</span><span class="ws"></span></pre></td>
@@ -83,7 +83,7 @@
 <h2>Template Literals</h2>
 <p><span class="caps">ANTLR</span> features a template output mode, which can be useful for many language translation tasks. It also introduces the idea of &#8220;template literals&#8221; into action blocks, which are used to create anonymous template objects or to reference specific named templates. Refer to the article on <a href="./TemplateMode.html">Template Mode</a> for more information on templates and template literals. However, a developer should be aware that these constructs are introduced with a percent character <code>%</code>. Thus, <strong>anytime a <code>%</code> is used in code, even inside of a quoted string, it must be escaped if it is not part of an actual template literal</strong>.</p>
 <div class="code-frame">
-<table class="ANTLR3" id="PercentSignUsage">
+  <table class="ANTLR3" id="PercentSignUsage">
   <tr class="code_line" id="PercentSignUsage-1">
     <td class="line_number odd"><pre>01</pre></td>
     <td class="code"><pre><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name">PercentSignUsage</span><span class="p">;</span><span class="ws"></span></pre></td>
@@ -126,8 +126,50 @@
 <h1 id="section-2">Referencing Labels, Rule Values, Tokens, and Yada Yada Yada</h1>
 <p>As outlined in <a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+printable+documentation">ANTLR&#8217;s primary documentation</a>, action blocks can access a number of different grammar entities.</p>
 <h2>Token References</h2>
+<div class="code-frame">
+  <table class="ANTLR3" id="<unknown>">
+  <tr class="code_line" id="<unknown>-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="kd">declr</span><span class="p">:</span><span class="ws">&nbsp;&nbsp;</span><span class="nl">var</span><span class="o">=</span><span class="gr">ID</span><span class="ws">&nbsp;</span><span class="s2">'='</span><span class="ws">&nbsp;</span><span class="gr">INT</span><span class="ws">&nbsp;</span><span class="s2">';'</span><span class="ws">&nbsp;&nbsp;</span><span class="kt">{&nbsp;@variables[&nbsp;</span><span class="si">$var</span><span class="kt">.text&nbsp;]&nbsp;=&nbsp;</span><span class="si">$INT</span><span class="kt">.text.to_i&nbsp;}</span><span class="p">;</span></pre></td>
+  </tr>
+</table>
+
+</div>
 <h2>Rule Value References</h2>
-<h2>Scope References</h2>
+<table class="inventory">
+<thead>
+<tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tr class="odd">
+    <td><tt>$<em>rule</em>.<b>text</b></tt></td>
+    <td><code>String</code></td>
+    <td>The full text over which the parser advanced during the <em>rule</em>&#8217;s execution</td>
+</tr>
+<tr class="even">
+    <td><tt>$<em>rule</em>.<b>start</b></tt></td>
+    <td><code>ANTLR3::Token</code></td>
+    <td>The first token covered within the span of the <em>rule</em>&#8217;s execution</td>
+</tr>
+<tr class="odd">
+    <td><tt>$<em>rule</em>.<b>stop</b></tt></td>
+    <td><code>ANTLR3::Token</code></td>
+    <td>The last token covered within the span of during the <em>rule</em>&#8217;s execution</td>
+</tr>
+<tr class="even">
+    <td><tt>$<em>rule</em>.<b>tree</b></tt></td>
+    <td><code>ANTLR3::AST::Tree</code></td>
+    <td>The tree node constructed during <em>rule</em>&#8217;s execution</td>
+</tr>
+<tr class="odd">
+    <td><tt>$<em>rule</em>.<b>template</b></tt></td>
+    <td><code>ANTLR3::Template</code></td>
+    <td>The template value constructed during <em>rule</em>&#8217;s execution</td>
+</tr>
+</table>
 	</div>
 </div>
 
@@ -148,18 +190,18 @@
 	</div>
 
 	<div class="subnav">
-		<h1>Guide Contents</h1>
+		<h1>Contents</h1>
 		<ul>
       <li><a href="./index.html">Home</a></li>
       <li><a href="./GettingStarted.html">Getting Started</a></li>
       <li><a href="./Lexers.html">Lexers</a></li>
       <li><a href="./Parsers.html">Parsers</a></li>
-      <li class="todo"><a href="./Tokens.html">Tokens</a></li>
+      <li><a href="./Tokens.html">Tokens</a></li>
   		<li class="current">Action Blocks</li>
       <li><a href="./Scopes.html">Scopes</a></li>
       <li class="todo"><a href="./TreeParsers.html">Tree Parsers</a></li>
       <li class="todo"><a href="./ASTs.html">Abstract Syntax Trees</a></li>
-      <li class="todo"><a href="./BuiltInDrivers.html">Built-In Drivers</a></li>
+      <li><a href="./BuiltInDrivers.html">Built-In Drivers</a></li>
       <li class="todo"><a href="./TemplateMode.html">Template Mode</a></li>
       <li class="todo"><a href="./DebugMode.html">Debug Mode</a></li>
       <li class="todo"><a href="./ProfileMode.html">Profile Mode</a></li>

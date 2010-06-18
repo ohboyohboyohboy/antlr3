@@ -6,6 +6,26 @@
 ####################################################################################################
 load './config/antlr3.rb'
 
+rake = Rake.application
+def rake.standard_exception_handling
+  begin
+    yield
+  rescue SystemExit => ex
+    raise
+  rescue OptionParser::InvalidOption => ex
+    exit( false )
+  rescue Exception => ex
+    $stderr.puts( '=' * 80 )
+    $stderr.puts( "#{ name } aborted!" )
+    $stderr.puts( "#{ ex.class }: #{ ex.message }" )
+    $stderr.puts( '-' * 80 )
+    for trace in ex.backtrace
+      $stderr.puts( "  - #{ trace }" )
+    end
+    exit( false )
+  end
+end
+
 def run_task( name )
   Rake::Task.task_defined?( name ) or file( name )
   case task = Rake::Task[ name ]
@@ -107,7 +127,7 @@ else
   | The development environment has not been established.
   | Thus, most rake tasks will not be active until you run:
   | 
-  |   ruby ./setup.rb
+  |   ruby ./bootstrap.rb
   | 
   END
   

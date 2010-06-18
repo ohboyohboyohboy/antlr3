@@ -57,3 +57,26 @@ This project completely implements all of ANTLR's features. It provides all of t
 * Grammar profiling features
 * Template output mode (using a variation of @ERB@ instead of @StringTemplate@)
 * Lexer filter mode
+
+h1. Changelog
+
+« eval
+<% 
+  require 'time'
+  
+  log = {}
+  for date, desc in changelog
+    day = Time.local( date.year, date.mon, date.day )
+    ( log[ day ] ||= [] ) << desc
+  end
+%>
+% for day, items in log.sort.reverse
+
+h2. <%= day.strftime( "%x" ) %>
+
+% for item in items
+* <%= item.strip %>
+% end
+% end
+»
+

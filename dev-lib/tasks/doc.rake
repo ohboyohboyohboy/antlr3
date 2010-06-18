@@ -8,7 +8,6 @@ purpose:    rake task
 =end
 
 require 'antlr3/task'
-
 require 'yard'
 
 namespace :doc do
@@ -29,7 +28,7 @@ namespace :doc do
   end
   
   desc( "trash any previous API documentation files" )
-  task( :clobber => %w( clobber_guide ) ) do
+  task( :clobber => %w( guide:clobber ) ) do
     test( ?d, $project.doc.yard ) and rm_r( $project.doc.yard )
   end
   

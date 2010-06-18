@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 require 'antlr3'
+require 'set'
 require 'rake'
 require 'rake/tasklib'
 require 'shellwords'
@@ -76,9 +77,17 @@ class CompileTask < Rake::TaskLib
     Rake::Task[ full_name ]
   end
   
+  def compile!
+    compile_task.invoke
+  end
+  
   def clobber_task
     full_name = ( @namespace + [ @name, 'clobber' ] ).join( ':' )
     Rake::Task[ full_name ]
+  end
+  
+  def clobber!
+    clobber_task.invoke
   end
   
   def define
@@ -100,7 +109,8 @@ class CompileTask < Rake::TaskLib
   end
   
 
-class CompileTask::GrammarSet
+#class CompileTask::GrammarSet
+class GrammarSet
   attr_accessor :antlr_jar, :debug,
                 :trace, :profile, :compile_options,
                 :java_options

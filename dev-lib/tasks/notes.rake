@@ -41,3 +41,14 @@ namespace :notes do
     end
   end
 end
+
+desc( "list both TODO and FIXME annotations in source code" )
+task :notes do
+  require 'source-notes'
+  color_map = { :tag => 'magenta', :text => 'yellow' }
+  files = $project.package.files.select { |path| test( ?f, path ) }
+  tags = %w( TODO FIXME TO\ DO )
+  SourceNote.scan( tags, files ) do |note|
+    puts( note.to_s( color_map ) )
+  end
+end

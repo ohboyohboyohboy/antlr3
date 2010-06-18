@@ -186,7 +186,8 @@ Main do
       end
     end
     
-    def backup!(path)
+    def backup!( path, backup_ext = '~' )
+      backup_path = path + backup_ext
       info { "attempting to back up #{path} to #{backup_path}" }
       File.rename(path, backup_path)
       info { "wrote back up copy of #{path} to #{backup_path}" }

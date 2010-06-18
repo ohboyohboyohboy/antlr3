@@ -5,7 +5,7 @@
 	<meta name="description" content="description"/>
 	<meta name="keywords" content="keywords"/>
   <meta name="author" content="Kyle Yetter"/>
-	<link rel="stylesheet" type="text/css" href="stylesheets/fluid.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="stylesheets/article.css" media="screen"/>
   <link rel="stylesheet" type="text/css" href="stylesheets/ANTLR3.css" media="screen"/>
 
 	<title>ANTLR For Ruby: Scopes</title>
@@ -19,7 +19,7 @@
 	</div>
 	<div class="annotation">
 		<div class="author">by <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a></div>
-    <div class="timestamp">updated Tuesday, May 18, 2010 at 02:32AM EDT</div>
+    <div class="timestamp">updated Saturday, June 12, 2010 at 12:08AM EDT</div>
 	</div>
 	<div class="content">
 <p>The term <i>scope</i> can be a little confusing, as it used to describe a number of different constructs within <span class="caps">ANTLR</span>, each with its own purpose. Furthermore, when the discussion begins to inject the word <i>scope</i> as it is generally understood in theoretical computing, as in &#8220;dynamically-scoped language,&#8221; the term&#8217;s meaning becomes increasingly vague.</p>
@@ -27,7 +27,7 @@
 <p>There are several different types of scopes in <span class="caps">ANTLR</span> grammars. <strong>Rule</strong> and <strong>global scopes</strong> are general structures that are maintained on a stack to hold arbitrary values; they provide a convenient way to exchange information with other rules. <strong>Return scopes</strong> are used to specify an arbitrary number of return values for a rule. Additionally, they are used provide useful information about the recognition work performed by the rule to an outer rule that referenced it, such as the range of tokens advanced during the rule. Finally, <strong>parameter scopes</strong> refer to the named arguments of a rule.</p>
 <h1 id="section-1">Rule Scopes</h1>
 <div class="code-frame">
-<table class="ANTLR3" id="IUseARuleScope">
+  <table class="ANTLR3" id="IUseARuleScope">
   <tr class="code_line" id="IUseARuleScope-1">
     <td class="line_number odd"><pre>01</pre></td>
     <td class="code"><pre><span class="k">parser</span><span class="ws">&nbsp;</span><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name">IUseARuleScope</span><span class="p">;</span><span class="ws"></span></pre></td>
@@ -172,18 +172,18 @@
 	</div>
 
 	<div class="subnav">
-		<h1>Guide Contents</h1>
+		<h1>Contents</h1>
 		<ul>
       <li><a href="./index.html">Home</a></li>
       <li><a href="./GettingStarted.html">Getting Started</a></li>
       <li><a href="./Lexers.html">Lexers</a></li>
       <li><a href="./Parsers.html">Parsers</a></li>
-      <li class="todo"><a href="./Tokens.html">Tokens</a></li>
+      <li><a href="./Tokens.html">Tokens</a></li>
       <li><a href="./ActionBlocks.html">Action Blocks</a></li>
   		<li class="current">Scopes</li>
       <li class="todo"><a href="./TreeParsers.html">Tree Parsers</a></li>
       <li class="todo"><a href="./ASTs.html">Abstract Syntax Trees</a></li>
-      <li class="todo"><a href="./BuiltInDrivers.html">Built-In Drivers</a></li>
+      <li><a href="./BuiltInDrivers.html">Built-In Drivers</a></li>
       <li class="todo"><a href="./TemplateMode.html">Template Mode</a></li>
       <li class="todo"><a href="./DebugMode.html">Debug Mode</a></li>
       <li class="todo"><a href="./ProfileMode.html">Profile Mode</a></li>

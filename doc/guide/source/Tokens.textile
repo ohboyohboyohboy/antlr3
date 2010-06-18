@@ -1,0 +1,57 @@
+*Tokens* are basic currency within your grammar file; each one represents a slice of source code text of a particular *type*. Lexers exist soley to create tokens; parsers exist soley to react when a sequence of tokens fits a specific pattern. Furthermore, as far as ANTLR is concerned, Abstract Syntax Trees (ASTs) are just tokens that have been organized hierarchically. Since tokens are a crucial aspect of ANTLR's recognition semantics, I want to cover their structure and characteristics in Ruby code.
+
+At a minimum, a token must track:
+
+* a source string (which may be empty or @nil@)
+* a type value, which is represented by an integer code
+
+Moreover, recognition tasks often require additional information associated with tokens:
+
+* the input stream from which the token was extracted
+* the character index at which the text-slice begins
+* the line and column number where the token string begins
+* a sequence index relative to other tokens extracted from the same input stream
+* secondary categoriztions or flags to convey extra information to the token stream or parser
+
+In the @antlr3@ runtime library, tokens are implemented as simple data objects which track all of the properties listed above. While you are able to add your own customized token implementation, the @Struct@-based class, @ANTLR3::CommonToken@, should track all token data required to perform your recognition task.
+
+h1. Token Objects
+
+h2. Attributes
+
+« table
+---
+table_class: inventory
+columns:
+  - title: Name
+    class: attr
+  - Data Type
+  - Description
+body:
+  - - type
+    - @Integer@
+    - ""
+  - - text
+    - @String@ or @nil@
+    - ""
+  - - input_stream
+    - @ANTLR3::CharacterStream@
+    - ""
+  - - start
+    - @Integer@
+    - ""
+  - - stop
+    - @Integer@
+    - ""
+  - - index
+    - @Integer@
+    - ""
+  - - channel
+    - @Symbol@
+    - ""
+»
+
+h1. Providing a Custom Token Implementation
+
+h1. Token Schemes
+

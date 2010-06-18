@@ -17,7 +17,7 @@ Basically, when ANTLR is lexing the grammar source file, and it hits an open bra
 # a slash @\@ escapes the value of the next character outside of quoted strings
 # any other characters are skipped over until it meets an outer brace @}@
 
-Additionally, action blocks would not be especially powerful if they were not able to reference contextual information, such as tokens, tree nodes, or parameters, among other objects. Thus, there are two syntactic "enhancements" to blocks, both of which clash with Ruby's semantic structure.
+Additionally, action blocks would not be especially powerful if they were not able to reference contextual information, such as tokens, tree nodes, or parameters, among other objects. Thus, there are two syntactic "enhancements" to blocks, both of which clash with Ruby's syntax.
 
 h2. Global Variables vs. Property/Parameter References
 
@@ -37,7 +37,7 @@ correct
 
 h2. Template Literals
 
-ANTLR features a template output mode, which can be useful for many language translation tasks. It also introduces the idea of "template literals" into action blocks, which are used to create anonymous template objects or to reference specific named templates. Refer to the article on [[TemplateMode]] for more information on templates and template literals. However, a developer should be aware that these constructs are introduced with a percent character @%@. Thus, *anytime a @%@ is used in code, even inside of a quoted string, it must be escaped if it is not part of an actual template literal*.
+ANTLR features a template output mode, which can be useful for many language translation tasks. It also introduces the idea of "template literals" into action blocks, which are used to create anonymous template objects or to reference specific named templates. Refer to the article on ‹TemplateMode› for more information on templates and template literals. However, a developer should be aware that these constructs are introduced with a percent character @%@. Thus, *anytime a @%@ is used in code, even inside of a quoted string, it must be escaped if it is not part of an actual template literal*.
 
 « antlr
 grammar PercentSignUsage;
@@ -58,6 +58,32 @@ As outlined in "ANTLR's primary documentation":http://www.antlr.org/wiki/display
 
 h2. Token References
 
+« antlr
+declr:  var=ID '=' INT ';'  { @variables[ $var.text ] = $INT.text.to_i };
+»
+
 h2. Rule Value References
 
-h2. Scope References
+« table
+table_class: inventory
+columns:
+  - Property
+  - Type
+  - Description
+body:
+  - - <tt>$<em>rule</em>.<b>text</b></tt>
+    - @String@
+    - The full text over which the parser advanced during the <em>rule</em>'s execution
+  - - <tt>$<em>rule</em>.<b>start</b></tt>
+    - @ANTLR3::Token@
+    - The first token covered within the span of the <em>rule</em>'s execution
+  - - <tt>$<em>rule</em>.<b>stop</b></tt>
+    - @ANTLR3::Token@
+    - The last token covered within the span of during the <em>rule</em>'s execution
+  - - <tt>$<em>rule</em>.<b>tree</b></tt>
+    - @ANTLR3::AST::Tree@
+    - The tree node constructed during <em>rule</em>'s execution
+  - - <tt>$<em>rule</em>.<b>template</b></tt>
+    - @ANTLR3::Template@
+    - The template value constructed during <em>rule</em>'s execution
+»

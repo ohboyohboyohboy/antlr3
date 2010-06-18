@@ -8,7 +8,7 @@
  *Feel free to use and modify but please provide credits.
  *############################################################# */
 /* standard elements */
-/* $body_font: Verdana,"Lucida Sans Unicode",sans-serif */
+/* $body_font: "Sabon LT Std", "Hoefler Text", "Palatino Linotype", "Book Antiqua", serif */
 * {
   margin: 0;
   padding: 0;
@@ -21,7 +21,7 @@ a {
 body {
   background: white url(../images/bg.gif) repeat-x;
   color: #444444;
-  font: 1.1em "Sabon LT Std", "Hoefler Text", "Palatino Linotype", "Book Antiqua", serif;
+  font: 1.1em Verdana, "Lucida Sans Unicode", sans-serif;
   padding-top: 40px;
 }
 
@@ -30,7 +30,7 @@ p, code, ul, ol {
 }
 
 p, ul, ol {
-  font-family: "Sabon LT Std", "Hoefler Text", "Palatino Linotype", "Book Antiqua", serif;
+  font-family: Verdana, "Lucida Sans Unicode", sans-serif;
 }
 
 ul li {
@@ -110,12 +110,20 @@ h1, h2, h3, h4 {
   background: #222222;
   color: white;
   border-bottom: solid 1px black;
+  text-align: left;
+}
+.inventory th {
+  padding: 1px 6px;
 }
 .inventory .odd {
   background: #dddddd;
 }
 .inventory td {
-  padding: 1px 3px;
+  padding: 1px 6px;
+}
+.inventory .attr {
+  font-family: monofur, Lucida Console, Monaco, monospace;
+  font-weight: bold;
 }
 
 /* header */
@@ -151,7 +159,7 @@ h1, h2, h3, h4 {
   border-left: 6px solid #ff0066;
   color: #0066ff;
   display: block;
-  font: normal "Sabon LT Std", "Hoefler Text", "Palatino Linotype", "Book Antiqua", serif;
+  font: normal Verdana, "Lucida Sans Unicode", sans-serif;
   margin-bottom: 12px;
   padding: 8px 10px;
 }
@@ -348,7 +356,7 @@ h1, h2, h3, h4 {
 .footer {
   color: #666666;
   border-top: 1px solid #eeeeee;
-  font: normal 1em "Sabon LT Std", "Hoefler Text", "Palatino Linotype", "Book Antiqua", serif;
+  font: normal 1em Verdana, "Lucida Sans Unicode", sans-serif;
   margin: 0 42% 0 3%;
   padding: 8px 6px;
 }

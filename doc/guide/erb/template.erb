@@ -4,45 +4,45 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 	<meta name="description" content="description"/>
 	<meta name="keywords" content="keywords"/>
-% if @author
-  <meta name="author" content="<%= @author %>"/>
+% if author
+  <meta name="author" content="<%= author %>"/>
 % end
-	<link rel="stylesheet" type="text/css" href="stylesheets/fluid.css" media="screen"/>
-% for sheet in @stylesheets
+	<link rel="stylesheet" type="text/css" href="stylesheets/article.css" media="screen"/>
+% for sheet in stylesheets
   <link rel="stylesheet" type="text/css" href="stylesheets/<%= sheet %>" media="screen"/>
 % end
-% unless @inline_styles.empty?
+% unless inline_styles.empty?
   <style type="text/css">
-% for style in @inline_styles
+% for style in inline_styles
 <%= style.fixed_indent( 4 ) %>
 % end
 	</style>
 % end
-% for script in @scripts
+% for script in scripts
   <script type="text/javascript" src="scripts/<%= script %>"></script>
 % end
 
-	<title>ANTLR For Ruby: <%= @title %></title>
+	<title>ANTLR For Ruby: <%= title %></title>
 </head>
 
 <body>
 <div class="left">
 	<div class="header">
 		<h2><span>ANTLR for Ruby</span></h2>
-		<h1><%= @title == 'Home' ? 'Guide to ANTLR for Ruby' : @title %></h1>
+		<h1><%= title == 'Home' ? 'Guide to ANTLR for Ruby' : title %></h1>
 	</div>
 	<div class="annotation">
-% if @author
-% if @email
-		<div class="author">by <a href="mailto:<%= @email %>"><%= @author %></a></div>
+% if author
+% if email
+		<div class="author">by <a href="mailto:<%= email %>"><%= author %></a></div>
 % else
-    <div class="author">by <%= @author %></div>
+    <div class="author">by <%= author %></div>
 % end
 % end
-    <div class="timestamp">updated <%= @time.strftime( "%A, %B %d, %Y at %I:%M%p %Z" ) %></div>
+    <div class="timestamp">updated <%= time.strftime( "%A, %B %d, %Y at %I:%M%p %Z" ) %></div>
 	</div>
 	<div class="content">
-<%= @body %>
+<%= body %>
 	</div>
 </div>
 
@@ -50,8 +50,8 @@
 	<div class="logo"><span></span></div>
 
 	<ul>
-% for id, title in outline
-		<li><a href="#<%= id %>"><%= title %></a></li>
+% for id, section in outline
+		<li><a href="#<%= id %>"><%= section %></a></li>
 % end
 	</ul>
 </div>
@@ -64,9 +64,9 @@
 	</div>
 
 	<div class="subnav">
-		<h1>Guide Contents</h1>
+		<h1>Contents</h1>
 		<ul>
-% for article in $articles
+% for article in guide.articles
 % if article == self
   		<li class="current"><%= article.title %></li>
 % else
@@ -77,14 +77,14 @@
 		
     <h1>Project Links</h1>
 		<ul>
-% for title, url in $project_links
+% for title, url in guide.project_links
       <li><a href="<%= url %>"><%= title %></a></li>
 % end
 		</ul>
 		
     <h1>External Links</h1>
 		<ul>
-% for title, url in $external_links
+% for title, url in guide.external_links
       <li><a href="<%= url %>"><%= title %></a></li>
 % end
 		</ul>
@@ -99,10 +99,10 @@
 
 <div class="footer">
 	
-% if @author and @email
-  &copy; 2010 <a href="mailto:<%= @email %>"><%= @author %></a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. <a href="http://templates.arcsin.se">Website template</a> by <a href="http://arcsin.se">Arcsin</a>
+% if author and email
+  &copy; 2010 <a href="mailto:<%= email %>"><%= author %></a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. <a href="http://templates.arcsin.se">Website template</a> by <a href="http://arcsin.se">Arcsin</a>
 % else
-  &copy; 2010 <%= @author %>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. <a href="http://templates.arcsin.se">Website template</a> by <a href="http://arcsin.se">Arcsin</a>
+  &copy; 2010 <%= author %>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. <a href="http://templates.arcsin.se">Website template</a> by <a href="http://arcsin.se">Arcsin</a>
 % end
 
 </div>

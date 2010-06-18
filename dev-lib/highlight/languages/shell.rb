@@ -22,7 +22,7 @@ class Shell
   
   add_category( "c", COMMENT )
   add_category( 'go', CMD_OUTPUT )
-  add_category( "k", COMMAND_NAME )
+  add_category( "ni", COMMAND_NAME )
   add_category( "kp", COMMAND_END, CLOSE_PAR, OPEN_PAR )
   add_category( "nv", CHUNK )
   add_category( "o", REDIRECT, PIPELINE_OPERATOR )
@@ -38,7 +38,10 @@ class Shell
     @lexer  = ::Shell::Lexer.new(source)
     @tokens = ANTLR3::CommonTokenStream.new( @lexer )
     
-    @html = Formatters::HTML::CodeBlock.new('shell', options[:id] || __id__.abs.to_s, options)
+    klass = options.fetch( :class, 'shell' )
+    id    = options.fetch( :id, __id__.abs.to_s )
+    
+    @html = Formatters::HTML::CodeBlock.new( klass, id, options )
     if @prompt = options[:prompt]
       @html.add_token('gp', @prompt)
       @html.add_token('w', ' ')

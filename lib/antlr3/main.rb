@@ -451,14 +451,16 @@ class ParserMain < Main
   
   def present( return_value )
     ASTBuilder > @parser_class and return_value = return_value.tree
-    text = 
-      begin
-        require 'pp'
-        return_value.pretty_inspect
-      rescue LoadError, NoMethodError
-        return_value.inspect
-      end
-    puts( text )
+    if return_value
+      text = 
+        begin
+          require 'pp'
+          return_value.pretty_inspect
+        rescue LoadError, NoMethodError
+          return_value.inspect
+        end
+      puts( text )
+    end
   end
   
 end

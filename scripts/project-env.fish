@@ -5,11 +5,10 @@ if not set -q ANTLR_DEV_MODE
   set -g __RUBYLIB $RUBYLIB
   set -g ANTLR_DEV_MODE true
   
-  set -x ANTLR3_BASE (realpath .)
-  set -x PATH (realpath ./bin) (realpath ./scripts) (realpath ./vendor/bin) $PATH
-  set -x RUBYLIB (realpath ./lib) $RUBYLIB
-  set -x IRB_EXTRA (realpath ./config/antlr3.rb)
-  
+  set -gx ANTLR3_BASE (realpath .)
+  set -gx PATH (realpath ./bin) (realpath ./scripts) (realpath ./vendor/bin) $PATH
+  set -gx RUBYLIB (realpath ./lib) $RUBYLIB
+  set -gx IRB_EXTRA (realpath ./config/antlr3.rb)
   
   function etest
     set -l lib $ANTLR3_BASE/lib

@@ -264,7 +264,7 @@ end
   */
 synpredRule(ruleName, ruleDescriptor, block, description, nakedBlock) ::= <<
 # 
-# syntactic predicate <ruleName; format="lexerRule">
+# syntactic predicate <ruleName>
 # 
 # (in <fileName>)
 # <description>
@@ -272,7 +272,7 @@ synpredRule(ruleName, ruleDescriptor, block, description, nakedBlock) ::= <<
 # This is an imaginary rule inserted by ANTLR to
 # implement a syntactic predicate decision
 # 
-def <ruleName; format="lexerRule"><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope(scope=it)> )<endif>
+def <ruleName><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope(scope=it)> )<endif>
   <traceIn()><ruleLabelDefs()>
   <block>
 ensure
@@ -995,7 +995,7 @@ notPredicate(pred) ::= "not ( <pred> )"
 evalPredicate(pred,description) ::= "( <pred> )"
 
 evalSynPredicate(pred,description) ::= <<
-syntactic_predicate?( :<pred:{<it; format="lexerRule">}> )
+syntactic_predicate?( :<pred:{<it>}> )
 >>
 
 lookaheadTest(atom, k, atomAsInt) ::= "look_<decisionNumber>_<stateNumber> == <atom>"
@@ -1459,4 +1459,4 @@ placeAction(scope, name) ::= <<
 <endif>
 >>
 
-runtimeLibraryVersion() ::= "1.7.3"
+runtimeLibraryVersion() ::= "1.7.5"

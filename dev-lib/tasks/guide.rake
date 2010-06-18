@@ -1,38 +1,43 @@
-require 'doc-utils'
+#!/usr/bin/ruby
+# encoding: utf-8
 
-guide = $project.guide
-config = YAML.load_file( guide.config )
-template = ERB.new( File.read( guide.template ), nil, '%' )
-options = {
-  :output_directory => guide.output,
-  :author => $project.author,
-  :email  => $project.email
-}
-
-$project_links  = config.fetch( 'project_links', [] )
-$external_links = config.fetch( 'external_links', [] )
-
-articles = config.fetch( 'articles', [] ).map do | name, title |
-  title ||= Inflection.title_case( name )
-  source_file = guide.input( "#{ name }.textile" )
+def setup_guide
+  require 'doc-utils'
+  settings = $project.guide
   
-  ANTLRDoc::Article.load(
-    source_file, template, options.merge( :title => title )
-  )
-end
-
-file( guide.config )
-file( guide.template )
-
-articles.each do | article |
-  source_file = article.source_file
-  
-  file( source_file )
-  file( article.output_file => [ guide.template, guide.config, source_file, __FILE__ ] ) do
-    article.convert
-    puts( "wrote #{ article.output_file }" )
+  ANTLRDoc::Guide.new do | g |
+    g.author = $project.author
+    g.email  = $project.email
+    
+    g.output = settings.output
+    
+    g.import( settings.menu )
+    g.load( :template, settings.template )
+    g.load( :changelog, settings.changelog )
+    
+    for base, title in g.contents
+      path = settings.input( "#{ base }.textile" )
+      g.article( path, title )
+    end
   end
 end
 
-desc( "construct the ANTLR guide" )
-task( :guide => articles.map { | a | a.output_file } )
+desc( "generate the guide-style docs" )
+task( :guide ) do
+  guide = setup_guide
+  for article in guide.articles
+    article.make
+    puts( "wrote `#{ article.title }' to `#{ article.output_file }'".green )
+  end
+end
+
+namespace :guide do
+  desc( "remove guide-style generated HTML files" )
+  task( :clobber ) do
+    for article in setup_guide.articles
+      file = article.output_file
+      test( ?f, file ) and rm( file )
+    end
+  end
+end
+

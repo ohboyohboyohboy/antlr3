@@ -1,0 +1,85 @@
+
+.css {
+    width: 100%;
+}
+.css table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.css table .line_number {
+    border-right: 1px solid black;
+    border-left:  0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 2%;
+}
+
+.css table .odd {
+    background-color: #E8C681;
+}
+
+.css table .even {
+    background-color: #E8D2A7;
+}
+
+.css pre {
+    margin: 0px;
+    padding: 0px;
+    font-size: 12pt;
+}
+
+.css table .code {
+    margin: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #ffffff;
+}
+
+.css pre {
+    margin: 0px;
+    padding: 0px;  
+}
+
+.css .nc { font-weight: bold } /* Name.Class */
+.css .kr { font-weight: bold } /* Keyword.Reserved */
+.css .cm { font-style: italic } /* Comment.Multiline */
+.css .s1 { font-style: italic } /* Literal.String.Single */
+.css .s2 { font-style: italic } /* Literal.String.Double */
+.css .ow { font-weight: bold } /* Operator.Word */
+.css .kc { font-weight: bold } /* Keyword.Constant */
+.css .kd { font-weight: bold } /* Keyword.Declaration */
+.css .cs { font-style: italic } /* Comment.Special */
+.css .gu { font-weight: bold } /* Generic.Subheading */
+.css .gp { font-weight: bold } /* Generic.Prompt */
+.css .gs { font-weight: bold } /* Generic.Strong */
+.css .s { font-style: italic } /* Literal.String */
+.css .ge { font-style: italic } /* Generic.Emph */
+.css .k { font-weight: bold } /* Keyword */
+.css .c { font-style: italic } /* Comment */
+.css .gh { font-weight: bold } /* Generic.Heading */
+.css .ni { font-weight: bold } /* Name.Entity */
+.css .sx { font-style: italic } /* Literal.String.Other */
+.css .ne { font-weight: bold } /* Name.Exception */
+.css .sr { font-style: italic } /* Literal.String.Regex */
+.css .ss { font-style: italic } /* Literal.String.Symbol */
+.css .nn { font-weight: bold } /* Name.Namespace */
+.css .sh { font-style: italic } /* Literal.String.Heredoc */
+.css .si { font-weight: bold; font-style: italic } /* Literal.String.Interpol */
+.css .nt { font-weight: bold } /* Name.Tag */
+.css .c1 { font-style: italic } /* Comment.Single */
+.css .sb { font-style: italic } /* Literal.String.Backtick */
+.css .sc { font-style: italic } /* Literal.String.Char */
+.css .sd { font-style: italic } /* Literal.String.Doc */
+.css .se { font-weight: bold; font-style: italic } /* Literal.String.Escape */
+.css .err { border: 1px solid #FF0000 } /* Error */

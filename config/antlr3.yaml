@@ -4,7 +4,7 @@
 #
 name: antlr3
 
-version: "1.7.3"
+version: "1.7.5"
 antlr_version: "3.2.1"
 
 summary: |-
@@ -24,6 +24,7 @@ required_ruby_version: ">= 1.8.7"
 doc: !group
   yard: !path doc/api
   options:
+    - '--incremental'
     - '-r'
     - 'README.txt'
     - '--protected'
@@ -38,7 +39,7 @@ guide: !group
   input: !path doc/guide/source
   output: !path doc/guide/html
   template: doc/guide/erb/template.erb
-  config: doc/guide/source/guide.yaml
+  menu: doc/guide/source/guide.yaml
   changelog: doc/guide/source/changelog.yaml
 
 package: !group
