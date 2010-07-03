@@ -5,7 +5,7 @@ require 'antlr3/test/functional'
 
 
 class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar FlatList;
     options {
       language=Ruby;
@@ -17,7 +17,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
   
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar FlatListWalker;
     options {
       language=Ruby;
@@ -29,7 +29,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     a : ID INT -> INT ID;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar SimpleTree;
     options {
         language=Ruby;
@@ -41,7 +41,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar SimpleTreeWalker;
     options {
         language=Ruby;
@@ -52,7 +52,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     a : ^(ID INT) -> ^(INT ID);
   END
 
-  inline_grammar(<<-END)
+  inline_grammar( <<-END )
     grammar CombinedRewriteAndAuto;
     options {
         language=Ruby;
@@ -64,7 +64,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-END)
+  inline_grammar( <<-END )
     tree grammar CombinedRewriteAndAutoTree;
     options {
         language=Ruby;
@@ -75,7 +75,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     a : ^(ID INT) -> ^(INT ID) | INT;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AvoidDup;
     options {
         language=Ruby;
@@ -87,7 +87,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AvoidDupWalker;
     options {
         language=Ruby;
@@ -98,7 +98,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     a : ID -> ^(ID ID);
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar Loop;
     options {
         language=Ruby;
@@ -110,7 +110,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar LoopWalker;
     options {
         language=Ruby;
@@ -121,7 +121,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     a : (^(ID INT))+ -> INT+ ID+;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoDup;
     options {
         language=Ruby;
@@ -133,7 +133,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoDupWalker;
     options {
         language=Ruby;
@@ -144,7 +144,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     a : ID;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoDupRule;
     options {
         language=Ruby;
@@ -156,7 +156,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoDupRuleWalker;
     options {
         language=Ruby;
@@ -169,7 +169,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     c : INT ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoWildcard;
     options {language=Ruby;output=AST;}
     a : ID INT ;
@@ -178,14 +178,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoWildcardWalker;
     options {language=Ruby;output=AST; ASTLabelType=CommonTree; tokenVocab=AutoWildcard;}
     a : ID . 
       ;
   END
   
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoWildcard2;
     options {language=Ruby;output=AST;}
     a : ID INT -> ^(ID INT);
@@ -194,14 +194,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoWildcard2Walker;
     options {language=Ruby;output=AST; ASTLabelType=CommonTree; tokenVocab=AutoWildcard2;}
     a : ^(ID .) 
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoWildcardWithLabel;
     options {language=Ruby;output=AST;}
     a : ID INT ;
@@ -210,14 +210,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoWildcardWithLabelWalker;
     options {language=Ruby;output=AST; ASTLabelType=CommonTree; tokenVocab=AutoWildcardWithLabel;}
     a : ID c=. 
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoWildcardWithListLabel;
     options {language=Ruby;output=AST;}
     a : ID INT ;
@@ -226,14 +226,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
   
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoWildcardWithListLabelWalker;
     options {language=Ruby;output=AST; ASTLabelType=CommonTree; tokenVocab=AutoWildcardWithListLabel;}
     a : ID c+=. 
       ;
   END
   
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoDupMultiple;
     options {
         language=Ruby;
@@ -245,7 +245,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoDupMultipleWalker;
     options {
         language=Ruby;
@@ -257,7 +257,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoDupTree;
     options {
         language=Ruby;
@@ -269,7 +269,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoDupTreeWalker;
     options {
         language=Ruby;
@@ -281,7 +281,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoDupTreeWithLabels;
     options {
         language=Ruby;
@@ -293,7 +293,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoDupTreeWithLabelsWalker;
     options {
         language=Ruby;
@@ -305,7 +305,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoDupTreeWithListLabels;
     options {
         language=Ruby;
@@ -317,7 +317,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoDupTreeWithListLabelsWalker;
     options {
         language=Ruby;
@@ -329,7 +329,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoDupTreeWithRuleRoot;
     options {
         language=Ruby;
@@ -341,7 +341,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoDupTreeWithRuleRootWalker;
     options {
         language=Ruby;
@@ -353,7 +353,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     b : ID ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoDupTreeWithRuleRootAndLabels;
     options {
         language=Ruby;
@@ -365,7 +365,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoDupTreeWithRuleRootAndLabelsWalker;
     options {
         language=Ruby;
@@ -377,7 +377,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     b : ID ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoDupTreeWithRuleRootAndListLabels;
     options {
         language=Ruby;
@@ -389,7 +389,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoDupTreeWithRuleRootAndListLabelsWalker;
     options {
         language=Ruby;
@@ -402,7 +402,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     c : INT ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar AutoDupNestedTree;
     options {
         language=Ruby;
@@ -414,7 +414,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar AutoDupNestedTreeWalker;
     options {
         language=Ruby;
@@ -426,7 +426,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar Delete;
     options {
         language=Ruby;
@@ -438,7 +438,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar DeleteWalker;
     options {
         language=Ruby;
@@ -450,7 +450,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar SetMatchNoRewrite;
     options {
         language=Ruby;
@@ -462,7 +462,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar SetMatchNoRewriteWalker;
     options {
         language=Ruby;
@@ -474,7 +474,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     b : ID | INT;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar SetOptionalMatchNoRewrite;
     options {
         language=Ruby;
@@ -486,7 +486,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar SetOptionalMatchNoRewriteWalker;
     options {
         language=Ruby;
@@ -497,7 +497,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     a : (ID|INT)? INT ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar SetMatchNoRewriteLevel2;
     options {
         language=Ruby;
@@ -509,7 +509,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar SetMatchNoRewriteLevel2Walker;
     options {
         language=Ruby;
@@ -520,7 +520,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     a : ^(ID (ID | INT) ) ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar SetMatchNoRewriteLevel2Root;
     options {
         language=Ruby;
@@ -532,7 +532,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar SetMatchNoRewriteLevel2RootWalker;
     options {
         language=Ruby;
@@ -543,7 +543,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     a : ^((ID | INT) INT) ;
   END
 
-  inline_grammar(<<-END)
+  inline_grammar( <<-END )
     grammar RewriteModeCombinedRewriteAndAuto;
     options {
         language=Ruby;
@@ -555,7 +555,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-END)
+  inline_grammar( <<-END )
     tree grammar RewriteModeCombinedRewriteAndAutoTree;
     options {
         language=Ruby;
@@ -569,7 +569,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteModeFlatTree;
     options {
       language=Ruby;
@@ -581,7 +581,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteModeFlatTreeWalker;
     options {
       language=Ruby;
@@ -595,7 +595,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteModeChainRuleFlatTree;
     options {language=Ruby; output=AST;}
     a : ID INT -> ID INT | INT ;
@@ -604,7 +604,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteModeChainRuleFlatTreeWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteModeChainRuleFlatTree; rewrite=true;}
     s : a ;
@@ -613,7 +613,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteModeChainRuleTree;
     options {language=Ruby; output=AST;}
     a : ID INT -> ^(ID INT) ;
@@ -622,7 +622,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteModeChainRuleTreeWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteModeChainRuleTree; rewrite=true;}
     s : a ;
@@ -631,7 +631,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteModeChainRuleTree2;
     options {language=Ruby; output=AST;}
     a : ID INT -> ^(ID INT) ;
@@ -640,7 +640,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteModeChainRuleTree2Walker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteModeChainRuleTree2; rewrite=true;}
     tokens { X; }
@@ -650,7 +650,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteModeChainRuleTree3;
     options {language=Ruby; output=AST;}
     a : 'boo' ID INT -> 'boo' ^(ID INT) ;
@@ -659,7 +659,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteModeChainRuleTree3Walker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteModeChainRuleTree3; rewrite=true;}
     tokens { X; }
@@ -669,7 +669,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteModeChainRuleTree4;
     options {language=Ruby; output=AST;}
     a : 'boo' ID INT -> ^('boo' ^(ID INT)) ;
@@ -678,7 +678,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteModeChainRuleTree4Walker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteModeChainRuleTree4; rewrite=true;}
     tokens { X; }
@@ -688,7 +688,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteModeChainRuleTree5;
     options {language=Ruby; output=AST;}
     a : 'boo' ID INT -> ^('boo' ^(ID INT)) ;
@@ -697,7 +697,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteModeChainRuleTree5Walker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteModeChainRuleTree5; rewrite=true;}
     tokens { X; }
@@ -707,7 +707,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteOfRuleRef;
     options {language=Ruby; output=AST;}
     a : ID INT -> ID INT | INT ;
@@ -716,14 +716,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteOfRuleRefWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteOfRuleRef; rewrite=true;}
     s : a -> a ;
     a : ID INT -> ID INT ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteOfRuleRefRoot;
     options {language=Ruby; output=AST;}
     a : ID INT INT -> ^(INT ^(ID INT));
@@ -732,14 +732,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteOfRuleRefRootWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteOfRuleRefRoot; rewrite=true;}
     s : ^(a ^(ID INT)) -> a ;
     a : INT ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteOfRuleRefRootLabeled;
     options {language=Ruby; output=AST;}
     a : ID INT INT -> ^(INT ^(ID INT));
@@ -748,14 +748,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteOfRuleRefRootLabeledWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteOfRuleRefRootLabeled; rewrite=true;}
     s : ^(label=a ^(ID INT)) -> a ;
     a : INT ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteOfRuleRefRootListLabeled;
     options {language=Ruby; output=AST;}
     a : ID INT INT -> ^(INT ^(ID INT));
@@ -764,14 +764,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteOfRuleRefRootListLabeledWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteOfRuleRefRootListLabeled; rewrite=true;}
     s : ^(label+=a ^(ID INT)) -> a ;
     a : INT ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteOfRuleRefChild;
     options {language=Ruby; output=AST;}
     a : ID INT -> ^(ID ^(INT INT));
@@ -780,14 +780,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteOfRuleRefChildWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteOfRuleRefChild; rewrite=true;}
     s : ^(ID a) -> a ;
     a : ^(INT INT) ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteOfRuleRefLabel;
     options {language=Ruby; output=AST;}
     a : ID INT -> ^(ID ^(INT INT));
@@ -796,14 +796,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteOfRuleRefLabelWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteOfRuleRefLabel; rewrite=true;}
     s : ^(ID label=a) -> a ;
     a : ^(INT INT) ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteOfRuleRefListLabel;
     options {language=Ruby; output=AST;}
     a : ID INT -> ^(ID ^(INT INT));
@@ -812,14 +812,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteOfRuleRefListLabelWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=RewriteOfRuleRefListLabel; rewrite=true;}
     s : ^(ID label+=a) -> a ;
     a : ^(INT INT) ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RewriteModeWithPredicatedRewrites;
     options {
       language=Ruby;
@@ -831,7 +831,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar RewriteModeWithPredicatedRewritesWalker;
     options {
       language=Ruby;
@@ -848,7 +848,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar WildcardSingleNode;
     options {
         language=Ruby;
@@ -860,7 +860,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar WildcardSingleNodeWalker;
     options {
         language=Ruby;
@@ -872,7 +872,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar WildcardUnlabeledSingleNode;
     options {language=Ruby; output=AST;}
     a : ID INT -> ^(ID INT);
@@ -881,14 +881,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar WildcardUnlabeledSingleNodeWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=WildcardUnlabeledSingleNode;}
     s : ^(ID .) -> ID
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar WildcardListLabel;
     options {language=Ruby; output=AST;}
     a : INT INT INT ;
@@ -897,14 +897,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
   
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar WildcardListLabelWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=WildcardListLabel;}
     s : (c+=.)+ -> $c+
       ;
   END
   
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar WildcardListLabel2;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree;}
     a  : x=INT y=INT z=INT -> ^($x ^($y $z) ^($y $z));
@@ -913,14 +913,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
   
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar WildcardListLabel2Walker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=WildcardListLabel2; rewrite=true;}
     s : ^(INT (c+=.)+) -> $c+
       ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar WildcardGrabsSubtree;
     options {language=Ruby; output=AST;}
     a : ID x=INT y=INT z=INT -> ^(ID[\"root\"] ^($x $y $z));
@@ -929,14 +929,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar WildcardGrabsSubtreeWalker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=WildcardGrabsSubtree;}
     s : ^(ID c=.) -> $c
       ;
   END
   
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar WildcardGrabsSubtree2;
     options {language=Ruby; output=AST;}
     a : ID x=INT y=INT z=INT -> ID ^($x $y $z);
@@ -945,14 +945,14 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\n') {$channel=HIDDEN;} ;
   END
   
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar WildcardGrabsSubtree2Walker;
     options {language=Ruby; output=AST; ASTLabelType=CommonTree; tokenVocab=WildcardGrabsSubtree2;}
     s : ID c=. -> $c
       ;
   END
 
-  inline_grammar(<<-END)
+  inline_grammar( <<-END )
     grammar CombinedRewriteAndAuto;
     options {
         language=Ruby;
@@ -964,7 +964,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\\n') {$channel=HIDDEN;} ;
   END
   
-  inline_grammar(<<-END)
+  inline_grammar( <<-END )
     tree grammar CombinedRewriteAndAutoWalker;
     options {
         language=Ruby;
@@ -975,7 +975,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     a : ^(ID INT) -> ^(INT ID) | INT;
   END
 
-  inline_grammar(<<-END)
+  inline_grammar( <<-END )
     grammar RewriteModeCombinedRewriteAndAuto;
     options {
         language=Ruby;
@@ -987,7 +987,7 @@ class TestASTRewritingTreeParsers < ANTLR3::Test::Functional
     WS : (' '|'\\n') {$channel=HIDDEN;} ;
   END
   
-  inline_grammar(<<-END)
+  inline_grammar( <<-END )
     tree grammar RewriteModeCombinedRewriteAndAutoWalker;
     options {
         language=Ruby;

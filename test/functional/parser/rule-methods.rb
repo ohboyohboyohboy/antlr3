@@ -5,7 +5,7 @@ require 'antlr3/test/functional'
 
 class TestParameters < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar Parameters;
     options {
       language = Ruby;
@@ -54,7 +54,7 @@ end
 
 class TestMultipleReturnValues < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar MultipleReturnValues;
     options { language = Ruby; }
     @parser::members {
@@ -109,7 +109,7 @@ end
 
 
 class TestRuleVisibility < ANTLR3::Test::Functional
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RuleVisibility;
     options { language=Ruby; }
     
@@ -123,10 +123,9 @@ class TestRuleVisibility < ANTLR3::Test::Functional
   END
   
   example 'using visibility modifiers on rules' do
-    RuleVisibility::Parser.public_instance_methods.should include('a')
-    RuleVisibility::Parser.protected_instance_methods.should include('c')
-    RuleVisibility::Parser.private_instance_methods.should include('b')
+    RuleVisibility::Parser.public_instance_methods.should include( 'a' )
+    RuleVisibility::Parser.protected_instance_methods.should include( 'c' )
+    RuleVisibility::Parser.private_instance_methods.should include( 'b' )
   end
 
 end
-

@@ -7,6 +7,7 @@ load File.join( __DIR__, 'script-helper.rb' )
 require 'main'
 require 'ANTLRv3Grammar'
 require 'facets/string'
+autoload :Monocle, 'monocle'
 
 ACTION_TOKENS = %w(
   ARG RET T__72 ACTION SEMPRED SYN_SEMPRED GATED_SEMPRED
@@ -17,7 +18,7 @@ include ANTLRv3Grammar::TokenData
 Main do
   author 'Kyle Yetter <kcy5b@yahoo.com>'
   version '1.0.1'
-  description(<<-END)
+  description( <<-END )
     grammar-tools provides a number of commands which may
     be used to study and manipulate ANTLR Version 3
     grammar files.
@@ -43,36 +44,36 @@ Main do
   mixin :GrammarInput do
     
     if $stdin.tty?
-      argument(:grammar_file) do
-        synopsis('grammar-file.g')
-        description("path of the grammar file to use as input")
+      argument( :grammar_file ) do
+        synopsis( 'grammar-file.g' )
+        description( "path of the grammar file to use as input" )
         required
-        arity(1)
+        arity( 1 )
       end
     end
     
     def grammar_source
       @grammar_source ||= begin
-        stdin.tty? ? File.read(params[:grammar_file].value) : stdin.read
+        stdin.tty? ? File.read( params[ :grammar_file ].value ) : stdin.read
       end
     end
     
     def file_name
-      stdin.tty? ? params[:grammar_file].value : '$stdin'
+      stdin.tty? ? params[ :grammar_file ].value : '$stdin'
     end
     
     def lexer
-      @lexer ||= setup_recognizer(
+      @lexer ||= setup_recognizer( 
         ANTLRv3Grammar::Lexer.new( grammar_source, :file => file_name )
       )
     end
     
     def token_stream
-      @token_stream ||= ANTLR3::CommonTokenStream.new(lexer)
+      @token_stream ||= ANTLR3::CommonTokenStream.new( lexer )
     end
     
     def parser
-      @parser ||= setup_recognizer(
+      @parser ||= setup_recognizer( 
         ANTLRv3Grammar::Parser.new( token_stream )
       )
     end
@@ -87,13 +88,13 @@ Main do
     def action_ranges
       @action_ranges ||= begin
         grammar_tree.select { |node| node.text == '@' }.map { |node|
-          node.token_range }.tap { |list| list.uniq! }.sort_by { |r| [r.begin, r.end] }
+          node.token_range }.tap { |list| list.uniq! }.sort_by { |r| [ r.begin, r.end ] }
       end
     end
     
-    def node_source(node)
-      token_slice = token_stream[node.token_range]
-      grammar_source[(token_slice[0].start)..(token_slice[-1].stop)]
+    def node_source( node )
+      token_slice = token_stream[ node.token_range ]
+      grammar_source[ ( token_slice[ 0 ].start )..( token_slice[ -1 ].stop ) ]
     end
     
     def option_node
@@ -107,7 +108,7 @@ Main do
         opts = Hash.new
         if node = option_node
           for child in node.children
-            opts[child[0].text] = child[1].text
+            opts[ child[ 0 ].text ] = child[ 1 ].text
           end
         end
         opts
@@ -116,17 +117,17 @@ Main do
     
     def grammar_option_text
       text = "options {"
-      body = grammar_options.map { |pair| "%s = %s;" % pair }.join("\n  ")
-      if body.count("\n") == 1
+      body = grammar_options.map { |pair| "%s = %s;" % pair }.join( "\n  " )
+      if body.count( "\n" ) == 1
         text << " " << body << " }"
       else
         text << "\n  " << body << "\n}"
       end
-      return(text)
+      return( text )
     end
     
-    def action_node?(node)
-      ACTION_TOKENS.include?(node.name) and return true
+    def action_node?( node )
+      ACTION_TOKENS.include?( node.name ) and return true
     end
     
     def rules
@@ -134,7 +135,7 @@ Main do
         rules = {}
         grammar_tree.walk do |node|
           if node.type == RULE
-            rules[node[0].text] = node
+            rules[ node[ 0 ].text ] = node
           end
         end
         rules
@@ -150,22 +151,19 @@ Main do
     def setup_recognizer( r )
       r.instance_exec( logger ) do | log |
         @log = log
-        
         def self.emit_error_message( message )
           @log.error { message }
         end
-        
       end
-      
       return( r )
     end
     
   end
   
   mixin :GrammarOutput do
-    option('output', 'o') do
+    option( 'output', 'o' ) do
       description "the file path to write output ( written to stdout by default )"
-      arity(1)
+      arity( 1 )
     end
     
     if $stdin.tty?
@@ -175,22 +173,22 @@ Main do
     end
     
     def write_output
-      if $stdin.tty? and params['in-place'].given?
+      if $stdin.tty? and params[ 'in-place' ].given?
         path = file_name
-        backup!(path) do
-          open(path, 'w') { |f| yield(f) }
+        backup!( path ) do
+          open( path, 'w' ) { |f| yield( f ) }
         end
-      elsif params[:output].given?
-        open(params[:output].value, 'w') { |f| yield(f) }
-      else yield(stdout)
+      elsif params[ :output ].given?
+        open( params[ :output ].value, 'w' ) { |f| yield( f ) }
+      else yield( stdout )
       end
     end
     
     def backup!( path, backup_ext = '~' )
       backup_path = path + backup_ext
-      info { "attempting to back up #{path} to #{backup_path}" }
-      File.rename(path, backup_path)
-      info { "wrote back up copy of #{path} to #{backup_path}" }
+      info { "attempting to back up #{ path } to #{ backup_path }" }
+      File.rename( path, backup_path )
+      info { "wrote back up copy of #{ path } to #{ backup_path }" }
       block_given? and begin
         yield
       rescue Exception => e
@@ -201,11 +199,11 @@ Main do
     
     def restore!( path )
       backup_path = path + '.backup'
-      if test(?f, backup_path)
-        error { "attempting to restore #{path} from #{backup_path} due to error" }
-        File.rename(backup_path, path)
+      if test( ?f, backup_path )
+        error { "attempting to restore #{ path } from #{ backup_path } due to error" }
+        File.rename( backup_path, path )
       else
-        error { "cannot restore #{path} from back up as #{backup_path} does not exist" }
+        error { "cannot restore #{ path } from back up as #{ backup_path } does not exist" }
       end
     end
       
@@ -217,33 +215,33 @@ Main do
     mixin :GrammarInput
     
     class Rewrite
-      def conflict!(existing, requested)
+      def conflict!( existing, requested )
         raise RangeError,
         "rewrite action %p conflicts with action %p due to overlapping token ranges" %
-        [requested, existing]
+        [ requested, existing ]
       end
       
-      def initialize(name, stream)
+      def initialize( name, stream )
         @name = name.to_s
         @stream = stream
-        @program = @stream.program(name)
+        @program = @stream.program( name )
         @stream.tokens.each_with_index do |t, i|
           t.index == i or
-            $stderr.puts("mismatched token index: %p -> should be %p, not %p" % [t, i, t.index])
+            $stderr.puts( "mismatched token index: %p -> should be %p, not %p" % [ t, i, t.index ] )
         end
       end
       
-      def delete(*items)
+      def delete( *items )
         opts = Hash === items.last ? items.pop : nil
         for item in items
           case item
           when ANTLR3::Token then
-            index = item.index and index >= 0 and register(:delete, index, index)
+            index = item.index and index >= 0 and register( :delete, index, index )
           when ANTLR3::Tree
-            range = node_range(item)
-            register(:delete, range.begin, range.end)
-          when Integer then register(:delete, item, item)
-          when Range then register(:delete, item.begin, item.end)
+            range = node_range( item )
+            register( :delete, range.begin, range.end )
+          when Integer then register( :delete, item, item )
+          when Range then register( :delete, item.begin, item.end )
           when String then delete { |t| t.text == item }
           when Regexp then delete { |t| t.text =~ item }
           when Symbol then
@@ -252,24 +250,24 @@ Main do
           end
         end
         block_given? and for token in @tokens
-          yield(token) and delete(token)
+          yield( token ) and delete( token )
         end
-        return(self)
+        return( self )
       end
       
-      def register(operation, *arguments)
-        @program.send(operation, *arguments)
+      def register( operation, *arguments )
+        @program.send( operation, *arguments )
       end
       
-      def tokens(*args)
-        @stream[*args]
+      def tokens( *args )
+        @stream[ *args ]
       end
       
-      def replace(item = nil, text = nil, opts = nil, &block)
+      def replace( item = nil, text = nil, opts = nil, &block )
         if item.nil? and block_given?
           
           for token in @tokens
-            replacement = yield(token) and replace(token, replacement)
+            replacement = yield( token ) and replace( token, replacement )
           end
           
         elsif item
@@ -278,12 +276,12 @@ Main do
           
           case item
           when ANTLR3::Token then
-            index = item.index and index >= 0 and register(:replace, index, index, replacement)
+            index = item.index and index >= 0 and register( :replace, index, index, replacement )
           when ANTLR3::Tree
-            range = node_range(item, opts)
-            register(:replace, range.begin, range.end, replacement)
-          when Integer then register(:replace, item, item, replacement)
-          when Range then register(:replace, item.begin, item.end, replacement)
+            range = node_range( item, opts )
+            register( :replace, range.begin, range.end, replacement )
+          when Integer then register( :replace, item, item, replacement )
+          when Range then register( :replace, item.begin, item.end, replacement )
           when String then replace { |t| t.text == item ? replacement : nil }
           when Regexp then replace { |t| item =~ t.text ? replacement : nil }
           when Symbol then
@@ -292,26 +290,26 @@ Main do
           end
           
         end
-        return(self)
+        return( self )
       end
       
-      def node_range(node, opts)
+      def node_range( node, opts )
         range = node.token_range
         if opts
-          opts[:leading_whitespace] and pre = tokens[range.begin - 1] and
-          pre.name == 'WS' and range = (range.begin - 1)..(range.end)
-          opts[:trailing_whitespace] and post = tokens[range.end + 1] and
-          post.name == 'WS' and range = (range.begin)..(range.end + 1)
+          opts[ :leading_whitespace ] and pre = tokens[ range.begin - 1 ] and
+          pre.name == 'WS' and range = ( range.begin - 1 )..( range.end )
+          opts[ :trailing_whitespace ] and post = tokens[ range.end + 1 ] and
+          post.name == 'WS' and range = ( range.begin )..( range.end + 1 )
         end
-        return(range)
+        return( range )
       end
       
       
-      def insert_before(item = nil, text = nil, &block)
+      def insert_before( item = nil, text = nil, &block )
         if item.nil? and block_given?
           
           for token in @tokens
-            insertion = yield(token) and insert_before(token, insertion)
+            insertion = yield( token ) and insert_before( token, insertion )
           end
           
         elsif item
@@ -320,12 +318,12 @@ Main do
           
           case item
           when ANTLR3::Token then
-            index = item.index and index >= 0 and register(:insert_before, index, insertion)
+            index = item.index and index >= 0 and register( :insert_before, index, insertion )
           when ANTLR3::Tree
             index = item.start_index
-            register(:insert_before, index, insertion)
-          when Integer then register(:insert_before, item, insertion)
-          when Range then register(:insert_before, item.begin, insertion)
+            register( :insert_before, index, insertion )
+          when Integer then register( :insert_before, item, insertion )
+          when Range then register( :insert_before, item.begin, insertion )
           when String then insert_before { |t| t.text == item ? insertion : nil }
           when Regexp then insert_before { |t| item =~ t.text ? insertion : nil }
           when Symbol then
@@ -334,25 +332,25 @@ Main do
           end
           
         end
-        return(self)
+        return( self )
       end
   
-      def insert_after(item = nil, text = nil, &block)
+      def insert_after( item = nil, text = nil, &block )
         if item.nil? and block_given?
           for token in @tokens
-            insertion = yield(token) and insert_after(token, insertion)
+            insertion = yield( token ) and insert_after( token, insertion )
           end
         elsif item
           insertion = block_given? ? block  : text
           
           case item
           when ANTLR3::Token then
-            index = item.index and index >= 0 and register(:insert_after, index, insertion)
+            index = item.index and index >= 0 and register( :insert_after, index, insertion )
           when ANTLR3::Tree
             index = item.stop_index
-            register(:insert_after, index, insertion)
-          when Integer then register(:insert_after, item, insertion)
-          when Range then register(:insert_after, item.end, insertion)
+            register( :insert_after, index, insertion )
+          when Integer then register( :insert_after, item, insertion )
+          when Range then register( :insert_after, item.end, insertion )
           when String then insert_after { |t| t.text == item ? insertion : nil }
           when Regexp then insert_after { |t| item =~ t.text ? insertion : nil }
           when Symbol then
@@ -361,7 +359,7 @@ Main do
           end
           
         end
-        return(self)
+        return( self )
       end
       
       def rewrite
@@ -370,79 +368,26 @@ Main do
       alias to_s rewrite
     end
     
-    def rewrite(name = 'default')
-      rw = Rewrite.new(name, token_stream)
+    def rewrite( name = 'default' )
+      rw = Rewrite.new( name, token_stream )
       if block_given?
-        yield(rw)
-        return(rw.rewrite)
-      else return(rw)
+        yield( rw )
+        return( rw.rewrite )
+      else return( rw )
       end
     end
     
     def token_stream
-      @token_stream ||= ANTLR3::TokenRewriteStream.new(lexer)
+      @token_stream ||= ANTLR3::TokenRewriteStream.new( lexer )
     end
     
   end
 
   
   mixin :TextFormatting do
-    def initialize
-      require 'text'
-      @width = (stdout.screen_width * 0.9).round
-      @indent = 0
-      super
+    def out
+      @out ||= Monocle::Output( stdout )
     end
-    
-    def leading_space
-      ' ' * @indent
-    end
-    
-    def print_line( line )
-      stdout.print( leading_space )
-      stdout.puts( line )
-    end
-    
-    def puts( text )
-      for line in text.split( $/, -1 )
-        print_line( line )
-      end
-    end
-    
-    def indent( spaces = 2 )
-      @indent += spaces; @width -= spaces
-      yield
-    ensure
-      @indent -= spaces; @width += spaces
-    end
-    
-    def column_list( items )
-      puts(
-        Text::ColumnList.new( items, :width_limit => @width ).render
-      )
-    end
-    
-    def table( title_row, *rows )
-      puts Text::Table.build( title_row ) do | table |
-        for row in rows
-          table.row( row )
-        end
-        
-        block_given? and yield( table )
-        
-        table.width > @width and table.width = @width
-      end
-    end
-    
-    def title_bar( title )
-      bar = "===[ #{ title } ]".ljust( @width, '=' )
-      puts( bar )
-    end
-    
-    def blank
-      print_line( '' )
-    end
-    
   end
   
   mode :show do
@@ -461,17 +406,17 @@ Main do
       
       def run
         setup
-        printer = PP.new(stdout, stdout.screen_width - 2, $/) do |n|
+        printer = PP.new( stdout, stdout.screen_width - 2, $/ ) do |n|
           '  ' * n
         end
         
         printer.guard_inspect_key do
-          printer.pp(grammar_tree)
+          printer.pp( grammar_tree )
         end
         
         printer.flush
         
-        stdout.puts('')
+        stdout.puts( '' )
       end
     end
     
@@ -483,16 +428,16 @@ Main do
       mixin :GrammarInput
       mixin :TextFormatting
       
-      option('lexer', 'L') do
-        description("only list lexer rule names")
+      option( 'lexer', 'L' ) do
+        description( "only list lexer rule names" )
       end
       
-      option('parser', 'P') do
-        description("only list parser rule names")
+      option( 'parser', 'P' ) do
+        description( "only list parser rule names" )
       end
       
-      option('plain', 'p') do
-        description("print the names in a plain list with one name per line")
+      option( 'plain', 'p' ) do
+        description( "print the names in a plain list with one name per line" )
       end
       
       for opt in %w( lexer parser plain )
@@ -511,24 +456,24 @@ Main do
         end
         
         if lexer?
-          list_names("lexer rules", lexer_rules)
+          list_names( "lexer rules", lexer_rules )
         elsif parser?
-          list_names("parser rules", parser_rules)
+          list_names( "parser rules", parser_rules )
         else
-          list_names("lexer rules", lexer_rules)
-          list_names("parser rules", parser_rules)
+          list_names( "lexer rules", lexer_rules )
+          list_names( "parser rules", parser_rules )
         end
       end
       
-      def list_names(title, rules)
+      def list_names( title, rules )
         unless rules.empty?
           if plain?
-            puts rules.join( $/ )
+            out.puts rules.join( $/ )
           else
-            title_bar( "#{ file_name }: #{title}" )
-            indent do
+            out.put!( "==[ #{ title } ]", :fill => '=' )
+            out.indent( 2 ) do
               blank
-              column_list( rules )
+              out.list( rules )
               blank
             end
           end
@@ -545,19 +490,19 @@ Main do
       mixin :GrammarInput
       
       argument :names do
-        arity(-2)
-        description("name of the rule to display")
+        arity( -2 )
+        description( "name of the rule to display" )
       end
       
       def run
         setup
         
-        for name in params[:names].values
-          if node = rules[name.to_s]
-            puts node_source(node), ''
+        for name in params[ :names ].values
+          if node = rules[ name.to_s ]
+            puts node_source( node ), ''
           else
-            error { (<<-END.here_flow!) }
-            | unable to locate a rule declaration named #{name}
+            error { ( <<-END.here_flow! ) }
+            | unable to locate a rule declaration named #{ name }
             | in the grammar source
             END
           end
@@ -587,35 +532,35 @@ Main do
       mixin :GrammarRewrite
       
       argument :rule_name do
-        description("the current name of the rule to rename")
+        description( "the current name of the rule to rename" )
       end
       
       argument :new_name do
-        description("the new name of the rule")
+        description( "the new name of the rule" )
       end
       
       def run
         setup
-        old_name = params[:rule_name].value
-        new_name = params[:new_name].value
+        old_name = params[ :rule_name ].value
+        new_name = params[ :new_name ].value
         
         renamed = rewrite do |prog|
           grammar_tree.walk do |node|
             node =
               case node.type
               when RULE_REF, TOKEN_REF then node
-              when RULE     then node[0]
+              when RULE     then node[ 0 ]
               else next
               end
             node.token.index == -1 and node.token.index = node.start_index
             name_token = node.token
             if name_token.text == old_name
-              prog.replace(name_token, new_name)
+              prog.replace( name_token, new_name )
             end
           end
         end
         
-        write_output { |f| f.write(renamed) }
+        write_output { |f| f.write( renamed ) }
       end
     end
     
@@ -626,7 +571,7 @@ Main do
       END
       mixin :GrammarRewrite
       
-      TOKENS_TO_STRIP = [
+      TOKENS_TO_STRIP = [ 
         ARG, RET, T__72, ACTION, SEMPRED,
         SYN_SEMPRED, GATED_SEMPRED
       ]
@@ -640,12 +585,12 @@ Main do
             end
           end
         end
-        write_output { |f| f.write(stripped) }
+        write_output { |f| f.write( stripped ) }
       end
     end
     
     mode :stylize do
-      synopsis("transform ANTLR grammars into an appropriate form for Ruby code generation")
+      synopsis( "transform ANTLR grammars into an appropriate form for Ruby code generation" )
       description( <<-END.here_indent! )
       | Takes an ANTLR grammar file that is written for code generation in a language
       | like Java, and prepares sets it up for ruby code generation. This is done
@@ -660,18 +605,18 @@ Main do
       END
       mixin :GrammarRewrite
       
-      option('keep-actions', 'A') do
-        description("don't comment out actions")
+      option( 'keep-actions', 'A' ) do
+        description( "don't comment out actions" )
       end
       
-      option("keep-names", 'N') do
-        description("don't convert CamelCase names to snake_case")
+      option( "keep-names", 'N' ) do
+        description( "don't convert CamelCase names to snake_case" )
       end
       
-      option("language") do
+      option( "language" ) do
         argument_required
-        description("set the target language in the grammar options")
-        default("Ruby")
+        description( "set the target language in the grammar options" )
+        default( "Ruby" )
       end
       
       def run
@@ -680,16 +625,16 @@ Main do
         tree.infer_boundaries
         
         tasks = []
-        unless params['keep-actions'].given?
+        unless params[ 'keep-actions' ].given?
           tasks << lambda do |r, n|
-            if action_node?(n)
-              tokens = token_stream[n.token_range]
+            if action_node?( n )
+              tokens = token_stream[ n.token_range ]
               for tk in tokens
-                tk.text =~ /\*\// and r.replace(tk, tk.text.gsub(/\*\//,'*\\/'))
+                tk.text =~ /\*\// and r.replace( tk, tk.text.gsub( /\*\//,'*\\/' ) )
               end
               head, tail = tokens.first, tokens.last
-              r.insert_before(head, '/* action -> ')
-              r.insert_after(tail, ' */')
+              r.insert_before( head, '/* action -> ' )
+              r.insert_after( tail, ' */' )
               n.prune
             end
           end
@@ -700,30 +645,30 @@ Main do
             n =
               case n.type
               when ANTLRv3Grammar::TokenData::RULE_REF then n
-              when ANTLRv3Grammar::TokenData::RULE     then n[0]
+              when ANTLRv3Grammar::TokenData::RULE     then n[ 0 ]
               else next
               end
             n.token.index == -1 and n.token.index = n.start_index
             name_token = n.token
             text = name_token.text
-            r.replace(name_token, text.snakecase) unless text =~ /^[A-Z]/
+            r.replace( name_token, text.snakecase ) unless text =~ /^[A-Z]/
           end
         end
         
-        language = params['language'].value
+        language = params[ 'language' ].value
         
         stylized = rewrite do |prog|
           tree.walk do |node|
-            for task in tasks do task.call(prog, node) end
+            for task in tasks do task.call( prog, node ) end
           end
           
-          grammar_options['language'] = language
+          grammar_options[ 'language' ] = language
           if node = option_node
-            prog.replace(node, grammar_option_text)
+            prog.replace( node, grammar_option_text )
           else
-            i = tree[0].stop_index  # the token index of the grammar name
-            begin i += 1 end until token_stream[i].text == ';'
-            prog.insert_after(token_stream[i], "\n#{grammar_option_text}\n")
+            i = tree[ 0 ].stop_index  # the token index of the grammar name
+            begin i += 1 end until token_stream[ i ].text == ';'
+            prog.insert_after( token_stream[ i ], "\n#{ grammar_option_text }\n" )
           end
         end
         
@@ -734,6 +679,7 @@ Main do
     
     run { help! }
   end
+  
   mode :format do
     description( <<-END.here_indent! )
     | a set of commands for converting ANTLR grammar input

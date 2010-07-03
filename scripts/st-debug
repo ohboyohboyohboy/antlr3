@@ -18,7 +18,7 @@ end
 Main do
   
   mixin :Completion do
-    def complete( description, names, partial)
+    def complete( description, names, partial )
       matches = names.select { |name| name.start_with?( partial ) }
       case matches.length
       when 0
@@ -35,8 +35,8 @@ Main do
       | cannot unambiguously complete partial #{ description }
       | #{ partial.inspect }
       END
-      stderr.puts Text::ColumnList.new(
-        matches, :width_limit => (stderr.screen_width * 0.8).round
+      stderr.puts Text::ColumnList.new( 
+        matches, :width_limit => ( stderr.screen_width * 0.8 ).round
       ).render
       
       exit( 1 )
@@ -46,7 +46,7 @@ Main do
   mixin :TextFormatting do
     def initialize
       require 'text'
-      @width = (stdout.screen_width * 0.9).round
+      @width = ( stdout.screen_width * 0.9 ).round
       @indent = 0
       super
     end
@@ -74,7 +74,7 @@ Main do
     end
     
     def column_list( items )
-      puts(
+      puts( 
         Text::ColumnList.new( items, :width_limit => @width ).render
       )
     end
@@ -117,19 +117,19 @@ Main do
   
   mode :tree do
     argument :file do
-      arity(1)
-      description('a ruby source code file with embedded String Template markup data')
+      arity( 1 )
+      description( 'a ruby source code file with embedded String Template markup data' )
       cast do |path|
-        begin StringTemplate::Markup.load(path)
-        rescue => e; raise ArgumentError, "failed to load ST markup from #{path} -- received error #{e}\n#{e.backtrace}"
+        begin StringTemplate::Markup.load( path )
+        rescue => e; raise ArgumentError, "failed to load ST markup from #{ path } -- received error #{ e }\n#{ e.backtrace }"
         end
       end
     end
     
-    option('line', 'l') do
+    option( 'line', 'l' ) do
       argument_required
-      description("line number or a range start..finish (or start...finish)")
-      arity(1)
+      description( "line number or a range start..finish (or start...finish)" )
+      arity( 1 )
       cast do |num|
         case num
         when /^(\d+)\.\.\.(\d+)$/ then $1.to_i...$2.to_i
@@ -144,8 +144,8 @@ Main do
     end
     
     def run
-      markup = params[:file].value
-      range = params[:line].value || markup.top.line_span
+      markup = params[ :file ].value
+      range = params[ :line ].value || markup.top.line_span
       rows = []
       
       nodes = markup.index.select do | node |
@@ -171,5 +171,3 @@ Main do
 
   run { help! }
 end
-
-

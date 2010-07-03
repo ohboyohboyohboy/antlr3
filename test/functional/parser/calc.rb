@@ -4,7 +4,7 @@
 require 'antlr3/test/functional'
 
 class TestCalcParser < ANTLR3::Test::Functional
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar TestCalc;
     options { language = Ruby; }
     
@@ -64,12 +64,12 @@ class TestCalcParser < ANTLR3::Test::Functional
     WS: (' ' | '\n' | '\t')+ {$channel = HIDDEN};
   END
   
-  def evaluate(expression)
+  def evaluate( expression )
     lexer  = TestCalc::Lexer.new( expression )
     parser = TestCalc::Parser.new lexer
     value = parser.evaluate
     errors = parser.reported_errors
-    return [value, errors]
+    return [ value, errors ]
   end
   
   tests = %[
@@ -77,14 +77,14 @@ class TestCalcParser < ANTLR3::Test::Functional
     1 + 2 * 3        = 7
     10 / 2           = 5
     6 + 2*(3+1) - 4  = 10
-  ].strip!.split(/\n/).map { |line| 
-    expr, val = line.strip.split(/\s+=\s+/, 2)
-    [expr, Integer(val)]
+  ].strip!.split( /\n/ ).map { |line| 
+    expr, val = line.strip.split( /\s+=\s+/, 2 )
+    [ expr, Integer( val ) ]
   }
   
   tests.each do |expression, true_value|
-    example "should parse '#{expression}'" do
-      parser_value, errors = evaluate(expression)
+    example "should parse '#{ expression }'" do
+      parser_value, errors = evaluate( expression )
       parser_value.should == true_value
     end
   end
@@ -92,7 +92,7 @@ class TestCalcParser < ANTLR3::Test::Functional
   example "badly formed input" do
     val, errors = evaluate "6 - (2*1"
     
-    errors.should have(1).thing
+    errors.should have( 1 ).thing
     errors.first.should =~ /mismatched/
   end
 end

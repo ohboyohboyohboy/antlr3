@@ -4,7 +4,7 @@
 require 'antlr3/test/functional'
 
 class TestRewritingLexerOutputDirectly < ANTLR3::Test::Functional
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     lexer grammar SimpleRewriting;
     options {
         language = Ruby;
@@ -15,23 +15,23 @@ class TestRewritingLexerOutputDirectly < ANTLR3::Test::Functional
     C: 'c';
   END
   
-  def rewrite(input, expected)
-    lexer = SimpleRewriting::Lexer.new(input)
-    tokens = ANTLR3::TokenRewriteStream.new(lexer)
-    yield(tokens)
+  def rewrite( input, expected )
+    lexer = SimpleRewriting::Lexer.new( input )
+    tokens = ANTLR3::TokenRewriteStream.new( lexer )
+    yield( tokens )
     tokens.render.should == expected
-    return(tokens)
+    return( tokens )
   end
 
   example 'insert before' do
     rewrite( 'abc', '0abc' ) do |stream|
-      stream.insert_before(0, '0')
+      stream.insert_before( 0, '0' )
     end
   end
   
   example 'insert after last index' do
     rewrite( 'abc', 'abcx' ) do |stream|
-      stream.insert_after(2, 'x')
+      stream.insert_after( 2, 'x' )
     end
   end
   
@@ -44,7 +44,7 @@ class TestRewritingLexerOutputDirectly < ANTLR3::Test::Functional
   
   example 'replace index 0' do
     rewrite( 'abc', 'xbc' ) do |stream|
-      stream.replace(0, 'x')
+      stream.replace( 0, 'x' )
     end
   end
   
@@ -56,7 +56,7 @@ class TestRewritingLexerOutputDirectly < ANTLR3::Test::Functional
   
   example 'replace last index' do
     rewrite( 'abc', 'abx' ) do |stream|
-      stream.replace(2, 'x')
+      stream.replace( 2, 'x' )
     end
   end
   
@@ -97,129 +97,129 @@ class TestRewritingLexerOutputDirectly < ANTLR3::Test::Functional
   
   example 'insert middle index' do
     rewrite( "abc", "ayxbc" ) do |stream|
-      stream.insert_before(1, "x")
-      stream.insert_before(1, "y")
+      stream.insert_before( 1, "x" )
+      stream.insert_before( 1, "y" )
     end
   end
   
   example 'insert then replace index0' do
     rewrite( "abc", "zbc" ) do |stream|
-      stream.insert_before(0, "x")
-      stream.insert_before(0, "y")
-      stream.replace(0, "z")
+      stream.insert_before( 0, "x" )
+      stream.insert_before( 0, "y" )
+      stream.replace( 0, "z" )
     end
   end
   
   example 'replace then insert before last index' do
     rewrite( "abc", "abyx" ) do |stream|
-      stream.replace(2, "x")
-      stream.insert_before(2, "y")
+      stream.replace( 2, "x" )
+      stream.insert_before( 2, "y" )
     end
   end
   
   example 'insert then replace last index' do
     rewrite( "abc", "abx" ) do |stream|
-      stream.insert_before(2, "y")
-      stream.replace(2, "x")
+      stream.insert_before( 2, "y" )
+      stream.replace( 2, "x" )
     end
   end
   
   example 'replace then insert after last index' do
     rewrite( "abc", "abxy" ) do |stream|
-      stream.replace(2, "x")
-      stream.insert_after(2, "y")
+      stream.replace( 2, "x" )
+      stream.insert_after( 2, "y" )
     end
   end
   
   example 'replace range then insert at left edge' do
     rewrite( "abcccba", "abyxba" ) do |stream|
-      stream.replace(2, 4, "x")
-      stream.insert_before(2, "y")
+      stream.replace( 2, 4, "x" )
+      stream.insert_before( 2, "y" )
     end
   end
   
   example 'replace range then insert after right edge' do
     rewrite( "abcccba", "abxyba" ) do |stream|
-      stream.replace(2, 4, "x")
-      stream.insert_after(4, "y")
+      stream.replace( 2, 4, "x" )
+      stream.insert_after( 4, "y" )
     end
   end
   
   example 'replace all' do
     rewrite( "abcccba", "x" ) do |stream|
-      stream.replace(0, 6, "x")
+      stream.replace( 0, 6, "x" )
     end
   end
   
   example 'replace single middle then overlapping superset' do
     rewrite( "abcba", "fooa" ) do |stream|
-      stream.replace(2, 2, "xyz")
-      stream.replace(0, 3, "foo")
+      stream.replace( 2, 2, "xyz" )
+      stream.replace( 0, 3, "foo" )
     end
   end
   
   example 'combine inserts' do
     rewrite( "abc", "yxabc" ) do |stream|
-      stream.insert_before(0, "x")
-      stream.insert_before(0, "y")
+      stream.insert_before( 0, "x" )
+      stream.insert_before( 0, "y" )
     end
   end
   
   example 'combine3 inserts' do
     rewrite( "abc", "yazxbc" ) do |stream|
-      stream.insert_before(1, "x")
-      stream.insert_before(0, "y")
-      stream.insert_before(1, "z")
+      stream.insert_before( 1, "x" )
+      stream.insert_before( 0, "y" )
+      stream.insert_before( 1, "z" )
     end
   end
   
   example 'disjoint inserts' do
     rewrite( "abc", "zaxbyc" ) do |stream|
-      stream.insert_before(1, "x")
-      stream.insert_before(2, "y")
-      stream.insert_before(0, "z")
+      stream.insert_before( 1, "x" )
+      stream.insert_before( 2, "y" )
+      stream.insert_before( 0, "z" )
     end
   end
   
   example 'leave alone disjoint insert' do
     rewrite( "abcc", "axbfoo" ) do |stream|
-      stream.insert_before(1, "x")
-      stream.replace(2, 3, "foo")
+      stream.insert_before( 1, "x" )
+      stream.replace( 2, 3, "foo" )
     end
   end
   
   example 'leave alone disjoint insert2' do
     rewrite( "abcc", "axbfoo" ) do |stream|
-      stream.replace(2, 3, "foo")
-      stream.insert_before(1, "x")
+      stream.replace( 2, 3, "foo" )
+      stream.insert_before( 1, "x" )
     end
   end
   
   example 'combine insert on left with delete' do
     rewrite( "abc", "z" ) do |stream|
-      stream.delete(0, 2)
-      stream.insert_before(0, "z")
+      stream.delete( 0, 2 )
+      stream.insert_before( 0, "z" )
     end
   end
   
   example 'overlapping replace' do
     rewrite( "abcc", "bar" ) do |stream|
-      stream.replace(1, 2, "foo")
-      stream.replace(0, 3, "bar")
+      stream.replace( 1, 2, "foo" )
+      stream.replace( 0, 3, "bar" )
     end
   end
   
   example 'overlapping replace3' do
     rewrite( "abcc", "barc" ) do |stream|
-      stream.replace(1, 2, "foo")
-      stream.replace(0, 2, "bar")
+      stream.replace( 1, 2, "foo" )
+      stream.replace( 0, 2, "bar" )
     end
   end
   
   example 'overlapping replace 4' do
     rewrite( "abcc", "abar" ) do |stream|
-      stream.replace(1, 2, "foo")
-      stream.replace(1, 3, "bar")
+      stream.replace( 1, 2, "foo" )
+      stream.replace( 1, 3, "bar" )
     end
   end
 
@@ -286,9 +286,9 @@ class TestRewritingWithTokenStream2 < ANTLR3::Test::Functional
     WS : ' '+;
   END
   
-  def rewrite(input)
-    lexer = SimpleRewriting2::Lexer.new(input)
-    ANTLR3::TokenRewriteStream.new(lexer)
+  def rewrite( input )
+    lexer = SimpleRewriting2::Lexer.new( input )
+    ANTLR3::TokenRewriteStream.new( lexer )
   end
   
   example 'rendering over a range' do
@@ -296,8 +296,8 @@ class TestRewritingWithTokenStream2 < ANTLR3::Test::Functional
     stream.replace 4, 8, '0'
     stream.original_string.should == 'x = 3 * 0;'
     stream.render.should == 'x = 0;'
-    stream.render(0, 9).should == 'x = 0;'
-    stream.render(4, 8).should == '0'
+    stream.render( 0, 9 ).should == 'x = 0;'
+    stream.render( 4, 8 ).should == '0'
   end
   
   example 'more rendering over a range' do
@@ -305,14 +305,13 @@ class TestRewritingWithTokenStream2 < ANTLR3::Test::Functional
     stream.original_string.should == 'x = 3 * 0 + 2 * 0;'
     stream.replace 4, 8, '0'
     stream.render.should == 'x = 0 + 2 * 0;'
-    stream.render(0, 17).should == 'x = 0 + 2 * 0;'
-    stream.render(4, 8).should  == '0'
-    stream.render(0, 8).should  == 'x = 0'
-    stream.render(12, 16).should == '2 * 0'
-    stream.insert_after(17, '// comment')
-    stream.render(12, 17).should == '2 * 0;// comment'
-    stream.render(0, 8).should == 'x = 0'
+    stream.render( 0, 17 ).should == 'x = 0 + 2 * 0;'
+    stream.render( 4, 8 ).should  == '0'
+    stream.render( 0, 8 ).should  == 'x = 0'
+    stream.render( 12, 16 ).should == '2 * 0'
+    stream.insert_after( 17, '// comment' )
+    stream.render( 12, 17 ).should == '2 * 0;// comment'
+    stream.render( 0, 8 ).should == 'x = 0'
   end
 
 end
-

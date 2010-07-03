@@ -6,11 +6,12 @@ load File.join( __DIR__, 'script-helper.rb' )
 
 require 'main'
 require 'string-template'
+autoload :Monocle, 'monocle'
 
 Main do
   
   mixin :Completion do
-    def complete( description, names, partial)
+    def complete( description, names, partial )
       matches = names.select { |name| name.start_with?( partial ) }
       case matches.length
       when 0
@@ -27,8 +28,8 @@ Main do
       | cannot unambiguously complete partial #{ description }
       | #{ partial.inspect }
       END
-      stderr.puts Text::ColumnList.new(
-        matches, :width_limit => (stderr.screen_width * 0.8).round
+      stderr.puts Text::ColumnList.new( 
+        matches, :width_limit => ( stderr.screen_width * 0.8 ).round
       ).render
       
       exit( 1 )
@@ -40,9 +41,9 @@ Main do
     mixin :Completion
     
     if $stdin.tty?
-      argument(:file) do
-        description("the path to a string template group file")
-        arity(1)
+      argument( :file ) do
+        description( "the path to a string template group file" )
+        arity( 1 )
       end
     end
     
@@ -84,78 +85,25 @@ Main do
   end
   
   mixin :TextFormatting do
-    def initialize
-      require 'text'
-      @width = (stdout.screen_width * 0.9).round
-      @indent = 0
-      super
+    def out
+      @out ||= Monocle::Output( stdout )
     end
-    
-    def leading_space
-      ' ' * @indent
-    end
-    
-    def print_line( line )
-      stdout.print( leading_space )
-      stdout.puts( line )
-    end
-    
-    def puts( text )
-      for line in text.split( $/, -1 )
-        print_line( line )
-      end
-    end
-    
-    def indent( spaces = 2 )
-      @indent += spaces; @width -= spaces
-      yield
-    ensure
-      @indent -= spaces; @width += spaces
-    end
-    
-    def column_list( items )
-      puts(
-        Text::ColumnList.new( items, :width_limit => @width ).render
-      )
-    end
-    
-    def table( title_row, *rows )
-      puts Text::Table.build( title_row ) do | table |
-        for row in rows
-          table.row( row )
-        end
-        
-        block_given? and yield( table )
-        
-        table.width > @width and table.width = @width
-      end
-    end
-    
-    def title_bar( title )
-      bar = "===[ #{ title } ]".ljust( @width, '=' )
-      puts( bar )
-    end
-    
-    def blank
-      print_line( '' )
-    end
-    
   end
   
-  mode(:unzip) do
-    argument(:file) do
-      description("The stg file to break up into parts")
+  mode( :unzip ) do
+    argument( :file ) do
+      description( "The stg file to break up into parts" )
       validate { |pt| pt =~ /\.stg$/i }
-      arity(1)
+      arity( 1 )
     end
     
-    option('directory', 'd') do
-      description("The directory to put the output")
+    option( 'directory', 'd' ) do
+      description( "The directory to put the output" )
       argument_required
       validate do |pt|
-        if test(?e, pt) and not test(?d, pt)
-          fail("%s is not a directory", pt)
-        elsif not test(?d, pt) then Dir.mkdir( pt )
+        if test( ?e, pt ) and not test( ?d, pt )
+          fail( "%s is not a directory", pt )
+        elsif not test( ?d, pt ) then Dir.mkdir( pt )
         end
       end
     end
@@ -163,7 +111,7 @@ Main do
     option( 'quiet', 'q' ) do
       description( "do not print information to stdout/stderr" )
       argument_optional
-      arity(-1)
+      arity( -1 )
     end
     
     def run
@@ -176,16 +124,16 @@ Main do
     end
   end
   
-  mode(:zip) do
-    argument(:directory) do
-      description("The template directory containing the *.st files")
-      validate { |pt| test(?d, pt) }
+  mode( :zip ) do
+    argument( :directory ) do
+      description( "The template directory containing the *.st files" )
+      validate { |pt| test( ?d, pt ) }
     end
     
     option( 'quiet', 'q' ) do
       description( "do not print information to stdout/stderr" )
       argument_optional
-      arity(-1)
+      arity( -1 )
     end
     
     def run
@@ -211,31 +159,29 @@ Main do
     mixin :TextFormatting
     
     def run
-      puts( "group #{ group.name }" )
-      indent do
-        group.supergroup and puts( "supergroup: #{ group.supergroup }" )
-        group.interfaces.empty? or
-          puts( "implements: #{ group.interfaces.join(', ') }")
-      end
-      blank
+      out.puts( "file: #{ file_name }" )
+      out.puts( "group: #{ group.name }" )
+      group.supergroup and out.puts( "supergroup: #{ group.supergroup }" )
+      group.interfaces.empty? or
+        out.puts( "implements: #{ group.interfaces.join( ', ' ) }" )
+      out.puts( '' )
       
-      unless (names = template_names).empty?
-        puts( "templates:" )
-        indent do
-          column_list( names )
+      unless ( names = template_names ).empty?
+        out.puts( "templates:" )
+        out.indent( 2 ) do
+          out.list( names )
         end
-        blank
+        out.puts ''
       end
       
-      unless (names = type_map_names).empty?
-        puts( "type maps:" )
-        indent do
-          column_list( names )
+      unless ( names = type_map_names ).empty?
+        out.puts( "type maps:" )
+        out.indent( 2 ) do
+          out.list( names )
         end
-        blank
+        out.puts ''
       end
     end
-
   end
   
   mode :show do
@@ -252,7 +198,7 @@ Main do
     end
     
     def run
-      stdout.puts(
+      stdout.puts( 
         template( params[ :template_name ].value ).source
       )
     end

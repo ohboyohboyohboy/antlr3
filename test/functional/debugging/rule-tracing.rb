@@ -5,7 +5,7 @@ require 'antlr3/test/functional'
 
 class TestRuleTracing < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar Traced;
     options {
       language = Ruby;
@@ -56,19 +56,18 @@ class TestRuleTracing < ANTLR3::Test::Functional
   compile_options :trace => true
   
   example "setting up rule tracing" do
-    lexer = Traced::Lexer.new('< 1 + 2 + 3 >')
+    lexer = Traced::Lexer.new( '< 1 + 2 + 3 >' )
     parser = Traced::Parser.new lexer
     parser.a
-    lexer.traces.should == [
+    lexer.traces.should == [ 
             '>t__6!', '<t__6!', '>ws!', '<ws!', '>int!', '<int!', '>ws!', '<ws!',
             '>t__8!', '<t__8!', '>ws!', '<ws!', '>int!', '<int!', '>ws!', '<ws!',
             '>t__8!', '<t__8!', '>ws!', '<ws!', '>int!', '<int!', '>ws!', '<ws!',
             '>t__7!', '<t__7!'
     ]
-    parser.traces.should == [
+    parser.traces.should == [ 
       '>a', '>synpred1_Traced', '<synpred1_Traced',
       '>b', '>c', '<c', '>c', '<c', '>c', '<c', '<b', '<a'
     ]
   end
 end
-

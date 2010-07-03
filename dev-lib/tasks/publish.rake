@@ -2,7 +2,10 @@
 # encoding: utf-8
 
 desc( "publish the package to rubyforge/gemcutter if the tests are clean" )
-task 'publish' => %w(test package) do
+#task 'publish' => %w(test package) do
+task 'publish' do
+  sh( 'gem help commands' )
+  exit
   cmd = $project.expand(
     'rubyforge add_%s $(name) $(name) $(version) $(package.base)/$(name)-$(version).%s'
   )

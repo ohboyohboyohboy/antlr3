@@ -370,20 +370,20 @@ class TestASTConstructingParser < ANTLR3::Test::Functional
     WS: (' ' | '\n' | '\t')+ {$channel = HIDDEN;};
   END
   
-  def self.ast_test(opts, &special_test)
-    input = opts[:input]
-    rule  = opts[:rule]
-    expected_tree = opts[:ast]
-    flag = opts[:flag]
-    args = opts[:arguments] || []
-    message = opts[:message] || rule.to_s #"should parse %p with rule %s and make tree %s" % [input, rule, expected_tree]
+  def self.ast_test( opts, &special_test )
+    input = opts[ :input ]
+    rule  = opts[ :rule ]
+    expected_tree = opts[ :ast ]
+    flag = opts[ :flag ]
+    args = opts[ :arguments ] || []
+    message = opts[ :message ] || rule.to_s #"should parse %p with rule %s and make tree %s" % [input, rule, expected_tree]
     
-    example(message) do
+    example( message ) do
       lexer = ASTBuilder::Lexer.new( input )
       parser = ASTBuilder::Parser.new( lexer )
       parser.flag = flag unless flag.nil?
-      result = parser.send(rule, *args)
-      if special_test then instance_exec(result, &special_test)
+      result = parser.send( rule, *args )
+      if special_test then instance_exec( result, &special_test )
       elsif expected_tree then
         result.tree.inspect.should == expected_tree
       else result.tree.should be_nil
@@ -477,11 +477,11 @@ class TestASTConstructingParser < ANTLR3::Test::Functional
   
   ast_test :input => "public int gnurz = 1 + 2;", :rule => :r31, :ast => "(FIELD gnurz public int (+ 1 2))", :flag => 2
   
-  ast_test :input => 'gnurz 32', :rule => :r32, :arguments => [1], :flag => 2, :ast => 'gnurz'
+  ast_test :input => 'gnurz 32', :rule => :r32, :arguments => [ 1 ], :flag => 2, :ast => 'gnurz'
   
-  ast_test :input => 'gnurz 32', :rule => :r32, :arguments => [2], :flag => 2, :ast => '32'
+  ast_test :input => 'gnurz 32', :rule => :r32, :arguments => [ 2 ], :flag => 2, :ast => '32'
   
-  ast_test :input => 'gnurz', :rule => :r32, :arguments => [3], :flag => 2, :ast => nil
+  ast_test :input => 'gnurz', :rule => :r32, :arguments => [ 3 ], :flag => 2, :ast => nil
   
   ast_test :input => "public private fooze", :rule => :r33, :ast => "fooze"
   
@@ -552,4 +552,3 @@ class TestASTConstructingParser < ANTLR3::Test::Functional
   ast_test :input => 'a b c fooze', :rule => :r59, :ast => '(a fooze) (b fooze) (c fooze)'
 
 end
-

@@ -4,7 +4,7 @@
 require 'antlr3/test/functional'
 
 class TestParser001 < ANTLR3::Test::Functional
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar Identifiers;
     options { language = Ruby; }
     
@@ -52,7 +52,7 @@ class TestParser001 < ANTLR3::Test::Functional
     parser = Identifiers::Parser.new( lexer )
     parser.document
     
-    parser.reported_errors.should have(1).thing
+    parser.reported_errors.should have( 1 ).thing
   end
   
   example 'automatic input wrapping' do
@@ -71,7 +71,7 @@ class TestParser001 < ANTLR3::Test::Functional
 end
 
 class TestParser002 < ANTLR3::Test::Functional
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar SimpleLanguage;
     options {
       language = Ruby;
@@ -119,7 +119,7 @@ class TestParser002 < ANTLR3::Test::Functional
     parser.document
     
     parser.reported_errors.should be_empty
-    parser.events.should == [
+    parser.events.should == [ 
       %w(decl foobar),
       %w(call gnarz),
       %w(decl blupp),
@@ -133,7 +133,7 @@ class TestParser002 < ANTLR3::Test::Functional
     
     parser.document
     
-    parser.reported_errors.should have(1).thing
+    parser.reported_errors.should have( 1 ).thing
     parser.events.should be_empty
   end
   
@@ -143,8 +143,8 @@ class TestParser002 < ANTLR3::Test::Functional
     
     parser.document
     
-    parser.reported_errors.should have(1).thing
-    parser.events.should == [
+    parser.reported_errors.should have( 1 ).thing
+    parser.events.should == [ 
       %w(call gnarz),
       %w(call flupp)
     ]
@@ -153,7 +153,7 @@ class TestParser002 < ANTLR3::Test::Functional
 end
 
 class TestParser003 < ANTLR3::Test::Functional
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar MoreComplicated;
     
     options { language = Ruby; }
@@ -269,14 +269,14 @@ class TestParser003 < ANTLR3::Test::Functional
     lexer = MoreComplicated::Lexer.new "int foo() { 1+2 }"
     parser = MoreComplicated::Parser.new lexer
     parser.program
-    parser.reported_errors.should have(1).thing
+    parser.reported_errors.should have( 1 ).thing
   end
   
   example "two instances of badly formed input" do
     lexer = MoreComplicated::Lexer.new "int foo() { 1+; 1+2 }"
     parser = MoreComplicated::Parser.new lexer
     parser.program
-    parser.reported_errors.should have(2).things
+    parser.reported_errors.should have( 2 ).things
   end
   
 end

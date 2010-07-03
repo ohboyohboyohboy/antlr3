@@ -5,7 +5,7 @@ require 'antlr3/test/functional'
 
 class TestRewritingWhileParsing < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar TokenRewrites;
     options { language = Ruby; }
     
@@ -60,7 +60,7 @@ class TestRewritingWhileParsing < ANTLR3::Test::Functional
   END
 
   example 'using a TokenRewriteStream to rewrite input text while parsing' do
-    input = <<-END.fixed_indent(0)
+    input = <<-END.fixed_indent( 0 )
       method foo() {
         i = 3;
         k = i;
@@ -71,7 +71,7 @@ class TestRewritingWhileParsing < ANTLR3::Test::Functional
         j = i*2;
       }
     END
-    expected_output = <<-END.fixed_indent(0).strip!
+    expected_output = <<-END.fixed_indent( 0 ).strip!
       public class Wrapper {
       public void foo() {
       int k;
@@ -97,4 +97,3 @@ class TestRewritingWhileParsing < ANTLR3::Test::Functional
   end
 
 end
-

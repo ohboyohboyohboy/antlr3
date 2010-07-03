@@ -5,7 +5,7 @@ require 'antlr3/test/functional'
 
 class TestEmptyAlternative < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar EmptyAlt;
     options {
       language = Ruby;
@@ -34,7 +34,7 @@ end
 
 class TestSubrulePrediction < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar Subrule;
     options {
       language = Ruby;
@@ -65,7 +65,7 @@ end
 
 class TestSpecialStates < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar SpecialStates;
     options { language = Ruby; }
     
@@ -121,7 +121,7 @@ end
 
 class TestDFABug < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar DFABug;
     options {
         language = Ruby;
@@ -162,4 +162,3 @@ class TestDFABug < ANTLR3::Test::Functional
   end
   
 end
-

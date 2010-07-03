@@ -6,25 +6,25 @@
 ####################################################################################################
 load './config/antlr3.rb'
 
-rake = Rake.application
-def rake.standard_exception_handling
-  begin
-    yield
-  rescue SystemExit => ex
-    raise
-  rescue OptionParser::InvalidOption => ex
-    exit( false )
-  rescue Exception => ex
-    $stderr.puts( '=' * 80 )
-    $stderr.puts( "#{ name } aborted!" )
-    $stderr.puts( "#{ ex.class }: #{ ex.message }" )
-    $stderr.puts( '-' * 80 )
-    for trace in ex.backtrace
-      $stderr.puts( "  - #{ trace }" )
-    end
-    exit( false )
-  end
-end
+#rake = Rake.application
+#def rake.standard_exception_handling
+#  begin
+#    yield
+#  rescue SystemExit => ex
+#    raise
+#  rescue OptionParser::InvalidOption => ex
+#    exit( false )
+#  rescue Exception => ex
+#    $stderr.puts( '=' * 80 )
+#    $stderr.puts( "#{ name } aborted!" )
+#    $stderr.puts( "#{ ex.class }: #{ ex.message }" )
+#    $stderr.puts( '-' * 80 )
+#    for trace in ex.backtrace
+#      $stderr.puts( "  - #{ trace }" )
+#    end
+#    exit( false )
+#  end
+#end
 
 def run_task( name )
   Rake::Task.task_defined?( name ) or file( name )

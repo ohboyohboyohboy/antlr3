@@ -5,7 +5,7 @@ require 'antlr3/test/functional'
 
 class TestBacktracking < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar Backtrack;
     options {
 			language = Ruby;
@@ -241,4 +241,3 @@ class TestBacktracking < ANTLR3::Test::Functional
   end
 
 end
-

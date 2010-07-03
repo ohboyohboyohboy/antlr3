@@ -6,7 +6,7 @@ require 'antlr3/test/functional'
 class TestTreeParser1 < ANTLR3::Test::Functional
   
   example "flat list" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar FlatList;
       options {
           language=Ruby;
@@ -17,7 +17,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       INT : '0'..'9'+;
       WS : (' '|'\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar FlatListWalker;
       options {
           language=Ruby;
@@ -42,7 +42,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "simple tree" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar SimpleTree;
       options {
           language=Ruby;
@@ -53,7 +53,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       INT : '0'..'9'+;
       WS : (' '|'\\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar SimpleTreeWalker;
       options {
           language=Ruby;
@@ -78,7 +78,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "flat vs tree decision" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar FlatVsTreeDecision;
       options {
           language=Ruby;
@@ -91,7 +91,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       INT : '0'..'9'+;
       WS : (' '|'\\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar FlatVsTreeDecisionWalker;
       options {
           language=Ruby;
@@ -117,7 +117,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "flat vs tree decision2" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar FlatVsTreeDecision2;
       options {
           language=Ruby;
@@ -130,7 +130,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       INT : '0'..'9'+;
       WS : (' '|'\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar FlatVsTreeDecision2Walker;
       options {
           language=Ruby;
@@ -155,7 +155,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "cyclic dfa lookahead" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar CyclicDFALookahead;
       options {
           language=Ruby;
@@ -168,7 +168,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       PERIOD : '.' ;
       WS : (' '|'\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar CyclicDFALookaheadWalker;
       options {
           language=Ruby;
@@ -192,7 +192,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "nullable child list" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar NullableChildList;
       options {
           language=Ruby;
@@ -203,7 +203,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       INT : '0'..'9'+;
       WS : (' '|'\\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar NullableChildListWalker;
       options {
           language=Ruby;
@@ -227,7 +227,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "nullable child list2" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar NullableChildList2;
       options {
           language=Ruby;
@@ -239,7 +239,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       SEMI : ';' ;
       WS : (' '|'\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar NullableChildList2Walker;
       options {
           language=Ruby;
@@ -263,7 +263,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "nullable child list3" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar NullableChildList3;
       options {
           language=Ruby;
@@ -275,7 +275,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       SEMI : ';' ;
       WS : (' '|'\\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar NullableChildList3Walker;
       options {
           language=Ruby;
@@ -300,7 +300,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "actions after root" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar ActionsAfterRoot;
       options {
           language=Ruby;
@@ -312,7 +312,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       SEMI : ';' ;
       WS : (' '|'\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar ActionsAfterRootWalker;
       options {
           language=Ruby;
@@ -336,7 +336,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "wildcard lookahead" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar WildcardLookahead;
       options {language=Ruby; output=AST;}
       a : ID '+'^ INT;
@@ -346,7 +346,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       PERIOD : '.' ;
       WS : (' '|'\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar WildcardLookaheadWalker;
       options {language=Ruby; tokenVocab=WildcardLookahead; ASTLabelType=CommonTree;}
       @members { include ANTLR3::Test::CaptureOutput }
@@ -366,7 +366,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "wildcard lookahead2" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar WildcardLookahead2;
       options {language=Ruby; output=AST;}
       a : ID '+'^ INT;
@@ -376,7 +376,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       PERIOD : '.' ;
       WS : (' '|'\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar WildcardLookahead2Walker;
       options {language=Ruby; tokenVocab=WildcardLookahead2; ASTLabelType=CommonTree;}
       @members { include ANTLR3::Test::CaptureOutput }
@@ -397,7 +397,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "wildcard lookahead3" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar WildcardLookahead3;
       options {language=Ruby; output=AST;}
       a : ID '+'^ INT;
@@ -407,7 +407,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       PERIOD : '.' ;
       WS : (' '|'\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar WildcardLookahead3Walker;
       options {language=Ruby; tokenVocab=WildcardLookahead3; ASTLabelType=CommonTree;}
       @members { include ANTLR3::Test::CaptureOutput }
@@ -428,7 +428,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
   end
   
   example "wildcard plus lookahead" do
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       grammar WildcardPlusLookahead;
       options {language=Ruby; output=AST;}
       a : ID '+'^ INT;
@@ -438,7 +438,7 @@ class TestTreeParser1 < ANTLR3::Test::Functional
       PERIOD : '.' ;
       WS : (' '|'\n') {$channel=HIDDEN;} ;
     END
-    compile_and_load inline_grammar(<<-'END')
+    compile_and_load inline_grammar( <<-'END' )
       tree grammar WildcardPlusLookaheadWalker;
       options {language=Ruby; tokenVocab=WildcardPlusLookahead; ASTLabelType=CommonTree;}
       @members { include ANTLR3::Test::CaptureOutput }
@@ -462,7 +462,7 @@ end
 
 
 class TestTreeParser2 < ANTLR3::Test::Functional
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar GenericLanguage;
     options {
         language = Ruby;
@@ -578,7 +578,7 @@ class TestTreeParser2 < ANTLR3::Test::Functional
         ;
   END
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     tree grammar GenericLanguageWalker;
     options {
         language = Ruby;
@@ -664,7 +664,7 @@ class TestTreeParser2 < ANTLR3::Test::Functional
   compile_options :trace => true
   
   example "processing AST output from a parser with a tree parser" do
-    input_source = <<-END.fixed_indent(0)
+    input_source = <<-END.fixed_indent( 0 )
       char c;
       int x;
       
@@ -682,7 +682,7 @@ class TestTreeParser2 < ANTLR3::Test::Functional
     lexer = GenericLanguage::Lexer.new( input_source )
     parser = GenericLanguage::Parser.new( lexer )
     
-    expected_tree = <<-END.strip!.gsub!(/\s+/, ' ')
+    expected_tree = <<-END.strip!.gsub!( /\s+/, ' ' )
       (VAR_DEF char c)
       (VAR_DEF int x)
       (FUNC_DECL (FUNC_HDR void bar (ARG_DEF int x)))
@@ -747,4 +747,3 @@ class TestTreeParser2 < ANTLR3::Test::Functional
   end
   
 end
-

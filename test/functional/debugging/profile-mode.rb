@@ -6,7 +6,7 @@ require 'antlr3/test/functional'
 class TestProfileMode < ANTLR3::Test::Functional
   compile_options :profile => true
   
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar SimpleC;
     
     options { language = Ruby; }
@@ -108,7 +108,7 @@ class TestProfileMode < ANTLR3::Test::Functional
   END
   
   example 'profile mode output' do
-    input = <<-END.fixed_indent(0)
+    input = <<-END.fixed_indent( 0 )
       char c;
       int x;
       
@@ -123,9 +123,9 @@ class TestProfileMode < ANTLR3::Test::Functional
       }
     END
     
-    lexer = SimpleC::Lexer.new(input)
-    tokens = ANTLR3::CommonTokenStream.new(lexer)
-    parser = SimpleC::Parser.new(tokens)
+    lexer = SimpleC::Lexer.new( input )
+    tokens = ANTLR3::CommonTokenStream.new( lexer )
+    parser = SimpleC::Parser.new( tokens )
     parser.program
     
     profile_data = parser.profile

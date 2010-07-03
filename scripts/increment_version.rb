@@ -9,7 +9,7 @@ require 'string-template'
 
 Version = Struct.new( :major, :minor, :patch ) do
   def initialize( vstr )
-    super( *vstr.split('.', 3).map! { |i| i.to_i } )
+    super( *vstr.split( '.', 3 ).map! { |i| i.to_i } )
   end
   
   def increment!( level = :patch )
@@ -26,7 +26,7 @@ Version = Struct.new( :major, :minor, :patch ) do
   end
   
   def to_s
-    to_a.join('.')
+    to_a.join( '.' )
   end
 end
 
@@ -77,7 +77,7 @@ update_file( 'lib/$(name)/version.rb' ) do | source |
   current_version.each_pair do | level, value |
     rx = /^(\s*)#{ level.to_s.upcase }_VERSION\s*=\s*#{ value }$/
     source =~ rx or fail( "can't find a line matching %p in version.rb" % rx )
-    old_line = $~[0]
+    old_line = $~[ 0 ]
     new_line = "#{ $1 }#{ level.to_s.upcase }_VERSION = #{ next_version[ level ] }"
     source[ old_line ] = new_line
   end

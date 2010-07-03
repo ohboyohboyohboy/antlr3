@@ -133,6 +133,9 @@ functional_tests: !pathlist
 templates: !pathlist
   - templates/*.stg
 
+grammars: !pathlist
+  - 
+
 #
 # project environment setup
 #

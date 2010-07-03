@@ -5,7 +5,7 @@ require 'antlr3/test/functional'
 
 class TestRulePropertyReference < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RuleProperties;
     options { language = Ruby; }
     
@@ -52,7 +52,7 @@ end
 
 class TestLabels < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar Labels;
     options { language = Ruby; }
     
@@ -88,13 +88,13 @@ class TestLabels < ANTLR3::Test::Functional
     parser = Labels::Parser.new lexer
     ids, w = parser.a
     
-    ids.should have(6).things
-    ids[0].text.should == 'a'
-    ids[1].text.should == 'b'
-    ids[2].text.should == 'c'
-    ids[3].text.should == '1'
-    ids[4].text.should == '2'
-    ids[5].text.should == 'A'
+    ids.should have( 6 ).things
+    ids[ 0 ].text.should == 'a'
+    ids[ 1 ].text.should == 'b'
+    ids[ 2 ].text.should == 'c'
+    ids[ 3 ].text.should == '1'
+    ids[ 4 ].text.should == '2'
+    ids[ 5 ].text.should == 'A'
     
     w.text.should == 'GNU1'
   end
@@ -105,7 +105,7 @@ end
 
 class TestTokenLabelReference < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar TokenLabels;
     options {
       language = Ruby;
@@ -162,7 +162,7 @@ class TestTokenLabelReference < ANTLR3::Test::Functional
     lexer = TokenLabels::Lexer.new( '   a' )
     parser = TokenLabels::Parser.new lexer
     tk = parser.a
-    tk.should == [
+    tk.should == [ 
       'a', TokenLabels::TokenData::A, 'A',
       1, 3, 1, :default
     ]
@@ -173,7 +173,7 @@ end
 
 class TestRuleLabelReference < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar RuleLabelReference;
     options {language = Ruby;}
     
@@ -224,7 +224,7 @@ end
 
 class TestReferenceDoesntSetChannel < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar ReferenceSetChannel;
     options {language=Ruby;}
     a returns [foo]: A EOF { $foo = '\%s, channel=\%p' \% [$A.text, $A.channel]; } ;
@@ -234,7 +234,7 @@ class TestReferenceDoesntSetChannel < ANTLR3::Test::Functional
   END
 
   example 'verifying that a token reference does not set its channel' do
-    lexer = ReferenceSetChannel::Lexer.new("- 34")
+    lexer = ReferenceSetChannel::Lexer.new( "- 34" )
     parser = ReferenceSetChannel::Parser.new lexer
     parser.a.should == "- 34, channel=:default"
   end

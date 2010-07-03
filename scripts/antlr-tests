@@ -55,10 +55,10 @@ Main do
     options = {}
     params[ :ruby ].given? and
       options[ :ruby ] = params[ :ruby ].value
-    options.update(
+    options.update( 
       :load_path => [ $project.dev_lib ],
       :require => $project.path( 'config/antlr3.rb' ),
-      :arguments => [
+      :arguments => [ 
         '--require', $project.dev_lib( 'enhanced-test.rb' ),
         '--format', "ANTLRFormatter",
         '--runner', "ANTLRRunner",
@@ -84,7 +84,7 @@ Main do
       
       def test_files
         files = []
-        for arg in params[:tests].values
+        for arg in params[ :tests ].values
           if arg == 'all'
             files += all
           elsif File.file?( arg )
@@ -94,7 +94,7 @@ Main do
           elsif matches = match_tests?( arg )
             files += matches
           else
-            warn("can't associate argument %p with any test files -- ignoring" % arg)
+            warn( "can't associate argument %p with any test files -- ignoring" % arg )
           end
         end
         return( files.uniq )
@@ -124,22 +124,22 @@ Main do
         case keyword
         when 'all' then include_types.map! { true }
         when 'performance' then include_types[ 2 ] = include_types[ 3 ] = true
-        when 'unit' then include_types[0] = true
+        when 'unit' then include_types[ 0 ] = true
         when 'functional' then include_types[ 1 ] = true
         when 'benchmark'  then include_types[ 2 ] = true
         when 'profile'    then include_types[ 3 ] = true
         end
       end
-      include_types[0] and s.add_unit( $project.test.unit!( '*.rb' ) )
-      include_types[1] and s.add_functional( $project.test.functional!('*','*.rb') )
-      include_types[2] and s.add_benchmark( $project.test.performance!('*.yaml') )
-      include_types[3] and s.add_profile( $project.test.performance!('*.yaml') )
+      include_types[ 0 ] and s.add_unit( $project.test.unit!( '*.rb' ) )
+      include_types[ 1 ] and s.add_functional( $project.test.functional!( '*','*.rb' ) )
+      include_types[ 2 ] and s.add_benchmark( $project.test.performance!( '*.yaml' ) )
+      include_types[ 3 ] and s.add_profile( $project.test.performance!( '*.yaml' ) )
     end
   end
   
   test_mode :unit do
     def all
-      $project.test.unit!('test-*.rb')
+      $project.test.unit!( 'test-*.rb' )
     end
     
     def match_tests( arg )
@@ -149,7 +149,7 @@ Main do
   
   test_mode :functional do
     def all
-      $project.test.functional!('*','*.rb')
+      $project.test.functional!( '*','*.rb' )
     end
     
     def match_tests( arg )

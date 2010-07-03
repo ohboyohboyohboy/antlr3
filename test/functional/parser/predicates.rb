@@ -5,7 +5,7 @@ require 'antlr3/test/functional'
 
 class TestPredicateHoist < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar TestHoist;
     options {
         language = Ruby;
@@ -68,7 +68,7 @@ end
 
 class TestSyntacticPredicate < ANTLR3::Test::Functional
 
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar SyntacticPredicate;
     options {
       language = Ruby;
@@ -95,9 +95,8 @@ class TestSyntacticPredicate < ANTLR3::Test::Functional
   END
   
   example "rule with syntactic predicate" do
-    lexer = SyntacticPredicate::Lexer.new('   +foo>')
+    lexer = SyntacticPredicate::Lexer.new( '   +foo>' )
     parser = SyntacticPredicate::Parser.new lexer
     events = parser.a
   end
 end
-

@@ -4,7 +4,7 @@
 require 'antlr3/test/functional'
 
 class TestLLStarParser < ANTLR3::Test::Functional
-  inline_grammar(<<-'END')
+  inline_grammar( <<-'END' )
     grammar LLStar;
     
     options { language = Ruby; }
@@ -117,7 +117,7 @@ class TestLLStarParser < ANTLR3::Test::Functional
   
   
   example "parsing with a LL(*) grammar" do
-    lexer = LLStar::Lexer.new(<<-'END'.fixed_indent(0))
+    lexer = LLStar::Lexer.new( <<-'END'.fixed_indent( 0 ) )
       char c;
       int x;
       
@@ -134,7 +134,7 @@ class TestLLStarParser < ANTLR3::Test::Functional
     parser = LLStar::Parser.new lexer
     
     parser.program
-    parser.output.should == <<-'END'.fixed_indent(0)
+    parser.output.should == <<-'END'.fixed_indent( 0 )
       bar is a declaration
       foo is a definition
     END

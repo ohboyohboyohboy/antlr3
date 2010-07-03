@@ -5,59 +5,59 @@ require 'antlr3/test/functional'
 
 class TestASTViaRewriteRules < ANTLR3::Test::Functional
 
-  def parse(grammar, rule, input, expect_errors = false)
-    @grammar = inline_grammar(grammar)
+  def parse( grammar, rule, input, expect_errors = false )
+    @grammar = inline_grammar( grammar )
     compile_and_load @grammar
-    grammar_module = self.class.const_get(@grammar.name)
+    grammar_module = self.class.const_get( @grammar.name )
     
-    grammar_module::Lexer.send(:include, ANTLR3::Test::CollectErrors)
-    grammar_module::Lexer.send(:include, ANTLR3::Test::CaptureOutput)
-    grammar_module::Parser.send(:include, ANTLR3::Test::CollectErrors)
-    grammar_module::Parser.send(:include, ANTLR3::Test::CaptureOutput)
+    grammar_module::Lexer.send( :include, ANTLR3::Test::CollectErrors )
+    grammar_module::Lexer.send( :include, ANTLR3::Test::CaptureOutput )
+    grammar_module::Parser.send( :include, ANTLR3::Test::CollectErrors )
+    grammar_module::Parser.send( :include, ANTLR3::Test::CaptureOutput )
     
     lexer  = grammar_module::Lexer.new( input )
     parser = grammar_module::Parser.new( lexer )
     
-    r = parser.send(rule)
+    r = parser.send( rule )
     parser.reported_errors.should be_empty unless expect_errors
     result = ''
     
     unless r.nil?
-      result += r.result if r.respond_to?(:result)
+      result += r.result if r.respond_to?( :result )
       result += r.tree.inspect if r.tree
     end
-    return(expect_errors ? [result, parser.reported_errors] : result)
+    return( expect_errors ? [ result, parser.reported_errors ] : result )
   end
   
-  def tree_parse(grammar, tree_grammar, rule, tree_rule, input)
-    @grammar = inline_grammar(grammar)
-    @tree_grammar = inline_grammar(tree_grammar)
+  def tree_parse( grammar, tree_grammar, rule, tree_rule, input )
+    @grammar = inline_grammar( grammar )
+    @tree_grammar = inline_grammar( tree_grammar )
     compile_and_load @grammar
     compile_and_load @tree_grammar
     
-    grammar_module = self.class.const_get(@grammar.name)
-    tree_grammar_module = self.class.const_get(@tree_grammar.name)
+    grammar_module = self.class.const_get( @grammar.name )
+    tree_grammar_module = self.class.const_get( @tree_grammar.name )
     
-    grammar_module::Lexer.send(:include, ANTLR3::Test::CollectErrors)
-    grammar_module::Lexer.send(:include, ANTLR3::Test::CaptureOutput)
-    grammar_module::Parser.send(:include, ANTLR3::Test::CollectErrors)
-    grammar_module::Parser.send(:include, ANTLR3::Test::CaptureOutput)
-    tree_grammar_module::TreeParser.send(:include, ANTLR3::Test::CollectErrors)
-    tree_grammar_module::TreeParser.send(:include, ANTLR3::Test::CaptureOutput)
+    grammar_module::Lexer.send( :include, ANTLR3::Test::CollectErrors )
+    grammar_module::Lexer.send( :include, ANTLR3::Test::CaptureOutput )
+    grammar_module::Parser.send( :include, ANTLR3::Test::CollectErrors )
+    grammar_module::Parser.send( :include, ANTLR3::Test::CaptureOutput )
+    tree_grammar_module::TreeParser.send( :include, ANTLR3::Test::CollectErrors )
+    tree_grammar_module::TreeParser.send( :include, ANTLR3::Test::CaptureOutput )
     
     lexer  = grammar_module::Lexer.new( input )
     parser = grammar.module::Parser.new( lexer )
-    r = parser.send(rule)
+    r = parser.send( rule )
     nodes = ANTLR3::CommonTreeNodeStream( r.tree )
     nodes.token_stream = parser.input
     walker = tree_grammar_module::TreeParser.new( nodes )
-    r = walker.send(tree_rule)
+    r = walker.send( tree_rule )
     
-    return(r ? r.tree.inspect : '')
+    return( r ? r.tree.inspect : '' )
   end
   
   example "delete" do
-    result = parse(<<-'END', :a, 'abc 34')
+    result = parse( <<-'END', :a, 'abc 34' )
       grammar Delete;
       options {language=Ruby;output=AST;}
       a : ID INT -> ;
@@ -70,7 +70,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "single token" do
-    result = parse(<<-'END', :a, 'abc')
+    result = parse( <<-'END', :a, 'abc' )
       grammar SingleToken;
       options {language=Ruby;output=AST;}
       a : ID -> ID;
@@ -84,7 +84,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "single token to new node" do
-    result = parse(<<-'END', :a, 'abc')
+    result = parse( <<-'END', :a, 'abc' )
       grammar SingleTokenToNewNode;
       options {language=Ruby;output=AST;}
       a : ID -> ID["x"];
@@ -98,7 +98,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "single token to new node root" do
-    result = parse(<<-'END', :a, 'abc')
+    result = parse( <<-'END', :a, 'abc' )
       grammar SingleTokenToNewNodeRoot;
       options {language=Ruby;output=AST;}
       a : ID -> ^(ID["x"] INT);
@@ -112,7 +112,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "single token to new node2" do
-    result = parse(<<-'END', :a, 'abc')
+    result = parse( <<-'END', :a, 'abc' )
       grammar SingleTokenToNewNode2;
       options {language=Ruby;output=AST;}
       a : ID -> ID[ ];
@@ -125,7 +125,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "single char literal" do
-    result = parse(<<-'END', :a, 'c')
+    result = parse( <<-'END', :a, 'c' )
       grammar SingleCharLiteral;
       options {language=Ruby;output=AST;}
       a : 'c' -> 'c';
@@ -139,7 +139,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "single string literal" do
-    result = parse(<<-'END', :a, 'ick')
+    result = parse( <<-'END', :a, 'ick' )
       grammar SingleStringLiteral;
       options {language=Ruby;output=AST;}
       a : 'ick' -> 'ick';
@@ -153,7 +153,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "single rule" do
-    result = parse(<<-'END', :a, 'abc')
+    result = parse( <<-'END', :a, 'abc' )
       grammar SingleRule;
       options {language=Ruby;output=AST;}
       a : b -> b;
@@ -168,7 +168,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "reorder tokens" do
-    result = parse(<<-'END', :a, 'abc 34')
+    result = parse( <<-'END', :a, 'abc 34' )
       grammar ReorderTokens;
       options {language=Ruby;output=AST;}
       a : ID INT -> INT ID;
@@ -182,7 +182,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "reorder token and rule" do
-    result = parse(<<-'END', :a, 'abc 34')
+    result = parse( <<-'END', :a, 'abc 34' )
       grammar ReorderTokenAndRule;
       options {language=Ruby;output=AST;}
       a : b INT -> INT b;
@@ -197,7 +197,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "token tree" do
-    result = parse(<<-'END', :a, 'abc 34')
+    result = parse( <<-'END', :a, 'abc 34' )
       grammar TokenTree;
       options {language=Ruby;output=AST;}
       a : ID INT -> ^(INT ID);
@@ -211,7 +211,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "token tree after other stuff" do
-    result = parse(<<-'END', :a, 'void abc 34')
+    result = parse( <<-'END', :a, 'void abc 34' )
       grammar TokenTreeAfterOtherStuff;
       options {language=Ruby;output=AST;}
       a : 'void' ID INT -> 'void' ^(INT ID);
@@ -225,7 +225,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "nested token tree with outer loop" do
-    result = parse(<<-'END', :a, 'a 1 b 2')
+    result = parse( <<-'END', :a, 'a 1 b 2' )
       grammar NestedTokenTreeWithOuterLoop;
       options {language=Ruby;output=AST;}
       tokens {DUH;}
@@ -240,7 +240,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "optional single token" do
-    result = parse(<<-'END', :a, 'abc')
+    result = parse( <<-'END', :a, 'abc' )
       grammar OptionalSingleToken;
       options {language=Ruby;output=AST;}
       a : ID -> ID? ;
@@ -254,7 +254,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "closure single token" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar ClosureSingleToken;
       options {language=Ruby;output=AST;}
       a : ID ID -> ID* ;
@@ -268,7 +268,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "positive closure single token" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar PositiveClosureSingleToken;
       options {language=Ruby;output=AST;}
       a : ID ID -> ID+ ;
@@ -282,7 +282,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "optional single rule" do
-    result = parse(<<-'END', :a, 'abc')
+    result = parse( <<-'END', :a, 'abc' )
       grammar OptionalSingleRule;
       options {language=Ruby;output=AST;}
       a : b -> b?;
@@ -297,7 +297,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "closure single rule" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar ClosureSingleRule;
       options {language=Ruby;output=AST;}
       a : b b -> b*;
@@ -312,7 +312,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "closure of label" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar ClosureOfLabel;
       options {language=Ruby;output=AST;}
       a : x+=b x+=b -> $x*;
@@ -327,7 +327,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "optional label no list label" do
-    result = parse(<<-'END', :a, 'a')
+    result = parse( <<-'END', :a, 'a' )
       grammar OptionalLabelNoListLabel;
       options {language=Ruby;output=AST;}
       a : (x=ID)? -> $x?;
@@ -341,7 +341,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "positive closure single rule" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar PositiveClosureSingleRule;
       options {language=Ruby;output=AST;}
       a : b b -> b+;
@@ -356,7 +356,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "single predicate t" do
-    result = parse(<<-'END', :a, 'abc')
+    result = parse( <<-'END', :a, 'abc' )
       grammar SinglePredicateT;
       options {language=Ruby;output=AST;}
       a : ID -> {true}? ID -> ;
@@ -370,7 +370,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "single predicate f" do
-    result = parse(<<-'END', :a, 'abc')
+    result = parse( <<-'END', :a, 'abc' )
       grammar SinglePredicateF;
       options {language=Ruby;output=AST;}
       a : ID -> {false}? ID -> ;
@@ -384,7 +384,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "multiple predicate" do
-    result = parse(<<-'END', :a, 'a 2')
+    result = parse( <<-'END', :a, 'a 2' )
       grammar MultiplePredicate;
       options {language=Ruby;output=AST;}
       a : ID INT -> {false}? ID
@@ -401,7 +401,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "multiple predicate trees" do
-    result = parse(<<-'END', :a, 'a 2')
+    result = parse( <<-'END', :a, 'a 2' )
       grammar MultiplePredicateTrees;
       options {language=Ruby;output=AST;}
       a : ID INT -> {false}? ^(ID INT)
@@ -418,7 +418,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "simple tree" do
-    result = parse(<<-'END', :a, '-34')
+    result = parse( <<-'END', :a, '-34' )
       grammar SimpleTree;
       options {language=Ruby;output=AST;}
       a : op INT -> ^(op INT);
@@ -433,7 +433,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "simple tree2" do
-    result = parse(<<-'END', :a, '+ 34')
+    result = parse( <<-'END', :a, '+ 34' )
       grammar SimpleTree2;
       options {language=Ruby;output=AST;}
       a : op INT -> ^(INT op);
@@ -448,7 +448,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "nested trees" do
-    result = parse(<<-'END', :a, 'var a:int; b:float;')
+    result = parse( <<-'END', :a, 'var a:int; b:float;' )
       grammar NestedTrees;
       options {language=Ruby;output=AST;}
       a : 'var' (ID ':' type ';')+ -> ^('var' ^(':' ID type)+) ;
@@ -463,7 +463,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "imaginary token copy" do
-    result = parse(<<-'END', :a, 'a,b,c')
+    result = parse( <<-'END', :a, 'a,b,c' )
       grammar ImaginaryTokenCopy;
       options {language=Ruby;output=AST;}
       tokens {VAR;}
@@ -479,7 +479,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "token unreferenced on left but defined" do
-    result = parse(<<-'END', :a, 'a')
+    result = parse( <<-'END', :a, 'a' )
       grammar TokenUnreferencedOnLeftButDefined;
       options {language=Ruby;output=AST;}
       tokens {VAR;}
@@ -495,7 +495,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "imaginary token copy set text" do
-    result = parse(<<-'END', :a, 'a,b,c')
+    result = parse( <<-'END', :a, 'a,b,c' )
       grammar ImaginaryTokenCopySetText;
       options {language=Ruby;output=AST;}
       tokens {VAR;}
@@ -511,7 +511,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "imaginary token no copy from token" do
-    result = parse(<<-'END', :a, '{a b c}')
+    result = parse( <<-'END', :a, '{a b c}' )
       grammar ImaginaryTokenNoCopyFromToken;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -527,7 +527,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "imaginary token no copy from token set text" do
-    result = parse(<<-'END', :a, '{a b c}')
+    result = parse( <<-'END', :a, '{a b c}' )
       grammar ImaginaryTokenNoCopyFromTokenSetText;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -543,7 +543,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "mixed rewrite and auto ast" do
-    result = parse(<<-'END', :a, 'a 1 2')
+    result = parse( <<-'END', :a, 'a 1 2' )
       grammar MixedRewriteAndAutoAST;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -560,7 +560,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "subrule with rewrite" do
-    result = parse(<<-'END', :a, 'a 1 2 3')
+    result = parse( <<-'END', :a, 'a 1 2 3' )
       grammar SubruleWithRewrite;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -577,7 +577,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "subrule with rewrite2" do
-    result = parse(<<-'END', :a, 'int a; int b=3;')
+    result = parse( <<-'END', :a, 'int a; int b=3;' )
       grammar SubruleWithRewrite2;
       options {language=Ruby;output=AST;}
       tokens {TYPE;}
@@ -598,7 +598,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "nested rewrite shuts off auto ast" do
-    result = parse(<<-'END', :a, 'a b c d; 42')
+    result = parse( <<-'END', :a, 'a b c d; 42' )
       grammar NestedRewriteShutsOffAutoAST;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -616,7 +616,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "rewrite actions" do
-    result = parse(<<-'END', :a, '3')
+    result = parse( <<-'END', :a, '3' )
       grammar RewriteActions;
       options {language=Ruby;output=AST;}
       a : atom -> ^({ @adaptor.create!(INT,"9") } atom) ;
@@ -631,7 +631,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "rewrite actions2" do
-    result = parse(<<-'END', :a, '3')
+    result = parse( <<-'END', :a, '3' )
       grammar RewriteActions2;
       options {language=Ruby;output=AST;}
       a : atom -> { @adaptor.create!(INT,"9") } atom ;
@@ -646,7 +646,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "ref to old value" do
-    result = parse(<<-'END', :a, '3+4+5')
+    result = parse( <<-'END', :a, '3+4+5' )
       grammar RefToOldValue;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -662,7 +662,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "copy semantics for rules" do
-    result = parse(<<-'END', :a, '3')
+    result = parse( <<-'END', :a, '3' )
       grammar CopySemanticsForRules;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -678,7 +678,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "copy semantics for rules2" do
-    result = parse(<<-'END', :a, 'int a,b,c;')
+    result = parse( <<-'END', :a, 'int a,b,c;' )
       grammar CopySemanticsForRules2;
       options {language=Ruby;output=AST;}
       a : type ID (',' ID)* ';' -> ^(type ID)+ ;
@@ -692,7 +692,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "copy semantics for rules3" do
-    result = parse(<<-'END', :a, 'public int a,b,c;')
+    result = parse( <<-'END', :a, 'public int a,b,c;' )
       grammar CopySemanticsForRules3;
       options {language=Ruby;output=AST;}
       a : modifier? type ID (',' ID)* ';' -> ^(type modifier? ID)+ ;
@@ -707,7 +707,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "copy semantics for rules3 double" do
-    result = parse(<<-'END', :a, 'public int a,b,c;')
+    result = parse( <<-'END', :a, 'public int a,b,c;' )
       grammar CopySemanticsForRules3Double;
       options {language=Ruby;output=AST;}
       a : modifier? type ID (',' ID)* ';' -> ^(type modifier? ID)+ ^(type modifier? ID)+ ;
@@ -722,7 +722,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "copy semantics for rules4" do
-    result = parse(<<-'END', :a, 'public int a,b,c;')
+    result = parse( <<-'END', :a, 'public int a,b,c;' )
       grammar CopySemanticsForRules4;
       options {language=Ruby;output=AST;}
       tokens {MOD;}
@@ -738,7 +738,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "copy semantics lists" do
-    result = parse(<<-'END', :a, 'a,b,c;')
+    result = parse( <<-'END', :a, 'a,b,c;' )
       grammar CopySemanticsLists;
       options {language=Ruby;output=AST;}
       tokens {MOD;}
@@ -752,7 +752,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "copy rule label" do
-    result = parse(<<-'END', :a, 'a')
+    result = parse( <<-'END', :a, 'a' )
       grammar CopyRuleLabel;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -767,7 +767,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "copy rule label2" do
-    result = parse(<<-'END', :a, 'a')
+    result = parse( <<-'END', :a, 'a' )
       grammar CopyRuleLabel2;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -782,7 +782,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "queueing of tokens" do
-    result = parse(<<-'END', :a, 'int a,b,c;')
+    result = parse( <<-'END', :a, 'int a,b,c;' )
       grammar QueueingOfTokens;
       options {language=Ruby;output=AST;}
       a : 'int' ID (',' ID)* ';' -> ^('int' ID+) ;
@@ -797,7 +797,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "copy of tokens" do
-    result = parse(<<-'END', :a, 'int a;')
+    result = parse( <<-'END', :a, 'int a;' )
       grammar CopyOfTokens;
       options {language=Ruby;output=AST;}
       a : 'int' ID ';' -> 'int' ID 'int' ID ;
@@ -812,7 +812,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "token copy in loop" do
-    result = parse(<<-'END', :a, 'int a,b,c;')
+    result = parse( <<-'END', :a, 'int a,b,c;' )
       grammar TokenCopyInLoop;
       options {language=Ruby;output=AST;}
       a : 'int' ID (',' ID)* ';' -> ^('int' ID)+ ;
@@ -827,7 +827,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "token copy in loop against two others" do
-    result = parse(<<-'END', :a, 'int a:1,b:2,c:3;')
+    result = parse( <<-'END', :a, 'int a:1,b:2,c:3;' )
       grammar TokenCopyInLoopAgainstTwoOthers;
       options {language=Ruby;output=AST;}
       a : 'int' ID ':' INT (',' ID ':' INT)* ';' -> ^('int' ID INT)+ ;
@@ -842,7 +842,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "list refd one at a time" do
-    result = parse(<<-'END', :a, 'a b c')
+    result = parse( <<-'END', :a, 'a b c' )
       grammar ListRefdOneAtATime;
       options {language=Ruby;output=AST;}
       a : ID+ -> ID ID ID ; // works if 3 input IDs
@@ -857,7 +857,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "split list with labels" do
-    result = parse(<<-'END', :a, 'a b c')
+    result = parse( <<-'END', :a, 'a b c' )
       grammar SplitListWithLabels;
       options {language=Ruby;output=AST;}
       tokens {VAR;}
@@ -873,7 +873,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "complicated melange" do
-    result = parse(<<-'END', :a, 'a a b b b c c c d')
+    result = parse( <<-'END', :a, 'a a b b b c c c d' )
       grammar ComplicatedMelange;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -891,7 +891,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "rule label" do
-    result = parse(<<-'END', :a, 'a')
+    result = parse( <<-'END', :a, 'a' )
       grammar RuleLabel;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -906,7 +906,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "ambiguous rule" do
-    result = parse(<<-'END', :a, 'abc 34')
+    result = parse( <<-'END', :a, 'abc 34' )
       grammar AmbiguousRule;
       options {language=Ruby;output=AST;}
       a : ID a -> a | INT ;
@@ -920,7 +920,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "rule list label" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar RuleListLabel;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -935,7 +935,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "rule list label2" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar RuleListLabel2;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -950,7 +950,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "optional" do
-    result = parse(<<-'END', :a, 'a')
+    result = parse( <<-'END', :a, 'a' )
       grammar Optional;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -965,7 +965,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "optional2" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar Optional2;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -980,7 +980,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "optional3" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar Optional3;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -995,7 +995,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "optional4" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar Optional4;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -1009,7 +1009,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "optional5" do
-    result = parse(<<-'END', :a, 'a')
+    result = parse( <<-'END', :a, 'a' )
       grammar Optional5;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -1024,7 +1024,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "arbitrary expr type" do
-    result = parse(<<-'END', :a, 'a b')
+    result = parse( <<-'END', :a, 'a b' )
       grammar ArbitraryExprType;
       options {language=Ruby;output=AST;}
       tokens {BLOCK;}
@@ -1039,7 +1039,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "set" do
-    result = parse(<<-'END', :a, '2 a 34 de')
+    result = parse( <<-'END', :a, '2 a 34 de' )
       grammar SetT;
       options {language=Ruby;output=AST;} 
       a: (INT|ID)+ -> INT+ ID+ ;
@@ -1053,7 +1053,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "set2" do
-    result = parse(<<-'END', :a, '2')
+    result = parse( <<-'END', :a, '2' )
       grammar Set2;
       options {language=Ruby;output=AST;} 
       a: (INT|ID) -> INT? ID? ;
@@ -1067,7 +1067,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "set with label" do
-    warn('test SetWithLabel officially broken')
+    warn( 'test SetWithLabel officially broken' )
     #result = parse(<<-'END', :a, '2')
     #  grammar SetWithLabel;
     #  options {language=Ruby;output=AST;} 
@@ -1082,7 +1082,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "rewrite action" do
-    result = parse(<<-'END', :r, '25')
+    result = parse( <<-'END', :r, '25' )
       grammar RewriteAction; 
       options {language=Ruby;output=AST;}
       tokens { FLOAT; }
@@ -1098,7 +1098,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "optional subrule without real elements" do
-    result = parse(<<-'END', :modulo, 'modulo abc (x y #)')
+    result = parse( <<-'END', :modulo, 'modulo abc (x y #)' )
       grammar OptionalSubruleWithoutRealElements;
       options {language=Ruby;output=AST;} 
       tokens {PARMS;} 
@@ -1116,7 +1116,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "wildcard" do
-    result = parse(<<-'END', :a, 'abc 34')
+    result = parse( <<-'END', :a, 'abc 34' )
       grammar Wildcard;
       options {language=Ruby;output=AST;}
       a : ID c=. -> $c;
@@ -1130,7 +1130,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
   
   
   example "extra token in simple decl" do
-    result, errors = parse(<<-'END', :decl, 'int 34 x=1;', true)
+    result, errors = parse( <<-'END', :decl, 'int 34 x=1;', true )
       grammar ExtraTokenInSimpleDecl;
       options {language=Ruby;output=AST;}
       tokens {EXPR;}
@@ -1141,13 +1141,13 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
       WS : (' '|'\n') {$channel=HIDDEN;} ;
   
     END
-    errors.should == ['line 1:4 extraneous input "34" expecting ID']
+    errors.should == [ 'line 1:4 extraneous input "34" expecting ID' ]
     result.should == '(EXPR int x 1)'
   end
   
   
   example "missing id in simple decl" do
-    result, errors = parse(<<-'END', :decl, 'int =1;', true)
+    result, errors = parse( <<-'END', :decl, 'int =1;', true )
       grammar MissingIDInSimpleDecl;
       options {language=Ruby;output=AST;}
       tokens {EXPR;}
@@ -1158,13 +1158,13 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
       WS : (' '|'\n') {$channel=HIDDEN;} ;
   
     END
-    errors.should == ['line 1:4 missing ID at "="']
+    errors.should == [ 'line 1:4 missing ID at "="' ]
     result.should == '(EXPR int <missing ID> 1)'
   end
   
   
   example "missing set in simple decl" do
-    result, errors = parse(<<-'END', :decl, 'x=1;', true)
+    result, errors = parse( <<-'END', :decl, 'x=1;', true )
       grammar MissingSetInSimpleDecl;
       options {language=Ruby;output=AST;}
       tokens {EXPR;}
@@ -1175,13 +1175,13 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
       WS : (' '|'\n') {$channel=HIDDEN;} ;
   
     END
-    errors.should == ['line 1:0 mismatched input "x" expecting set nil']
+    errors.should == [ 'line 1:0 mismatched input "x" expecting set nil' ]
     result.should == '(EXPR <error: x> x 1)'
   end
   
   
   example "missing token gives error node" do
-    result, errors = parse(<<-'END', :a, 'abc', true)
+    result, errors = parse( <<-'END', :a, 'abc', true )
       grammar MissingTokenGivesErrorNode;
       options {language=Ruby;output=AST;}
       a : ID INT -> ID INT ;
@@ -1190,14 +1190,14 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
       WS : (' '|'\n') {$channel=HIDDEN;} ;
   
     END
-    errors.should == ["line 0:-1 missing INT at \"<EOF>\""]
+    errors.should == [ "line 0:-1 missing INT at \"<EOF>\"" ]
     result.should == 'abc <missing INT>'
     #end
   end
   
   
   example "extra token gives error node" do
-    result, errors = parse(<<-'END', :a, 'abc ick 34', true)
+    result, errors = parse( <<-'END', :a, 'abc ick 34', true )
       grammar ExtraTokenGivesErrorNode;
       options {language=Ruby;output=AST;}
       a : b c -> b c;
@@ -1208,13 +1208,13 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
       WS : (' '|'\n') {$channel=HIDDEN;} ;
   
     END
-    errors.should == ['line 1:4 extraneous input "ick" expecting INT']
+    errors.should == [ 'line 1:4 extraneous input "ick" expecting INT' ]
     result.should == 'abc 34'
   end
   
   
   example "missing first token gives error node" do
-    result, errors = parse(<<-'END', :a, '34', true)
+    result, errors = parse( <<-'END', :a, '34', true )
       grammar MissingFirstTokenGivesErrorNode;
       options {language=Ruby;output=AST;}
       a : ID INT -> ID INT ;
@@ -1223,13 +1223,13 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
       WS : (' '|'\n') {$channel=HIDDEN;} ;
   
     END
-    errors.should == ['line 1:0 missing ID at "34"']
+    errors.should == [ 'line 1:0 missing ID at "34"' ]
     result.should == '<missing ID> 34'
   end
   
   
   example "missing first token gives error node2" do
-    result, errors = parse(<<-'END', :a, '34', true)
+    result, errors = parse( <<-'END', :a, '34', true )
       grammar MissingFirstTokenGivesErrorNode2;
       options {language=Ruby;output=AST;}
       a : b c -> b c;
@@ -1240,13 +1240,13 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
       WS : (' '|'\n') {$channel=HIDDEN;} ;
   
     END
-    errors.should == ['line 1:0 missing ID at "34"']
+    errors.should == [ 'line 1:0 missing ID at "34"' ]
     result.should == '<missing ID> 34'
   end
   
   
   example "no viable alt gives error node" do
-    result, errors = parse(<<-'END', :a, '*', true)
+    result, errors = parse( <<-'END', :a, '*', true )
       grammar NoViableAltGivesErrorNode;
       options {language=Ruby;output=AST;}
       a : b -> b | c -> c;
@@ -1258,14 +1258,14 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
       WS : (' '|'\n') {$channel=HIDDEN;} ;
   
     END
-    errors.should == ['line 1:0 no viable alternative at input "*"']
+    errors.should == [ 'line 1:0 no viable alternative at input "*"' ]
     result.should == '<unexpected: 0 S["*"] @ line 1 col 0 (0..0), resync = *>'
   end
   
   
   example "cardinality" do
     lambda do
-      parse(<<-'END', :a, "a b 3 4 5")
+      parse( <<-'END', :a, "a b 3 4 5" )
         grammar Cardinality;
         options {language=Ruby;output=AST;}
         tokens {BLOCK;}
@@ -1274,12 +1274,12 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
         INT : '0'..'9'+; 
         WS : (' '|'\n') {$channel=HIDDEN;} ;
       END
-    end.should raise_error(ANTLR3::Error::RewriteCardinalityError)
+    end.should raise_error( ANTLR3::Error::RewriteCardinalityError )
   end
   
   example "cardinality2" do
     lambda do
-      parse(<<-'END', :a, "a b")
+      parse( <<-'END', :a, "a b" )
         grammar Cardinality2;
         options {language=Ruby;output=AST;}
         tokens {BLOCK;}
@@ -1289,12 +1289,12 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
         INT : '0'..'9'+;
         WS : (' '|'\n') {$channel=HIDDEN;} ;
       END
-    end.should raise_error(ANTLR3::Error::RewriteCardinalityError)
+    end.should raise_error( ANTLR3::Error::RewriteCardinalityError )
   end
   
   example "cardinality3" do
     lambda do
-      parse(<<-'END', :a, "3")
+      parse( <<-'END', :a, "3" )
         grammar Cardinality3;
         options {language=Ruby;output=AST;}
         tokens {BLOCK;}
@@ -1304,12 +1304,12 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
         INT : '0'..'9'+;
         WS : (' '|'\n') {$channel=HIDDEN;} ;
       END
-    end.should raise_error(ANTLR3::Error::RewriteEmptyStream)
+    end.should raise_error( ANTLR3::Error::RewriteEmptyStream )
   end
   
   example "loop cardinality" do
     lambda do
-      parse(<<-'END', :a, "3")
+      parse( <<-'END', :a, "3" )
         grammar LoopCardinality;
         options {language=Ruby;output=AST;}
         a : ID? INT -> ID+ INT ;
@@ -1318,10 +1318,9 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
         INT : '0'..'9'+;
         WS : (' '|'\n') {$channel=HIDDEN;} ;
       END
-    end.should raise_error(ANTLR3::Error::RewriteEarlyExit)
+    end.should raise_error( ANTLR3::Error::RewriteEarlyExit )
   end
 
 
 
 end
-
