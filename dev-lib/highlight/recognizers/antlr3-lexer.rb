@@ -2,10 +2,10 @@
 #
 # ANTLRv3Grammar.g
 # 
-# Generated using ANTLR version: 3.2.1-SNAPSHOT Apr 27, 2010 05:26:39
-# Ruby runtime library version: 1.7.0
+# Generated using ANTLR version: 3.2.1-SNAPSHOT Jun 18, 2010 05:38:11
+# Ruby runtime library version: 1.7.5
 # Input grammar file: ANTLRv3Grammar.g
-# Generated at: 2010-04-28 19:15:27
+# Generated at: 2010-07-03 23:17:11
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.7.0):
+Failed to load the ANTLR3 runtime library (version 1.7.5):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '~> 1.7.0' )
+    Gem.activate( 'antlr3', '~> 1.7.5' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -102,7 +102,7 @@ module ANTLRv3Grammar
 
     
     begin
-      generated_using( "ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Apr 27, 2010 05:26:39", "1.7.0" )
+      generated_using( "ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Jun 18, 2010 05:38:11", "1.7.5" )
     rescue NoMethodError => error
       # ignore
     end
@@ -250,7 +250,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 11:8: '^'
-      match( ?^ )
+      match( 0x5e )
 
       
       @state.type = type
@@ -274,7 +274,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 12:8: '!'
-      match( ?! )
+      match( 0x21 )
 
       
       @state.type = type
@@ -346,7 +346,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 15:6: '@'
-      match( ?@ )
+      match( 0x40 )
 
       
       @state.type = type
@@ -370,7 +370,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 16:16: '='
-      match( ?= )
+      match( 0x3d )
 
       
       @state.type = type
@@ -514,7 +514,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 22:9: ';'
-      match( ?; )
+      match( 0x3b )
 
       
       @state.type = type
@@ -538,7 +538,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 23:9: '}'
-      match( ?} )
+      match( 0x7d )
 
       
       @state.type = type
@@ -586,7 +586,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 25:9: '*'
-      match( ?* )
+      match( 0x2a )
 
       
       @state.type = type
@@ -682,7 +682,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 29:9: ':'
-      match( ?: )
+      match( 0x3a )
 
       
       @state.type = type
@@ -730,7 +730,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 31:9: ','
-      match( ?, )
+      match( 0x2c )
 
       
       @state.type = type
@@ -754,7 +754,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 32:9: '('
-      match( ?( )
+      match( 0x28 )
 
       
       @state.type = type
@@ -778,7 +778,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 33:9: '|'
-      match( ?| )
+      match( 0x7c )
 
       
       @state.type = type
@@ -802,7 +802,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 34:9: ')'
-      match( ?) )
+      match( 0x29 )
 
       
       @state.type = type
@@ -898,7 +898,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 38:9: '~'
-      match( ?~ )
+      match( 0x7e )
 
       
       @state.type = type
@@ -922,7 +922,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 39:9: '<'
-      match( ?< )
+      match( 0x3c )
 
       
       @state.type = type
@@ -946,7 +946,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 40:9: '>'
-      match( ?> )
+      match( 0x3e )
 
       
       @state.type = type
@@ -970,7 +970,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 41:9: '.'
-      match( ?. )
+      match( 0x2e )
 
       
       @state.type = type
@@ -994,7 +994,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 42:9: '?'
-      match( ?? )
+      match( 0x3f )
 
       
       @state.type = type
@@ -1018,7 +1018,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 43:9: '+'
-      match( ?+ )
+      match( 0x2b )
 
       
       @state.type = type
@@ -1042,7 +1042,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 44:9: '$'
-      match( ?$ )
+      match( 0x24 )
 
       
       @state.type = type
@@ -1083,14 +1083,14 @@ module ANTLRv3Grammar
           alt_1 = 2
           look_1_0 = @input.peek( 1 )
 
-          if ( look_1_0.between?( 0x0000, ?\t ) || look_1_0.between?( 0x000B, ?\f ) || look_1_0.between?( 0x000E, 0xFFFF ) )
+          if ( look_1_0.between?( 0x0, 0x9 ) || look_1_0.between?( 0xb, 0xc ) || look_1_0.between?( 0xe, 0xffff ) )
             alt_1 = 1
 
           end
           case alt_1
           when 1
             # at line 475:6: ~ ( '\\r' | '\\n' )
-            if @input.peek( 1 ).between?( 0x0000, ?\t ) || @input.peek( 1 ).between?( 0x000B, ?\f ) || @input.peek( 1 ).between?( 0x000E, 0x00FF )
+            if @input.peek( 1 ).between?( 0x0, 0x9 ) || @input.peek( 1 ).between?( 0xb, 0xc ) || @input.peek( 1 ).between?( 0xe, 0xff )
               @input.consume
             else
               mse = MismatchedSet( nil )
@@ -1110,16 +1110,16 @@ module ANTLRv3Grammar
       alt_3 = 2
       look_3_0 = @input.peek( 1 )
 
-      if ( look_3_0 == ?\r )
+      if ( look_3_0 == 0xd )
         alt_3 = 1
       end
       case alt_3
       when 1
         # at line 477:3: '\\r'
-        match( ?\r )
+        match( 0xd )
 
       end
-      match( ?\n )
+      match( 0xa )
       # --> action
       channel=HIDDEN;
       # <-- action
@@ -1155,16 +1155,16 @@ module ANTLRv3Grammar
         alt_4 = 2
         look_4_0 = @input.peek( 1 )
 
-        if ( look_4_0 == ?* )
+        if ( look_4_0 == 0x2a )
           look_4_1 = @input.peek( 2 )
 
-          if ( look_4_1 == ?/ )
+          if ( look_4_1 == 0x2f )
             alt_4 = 2
-          elsif ( look_4_1.between?( 0x0000, ?. ) || look_4_1.between?( ?0, 0xFFFF ) )
+          elsif ( look_4_1.between?( 0x0, 0x2e ) || look_4_1.between?( 0x30, 0xffff ) )
             alt_4 = 1
 
           end
-        elsif ( look_4_0.between?( 0x0000, ?) ) || look_4_0.between?( ?+, 0xFFFF ) )
+        elsif ( look_4_0.between?( 0x0, 0x29 ) || look_4_0.between?( 0x2b, 0xffff ) )
           alt_4 = 1
 
         end
@@ -1201,9 +1201,9 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 485:4: '\\'' LITERAL_CHAR '\\''
-      match( ?\' )
+      match( 0x27 )
       literal_char!
-      match( ?\' )
+      match( 0x27 )
 
       
       @state.type = type
@@ -1227,14 +1227,14 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 489:4: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
-      match( ?\' )
+      match( 0x27 )
       literal_char!
       # at line 489:22: ( LITERAL_CHAR )*
       while true # decision 5
         alt_5 = 2
         look_5_0 = @input.peek( 1 )
 
-        if ( look_5_0.between?( 0x0000, ?& ) || look_5_0.between?( ?(, 0xFFFF ) )
+        if ( look_5_0.between?( 0x0, 0x26 ) || look_5_0.between?( 0x28, 0xffff ) )
           alt_5 = 1
 
         end
@@ -1247,7 +1247,7 @@ module ANTLRv3Grammar
           break # out of loop for decision 5
         end
       end # loop for decision 5
-      match( ?\' )
+      match( 0x27 )
 
       
       @state.type = type
@@ -1271,9 +1271,9 @@ module ANTLRv3Grammar
       alt_6 = 2
       look_6_0 = @input.peek( 1 )
 
-      if ( look_6_0 == ?\\ )
+      if ( look_6_0 == 0x5c )
         alt_6 = 1
-      elsif ( look_6_0.between?( 0x0000, ?& ) || look_6_0.between?( ?(, ?[ ) || look_6_0.between?( ?], 0xFFFF ) )
+      elsif ( look_6_0.between?( 0x0, 0x26 ) || look_6_0.between?( 0x28, 0x5b ) || look_6_0.between?( 0x5d, 0xffff ) )
         alt_6 = 2
       else
         raise NoViableAlternative( "", 6, 0 )
@@ -1285,7 +1285,7 @@ module ANTLRv3Grammar
 
       when 2
         # at line 495:4: ~ ( '\\'' | '\\\\' )
-        if @input.peek( 1 ).between?( 0x0000, ?& ) || @input.peek( 1 ).between?( ?(, ?[ ) || @input.peek( 1 ).between?( ?], 0x00FF )
+        if @input.peek( 1 ).between?( 0x0, 0x26 ) || @input.peek( 1 ).between?( 0x28, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
           @input.consume
         else
           mse = MismatchedSet( nil )
@@ -1314,15 +1314,15 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 499:4: '\"' ( ESC | ~ ( '\\\\' | '\"' ) )* '\"'
-      match( ?" )
+      match( 0x22 )
       # at line 499:8: ( ESC | ~ ( '\\\\' | '\"' ) )*
       while true # decision 7
         alt_7 = 3
         look_7_0 = @input.peek( 1 )
 
-        if ( look_7_0 == ?\\ )
+        if ( look_7_0 == 0x5c )
           alt_7 = 1
-        elsif ( look_7_0.between?( 0x0000, ?! ) || look_7_0.between?( ?#, ?[ ) || look_7_0.between?( ?], 0xFFFF ) )
+        elsif ( look_7_0.between?( 0x0, 0x21 ) || look_7_0.between?( 0x23, 0x5b ) || look_7_0.between?( 0x5d, 0xffff ) )
           alt_7 = 2
 
         end
@@ -1333,7 +1333,7 @@ module ANTLRv3Grammar
 
         when 2
           # at line 499:15: ~ ( '\\\\' | '\"' )
-          if @input.peek( 1 ).between?( 0x0000, ?! ) || @input.peek( 1 ).between?( ?#, ?[ ) || @input.peek( 1 ).between?( ?], 0x00FF )
+          if @input.peek( 1 ).between?( 0x0, 0x21 ) || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -1347,7 +1347,7 @@ module ANTLRv3Grammar
           break # out of loop for decision 7
         end
       end # loop for decision 7
-      match( ?" )
+      match( 0x22 )
 
       
       @state.type = type
@@ -1377,16 +1377,16 @@ module ANTLRv3Grammar
         alt_8 = 2
         look_8_0 = @input.peek( 1 )
 
-        if ( look_8_0 == ?> )
+        if ( look_8_0 == 0x3e )
           look_8_1 = @input.peek( 2 )
 
-          if ( look_8_1 == ?> )
+          if ( look_8_1 == 0x3e )
             alt_8 = 2
-          elsif ( look_8_1.between?( 0x0000, ?= ) || look_8_1.between?( ??, 0xFFFF ) )
+          elsif ( look_8_1.between?( 0x0, 0x3d ) || look_8_1.between?( 0x3f, 0xffff ) )
             alt_8 = 1
 
           end
-        elsif ( look_8_0.between?( 0x0000, ?= ) || look_8_0.between?( ??, 0xFFFF ) )
+        elsif ( look_8_0.between?( 0x0, 0x3d ) || look_8_0.between?( 0x3f, 0xffff ) )
           alt_8 = 1
 
         end
@@ -1420,50 +1420,50 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 507:7: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
-      match( ?\\ )
+      match( 0x5c )
       # at line 508:3: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
       alt_9 = 11
       alt_9 = @dfa9.predict( @input )
       case alt_9
       when 1
         # at line 508:5: 'n'
-        match( ?n )
+        match( 0x6e )
 
       when 2
         # at line 509:5: 'r'
-        match( ?r )
+        match( 0x72 )
 
       when 3
         # at line 510:5: 't'
-        match( ?t )
+        match( 0x74 )
 
       when 4
         # at line 511:5: 'b'
-        match( ?b )
+        match( 0x62 )
 
       when 5
         # at line 512:5: 'f'
-        match( ?f )
+        match( 0x66 )
 
       when 6
         # at line 513:5: '\"'
-        match( ?" )
+        match( 0x22 )
 
       when 7
         # at line 514:5: '\\''
-        match( ?\' )
+        match( 0x27 )
 
       when 8
         # at line 515:5: '\\\\'
-        match( ?\\ )
+        match( 0x5c )
 
       when 9
         # at line 516:5: '>'
-        match( ?> )
+        match( 0x3e )
 
       when 10
         # at line 517:5: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
-        match( ?u )
+        match( 0x75 )
         xdigit!
         xdigit!
         xdigit!
@@ -1490,7 +1490,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 
-      if @input.peek( 1 ).between?( ?0, ?9 ) || @input.peek( 1 ).between?( ?A, ?F ) || @input.peek( 1 ).between?( ?a, ?f )
+      if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x46 ) || @input.peek( 1 ).between?( 0x61, 0x66 )
         @input.consume
       else
         mse = MismatchedSet( nil )
@@ -1524,14 +1524,14 @@ module ANTLRv3Grammar
         alt_10 = 2
         look_10_0 = @input.peek( 1 )
 
-        if ( look_10_0.between?( ?0, ?9 ) )
+        if ( look_10_0.between?( 0x30, 0x39 ) )
           alt_10 = 1
 
         end
         case alt_10
         when 1
           # at line 529:7: '0' .. '9'
-          match_range( ?0, ?9 )
+          match_range( 0x30, 0x39 )
 
         else
           match_count_10 > 0 and break
@@ -1587,21 +1587,21 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 538:2: '[' ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )* ']'
-      match( ?[ )
+      match( 0x5b )
       # at line 539:2: ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )*
       while true # decision 11
         alt_11 = 5
         look_11_0 = @input.peek( 1 )
 
-        if ( look_11_0 == ?] )
+        if ( look_11_0 == 0x5d )
           alt_11 = 5
-        elsif ( look_11_0 == ?[ )
+        elsif ( look_11_0 == 0x5b )
           alt_11 = 1
-        elsif ( look_11_0 == ?" )
+        elsif ( look_11_0 == 0x22 )
           alt_11 = 2
-        elsif ( look_11_0 == ?\' )
+        elsif ( look_11_0 == 0x27 )
           alt_11 = 3
-        elsif ( look_11_0.between?( 0x0000, ?! ) || look_11_0.between?( ?#, ?& ) || look_11_0.between?( ?(, ?Z ) || look_11_0 == ?\\ || look_11_0.between?( ?^, 0xFFFF ) )
+        elsif ( look_11_0.between?( 0x0, 0x21 ) || look_11_0.between?( 0x23, 0x26 ) || look_11_0.between?( 0x28, 0x5a ) || look_11_0 == 0x5c || look_11_0.between?( 0x5e, 0xffff ) )
           alt_11 = 4
 
         end
@@ -1626,7 +1626,7 @@ module ANTLRv3Grammar
           break # out of loop for decision 11
         end
       end # loop for decision 11
-      match( ?] )
+      match( 0x5d )
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
@@ -1651,13 +1651,13 @@ module ANTLRv3Grammar
       alt_12 = 2
       look_12_0 = @input.peek( 1 )
 
-      if ( look_12_0 == ?? )
+      if ( look_12_0 == 0x3f )
         alt_12 = 1
       end
       case alt_12
       when 1
         # at line 550:20: '?'
-        match( ?? )
+        match( 0x3f )
         # --> action
          type = SEMPRED 
         # <-- action
@@ -1683,7 +1683,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 555:2: '{' ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )* '}'
-      match( ?{ )
+      match( 0x7b )
       # at line 556:2: ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )*
       while true # decision 13
         alt_13 = 8
@@ -1711,7 +1711,7 @@ module ANTLRv3Grammar
 
         when 6
           # at line 562:4: ~ '\\\\'
-          if @input.peek( 1 ).between?( 0x0000, ?[ ) || @input.peek( 1 ).between?( ?], 0x00FF )
+          if @input.peek( 1 ).between?( 0x0, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -1723,14 +1723,14 @@ module ANTLRv3Grammar
 
         when 7
           # at line 563:5: '\\\\' .
-          match( ?\\ )
+          match( 0x5c )
           match_any
 
         else
           break # out of loop for decision 13
         end
       end # loop for decision 13
-      match( ?} )
+      match( 0x7d )
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
@@ -1747,22 +1747,22 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 570:4: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
-      match( ?\' )
+      match( 0x27 )
       # at line 570:9: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
       while true # decision 14
         alt_14 = 3
         look_14_0 = @input.peek( 1 )
 
-        if ( look_14_0.between?( 0x0000, ?& ) || look_14_0.between?( ?(, ?[ ) || look_14_0.between?( ?], 0xFFFF ) )
+        if ( look_14_0.between?( 0x0, 0x26 ) || look_14_0.between?( 0x28, 0x5b ) || look_14_0.between?( 0x5d, 0xffff ) )
           alt_14 = 1
-        elsif ( look_14_0 == ?\\ )
+        elsif ( look_14_0 == 0x5c )
           alt_14 = 2
 
         end
         case alt_14
         when 1
           # at line 570:11: ~ ( '\\\\' | '\\'' )
-          if @input.peek( 1 ).between?( 0x0000, ?& ) || @input.peek( 1 ).between?( ?(, ?[ ) || @input.peek( 1 ).between?( ?], 0x00FF )
+          if @input.peek( 1 ).between?( 0x0, 0x26 ) || @input.peek( 1 ).between?( 0x28, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -1774,14 +1774,14 @@ module ANTLRv3Grammar
 
         when 2
           # at line 570:26: '\\\\' .
-          match( ?\\ )
+          match( 0x5c )
           match_any
 
         else
           break # out of loop for decision 14
         end
       end # loop for decision 14
-      match( ?\' )
+      match( 0x27 )
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
@@ -1798,22 +1798,22 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 575:4: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
-      match( ?" )
+      match( 0x22 )
       # at line 575:8: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
       while true # decision 15
         alt_15 = 3
         look_15_0 = @input.peek( 1 )
 
-        if ( look_15_0.between?( 0x0000, ?! ) || look_15_0.between?( ?#, ?[ ) || look_15_0.between?( ?], 0xFFFF ) )
+        if ( look_15_0.between?( 0x0, 0x21 ) || look_15_0.between?( 0x23, 0x5b ) || look_15_0.between?( 0x5d, 0xffff ) )
           alt_15 = 1
-        elsif ( look_15_0 == ?\\ )
+        elsif ( look_15_0 == 0x5c )
           alt_15 = 2
 
         end
         case alt_15
         when 1
           # at line 575:10: ~ ( '\\\\' | '\"' )
-          if @input.peek( 1 ).between?( 0x0000, ?! ) || @input.peek( 1 ).between?( ?#, ?[ ) || @input.peek( 1 ).between?( ?], 0x00FF )
+          if @input.peek( 1 ).between?( 0x0, 0x21 ) || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -1825,14 +1825,14 @@ module ANTLRv3Grammar
 
         when 2
           # at line 575:24: '\\\\' .
-          match( ?\\ )
+          match( 0x5c )
           match_any
 
         else
           break # out of loop for decision 15
         end
       end # loop for decision 15
-      match( ?" )
+      match( 0x22 )
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
@@ -1849,7 +1849,7 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 580:4: '\\\\' .
-      match( ?\\ )
+      match( 0x5c )
       match_any
 
     ensure
@@ -1870,20 +1870,20 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 584:4: 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-      match_range( ?A, ?Z )
+      match_range( 0x41, 0x5a )
       # at line 584:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       while true # decision 16
         alt_16 = 2
         look_16_0 = @input.peek( 1 )
 
-        if ( look_16_0.between?( ?0, ?9 ) || look_16_0.between?( ?A, ?Z ) || look_16_0 == ?_ || look_16_0.between?( ?a, ?z ) )
+        if ( look_16_0.between?( 0x30, 0x39 ) || look_16_0.between?( 0x41, 0x5a ) || look_16_0 == 0x5f || look_16_0.between?( 0x61, 0x7a ) )
           alt_16 = 1
 
         end
         case alt_16
         when 1
           # at line 
-          if @input.peek( 1 ).between?( ?0, ?9 ) || @input.peek( 1 ).between?( ?A, ?Z ) || @input.peek(1) == ?_ || @input.peek( 1 ).between?( ?a, ?z )
+          if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -1920,20 +1920,20 @@ module ANTLRv3Grammar
       
       # - - - - main rule block - - - -
       # at line 588:4: 'a' .. 'z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-      match_range( ?a, ?z )
+      match_range( 0x61, 0x7a )
       # at line 588:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       while true # decision 17
         alt_17 = 2
         look_17_0 = @input.peek( 1 )
 
-        if ( look_17_0.between?( ?0, ?9 ) || look_17_0.between?( ?A, ?Z ) || look_17_0 == ?_ || look_17_0.between?( ?a, ?z ) )
+        if ( look_17_0.between?( 0x30, 0x39 ) || look_17_0.between?( 0x41, 0x5a ) || look_17_0 == 0x5f || look_17_0.between?( 0x61, 0x7a ) )
           alt_17 = 1
 
         end
         case alt_17
         when 1
           # at line 
-          if @input.peek( 1 ).between?( ?0, ?9 ) || @input.peek( 1 ).between?( ?A, ?Z ) || @input.peek(1) == ?_ || @input.peek( 1 ).between?( ?a, ?z )
+          if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -1972,7 +1972,7 @@ module ANTLRv3Grammar
       # at line 595:4: 'options' WS_LOOP '{'
       match( "options" )
       ws_loop!
-      match( ?{ )
+      match( 0x7b )
 
       
       @state.type = type
@@ -1998,7 +1998,7 @@ module ANTLRv3Grammar
       # at line 599:4: 'tokens' WS_LOOP '{'
       match( "tokens" )
       ws_loop!
-      match( ?{ )
+      match( 0x7b )
 
       
       @state.type = type
@@ -2024,7 +2024,7 @@ module ANTLRv3Grammar
       # - - - - main rule block - - - -
       # at line 607:7: 'src' ' ' file= ACTION_STRING_LITERAL ' ' line= INT
       match( "src" )
-      match( ?\s )
+      match( 0x20 )
       file_start_1006 = self.character_index
       action_string_literal!
       file = create_token do |t|
@@ -2034,7 +2034,7 @@ module ANTLRv3Grammar
         t.start   = file_start_1006
         t.stop    = self.character_index - 1
       end
-      match( ?\s )
+      match( 0x20 )
       line_start_1012 = self.character_index
       int!
       line = create_token do |t|
@@ -2068,18 +2068,18 @@ module ANTLRv3Grammar
       while true
         alt_19 = 4
         case look_19 = @input.peek( 1 )
-        when ?\s then alt_19 = 1
-        when ?\t then alt_19 = 2
-        when ?\n, ?\r then alt_19 = 3
+        when 0x20 then alt_19 = 1
+        when 0x9 then alt_19 = 2
+        when 0xa, 0xd then alt_19 = 3
         end
         case alt_19
         when 1
           # at line 610:8: ' '
-          match( ?\s )
+          match( 0x20 )
 
         when 2
           # at line 611:5: '\\t'
-          match( ?\t )
+          match( 0x9 )
 
         when 3
           # at line 612:5: ( '\\r' )? '\\n'
@@ -2087,16 +2087,16 @@ module ANTLRv3Grammar
           alt_18 = 2
           look_18_0 = @input.peek( 1 )
 
-          if ( look_18_0 == ?\r )
+          if ( look_18_0 == 0xd )
             alt_18 = 1
           end
           case alt_18
           when 1
             # at line 612:5: '\\r'
-            match( ?\r )
+            match( 0xd )
 
           end
-          match( ?\n )
+          match( 0xa )
 
         else
           match_count_19 > 0 and break
@@ -2136,14 +2136,14 @@ module ANTLRv3Grammar
         alt_20 = 4
         look_20_0 = @input.peek( 1 )
 
-        if ( look_20_0.between?( ?\t, ?\n ) || look_20_0 == ?\r || look_20_0 == ?\s )
+        if ( look_20_0.between?( 0x9, 0xa ) || look_20_0 == 0xd || look_20_0 == 0x20 )
           alt_20 = 1
-        elsif ( look_20_0 == ?/ )
+        elsif ( look_20_0 == 0x2f )
           look_20_3 = @input.peek( 2 )
 
-          if ( look_20_3 == ?/ )
+          if ( look_20_3 == 0x2f )
             alt_20 = 2
-          elsif ( look_20_3 == ?* )
+          elsif ( look_20_3 == 0x2a )
             alt_20 = 3
 
           end
@@ -2827,138 +2827,138 @@ module ANTLRv3Grammar
         when 0
           look_2_13 = @input.peek
           s = -1
-          if ( look_2_13.between?( 0x0000, ?! ) || look_2_13.between?( ?#, 0xFFFF ) )
+          if ( look_2_13.between?( 0x0, 0x21 ) || look_2_13.between?( 0x23, 0xffff ) )
             s = 2
-          elsif ( look_2_13 == ?" )
+          elsif ( look_2_13 == 0x22 )
             s = 14
           end
 
         when 1
           look_2_12 = @input.peek
           s = -1
-          if ( look_2_12 == ?\s )
+          if ( look_2_12 == 0x20 )
             s = 13
-          elsif ( look_2_12.between?( 0x0000, 0x001F ) || look_2_12.between?( ?!, 0xFFFF ) )
+          elsif ( look_2_12.between?( 0x0, 0x1f ) || look_2_12.between?( 0x21, 0xffff ) )
             s = 2
           end
 
         when 2
           look_2_23 = @input.peek
           s = -1
-          if ( look_2_23 == ?\r )
+          if ( look_2_23 == 0xd )
             s = 15
-          elsif ( look_2_23 == ?\n )
+          elsif ( look_2_23 == 0xa )
             s = 18
-          elsif ( look_2_23 == ?" )
+          elsif ( look_2_23 == 0x22 )
             s = 17
-          elsif ( look_2_23.between?( 0x0000, ?\t ) || look_2_23.between?( 0x000B, ?\f ) || look_2_23.between?( 0x000E, ?! ) || look_2_23.between?( ?#, ?[ ) || look_2_23.between?( ?], 0xFFFF ) )
+          elsif ( look_2_23.between?( 0x0, 0x9 ) || look_2_23.between?( 0xb, 0xc ) || look_2_23.between?( 0xe, 0x21 ) || look_2_23.between?( 0x23, 0x5b ) || look_2_23.between?( 0x5d, 0xffff ) )
             s = 19
-          elsif ( look_2_23 == ?\\ )
+          elsif ( look_2_23 == 0x5c )
             s = 16
           end
 
         when 3
           look_2_10 = @input.peek
           s = -1
-          if ( look_2_10 == ?r )
+          if ( look_2_10 == 0x72 )
             s = 11
-          elsif ( look_2_10.between?( 0x0000, ?q ) || look_2_10.between?( ?s, 0xFFFF ) )
+          elsif ( look_2_10.between?( 0x0, 0x71 ) || look_2_10.between?( 0x73, 0xffff ) )
             s = 2
           end
 
         when 4
           look_2_11 = @input.peek
           s = -1
-          if ( look_2_11 == ?c )
+          if ( look_2_11 == 0x63 )
             s = 12
-          elsif ( look_2_11.between?( 0x0000, ?b ) || look_2_11.between?( ?d, 0xFFFF ) )
+          elsif ( look_2_11.between?( 0x0, 0x62 ) || look_2_11.between?( 0x64, 0xffff ) )
             s = 2
           end
 
         when 5
           look_2_19 = @input.peek
           s = -1
-          if ( look_2_19 == ?\r )
+          if ( look_2_19 == 0xd )
             s = 15
-          elsif ( look_2_19 == ?\n )
+          elsif ( look_2_19 == 0xa )
             s = 18
-          elsif ( look_2_19 == ?" )
+          elsif ( look_2_19 == 0x22 )
             s = 17
-          elsif ( look_2_19.between?( 0x0000, ?\t ) || look_2_19.between?( 0x000B, ?\f ) || look_2_19.between?( 0x000E, ?! ) || look_2_19.between?( ?#, ?[ ) || look_2_19.between?( ?], 0xFFFF ) )
+          elsif ( look_2_19.between?( 0x0, 0x9 ) || look_2_19.between?( 0xb, 0xc ) || look_2_19.between?( 0xe, 0x21 ) || look_2_19.between?( 0x23, 0x5b ) || look_2_19.between?( 0x5d, 0xffff ) )
             s = 19
-          elsif ( look_2_19 == ?\\ )
+          elsif ( look_2_19 == 0x5c )
             s = 16
           end
 
         when 6
           look_2_16 = @input.peek
           s = -1
-          if ( look_2_16 == ?\r )
+          if ( look_2_16 == 0xd )
             s = 21
-          elsif ( look_2_16 == ?\n )
+          elsif ( look_2_16 == 0xa )
             s = 22
-          elsif ( look_2_16.between?( 0x0000, ?\t ) || look_2_16.between?( 0x000B, ?\f ) || look_2_16.between?( 0x000E, 0xFFFF ) )
+          elsif ( look_2_16.between?( 0x0, 0x9 ) || look_2_16.between?( 0xb, 0xc ) || look_2_16.between?( 0xe, 0xffff ) )
             s = 23
           end
 
         when 7
           look_2_15 = @input.peek
           s = -1
-          if ( look_2_15 == ?\n )
+          if ( look_2_15 == 0xa )
             s = 18
-          elsif ( look_2_15.between?( 0x0000, ?\t ) || look_2_15.between?( 0x000B, 0xFFFF ) )
+          elsif ( look_2_15.between?( 0x0, 0x9 ) || look_2_15.between?( 0xb, 0xffff ) )
             s = 20
           end
 
         when 8
           look_2_21 = @input.peek
           s = -1
-          if ( look_2_21 == ?\n )
+          if ( look_2_21 == 0xa )
             s = 18
-          elsif ( look_2_21.between?( 0x0000, ?\t ) || look_2_21.between?( 0x000B, 0xFFFF ) )
+          elsif ( look_2_21.between?( 0x0, 0x9 ) || look_2_21.between?( 0xb, 0xffff ) )
             s = 20
           end
 
         when 9
           look_2_9 = @input.peek
           s = -1
-          if ( look_2_9 == ?s )
+          if ( look_2_9 == 0x73 )
             s = 10
-          elsif ( look_2_9.between?( 0x0000, ?r ) || look_2_9.between?( ?t, 0xFFFF ) )
+          elsif ( look_2_9.between?( 0x0, 0x72 ) || look_2_9.between?( 0x74, 0xffff ) )
             s = 2
           end
 
         when 10
           look_2_17 = @input.peek
           s = -1
-          if ( look_2_17.between?( 0x0000, 0x001F ) || look_2_17.between?( ?!, 0xFFFF ) )
+          if ( look_2_17.between?( 0x0, 0x1f ) || look_2_17.between?( 0x21, 0xffff ) )
             s = 2
-          elsif ( look_2_17 == ?\s )
+          elsif ( look_2_17 == 0x20 )
             s = 24
           end
 
         when 11
           look_2_24 = @input.peek
           s = -1
-          if ( look_2_24.between?( 0x0000, ?/ ) || look_2_24.between?( ?:, 0xFFFF ) )
+          if ( look_2_24.between?( 0x0, 0x2f ) || look_2_24.between?( 0x3a, 0xffff ) )
             s = 2
-          elsif ( look_2_24.between?( ?0, ?9 ) )
+          elsif ( look_2_24.between?( 0x30, 0x39 ) )
             s = 25
           end
 
         when 12
           look_2_0 = @input.peek
           s = -1
-          if ( look_2_0 == ?\s )
+          if ( look_2_0 == 0x20 )
             s = 1
-          elsif ( look_2_0.between?( 0x0000, 0x001F ) || look_2_0.between?( ?!, 0xFFFF ) )
+          elsif ( look_2_0.between?( 0x0, 0x1f ) || look_2_0.between?( 0x21, 0xffff ) )
             s = 2
           end
 
         when 13
           look_2_22 = @input.peek
           s = -1
-          if ( look_2_22.between?( 0x0000, 0xFFFF ) )
+          if ( look_2_22.between?( 0x0, 0xffff ) )
             s = 20
           else
             s = 2
@@ -2967,58 +2967,58 @@ module ANTLRv3Grammar
         when 14
           look_2_3 = @input.peek
           s = -1
-          if ( look_2_3 == ?A )
+          if ( look_2_3 == 0x41 )
             s = 4
-          elsif ( look_2_3.between?( 0x0000, ?@ ) || look_2_3.between?( ?B, 0xFFFF ) )
+          elsif ( look_2_3.between?( 0x0, 0x40 ) || look_2_3.between?( 0x42, 0xffff ) )
             s = 2
           end
 
         when 15
           look_2_1 = @input.peek
           s = -1
-          if ( look_2_1 == ?$ )
+          if ( look_2_1 == 0x24 )
             s = 3
-          elsif ( look_2_1.between?( 0x0000, ?# ) || look_2_1.between?( ?%, 0xFFFF ) )
+          elsif ( look_2_1.between?( 0x0, 0x23 ) || look_2_1.between?( 0x25, 0xffff ) )
             s = 2
           end
 
         when 16
           look_2_5 = @input.peek
           s = -1
-          if ( look_2_5 == ?T )
+          if ( look_2_5 == 0x54 )
             s = 6
-          elsif ( look_2_5.between?( 0x0000, ?S ) || look_2_5.between?( ?U, 0xFFFF ) )
+          elsif ( look_2_5.between?( 0x0, 0x53 ) || look_2_5.between?( 0x55, 0xffff ) )
             s = 2
           end
 
         when 17
           look_2_4 = @input.peek
           s = -1
-          if ( look_2_4 == ?N )
+          if ( look_2_4 == 0x4e )
             s = 5
-          elsif ( look_2_4.between?( 0x0000, ?M ) || look_2_4.between?( ?O, 0xFFFF ) )
+          elsif ( look_2_4.between?( 0x0, 0x4d ) || look_2_4.between?( 0x4f, 0xffff ) )
             s = 2
           end
 
         when 18
           look_2_14 = @input.peek
           s = -1
-          if ( look_2_14 == ?\r )
+          if ( look_2_14 == 0xd )
             s = 15
-          elsif ( look_2_14 == ?\\ )
+          elsif ( look_2_14 == 0x5c )
             s = 16
-          elsif ( look_2_14 == ?" )
+          elsif ( look_2_14 == 0x22 )
             s = 17
-          elsif ( look_2_14 == ?\n )
+          elsif ( look_2_14 == 0xa )
             s = 18
-          elsif ( look_2_14.between?( 0x0000, ?\t ) || look_2_14.between?( 0x000B, ?\f ) || look_2_14.between?( 0x000E, ?! ) || look_2_14.between?( ?#, ?[ ) || look_2_14.between?( ?], 0xFFFF ) )
+          elsif ( look_2_14.between?( 0x0, 0x9 ) || look_2_14.between?( 0xb, 0xc ) || look_2_14.between?( 0xe, 0x21 ) || look_2_14.between?( 0x23, 0x5b ) || look_2_14.between?( 0x5d, 0xffff ) )
             s = 19
           end
 
         when 19
           look_2_18 = @input.peek
           s = -1
-          if ( look_2_18.between?( 0x0000, 0xFFFF ) )
+          if ( look_2_18.between?( 0x0, 0xffff ) )
             s = 20
           else
             s = 2
@@ -3027,27 +3027,27 @@ module ANTLRv3Grammar
         when 20
           look_2_7 = @input.peek
           s = -1
-          if ( look_2_7 == ?R )
+          if ( look_2_7 == 0x52 )
             s = 8
-          elsif ( look_2_7.between?( 0x0000, ?Q ) || look_2_7.between?( ?S, 0xFFFF ) )
+          elsif ( look_2_7.between?( 0x0, 0x51 ) || look_2_7.between?( 0x53, 0xffff ) )
             s = 2
           end
 
         when 21
           look_2_6 = @input.peek
           s = -1
-          if ( look_2_6 == ?L )
+          if ( look_2_6 == 0x4c )
             s = 7
-          elsif ( look_2_6.between?( 0x0000, ?K ) || look_2_6.between?( ?M, 0xFFFF ) )
+          elsif ( look_2_6.between?( 0x0, 0x4b ) || look_2_6.between?( 0x4d, 0xffff ) )
             s = 2
           end
 
         when 22
           look_2_8 = @input.peek
           s = -1
-          if ( look_2_8 == ?\s )
+          if ( look_2_8 == 0x20 )
             s = 9
-          elsif ( look_2_8.between?( 0x0000, 0x001F ) || look_2_8.between?( ?!, 0xFFFF ) )
+          elsif ( look_2_8.between?( 0x0, 0x1f ) || look_2_8.between?( 0x21, 0xffff ) )
             s = 2
           end
 
@@ -3066,27 +3066,27 @@ module ANTLRv3Grammar
         when 0
           look_9_0 = @input.peek
           s = -1
-          if ( look_9_0 == ?n )
+          if ( look_9_0 == 0x6e )
             s = 1
-          elsif ( look_9_0 == ?r )
+          elsif ( look_9_0 == 0x72 )
             s = 2
-          elsif ( look_9_0 == ?t )
+          elsif ( look_9_0 == 0x74 )
             s = 3
-          elsif ( look_9_0 == ?b )
+          elsif ( look_9_0 == 0x62 )
             s = 4
-          elsif ( look_9_0 == ?f )
+          elsif ( look_9_0 == 0x66 )
             s = 5
-          elsif ( look_9_0 == ?" )
+          elsif ( look_9_0 == 0x22 )
             s = 6
-          elsif ( look_9_0 == ?\' )
+          elsif ( look_9_0 == 0x27 )
             s = 7
-          elsif ( look_9_0 == ?\\ )
+          elsif ( look_9_0 == 0x5c )
             s = 8
-          elsif ( look_9_0 == ?> )
+          elsif ( look_9_0 == 0x3e )
             s = 9
-          elsif ( look_9_0 == ?u )
+          elsif ( look_9_0 == 0x75 )
             s = 10
-          elsif ( look_9_0.between?( 0x0000, ?! ) || look_9_0.between?( ?#, ?& ) || look_9_0.between?( ?(, ?= ) || look_9_0.between?( ??, ?[ ) || look_9_0.between?( ?], ?a ) || look_9_0.between?( ?c, ?e ) || look_9_0.between?( ?g, ?m ) || look_9_0.between?( ?o, ?q ) || look_9_0 == ?s || look_9_0.between?( ?v, 0xFFFF ) )
+          elsif ( look_9_0.between?( 0x0, 0x21 ) || look_9_0.between?( 0x23, 0x26 ) || look_9_0.between?( 0x28, 0x3d ) || look_9_0.between?( 0x3f, 0x5b ) || look_9_0.between?( 0x5d, 0x61 ) || look_9_0.between?( 0x63, 0x65 ) || look_9_0.between?( 0x67, 0x6d ) || look_9_0.between?( 0x6f, 0x71 ) || look_9_0 == 0x73 || look_9_0.between?( 0x76, 0xffff ) )
             s = 11
           end
 
@@ -3105,68 +3105,68 @@ module ANTLRv3Grammar
         when 0
           look_13_0 = @input.peek
           s = -1
-          if ( look_13_0 == ?} )
+          if ( look_13_0 == 0x7d )
             s = 1
-          elsif ( look_13_0 == ?{ )
+          elsif ( look_13_0 == 0x7b )
             s = 2
-          elsif ( look_13_0 == ?/ )
+          elsif ( look_13_0 == 0x2f )
             s = 3
-          elsif ( look_13_0 == ?" )
+          elsif ( look_13_0 == 0x22 )
             s = 4
-          elsif ( look_13_0 == ?\' )
+          elsif ( look_13_0 == 0x27 )
             s = 5
-          elsif ( look_13_0.between?( 0x0000, ?! ) || look_13_0.between?( ?#, ?& ) || look_13_0.between?( ?(, ?. ) || look_13_0.between?( ?0, ?[ ) || look_13_0.between?( ?], ?z ) || look_13_0 == ?| || look_13_0.between?( ?~, 0xFFFF ) )
+          elsif ( look_13_0.between?( 0x0, 0x21 ) || look_13_0.between?( 0x23, 0x26 ) || look_13_0.between?( 0x28, 0x2e ) || look_13_0.between?( 0x30, 0x5b ) || look_13_0.between?( 0x5d, 0x7a ) || look_13_0 == 0x7c || look_13_0.between?( 0x7e, 0xffff ) )
             s = 6
-          elsif ( look_13_0 == ?\\ )
+          elsif ( look_13_0 == 0x5c )
             s = 7
           end
 
         when 1
           look_13_3 = @input.peek
           s = -1
-          if ( look_13_3 == ?/ )
+          if ( look_13_3 == 0x2f )
             s = 8
-          elsif ( look_13_3 == ?* )
+          elsif ( look_13_3 == 0x2a )
             s = 9
-          elsif ( look_13_3.between?( 0x0000, ?) ) || look_13_3.between?( ?+, ?. ) || look_13_3.between?( ?0, 0xFFFF ) )
+          elsif ( look_13_3.between?( 0x0, 0x29 ) || look_13_3.between?( 0x2b, 0x2e ) || look_13_3.between?( 0x30, 0xffff ) )
             s = 6
           end
 
         when 2
           look_13_4 = @input.peek
           s = -1
-          if ( look_13_4 == ?} )
+          if ( look_13_4 == 0x7d )
             s = 16
-          elsif ( look_13_4 == ?{ )
+          elsif ( look_13_4 == 0x7b )
             s = 17
-          elsif ( look_13_4 == ?/ )
+          elsif ( look_13_4 == 0x2f )
             s = 18
-          elsif ( look_13_4 == ?" )
+          elsif ( look_13_4 == 0x22 )
             s = 19
-          elsif ( look_13_4 == ?\' )
+          elsif ( look_13_4 == 0x27 )
             s = 20
-          elsif ( look_13_4.between?( 0x0000, ?! ) || look_13_4.between?( ?#, ?& ) || look_13_4.between?( ?(, ?. ) || look_13_4.between?( ?0, ?[ ) || look_13_4.between?( ?], ?z ) || look_13_4 == ?| || look_13_4.between?( ?~, 0xFFFF ) )
+          elsif ( look_13_4.between?( 0x0, 0x21 ) || look_13_4.between?( 0x23, 0x26 ) || look_13_4.between?( 0x28, 0x2e ) || look_13_4.between?( 0x30, 0x5b ) || look_13_4.between?( 0x5d, 0x7a ) || look_13_4 == 0x7c || look_13_4.between?( 0x7e, 0xffff ) )
             s = 21
-          elsif ( look_13_4 == ?\\ )
+          elsif ( look_13_4 == 0x5c )
             s = 22
           end
 
         when 3
           look_13_5 = @input.peek
           s = -1
-          if ( look_13_5 == ?} )
+          if ( look_13_5 == 0x7d )
             s = 23
-          elsif ( look_13_5 == ?{ )
+          elsif ( look_13_5 == 0x7b )
             s = 24
-          elsif ( look_13_5 == ?/ )
+          elsif ( look_13_5 == 0x2f )
             s = 25
-          elsif ( look_13_5 == ?" )
+          elsif ( look_13_5 == 0x22 )
             s = 26
-          elsif ( look_13_5 == ?\' )
+          elsif ( look_13_5 == 0x27 )
             s = 27
-          elsif ( look_13_5.between?( 0x0000, ?! ) || look_13_5.between?( ?#, ?& ) || look_13_5.between?( ?(, ?. ) || look_13_5.between?( ?0, ?[ ) || look_13_5.between?( ?], ?z ) || look_13_5 == ?| || look_13_5.between?( ?~, 0xFFFF ) )
+          elsif ( look_13_5.between?( 0x0, 0x21 ) || look_13_5.between?( 0x23, 0x26 ) || look_13_5.between?( 0x28, 0x2e ) || look_13_5.between?( 0x30, 0x5b ) || look_13_5.between?( 0x5d, 0x7a ) || look_13_5 == 0x7c || look_13_5.between?( 0x7e, 0xffff ) )
             s = 28
-          elsif ( look_13_5 == ?\\ )
+          elsif ( look_13_5 == 0x5c )
             s = 29
           end
 
@@ -3185,182 +3185,182 @@ module ANTLRv3Grammar
         when 0
           look_21_67 = @input.peek
           s = -1
-          if ( look_21_67.between?( 0x0000, ?& ) || look_21_67.between?( ?(, 0xFFFF ) )
+          if ( look_21_67.between?( 0x0, 0x26 ) || look_21_67.between?( 0x28, 0xffff ) )
             s = 94
-          elsif ( look_21_67 == ?\' )
+          elsif ( look_21_67 == 0x27 )
             s = 95
           end
 
         when 1
           look_21_66 = @input.peek
           s = -1
-          if ( look_21_66 == ?n )
+          if ( look_21_66 == 0x6e )
             s = 83
-          elsif ( look_21_66 == ?r )
+          elsif ( look_21_66 == 0x72 )
             s = 84
-          elsif ( look_21_66 == ?t )
+          elsif ( look_21_66 == 0x74 )
             s = 85
-          elsif ( look_21_66 == ?b )
+          elsif ( look_21_66 == 0x62 )
             s = 86
-          elsif ( look_21_66 == ?f )
+          elsif ( look_21_66 == 0x66 )
             s = 87
-          elsif ( look_21_66 == ?" )
+          elsif ( look_21_66 == 0x22 )
             s = 88
-          elsif ( look_21_66 == ?\' )
+          elsif ( look_21_66 == 0x27 )
             s = 89
-          elsif ( look_21_66 == ?\\ )
+          elsif ( look_21_66 == 0x5c )
             s = 90
-          elsif ( look_21_66 == ?> )
+          elsif ( look_21_66 == 0x3e )
             s = 91
-          elsif ( look_21_66 == ?u )
+          elsif ( look_21_66 == 0x75 )
             s = 92
-          elsif ( look_21_66.between?( 0x0000, ?! ) || look_21_66.between?( ?#, ?& ) || look_21_66.between?( ?(, ?= ) || look_21_66.between?( ??, ?[ ) || look_21_66.between?( ?], ?a ) || look_21_66.between?( ?c, ?e ) || look_21_66.between?( ?g, ?m ) || look_21_66.between?( ?o, ?q ) || look_21_66 == ?s || look_21_66.between?( ?v, 0xFFFF ) )
+          elsif ( look_21_66.between?( 0x0, 0x21 ) || look_21_66.between?( 0x23, 0x26 ) || look_21_66.between?( 0x28, 0x3d ) || look_21_66.between?( 0x3f, 0x5b ) || look_21_66.between?( 0x5d, 0x61 ) || look_21_66.between?( 0x63, 0x65 ) || look_21_66.between?( 0x67, 0x6d ) || look_21_66.between?( 0x6f, 0x71 ) || look_21_66 == 0x73 || look_21_66.between?( 0x76, 0xffff ) )
             s = 93
           end
 
         when 2
           look_21_155 = @input.peek
           s = -1
-          if ( look_21_155 == ?\' )
+          if ( look_21_155 == 0x27 )
             s = 95
-          elsif ( look_21_155.between?( 0x0000, ?& ) || look_21_155.between?( ?(, 0xFFFF ) )
+          elsif ( look_21_155.between?( 0x0, 0x26 ) || look_21_155.between?( 0x28, 0xffff ) )
             s = 94
           end
 
         when 3
           look_21_92 = @input.peek
           s = -1
-          if ( look_21_92.between?( ?0, ?9 ) || look_21_92.between?( ?A, ?F ) || look_21_92.between?( ?a, ?f ) )
+          if ( look_21_92.between?( 0x30, 0x39 ) || look_21_92.between?( 0x41, 0x46 ) || look_21_92.between?( 0x61, 0x66 ) )
             s = 111
-          elsif ( look_21_92 == ?\' )
+          elsif ( look_21_92 == 0x27 )
             s = 95
-          elsif ( look_21_92.between?( 0x0000, ?& ) || look_21_92.between?( ?(, ?/ ) || look_21_92.between?( ?:, ?@ ) || look_21_92.between?( ?G, ?` ) || look_21_92.between?( ?g, 0xFFFF ) )
+          elsif ( look_21_92.between?( 0x0, 0x26 ) || look_21_92.between?( 0x28, 0x2f ) || look_21_92.between?( 0x3a, 0x40 ) || look_21_92.between?( 0x47, 0x60 ) || look_21_92.between?( 0x67, 0xffff ) )
             s = 94
           end
 
         when 4
           look_21_88 = @input.peek
           s = -1
-          if ( look_21_88 == ?\' )
+          if ( look_21_88 == 0x27 )
             s = 95
-          elsif ( look_21_88.between?( 0x0000, ?& ) || look_21_88.between?( ?(, 0xFFFF ) )
+          elsif ( look_21_88.between?( 0x0, 0x26 ) || look_21_88.between?( 0x28, 0xffff ) )
             s = 94
           end
 
         when 5
           look_21_89 = @input.peek
           s = -1
-          if ( look_21_89 == ?\' )
+          if ( look_21_89 == 0x27 )
             s = 95
-          elsif ( look_21_89.between?( 0x0000, ?& ) || look_21_89.between?( ?(, 0xFFFF ) )
+          elsif ( look_21_89.between?( 0x0, 0x26 ) || look_21_89.between?( 0x28, 0xffff ) )
             s = 94
           end
 
         when 6
           look_21_90 = @input.peek
           s = -1
-          if ( look_21_90.between?( 0x0000, ?& ) || look_21_90.between?( ?(, 0xFFFF ) )
+          if ( look_21_90.between?( 0x0, 0x26 ) || look_21_90.between?( 0x28, 0xffff ) )
             s = 94
-          elsif ( look_21_90 == ?\' )
+          elsif ( look_21_90 == 0x27 )
             s = 95
           end
 
         when 7
           look_21_91 = @input.peek
           s = -1
-          if ( look_21_91.between?( 0x0000, ?& ) || look_21_91.between?( ?(, 0xFFFF ) )
+          if ( look_21_91.between?( 0x0, 0x26 ) || look_21_91.between?( 0x28, 0xffff ) )
             s = 94
-          elsif ( look_21_91 == ?\' )
+          elsif ( look_21_91 == 0x27 )
             s = 95
           end
 
         when 8
           look_21_93 = @input.peek
           s = -1
-          if ( look_21_93 == ?\' )
+          if ( look_21_93 == 0x27 )
             s = 95
-          elsif ( look_21_93.between?( 0x0000, ?& ) || look_21_93.between?( ?(, 0xFFFF ) )
+          elsif ( look_21_93.between?( 0x0, 0x26 ) || look_21_93.between?( 0x28, 0xffff ) )
             s = 94
           end
 
         when 9
           look_21_30 = @input.peek
           s = -1
-          if ( look_21_30 == ?\\ )
+          if ( look_21_30 == 0x5c )
             s = 66
-          elsif ( look_21_30.between?( 0x0000, ?& ) || look_21_30.between?( ?(, ?[ ) || look_21_30.between?( ?], 0xFFFF ) )
+          elsif ( look_21_30.between?( 0x0, 0x26 ) || look_21_30.between?( 0x28, 0x5b ) || look_21_30.between?( 0x5d, 0xffff ) )
             s = 67
           end
 
         when 10
           look_21_83 = @input.peek
           s = -1
-          if ( look_21_83.between?( 0x0000, ?& ) || look_21_83.between?( ?(, 0xFFFF ) )
+          if ( look_21_83.between?( 0x0, 0x26 ) || look_21_83.between?( 0x28, 0xffff ) )
             s = 94
-          elsif ( look_21_83 == ?\' )
+          elsif ( look_21_83 == 0x27 )
             s = 95
           end
 
         when 11
           look_21_85 = @input.peek
           s = -1
-          if ( look_21_85.between?( 0x0000, ?& ) || look_21_85.between?( ?(, 0xFFFF ) )
+          if ( look_21_85.between?( 0x0, 0x26 ) || look_21_85.between?( 0x28, 0xffff ) )
             s = 94
-          elsif ( look_21_85 == ?\' )
+          elsif ( look_21_85 == 0x27 )
             s = 95
           end
 
         when 12
           look_21_111 = @input.peek
           s = -1
-          if ( look_21_111.between?( 0x0000, ?/ ) || look_21_111.between?( ?:, ?@ ) || look_21_111.between?( ?G, ?` ) || look_21_111.between?( ?g, 0xFFFF ) )
+          if ( look_21_111.between?( 0x0, 0x2f ) || look_21_111.between?( 0x3a, 0x40 ) || look_21_111.between?( 0x47, 0x60 ) || look_21_111.between?( 0x67, 0xffff ) )
             s = 94
-          elsif ( look_21_111.between?( ?0, ?9 ) || look_21_111.between?( ?A, ?F ) || look_21_111.between?( ?a, ?f ) )
+          elsif ( look_21_111.between?( 0x30, 0x39 ) || look_21_111.between?( 0x41, 0x46 ) || look_21_111.between?( 0x61, 0x66 ) )
             s = 128
           end
 
         when 13
           look_21_84 = @input.peek
           s = -1
-          if ( look_21_84 == ?\' )
+          if ( look_21_84 == 0x27 )
             s = 95
-          elsif ( look_21_84.between?( 0x0000, ?& ) || look_21_84.between?( ?(, 0xFFFF ) )
+          elsif ( look_21_84.between?( 0x0, 0x26 ) || look_21_84.between?( 0x28, 0xffff ) )
             s = 94
           end
 
         when 14
           look_21_128 = @input.peek
           s = -1
-          if ( look_21_128.between?( 0x0000, ?/ ) || look_21_128.between?( ?:, ?@ ) || look_21_128.between?( ?G, ?` ) || look_21_128.between?( ?g, 0xFFFF ) )
+          if ( look_21_128.between?( 0x0, 0x2f ) || look_21_128.between?( 0x3a, 0x40 ) || look_21_128.between?( 0x47, 0x60 ) || look_21_128.between?( 0x67, 0xffff ) )
             s = 94
-          elsif ( look_21_128.between?( ?0, ?9 ) || look_21_128.between?( ?A, ?F ) || look_21_128.between?( ?a, ?f ) )
+          elsif ( look_21_128.between?( 0x30, 0x39 ) || look_21_128.between?( 0x41, 0x46 ) || look_21_128.between?( 0x61, 0x66 ) )
             s = 143
           end
 
         when 15
           look_21_87 = @input.peek
           s = -1
-          if ( look_21_87 == ?\' )
+          if ( look_21_87 == 0x27 )
             s = 95
-          elsif ( look_21_87.between?( 0x0000, ?& ) || look_21_87.between?( ?(, 0xFFFF ) )
+          elsif ( look_21_87.between?( 0x0, 0x26 ) || look_21_87.between?( 0x28, 0xffff ) )
             s = 94
           end
 
         when 16
           look_21_143 = @input.peek
           s = -1
-          if ( look_21_143.between?( 0x0000, ?/ ) || look_21_143.between?( ?:, ?@ ) || look_21_143.between?( ?G, ?` ) || look_21_143.between?( ?g, 0xFFFF ) )
+          if ( look_21_143.between?( 0x0, 0x2f ) || look_21_143.between?( 0x3a, 0x40 ) || look_21_143.between?( 0x47, 0x60 ) || look_21_143.between?( 0x67, 0xffff ) )
             s = 94
-          elsif ( look_21_143.between?( ?0, ?9 ) || look_21_143.between?( ?A, ?F ) || look_21_143.between?( ?a, ?f ) )
+          elsif ( look_21_143.between?( 0x30, 0x39 ) || look_21_143.between?( 0x41, 0x46 ) || look_21_143.between?( 0x61, 0x66 ) )
             s = 155
           end
 
         when 17
           look_21_86 = @input.peek
           s = -1
-          if ( look_21_86 == ?\' )
+          if ( look_21_86 == 0x27 )
             s = 95
-          elsif ( look_21_86.between?( 0x0000, ?& ) || look_21_86.between?( ?(, 0xFFFF ) )
+          elsif ( look_21_86.between?( 0x0, 0x26 ) || look_21_86.between?( 0x28, 0xffff ) )
             s = 94
           end
 

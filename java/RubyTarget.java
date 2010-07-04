@@ -330,24 +330,58 @@ public class RubyTarget
         String literal
     )
     {
+        int code_point = 0;
         literal = literal.substring( 1, literal.length() - 1 );
-
-        String result = "?";
-
-        if ( literal.equals( "\\" ) ) {
-            result += "\\\\";
+        
+        if ( literal.charAt( 0 ) == '\\' ) {
+            switch ( literal.charAt( 1 ) ) {
+                case    '\\':
+                case    '"':
+                case    '\'':
+                    code_point = literal.codePointAt( 1 );
+                    break;
+                case    'n':
+                    code_point = 10;
+                    break;
+                case    'r':
+                    code_point = 13;
+                    break;
+                case    't':
+                    code_point = 9;
+                    break;
+                case    'b':
+                    code_point = 8;
+                    break;
+                case    'f':
+                    code_point = 12;
+                    break;
+                case    'u':    // Assume unnnn
+                    code_point = Integer.parseInt( literal.substring( 2 ), 16 );
+                    break;
+                default:
+                    System.out.println( "1: hey you didn't account for this: \"" + literal + "\"" );
+                    break;
+            }
+        } else if ( literal.length() == 1 ) {
+            code_point = literal.codePointAt( 0 );
+        } else {
+            System.out.println( "2: hey you didn't account for this: \"" + literal + "\"" );
         }
-        else if ( literal.equals( " " ) ) {
-            result += "\\s";
-        }
-        else if ( literal.startsWith( "\\u" ) ) {
-            result = "0x" + literal.substring( 2 );
-        }
-        else {
-            result += literal;
-        }
-
-        return result;
+        
+        return ( "0x" + Integer.toHexString( code_point ) );
+        
+        //if ( literal.equals( "\\" ) ) {
+        //    result += "\\\\";
+        //}
+        //else if ( literal.equals( " " ) ) {
+        //    result += "\\s";
+        //}
+        //else if ( literal.startsWith( "\\u" ) ) {
+        //    result = "0x" + literal.substring( 2 );
+        //}
+        //else {
+        //    result += literal;
+        //}
     }
 
     public int getMaxCharValue( CodeGenerator generator )

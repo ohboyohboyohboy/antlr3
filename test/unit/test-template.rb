@@ -206,53 +206,45 @@ describe Template::Group, "dynamic template definition" do
 end
 
 describe Template::Group, "loading a template definition file" do
-  if RUBY_VERSION =~ /^1\.9/
-    
-    example 'Ruby 1.9' do
-      raise( "template group files are currently broken in Ruby 1.9" )
-    end
-    
-  else
-    before :each do
-      @group = Template::Group.load( SAMPLE_GROUP_FILE )
-    end
-    
-    it_should_behave_like "template groups"
-    
-    example "template object string rendering" do
-      attributes = [
-        %w( family ),
-        %w( name r )
-      ]
-            
-      methods = [
-        MethodDescription.new( 'eat', %q[puts( "ate %s %s" % [ number, @name ] )], %w( number ) ),
-        MethodDescription.new( :to_s, '@name.to_s.dup' )
-      ]
-      
-      vegetable = @group.class_definition(
-        :name => 'Vegetable',
-        :superclass => 'Food',
-        :attributes => attributes,
-        :methods => methods
-      )
-      
-      vegetable.to_s.should == tidy( <<-END.chomp )
-      | class Vegetable < Food
-      |
-      |   attr_accessor :family
-      |   attr_reader :name
-      |   
-      |   def eat( number )
-      |     puts( "ate %s %s" % [ number, @name ] )
-      |   end
-      |   
-      |   def to_s
-      |     @name.to_s.dup
-      |   end
-      | end
-      END
-    end
+  
+  before :each do
+    @group = Template::Group.load( SAMPLE_GROUP_FILE )
   end
   
+  it_should_behave_like "template groups"
+  
+  example "template object string rendering" do
+    attributes = [
+      %w( family ),
+      %w( name r )
+    ]
+          
+    methods = [
+      MethodDescription.new( 'eat', %q[puts( "ate %s %s" % [ number, @name ] )], %w( number ) ),
+      MethodDescription.new( :to_s, '@name.to_s.dup' )
+    ]
+    
+    vegetable = @group.class_definition(
+      :name => 'Vegetable',
+      :superclass => 'Food',
+      :attributes => attributes,
+      :methods => methods
+    )
+    
+    vegetable.to_s.should == tidy( <<-END.chomp )
+    | class Vegetable < Food
+    |
+    |   attr_accessor :family
+    |   attr_reader :name
+    |   
+    |   def eat( number )
+    |     puts( "ate %s %s" % [ number, @name ] )
+    |   end
+    |   
+    |   def to_s
+    |     @name.to_s.dup
+    |   end
+    | end
+    END
+  end
 end

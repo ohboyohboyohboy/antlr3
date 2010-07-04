@@ -360,6 +360,8 @@ development goal for this project.
 =end
 
 class StringStream
+  NEWLINE = ?\n.ord
+  
   include CharacterStream
   
   # current integer character index of the stream
@@ -377,24 +379,76 @@ class StringStream
   
   # the entire string that is wrapped by the stream
   attr_reader :data
+  attr_reader :string
   
-  # creates a new StringStream object where +data+ is the string data to stream.
-  # accepts the following options in a symbol-to-value hash:
-  #
-  # [:file or :name] the (file) name to associate with the stream; default: <tt>'(string)'</tt>
-  # [:line] the initial line number; default: +1+
-  # [:column] the initial column number; default: +0+
-  # 
-  def initialize( data, options = {} )
-    @data = data.to_s
-    @data.equal?( data ) and @data = @data.clone
-    @data.freeze
-    @position = 0
-    @line = options.fetch :line, 1
-    @column = options.fetch :column, 0
-    @markers = []
-    mark
-    @name ||= options[ :file ] || options[ :name ] # || '(string)'
+  if RUBY_VERSION =~ /^1\.9/
+    
+    # creates a new StringStream object where +data+ is the string data to stream.
+    # accepts the following options in a symbol-to-value hash:
+    #
+    # [:file or :name] the (file) name to associate with the stream; default: <tt>'(string)'</tt>
+    # [:line] the initial line number; default: +1+
+    # [:column] the initial column number; default: +0+
+    # 
+    def initialize( data, options = {} )      # for 1.9
+      @string   = data.to_s.encode( Encoding::UTF_8 ).freeze
+      @data     = @string.codepoints.to_a.freeze
+      @position = options.fetch :position, 0
+      @line     = options.fetch :line, 1
+      @column   = options.fetch :column, 0
+      @markers  = []
+      @name   ||= options[ :file ] || options[ :name ] # || '(string)'
+      mark
+    end
+    
+    #
+    # identical to #peek, except it returns the character value as a String
+    # 
+    def look( k = 1 )               # for 1.9
+      k == 0 and return nil
+      k += 1 if k < 0
+      
+      index = @position + k - 1
+      index < 0 and return nil
+      
+      @string[ index ]
+    end
+    
+  else
+    
+    # creates a new StringStream object where +data+ is the string data to stream.
+    # accepts the following options in a symbol-to-value hash:
+    #
+    # [:file or :name] the (file) name to associate with the stream; default: <tt>'(string)'</tt>
+    # [:line] the initial line number; default: +1+
+    # [:column] the initial column number; default: +0+
+    # 
+    def initialize( data, options = {} )    # for 1.8
+      @data = data.to_s
+      @data.equal?( data ) and @data = @data.clone
+      @data.freeze
+      @string = @data
+      @position = options.fetch :position, 0
+      @line = options.fetch :line, 1
+      @column = options.fetch :column, 0
+      @markers = []
+      @name ||= options[ :file ] || options[ :name ] # || '(string)'
+      mark
+    end
+    
+    #
+    # identical to #peek, except it returns the character value as a String
+    # 
+    def look( k = 1 )                        # for 1.8
+      k == 0 and return nil
+      k += 1 if k < 0
+      
+      index = @position + k - 1
+      index < 0 and return nil
+      
+      c = @data[ index ] and c.chr
+    end
+    
   end
   
   def size
@@ -407,10 +461,10 @@ class StringStream
   # rewinds the stream back to the start and clears out any existing marker entries
   # 
   def reset
-    @position = 0
-    @line = 1
-    @column = 0
+    initial_location = @markers.first
+    @position, @line, @column = initial_location
     @markers.clear
+    @markers << initial_location
     return self
   end
   
@@ -421,7 +475,7 @@ class StringStream
     c = @data[ @position ] || EOF
     if @position < @data.length
       @column += 1
-      if c == ?\n
+      if c == NEWLINE
         @line += 1
         @column = 0
       end
@@ -445,27 +499,14 @@ class StringStream
   end
   
   #
-  # identical to #peek, except it returns the character value as a String
-  # 
-  def look( k = 1 )
-    k == 0 and return nil
-    k += 1 if k < 0
-    
-    index = @position + k - 1
-    index < 0 and return nil
-    
-    c = @data[ index ] and c.chr
-  end
-  
-  #
   # return a substring around the stream cursor at a distance +k+
   # if <tt>k >= 0</tt>, return the next k characters
   # if <tt>k < 0</tt>, return the previous <tt>|k|</tt> characters
   # 
   def through( k )
-    if k >= 0 then @data[ @position, k ] else
+    if k >= 0 then @string[ @position, k ] else
       start = ( @position + k ).at_least( 0 ) # start cannot be negative or index will wrap around
-      @data[ start ... @position ]
+      @string[ start ... @position ]
     end
   end
   
@@ -487,7 +528,7 @@ class StringStream
   # This is an extra utility method for use inside lexer actions if needed.
   # 
   def beginning_of_line?
-    @position.zero? or @data[ @position - 1 ] == ?\n
+    @position.zero? or @data[ @position - 1 ] == NEWLINE
   end
   
   #
@@ -495,7 +536,7 @@ class StringStream
   # This is an extra utility method for use inside lexer actions if needed.
   # 
   def end_of_line?
-    @data[ @position ] == ?\n if @position >= @data.length
+    @data[ @position ] == NEWLINE #if @position < @data.length
   end
   
   #
@@ -516,7 +557,7 @@ class StringStream
   
   alias eof? end_of_string?
   alias bof? beginning_of_string?
-
+  
   #
   # record the current stream location parameters in the stream's marker table and
   # return an integer-valued bookmark that may be used to restore the stream's
@@ -605,14 +646,14 @@ class StringStream
   # return the string slice between position +start+ and +stop+
   # 
   def substring( start, stop )
-    @data[ start, stop - start + 1 ]
+    @string[ start, stop - start + 1 ]
   end
   
   #
   # identical to String#[]
   # 
   def []( start, *args )
-    @data[ start, *args ]
+    @string[ start, *args ]
   end
 end
 

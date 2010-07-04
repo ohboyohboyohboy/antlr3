@@ -79,23 +79,23 @@ class TestStringStream < Test::Unit::TestCase
     @stream.index.should == 0
     @stream.line.should == 1
     @stream.column.should == 0
-    @stream.peek(1).should == ?o
+    @stream.peek(1).should == ?o.ord
   end
   
   def test_look
     @stream.look(1).should == 'o'
     @stream.look(2).should == 'h'
     @stream.look(3).should == "\n"
-    @stream.peek(1).should == ?o
-    @stream.peek(2).should == ?h
-    @stream.peek(3).should == ?\n
+    @stream.peek(1).should == ?o.ord
+    @stream.peek(2).should == ?h.ord
+    @stream.peek(3).should == ?\n.ord
     
     6.times { @stream.consume }
     @stream.look(1).should == '!'
     @stream.look(2).should == "\n"
     @stream.look(3).should be_nil
-    @stream.peek(1).should == ?!
-    @stream.peek(2).should == ?\n
+    @stream.peek(1).should == ?!.ord
+    @stream.peek(2).should == ?\n.ord
     @stream.peek(3).should == EOF
   end
   
@@ -111,7 +111,7 @@ class TestStringStream < Test::Unit::TestCase
     @stream.index.should == 3
     @stream.line.should == 2
     @stream.column.should == 0
-    @stream.peek(1).should == ?h
+    @stream.peek(1).should == ?h.ord
   end
   
   def test_mark
@@ -165,7 +165,7 @@ class TestStringStream < Test::Unit::TestCase
     @stream.index.should == 4
     @stream.line.should == 2
     @stream.column.should == 1
-    @stream.peek(1).should == ?e
+    @stream.peek(1).should == ?e.ord
     
   end
 
@@ -194,7 +194,7 @@ class TestStringStream < Test::Unit::TestCase
     @stream.index().should == 5
     @stream.line.should == 2
     @stream.column.should == 2
-    @stream.peek(1).should == ?y    
+    @stream.peek(1).should == ?y.ord    
   end
 end
 
@@ -221,7 +221,7 @@ class TestFileStream < Test::Unit::TestCase
     @stream.column.should == 1
     @stream.mark_depth.should == 2
     @stream.look(1).should == 'a'
-    @stream.peek(1).should == ?a
+    @stream.peek(1).should == ?a.ord
   end
   
   def test_encoded

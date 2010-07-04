@@ -2,10 +2,10 @@
 #
 # GroupFile.g
 # 
-# Generated using ANTLR version: 3.2.1-SNAPSHOT Apr 29, 2010 11:36:19
-# Ruby runtime library version: 1.7.3
+# Generated using ANTLR version: 3.2.1-SNAPSHOT Jun 18, 2010 05:38:11
+# Ruby runtime library version: 1.7.5
 # Input grammar file: GroupFile.g
-# Generated at: 2010-05-16 18:30:21
+# Generated at: 2010-07-03 23:15:35
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.7.3):
+Failed to load the ANTLR3 runtime library (version 1.7.5):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '~> 1.7.3' )
+    Gem.activate( 'antlr3', '~> 1.7.5' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -89,7 +89,7 @@ module GroupFile
 
     
     begin
-      generated_using( "GroupFile.g", "3.2.1-SNAPSHOT Apr 29, 2010 11:36:19", "1.7.3" )
+      generated_using( "GroupFile.g", "3.2.1-SNAPSHOT Jun 18, 2010 05:38:11", "1.7.5" )
     rescue NoMethodError => error
       # ignore
     end
@@ -169,7 +169,7 @@ module GroupFile
       
       # - - - - main rule block - - - -
       # at line 18:9: ';'
-      match( ?; )
+      match( 0x3b )
 
       
       @state.type = type
@@ -217,7 +217,7 @@ module GroupFile
       
       # - - - - main rule block - - - -
       # at line 20:9: '('
-      match( ?( )
+      match( 0x28 )
 
       
       @state.type = type
@@ -241,7 +241,7 @@ module GroupFile
       
       # - - - - main rule block - - - -
       # at line 21:9: ')'
-      match( ?) )
+      match( 0x29 )
 
       
       @state.type = type
@@ -265,7 +265,7 @@ module GroupFile
       
       # - - - - main rule block - - - -
       # at line 22:9: ','
-      match( ?, )
+      match( 0x2c )
 
       
       @state.type = type
@@ -289,7 +289,7 @@ module GroupFile
       
       # - - - - main rule block - - - -
       # at line 23:9: '*'
-      match( ?* )
+      match( 0x2a )
 
       
       @state.type = type
@@ -313,7 +313,7 @@ module GroupFile
       
       # - - - - main rule block - - - -
       # at line 24:9: '&'
-      match( ?& )
+      match( 0x26 )
 
       
       @state.type = type
@@ -337,7 +337,7 @@ module GroupFile
       
       # - - - - main rule block - - - -
       # at line 25:9: '='
-      match( ?= )
+      match( 0x3d )
 
       
       @state.type = type
@@ -361,20 +361,20 @@ module GroupFile
       
       # - - - - main rule block - - - -
       # at line 125:5: 'A' .. 'Z' ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
-      match_range( ?A, ?Z )
+      match_range( 0x41, 0x5a )
       # at line 125:14: ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
       while true # decision 1
         alt_1 = 2
         look_1_0 = @input.peek( 1 )
 
-        if ( look_1_0.between?( ?0, ?9 ) || look_1_0.between?( ?A, ?Z ) || look_1_0 == ?_ || look_1_0.between?( ?a, ?z ) )
+        if ( look_1_0.between?( 0x30, 0x39 ) || look_1_0.between?( 0x41, 0x5a ) || look_1_0 == 0x5f || look_1_0.between?( 0x61, 0x7a ) )
           alt_1 = 1
 
         end
         case alt_1
         when 1
           # at line 
-          if @input.peek( 1 ).between?( ?0, ?9 ) || @input.peek( 1 ).between?( ?A, ?Z ) || @input.peek(1) == ?_ || @input.peek( 1 ).between?( ?a, ?z )
+          if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -411,7 +411,7 @@ module GroupFile
       
       # - - - - main rule block - - - -
       # at line 129:5: ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
-      if @input.peek(1) == ?_ || @input.peek( 1 ).between?( ?a, ?z )
+      if @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
         @input.consume
       else
         mse = MismatchedSet( nil )
@@ -425,14 +425,14 @@ module GroupFile
         alt_2 = 2
         look_2_0 = @input.peek( 1 )
 
-        if ( look_2_0.between?( ?0, ?9 ) || look_2_0.between?( ?A, ?Z ) || look_2_0 == ?_ || look_2_0.between?( ?a, ?z ) )
+        if ( look_2_0.between?( 0x30, 0x39 ) || look_2_0.between?( 0x41, 0x5a ) || look_2_0 == 0x5f || look_2_0.between?( 0x61, 0x7a ) )
           alt_2 = 1
 
         end
         case alt_2
         when 1
           # at line 
-          if @input.peek( 1 ).between?( ?0, ?9 ) || @input.peek( 1 ).between?( ?A, ?Z ) || @input.peek(1) == ?_ || @input.peek( 1 ).between?( ?a, ?z )
+          if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -475,41 +475,41 @@ module GroupFile
         alt_3 = 3
         look_3_0 = @input.peek( 1 )
 
-        if ( look_3_0 == ?> )
+        if ( look_3_0 == 0x3e )
           look_3_1 = @input.peek( 2 )
 
-          if ( look_3_1 == ?> )
+          if ( look_3_1 == 0x3e )
             look_3_4 = @input.peek( 3 )
 
-            if ( look_3_4 == ?> )
+            if ( look_3_4 == 0x3e )
               alt_3 = 3
-            elsif ( look_3_4.between?( 0x0000, ?= ) || look_3_4.between?( ??, 0xFFFF ) )
+            elsif ( look_3_4.between?( 0x0, 0x3d ) || look_3_4.between?( 0x3f, 0xffff ) )
               alt_3 = 2
 
             end
-          elsif ( look_3_1.between?( 0x0000, ?= ) || look_3_1.between?( ??, 0xFFFF ) )
+          elsif ( look_3_1.between?( 0x0, 0x3d ) || look_3_1.between?( 0x3f, 0xffff ) )
             alt_3 = 2
 
           end
-        elsif ( look_3_0 == ?\\ )
+        elsif ( look_3_0 == 0x5c )
           look_3_2 = @input.peek( 2 )
 
-          if ( look_3_2 == ?> )
+          if ( look_3_2 == 0x3e )
             alt_3 = 1
-          elsif ( look_3_2 == ?\\ )
+          elsif ( look_3_2 == 0x5c )
             alt_3 = 1
-          elsif ( look_3_2.between?( 0x0000, ?= ) || look_3_2.between?( ??, ?[ ) || look_3_2.between?( ?], 0xFFFF ) )
+          elsif ( look_3_2.between?( 0x0, 0x3d ) || look_3_2.between?( 0x3f, 0x5b ) || look_3_2.between?( 0x5d, 0xffff ) )
             alt_3 = 1
 
           end
-        elsif ( look_3_0.between?( 0x0000, ?= ) || look_3_0.between?( ??, ?[ ) || look_3_0.between?( ?], 0xFFFF ) )
+        elsif ( look_3_0.between?( 0x0, 0x3d ) || look_3_0.between?( 0x3f, 0x5b ) || look_3_0.between?( 0x5d, 0xffff ) )
           alt_3 = 2
 
         end
         case alt_3
         when 1
           # at line 135:35: '\\\\' .
-          match( ?\\ )
+          match( 0x5c )
           match_any
 
         when 2
@@ -547,9 +547,9 @@ module GroupFile
       alt_6 = 2
       look_6_0 = @input.peek( 1 )
 
-      if ( look_6_0 == ?" )
+      if ( look_6_0 == 0x22 )
         alt_6 = 1
-      elsif ( look_6_0 == ?\' )
+      elsif ( look_6_0 == 0x27 )
         alt_6 = 2
       else
         raise NoViableAlternative( "", 6, 0 )
@@ -557,22 +557,22 @@ module GroupFile
       case alt_6
       when 1
         # at line 140:5: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
-        match( ?" )
+        match( 0x22 )
         # at line 140:10: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
         while true # decision 4
           alt_4 = 3
           look_4_0 = @input.peek( 1 )
 
-          if ( look_4_0.between?( 0x0000, ?! ) || look_4_0.between?( ?#, ?[ ) || look_4_0.between?( ?], 0xFFFF ) )
+          if ( look_4_0.between?( 0x0, 0x21 ) || look_4_0.between?( 0x23, 0x5b ) || look_4_0.between?( 0x5d, 0xffff ) )
             alt_4 = 1
-          elsif ( look_4_0 == ?\\ )
+          elsif ( look_4_0 == 0x5c )
             alt_4 = 2
 
           end
           case alt_4
           when 1
             # at line 140:12: ~ ( '\\\\' | '\"' )
-            if @input.peek( 1 ).between?( 0x0000, ?! ) || @input.peek( 1 ).between?( ?#, ?[ ) || @input.peek( 1 ).between?( ?], 0x00FF )
+            if @input.peek( 1 ).between?( 0x0, 0x21 ) || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
               @input.consume
             else
               mse = MismatchedSet( nil )
@@ -584,33 +584,33 @@ module GroupFile
 
           when 2
             # at line 140:31: '\\\\' .
-            match( ?\\ )
+            match( 0x5c )
             match_any
 
           else
             break # out of loop for decision 4
           end
         end # loop for decision 4
-        match( ?" )
+        match( 0x22 )
 
       when 2
         # at line 141:5: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
-        match( ?\' )
+        match( 0x27 )
         # at line 141:10: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
         while true # decision 5
           alt_5 = 3
           look_5_0 = @input.peek( 1 )
 
-          if ( look_5_0.between?( 0x0000, ?& ) || look_5_0.between?( ?(, ?[ ) || look_5_0.between?( ?], 0xFFFF ) )
+          if ( look_5_0.between?( 0x0, 0x26 ) || look_5_0.between?( 0x28, 0x5b ) || look_5_0.between?( 0x5d, 0xffff ) )
             alt_5 = 1
-          elsif ( look_5_0 == ?\\ )
+          elsif ( look_5_0 == 0x5c )
             alt_5 = 2
 
           end
           case alt_5
           when 1
             # at line 141:12: ~ ( '\\\\' | '\\'' )
-            if @input.peek( 1 ).between?( 0x0000, ?& ) || @input.peek( 1 ).between?( ?(, ?[ ) || @input.peek( 1 ).between?( ?], 0x00FF )
+            if @input.peek( 1 ).between?( 0x0, 0x26 ) || @input.peek( 1 ).between?( 0x28, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
               @input.consume
             else
               mse = MismatchedSet( nil )
@@ -622,14 +622,14 @@ module GroupFile
 
           when 2
             # at line 141:31: '\\\\' .
-            match( ?\\ )
+            match( 0x5c )
             match_any
 
           else
             break # out of loop for decision 5
           end
         end # loop for decision 5
-        match( ?\' )
+        match( 0x27 )
 
       end
       
@@ -657,14 +657,14 @@ module GroupFile
       alt_10 = 2
       look_10_0 = @input.peek( 1 )
 
-      if ( look_10_0 == ?# )
+      if ( look_10_0 == 0x23 )
         alt_10 = 1
-      elsif ( look_10_0 == ?/ )
+      elsif ( look_10_0 == 0x2f )
         look_10_2 = @input.peek( 2 )
 
-        if ( look_10_2 == ?/ )
+        if ( look_10_2 == 0x2f )
           alt_10 = 1
-        elsif ( look_10_2 == ?* )
+        elsif ( look_10_2 == 0x2a )
           alt_10 = 2
         else
           raise NoViableAlternative( "", 10, 2 )
@@ -679,9 +679,9 @@ module GroupFile
         alt_7 = 2
         look_7_0 = @input.peek( 1 )
 
-        if ( look_7_0 == ?# )
+        if ( look_7_0 == 0x23 )
           alt_7 = 1
-        elsif ( look_7_0 == ?/ )
+        elsif ( look_7_0 == 0x2f )
           alt_7 = 2
         else
           raise NoViableAlternative( "", 7, 0 )
@@ -689,7 +689,7 @@ module GroupFile
         case alt_7
         when 1
           # at line 146:7: '#'
-          match( ?# )
+          match( 0x23 )
 
         when 2
           # at line 146:13: '//'
@@ -701,14 +701,14 @@ module GroupFile
           alt_8 = 2
           look_8_0 = @input.peek( 1 )
 
-          if ( look_8_0.between?( 0x0000, ?\t ) || look_8_0.between?( 0x000B, 0xFFFF ) )
+          if ( look_8_0.between?( 0x0, 0x9 ) || look_8_0.between?( 0xb, 0xffff ) )
             alt_8 = 1
 
           end
           case alt_8
           when 1
             # at line 146:20: ~ '\\n'
-            if @input.peek( 1 ).between?( 0x0000, ?\t ) || @input.peek( 1 ).between?( 0x000B, 0x00FF )
+            if @input.peek( 1 ).between?( 0x0, 0x9 ) || @input.peek( 1 ).between?( 0xb, 0xff )
               @input.consume
             else
               mse = MismatchedSet( nil )
@@ -731,16 +731,16 @@ module GroupFile
           alt_9 = 2
           look_9_0 = @input.peek( 1 )
 
-          if ( look_9_0 == ?* )
+          if ( look_9_0 == 0x2a )
             look_9_1 = @input.peek( 2 )
 
-            if ( look_9_1 == ?/ )
+            if ( look_9_1 == 0x2f )
               alt_9 = 2
-            elsif ( look_9_1.between?( 0x0000, ?. ) || look_9_1.between?( ?0, 0xFFFF ) )
+            elsif ( look_9_1.between?( 0x0, 0x2e ) || look_9_1.between?( 0x30, 0xffff ) )
               alt_9 = 1
 
             end
-          elsif ( look_9_0.between?( 0x0000, ?) ) || look_9_0.between?( ?+, 0xFFFF ) )
+          elsif ( look_9_0.between?( 0x0, 0x29 ) || look_9_0.between?( 0x2b, 0xffff ) )
             alt_9 = 1
 
           end
@@ -786,14 +786,14 @@ module GroupFile
         alt_11 = 2
         look_11_0 = @input.peek( 1 )
 
-        if ( look_11_0.between?( ?\t, ?\n ) || look_11_0.between?( ?\f, ?\r ) || look_11_0 == ?\s )
+        if ( look_11_0.between?( 0x9, 0xa ) || look_11_0.between?( 0xc, 0xd ) || look_11_0 == 0x20 )
           alt_11 = 1
 
         end
         case alt_11
         when 1
           # at line 
-          if @input.peek( 1 ).between?( ?\t, ?\n ) || @input.peek( 1 ).between?( ?\f, ?\r ) || @input.peek(1) == ?\s
+          if @input.peek( 1 ).between?( 0x9, 0xa ) || @input.peek( 1 ).between?( 0xc, 0xd ) || @input.peek(1) == 0x20
             @input.consume
           else
             mse = MismatchedSet( nil )

@@ -2,10 +2,10 @@
 #
 # ANTLRv3Grammar.g
 # 
-# Generated using ANTLR version: 3.2.1-SNAPSHOT Apr 27, 2010 05:26:39
-# Ruby runtime library version: 1.7.0
+# Generated using ANTLR version: 3.2.1-SNAPSHOT Jun 18, 2010 05:38:11
+# Ruby runtime library version: 1.7.5
 # Input grammar file: ANTLRv3Grammar.g
-# Generated at: 2010-04-28 19:15:26
+# Generated at: 2010-07-03 23:17:10
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.7.0):
+Failed to load the ANTLR3 runtime library (version 1.7.5):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '~> 1.7.0' )
+    Gem.activate( 'antlr3', '~> 1.7.5' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -146,7 +146,7 @@ module ANTLRv3Grammar
     include TokenData
 
     begin
-      generated_using( "ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Apr 27, 2010 05:26:39", "1.7.0" )
+      generated_using( "ANTLRv3Grammar.g", "3.2.1-SNAPSHOT Jun 18, 2010 05:38:11", "1.7.5" )
     rescue NoMethodError => error
       # ignore
     end
@@ -8156,7 +8156,7 @@ module ANTLRv3Grammar
     end
 
     # 
-    # syntactic predicate synpred_1_antl_rv_3_grammar!
+    # syntactic predicate synpred1_ANTLRv3Grammar
     # 
     # (in ANTLRv3Grammar.g)
     # 363:4: synpred1_ANTLRv3Grammar : rewrite_template ;
@@ -8164,7 +8164,7 @@ module ANTLRv3Grammar
     # This is an imaginary rule inserted by ANTLR to
     # implement a syntactic predicate decision
     # 
-    def synpred_1_antl_rv_3_grammar!
+    def synpred1_ANTLRv3Grammar
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 48 )
 
@@ -8179,7 +8179,7 @@ module ANTLRv3Grammar
 
     end
     # 
-    # syntactic predicate synpred_2_antl_rv_3_grammar!
+    # syntactic predicate synpred2_ANTLRv3Grammar
     # 
     # (in ANTLRv3Grammar.g)
     # 364:4: synpred2_ANTLRv3Grammar : rewrite_tree_alternative ;
@@ -8187,7 +8187,7 @@ module ANTLRv3Grammar
     # This is an imaginary rule inserted by ANTLR to
     # implement a syntactic predicate decision
     # 
-    def synpred_2_antl_rv_3_grammar!
+    def synpred2_ANTLRv3Grammar
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 49 )
 
@@ -8402,9 +8402,9 @@ module ANTLRv3Grammar
           index_75_4 = @input.index
           @input.rewind( @input.last_marker, false )
           s = -1
-          if ( syntactic_predicate?( :synpred_1_antl_rv_3_grammar! ) )
+          if ( syntactic_predicate?( :synpred1_ANTLRv3Grammar ) )
             s = 9
-          elsif ( syntactic_predicate?( :synpred_2_antl_rv_3_grammar! ) )
+          elsif ( syntactic_predicate?( :synpred2_ANTLRv3Grammar ) )
             s = 5
           end
            

@@ -2,10 +2,10 @@
 #
 # GroupFile.g
 # 
-# Generated using ANTLR version: 3.2.1-SNAPSHOT Apr 29, 2010 11:36:19
-# Ruby runtime library version: 1.7.3
+# Generated using ANTLR version: 3.2.1-SNAPSHOT Jun 18, 2010 05:38:11
+# Ruby runtime library version: 1.7.5
 # Input grammar file: GroupFile.g
-# Generated at: 2010-05-16 18:30:20
+# Generated at: 2010-07-03 23:15:35
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.7.3):
+Failed to load the ANTLR3 runtime library (version 1.7.5):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '~> 1.7.3' )
+    Gem.activate( 'antlr3', '~> 1.7.5' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -103,7 +103,7 @@ module GroupFile
     include TokenData
 
     begin
-      generated_using( "GroupFile.g", "3.2.1-SNAPSHOT Apr 29, 2010 11:36:19", "1.7.3" )
+      generated_using( "GroupFile.g", "3.2.1-SNAPSHOT Jun 18, 2010 05:38:11", "1.7.5" )
     rescue NoMethodError => error
       # ignore
     end

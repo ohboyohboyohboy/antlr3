@@ -2,10 +2,10 @@
 #
 # Shell.g
 # 
-# Generated using ANTLR version: 3.2.1-SNAPSHOT Apr 29, 2010 11:36:19
-# Ruby runtime library version: 1.7.0
+# Generated using ANTLR version: 3.2.1-SNAPSHOT Jun 18, 2010 05:38:11
+# Ruby runtime library version: 1.7.5
 # Input grammar file: Shell.g
-# Generated at: 2010-05-16 06:28:34
+# Generated at: 2010-07-03 23:18:14
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.7.0):
+Failed to load the ANTLR3 runtime library (version 1.7.5):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '~> 1.7.0' )
+    Gem.activate( 'antlr3', '~> 1.7.5' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -81,7 +81,7 @@ module Shell
 
     
     begin
-      generated_using( "Shell.g", "3.2.1-SNAPSHOT Apr 29, 2010 11:36:19", "1.7.0" )
+      generated_using( "Shell.g", "3.2.1-SNAPSHOT Jun 18, 2010 05:38:11", "1.7.5" )
     rescue NoMethodError => error
       # ignore
     end
@@ -125,9 +125,9 @@ module Shell
       alt_3 = 2
       look_3_0 = @input.peek( 1 )
 
-      if ( look_3_0 == ?" )
+      if ( look_3_0 == 0x22 )
         alt_3 = 1
-      elsif ( look_3_0 == ?\' )
+      elsif ( look_3_0 == 0x27 )
         alt_3 = 2
       else
         raise NoViableAlternative( "", 3, 0 )
@@ -135,22 +135,22 @@ module Shell
       case alt_3
       when 1
         # at line 15:5: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"'
-        match( ?" )
+        match( 0x22 )
         # at line 15:10: (~ ( '\"' | '\\\\' ) | '\\\\' . )*
         while true # decision 1
           alt_1 = 3
           look_1_0 = @input.peek( 1 )
 
-          if ( look_1_0.between?( 0x0000, ?! ) || look_1_0.between?( ?#, ?[ ) || look_1_0.between?( ?], 0xFFFF ) )
+          if ( look_1_0.between?( 0x0, 0x21 ) || look_1_0.between?( 0x23, 0x5b ) || look_1_0.between?( 0x5d, 0xffff ) )
             alt_1 = 1
-          elsif ( look_1_0 == ?\\ )
+          elsif ( look_1_0 == 0x5c )
             alt_1 = 2
 
           end
           case alt_1
           when 1
             # at line 15:12: ~ ( '\"' | '\\\\' )
-            if @input.peek( 1 ).between?( 0x0000, ?! ) || @input.peek( 1 ).between?( ?#, ?[ ) || @input.peek( 1 ).between?( ?], 0x00FF )
+            if @input.peek( 1 ).between?( 0x0, 0x21 ) || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
               @input.consume
             else
               mse = MismatchedSet( nil )
@@ -162,33 +162,33 @@ module Shell
 
           when 2
             # at line 15:29: '\\\\' .
-            match( ?\\ )
+            match( 0x5c )
             match_any
 
           else
             break # out of loop for decision 1
           end
         end # loop for decision 1
-        match( ?" )
+        match( 0x22 )
 
       when 2
         # at line 16:5: '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\''
-        match( ?\' )
+        match( 0x27 )
         # at line 16:10: (~ ( '\\'' | '\\\\' ) | '\\\\' . )*
         while true # decision 2
           alt_2 = 3
           look_2_0 = @input.peek( 1 )
 
-          if ( look_2_0.between?( 0x0000, ?& ) || look_2_0.between?( ?(, ?[ ) || look_2_0.between?( ?], 0xFFFF ) )
+          if ( look_2_0.between?( 0x0, 0x26 ) || look_2_0.between?( 0x28, 0x5b ) || look_2_0.between?( 0x5d, 0xffff ) )
             alt_2 = 1
-          elsif ( look_2_0 == ?\\ )
+          elsif ( look_2_0 == 0x5c )
             alt_2 = 2
 
           end
           case alt_2
           when 1
             # at line 16:12: ~ ( '\\'' | '\\\\' )
-            if @input.peek( 1 ).between?( 0x0000, ?& ) || @input.peek( 1 ).between?( ?(, ?[ ) || @input.peek( 1 ).between?( ?], 0x00FF )
+            if @input.peek( 1 ).between?( 0x0, 0x26 ) || @input.peek( 1 ).between?( 0x28, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
               @input.consume
             else
               mse = MismatchedSet( nil )
@@ -200,14 +200,14 @@ module Shell
 
           when 2
             # at line 16:29: '\\\\' .
-            match( ?\\ )
+            match( 0x5c )
             match_any
 
           else
             break # out of loop for decision 2
           end
         end # loop for decision 2
-        match( ?\' )
+        match( 0x27 )
 
       end
       
@@ -232,22 +232,22 @@ module Shell
       
       # - - - - main rule block - - - -
       # at line 20:5: '`' (~ ( '`' | '\\\\' ) | '\\\\' . )* '`'
-      match( ?` )
+      match( 0x60 )
       # at line 20:9: (~ ( '`' | '\\\\' ) | '\\\\' . )*
       while true # decision 4
         alt_4 = 3
         look_4_0 = @input.peek( 1 )
 
-        if ( look_4_0.between?( 0x0000, ?[ ) || look_4_0.between?( ?], ?_ ) || look_4_0.between?( ?a, 0xFFFF ) )
+        if ( look_4_0.between?( 0x0, 0x5b ) || look_4_0.between?( 0x5d, 0x5f ) || look_4_0.between?( 0x61, 0xffff ) )
           alt_4 = 1
-        elsif ( look_4_0 == ?\\ )
+        elsif ( look_4_0 == 0x5c )
           alt_4 = 2
 
         end
         case alt_4
         when 1
           # at line 20:11: ~ ( '`' | '\\\\' )
-          if @input.peek( 1 ).between?( 0x0000, ?[ ) || @input.peek( 1 ).between?( ?], ?_ ) || @input.peek( 1 ).between?( ?a, 0x00FF )
+          if @input.peek( 1 ).between?( 0x0, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0x5f ) || @input.peek( 1 ).between?( 0x61, 0xff )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -259,14 +259,14 @@ module Shell
 
         when 2
           # at line 20:27: '\\\\' .
-          match( ?\\ )
+          match( 0x5c )
           match_any
 
         else
           break # out of loop for decision 4
         end
       end # loop for decision 4
-      match( ?` )
+      match( 0x60 )
 
       
       @state.type = type
@@ -298,14 +298,14 @@ module Shell
         alt_5 = 2
         look_5_0 = @input.peek( 1 )
 
-        if ( look_5_0.between?( 0x0000, ?\t ) || look_5_0.between?( 0x000B, 0xFFFF ) )
+        if ( look_5_0.between?( 0x0, 0x9 ) || look_5_0.between?( 0xb, 0xffff ) )
           alt_5 = 1
 
         end
         case alt_5
         when 1
           # at line 24:26: ~ '\\n'
-          if @input.peek( 1 ).between?( 0x0000, ?\t ) || @input.peek( 1 ).between?( 0x000B, 0x00FF )
+          if @input.peek( 1 ).between?( 0x0, 0x9 ) || @input.peek( 1 ).between?( 0xb, 0xff )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -330,10 +330,10 @@ module Shell
         alt_7 = 2
         look_7_0 = @input.peek( 1 )
 
-        if ( look_7_0 == ?\n )
+        if ( look_7_0 == 0xa )
           look_7_1 = @input.peek( 2 )
 
-          if ( look_7_1 == ?\t || look_7_1 == ?\s )
+          if ( look_7_1 == 0x9 || look_7_1 == 0x20 )
             alt_7 = 1
 
           end
@@ -342,21 +342,21 @@ module Shell
         case alt_7
         when 1
           # at line 24:35: '\\n' WS (~ '\\n' )*
-          match( ?\n )
+          match( 0xa )
           ws!
           # at line 24:43: (~ '\\n' )*
           while true # decision 6
             alt_6 = 2
             look_6_0 = @input.peek( 1 )
 
-            if ( look_6_0.between?( 0x0000, ?\t ) || look_6_0.between?( 0x000B, 0xFFFF ) )
+            if ( look_6_0.between?( 0x0, 0x9 ) || look_6_0.between?( 0xb, 0xffff ) )
               alt_6 = 1
 
             end
             case alt_6
             when 1
               # at line 24:43: ~ '\\n'
-              if @input.peek( 1 ).between?( 0x0000, ?\t ) || @input.peek( 1 ).between?( 0x000B, 0x00FF )
+              if @input.peek( 1 ).between?( 0x0, 0x9 ) || @input.peek( 1 ).between?( 0xb, 0xff )
                 @input.consume
               else
                 mse = MismatchedSet( nil )
@@ -380,14 +380,14 @@ module Shell
         alt_8 = 2
         look_8_0 = @input.peek( 1 )
 
-        if ( look_8_0 == ?\n )
+        if ( look_8_0 == 0xa )
           alt_8 = 1
 
         end
         case alt_8
         when 1
           # at line 24:53: '\\n'
-          match( ?\n )
+          match( 0xa )
 
         else
           break # out of loop for decision 8
@@ -443,9 +443,9 @@ module Shell
       alt_10 = 2
       look_10_0 = @input.peek( 1 )
 
-      if ( look_10_0 == ?\n || look_10_0 == ?\r )
+      if ( look_10_0 == 0xa || look_10_0 == 0xd )
         alt_10 = 1
-      elsif ( look_10_0 == ?; )
+      elsif ( look_10_0 == 0x3b )
         alt_10 = 2
       else
         raise NoViableAlternative( "", 10, 0 )
@@ -457,20 +457,20 @@ module Shell
         alt_9 = 2
         look_9_0 = @input.peek( 1 )
 
-        if ( look_9_0 == ?\r )
+        if ( look_9_0 == 0xd )
           alt_9 = 1
         end
         case alt_9
         when 1
           # at line 33:5: '\\r'
-          match( ?\r )
+          match( 0xd )
 
         end
-        match( ?\n )
+        match( 0xa )
 
       when 2
         # at line 34:5: ';'
-        match( ?; )
+        match( 0x3b )
 
       end
       
@@ -497,21 +497,21 @@ module Shell
       
       # - - - - main rule block - - - -
       # at line 38:5: '$' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | '_' )+
-      match( ?$ )
+      match( 0x24 )
       # at file 38:9: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | '_' )+
       match_count_11 = 0
       while true
         alt_11 = 2
         look_11_0 = @input.peek( 1 )
 
-        if ( look_11_0 == ?- || look_11_0.between?( ?0, ?9 ) || look_11_0.between?( ?A, ?Z ) || look_11_0 == ?_ || look_11_0.between?( ?a, ?z ) )
+        if ( look_11_0 == 0x2d || look_11_0.between?( 0x30, 0x39 ) || look_11_0.between?( 0x41, 0x5a ) || look_11_0 == 0x5f || look_11_0.between?( 0x61, 0x7a ) )
           alt_11 = 1
 
         end
         case alt_11
         when 1
           # at line 
-          if @input.peek(1) == ?- || @input.peek( 1 ).between?( ?0, ?9 ) || @input.peek( 1 ).between?( ?A, ?Z ) || @input.peek(1) == ?_ || @input.peek( 1 ).between?( ?a, ?z )
+          if @input.peek(1) == 0x2d || @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -560,14 +560,14 @@ module Shell
         alt_12 = 2
         look_12_0 = @input.peek( 1 )
 
-        if ( look_12_0 == ?* || look_12_0 == ?? )
+        if ( look_12_0 == 0x2a || look_12_0 == 0x3f )
           alt_12 = 1
 
         end
         case alt_12
         when 1
           # at line 
-          if @input.peek(1) == ?* || @input.peek(1) == ??
+          if @input.peek(1) == 0x2a || @input.peek(1) == 0x3f
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -613,9 +613,9 @@ module Shell
       alt_16 = 2
       look_16_0 = @input.peek( 1 )
 
-      if ( look_16_0 == ?- )
+      if ( look_16_0 == 0x2d )
         alt_16 = 1
-      elsif ( look_16_0.between?( 0x0000, ?\b ) || look_16_0.between?( 0x000B, ?\f ) || look_16_0.between?( 0x000E, 0x001F ) || look_16_0 == ?! || look_16_0.between?( ?%, ?& ) || look_16_0.between?( ?+, ?, ) || look_16_0.between?( ?., ?: ) || look_16_0 == ?= || look_16_0.between?( ?@, ?_ ) || look_16_0.between?( ?a, ?z ) || look_16_0.between?( 0x007F, 0xFFFF ) )
+      elsif ( look_16_0.between?( 0x0, 0x8 ) || look_16_0.between?( 0xb, 0xc ) || look_16_0.between?( 0xe, 0x1f ) || look_16_0 == 0x21 || look_16_0.between?( 0x25, 0x26 ) || look_16_0.between?( 0x2b, 0x2c ) || look_16_0.between?( 0x2e, 0x3a ) || look_16_0 == 0x3d || look_16_0.between?( 0x40, 0x5f ) || look_16_0.between?( 0x61, 0x7a ) || look_16_0.between?( 0x7f, 0xffff ) )
         alt_16 = 2
       else
         raise NoViableAlternative( "", 16, 0 )
@@ -629,14 +629,14 @@ module Shell
           alt_13 = 2
           look_13_0 = @input.peek( 1 )
 
-          if ( look_13_0 == ?- )
+          if ( look_13_0 == 0x2d )
             alt_13 = 1
 
           end
           case alt_13
           when 1
             # at line 47:5: '-'
-            match( ?- )
+            match( 0x2d )
 
           else
             match_count_13 > 0 and break
@@ -653,7 +653,7 @@ module Shell
           alt_14 = 2
           look_14_0 = @input.peek( 1 )
 
-          if ( look_14_0.between?( 0x0000, ?\b ) || look_14_0.between?( 0x000B, ?\f ) || look_14_0.between?( 0x000E, 0x001F ) || look_14_0 == ?! || look_14_0.between?( ?%, ?& ) || look_14_0.between?( ?+, ?: ) || look_14_0 == ?= || look_14_0.between?( ?@, ?_ ) || look_14_0.between?( ?a, ?z ) || look_14_0.between?( 0x007F, 0xFFFF ) )
+          if ( look_14_0.between?( 0x0, 0x8 ) || look_14_0.between?( 0xb, 0xc ) || look_14_0.between?( 0xe, 0x1f ) || look_14_0 == 0x21 || look_14_0.between?( 0x25, 0x26 ) || look_14_0.between?( 0x2b, 0x3a ) || look_14_0 == 0x3d || look_14_0.between?( 0x40, 0x5f ) || look_14_0.between?( 0x61, 0x7a ) || look_14_0.between?( 0x7f, 0xffff ) )
             alt_14 = 1
 
           end
@@ -678,7 +678,7 @@ module Shell
           alt_15 = 2
           look_15_0 = @input.peek( 1 )
 
-          if ( look_15_0.between?( 0x0000, ?\b ) || look_15_0.between?( 0x000B, ?\f ) || look_15_0.between?( 0x000E, 0x001F ) || look_15_0 == ?! || look_15_0.between?( ?%, ?& ) || look_15_0.between?( ?+, ?: ) || look_15_0 == ?= || look_15_0.between?( ?@, ?_ ) || look_15_0.between?( ?a, ?z ) || look_15_0.between?( 0x007F, 0xFFFF ) )
+          if ( look_15_0.between?( 0x0, 0x8 ) || look_15_0.between?( 0xb, 0xc ) || look_15_0.between?( 0xe, 0x1f ) || look_15_0 == 0x21 || look_15_0.between?( 0x25, 0x26 ) || look_15_0.between?( 0x2b, 0x3a ) || look_15_0 == 0x3d || look_15_0.between?( 0x40, 0x5f ) || look_15_0.between?( 0x61, 0x7a ) || look_15_0.between?( 0x7f, 0xffff ) )
             alt_15 = 1
 
           end
@@ -726,7 +726,7 @@ module Shell
       
       # - - - - main rule block - - - -
       # at line 51:14: '('
-      match( ?( )
+      match( 0x28 )
 
       
       @state.type = type
@@ -750,7 +750,7 @@ module Shell
       
       # - - - - main rule block - - - -
       # at line 52:14: ')'
-      match( ?) )
+      match( 0x29 )
 
       
       @state.type = type
@@ -777,18 +777,18 @@ module Shell
       alt_17 = 4
       look_17_0 = @input.peek( 1 )
 
-      if ( look_17_0 == ?& )
+      if ( look_17_0 == 0x26 )
         look_17_1 = @input.peek( 2 )
 
-        if ( look_17_1 == ?& )
+        if ( look_17_1 == 0x26 )
           alt_17 = 1
         else
           alt_17 = 4
         end
-      elsif ( look_17_0 == ?| )
+      elsif ( look_17_0 == 0x7c )
         look_17_2 = @input.peek( 2 )
 
-        if ( look_17_2 == ?| )
+        if ( look_17_2 == 0x7c )
           alt_17 = 2
         else
           alt_17 = 3
@@ -807,11 +807,11 @@ module Shell
 
       when 3
         # at line 55:19: '|'
-        match( ?| )
+        match( 0x7c )
 
       when 4
         # at line 55:25: '&'
-        match( ?& )
+        match( 0x26 )
         # --> action
          @cmd_start = true 
         # <-- action
@@ -844,14 +844,14 @@ module Shell
         alt_18 = 2
         look_18_0 = @input.peek( 1 )
 
-        if ( look_18_0.between?( ?0, ?9 ) )
+        if ( look_18_0.between?( 0x30, 0x39 ) )
           alt_18 = 1
 
         end
         case alt_18
         when 1
           # at line 59:6: '0' .. '9'
-          match_range( ?0, ?9 )
+          match_range( 0x30, 0x39 )
 
         else
           break # out of loop for decision 18
@@ -861,18 +861,18 @@ module Shell
       alt_19 = 4
       look_19_0 = @input.peek( 1 )
 
-      if ( look_19_0 == ?> )
+      if ( look_19_0 == 0x3e )
         look_19_1 = @input.peek( 2 )
 
-        if ( look_19_1 == ?> )
+        if ( look_19_1 == 0x3e )
           alt_19 = 1
         else
           alt_19 = 2
         end
-      elsif ( look_19_0 == ?< )
+      elsif ( look_19_0 == 0x3c )
         look_19_2 = @input.peek( 2 )
 
-        if ( look_19_2 == ?< )
+        if ( look_19_2 == 0x3c )
           alt_19 = 3
         else
           alt_19 = 4
@@ -887,7 +887,7 @@ module Shell
 
       when 2
         # at line 59:25: '>'
-        match( ?> )
+        match( 0x3e )
 
       when 3
         # at line 59:31: '<<'
@@ -895,34 +895,34 @@ module Shell
 
       when 4
         # at line 59:38: '<'
-        match( ?< )
+        match( 0x3c )
 
       end
       # at line 59:43: ( '&' ( '0' .. '9' )+ )?
       alt_21 = 2
       look_21_0 = @input.peek( 1 )
 
-      if ( look_21_0 == ?& )
+      if ( look_21_0 == 0x26 )
         alt_21 = 1
       end
       case alt_21
       when 1
         # at line 59:44: '&' ( '0' .. '9' )+
-        match( ?& )
+        match( 0x26 )
         # at file 59:48: ( '0' .. '9' )+
         match_count_20 = 0
         while true
           alt_20 = 2
           look_20_0 = @input.peek( 1 )
 
-          if ( look_20_0.between?( ?0, ?9 ) )
+          if ( look_20_0.between?( 0x30, 0x39 ) )
             alt_20 = 1
 
           end
           case alt_20
           when 1
             # at line 59:49: '0' .. '9'
-            match_range( ?0, ?9 )
+            match_range( 0x30, 0x39 )
 
           else
             match_count_20 > 0 and break
@@ -959,20 +959,20 @@ module Shell
       
       # - - - - main rule block - - - -
       # at line 63:5: '#' (~ ( '\\r' | '\\n' ) )*
-      match( ?# )
+      match( 0x23 )
       # at line 63:9: (~ ( '\\r' | '\\n' ) )*
       while true # decision 22
         alt_22 = 2
         look_22_0 = @input.peek( 1 )
 
-        if ( look_22_0.between?( 0x0000, ?\t ) || look_22_0.between?( 0x000B, ?\f ) || look_22_0.between?( 0x000E, 0xFFFF ) )
+        if ( look_22_0.between?( 0x0, 0x9 ) || look_22_0.between?( 0xb, 0xc ) || look_22_0.between?( 0xe, 0xffff ) )
           alt_22 = 1
 
         end
         case alt_22
         when 1
           # at line 63:11: ~ ( '\\r' | '\\n' )
-          if @input.peek( 1 ).between?( 0x0000, ?\t ) || @input.peek( 1 ).between?( 0x000B, ?\f ) || @input.peek( 1 ).between?( 0x000E, 0x00FF )
+          if @input.peek( 1 ).between?( 0x0, 0x9 ) || @input.peek( 1 ).between?( 0xb, 0xc ) || @input.peek( 1 ).between?( 0xe, 0xff )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -1009,9 +1009,9 @@ module Shell
       alt_23 = 2
       look_23_0 = @input.peek( 1 )
 
-      if ( look_23_0.between?( 0x0000, ?\b ) || look_23_0.between?( 0x000B, ?\f ) || look_23_0.between?( 0x000E, 0x001F ) || look_23_0 == ?! || look_23_0.between?( ?%, ?& ) || look_23_0.between?( ?+, ?: ) || look_23_0 == ?= || look_23_0.between?( ?@, ?[ ) || look_23_0.between?( ?], ?_ ) || look_23_0.between?( ?a, ?z ) || look_23_0.between?( 0x007F, 0xFFFF ) )
+      if ( look_23_0.between?( 0x0, 0x8 ) || look_23_0.between?( 0xb, 0xc ) || look_23_0.between?( 0xe, 0x1f ) || look_23_0 == 0x21 || look_23_0.between?( 0x25, 0x26 ) || look_23_0.between?( 0x2b, 0x3a ) || look_23_0 == 0x3d || look_23_0.between?( 0x40, 0x5b ) || look_23_0.between?( 0x5d, 0x5f ) || look_23_0.between?( 0x61, 0x7a ) || look_23_0.between?( 0x7f, 0xffff ) )
         alt_23 = 1
-      elsif ( look_23_0 == ?\\ )
+      elsif ( look_23_0 == 0x5c )
         alt_23 = 2
       else
         raise NoViableAlternative( "", 23, 0 )
@@ -1019,7 +1019,7 @@ module Shell
       case alt_23
       when 1
         # at line 68:5: ~ ( '>' | '<' | '#' | '`' | '\"' | '\\'' | '|' | '(' | ')' | '$' | ';' | ' ' | '?' | '*' | '~' | '\\\\' | '\\t' | '{' | '}' | '\\n' | '\\r' )
-        if @input.peek( 1 ).between?( 0x0000, ?\b ) || @input.peek( 1 ).between?( 0x000B, ?\f ) || @input.peek( 1 ).between?( 0x000E, 0x001F ) || @input.peek(1) == ?! || @input.peek( 1 ).between?( ?%, ?& ) || @input.peek( 1 ).between?( ?+, ?: ) || @input.peek(1) == ?= || @input.peek( 1 ).between?( ?@, ?[ ) || @input.peek( 1 ).between?( ?], ?_ ) || @input.peek( 1 ).between?( ?a, ?z ) || @input.peek( 1 ).between?( 0x007F, 0x00FF )
+        if @input.peek( 1 ).between?( 0x0, 0x8 ) || @input.peek( 1 ).between?( 0xb, 0xc ) || @input.peek( 1 ).between?( 0xe, 0x1f ) || @input.peek(1) == 0x21 || @input.peek( 1 ).between?( 0x25, 0x26 ) || @input.peek( 1 ).between?( 0x2b, 0x3a ) || @input.peek(1) == 0x3d || @input.peek( 1 ).between?( 0x40, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0x5f ) || @input.peek( 1 ).between?( 0x61, 0x7a ) || @input.peek( 1 ).between?( 0x7f, 0xff )
           @input.consume
         else
           mse = MismatchedSet( nil )
@@ -1031,7 +1031,7 @@ module Shell
 
       when 2
         # at line 70:5: '\\\\' .
-        match( ?\\ )
+        match( 0x5c )
         match_any
 
       end
@@ -1056,14 +1056,14 @@ module Shell
         alt_24 = 2
         look_24_0 = @input.peek( 1 )
 
-        if ( look_24_0 == ?\t || look_24_0 == ?\s )
+        if ( look_24_0 == 0x9 || look_24_0 == 0x20 )
           alt_24 = 1
 
         end
         case alt_24
         when 1
           # at line 
-          if @input.peek(1) == ?\t || @input.peek(1) == ?\s
+          if @input.peek(1) == 0x9 || @input.peek(1) == 0x20
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -1223,33 +1223,33 @@ module Shell
         when 0
           look_25_0 = @input.peek
           s = -1
-          if ( look_25_0 == ?" || look_25_0 == ?\' )
+          if ( look_25_0 == 0x22 || look_25_0 == 0x27 )
             s = 1
-          elsif ( look_25_0 == ?` )
+          elsif ( look_25_0 == 0x60 )
             s = 2
-          elsif ( look_25_0 == ?\t || look_25_0 == ?\s )
+          elsif ( look_25_0 == 0x9 || look_25_0 == 0x20 )
             s = 3
-          elsif ( look_25_0 == ?\n || look_25_0 == ?\r || look_25_0 == ?; )
+          elsif ( look_25_0 == 0xa || look_25_0 == 0xd || look_25_0 == 0x3b )
             s = 4
-          elsif ( look_25_0 == ?$ )
+          elsif ( look_25_0 == 0x24 )
             s = 5
-          elsif ( look_25_0 == ?* || look_25_0 == ?? )
+          elsif ( look_25_0 == 0x2a || look_25_0 == 0x3f )
             s = 6
-          elsif ( look_25_0.between?( 0x0000, ?\b ) || look_25_0.between?( 0x000B, ?\f ) || look_25_0.between?( 0x000E, 0x001F ) || look_25_0 == ?! || look_25_0 == ?% || look_25_0.between?( ?+, ?/ ) || look_25_0 == ?: || look_25_0 == ?= || look_25_0.between?( ?@, ?_ ) || look_25_0.between?( ?a, ?z ) || look_25_0.between?( 0x007F, 0xFFFF ) )
+          elsif ( look_25_0.between?( 0x0, 0x8 ) || look_25_0.between?( 0xb, 0xc ) || look_25_0.between?( 0xe, 0x1f ) || look_25_0 == 0x21 || look_25_0 == 0x25 || look_25_0.between?( 0x2b, 0x2f ) || look_25_0 == 0x3a || look_25_0 == 0x3d || look_25_0.between?( 0x40, 0x5f ) || look_25_0.between?( 0x61, 0x7a ) || look_25_0.between?( 0x7f, 0xffff ) )
             s = 7
-          elsif ( look_25_0 == ?& )
+          elsif ( look_25_0 == 0x26 )
             s = 8
-          elsif ( look_25_0 == ?( )
+          elsif ( look_25_0 == 0x28 )
             s = 9
-          elsif ( look_25_0 == ?) )
+          elsif ( look_25_0 == 0x29 )
             s = 10
-          elsif ( look_25_0.between?( ?0, ?9 ) )
+          elsif ( look_25_0.between?( 0x30, 0x39 ) )
             s = 11
-          elsif ( look_25_0 == ?| )
+          elsif ( look_25_0 == 0x7c )
             s = 12
-          elsif ( look_25_0 == ?< || look_25_0 == ?> )
+          elsif ( look_25_0 == 0x3c || look_25_0 == 0x3e )
             s = 13
-          elsif ( look_25_0 == ?# )
+          elsif ( look_25_0 == 0x23 )
             s = 14
           end
 
@@ -1258,9 +1258,9 @@ module Shell
           index_25_3 = @input.index
           @input.rewind( @input.last_marker, false )
           s = -1
-          if ( look_25_3 == ?\t || look_25_3 == ?\s )
+          if ( look_25_3 == 0x9 || look_25_3 == 0x20 )
             s = 16
-          elsif ( look_25_3.between?( 0x0000, ?\b ) || look_25_3.between?( 0x000B, 0x001F ) || look_25_3.between?( ?!, 0xFFFF ) ) and ( (  @cmd_start  ) )
+          elsif ( look_25_3.between?( 0x0, 0x8 ) || look_25_3.between?( 0xb, 0x1f ) || look_25_3.between?( 0x21, 0xffff ) ) and ( (  @cmd_start  ) )
             s = 17
           else
             s = 15
@@ -1286,9 +1286,9 @@ module Shell
           index_25_16 = @input.index
           @input.rewind( @input.last_marker, false )
           s = -1
-          if ( look_25_16.between?( 0x0000, ?\b ) || look_25_16.between?( ?\n, 0x001F ) || look_25_16.between?( ?!, 0xFFFF ) ) and ( (  @cmd_start  ) )
+          if ( look_25_16.between?( 0x0, 0x8 ) || look_25_16.between?( 0xa, 0x1f ) || look_25_16.between?( 0x21, 0xffff ) ) and ( (  @cmd_start  ) )
             s = 17
-          elsif ( look_25_16 == ?\t || look_25_16 == ?\s )
+          elsif ( look_25_16 == 0x9 || look_25_16 == 0x20 )
             s = 16
           else
             s = 19
