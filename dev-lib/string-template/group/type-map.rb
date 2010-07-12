@@ -10,8 +10,8 @@ class TypeMap < Member
     @pairs ||= []
   end
   
-  def pair!(key, value = nil)
-    pair = [key, value]
+  def pair!( key, value = nil )
+    pair = [ key, value ]
     pairs << pair
     return pair
   end

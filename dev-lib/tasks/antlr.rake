@@ -2,7 +2,7 @@ $jar_files = []
 $antlr = $project.antlr
 
 unless $project.jar_command
-  $project.error!(
+  $project.error!( 
     "cannot locate a `fastjar' or `jar' program in the system path"
   )
 end
@@ -22,7 +22,7 @@ def jar_file( f, jar_dir, *deps, &action )
     test( ?d, jar_dir ) or mkpath( jar_dir )
     cp( f, target_file )
     if f =~ /\.java/
-      $jar_files.concat(
+      $jar_files.concat( 
         javac( target_file ).map do | cl |
           cl = abs( cl )
           file( cl )

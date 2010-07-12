@@ -130,15 +130,15 @@ A class that is used internally by AST::Wizard to tokenize tree patterns
     
     autoload :StringScanner, 'strscan'
     
-    PATTERNS = [
-      [:space, /\s+/],
-      [:identifier, /[a-z_]\w*/i],
-      [:open, /\(/],
-      [:close, /\)/],
-      [:percent, /%/],
-      [:colon, /:/],
-      [:dot, /\./],
-      [:argument, /\[((?:[^\[\]\\]|\\\[|\\\]|\\.)*?)\]/]
+    PATTERNS = [ 
+      [ :space, /\s+/ ],
+      [ :identifier, /[a-z_]\w*/i ],
+      [ :open, /\(/ ],
+      [ :close, /\)/ ],
+      [ :percent, /%/ ],
+      [ :colon, /:/ ],
+      [ :dot, /\./ ],
+      [ :argument, /\[((?:[^\[\]\\]|\\\[|\\\]|\\.)*?)\]/ ]
     ]
     
     attr_reader :text, :error, :pattern
@@ -154,7 +154,7 @@ A class that is used internally by AST::Wizard to tokenize tree patterns
         @scanner.eos? and return EOF
         
         type, = PATTERNS.find do |type, pattern|
-          @scanner.scan(pattern)
+          @scanner.scan( pattern )
         end
         
         case type
@@ -164,7 +164,7 @@ A class that is used internally by AST::Wizard to tokenize tree patterns
         when :identifier then @text = @scanner.matched
         when :argument
           # remove escapes from \] sequences in the text argument
-          (@text = @scanner[1]).gsub!(/\\(?=[\[\]])/, '')
+          ( @text = @scanner[ 1 ] ).gsub!( /\\(?=[\[\]])/, '' )
         end
       end while type == :space
       
@@ -208,7 +208,7 @@ from a tokenized tree pattern
       return nil
     end
     
-    CONTINUE_TYPES = [:open, :identifier, :percent, :dot]
+    CONTINUE_TYPES = [ :open, :identifier, :percent, :dot ]
     
     def parse_tree
       @token_type != :open and return nil
@@ -219,10 +219,10 @@ from a tokenized tree pattern
         case @token_type
         when :open
           subtree = parse_tree
-          @adaptor.add_child(root, subtree)
+          @adaptor.add_child( root, subtree )
         when :identifier, :percent, :dot
           child = parse_node or return nil
-          @adaptor.add_child(root, child)
+          @adaptor.add_child( root, child )
         else break
         end
       end
@@ -234,16 +234,16 @@ from a tokenized tree pattern
     def parse_node
       label = nil
       if @token_type == :percent
-        (@token_type = @tokenizer.next_token) == :identifier or return nil
+        ( @token_type = @tokenizer.next_token ) == :identifier or return nil
         label = @tokenizer.text
-        (@token_type = @tokenizer.next_token) == :colon or return nil
+        ( @token_type = @tokenizer.next_token ) == :colon or return nil
         @token_type = @tokenizer.next_token
       end
       
       if @token_type == :dot
         @token_type = @tokenizer.next_token
-        wildcard_payload = CommonToken.create(:type => 0, :text => '.')
-        node = WildcardPattern.new(wildcard_payload)
+        wildcard_payload = CommonToken.create( :type => 0, :text => '.' )
+        node = WildcardPattern.new( wildcard_payload )
         label and node.label = label
         return node
       end
@@ -281,7 +281,7 @@ to validate tree structures as well as to extract nodes that match the pattern.
 
   class Pattern < CommonTree
     def self.parse( pattern_str, scheme )
-      PatternParser.parse(
+      PatternParser.parse( 
         pattern_str, scheme, PatternAdaptor.new( scheme.token_class )
       )
     end
@@ -349,20 +349,20 @@ A customized TreeAdaptor used by AST::Wizards to build tree patterns.
   
   def find( tree, what )
     case what
-    when Integer then find_token_type(tree, what)
-    when String  then find_pattern(tree, what)
+    when Integer then find_token_type( tree, what )
+    when String  then find_pattern( tree, what )
     when Symbol  then find_token_type( tree, @token_scheme[ what ] )
     else raise ArgumentError, "search subject must be a token type (integer) or a string"
     end
   end
   
-  def find_token_type(tree, type)
+  def find_token_type( tree, type )
     nodes = []
     visit( tree, type ) { | t, | nodes << t }
     return nodes
   end
   
-  def find_pattern(tree, pattern)
+  def find_pattern( tree, pattern )
     subtrees = []
     visit_pattern( tree, pattern ) { | t, | subtrees << t }
     return( subtrees )
@@ -392,7 +392,7 @@ A customized TreeAdaptor used by AST::Wizards to build tree patterns.
   end
   
   def visit_type( tree, parent, type, &block )
-    tree.nil? and return(nil)
+    tree.nil? and return( nil )
     index = @adaptor.child_index( tree )
     @adaptor.type_of( tree ) == type and yield( tree, parent, index, nil )
     @adaptor.each_child( tree ) do | child |
@@ -422,20 +422,20 @@ A customized TreeAdaptor used by AST::Wizards to build tree patterns.
   def match!( tree, pattern, labels = {} )
     tree.nil? || pattern.nil? and return false
     unless pattern.is_a? WildcardPattern
-      @adaptor.type_of(tree) == pattern.type or return false
-      pattern.has_text_arg && (@adaptor.text_of(tree) != pattern.text) and
+      @adaptor.type_of( tree ) == pattern.type or return false
+      pattern.has_text_arg && ( @adaptor.text_of( tree ) != pattern.text ) and
         return false
     end
     labels[ pattern.label ] = tree if labels && pattern.label
     
-    number_of_children = @adaptor.child_count(tree)
+    number_of_children = @adaptor.child_count( tree )
     return false unless number_of_children == pattern.child_count
     
     number_of_children.times do |index|
-      actual_child = @adaptor.child_of(tree, index)
+      actual_child = @adaptor.child_of( tree, index )
       pattern_child = pattern.child( index )
       
-      return(false) unless match!( actual_child, pattern_child, labels )
+      return( false ) unless match!( actual_child, pattern_child, labels )
     end
     
     return labels
@@ -444,11 +444,11 @@ A customized TreeAdaptor used by AST::Wizards to build tree patterns.
   def equals( tree_a, tree_b, adaptor = @adaptor )
     tree_a && tree_b or return( false )
     
-    adaptor.type_of(tree_a) == adaptor.type_of(tree_b) or return false
-    adaptor.text_of(tree_a) == adaptor.text_of(tree_b) or return false
+    adaptor.type_of( tree_a ) == adaptor.type_of( tree_b ) or return false
+    adaptor.text_of( tree_a ) == adaptor.text_of( tree_b ) or return false
     
-    child_count_a = adaptor.child_count(tree_a)
-    child_count_b = adaptor.child_count(tree_b)
+    child_count_a = adaptor.child_count( tree_a )
+    child_count_b = adaptor.child_count( tree_b )
     child_count_a == child_count_b or return false
     
     child_count_a.times do | i |
@@ -469,9 +469,9 @@ A customized TreeAdaptor used by AST::Wizards to build tree patterns.
     when DOUBLE_ETC_PATTERN then raise ArgumentError, "invalid syntax: ... ..."
     end
     
-    context = context.gsub(/([^\.\s])\.{3}([^\.])/, '\1 ... \2')
+    context = context.gsub( /([^\.\s])\.{3}([^\.])/, '\1 ... \2' )
     context.strip!
-    nodes = context.split(/\s+/)
+    nodes = context.split( /\s+/ )
     
     while tree = @adaptor.parent( tree ) and node = nodes.pop
       if node == '...'

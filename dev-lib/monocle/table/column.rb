@@ -30,7 +30,7 @@ class Column
   
   for m in %w(wrap flow)
     attr_accessor( m )
-    alias_method( "#{m}?", m )
+    alias_method( "#{ m }?", m )
     undef_method( m )
   end
   
@@ -51,7 +51,7 @@ class Column
   end
   
   def last?
-    @index == (table.columns.length - 1)
+    @index == ( table.columns.length - 1 )
   end
   
   def prepare( cell_text )

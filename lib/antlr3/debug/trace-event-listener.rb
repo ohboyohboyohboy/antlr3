@@ -14,15 +14,15 @@ stdout) to record the events in a different way.
 class TraceEventListener
   include EventListener
   
-  def initialize(adaptor = nil, device = $stderr)
+  def initialize( adaptor = nil, device = $stderr )
     super()
     @device = device
     @adaptor = adaptor ||= ANTLR3::AST::CommonTreeAdaptor.new
   end
   
-  def record(event_message, *interpolation_arguments)
+  def record( event_message, *interpolation_arguments )
     event_message = event_message.to_s << "\n"
-    @device.printf(event_message, *interpolation_arguments)
+    @device.printf( event_message, *interpolation_arguments )
   end
   
   def enter_alternative( alt_number )
@@ -50,11 +50,11 @@ class TraceEventListener
   end
   
   def consume_node( tree )
-    record '(%s) unique_id=%s text=%p type=%s[%s]', __method__, @adaptor.unique_id(tree),
-           @adaptor.text_of(tree), @adaptor.type_name( tree ), @adaptor.type_of(tree)
+    record '(%s) unique_id=%s text=%p type=%s[%s]', __method__, @adaptor.unique_id( tree ),
+           @adaptor.text_of( tree ), @adaptor.type_name( tree ), @adaptor.type_of( tree )
   end
   
-  def look(i, tree)
+  def look( i, tree )
     record '(%s): k=%s unique_id=%s text=%p type=%s[%s]', __method__, i, @adaptor.unique_id( tree ),
             @adaptor.text_of( tree ), @adaptor.type_name( tree ), @adaptor.type_of( tree )
   end
@@ -63,7 +63,7 @@ class TraceEventListener
     record '(%s): unique_id=%s', __method__, @adaptor.unique_id( tree )
   end
   
-  def create_node(tree, token = nil)
+  def create_node( tree, token = nil )
     unless token
       record '(%s): unique_id=%s text=%p type=%s[%s]', __method__, @adaptor.unique_id( tree ),
             @adaptor.text_of( tree ), @adaptor.type_name( tree ), @adaptor.type_of( tree )

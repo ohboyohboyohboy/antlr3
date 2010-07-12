@@ -173,46 +173,51 @@ module Stream
   abstract :consume
   
   ##
-  # :method: peek(k=1)
+  # :method: peek( k = 1 )
   # used to quickly retreive the object of interest to a recognizer at lookahead
   # position specified by <tt>k</tt> (such as integer value of a character or an
   # integer token type)
   abstract :peek
   
   ##
-  # :method: look(k=1)
+  # :method: look( k = 1 )
   # used to retreive the full object of interest at lookahead position specified
   # by <tt>k</tt> (such as a character string or a token structure)
   abstract :look
   
   ##
   # :method: mark
-  # TODO: document
+  # saves the current position for the purposes of backtracking and
+  # returns a value to pass to #rewind at a later time
   abstract :mark
   
   ##
   # :method: index
-  # TODO: document
+  # returns the current position of the stream
   abstract :index
   
   ##
-  # :method: rewind(marker=last_marker)
-  # TODO: document
+  # :method: rewind( marker = last_marker )
+  # restores the stream position using the state information previously saved
+  # by the given marker
   abstract :rewind
   
   ##
-  # :method: release(marker = last_marker)
-  # TODO: document
+  # :method: release( marker = last_marker )
+  # clears the saved state information associated with the given marker value
   abstract :release
   
   ##
-  # :method: seek(position)
-  # TODO: document
+  # :method: seek( position )
+  # move the stream to the given absolute index given by +position+
   abstract :seek
   
-  # TODO: document
+  ##
+  # the total number of symbols in the stream
   attr_reader :size
-  # TODO: document
+  
+  ##
+  # indicates an identifying name for the stream -- usually the file path of the input
   attr_accessor :source_name
 end
 
@@ -252,7 +257,6 @@ module CharacterStream
   include Stream
   extend ClassMacros
   include Constants
-  #EOF = -1
   
   ##
   # :method: substring(start,stop)
@@ -328,8 +332,8 @@ module TokenStream
   abstract :to_s
   
   ##
-  # :method: at
-  # TODO: document
+  # :method: at( i )
+  # return the stream symbol at index +i+
   abstract :at
 end
 

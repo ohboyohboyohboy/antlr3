@@ -828,6 +828,7 @@ builds and manipulates CommonTree nodes.
 =end
 
 class CommonTreeAdaptor
+  extend ClassMacros
   include TreeAdaptor
   include ANTLR3::Constants
   
@@ -892,16 +893,17 @@ class CommonTreeAdaptor
     end
   end
   
-  # TODO: deprecate create...! methods -- they don't make sense
+  creation_methods = %w(
+    create_from_token create_from_type
+    create_error_node create_with_payload
+    create
+  )
   
-  # aliases in preparation for deprecation to avoid breaking
-  # backward compatibility
-  
-  alias create_from_token! create_from_token
-  alias create_from_type! create_from_type
-  alias create_error_node! create_error_node
-  alias create_with_payload! create_with_payload
-  alias create! create
+  for method_name in creation_methods
+    bang_method = method_name + '!'
+    alias_method( bang_method, method_name )
+    deprecate( bang_method, "use method ##{ method_name } instead" )
+  end
   
   def rule_post_processing( root )
     if root and root.flat_list?

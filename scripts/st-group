@@ -9,6 +9,9 @@ require 'string-template'
 autoload :Monocle, 'monocle'
 
 Main do
+  def out
+    @out ||= Monocle::Output( stdout )
+  end
   
   mixin :Completion do
     def complete( description, names, partial )
@@ -23,15 +26,11 @@ Main do
     end
     
     def ambiguous_completion!( description, matches, partial )
-      require 'text'
       stderr.puts( <<-END.here_flow! )
       | cannot unambiguously complete partial #{ description }
       | #{ partial.inspect }
       END
-      stderr.puts Text::ColumnList.new( 
-        matches, :width_limit => ( stderr.screen_width * 0.8 ).round
-      ).render
-      
+      out.list( matches, :max_width => ( out.screen_width * 0.8 ).round )
       exit( 1 )
     end
     
@@ -84,11 +83,7 @@ Main do
     end
   end
   
-  mixin :TextFormatting do
-    def out
-      @out ||= Monocle::Output( stdout )
-    end
-  end
+
   
   mode( :unzip ) do
     argument( :file ) do
@@ -156,7 +151,6 @@ Main do
     END
     
     mixin :STGInput
-    mixin :TextFormatting
     
     def run
       out.puts( "file: #{ file_name }" )

@@ -12,7 +12,7 @@ class Shell
   
   CATEGORIES = {}
   
-  def self.add_category(name, *types)
+  def self.add_category( name, *types )
     for type in types
       Integer === type or type = ::Shell::TokenData[ type ]
       CATEGORIES[ type ] = name
@@ -33,18 +33,18 @@ class Shell
   add_category( "vg", VARIABLE )
   add_category( "w", SPACE )
   
-  def initialize(source, options = {})
+  def initialize( source, options = {} )
     @source = source.to_s
-    @lexer  = ::Shell::Lexer.new(source)
+    @lexer  = ::Shell::Lexer.new( source )
     @tokens = ANTLR3::CommonTokenStream.new( @lexer )
     
     klass = options.fetch( :class, 'shell' )
     id    = options.fetch( :id, __id__.abs.to_s )
     
     @html = Formatters::HTML::CodeBlock.new( klass, id, options )
-    if @prompt = options[:prompt]
-      @html.add_token('gp', @prompt)
-      @html.add_token('w', ' ')
+    if @prompt = options[ :prompt ]
+      @html.add_token( 'gp', @prompt )
+      @html.add_token( 'w', ' ' )
     end
     
     @tokens.walk do | token |

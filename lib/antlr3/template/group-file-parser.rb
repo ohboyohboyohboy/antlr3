@@ -130,7 +130,7 @@ module GroupFile
       def unescape( text )
         text.gsub( /\\(?:([abefnrstv])|([0-7]{3})|x([0-9a-fA-F]{2})|(.))/ ) do
           if $1
-            case $1[0]
+            case $1[ 0 ]
             when ?a then "\a"
             when ?b then "\b"
             when ?e then "\e"
@@ -153,7 +153,7 @@ module GroupFile
         when TEMPLATE
           token.text.gsub( /\A<<<\r?\n?|\r?\n?>>>\Z/, '' )
         when STRING
-          unescape( token.text[1...-1] )
+          unescape( token.text[ 1...-1 ] )
         end
       end
       
@@ -227,8 +227,8 @@ module GroupFile
         end # loop for decision 2
 
       rescue ANTLR3::Error::RecognitionError => re
-        report_error(re)
-        recover(re)
+        report_error( re )
+        recover( re )
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -302,8 +302,8 @@ module GroupFile
         end
 
       rescue ANTLR3::Error::RecognitionError => re
-        report_error(re)
-        recover(re)
+        report_error( re )
+        recover( re )
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -388,8 +388,8 @@ module GroupFile
         end
 
       rescue ANTLR3::Error::RecognitionError => re
-        report_error(re)
-        recover(re)
+        report_error( re )
+        recover( re )
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -463,8 +463,8 @@ module GroupFile
 
         end
       rescue ANTLR3::Error::RecognitionError => re
-        report_error(re)
-        recover(re)
+        report_error( re )
+        recover( re )
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -517,8 +517,8 @@ module GroupFile
         end # loop for decision 9
 
       rescue ANTLR3::Error::RecognitionError => re
-        report_error(re)
-        recover(re)
+        report_error( re )
+        recover( re )
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -598,8 +598,8 @@ module GroupFile
 
         end
       rescue ANTLR3::Error::RecognitionError => re
-        report_error(re)
-        recover(re)
+        report_error( re )
+        recover( re )
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -658,7 +658,7 @@ if __FILE__ == $0 and ARGV.first != '--'
   # GroupFile.g
 
 
-    defined?(ANTLR3::Template::GroupFile::Lexer) or require 'antlr3/template/group-file'
+    defined?( ANTLR3::Template::GroupFile::Lexer ) or require 'antlr3/template/group-file'
     ANTLR3::Template::GroupFile::Parser.main( ARGV )
 
   # - - - - - - end action @parser::main - - - - - - -

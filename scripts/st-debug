@@ -6,16 +6,18 @@ load File.join( __DIR__, 'script-helper.rb' )
 
 require 'main'
 require 'string-template'
+autoload :Monocle, 'monocle'
 
 class Range
-
   def overlap?( other )
     include?( other.first ) or other.include?( first )
   end
-
 end
 
 Main do
+  def out
+    @out ||= Monocle::Output( stdout )
+  end
   
   mixin :Completion do
     def complete( description, names, partial )
@@ -30,76 +32,15 @@ Main do
     end
     
     def ambiguous_completion!( description, matches, partial )
-      require 'text'
       stderr.puts( <<-END.here_flow! )
       | cannot unambiguously complete partial #{ description }
       | #{ partial.inspect }
       END
-      stderr.puts Text::ColumnList.new( 
-        matches, :width_limit => ( stderr.screen_width * 0.8 ).round
-      ).render
       
+      width = ( out.screen_width * 0.8 ).round
+      out.list( matches, :max_width => width )
       exit( 1 )
     end
-  end
-  
-  mixin :TextFormatting do
-    def initialize
-      require 'text'
-      @width = ( stdout.screen_width * 0.9 ).round
-      @indent = 0
-      super
-    end
-    
-    def leading_space
-      ' ' * @indent
-    end
-    
-    def print_line( line )
-      stdout.print( leading_space )
-      stdout.puts( line )
-    end
-    
-    def puts( text )
-      for line in text.split( $/, -1 )
-        print_line( line )
-      end
-    end
-    
-    def indent( spaces = 2 )
-      @indent += spaces; @width -= spaces
-      yield
-    ensure
-      @indent -= spaces; @width += spaces
-    end
-    
-    def column_list( items )
-      puts( 
-        Text::ColumnList.new( items, :width_limit => @width ).render
-      )
-    end
-    
-    def table( title_row, *rows )
-      puts Text::Table.build( title_row ) do | table |
-        for row in rows
-          table.row( row )
-        end
-        
-        block_given? and yield( table )
-        
-        table.width > @width and table.width = @width
-      end
-    end
-    
-    def title_bar( title )
-      bar = "===[ #{ title } ]".ljust( @width, '=' )
-      puts( bar )
-    end
-    
-    def blank
-      print_line( '' )
-    end
-    
   end
   
   mode( :convert ) do
@@ -155,16 +96,6 @@ Main do
       for node in nodes
         puts( node.node_display )
       end
-      
-      #markup.top.walk do |node|
-      #  node.root? and next
-      #  span = node.line_span
-      #  span.overlap?(range) and rows << [(' ' * (node.depth - 1)) << node.tag,
-      #    node.start.to_s, node.finish.to_s]
-      #end
-      #unless rows.empty?
-      #  table( [ "Tag Tree", "Start", "End" ], *rows )
-      #end
     end
     
   end

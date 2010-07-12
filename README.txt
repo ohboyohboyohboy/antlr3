@@ -1,6 +1,7 @@
 ANTLR 3 for Ruby
     by Kyle Yetter (kcy5b@yahoo.com)
-    http://antlr3.rubyforge.org
+    http://antlr.ohboyohboyohboy.org
+    http://github.com/ohboyohboyohboy/antlr3
 
 == DESCRIPTION:
 
@@ -9,7 +10,7 @@ Fully-featured ANTLR 3 parser generation for Ruby.
 ANTLR (ANother Tool for Language Recognition) is a tool that is used to generate
 code for performing a variety of language recognition tasks: lexing, parsing,
 abstract syntax tree construction and manipulation, tree structure recognition,
-and input translation. The tool operates simillarly to other parser generators,
+and input translation. The tool operates similarly to other parser generators,
 taking in a grammar specification written in the special ANTLR metalanguage and
 producing source code that implements the recognition functionality.
 
@@ -32,11 +33,11 @@ ANTLR provides for other language targets, such as Java and Python. It contains:
   java code and templates for producing fully featured language recognition
   in ruby code
 
-* a ruby runtime library that collects classes used throughout the code that
+* a ruby run-time library that collects classes used throughout the code that
   ANTLR generates
   
 * a wrapper script, `antlr4ruby', which executes the ANTLR command line tool
-  after ensuring the ANTLR jar is java's class path
+  after ensuring the ANTLR jar is Java's class path
 
 == FEATURES
 
@@ -96,21 +97,13 @@ ANTLR provides for other language targets, such as Java and Python. It contains:
   from the conventions and examples covered in the ANTLR standard documentation.
   I am still working on documenting these details.
 
-* While the target is intended to be complete, I do not provide any
-  implementation of the template-construction mode available for Java and Python
-  targets. While I'm interested in having this capability, I have not implemented
-  it yet because ANTLR forces you to use its StringTemplate templating language.
-  Thus, I would have to port the StringTemplate library to Ruby and write a target
-  for ST parser generation. I would prefer to permit template generation that uses
-  ruby's standard ERB templating library.
-
 * So far, this has only been tested on Linux with ruby 1.8.7 and ruby 1.9.1.
   I'm currently working on verifying behavior on other systems and with
   slightly older versions of ruby. 
 
 == LICENSE
 
-[The "BSD licence"]
+[The "BSD license"]
 Copyright (c) 2009-2010 Kyle Yetter
 All rights reserved.
 

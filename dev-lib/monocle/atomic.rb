@@ -38,7 +38,7 @@ class SingleLine < ::String
           case c
           when ONE_BYTE then seen += 1; 1
           when ?\e
-            self[i, size] =~ /^#{COLOR_ESCAPE}/ ? $~.end(0) : 1
+            self[ i, size ] =~ /^#{ COLOR_ESCAPE }/ ? $~.end( 0 ) : 1
           when TWO_BYTES then seen += 1; 2
           when THREE_BYTES then seen += 1; 3
           when FOUR_BYTES then seen += 1; 4
@@ -51,7 +51,7 @@ class SingleLine < ::String
     
     def width
       @@width[ hash ] ||= begin
-        (temp = bleach).gsub!( MULTIBYTE_CHARACTER, ' ' )
+        ( temp = bleach ).gsub!( MULTIBYTE_CHARACTER, ' ' )
         temp.size
       end
     end
@@ -61,7 +61,7 @@ class SingleLine < ::String
     def char_byte( n )
       seen = byte = 0
       if esc = self =~ COLOR_ESCAPE and esc < n
-        return( $~.end(0) + $'.char_byte( n - esc ) )
+        return( $~.end( 0 ) + $'.char_byte( n - esc ) )
       else n
       end
     end
@@ -175,7 +175,7 @@ class SingleLine < ::String
     left!( width + right )
   end
   
-  def partial(len)
+  def partial( len )
     self[ 0, char_byte( len ) ]
   end
   
@@ -233,7 +233,7 @@ class SingleLine < ::String
   end
   
   def words
-    strip.split(/\s+/)
+    strip.split( /\s+/ )
   end
   
   def wrap( w )
@@ -268,7 +268,7 @@ class Text < Array
     when Text then super( lines )
     when Array
       super( lines.join( $/ ).map { | l | Line( l.chomp! || l ) } )
-    when SingleLine then super(1, lines)
+    when SingleLine then super( 1, lines )
     when nil then super()
     else
       super( lines.to_s.lines.map { |l| Line( l.chomp! || l ) } )
@@ -377,8 +377,8 @@ class Text < Array
   end
 
   def pad!( padding )
-    padding.top.times { unshift( Line('') ) }
-    padding.bottom.times { push( Line('') ) }
+    padding.top.times { unshift( Line( '' ) ) }
+    padding.bottom.times { push( Line( '' ) ) }
     w = width
     for line in self
       line.left!( w )
@@ -441,7 +441,7 @@ class Text < Array
 
   alias height length
   alias | juxtapose
-  def `(str)   #` # comment here cos my editor's colorizing freaks out
+  def `( str )   #` # comment here cos my editor's colorizing freaks out
     SingleLine.new( str )
   end 
 end

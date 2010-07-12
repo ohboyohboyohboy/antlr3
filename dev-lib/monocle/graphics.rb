@@ -3,7 +3,7 @@
 
 
 module Monocle
-Graphics = Struct.new(
+Graphics = Struct.new( 
   :ew,  # west east - horizontal line
   :ns,  # north south - vertical line
   :es,  # north west - top right corner
@@ -83,7 +83,7 @@ private
     name.gsub!( 'v', 'ns' )
     chars = name.chars.to_a.sort!
     chars.uniq!
-    self[ chars.join('') ]
+    self[ chars.join( '' ) ]
   end
   
 end

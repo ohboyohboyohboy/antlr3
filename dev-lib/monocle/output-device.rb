@@ -291,7 +291,7 @@ class OutputDevice < DelegateClass( IO )
   
   def return!
     ~@cursor
-    @device.print("\r")
+    @device.print( "\r" )
     @device.flush
   end
   
@@ -392,7 +392,7 @@ private
       data = SIZE_STRUCT.dup
       if @device.ioctl( SIZE_IOCTL, data ) >= 0
         height, width = data.unpack( "SS" )
-        Pair.new(
+        Pair.new( 
           width  > 0 ? width  : default_width,
           height > 0 ? height : default_height
         )
@@ -418,7 +418,7 @@ private
 end
 
 class Pager < OutputDevice
-  unless pager_command = ENV['PAGER']
+  unless pager_command = ENV[ 'PAGER' ]
     pagers = %w( most less more )
     system_path = ENV.read( 'PATH', Array )
     pager_command = pagers.find do | cmd |
@@ -455,7 +455,7 @@ private
       data = SIZE_STRUCT.dup
       if STDOUT.ioctl( SIZE_IOCTL, data ) >= 0
         height, width = data.unpack( "SS" )
-        Pair.new(
+        Pair.new( 
           width  > 0 ? width  : default_width,
           height > 0 ? height : default_height
         )

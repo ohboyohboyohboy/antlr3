@@ -5,7 +5,7 @@ require 'open3'
 require 'antlr3'
 
 class Pygmentize
-  const_defined?(:TokenData) or TokenData = ANTLR3::TokenScheme.new
+  const_defined?( :TokenData ) or TokenData = ANTLR3::TokenScheme.new
   
   token_names = %w(
     Token.Comment Token.Comment.Multiline Token.Comment.Preproc
@@ -42,30 +42,30 @@ class Pygmentize
   
   token_names.each_with_index do |type_name, i|
     value = ANTLR3::MIN_TOKEN_TYPE + i
-    PYGMENTIZE_MAP[type_name] = value
-    TokenData.define_token(:"T__#{value}", value)
+    PYGMENTIZE_MAP[ type_name ] = value
+    TokenData.define_token( :"T__#{ value }", value )
   end
-  TokenData.register_names(*token_class_names)
+  TokenData.register_names( *token_class_names )
   
   include Open3
   include TokenData
   include ANTLR3::TokenSource
   
-  def initialize(lang, options = {})
+  def initialize( lang, options = {} )
     @lang = lang
     @tokens = []
     @buffer = StringIO.new
-    source = options[:source] and lex(source, options)
+    source = options[ :source ] and lex( source, options )
   end
   
-  def lex(source, options = {})
-    @line = options.fetch(:line, 1)
-    @column = options.fetch(:column, 0)
+  def lex( source, options = {} )
+    @line = options.fetch( :line, 1 )
+    @column = options.fetch( :column, 0 )
     @position = 0
-    popen3("pygmentize -l #@lang -f raw") do |inp, out, err|
-      inp.write(source)
+    popen3( "pygmentize -l #@lang -f raw" ) do |inp, out, err|
+      inp.write( source )
       inp.close
-      read_tokens(out)
+      read_tokens( out )
       out.close
       err.close
     end
@@ -84,75 +84,75 @@ class Pygmentize
   
 private
   
-  def read_tokens(pipe)
+  def read_tokens( pipe )
     while token_line = pipe.gets
       token_line.chomp!
-      type, text = token_line.split("\t", 2)
-      @tokens << create_token(type, text)
+      type, text = token_line.split( "\t", 2 )
+      @tokens << create_token( type, text )
     end
   end
   
-  def create_token(type, text)
-    type = PYGMENTIZE_MAP[type]
-    text = parse_python_string(text)
+  def create_token( type, text )
+    type = PYGMENTIZE_MAP[ type ]
+    text = parse_python_string( text )
     line, column, position = @line, @column, @position
     
-    if tail = text.rindex(?\n)
+    if tail = text.rindex( ?\n )
       @column = text.length - tail - 1
-      @line += text.count("\n")
+      @line += text.count( "\n" )
     else
       @column += text.length
     end
     @position += text.length
     
-    Token.new(type, ANTLR3::DEFAULT_CHANNEL, text, nil, position, @position - 1, -1, line, column)
+    Token.new( type, ANTLR3::DEFAULT_CHANNEL, text, nil, position, @position - 1, -1, line, column )
   end
   
-  def parse_python_string(pystr)
+  def parse_python_string( pystr )
     case pystr
     when /^u(['"])(.*)\1$/
-      buffer($2)
+      buffer( $2 )
       out = ''
       loop { out << char }
       return out
     else
-      raise(TypeError, "unhandled python string format: %s" % pystr)
+      raise( TypeError, "unhandled python string format: %s" % pystr )
     end
   end
   
-  def buffer(text)
+  def buffer( text )
     @buffer.string = text.to_s
     @buffer.rewind
   end
   
   def char
     c = @buffer.getc or raise StopIteration
-    return(c == ?\\ ? escape : c)
+    return( c == ?\\ ? escape : c )
   end
 
-  ESCAPE_MAP = Array.new(256) { |i| i }
-  ESCAPE_MAP[?n] = ?\n
-  ESCAPE_MAP[?f] = ?\f
-  ESCAPE_MAP[?r] = ?\r
-  ESCAPE_MAP[?t] = ?\t
-  ESCAPE_MAP[?v] = ?\v
-  ESCAPE_MAP[?a] = ?\a
-  ESCAPE_MAP[?b] = ?\b
-  ESCAPE_MAP[?O] = 0
-  ESCAPE_MAP[?u] = nil
-  ESCAPE_MAP[?x] = nil
-  ESCAPE_MAP[?U] = nil
-  ?0.upto(?9) { |i| ESCAPE_MAP[i] = nil }
+  ESCAPE_MAP = Array.new( 256 ) { |i| i }
+  ESCAPE_MAP[ ?n ] = ?\n
+  ESCAPE_MAP[ ?f ] = ?\f
+  ESCAPE_MAP[ ?r ] = ?\r
+  ESCAPE_MAP[ ?t ] = ?\t
+  ESCAPE_MAP[ ?v ] = ?\v
+  ESCAPE_MAP[ ?a ] = ?\a
+  ESCAPE_MAP[ ?b ] = ?\b
+  ESCAPE_MAP[ ?O ] = 0
+  ESCAPE_MAP[ ?u ] = nil
+  ESCAPE_MAP[ ?x ] = nil
+  ESCAPE_MAP[ ?U ] = nil
+  ?0.upto( ?9 ) { |i| ESCAPE_MAP[ i ] = nil }
   
   def escape
     c = @buffer.getc or raise StopIteration
-    val = ESCAPE_MAP[c] and return val
+    val = ESCAPE_MAP[ c ] and return val
     case c
     when ?0..?9
-      @buffer.ungetc(c)
-      @buffer.read(3).to_i(8)
+      @buffer.ungetc( c )
+      @buffer.read( 3 ).to_i( 8 )
     when ?x
-      @buffer.read(2).to_i(16)
+      @buffer.read( 2 ).to_i( 16 )
     when ?u
       raise NotImplementedError, "have not implemented unicode interpretation yet: %p" % @buffer.string
     end

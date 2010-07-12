@@ -3,9 +3,9 @@
 
 module StringTemplate
 module Markup
-  def self.convert(path)
-    source = File.read(path)
-    source =~ /^__END__$/ and raise(<<-END.here_flow!)
+  def self.convert( path )
+    source = File.read( path )
+    source =~ /^__END__$/ and raise( <<-END.here_flow! )
     | #{ path.inspect } appears to already contain
     | embeded data following an __END__ declaration
     END

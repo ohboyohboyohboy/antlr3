@@ -619,7 +619,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
     result = parse( <<-'END', :a, '3' )
       grammar RewriteActions;
       options {language=Ruby;output=AST;}
-      a : atom -> ^({ @adaptor.create!(INT,"9") } atom) ;
+      a : atom -> ^({ @adaptor.create( INT, "9" ) } atom) ;
       atom : INT ;
       ID : 'a'..'z'+ ;
       INT : '0'..'9'+;
@@ -634,11 +634,11 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
     result = parse( <<-'END', :a, '3' )
       grammar RewriteActions2;
       options {language=Ruby;output=AST;}
-      a : atom -> { @adaptor.create!(INT,"9") } atom ;
+      a : atom -> { @adaptor.create( INT, "9" ) } atom ;
       atom : INT ;
       ID : 'a'..'z'+ ;
       INT : '0'..'9'+;
-      WS : (' '|'\n') {$channel=HIDDEN;} ;
+      WS : (' '|'\n') { $channel = HIDDEN } ;
   
     END
     result.should == '9 3'
@@ -1087,7 +1087,7 @@ class TestASTViaRewriteRules < ANTLR3::Test::Functional
       options {language=Ruby;output=AST;}
       tokens { FLOAT; }
       r
-          : INT -> {ANTLR3::CommonTree.new(create_token(FLOAT, nil, "#{$INT.text}.0"))} 
+          : INT -> { ANTLR3::CommonTree.new( create_token( FLOAT, nil, "#{$INT.text}.0" ) ) }
           ; 
       INT : '0'..'9'+; 
       WS: (' ' | '\n' | '\t')+ {$channel = HIDDEN;};

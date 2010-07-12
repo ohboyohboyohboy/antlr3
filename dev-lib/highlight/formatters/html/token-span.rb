@@ -8,21 +8,21 @@ class TokenSpan
   include Taggable
   attr_accessor :type, :text, :link, :attributes
   
-  def []=(name, value)
+  def []=( name, value )
     @attributes ||= {}
-    @attributes[name.to_s] = value ? value.to_s : value
+    @attributes[ name.to_s ] = value ? value.to_s : value
   end
   
-  def [](name)
-    @attributes ? @attributes[name.to_s] : nil
+  def []( name )
+    @attributes ? @attributes[ name.to_s ] : nil
   end
   
-  def initialize(group, type, text, options = nil)
+  def initialize( group, type, text, options = nil )
     @group = group
     @type = type
     @text = text
     if options
-      @link = options.delete(:link)
+      @link = options.delete( :link )
       @attributes = options
     end
   end
@@ -30,28 +30,28 @@ class TokenSpan
   def to_s
     t = ''
     @link and t << anchor
-    t << %(<span #{attribute_string}>#{escape(@text)}</span>)
+    t << %(<span #{ attribute_string }>#{ escape( @text ) }</span>)
     @link and t << '</a>'
     return t
   end
   
 private
   def attribute_string
-    t = class_attribute(@type)
+    t = class_attribute( @type )
     @attributes and @attributes.each do |name, value|
-      value and t << %( #{name}=%p) % value.to_s
+      value and t << %( #{ name }=%p) % value.to_s
     end
     return t
   end
   
   def anchor
-    line_id = @group.generate_id(@link)
-    %(<a href="##{line_id}">)
+    line_id = @group.generate_id( @link )
+    %(<a href="##{ line_id }">)
   end
   
-  def escape(text)
-    text = CGI.escapeHTML(text.to_s)
-    text.gsub!(/ /, '&nbsp;')
+  def escape( text )
+    text = CGI.escapeHTML( text.to_s )
+    text.gsub!( / /, '&nbsp;' )
     return text
   end
 end

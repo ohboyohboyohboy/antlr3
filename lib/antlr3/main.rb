@@ -494,24 +494,35 @@ class WalkerMain < Main
     opt.separator ''
     opt.separator "Tree Parser Configuration:"
     
-    opt.on( '--lexer-name CLASS_NAME' ) { |val| @lexer_class_name = val }
-    opt.on( '--lexer-file PATH_TO_LIBRARY' ) { |val|
+    opt.on( '--lexer-name CLASS_NAME', 'full name of the lexer class to use' ) { |val| @lexer_class_name = val }
+    opt.on(
+      '--lexer-file PATH_TO_LIBRARY',
+      'path to load to make the lexer class available'
+    ) { |val|
       begin
         test( ?f, val ) ? load( val ) : require( val )
       rescue LoadError
-        warn( "unable to load the library specified by --lexer-file: #{ $! }" )
+        warn( "unable to load the library `#{ val }' specified by --lexer-file: #{ $! }" )
       end
     }
-    opt.on( '--parser-name CLASS_NAME' ) { |val| @parser_class_name = val }
-    opt.on( '--parser-file PATH_TO_LIBRARY' ) { |val|
+    
+    opt.on(
+      '--parser-name CLASS_NAME',
+      'full name of the parser class to use'
+    ) { |val| @parser_class_name = val }
+    opt.on(
+      '--parser-file PATH_TO_LIBRARY',
+      'path to load to make the parser class available'
+    ) { |val|
       begin
         test( ?f, val ) ? load( val ) : require( val )
       rescue LoadError
         warn( "unable to load the library specified by --parser-file: #{ $! }" )
       end
     }
-    opt.on( '--parser-rule NAME' ) { |val| @parser_rule = val }
-    opt.on( '--rule NAME' ) { |val| @walker_rule = val }
+    
+    opt.on( '--parser-rule NAME', "name of the parser rule to use on the input" ) { |val| @parser_rule = val }
+    opt.on( '--rule NAME', "name of the rule to invoke in the tree parser" ) { |val| @walker_rule = val }
     
     if @debug
       opt.separator ''

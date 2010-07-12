@@ -8,7 +8,7 @@ purpose:    rake task set
 =end
 
 namespace :notes do
-  desc( "find and list FIXME notes in the library and test source code")
+  desc( "find and list FIXME notes in the library and test source code" )
   task :FIXME do
     require 'source-notes'
     color_map = { :tag => 'red', :text => 'yellow' }
@@ -18,7 +18,7 @@ namespace :notes do
     end
   end
   
-  desc( "find and list TODO notes in the library and test source code")
+  desc( "find and list TODO notes in the library and test source code" )
   task :TODO do
     require 'source-notes'
     color_map = { :tag => 'magenta', :text => 'yellow' }
@@ -28,8 +28,8 @@ namespace :notes do
     end
   end
   
-  desc( "find and list notes with tag (like FIXME) provided by the tag argument")
-  task :with_tag, [:tag] do |t, args|
+  desc( "find and list notes with tag (like FIXME) provided by the tag argument" )
+  task :with_tag, [ :tag ] do |t, args|
     tag = args[ :tag ] or fail( "provide a tag argument" )
     
     require 'source-notes'

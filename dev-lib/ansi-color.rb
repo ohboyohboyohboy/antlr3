@@ -4,7 +4,7 @@ class String
 
 module ANSIEscapes
   CLEAR = "\e[0m"
-  STYLES = {
+  STYLES = { 
     :blink         =>"\e[5m",
     :bold          =>"\e[1m",
     :underline     =>"\e[4m",
@@ -12,7 +12,7 @@ module ANSIEscapes
     :dark          =>"\e[2m"
   }
   
-  FOREGROUND_COLORS = {
+  FOREGROUND_COLORS = { 
     :cyan           => "\e[36m",
     :blue           => "\e[34m",
     :bright_red     => "\e[1;31m",
@@ -31,7 +31,7 @@ module ANSIEscapes
     :bright_magenta => "\e[1;35m"
   }
   
-  BACKGROUND_COLORS = {
+  BACKGROUND_COLORS = { 
     :on_white   => "\e[47m",
     :on_green   => "\e[42m",
     :on_red     => "\e[41m",
@@ -43,8 +43,8 @@ module ANSIEscapes
   }
   
   
-  COLORS = BACKGROUND_COLORS.merge(FOREGROUND_COLORS)
-  ALL_ESCAPES = COLORS.merge(STYLES)
+  COLORS = BACKGROUND_COLORS.merge( FOREGROUND_COLORS )
+  ALL_ESCAPES = COLORS.merge( STYLES )
   
   for name, code in ALL_ESCAPES
     class_eval( <<-END, __FILE__, __LINE__ + 1 )
@@ -60,11 +60,11 @@ module ANSIEscapes
   
   # remove all ansi color escapes
   def bleach
-    gsub(/\e\[\d+m/, '')
+    gsub( /\e\[\d+m/, '' )
   end
   
   def bleach!
-    gsub!(/\e\[\d+m/, '')
+    gsub!( /\e\[\d+m/, '' )
   end
   
 end

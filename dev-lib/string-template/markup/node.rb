@@ -9,7 +9,7 @@ class Node
   include TreeLike
   attr_accessor :id, :start, :finish, :document, :parent_id, :tag_id
   
-  def initialize( document = nil, id = nil, tag_id = nil, start = nil, parent = nil)
+  def initialize( document = nil, id = nil, tag_id = nil, start = nil, parent = nil )
     @document = document
     @id = id
     @tag_id = tag_id
@@ -47,12 +47,12 @@ class Node
     @document[ source_range ]
   end
   
-  def source_code_context(before = 0, after = before)
+  def source_code_context( before = 0, after = before )
     output_source = ''
     source_lines = @document.ruby_source.split
     
-    start = (@start.line - 1 - before).at_least( 0 )
-    finish = (@finish.line - 1 + after).at_most( lines.length - 1 )
+    start = ( @start.line - 1 - before ).at_least( 0 )
+    finish = ( @finish.line - 1 + after ).at_most( lines.length - 1 )
     
     context_lines = source_lines[ start..finish ]
     context_lines[ @finish.line - finish - 2 ].insert( @finish.column, 255.chr )

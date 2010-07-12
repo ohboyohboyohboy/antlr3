@@ -86,16 +86,17 @@ h1. Tree Parser Drivers
 
 « shell
 ruby CSS/CSSWalker.rb --help
-  Usage: CSSWalker [options]
-  Input Options:
-      -i, --input "text to process"    a string to use as direct input to the recognizer
-      -I, --interactive                run an interactive session with the recognizer
-  
-  Tree Parser Configuration:
-          --lexer-name CLASS_NAME
-          --lexer-file PATH_TO_LIBRARY
-          --parser-name CLASS_NAME
-          --parser-file PATH_TO_LIBRARY
-          --parser-rule NAME
-          --rule NAME
+    Usage: FlatListWalker [options]
+    Input Options:
+        -i, --input "text to process"    a string to use as direct input to the recognizer
+        -I, --interactive                run an interactive session with the recognizer
+    
+    Tree Parser Configuration:
+            --lexer-name CLASS_NAME      full name of the lexer class to use
+            --lexer-file PATH_TO_LIBRARY path to load to make the lexer class available
+            --parser-name CLASS_NAME     full name of the parser class to use
+            --parser-file PATH_TO_LIBRARY
+                                         path to load to make the parser class available
+            --parser-rule NAME           name of the parser rule to use on the input
+            --rule NAME                  name of the rule to invoke in the tree parser
 »

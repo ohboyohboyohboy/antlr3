@@ -16,7 +16,7 @@ class RecordEventListener < TraceEventListener
     @events = []
   end
   
-  def record(event_message, *interpolation_arguments)
+  def record( event_message, *interpolation_arguments )
     event_message = event_message.to_s
     @events << event_message % interpolation_arguments
   end

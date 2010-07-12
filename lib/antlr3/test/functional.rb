@@ -159,10 +159,6 @@ class Functional < ::Test::Unit::TestCase
     klass.test_path = call_stack[ 0 ].file
   end
   
-  def self.example( *args, &b )
-    super
-  end
-  
   def local_path( *args )
     self.class.local_path( *args )
   end

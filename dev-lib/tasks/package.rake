@@ -27,7 +27,7 @@ $project.package.files.each { | f |  file( f )  }
 
 hoe_rakefile = 'dev-lib/dist/rakefile'
 hoe_template = 'dev-lib/dist/rakefile.erb'
-hoe_depends  = [
+hoe_depends  = [ 
   hoe_template,
   'config/antlr3.yaml',
   'config/antlr3.rb'

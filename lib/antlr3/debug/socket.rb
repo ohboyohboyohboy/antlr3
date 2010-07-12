@@ -21,43 +21,43 @@ class EventSocketProxy
   
   SOCKET_ADDR_PACK = 'snCCCCa8'.freeze
   
-  def initialize(recognizer, options = {})
+  def initialize( recognizer, options = {} )
     super()
     @grammar_file_name = recognizer.grammar_file_name
-    @adaptor = options[:adaptor]
-    @port = options[:port] || DEFAULT_PORT
-    @log = options[:log]
+    @adaptor = options[ :adaptor ]
+    @port = options[ :port ] || DEFAULT_PORT
+    @log = options[ :log ]
     @socket = nil
     @connection = nil
   end
   
-  def log!(message, *interpolation_arguments)
-    @log and @log.printf(message, *interpolation_arguments)
+  def log!( message, *interpolation_arguments )
+    @log and @log.printf( message, *interpolation_arguments )
   end
   
   def handshake
     unless @socket
       begin
-        @socket = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
+        @socket = Socket.new( Socket::AF_INET, Socket::SOCK_STREAM, 0 )
         @socket.setsockopt( Socket::SOL_SOCKET, Socket::SO_REUSEADDR, 1 )
-        @socket.bind(Socket.pack_sockaddr_in( @port, '' ))
-        @socket.listen(1)
-        log!("waiting for incoming connection on port %i\n", @port)
+        @socket.bind( Socket.pack_sockaddr_in( @port, '' ) )
+        @socket.listen( 1 )
+        log!( "waiting for incoming connection on port %i\n", @port )
         
         @connection, addr = @socket.accept
-        port, host = Socket.unpack_sockaddr_in(addr)
-        log!("Accepted connection from %s:%s\n", host, port)
+        port, host = Socket.unpack_sockaddr_in( addr )
+        log!( "Accepted connection from %s:%s\n", host, port )
         
-        @connection.setsockopt(Socket::SOL_TCP, Socket::TCP_NODELAY, 1)
+        @connection.setsockopt( Socket::SOL_TCP, Socket::TCP_NODELAY, 1 )
         
-        write('ANTLR %s', PROTOCOL_VERSION)
-        write('grammar %p', @grammar_file_name)
+        write( 'ANTLR %s', PROTOCOL_VERSION )
+        write( 'grammar %p', @grammar_file_name )
         ack
       rescue IOError => error
-        log!("handshake failed due to an IOError:\n")
-        log!("  %s: %s", error.class, error.message)
-        log!("  Backtrace: ")
-        log!("  - %s", error.backtrace.join("\n  - "))
+        log!( "handshake failed due to an IOError:\n" )
+        log!( "  %s: %s", error.class, error.message )
+        log!( "  Backtrace: " )
+        log!( "  - %s", error.backtrace.join( "\n  - " ) )
         @connection and @connection.close
         @socket and @socket.close
         @socket = nil
@@ -67,21 +67,21 @@ class EventSocketProxy
     return self
   end
   
-  def write(message, *interpolation_arguments)
+  def write( message, *interpolation_arguments )
     message << ?\n
-    log!("---> #{message}", *interpolation_arguments)
-    @connection.printf(message, *interpolation_arguments)
+    log!( "---> #{ message }", *interpolation_arguments )
+    @connection.printf( message, *interpolation_arguments )
     @connection.flush
   end
   
   def ack
     line = @connection.readline
-    log!("<--- %s", line)
+    log!( "<--- %s", line )
     line
   end
   
-  def transmit(event, *interpolation_arguments)
-    write(event, *interpolation_arguments)
+  def transmit( event, *interpolation_arguments )
+    write( event, *interpolation_arguments )
     ack()
   rescue IOError
     @connection.close
@@ -134,21 +134,21 @@ class EventSocketProxy
     transmit "%s\t%s", :consume_hidden_token, serialize_token( token )
   end
   
-  def look(i, item)
+  def look( i, item )
     case item
     when AST::Tree
       look_tree( i, item )
     when nil
     else
-      transmit "%s\t%i\t%s", :look, i, serialize_token(item)
+      transmit "%s\t%i\t%s", :look, i, serialize_token( item )
     end
   end
   
-  def mark(i)
+  def mark( i )
     transmit "%s\t%i", :mark, i
   end
   
-  def rewind(i = nil)
+  def rewind( i = nil )
     i ? transmit( "%s\t%i", :rewind, i ) : transmit( '%s', :rewind )
   end
   
@@ -156,7 +156,7 @@ class EventSocketProxy
     transmit "%s\t%i", :begin_backtrack, level
   end
   def end_backtrack( level, successful )
-    transmit "%s\t%i\t%p", :end_backtrack, level, (successful ? true : false)
+    transmit "%s\t%i\t%p", :end_backtrack, level, ( successful ? true : false )
   end
   
   def location( line, position )
@@ -177,7 +177,7 @@ class EventSocketProxy
   end
   
   def semantic_predicate( result, predicate )
-    pure_boolean = !(!result)
+    pure_boolean = !( !result )
     transmit "%s\t%s\t%s", :semantic_predicate, pure_boolean, escape_newlines( predicate )
   end
   
@@ -230,9 +230,9 @@ class EventSocketProxy
   attr_accessor :adaptor
   
   def serialize_token( token )
-    [token.token_index, token.type, token.channel,
+    [ token.token_index, token.type, token.channel,
      token.line, token.column,
-     escape_newlines( token.text )].join( "\t" )
+     escape_newlines( token.text ) ].join( "\t" )
   end
   
   def serialize_node( node )
@@ -249,7 +249,7 @@ class EventSocketProxy
   
   def escape_newlines( text )
     text.inspect.tap do |t|
-      t.gsub!(/%/, '%%')
+      t.gsub!( /%/, '%%' )
     end
   end
 end
@@ -263,7 +263,7 @@ over an IP socket.
 class RemoteEventSocketListener < ::Thread
   autoload :StringIO, 'stringio'
   ESCAPE_MAP = Hash.new { |h, k| k }
-  ESCAPE_MAP.update(
+  ESCAPE_MAP.update( 
     ?n => ?\n, ?t => ?\t, ?a => ?\a, ?b => ?\b, ?e => ?\e,
     ?f => ?\f, ?r => ?\r, ?v => ?\v
   )
@@ -288,33 +288,33 @@ class RemoteEventSocketListener < ::Thread
 private
   
   def handshake
-    @version = @socket.readline.split("\t")[-1]
-    @grammar_file = @socket.readline.split("\t")[-1]
+    @version = @socket.readline.split( "\t" )[ -1 ]
+    @grammar_file = @socket.readline.split( "\t" )[ -1 ]
     ack
   end
   
   def ack
-    @socket.puts("ack")
+    @socket.puts( "ack" )
     @socket.flush
   end
   
-  def unpack_event(event)
+  def unpack_event( event )
     event.nil? and raise( StopIteration )
     event.chomp!
-    name, *elements = event.split("\t",-1)
+    name, *elements = event.split( "\t",-1 )
     name = name.to_sym
     name == :terminate and raise StopIteration
     elements.map! do |elem|
-      elem.empty? and next(nil)
+      elem.empty? and next( nil )
       case elem
-      when /^\d+$/ then Integer(elem)
-      when /^\d+\.\d+$/ then Float(elem)
+      when /^\d+$/ then Integer( elem )
+      when /^\d+\.\d+$/ then Float( elem )
       when /^true$/ then true
       when /^false$/ then false
-      when /^"(.*)"$/ then parse_string($1)
+      when /^"(.*)"$/ then parse_string( $1 )
       end
     end
-    elements.unshift(name)
+    elements.unshift( name )
     return( elements )
   end
   
@@ -325,7 +325,7 @@ private
   end
   
   def connect
-    TCPSocket.open(@host, @port) do |socket|
+    TCPSocket.open( @host, @port ) do |socket|
       @socket = socket
       yield
     end

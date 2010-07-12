@@ -9,4 +9,3 @@ summary:
 loads:      files required by this
 autoloads:  autoload entries in this (e.g. YAML(yaml))
 =end
-

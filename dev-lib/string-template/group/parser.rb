@@ -124,7 +124,7 @@ end
 
 ##### racc 1.4.5 generates ###
 
-racc_reduce_table = [
+racc_reduce_table = [ 
  0, 0, :racc_error,
  2, 21, :_reduce_1,
  3, 22, :_reduce_2,
@@ -175,7 +175,7 @@ racc_reduce_n = 45
 
 racc_shift_n = 79
 
-racc_action_table = [
+racc_action_table = [ 
     71,    71,     6,    44,    68,    20,    21,    22,    29,     6,
      4,    72,    72,    73,    73,    69,    27,     4,    50,    15,
     50,    16,    33,    53,    52,    53,    57,    57,    58,    58,
@@ -183,7 +183,7 @@ racc_action_table = [
     46,    47,    48,    49,    31,    56,   -17,    60,    24,    39,
     64,    65,    66,    67,    23,    13,    12,    11,     2,    78 ]
 
-racc_action_check = [
+racc_action_check = [ 
     65,    67,     1,    35,    54,    11,    11,    11,    16,     5,
      1,    65,    67,    65,    67,    54,    16,     5,    68,    10,
     43,    10,    21,    68,    43,    43,    60,    45,    60,    45,
@@ -191,7 +191,7 @@ racc_action_check = [
     38,    39,    40,    41,    17,    44,    15,    46,    13,    48,
     49,    50,    51,    53,    12,     4,     3,     2,     0,    76 ]
 
-racc_action_pointer = [
+racc_action_pointer = [ 
     56,    -1,    54,    56,    52,     6,   nil,   nil,   nil,   nil,
     11,     1,    54,    36,   nil,    43,     5,    40,    32,   nil,
    nil,    19,    29,   nil,    30,    25,    32,    33,   nil,   nil,
@@ -201,7 +201,7 @@ racc_action_pointer = [
     12,   nil,   nil,   nil,   nil,    -3,   nil,    -2,     4,   nil,
    nil,   nil,   nil,   nil,   nil,   nil,    41,   nil,   nil ]
 
-racc_action_default = [
+racc_action_default = [ 
    -45,   -45,   -45,   -45,   -45,    -1,   -19,   -11,   -13,   -14,
    -45,   -45,   -45,   -45,   -12,   -15,   -30,   -45,    -4,    -6,
     -2,   -45,   -45,    79,   -45,   -45,   -45,   -45,   -32,   -21,
@@ -211,27 +211,27 @@ racc_action_default = [
    -45,   -26,   -27,   -24,   -22,   -44,   -34,   -44,   -45,   -35,
    -18,   -43,   -41,   -42,   -39,   -40,   -45,   -38,   -36 ]
 
-racc_goto_table = [
+racc_goto_table = [ 
     51,    55,    38,    59,    19,     7,    74,    35,    75,    14,
     18,    32,    17,    25,    26,    28,    42,    30,    70,     5,
     54,     1,     3,   nil,    63,    76,    77 ]
 
-racc_goto_check = [
+racc_goto_check = [ 
     20,    22,    13,    12,     6,     8,    23,     7,    23,     8,
      5,     6,     4,    14,    15,    16,    18,    19,    12,     3,
     21,     2,     1,   nil,    13,    20,    22 ]
 
-racc_goto_pointer = [
+racc_goto_pointer = [ 
    nil,    22,    21,    18,     1,    -1,    -7,   -15,     4,   nil,
    nil,   nil,   -42,   -24,    -2,    -1,    -1,   nil,   -14,     1,
    -43,   -23,   -42,   -59 ]
 
-racc_goto_default = [
+racc_goto_default = [ 
    nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,     8,
      9,    10,   nil,   nil,   nil,   nil,   nil,    40,   nil,   nil,
    nil,   nil,   nil,   nil ]
 
-racc_token_table = {
+racc_token_table = { 
  false => 0,
  Object.new => 1,
  :GROUP => 2,
@@ -257,7 +257,7 @@ racc_use_result_var = false
 
 racc_nt_base = 20
 
-Racc_arg = [
+Racc_arg = [ 
  racc_action_table,
  racc_action_check,
  racc_action_default,
@@ -273,7 +273,7 @@ Racc_arg = [
  racc_reduce_n,
  racc_use_result_var ]
 
-Racc_token_to_s_table = [
+Racc_token_to_s_table = [ 
 '$end',
 'error',
 'GROUP',
@@ -317,7 +317,7 @@ Racc_token_to_s_table = [
 'default_pair',
 'key_pairs',
 'key_pair',
-'key_value']
+'key_value' ]
 
 Racc_debug_parser = false
 
@@ -551,12 +551,11 @@ module_eval <<'.,.,', 'group-parser.y', 103
 
  # reduce 44 omitted
 
- def _reduce_none( val, _values)
-  val[0]
+ def _reduce_none( val, _values )
+  val[ 0 ]
  end
 
 end   # class Parser
 
 end
 end
-

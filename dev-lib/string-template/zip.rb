@@ -6,7 +6,7 @@ module Zip
   module_function
   
   def unzip( group_file, options = {} )
-    output_directory = options[ :output_directory] || File.dirname( group_file )
+    output_directory = options[ :output_directory ] || File.dirname( group_file )
     verbose = options.fetch( :verbose, false )
     
     group = Group.load( group_file )
@@ -29,20 +29,20 @@ module Zip
         else span = member.span
         end
         
-        source = tokens[ span ].join('')
-        tokens[ span ] = "<%= #{member.name} %>"
+        source = tokens[ span ].join( '' )
+        tokens[ span ] = "<%= #{ member.name } %>"
         
         open( member_file, 'w' ) do |f|
           f.write( source )
           if verbose
-            type = member.class.to_s.split('::').last.snake_case
+            type = member.class.to_s.split( '::' ).last.snake_case
             $stderr.printf( "- wrote %s %s to %s\n", type, member.name, member_file )
           end
         end
       end
     end
     
-    manifest_source = tokens.join('')
+    manifest_source = tokens.join( '' )
     manifest_file = directory / group.name + '.stg'
     open( manifest_file, 'w' ) do |f|
       f.write( manifest_source )
@@ -69,10 +69,10 @@ module Zip
       templates[ name ] = File.read( t )
     end
     
-    group_source = manifest.gsub( /<%= *(\S+) *%>/) do
+    group_source = manifest.gsub( /<%= *(\S+) *%>/ ) do
       name = $1
       template = templates.fetch( name ) do
-        raise("found no template file #{name}.st for group file #{manifest_file}")
+        raise( "found no template file #{ name }.st for group file #{ manifest_file }" )
       end
       verbose and $stderr.printf( "- included template %s\n", name )
       template
@@ -91,7 +91,7 @@ module Zip
   
   def open_with_backup( path, verbose )
     if backup = test( ?f, path )
-      verbose and $stderr.puts("- backing up #{path} to #{path}.backup")
+      verbose and $stderr.puts( "- backing up #{ path } to #{ path }.backup" )
       File.rename( path, path + '.backup' )
     end
     
@@ -102,7 +102,7 @@ module Zip
     rescue => error
       if backup
         File.rename( path + '.backup', path )
-        verbose and $stderr.puts("! restored backup of #{path}")
+        verbose and $stderr.puts( "! restored backup of #{ path }" )
       end
       raise error
     end

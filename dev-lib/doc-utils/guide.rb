@@ -53,7 +53,7 @@ class PropertyGroup < ::Hash
     return( self )
   end
   
-  def method_missing( method, *args, &block)
+  def method_missing( method, *args, &block )
     case name = method.to_s
     when /^(\w+)=$/
       define_member( $1, *args )
@@ -114,13 +114,13 @@ end
 class Guide < PropertyGroup
   def initialize( config = {}, &b )
     config =
-      config.with_defaults(
+      config.with_defaults( 
         :author => nil,
         :email  => nil,
         :output => '.',
         :template => nil,
         :default_source => "h1. Coming Soon"
-      ).update(
+      ).update( 
         :articles => [],
         :article_index => {}
       )
@@ -153,7 +153,7 @@ class Article < PropertyGroup
       time   = Time.now
     end
     
-    super(
+    super( 
       :source_file => source_file,
       :name  => name,
       :title => title,
@@ -263,7 +263,7 @@ class Article < PropertyGroup
       CodeFrame.new( tag, content, options )
     when :css then
       stylesheets << "generic.css"
-      options = options.with_defaults(
+      options = options.with_defaults( 
         :class => 'generic', :number_lines => false, :prompt => '~>'
       )
       CodeFrame.new( tag, content, options )
@@ -275,7 +275,7 @@ class Article < PropertyGroup
       raw_html( markup( result , false ) )
     when :cmd, :shell
       stylesheets << 'generic.css'
-      options = options.with_defaults(
+      options = options.with_defaults( 
         :class => 'generic', :number_lines => false, :prompt => '~>'
       )
       CodeFrame.new( tag, content, options )

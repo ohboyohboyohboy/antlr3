@@ -1,3 +1,24 @@
+=== 1.8.0 / 07-03-10
+
+* Bug Fix / Major Enhancement: made antlr3 compatible with ruby 1.9
+  - altered ANTLR3::StringStream to always have #peek return an integer in both
+    Ruby 1.8 and 1.9. In 1.9, @data is now an array of code point values and
+    the new instance variable @string contains the actual string. In Ruby 1.8,
+    both @data and @string contain the string value.
+  - lexer code is no longer generated using '?c' character syntax; characters
+    are now represented as hexadecimal integers to make the code compatible
+    with Ruby 1.9
+
+=== 1.7.5 / 06-18-10
+
+* Minor Enhancements
+  - added #compile! and #clobber! methods to directly invoke the 'compile'
+    and 'clobber' tasks respectively
+  
+* Bug Fixes
+  - removed special ruby-stylistic formatting on syntactic predicate method names to
+    fix a bad bug in code-generation that cropped up in more complex grammars
+
 === 1.7.2 / 05-16-10
 
 * Minor Enhancements

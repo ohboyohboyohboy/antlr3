@@ -28,7 +28,7 @@ class TemplateLexer < Lexer::StatefulLexer
   state :instruction do
     
     %w(first if last length rest strip trunc elseif else endif).each do |word|
-      keyword(word)
+      keyword( word )
     end
     delimited :SHORT_STRING, '"'
     delimited :LONG_STRING, '<<', '>>'
@@ -60,35 +60,34 @@ class TemplateLexer < Lexer::StatefulLexer
     template_token = @emission_buffer.pop
     text = template_token.text
     @location = template_token.location
-    emit_token(:BRACE_OPEN, text[0,1])
-    sublexer =  SubtemplateLexer.new(text[1...-1], :location => @location)
-    sublexer.lex!(false) do |token|
+    emit_token( :BRACE_OPEN, text[ 0,1 ] )
+    sublexer =  SubtemplateLexer.new( text[ 1...-1 ], :location => @location )
+    sublexer.lex!( false ) do |token|
       token.index = @tokens.length + @emission_buffer.length
       @emission_buffer << token
     end
     @location = sublexer.location
-    emit_token(:BRACE_CLOSE, text[-1, 1])
+    emit_token( :BRACE_CLOSE, text[ -1, 1 ] )
   end
 end
 
 
 class TemplateLexer::SubtemplateLexer < TemplateLexer
-  state(:variable_declaration) do
+  state( :variable_declaration ) do
     rule :SPACE, /\s+/, :channel => :hidden
     rule :ID, /[a-z_]\w*/i
     rule :COMMA, ','
     rule :BAR, '|', :go_to => :text
   end
   
-  def initialize(text, options = {})
+  def initialize( text, options = {} )
     super
     id = /[a-z_]\w*/i
-    has_vars = @scanner.check(/^(\s*(?:#{id}\s*,\s*)*#{id}\s*\|)/)
-    @start_state = has_vars ? fetch_state(:variable_declaration) :
-                   fetch_state(:text)
+    has_vars = @scanner.check( /^(\s*(?:#{ id }\s*,\s*)*#{ id }\s*\|)/ )
+    @start_state = has_vars ? fetch_state( :variable_declaration ) :
+                   fetch_state( :text )
   end
   
 end
 end
 __END__
-

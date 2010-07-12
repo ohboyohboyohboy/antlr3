@@ -13,22 +13,22 @@ require 'racc/parser'
 
 module StringTemplate
   class InterfaceLexer < Lexer::CommonLexer
-    keyword('interface')
-    keyword('optional')
+    keyword( 'interface' )
+    keyword( 'optional' )
     
-    rule(:SPACE, /\s+/, :channel => :hidden)
+    rule( :SPACE, /\s+/, :channel => :hidden )
     
-    rule(:ID, /[a-z_]\w*/i)
+    rule( :ID, /[a-z_]\w*/i )
     
-    rule(:COLON, ':')
-    rule(:SEMICOLON, ';')
-    rule(:COMMA, ',')
+    rule( :COLON, ':' )
+    rule( :SEMICOLON, ';' )
+    rule( :COMMA, ',' )
     
-    rule(:OPEN_P, '(')
-    rule(:CLOSE_P, ')')
+    rule( :OPEN_P, '(' )
+    rule( :CLOSE_P, ')' )
     
-    delimited(:COMMENT, '/*', '*/', :channel => :hidden)
-    delimited(:COMMENT, '//', "\n", :channel => :hidden)
+    delimited( :COMMENT, '/*', '*/', :channel => :hidden )
+    delimited( :COMMENT, '//', "\n", :channel => :hidden )
   end
   
 
@@ -105,7 +105,7 @@ end
 
 ##### racc 1.4.5 generates ###
 
-racc_reduce_table = [
+racc_reduce_table = [ 
  0, 0, :racc_error,
  2, 10, :_reduce_1,
  3, 11, :_reduce_2,
@@ -125,39 +125,39 @@ racc_reduce_n = 14
 
 racc_shift_n = 28
 
-racc_action_table = [
+racc_action_table = [ 
     19,     6,    16,     7,    21,     6,     8,     7,    12,    13,
     14,     9,    18,     2,    16,   -12,    24,    25,    26,    19 ]
 
-racc_action_check = [
+racc_action_check = [ 
     16,     1,    11,     1,    16,     4,     2,     4,     7,     8,
      9,     3,    15,     0,    17,    19,    20,    22,    23,    26 ]
 
-racc_action_pointer = [
+racc_action_pointer = [ 
     11,    -2,     3,    11,     2,   nil,   nil,     5,     5,    10,
    nil,    -4,   nil,   nil,   nil,     8,    -3,     8,   nil,     7,
      9,   nil,    13,    10,   nil,   nil,    16,   nil ]
 
-racc_action_default = [
+racc_action_default = [ 
    -14,   -14,   -14,   -14,    -1,    -3,    -7,   -14,   -14,   -14,
     -4,   -14,    -5,    -2,    28,   -14,   -14,   -14,    -8,   -11,
    -14,    -9,   -14,   -14,   -10,    -6,   -14,   -13 ]
 
-racc_goto_table = [
+racc_goto_table = [ 
     20,    15,     5,     3,     4,    10,    17,    22,    11,     1,
     27,    23 ]
 
-racc_goto_check = [
+racc_goto_check = [ 
      8,     5,     4,     1,     3,     4,     6,     5,     7,     2,
      8,     9 ]
 
-racc_goto_pointer = [
+racc_goto_pointer = [ 
    nil,     3,     9,     3,     1,   -10,    -6,     2,   -16,    -8 ]
 
-racc_goto_default = [
+racc_goto_default = [ 
    nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil ]
 
-racc_token_table = {
+racc_token_table = { 
  false => 0,
  Object.new => 1,
  :INTERFACE => 2,
@@ -172,7 +172,7 @@ racc_use_result_var = false
 
 racc_nt_base = 9
 
-Racc_arg = [
+Racc_arg = [ 
  racc_action_table,
  racc_action_check,
  racc_action_default,
@@ -188,7 +188,7 @@ Racc_arg = [
  racc_reduce_n,
  racc_use_result_var ]
 
-Racc_token_to_s_table = [
+Racc_token_to_s_table = [ 
 '$end',
 'error',
 'INTERFACE',
@@ -207,7 +207,7 @@ Racc_token_to_s_table = [
 '@1',
 '@2',
 'parameter_list',
-'@3']
+'@3' ]
 
 Racc_debug_parser = false
 
@@ -273,8 +273,8 @@ module_eval <<'.,.,', 'lib/string-template/interface-parser.y', 21
 
  # reduce 13 omitted
 
- def _reduce_none( val, _values)
-  val[0]
+ def _reduce_none( val, _values )
+  val[ 0 ]
  end
 
 end   # class InterfaceParser
@@ -283,4 +283,3 @@ end
 
 if __FILE__ == $0
 end
-

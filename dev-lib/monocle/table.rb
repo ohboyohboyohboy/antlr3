@@ -89,7 +89,7 @@ class Table
     @columns.map { | c | c.fills[ area ] }
   end
   
-  def width=(w)
+  def width=( w )
     current_width = self.width
     case w <=> current_width
     when -1
@@ -124,7 +124,7 @@ class Table
     @width or calculate_width
   end
   
-  def expand_columns(new_size)
+  def expand_columns( new_size )
     new_size.zero? and return
     
     until @columns.length >= new_size
@@ -155,7 +155,7 @@ private
   end
   
   def calculate_inner_width
-    @columns[1..-1].inject( @columns.first.width ) do | w, c |
+    @columns[ 1..-1 ].inject( @columns.first.width ) do | w, c |
       w + c.left_side.width + c.width
     end
   end
@@ -168,4 +168,3 @@ private
   
 end
 end
-

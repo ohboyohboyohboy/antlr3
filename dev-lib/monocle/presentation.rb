@@ -123,9 +123,9 @@ end
 module Presentation::ClassMethods
   def default( property, value = nil, &dynamic )
     if dynamic
-      define_method( :"default_#{property}", &dynamic )
+      define_method( :"default_#{ property }", &dynamic )
     else
-      define_method( :"default_#{property}" ) { value }
+      define_method( :"default_#{ property }" ) { value }
     end
   end
 end

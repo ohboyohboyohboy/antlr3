@@ -40,4 +40,3 @@ namespace :guide do
     end
   end
 end
-

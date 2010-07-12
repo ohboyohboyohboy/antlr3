@@ -2,28 +2,28 @@
 # encoding: utf-8
 
 class String
-  def /(subpath)
-    File.join(self, subpath.to_s)
+  def /( subpath )
+    File.join( self, subpath.to_s )
   end
 
-  def here_indent(chr = '| ')
-    dup.here_indent!(chr)
+  def here_indent( chr = '| ' )
+    dup.here_indent!( chr )
   end
 
-  def here_indent!(chr = '| ')
-    chr = Regexp.escape(chr)
-    exp = Regexp.new("^ *#{chr}")
-    self.gsub!(exp,'')
+  def here_indent!( chr = '| ' )
+    chr = Regexp.escape( chr )
+    exp = Regexp.new( "^ *#{ chr }" )
+    self.gsub!( exp,'' )
     return self
   end
 
-  def here_flow(chr = '| ')
-    dup.here_flow!(chr)
+  def here_flow( chr = '| ' )
+    dup.here_flow!( chr )
   end
 
-  def here_flow!(chr = '| ')
-    here_indent!(chr).gsub!(/\n\s+/,' ')
-    return(self)
+  def here_flow!( chr = '| ' )
+    here_indent!( chr ).gsub!( /\n\s+/,' ' )
+    return( self )
   end
 
   # Indent left or right by n spaces.
@@ -32,11 +32,11 @@ class String
   #  CREDIT: Gavin Sinclair
   #  CREDIT: Trans
 
-  def indent(n)
+  def indent( n )
     if n >= 0
-      gsub(/^/, ' ' * n)
+      gsub( /^/, ' ' * n )
     else
-      gsub(/^ {0,#{-n}}/, "")
+      gsub( /^ {0,#{ -n }}/, "" )
     end
   end
 
@@ -44,8 +44,8 @@ class String
   #
   #  CREDIT: Noah Gibbs
 
-  def outdent(n)
-    indent(-n)
+  def outdent( n )
+    indent( -n )
   end
   
   # Returns the shortest length of leading whitespace for all non-blank lines
@@ -57,11 +57,11 @@ class String
   #
   #   CREDIT: Kyle Yetter
   def level_of_indent
-    self.scan(/^ *(?=\S)/).map { |space| space.length }.min || 0
+    self.scan( /^ *(?=\S)/ ).map { |space| space.length }.min || 0
   end
   
-  def fixed_indent(n)
-    self.outdent(self.level_of_indent).indent(n)
+  def fixed_indent( n )
+    self.outdent( self.level_of_indent ).indent( n )
   end
   
   # Provides a margin controlled string.
@@ -77,16 +77,16 @@ class String
   #
   #  CREDIT: Trans
 
-  def margin(n=0)
+  def margin( n=0 )
     #d = /\A.*\n\s*(.)/.match( self )[1]
     #d = /\A\s*(.)/.match( self)[1] unless d
-    d = ((/\A.*\n\s*(.)/.match(self)) ||
-        (/\A\s*(.)/.match(self)))[1]
+    d = ( ( /\A.*\n\s*(.)/.match( self ) ) ||
+        ( /\A\s*(.)/.match( self ) ) )[ 1 ]
     return '' unless d
     if n == 0
-      gsub(/\n\s*\Z/,'').gsub(/^\s*[#{d}]/, '')
+      gsub( /\n\s*\Z/,'' ).gsub( /^\s*[#{ d }]/, '' )
     else
-      gsub(/\n\s*\Z/,'').gsub(/^\s*[#{d}]/, ' ' * n)
+      gsub( /\n\s*\Z/,'' ).gsub( /^\s*[#{ d }]/, ' ' * n )
     end
   end
 
@@ -99,16 +99,16 @@ class String
   #  CREDIT: Noah Gibbs
   #  CREDIT: GGaramuno
 
-  def expand_tabs(n=8)
+  def expand_tabs( n=8 )
     n = n.to_int
     raise ArgumentError, "n must be >= 0" if n < 0
-    return gsub(/\t/, "") if n == 0
-    return gsub(/\t/, " ") if n == 1
+    return gsub( /\t/, "" ) if n == 0
+    return gsub( /\t/, " " ) if n == 1
     str = self.dup
     while
-      str.gsub!(/^([^\t\n]*)(\t+)/) { |f|
-        val = ( n * $2.size - ($1.size % n) )
-        $1 << (' ' * val)
+      str.gsub!( /^([^\t\n]*)(\t+)/ ) { |f|
+        val = ( n * $2.size - ( $1.size % n ) )
+        $1 << ( ' ' * val )
       }
     end
     str
@@ -125,10 +125,10 @@ class String
   #   "SnakeCase::Errors".underscore  #=> "snake_case/errors"
 
   def snakecase
-    gsub(/::/, '/').  # NOT SO SURE ABOUT THIS -T
-    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-    gsub(/([a-z\d])([A-Z])/,'\1_\2').
-    tr("-", "_").
+    gsub( /::/, '/' ).  # NOT SO SURE ABOUT THIS -T
+    gsub( /([A-Z]+)([A-Z][a-z])/,'\1_\2' ).
+    gsub( /([a-z\d])([A-Z])/,'\1_\2' ).
+    tr( "-", "_" ).
     downcase
   end
   
@@ -150,26 +150,26 @@ class Module
   #   CREDIT: Trans
 
   def modspace
-    space = name[ 0...(name.rindex( '::' ) || 0)]
-    space.empty? ? Object : eval(space)
+    space = name[ 0...( name.rindex( '::' ) || 0 ) ]
+    space.empty? ? Object : eval( space )
   end
 end
 
 module Kernel
   autoload :Tempfile, 'tempfile'
   
-  def screen_width(out=STDERR)
-    default_width = ENV['COLUMNS'] || 80
+  def screen_width( out=STDERR )
+    default_width = ENV[ 'COLUMNS' ] || 80
     tiocgwinsz = 0x5413
-    data = [0, 0, 0, 0].pack("SSSS")
-    if out.ioctl(tiocgwinsz, data) >= 0 then
-      rows, cols, xpixels, ypixels = data.unpack("SSSS")
+    data = [ 0, 0, 0, 0 ].pack( "SSSS" )
+    if out.ioctl( tiocgwinsz, data ) >= 0 then
+      rows, cols, xpixels, ypixels = data.unpack( "SSSS" )
       if cols >= 0 then cols else default_width end
     else
       default_width
     end
   rescue Exception => e
-    default_width rescue (raise e)
+    default_width rescue ( raise e )
   end
 end
 
@@ -184,11 +184,11 @@ class File
   #    File.relative_path('rel/path')   # => './rel/path'
   #    File.relative_path('/some/abs/path', '/some')  # => './abs/path'
   #    File.relative_path('/some/file.txt', '/some/abs/path')  # => '../../file.txt'
-  def self.relative_path(target, reference = Dir.pwd)
-    pair = [target, reference].map! do |path|
-      File.expand_path(path.to_s).split(File::Separator).tap do |list|
-        if list.empty? then list << String.new(File::Separator)
-        elsif list.first.empty? then list.first.replace(File::Separator)
+  def self.relative_path( target, reference = Dir.pwd )
+    pair = [ target, reference ].map! do |path|
+      File.expand_path( path.to_s ).split( File::Separator ).tap do |list|
+        if list.empty? then list << String.new( File::Separator )
+        elsif list.first.empty? then list.first.replace( File::Separator )
         end
       end
     end
@@ -199,30 +199,30 @@ class File
       reference_list.shift or break
     end
     
-    relative_list = Array.new(reference_list.length, '..')
+    relative_list = Array.new( reference_list.length, '..' )
     relative_list.empty? and relative_list << '.'
-    relative_list.concat(target_list).compact!
-    return relative_list.join(File::Separator)
+    relative_list.concat( target_list ).compact!
+    return relative_list.join( File::Separator )
   end
   
 end
 
 class Dir
-  defined?(DOTS) or DOTS = %w(. ..).freeze
-  def self.children(directory)
-    entries = Dir.entries(directory) - DOTS
+  defined?( DOTS ) or DOTS = %w(. ..).freeze
+  def self.children( directory )
+    entries = Dir.entries( directory ) - DOTS
     entries.map! do |entry|
-      File.join(directory, entry)
+      File.join( directory, entry )
     end
   end
   
-  def self.mkpath(path)
-    $VERBOSE and $stderr.puts("INFO: Dir.mkpath(%p)" % path)
-    test(?d, path) and return(path)
-    parent = File.dirname(path)
-    test(?d, parent) or mkpath(parent)
-    Dir.mkdir(path)
-    return(path)
+  def self.mkpath( path )
+    $VERBOSE and $stderr.puts( "INFO: Dir.mkpath(%p)" % path )
+    test( ?d, path ) and return( path )
+    parent = File.dirname( path )
+    test( ?d, parent ) or mkpath( parent )
+    Dir.mkdir( path )
+    return( path )
   end
   
 end
@@ -240,12 +240,12 @@ class Array
   #
   #  CREDIT: Richard Laugesen
 
-  def pad(len, val=nil)
+  def pad( len, val=nil )
     return dup if self.size >= len.abs
     if len < 0
-      Array.new((len+size).abs,val) + self
+      Array.new( ( len+size ).abs,val ) + self
     else
-      self + Array.new(len-size,val)
+      self + Array.new( len-size,val )
     end
   end
 
@@ -257,12 +257,12 @@ class Array
   #
   #  CREDIT: Richard Laugesen
 
-  def pad!(len, val=nil)
+  def pad!( len, val=nil )
     return self if self.size >= len.abs
     if len < 0
-      replace Array.new((len+size).abs,val) + self
+      replace Array.new( ( len+size ).abs,val ) + self
     else
-      concat Array.new(len-size,val)
+      concat Array.new( len-size,val )
     end
   end
 

@@ -5,27 +5,27 @@ require 'string-template/group'
 module StringTemplate
   class Interface < SourceCodeObject
     
-    def self.parse(source, file = '(string)')
-      InterfaceParser.new.parse(source, file)
+    def self.parse( source, file = '(string)' )
+      InterfaceParser.new.parse( source, file )
     end
     
-    def self.load(path)
-      InterfaceParser.new.parse_file(path)
+    def self.load( path )
+      InterfaceParser.new.parse_file( path )
     end
     
     attr_reader :specifications
     attr_accessor :name, :file
     
-    def initialize(file = '(string)')
+    def initialize( file = '(string)' )
       @file = file
       @specifications = []
     end
     
-    def add(spec)
+    def add( spec )
       spec.interface = self
       spec.index = specifications.length
       specifications << spec
-      index[member.name] = member
+      index[ member.name ] = member
       return member
     end
     
@@ -34,7 +34,7 @@ module StringTemplate
       attr_reader :parameters
       toggle_part :optional, false
       
-      def initialize(name, optional = false)
+      def initialize( name, optional = false )
         @name = name.to_s
         @optional = optional
         @parameters = []

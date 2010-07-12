@@ -178,7 +178,7 @@ class Article
       CodeFrame.new( tag, content, options )
     when :css then
       @stylesheets << "generic.css"
-      options = options.with_defaults(
+      options = options.with_defaults( 
         :class => 'generic', :number_lines => false, :prompt => '~>'
       )
       CodeFrame.new( tag, content, options )
@@ -190,7 +190,7 @@ class Article
       raw_html( Markup.convert( output ) )
     when :cmd, :shell
       @stylesheets << 'generic.css'
-      options = options.with_defaults(
+      options = options.with_defaults( 
         :class => 'generic', :number_lines => false, :prompt => '~>'
       )
       CodeFrame.new( tag, content, options )

@@ -6,7 +6,7 @@ class Template
   PARAMETER_RX = %r(
     \[ ( [<\|>\^\-\_\.\,\*\d\#\$]* ) \] ( [a-zA-Z]? )
   )x
-  Parameter = Struct.new(
+  Parameter = Struct.new( 
     :template, :index, :align, :valign, :name,
     :width, :height, :format_mask, :shaping
   )

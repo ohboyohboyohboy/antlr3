@@ -3,7 +3,7 @@
 
 module Monocle
 module TerminalEscapes
-  ANSI_COLORS = {
+  ANSI_COLORS = { 
     :blue => 4,   :white => 7,  :magenta => 5,
     :yellow => 3, :green => 2,  :black => 0,
     :red => 1,    :cyan => 6
@@ -31,7 +31,7 @@ module_function
     "\e[#{ prefix };5;#{ color_index }m"
   end
   
-  def konsole_color( type, r, g, b, bold = nil)
+  def konsole_color( type, r, g, b, bold = nil )
     prefix =
       case type
       when ?f then 38  # foreground
@@ -148,7 +148,7 @@ if __FILE__ == $0
     printf( "%swhateva\e[0m\n", TE.send( attr ) )
   end
   
-  colors = TE::ANSI_COLORS.keys.map(&:to_s).sort!
+  colors = TE::ANSI_COLORS.keys.map( &:to_s ).sort!
   for color in colors
     print( "This should be #{ color }:".ljust( 30 ) )
     printf( "%swhateva\e[0m\t", TE.ansi_color( ?f, color ) )
@@ -160,18 +160,18 @@ if __FILE__ == $0
     name = "clear_#{ dir }"
     code = TE.send( name )
     puts
-    puts("[ Clear Code: #{ name } ]")
+    puts( "[ Clear Code: #{ name } ]" )
     puts
-    puts("at start")
-    printf("%s<= %-14s\n", code, name)
-    puts("in middle")
-    printf("%-14s =>%s<= %-14s\n", name, code, name)
-    puts("at end")
-    printf("%-14s =>%s\n", name, code, name)
+    puts( "at start" )
+    printf( "%s<= %-14s\n", code, name )
+    puts( "in middle" )
+    printf( "%-14s =>%s<= %-14s\n", name, code, name )
+    puts( "at end" )
+    printf( "%-14s =>%s\n", name, code, name )
   end
   
   puts( "[ Tabs ]" )
-  puts( "     \eHx              \eHx      \eHx ")
+  puts( "     \eHx              \eHx      \eHx " )
   puts( "one\ttwo\tthree\tfour" )
   puts( "\e[3g" )
   puts( "one\ttwo\tthree\tfour" )

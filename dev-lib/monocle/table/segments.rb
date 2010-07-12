@@ -4,7 +4,7 @@
 module Monocle
 class Table
 
-Segments = Struct.new(
+Segments = Struct.new( 
   :head, :title_row, :title_divider, :row, :row_divider,
   :section, :section_close, :section_open, :foot
 )

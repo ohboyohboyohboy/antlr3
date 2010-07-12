@@ -6,7 +6,7 @@ require 'base64'
 module StringTemplate
 module Markup
 class Document
-  DATA_PREAMBLE = (<<-END.here_indent!).freeze
+  DATA_PREAMBLE = ( <<-END.here_indent! ).freeze
   | 
   | __END__
   | Below this line is String Template debugging data -- DO NOT MODIFY:
@@ -30,7 +30,7 @@ class Document
   attr_accessor :top, :ruby_source, :file
   attr_reader :index, :tags
   
-  def initialize(file = '(string)')
+  def initialize( file = '(string)' )
     @file = file.freeze
     @index = []
     @tags = []
@@ -53,7 +53,7 @@ class Document
   end
   
   def marshal_dump
-    [@tags, @index]
+    [ @tags, @index ]
   end
   
   def marshal_load( data )
@@ -74,7 +74,7 @@ class Document
     output.write( Base64.encode64( Marshal.dump( self ) ) )
   end
   
-  def nodes_covering_line(line)
+  def nodes_covering_line( line )
     @index.select do |node|
       node.line_span === line
     end

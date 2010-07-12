@@ -3,34 +3,34 @@
 
 module StringTemplate
 module Markup
-Location = Struct.new(:position, :line, :column, :markup_position)
+Location = Struct.new( :position, :line, :column, :markup_position )
 
 class Location
   include Comparable
   
   def to_a
-    [position, line, column]
+    [ position, line, column ]
   end
   
   def to_s
-    [line, column].join(':')
+    [ line, column ].join( ':' )
   end
   
-  def <<(text)
+  def <<( text )
     length     = text.length
-    line_count = text.count("\n")
-    line_count.zero? ? (self.column += length) :
-      (self.column = length - text.rindex("\n") - 1)
+    line_count = text.count( "\n" )
+    line_count.zero? ? ( self.column += length ) :
+      ( self.column = length - text.rindex( "\n" ) - 1 )
     self.line += line_count
     self.position += length
     return self
   end
   
-  def +(text)
+  def +( text )
     self.dup << text
   end
   
-  def <=>(location)
+  def <=>( location )
     position <=> location.position
   end
 end

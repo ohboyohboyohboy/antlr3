@@ -4,32 +4,32 @@
 module StringTemplate
 class Group
 class Template < Member
-  Parameter = Struct.new(:name, :value)
+  Parameter = Struct.new( :name, :value )
   
   def parameters
     @parameters ||= []
   end
   
-  def parameter!(name, value = nil)
-    param = Parameter[name, value]
+  def parameter!( name, value = nil )
+    param = Parameter[ name, value ]
     parameters << param
     return param
   end
   
-  def lex!(filter = false)
-    TemplateLexer.new(body, :location => body_start).lex!(filter)
+  def lex!( filter = false )
+    TemplateLexer.new( body, :location => body_start ).lex!( filter )
   end
   
   def body_token
-    defined?(@body_token) and return(@body_token)
-    return(tokens.last)
+    defined?( @body_token ) and return( @body_token )
+    return( tokens.last )
   end
   
   def body
     text = body_token.text
     case text
     when /^<<[ \t]*\n?(.*)\n?[ \t]*>>$/m then $1
-    when /^"(.*)"$/m then $1.gsub(/\\"/,'"')
+    when /^"(.*)"$/m then $1.gsub( /\\"/,'"' )
     else text
     end
   end
@@ -52,8 +52,8 @@ class Template < Member
     end
   end
   
-  def alias!(name)
-    return TemplateAlias.new(self, name)
+  def alias!( name )
+    return TemplateAlias.new( self, name )
   end
 end
 end

@@ -16,7 +16,7 @@ class Member
       end
       
       define_method( "#{ member_name }!" ) do |*args|
-        klass.new( @table, *args ) { |m| link(m) }.tail
+        klass.new( @table, *args ) { |m| link( m ) }.tail
       end
       return( klass )
     end
@@ -40,8 +40,8 @@ class Member
   end
   
   def inspect( *args )
-    content = args.map! { |a| a.inspect }.join(', ')
-    "#{self.class.member_name}(#{content})"
+    content = args.map! { |a| a.inspect }.join( ', ' )
+    "#{ self.class.member_name }(#{ content })"
   end
   
   def each
@@ -111,7 +111,7 @@ Row = Member.define( 'row' ) do
     @cells[ index ]
   end
   
-  def []=(index, value)
+  def []=( index, value )
     @cells[ index ] = value
   end
   
@@ -126,7 +126,7 @@ Row = Member.define( 'row' ) do
   
   def render!( out, type = :row )
     cells = @table.columns.zip( @cells ).map! do | pair |
-      pair[1] = pair[0].prepare( pair[1] )
+      pair[ 1 ] = pair[ 0 ].prepare( pair[ 1 ] )
       pair
     end
     height = cells.map { | col, cell | cell ? cell.height : 0 }.max
@@ -162,7 +162,7 @@ private
   def pad
     n = @table.columns.length
     m = @cells.length
-    @cells.fill( Text(' '), m, n - m ) if n > m
+    @cells.fill( Text( ' ' ), m, n - m ) if n > m
   end
 end
 

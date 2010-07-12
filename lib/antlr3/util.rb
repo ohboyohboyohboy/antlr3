@@ -73,6 +73,24 @@ private
     END
   end
   
+  def deprecate( name, extra_message = nil )
+    hidden_name = "deprecated_#{ name }"
+    method_defined?( hidden_name ) and return
+    
+    alias_method( hidden_name, name )
+    private( hidden_name )
+    
+    message = "warning: method #{ self }##{ name } is deprecated"
+    extra_message and message << '; ' << extra_message.to_s
+    
+    class_eval( <<-END )
+      def #{ name }( *args, &block )
+        warn( #{ message.inspect } )
+        #{ hidden_name }( *args, &block )
+      end
+    END
+  end
+  
   def alias_accessor( alias_name, attr_name )
     alias_method( alias_name, attr_name )
     alias_method( :"#{ alias_name }=", :"#{ attr_name }=" )

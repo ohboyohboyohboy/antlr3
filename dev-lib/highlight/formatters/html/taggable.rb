@@ -9,20 +9,20 @@ module Taggable
     @tags ||= []
   end
   
-  def tag(*words)
-    tags.push(*words)
+  def tag( *words )
+    tags.push( *words )
   end
   
 private
   
-  def class_attribute(*tags)
-    @tags and tags.concat(@tags)
+  def class_attribute( *tags )
+    @tags and tags.concat( @tags )
     tags.uniq!
-    attr = tags.join(' ')
+    attr = tags.join( ' ' )
     attr.strip!
     unless attr.empty?
       attr = attr.inspect
-      attr.insert(0, "class=")
+      attr.insert( 0, "class=" )
     end
     return attr
   end

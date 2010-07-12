@@ -15,7 +15,7 @@ module CodeObject
   end
   
   def source
-    tokens.join('')
+    tokens.join( '' )
   end
 end
 

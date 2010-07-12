@@ -8,8 +8,8 @@ module Languages
 class Ruby < Generic
   attr_reader :lexer, :source, :html
   
-  def initialize(source, options = {})
-    super('ruby', source, options)
+  def initialize( source, options = {} )
+    super( 'ruby', source, options )
   end
 end
 end

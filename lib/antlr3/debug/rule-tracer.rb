@@ -18,36 +18,36 @@ class RuleTracer
   attr_reader :level
   attr_accessor :spaces_per_indent, :device
   
-  def initialize(options = {})
-    @input = options[:input]
+  def initialize( options = {} )
+    @input = options[ :input ]
     @level = 0
-    @spaces_per_indent = options[:spaces_per_indent] || 2
-    @device = options[:device] || options[:output] || $stderr
+    @spaces_per_indent = options[ :spaces_per_indent ] || 2
+    @device = options[ :device ] || options[ :output ] || $stderr
   end
   
-  def enter_rule(grammar_file, name)
+  def enter_rule( grammar_file, name )
     indent = @level * @spaces_per_indent
     
-    @device.print(' ' * indent, ARROW_IN, name)
+    @device.print( ' ' * indent, ARROW_IN, name )
     if @input
       input_symbol = @input.look || :EOF
-      @device.puts(" look = %p" % input_symbol)
-    else @device.print("\n")
+      @device.puts( " look = %p" % input_symbol )
+    else @device.print( "\n" )
     end
     
     @level += 1
   end
   
-  def exit_rule(grammar_file, name)
+  def exit_rule( grammar_file, name )
     @level -= 1
     
     indent = @level * @spaces_per_indent
     
-    @device.print(' ' * indent, ARROW_OUT, name)
+    @device.print( ' ' * indent, ARROW_OUT, name )
     if @input
-      input_symbol = (@input.look || :EOF)
-      @device.puts(" look = %p" % input_symbol)
-    else @device.print("\n")
+      input_symbol = ( @input.look || :EOF )
+      @device.puts( " look = %p" % input_symbol )
+    else @device.print( "\n" )
     end
   end
 end

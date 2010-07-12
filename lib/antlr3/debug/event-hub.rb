@@ -15,36 +15,36 @@ class EventHub
   include ANTLR3::Debug::EventListener
   attr_reader :listeners
   
-  def initialize(*listeners)
-    @listeners = [listeners].flatten!
+  def initialize( *listeners )
+    @listeners = [ listeners ].flatten!
     @listeners.compact!
   end
   
-  def add(*listeners)
-    @listeners.push(*listeners)
+  def add( *listeners )
+    @listeners.push( *listeners )
   end
 
-  def add_child(root, child)
+  def add_child( root, child )
     for listener in @listeners
-      listener.add_child(root, child)
+      listener.add_child( root, child )
     end
   end
   
-  def backtrack(level)
+  def backtrack( level )
     for listener in @listeners
-      listener.backtrack(level)
+      listener.backtrack( level )
     end
   end
   
-  def become_root(new_root, old_root)
+  def become_root( new_root, old_root )
     for listener in @listeners
-      listener.become_root(new_root, old_root)
+      listener.become_root( new_root, old_root )
     end
   end
   
-  def begin_backtrack(level)
+  def begin_backtrack( level )
     for listener in @listeners
-      listener.begin_backtrack(level)
+      listener.begin_backtrack( level )
     end
   end
   
@@ -60,33 +60,33 @@ class EventHub
     end
   end
   
-  def consume_hidden_token(tree)
+  def consume_hidden_token( tree )
     for listener in @listeners
-      listener.consume_hidden_token(tree)
+      listener.consume_hidden_token( tree )
     end
   end
   
-  def consume_node(tree)
+  def consume_node( tree )
     for listener in @listeners
-      listener.consume_node(tree)
+      listener.consume_node( tree )
     end
   end
   
-  def consume_token(tree)
+  def consume_token( tree )
     for listener in @listeners
-      listener.consume_token(tree)
+      listener.consume_token( tree )
     end
   end
   
-  def create_node(node, token)
+  def create_node( node, token )
     for listener in @listeners
-      listener.create_node(node, token)
+      listener.create_node( node, token )
     end
   end
   
-  def end_backtrack(level, successful)
+  def end_backtrack( level, successful )
     for listener in @listeners
-      listener.end_backtrack(level, successful)
+      listener.end_backtrack( level, successful )
     end
   end
   
@@ -96,81 +96,81 @@ class EventHub
     end
   end
   
-  def enter_alternative(alt)
+  def enter_alternative( alt )
     for listener in @listeners
-      listener.enter_alternative(alt)
+      listener.enter_alternative( alt )
     end
   end
   
-  def enter_decision(decision_number)
+  def enter_decision( decision_number )
     for listener in @listeners
-      listener.enter_decision(decision_number)
+      listener.enter_decision( decision_number )
     end
   end
   
-  def enter_rule(grammar_file_name, rule_name)
+  def enter_rule( grammar_file_name, rule_name )
     for listener in @listeners
-      listener.enter_rule(grammar_file_name, rule_name)
+      listener.enter_rule( grammar_file_name, rule_name )
     end
   end
   
-  def enter_sub_rule(decision_number)
+  def enter_sub_rule( decision_number )
     for listener in @listeners
-      listener.enter_sub_rule(decision_number)
+      listener.enter_sub_rule( decision_number )
     end
   end
   
-  def error_node(tree)
+  def error_node( tree )
     for listener in @listeners
-      listener.error_node(tree)
+      listener.error_node( tree )
     end
   end
   
-  def exit_decision(decision_number)
+  def exit_decision( decision_number )
     for listener in @listeners
-      listener.exit_decision(decision_number)
+      listener.exit_decision( decision_number )
     end
   end
   
-  def exit_rule(grammar_file_name, rule_name)
+  def exit_rule( grammar_file_name, rule_name )
     for listener in @listeners
-      listener.exit_rule(grammar_file_name, rule_name)
+      listener.exit_rule( grammar_file_name, rule_name )
     end
   end
   
-  def exit_sub_rule(decision_number)
+  def exit_sub_rule( decision_number )
     for listener in @listeners
-      listener.exit_sub_rule(decision_number)
+      listener.exit_sub_rule( decision_number )
     end
   end
   
-  def flat_node(tree)
+  def flat_node( tree )
     for listener in @listeners
-      listener.flat_node(tree)
+      listener.flat_node( tree )
     end
   end
   
-  def location(line, position)
+  def location( line, position )
     for listener in @listeners
-      listener.location(line, position)
+      listener.location( line, position )
     end
   end
   
-  def look(i, tree)
+  def look( i, tree )
     for listener in @listeners
-      listener.look(i, tree)
+      listener.look( i, tree )
     end
   end
   
-  def mark(marker)
+  def mark( marker )
     for listener in @listeners
-      listener.mark(marker)
+      listener.mark( marker )
     end
   end
   
-  def recognition_exception(exception)
+  def recognition_exception( exception )
     for listener in @listeners
-      listener.recognition_exception(exception)
+      listener.recognition_exception( exception )
     end
   end
   
@@ -180,21 +180,21 @@ class EventHub
     end
   end
   
-  def rewind(marker)
+  def rewind( marker )
     for listener in @listeners
-      listener.rewind(marker)
+      listener.rewind( marker )
     end
   end
   
-  def semantic_predicate(result, predicate)
+  def semantic_predicate( result, predicate )
     for listener in @listeners
-      listener.semantic_predicate(result, predicate)
+      listener.semantic_predicate( result, predicate )
     end
   end
   
-  def set_token_boundaries(tree, token_start_index, token_stop_index)
+  def set_token_boundaries( tree, token_start_index, token_stop_index )
     for listener in @listeners
-      listener.set_token_boundaries(tree, token_start_index, token_stop_index)
+      listener.set_token_boundaries( tree, token_start_index, token_stop_index )
     end
   end
   

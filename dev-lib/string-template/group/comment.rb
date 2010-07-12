@@ -4,16 +4,16 @@
 module StringTemplate
 class Group
 class Comment < Member
-  def initialize(index)
+  def initialize( index )
     @span = index..index
   end
   
   def token
-    tokens[0]
+    tokens[ 0 ]
   end
   
   def doc_comment?
-    source.start_with?("/**")
+    source.start_with?( "/**" )
   end
   
   def to_s

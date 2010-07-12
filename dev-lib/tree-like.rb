@@ -51,13 +51,13 @@ A mix-in module to give objects tree-like behavior and structure
 module TreeLike
   ##### Properties ###########################################################
   attr_reader :parent
-  def parent=(node)
+  def parent=( node )
     previous, @parent = @parent, node
     
-    if previous and previous.children.include?(self)
-      previous.children.delete(self)
+    if previous and previous.children.include?( self )
+      previous.children.delete( self )
     end
-    unless @parent.nil? or @parent.children.include?(self)
+    unless @parent.nil? or @parent.children.include?( self )
       @depth = @parent.depth + 1
       @parent.children << self
     else @depth = 0
@@ -66,7 +66,7 @@ module TreeLike
   end
   
   def depth
-    @depth ||= (@parent.nil? ? 0 : @parent.depth + 1)
+    @depth ||= ( @parent.nil? ? 0 : @parent.depth + 1 )
   end
   
   def children
@@ -74,7 +74,7 @@ module TreeLike
   end
   
   def index_in_parent
-    @parent.nil? ? 0 : @parent.children.index(self)
+    @parent.nil? ? 0 : @parent.children.index( self )
   end
   
   def siblings
@@ -92,12 +92,12 @@ module TreeLike
     @children.nil? or @children.empty?
   end
   
-  def is_child_of?(node)
+  def is_child_of?( node )
     node.children.include? self
   end
   
-  def has_child?(node)
-    @children and @children.include?(node)
+  def has_child?( node )
+    @children and @children.include?( node )
   end
   
   def detached?
@@ -110,7 +110,7 @@ module TreeLike
   
   ##### Derived Properties ###################################################
   def root
-    self.root? ? self : self.ancestors[-1]
+    self.root? ? self : self.ancestors[ -1 ]
   end
   
   def leaves
@@ -123,7 +123,7 @@ module TreeLike
     return self
   end
   
-  def swap_with(node)
+  def swap_with( node )
     its_parent  = node.parent
     its_depth   = node.depth
     its_index   = node.index_in_parent
@@ -131,24 +131,24 @@ module TreeLike
     my_depth    = depth
     my_index    = index_in_parent
     
-    its_parent.children[its_index] = self
-    my_parent.children[my_index] = node
+    its_parent.children[ its_index ] = self
+    my_parent.children[ my_index ] = node
     
     @parent, @depth = its_parent, its_depth
-    node.instance_variable_set(:@parent, my_parent)
-    node.instance_variable_set(:@depth,  my_depth)
+    node.instance_variable_set( :@parent, my_parent )
+    node.instance_variable_set( :@depth,  my_depth )
     return( node )
   end
 
-  def replace_with(node)
+  def replace_with( node )
     my_parent   = self.parent
     my_index    = self.index_in_parent
     my_depth    = self.depth
 
-    node.parent.children.delete(node) if node.parent
-    node.instance_variable_set(:@parent, my_parent)
-    node.instance_variable_set(:@depth, my_depth)
-    my_parent.children[my_index] = node
+    node.parent.children.delete( node ) if node.parent
+    node.instance_variable_set( :@parent, my_parent )
+    node.instance_variable_set( :@depth, my_depth )
+    my_parent.children[ my_index ] = node
     @parent = nil
   end
   
@@ -156,7 +156,7 @@ module TreeLike
     a = []
     cursor = self
     until cursor.root?
-      a.push(cursor.parent)
+      a.push( cursor.parent )
       cursor = cursor.parent
     end
     return a
@@ -166,36 +166,36 @@ module TreeLike
     out = []
     cursor = self
     until cursor.root?
-      out.unshift(cursor)
+      out.unshift( cursor )
       cursor = cursor.parent
     end
-    out.unshift(cursor)
+    out.unshift( cursor )
     return out
   end
   
-  def descendant_of?(node)
-    ancestors.include?(node)
+  def descendant_of?( node )
+    ancestors.include?( node )
   end
   
     
   ##### Iterators ############################################################
   include Enumerable
   def each_child
-    block_given? or return(enum_for(__method__))
-    self.children.each { |child| yield(child) }
+    block_given? or return( enum_for( __method__ ) )
+    self.children.each { |child| yield( child ) }
   end
   
   def each_ancestor
-    block_given? or return(enum_for(__method__))
-    self.ancestors.each { |anc| yield(anc) }
+    block_given? or return( enum_for( __method__ ) )
+    self.ancestors.each { |anc| yield( anc ) }
   end
   
   def delete_if
-    block_given? or return(enum_for(__method__))
-    for node in self.select { |n| yield(n) }
+    block_given? or return( enum_for( __method__ ) )
+    for node in self.select { |n| yield( n ) }
       node.detach
     end
-    return(self)
+    return( self )
   end
   
   def walk
@@ -203,8 +203,8 @@ module TreeLike
     cursor = self
     loop do
       begin
-        yield(cursor)
-        stack.push(cursor.children.dup) unless cursor.leaf?
+        yield( cursor )
+        stack.push( cursor.children.dup ) unless cursor.leaf?
       rescue StopIteration
       ensure
         break if stack.empty?
@@ -222,13 +222,13 @@ module TreeLike
   
   ##### Display And Formatting ###############################################
   def inspect_structure
-    out = StringIO.new('')
-    out.puts(self.inspect)
+    out = StringIO.new( '' )
+    out.puts( self.inspect )
     self.each do |n|
       next if n.root?
-      current_depth = (n.depth - 1)
-      0.upto(current_depth) { |i| out << '|  ' }
-      tail = (n.parent.children.last == n)
+      current_depth = ( n.depth - 1 )
+      0.upto( current_depth ) { |i| out << '|  ' }
+      tail = ( n.parent.children.last == n )
       branch = tail ? '`--' : '|--'
       out << branch << n.inspect << "\n"
     end

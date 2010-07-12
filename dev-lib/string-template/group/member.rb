@@ -9,7 +9,7 @@ class Member
   
   def tokens
     return [] unless group
-    group.tokens[span]
+    group.tokens[ span ]
   end
   
   def span_size
