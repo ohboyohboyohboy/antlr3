@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2010 Martin Traverso
+ Copyright (c) 2010 Kyle Yetter
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -35,8 +35,7 @@ import org.antlr.Tool;
 import org.antlr.stringtemplate.*;
 import org.antlr.tool.Grammar;
 
-public class RubyTarget
-            extends Target
+public class RubyTarget extends Target
 {
     /** A set of ruby keywords which are used to escape labels and method names
      *  which will cause parse errors in the ruby source
@@ -62,9 +61,33 @@ public class RubyTarget
 
     public static HashMap sharedActionBlocks = new HashMap();
 
-    public class RubyRenderer
-                implements AttributeRenderer
+    public class RubyRenderer implements AttributeRenderer
     {
+    	protected String[] rubyCharValueEscape = new String[256];
+    	
+    	public RubyRenderer() {
+    		for ( int i = 0; i < 16; i++ ) {
+    			rubyCharValueEscape[ i ] = "\\x0" + Integer.toHexString( i );
+    		}
+    		for ( int i = 16; i < 32; i++ ) {
+    			rubyCharValueEscape[ i ] = "\\x" + Integer.toHexString( i );
+    		}
+    		for ( char i = 32; i < 127; i++ ) {
+    			rubyCharValueEscape[ i ] = Character.toString( i );
+    		}
+    		for ( int i = 127; i < 256; i++ ) {
+    			rubyCharValueEscape[ i ] = "\\x" + Integer.toHexString( i );
+    		}
+    		
+    		rubyCharValueEscape['\n'] = "\\n";
+    		rubyCharValueEscape['\r'] = "\\r";
+    		rubyCharValueEscape['\t'] = "\\t";
+    		rubyCharValueEscape['\b'] = "\\b";
+    		rubyCharValueEscape['\f'] = "\\f";
+    		rubyCharValueEscape['\\'] = "\\\\";
+    		rubyCharValueEscape['"'] = "\\\"";
+    	}
+    	
         public String toString( Object o ) {
             return o.toString();
         }
@@ -87,7 +110,9 @@ public class RubyTarget
             } else if ( formatName.equals( "lexerRule" ) ) {
                 return lexerRule( idString );
             } else if ( formatName.equals( "constantPath" ) ) {
-                return constantPath( idString );
+            	return constantPath( idString );
+            } else if ( formatName.equals( "rubyString" ) ) {
+                return rubyString( idString );
             } else if ( formatName.equals( "label" ) ) {
                 return label( idString );
             } else if ( formatName.equals( "symbol" ) ) {
@@ -197,6 +222,18 @@ public class RubyTarget
 
         private String constantPath( String value ) {
             return value.replaceAll( "\\.", "::" );
+        }
+        
+        private String rubyString( String value ) {
+        	StringBuilder output_buffer = new StringBuilder();
+        	int len = value.length(); 
+        	
+        	output_buffer.append( '"' );
+        	for ( int i = 0; i < len; i++ ) {
+        		output_buffer.append( rubyCharValueEscape[ value.charAt( i ) ] );
+        	}
+        	output_buffer.append( '"' );
+        	return output_buffer.toString();
         }
 
         private String camelcase( String value ) {
@@ -369,19 +406,6 @@ public class RubyTarget
         }
         
         return ( "0x" + Integer.toHexString( code_point ) );
-        
-        //if ( literal.equals( "\\" ) ) {
-        //    result += "\\\\";
-        //}
-        //else if ( literal.equals( " " ) ) {
-        //    result += "\\s";
-        //}
-        //else if ( literal.startsWith( "\\u" ) ) {
-        //    result = "0x" + literal.substring( 2 );
-        //}
-        //else {
-        //    result += literal;
-        //}
     }
 
     public int getMaxCharValue( CodeGenerator generator )

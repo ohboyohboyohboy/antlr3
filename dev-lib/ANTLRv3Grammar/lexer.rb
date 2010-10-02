@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Jul 31, 2010 19:34:52
 # Ruby runtime library version: 1.8.1
 # Input grammar file: ANTLRv3Grammar.g
-# Generated at: 2010-09-25 02:56:21
+# Generated at: 2010-09-24 22:07:50
 # 
 
 # ~~~> start load path setup
@@ -1065,20 +1065,20 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 473:5: '//' ( ' $ANTLR ' SRC | (~ ( '\\r' | '\\n' ) )* ) ( '\\r' )? '\\n'
+      # at line 461:5: '//' ( ' $ANTLR ' SRC | (~ ( '\\r' | '\\n' ) )* ) ( '\\r' )? '\\n'
       match( "//" )
-      # at line 474:5: ( ' $ANTLR ' SRC | (~ ( '\\r' | '\\n' ) )* )
+      # at line 462:5: ( ' $ANTLR ' SRC | (~ ( '\\r' | '\\n' ) )* )
       alt_2 = 2
       alt_2 = @dfa2.predict( @input )
       case alt_2
       when 1
-        # at line 474:7: ' $ANTLR ' SRC
+        # at line 462:7: ' $ANTLR ' SRC
         match( " $ANTLR " )
         src!
 
       when 2
-        # at line 475:6: (~ ( '\\r' | '\\n' ) )*
-        # at line 475:6: (~ ( '\\r' | '\\n' ) )*
+        # at line 463:6: (~ ( '\\r' | '\\n' ) )*
+        # at line 463:6: (~ ( '\\r' | '\\n' ) )*
         while true # decision 1
           alt_1 = 2
           look_1_0 = @input.peek( 1 )
@@ -1089,7 +1089,7 @@ module ANTLRv3Grammar
           end
           case alt_1
           when 1
-            # at line 475:6: ~ ( '\\r' | '\\n' )
+            # at line 463:6: ~ ( '\\r' | '\\n' )
             if @input.peek( 1 ).between?( 0x0, 0x9 ) || @input.peek( 1 ).between?( 0xb, 0xc ) || @input.peek( 1 ).between?( 0xe, 0xff )
               @input.consume
             else
@@ -1106,7 +1106,7 @@ module ANTLRv3Grammar
         end # loop for decision 1
 
       end
-      # at line 477:3: ( '\\r' )?
+      # at line 465:3: ( '\\r' )?
       alt_3 = 2
       look_3_0 = @input.peek( 1 )
 
@@ -1115,7 +1115,7 @@ module ANTLRv3Grammar
       end
       case alt_3
       when 1
-        # at line 477:3: '\\r'
+        # at line 465:3: '\\r'
         match( 0xd )
 
       end
@@ -1145,12 +1145,12 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 481:4: '/*' ( . )* '*/'
+      # at line 469:4: '/*' ( . )* '*/'
       match( "/*" )
       # --> action
       if @input.peek(1) == ?* then type = DOC_COMMENT else channel = HIDDEN end 
       # <-- action
-      # at line 481:88: ( . )*
+      # at line 469:88: ( . )*
       while true # decision 4
         alt_4 = 2
         look_4_0 = @input.peek( 1 )
@@ -1170,7 +1170,7 @@ module ANTLRv3Grammar
         end
         case alt_4
         when 1
-          # at line 481:88: .
+          # at line 469:88: .
           match_any
 
         else
@@ -1200,7 +1200,7 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 485:4: '\\'' LITERAL_CHAR '\\''
+      # at line 473:4: '\\'' LITERAL_CHAR '\\''
       match( 0x27 )
       literal_char!
       match( 0x27 )
@@ -1226,10 +1226,10 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 489:4: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
+      # at line 477:4: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
       match( 0x27 )
       literal_char!
-      # at line 489:22: ( LITERAL_CHAR )*
+      # at line 477:22: ( LITERAL_CHAR )*
       while true # decision 5
         alt_5 = 2
         look_5_0 = @input.peek( 1 )
@@ -1240,7 +1240,7 @@ module ANTLRv3Grammar
         end
         case alt_5
         when 1
-          # at line 489:22: LITERAL_CHAR
+          # at line 477:22: LITERAL_CHAR
           literal_char!
 
         else
@@ -1267,7 +1267,7 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 494:2: ( ESC | ~ ( '\\'' | '\\\\' ) )
+      # at line 482:2: ( ESC | ~ ( '\\'' | '\\\\' ) )
       alt_6 = 2
       look_6_0 = @input.peek( 1 )
 
@@ -1280,11 +1280,11 @@ module ANTLRv3Grammar
       end
       case alt_6
       when 1
-        # at line 494:4: ESC
+        # at line 482:4: ESC
         esc!
 
       when 2
-        # at line 495:4: ~ ( '\\'' | '\\\\' )
+        # at line 483:4: ~ ( '\\'' | '\\\\' )
         if @input.peek( 1 ).between?( 0x0, 0x26 ) || @input.peek( 1 ).between?( 0x28, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
           @input.consume
         else
@@ -1313,9 +1313,9 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 499:4: '\"' ( ESC | ~ ( '\\\\' | '\"' ) )* '\"'
+      # at line 487:4: '\"' ( ESC | ~ ( '\\\\' | '\"' ) )* '\"'
       match( 0x22 )
-      # at line 499:8: ( ESC | ~ ( '\\\\' | '\"' ) )*
+      # at line 487:8: ( ESC | ~ ( '\\\\' | '\"' ) )*
       while true # decision 7
         alt_7 = 3
         look_7_0 = @input.peek( 1 )
@@ -1328,11 +1328,11 @@ module ANTLRv3Grammar
         end
         case alt_7
         when 1
-          # at line 499:9: ESC
+          # at line 487:9: ESC
           esc!
 
         when 2
-          # at line 499:15: ~ ( '\\\\' | '\"' )
+          # at line 487:15: ~ ( '\\\\' | '\"' )
           if @input.peek( 1 ).between?( 0x0, 0x21 ) || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
             @input.consume
           else
@@ -1370,9 +1370,9 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 503:4: '<<' ( . )* '>>'
+      # at line 491:4: '<<' ( . )* '>>'
       match( "<<" )
-      # at line 503:9: ( . )*
+      # at line 491:9: ( . )*
       while true # decision 8
         alt_8 = 2
         look_8_0 = @input.peek( 1 )
@@ -1392,7 +1392,7 @@ module ANTLRv3Grammar
         end
         case alt_8
         when 1
-          # at line 503:9: .
+          # at line 491:9: .
           match_any
 
         else
@@ -1419,50 +1419,50 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 507:7: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+      # at line 495:7: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
       match( 0x5c )
-      # at line 508:3: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+      # at line 496:3: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
       alt_9 = 11
       alt_9 = @dfa9.predict( @input )
       case alt_9
       when 1
-        # at line 508:5: 'n'
+        # at line 496:5: 'n'
         match( 0x6e )
 
       when 2
-        # at line 509:5: 'r'
+        # at line 497:5: 'r'
         match( 0x72 )
 
       when 3
-        # at line 510:5: 't'
+        # at line 498:5: 't'
         match( 0x74 )
 
       when 4
-        # at line 511:5: 'b'
+        # at line 499:5: 'b'
         match( 0x62 )
 
       when 5
-        # at line 512:5: 'f'
+        # at line 500:5: 'f'
         match( 0x66 )
 
       when 6
-        # at line 513:5: '\"'
+        # at line 501:5: '\"'
         match( 0x22 )
 
       when 7
-        # at line 514:5: '\\''
+        # at line 502:5: '\\''
         match( 0x27 )
 
       when 8
-        # at line 515:5: '\\\\'
+        # at line 503:5: '\\\\'
         match( 0x5c )
 
       when 9
-        # at line 516:5: '>'
+        # at line 504:5: '>'
         match( 0x3e )
 
       when 10
-        # at line 517:5: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
+        # at line 505:5: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
         match( 0x75 )
         xdigit!
         xdigit!
@@ -1470,7 +1470,7 @@ module ANTLRv3Grammar
         xdigit!
 
       when 11
-        # at line 518:5: .
+        # at line 506:5: .
         match_any
 
       end
@@ -1517,8 +1517,8 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 529:7: ( '0' .. '9' )+
-      # at file 529:7: ( '0' .. '9' )+
+      # at line 517:7: ( '0' .. '9' )+
+      # at file 517:7: ( '0' .. '9' )+
       match_count_10 = 0
       while true
         alt_10 = 2
@@ -1530,7 +1530,7 @@ module ANTLRv3Grammar
         end
         case alt_10
         when 1
-          # at line 529:7: '0' .. '9'
+          # at line 517:7: '0' .. '9'
           match_range( 0x30, 0x39 )
 
         else
@@ -1565,7 +1565,7 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 533:4: NESTED_ARG_ACTION
+      # at line 521:4: NESTED_ARG_ACTION
       nested_arg_action!
 
       
@@ -1586,9 +1586,9 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 538:2: '[' ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )* ']'
+      # at line 526:2: '[' ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )* ']'
       match( 0x5b )
-      # at line 539:2: ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )*
+      # at line 527:2: ( options {greedy=false; k=1; } : NESTED_ARG_ACTION | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | . )*
       while true # decision 11
         alt_11 = 5
         look_11_0 = @input.peek( 1 )
@@ -1607,19 +1607,19 @@ module ANTLRv3Grammar
         end
         case alt_11
         when 1
-          # at line 540:4: NESTED_ARG_ACTION
+          # at line 528:4: NESTED_ARG_ACTION
           nested_arg_action!
 
         when 2
-          # at line 541:4: ACTION_STRING_LITERAL
+          # at line 529:4: ACTION_STRING_LITERAL
           action_string_literal!
 
         when 3
-          # at line 542:4: ACTION_CHAR_LITERAL
+          # at line 530:4: ACTION_CHAR_LITERAL
           action_char_literal!
 
         when 4
-          # at line 543:4: .
+          # at line 531:4: .
           match_any
 
         else
@@ -1645,9 +1645,9 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 550:4: NESTED_ACTION ( '?' )?
+      # at line 538:4: NESTED_ACTION ( '?' )?
       nested_action!
-      # at line 550:18: ( '?' )?
+      # at line 538:18: ( '?' )?
       alt_12 = 2
       look_12_0 = @input.peek( 1 )
 
@@ -1656,7 +1656,7 @@ module ANTLRv3Grammar
       end
       case alt_12
       when 1
-        # at line 550:20: '?'
+        # at line 538:20: '?'
         match( 0x3f )
         # --> action
          type = SEMPRED 
@@ -1682,35 +1682,35 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 555:2: '{' ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )* '}'
+      # at line 543:2: '{' ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )* '}'
       match( 0x7b )
-      # at line 556:2: ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )*
+      # at line 544:2: ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )*
       while true # decision 13
         alt_13 = 8
         alt_13 = @dfa13.predict( @input )
         case alt_13
         when 1
-          # at line 557:4: NESTED_ACTION
+          # at line 545:4: NESTED_ACTION
           nested_action!
 
         when 2
-          # at line 558:4: SL_COMMENT
+          # at line 546:4: SL_COMMENT
           sl_comment!
 
         when 3
-          # at line 559:4: ML_COMMENT
+          # at line 547:4: ML_COMMENT
           ml_comment!
 
         when 4
-          # at line 560:4: ACTION_STRING_LITERAL
+          # at line 548:4: ACTION_STRING_LITERAL
           action_string_literal!
 
         when 5
-          # at line 561:4: ACTION_CHAR_LITERAL
+          # at line 549:4: ACTION_CHAR_LITERAL
           action_char_literal!
 
         when 6
-          # at line 562:4: ~ '\\\\'
+          # at line 550:4: ~ '\\\\'
           if @input.peek( 1 ).between?( 0x0, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
             @input.consume
           else
@@ -1722,7 +1722,7 @@ module ANTLRv3Grammar
 
 
         when 7
-          # at line 563:5: '\\\\' .
+          # at line 551:5: '\\\\' .
           match( 0x5c )
           match_any
 
@@ -1746,9 +1746,9 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 570:4: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
+      # at line 558:4: '\\'' (~ ( '\\\\' | '\\'' ) | '\\\\' . )* '\\''
       match( 0x27 )
-      # at line 570:9: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
+      # at line 558:9: (~ ( '\\\\' | '\\'' ) | '\\\\' . )*
       while true # decision 14
         alt_14 = 3
         look_14_0 = @input.peek( 1 )
@@ -1761,7 +1761,7 @@ module ANTLRv3Grammar
         end
         case alt_14
         when 1
-          # at line 570:11: ~ ( '\\\\' | '\\'' )
+          # at line 558:11: ~ ( '\\\\' | '\\'' )
           if @input.peek( 1 ).between?( 0x0, 0x26 ) || @input.peek( 1 ).between?( 0x28, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
             @input.consume
           else
@@ -1773,7 +1773,7 @@ module ANTLRv3Grammar
 
 
         when 2
-          # at line 570:26: '\\\\' .
+          # at line 558:26: '\\\\' .
           match( 0x5c )
           match_any
 
@@ -1797,9 +1797,9 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 575:4: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
+      # at line 563:4: '\"' (~ ( '\\\\' | '\"' ) | '\\\\' . )* '\"'
       match( 0x22 )
-      # at line 575:8: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
+      # at line 563:8: (~ ( '\\\\' | '\"' ) | '\\\\' . )*
       while true # decision 15
         alt_15 = 3
         look_15_0 = @input.peek( 1 )
@@ -1812,7 +1812,7 @@ module ANTLRv3Grammar
         end
         case alt_15
         when 1
-          # at line 575:10: ~ ( '\\\\' | '\"' )
+          # at line 563:10: ~ ( '\\\\' | '\"' )
           if @input.peek( 1 ).between?( 0x0, 0x21 ) || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
             @input.consume
           else
@@ -1824,7 +1824,7 @@ module ANTLRv3Grammar
 
 
         when 2
-          # at line 575:24: '\\\\' .
+          # at line 563:24: '\\\\' .
           match( 0x5c )
           match_any
 
@@ -1848,7 +1848,7 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 580:4: '\\\\' .
+      # at line 568:4: '\\\\' .
       match( 0x5c )
       match_any
 
@@ -1869,9 +1869,9 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 584:4: 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+      # at line 572:4: 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       match_range( 0x41, 0x5a )
-      # at line 584:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+      # at line 572:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       while true # decision 16
         alt_16 = 2
         look_16_0 = @input.peek( 1 )
@@ -1919,9 +1919,9 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 588:4: 'a' .. 'z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+      # at line 576:4: 'a' .. 'z' ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       match_range( 0x61, 0x7a )
-      # at line 588:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+      # at line 576:13: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
       while true # decision 17
         alt_17 = 2
         look_17_0 = @input.peek( 1 )
@@ -1969,7 +1969,7 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 595:4: 'options' WS_LOOP '{'
+      # at line 583:4: 'options' WS_LOOP '{'
       match( "options" )
       ws_loop!
       match( 0x7b )
@@ -1995,7 +1995,7 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 599:4: 'tokens' WS_LOOP '{'
+      # at line 587:4: 'tokens' WS_LOOP '{'
       match( "tokens" )
       ws_loop!
       match( 0x7b )
@@ -2022,7 +2022,7 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 607:7: 'src' ' ' file= ACTION_STRING_LITERAL ' ' line= INT
+      # at line 595:7: 'src' ' ' file= ACTION_STRING_LITERAL ' ' line= INT
       match( "src" )
       match( 0x20 )
       file_start_1006 = self.character_index
@@ -2062,8 +2062,8 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 610:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
-      # at file 610:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
+      # at line 598:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
+      # at file 598:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
       match_count_19 = 0
       while true
         alt_19 = 4
@@ -2074,16 +2074,16 @@ module ANTLRv3Grammar
         end
         case alt_19
         when 1
-          # at line 610:8: ' '
+          # at line 598:8: ' '
           match( 0x20 )
 
         when 2
-          # at line 611:5: '\\t'
+          # at line 599:5: '\\t'
           match( 0x9 )
 
         when 3
-          # at line 612:5: ( '\\r' )? '\\n'
-          # at line 612:5: ( '\\r' )?
+          # at line 600:5: ( '\\r' )? '\\n'
+          # at line 600:5: ( '\\r' )?
           alt_18 = 2
           look_18_0 = @input.peek( 1 )
 
@@ -2092,7 +2092,7 @@ module ANTLRv3Grammar
           end
           case alt_18
           when 1
-            # at line 612:5: '\\r'
+            # at line 600:5: '\\r'
             match( 0xd )
 
           end
@@ -2130,8 +2130,8 @@ module ANTLRv3Grammar
 
       
       # - - - - main rule block - - - -
-      # at line 619:4: ( WS | SL_COMMENT | ML_COMMENT )*
-      # at line 619:4: ( WS | SL_COMMENT | ML_COMMENT )*
+      # at line 607:4: ( WS | SL_COMMENT | ML_COMMENT )*
+      # at line 607:4: ( WS | SL_COMMENT | ML_COMMENT )*
       while true # decision 20
         alt_20 = 4
         look_20_0 = @input.peek( 1 )
@@ -2151,15 +2151,15 @@ module ANTLRv3Grammar
         end
         case alt_20
         when 1
-          # at line 619:6: WS
+          # at line 607:6: WS
           ws!
 
         when 2
-          # at line 620:5: SL_COMMENT
+          # at line 608:5: SL_COMMENT
           sl_comment!
 
         when 3
-          # at line 621:5: ML_COMMENT
+          # at line 609:5: ML_COMMENT
           ml_comment!
 
         else
@@ -2451,7 +2451,7 @@ module ANTLRv3Grammar
 
       def description
         <<-'__dfa_description__'.strip!
-          474:5: ( ' $ANTLR ' SRC | (~ ( '\\r' | '\\n' ) )* )
+          462:5: ( ' $ANTLR ' SRC | (~ ( '\\r' | '\\n' ) )* )
         __dfa_description__
       end
     end
@@ -2492,7 +2492,7 @@ module ANTLRv3Grammar
 
       def description
         <<-'__dfa_description__'.strip!
-          508:3: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+          496:3: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
         __dfa_description__
       end
     end
@@ -2551,7 +2551,7 @@ module ANTLRv3Grammar
 
       def description
         <<-'__dfa_description__'.strip!
-          ()* loopback of 556:2: ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )*
+          ()* loopback of 544:2: ( options {greedy=false; k=2; } : NESTED_ACTION | SL_COMMENT | ML_COMMENT | ACTION_STRING_LITERAL | ACTION_CHAR_LITERAL | ~ '\\\\' | '\\\\' . )*
         __dfa_description__
       end
     end

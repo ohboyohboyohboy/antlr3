@@ -168,7 +168,7 @@ scope {
 		throws_spec? options_spec? rule_scope_spec? rule_action*
 		':'	alt_list	';'
 		exception_group?
-	    -> ^( RULE id {$modifier ? @adaptor.create!($modifier) : nil} ^(ARG[$arg] $arg)? ^('returns' $rt)?
+	    -> ^( RULE id {$modifier ? @adaptor.create($modifier) : nil} ^(ARG[$arg] $arg)? ^('returns' $rt)?
 	    	  throws_spec? options_spec? rule_scope_spec? rule_action*
 	    	  alt_list
 	    	  exception_group?
@@ -205,7 +205,7 @@ altpair : alternative rewrite ;
 
 alt_list
 @init {
-  block_root = @adaptor.create!(BLOCK, @input.look(-1), "BLOCK");
+  block_root = @adaptor.create(BLOCK, @input.look(-1), "BLOCK");
 }
     :   altpair ( '|' altpair )* -> ^( {block_root} altpair+ EOB["eob"] )
     ;

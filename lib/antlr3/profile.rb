@@ -1,6 +1,37 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 
+=begin LICENSE
+
+[The "BSD licence"]
+Copyright (c) 2009-2010 Kyle Yetter
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. The name of the author may not be used to endorse or promote products
+    derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+=end
+
 module ANTLR3
 module Profile
 =begin rdoc ANTLR3::Profile::ParserEvents
@@ -50,9 +81,6 @@ class DataSet < ::Array
     sqrt( variance )
   end
 end
-
-
-
 
 
 unless const_defined?( :Profile )
@@ -231,7 +259,7 @@ class Profiler
   
   def enter_decision( decision_number )
     @decision_level += 1
-    starting_look_index = @parser.token_stream.index
+    starting_look_index = @parser.input.index
     @look_stack << starting_look_index
   end
 
@@ -262,7 +290,7 @@ class Profiler
   def look( i, token )
     in_decision? or return
     starting_index = look_stack.last
-    input = @parser.token_stream
+    input = @parser.input
     this_ref_index = input.index
     num_hidden = input.tokens( starting_index, this_ref_index ).count { |t| t.hidden? }
     depth = i + this_ref_index - starting_index - num_hidden
@@ -284,7 +312,7 @@ class Profiler
   end
   
   def terminate
-    input = @parser.token_stream
+    input = @parser.input
     hidden_tokens = input.select { |token| token.hidden? }
     @profile.hidden_tokens = hidden_tokens.length
     @profile.tokens = input.tokens.length

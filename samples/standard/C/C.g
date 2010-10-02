@@ -34,7 +34,7 @@ grammar C;
 options {
     language  = Ruby;
     backtrack = true;
-		memoize = true;
+    memoize = true;
     k         = 2;
 }
 

@@ -1,0 +1,21 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+$grammar = 'ANTLRv3Grammar'
+$grammar_file = $grammar + '.g'
+file( $grammar_file )
+
+file( 'parser.rb' => [ $grammar_file ] ) do
+  require 'antlr3/task'
+  tasks = ANTLR3::CompileTask.define( $grammar_file )
+  tasks.compile_task.invoke
+  
+  mv( "#{ $grammar }Parser.rb", 'parser.rb' )
+  mv( "#{ $grammar }Lexer.rb", 'lexer.rb' )
+  rm( "#$grammar.tokens" )
+  
+  sh %q(ruby -i -pe 'gsub /\.create!/, ".create"' *.rb)
+  
+end
+
+task( :default => 'parser.rb' )

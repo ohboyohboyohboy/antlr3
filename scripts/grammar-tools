@@ -1,6 +1,37 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
+=begin LICENSE
+
+[The "BSD licence"]
+Copyright (c) 2010 Kyle Yetter
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. The name of the author may not be used to endorse or promote products
+    derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+=end
+
 __DIR__ = File.dirname( __FILE__ )
 load File.join( __DIR__, 'script-helper.rb' )
 
@@ -10,10 +41,11 @@ require 'facets/string'
 autoload :Monocle, 'monocle'
 
 ACTION_TOKENS = %w(
-  ARG RET T__72 ACTION SEMPRED SYN_SEMPRED GATED_SEMPRED
+  ARG RET T__72 ACTION SEMPRED GATED_SEMPRED
 ).freeze
 
 include ANTLRv3Grammar::TokenData
+
 
 Main do
   author 'Kyle Yetter <kcy5b@yahoo.com>'
@@ -472,9 +504,9 @@ Main do
           else
             out.put!( "==[ #{ title } ]", :fill => '=' )
             out.indent( 2 ) do
-              blank
+              out.puts
               out.list( rules )
-              blank
+              out.puts
             end
           end
         end
@@ -599,7 +631,7 @@ Main do
       |     stylistic convention of snake_case names
       |   * comments out all language-specific action portions of the grammar
       |     so they may be located and tailored. The action comments
-      |     are in the format /* action -> __EXISTING_CODE__ */
+      |     are in the format «__EXISTING_CODE__»
       |   * modifies (or adds if necessary) the language option of the grammar
       |     to Ruby
       END
@@ -632,9 +664,25 @@ Main do
               for tk in tokens
                 tk.text =~ /\*\// and r.replace( tk, tk.text.gsub( /\*\//,'*\\/' ) )
               end
-              head, tail = tokens.first, tokens.last
-              r.insert_before( head, '/* action -> ' )
-              r.insert_after( tail, ' */' )
+              
+              token = tokens.first
+              source = token.text.dup
+              a, z = '', ''
+              if source.start_with?( '{' )
+                a, source = '{', source[ 1..-1 ]
+              end
+              if source.end_with?( '}' )
+                z, source = '}', source[ 0...-1 ]
+              end
+              
+              case source
+              when /\A\s*\$(channel|type)\s*\=\s*(\w+);?\s*\z/
+                source = "$#$1 = #$2"
+              else
+                a << '«'; z = '»' << z
+              end
+              
+              r.replace( token, "#{ a }#{ source }#{ z }" )
               n.prune
             end
           end

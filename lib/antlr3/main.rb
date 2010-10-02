@@ -378,6 +378,7 @@ class ParserMain < Main
     @parser_class     = parser_class
     @parser_rule = options[ :parser_rule ]
     if @debug = ( @parser_class.debug? rescue false )
+      @trace = options.fetch( :trace, nil )
       @port = options.fetch( :port, ANTLR3::Debug::DEFAULT_PORT )
       @log  = options.fetch( :log, @error )
     end
@@ -407,6 +408,10 @@ class ParserMain < Main
     if @debug
       opt.separator ''
       opt.separator "Debug Mode Options:"
+      
+      opt.on( '--trace', '-t', "print rule trace instead of opening a debug socket" ) do
+        @trace = true
+      end
       
       opt.on( '--port NUMBER', Integer, "port number to use for the debug socket" ) do |number|
         @port = number
@@ -440,8 +445,12 @@ class ParserMain < Main
   def recognize( in_stream )
     parser_options = {}
     if @debug
-      parser_options[ :port ] = @port
-      parser_options[ :log ]  = @log
+      if @trace
+        parser_options[ :debug_listener ] = ANTLR3::Debug::RuleTracer.new
+      else
+        parser_options[ :port ] = @port
+        parser_options[ :log ]  = @log
+      end
     end
     lexer = @lexer_class.new( in_stream )
     # token_stream = CommonTokenStream.new( lexer )

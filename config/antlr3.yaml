@@ -4,7 +4,7 @@
 #
 name: antlr3
 
-version: "1.8.1"
+version: "1.8.2"
 antlr_version: "3.2.1"
 
 summary: |-
@@ -54,6 +54,8 @@ package: !group
       - templates/*.stg
       - samples/CPP.g
       - samples/ANTLRv3Grammar.g
+      - samples/JavaScript.g
+      - samples/standard/**/*
       - *.txt
       - java/antlr-full-$(antlr_version).jar
       - java/*.java

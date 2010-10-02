@@ -124,6 +124,52 @@ end
 
 end # unless const_defined?( :RecognizerSharedState )
 
+=begin rdoc ANTLR3::Recognizer
+
+= Scope
+
+Scope is used to represent instances of ANTLR's various attribute scopes.
+It is identical to Ruby's built-in Struct class, but it takes string
+attribute declarations from the ANTLR grammar as parameters, and overrides
+the #initialize method to set the default values if any are present in
+the scope declaration.
+
+  Block = Scope.new( "name", "depth = 0", "variables = {}" )
+  Block.new                    # => #<struct Block name=nil, depth=0, variables={}>
+  Block.new( "function" )      # => #<struct Block name="function", depth=0, variables={}>
+  Block.new( 'a', 1, :x => 3 ) # => #<struct Block name="a", depth=1, variables={ :x => 3 }>
+
+=end
+
+class Scope < ::Struct
+  def self.new( *declarations, &body )
+    names = []
+    defaults = {}
+    for decl in declarations
+      name, default = decl.to_s.split( /\s*=\s*/, 2 )
+      names << ( name = name.to_sym )
+      default and defaults[ name ] = default
+    end
+    super( *names ) do
+      
+      # If no defaults, leave the initialize method the same as
+      # the struct's default initialize for speed. Otherwise,
+      # overwrite the initialize to populate with default values.
+      unless defaults.empty?
+        parameters = names.map do | name |
+          "#{ name } = " << defaults.fetch( name, 'nil' )
+        end.join( ', ' )
+        class_eval( <<-END )
+          def initialize( #{ parameters } )
+            super( #{ names.join( ', ' ) } )
+          end
+        END
+      end
+      
+      body and class_eval( &body )
+    end
+  end
+end
 
 =begin rdoc ANTLR3::Recognizer
 
@@ -158,7 +204,6 @@ class Recognizer
   
   # inherited class methods and hooks
   class << self
-    
     attr_reader :grammar_file_name,
                 :antlr_version,
                 :antlr_version_string,
@@ -260,6 +305,10 @@ class Recognizer
     
     def debug?
       return false
+    end
+    
+    def Scope( *declarations, &body )
+      Scope.new( *declarations, &body )
     end
     
     def token_class

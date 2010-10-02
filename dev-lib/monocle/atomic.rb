@@ -1,5 +1,7 @@
 #!/usr/bin/ruby
 
+require 'strscan'
+
 module Monocle
   if RUBY_VERSION =~ /^1\.8/
     MULTIBYTE_CHARACTER = %r<
@@ -15,7 +17,16 @@ module Monocle
   end
   
   COLOR_ESCAPE = /\e\[[\d:;]*?m/
+
+class EscapeScanner
   
+  def initialize( string )
+    @foreground = nil
+    @background = nil
+    @scanner = StringScanner.new( string )
+  end
+  
+end
 
 class SingleLine < ::String
   include Monocle
@@ -214,6 +225,7 @@ class SingleLine < ::String
   def indent( n )
     dup.indent!( n )
   end
+
   
   def level_of_indent
     self =~ /^(\s+)/ ? $1.length : 0
@@ -439,6 +451,8 @@ class Text < Array
     @@width[ hash ] ||= map { | line | line.width }.max
   end
 
+  
+  
   alias height length
   alias | juxtapose
   def `( str )   #` # comment here cos my editor's colorizing freaks out

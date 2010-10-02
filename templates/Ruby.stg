@@ -15,7 +15,7 @@ outputFile(LEXER, PARSER, TREE_PARSER, actionScope, actions, docComment, recogni
 #!/usr/bin/env ruby
 #
 # <fileName>
-# 
+# --
 # Generated using ANTLR version: <ANTLRVersion>
 # Ruby runtime library version: <runtimeLibraryVersion()>
 # Input grammar file: <fileName>
@@ -369,7 +369,7 @@ element() ::= <<
 execForcedAction(action) ::= "<action>"
 
 globalAttributeScopeClass(scope) ::= <<
-<if(scope.attributes)>@@<scope.name> = Struct.new( <scope.attributes:{:<it.decl>}; separator=", "> )<\n><endif>
+<if(scope.attributes)>@@<scope.name> = Scope( <scope.attributes:{<it.decl; format="rubyString">}; separator=", "> )<\n><endif>
 >>
 
 globalAttributeScopeStack(scope) ::= <<
@@ -1342,7 +1342,7 @@ filteringNextToken() ::= ""
 filteringActionGate() ::= "@state.backtracking == 1"
 
 /** Match a string literal */
-lexerStringRef(string,label) ::= <<
+lexerStringRef(string,label,elementIndex) ::= <<
 <if(label)>
 <label; format="label">_start = self.character_index
 match( <string> )
@@ -1459,4 +1459,4 @@ placeAction(scope, name) ::= <<
 <endif>
 >>
 
-runtimeLibraryVersion() ::= "1.8.1"
+runtimeLibraryVersion() ::= "1.8.2"

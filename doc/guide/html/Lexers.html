@@ -1,0 +1,980 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<meta name="description" content="description"/>
+	<meta name="keywords" content="keywords"/>
+  <meta name="author" content="Kyle Yetter"/>
+	<link rel="stylesheet" type="text/css" href="stylesheets/article.css" media="screen"/>
+  <link rel="stylesheet" type="text/css" href="stylesheets/ANTLR3.css" media="screen"/>
+  <link rel="stylesheet" type="text/css" href="stylesheets/ruby.css" media="screen"/>
+
+	<title>ANTLR For Ruby: Lexers</title>
+</head>
+
+<body>
+<div class="left">
+	<div class="header">
+		<h2><span>ANTLR for Ruby</span></h2>
+		<h1>Lexers</h1>
+	</div>
+	<div class="annotation">
+		<div class="author">by <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a></div>
+    <div class="timestamp">updated Saturday, June 12, 2010 at 12:08AM EDT</div>
+	</div>
+	<div class="content">
+<h1 id="section-1">Overview</h1>
+<p>A lexer&#8217;s job is to take a stream of text and chop it up into a sequence of <strong>tokens</strong> &#8212; little strings categorized with type codes like <code>NUMBER</code> or <code>KEYWORD</code>. For more information on tokens and their characteristics, read <a href="./Tokens.html">Tokens</a>.</p>
+<p>For a general overview of lexers, check out:</p>
+<ul>
+	<li><a href="http://en.wikipedia.org/wiki/Lexical_analysis" title="from Wikipedia">Lexical Analysis</a></li>
+	<li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation">ANTLRv3 Documentation</a></li>
+</ul>
+<h2>How Lexers Differ from Parsers</h2>
+<p>I do not intend to cover many details of lexical analysis in this article. However, highlighting a few of the key differences between lexers and parsers should help clarify the documentation below for users who are new to <span class="caps">ANTLR</span>.</p>
+<p>As described above, lexers chop raw language text into tokens. If a particular character sequence in the input cannot be matched against the lexical rules of the grammar, the lexer must handle the syntax error somehow and optionally report the error.</p>
+<p>A parser&#8217;s task is to then take the stream of tokens extracted by the lexer and recognize any one of a number of larger syntactic statements. Parsers may have more than one point of entry. For example, a python parser will probably have one entry rule for parsing full python scripts. It will probably have another rule for parsing a single python statement read from an interactive prompt. Since python restricts the content permitted in its <code>eval</code> statement, the parser may have an additional entry rule for strings passed to <code>eval</code>.</p>
+<p>In contrast, lexers typically have a single point of entry  A grammar will define a number of different tokens that are possible within a language using lexer rules. <span class="caps">ANTLR</span> will derive an additional lexer rule that combines all of the lexical rules, invoking the most appropriate token rule based upon the next few characters in the input stream. Thus, while parsers can have any number of independent entry points, lexers automatically choose the most appropriate rule for the current input.</p>
+<h1 id="section-2">Lexer Code and Class Structure</h1>
+<p>For a <code>combined</code> or <code>lexer</code> grammar named <code>Language</code>, <code>antlr4ruby</code> will generate a lexer class. In other <span class="caps">ANTLR</span> targets, the generated class is named <code>LanguageLexer</code>. However, this ruby implementation will generate a top level module named <code>Language</code>, which serves as a general name-space for the various entities required by the code. The actual lexer class is simply named <code>Lexer</code>, so the full name of the generated lexer will be <code>Language::Lexer</code>. Consider this really simple lexer grammar:</p>
+<div class="code-frame">
+  <div class="code-header">Digit.g</div>
+  <table class="ANTLR3" id="Digit">
+  <tr class="code_line" id="Digit-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="k">lexer</span><span class="ws">&nbsp;</span><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name">Digit</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Digit-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Digit-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="k">options&nbsp;{</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Digit-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id">language</span><span class="ws">&nbsp;</span><span class="o">=</span><span class="ws">&nbsp;</span><span class="id">Ruby</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Digit-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="k">}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Digit-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Digit-7">
+    <td class="line_number odd"><pre>07</pre></td>
+    <td class="code"><pre><span class="kd">DIGIT</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">'0'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'9'</span><span class="p">;</span></pre></td>
+  </tr>
+</table>
+
+</div>
+<p>An abbreviated form of the output generated by <code>antlr4ruby Digit.g</code> is shown below:</p>
+<div class="code-frame">
+  <div class="code-header">Digit.rb (abridged)</div>
+  <table class="ruby" id="ruby611730328">
+  <tr class="code_line" id="ruby611730328-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="c1">#&nbsp;edited&nbsp;out&nbsp;code&nbsp;that&nbsp;ensures&nbsp;the&nbsp;antlr3&nbsp;run-time&nbsp;library&nbsp;is&nbsp;required</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="k">module</span><span class="tx">&nbsp;</span><span class="nn">Digit</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="c1">#&nbsp;TokenData&nbsp;defines&nbsp;all&nbsp;of&nbsp;the&nbsp;token&nbsp;type&nbsp;integer&nbsp;values</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="c1">#&nbsp;as&nbsp;constants,&nbsp;which&nbsp;will&nbsp;be&nbsp;included&nbsp;in&nbsp;all&nbsp;</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="c1">#&nbsp;ANTLR-generated&nbsp;recognizers.</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-7">
+    <td class="line_number odd"><pre>07</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="nb">const_defined?</span><span class="p">(</span><span class="ss">:TokenData</span><span class="p">)</span><span class="tx">&nbsp;</span><span class="ow">or</span><span class="tx">&nbsp;</span><span class="no">TokenData</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="no">ANTLR3</span><span class="o">::</span><span class="no">TokenScheme</span><span class="o">.</span><span class="n">new</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-8">
+    <td class="line_number even"><pre>08</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-9">
+    <td class="line_number odd"><pre>09</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">module</span><span class="tx">&nbsp;</span><span class="nn">TokenData</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-10">
+    <td class="line_number even"><pre>10</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-11">
+    <td class="line_number odd"><pre>11</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;define&nbsp;the&nbsp;token&nbsp;constants</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-12">
+    <td class="line_number even"><pre>12</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="n">define_tokens</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="ss">:DIGIT</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="o">&gt;</span><span class="tx">&nbsp;</span><span class="mi">4</span><span class="p">,</span><span class="tx">&nbsp;</span><span class="ss">:EOF</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="o">&gt;</span><span class="tx">&nbsp;</span><span class="o">-</span><span class="mi">1</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-13">
+    <td class="line_number odd"><pre>13</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-14">
+    <td class="line_number even"><pre>14</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-15">
+    <td class="line_number odd"><pre>15</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-16">
+    <td class="line_number even"><pre>16</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-17">
+    <td class="line_number odd"><pre>17</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">class</span><span class="tx">&nbsp;</span><span class="nc">Lexer</span><span class="tx">&nbsp;</span><span class="o">&lt;</span><span class="tx">&nbsp;</span><span class="no">ANTLR3</span><span class="o">::</span><span class="no">Lexer</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-18">
+    <td class="line_number even"><pre>18</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="vi">@grammar_home</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="no">Digit</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-19">
+    <td class="line_number odd"><pre>19</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="kp">include</span><span class="tx">&nbsp;</span><span class="no">TokenData</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-20">
+    <td class="line_number even"><pre>20</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-21">
+    <td class="line_number odd"><pre>21</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">begin</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-22">
+    <td class="line_number even"><pre>22</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="n">generated_using</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="s2">&quot;</span><span class="s2">Digit.g</span><span class="s2">&quot;</span><span class="p">,</span><span class="tx">&nbsp;</span><span class="s2">&quot;</span><span class="s2">3.2.1-SNAPSHOT&nbsp;Dec&nbsp;18,&nbsp;2009&nbsp;04:29:28</span><span class="s2">&quot;</span><span class="p">,</span><span class="tx">&nbsp;</span><span class="s2">&quot;</span><span class="s2">1.6.3</span><span class="s2">&quot;</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-23">
+    <td class="line_number odd"><pre>23</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">rescue</span><span class="tx">&nbsp;</span><span class="no">NoMethodError</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="o">&gt;</span><span class="tx">&nbsp;</span><span class="n">error</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-24">
+    <td class="line_number even"><pre>24</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="n">error</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">to_sym</span><span class="tx">&nbsp;</span><span class="o">==</span><span class="tx">&nbsp;</span><span class="ss">:generated_using</span><span class="tx">&nbsp;</span><span class="ow">or</span><span class="tx">&nbsp;</span><span class="k">raise</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-25">
+    <td class="line_number odd"><pre>25</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-26">
+    <td class="line_number even"><pre>26</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-27">
+    <td class="line_number odd"><pre>27</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="no">RULE_NAMES</span><span class="tx">&nbsp;&nbsp;&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="o">[</span><span class="s2">&quot;</span><span class="s2">DIGIT</span><span class="s2">&quot;</span><span class="o">]</span><span class="o">.</span><span class="n">freeze</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-28">
+    <td class="line_number even"><pre>28</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="no">RULE_METHODS</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="o">[</span><span class="ss">:digit!</span><span class="o">]</span><span class="o">.</span><span class="n">freeze</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-29">
+    <td class="line_number odd"><pre>29</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-30">
+    <td class="line_number even"><pre>30</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">def</span><span class="tx">&nbsp;</span><span class="nf">initialize</span><span class="p">(</span><span class="n">input</span><span class="o">=</span><span class="kp">nil</span><span class="p">,</span><span class="tx">&nbsp;</span><span class="n">options</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="p">{</span><span class="p">}</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-31">
+    <td class="line_number odd"><pre>31</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">super</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="tx">&nbsp;</span><span class="n">options</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-32">
+    <td class="line_number even"><pre>32</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-33">
+    <td class="line_number odd"><pre>33</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-34">
+    <td class="line_number even"><pre>34</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;lexer&nbsp;rules&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-35">
+    <td class="line_number odd"><pre>35</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;lexer&nbsp;rule&nbsp;digit!&nbsp;(DIGIT)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-36">
+    <td class="line_number even"><pre>36</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;(in&nbsp;/home/kyle/lib/ruby/projects/antlr3/test/functional/lexer/basic/Digit.g)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-37">
+    <td class="line_number odd"><pre>37</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">def</span><span class="tx">&nbsp;</span><span class="nf">digit!</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-38">
+    <td class="line_number even"><pre>38</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;edited&nbsp;out&nbsp;recognition&nbsp;logic</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-39">
+    <td class="line_number odd"><pre>39</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-40">
+    <td class="line_number even"><pre>40</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-41">
+    <td class="line_number odd"><pre>41</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;main&nbsp;rule&nbsp;used&nbsp;to&nbsp;study&nbsp;the&nbsp;input&nbsp;at&nbsp;the&nbsp;current&nbsp;position,</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-42">
+    <td class="line_number even"><pre>42</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;and&nbsp;choose&nbsp;the&nbsp;proper&nbsp;lexer&nbsp;rule&nbsp;to&nbsp;call&nbsp;in&nbsp;order&nbsp;to</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-43">
+    <td class="line_number odd"><pre>43</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;fetch&nbsp;the&nbsp;next&nbsp;token</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-44">
+    <td class="line_number even"><pre>44</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-45">
+    <td class="line_number odd"><pre>45</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;usually,&nbsp;you&nbsp;don't&nbsp;make&nbsp;direct&nbsp;calls&nbsp;to&nbsp;this&nbsp;method,</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-46">
+    <td class="line_number even"><pre>46</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;but&nbsp;instead&nbsp;use&nbsp;the&nbsp;next_token&nbsp;method,&nbsp;which&nbsp;will</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-47">
+    <td class="line_number odd"><pre>47</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;build&nbsp;and&nbsp;emit&nbsp;the&nbsp;actual&nbsp;next&nbsp;token</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-48">
+    <td class="line_number even"><pre>48</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">def</span><span class="tx">&nbsp;</span><span class="nf">token!</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-49">
+    <td class="line_number odd"><pre>49</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;at&nbsp;line&nbsp;1:10:&nbsp;DIGIT</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-50">
+    <td class="line_number even"><pre>50</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="n">digit!</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-51">
+    <td class="line_number odd"><pre>51</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-52">
+    <td class="line_number even"><pre>52</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">end</span><span class="tx">&nbsp;</span><span class="c1">#&nbsp;class&nbsp;Lexer&nbsp;&lt;&nbsp;ANTLR3::Lexer</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-53">
+    <td class="line_number odd"><pre>53</pre></td>
+    <td class="code"><pre><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611730328-54">
+    <td class="line_number even"><pre>54</pre></td>
+    <td class="code"><pre></pre></td>
+  </tr>
+</table>
+
+</div>
+<p>Thus, the generated code for a lexer creates the following named entities:</p>
+<ol>
+	<li><code>module Language</code> &#8211; where <code>Language</code> is the name of the input grammar</li>
+	<li><code>class Language::Lexer &lt; ANTLR3::Lexer</code> &#8211; the lexer implementation</li>
+	<li><code>module Language::TokenData</code> &#8211; an <code>ANTLR3::TokenScheme</code> (subclass of <code>Module</code>), which is used to define token types and a token class</li>
+	<li><code>class Language::TokenData::Token &lt; ANTLR3::CommonToken</code> &#8211; not apparent in the code above, this class is dynamically created along with <code>Language::TokenData</code></li>
+</ol>
+<h1 id="section-3">Instantiating Lexers</h1>
+<h2>Providing an Input Stream</h2>
+<p>A lexer must be provided with a text source to tokenize. More specifically, a lexer takes in a <strong>stream</strong> object, which feeds it characters from a text source, and produces a series of <strong>token</strong> objects. For example, below is an illustration of creating an instance of <code>Digit::Lexer</code> with a stream object:</p>
+<div class="code-frame">
+  <table class="ruby" id="ruby611914728">
+  <tr class="code_line" id="ruby611914728-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="n">input</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="no">ANTLR3</span><span class="o">::</span><span class="no">StringStream</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="s2">&quot;</span><span class="s2">123</span><span class="s2">&quot;</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611914728-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="no">Digit</span><span class="o">::</span><span class="no">Lexer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="n">input</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611914728-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611914728-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="n">input</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="no">ANTLR3</span><span class="o">::</span><span class="no">FileStream</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="s1">'numbers.txt'</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611914728-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="no">Digit</span><span class="o">::</span><span class="no">Lexer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="n">input</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611914728-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre></pre></td>
+  </tr>
+</table>
+
+</div>
+<h2>Providing Strings or Files Directly</h2>
+<p>More often than not, the stream a lexer will operate upon will be an instance of <code>ANTLR3::StringStream</code> or <code>ANTLR3::FileStream</code>. Thus, the runtime library for this binding provides convenience casting for the most common cases. The <code>initialize</code> method of a lexer will automatically cast plain strings and file objects into appropriate stream objects.</p>
+<div class="code-frame">
+  <table class="ruby" id="ruby611966388">
+  <tr class="code_line" id="ruby611966388-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="no">Digit</span><span class="o">::</span><span class="no">Lexer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="s2">&quot;</span><span class="s2">123</span><span class="s2">&quot;</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611966388-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611966388-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611966388-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="nb">open</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="s1">'numbers.txt'</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx">&nbsp;</span><span class="k">do</span><span class="tx">&nbsp;</span><span class="o">|</span><span class="tx">&nbsp;</span><span class="n">f</span><span class="tx">&nbsp;</span><span class="o">|</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611966388-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="no">Digit</span><span class="o">::</span><span class="no">Lexer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="n">f</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611966388-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby611966388-7">
+    <td class="line_number odd"><pre>07</pre></td>
+    <td class="code"><pre></pre></td>
+  </tr>
+</table>
+
+</div>
+<h1 id="section-4">Fetching Tokens</h1>
+<div class="code-frame">
+  <table class="ruby" id="ruby612008088">
+  <tr class="code_line" id="ruby612008088-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="nb">require</span><span class="tx">&nbsp;</span><span class="s1">'Digit'</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="no">Digit</span><span class="o">::</span><span class="no">Lexer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="s2">&quot;</span><span class="s2">123</span><span class="s2">&quot;</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="o">.</span><span class="n">next_token</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="c1">#&nbsp;=&gt;&nbsp;DIGIT[&quot;1&quot;]&nbsp;@&nbsp;line&nbsp;1&nbsp;col&nbsp;0&nbsp;(0..0)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-7">
+    <td class="line_number odd"><pre>07</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-8">
+    <td class="line_number even"><pre>08</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="o">.</span><span class="n">exhaust</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-9">
+    <td class="line_number odd"><pre>09</pre></td>
+    <td class="code"><pre><span class="c1">#&nbsp;=&gt;&nbsp;[DIGIT[&quot;2&quot;]&nbsp;@&nbsp;line&nbsp;1&nbsp;col&nbsp;1&nbsp;(1..1),&nbsp;DIGIT[&quot;3&quot;]&nbsp;@&nbsp;line&nbsp;1&nbsp;col&nbsp;2&nbsp;(2..2)]</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-10">
+    <td class="line_number even"><pre>10</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-11">
+    <td class="line_number odd"><pre>11</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="o">.</span><span class="n">next_token</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-12">
+    <td class="line_number even"><pre>12</pre></td>
+    <td class="code"><pre><span class="c1">#&nbsp;=&gt;&nbsp;&lt;EOF&gt;</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-13">
+    <td class="line_number odd"><pre>13</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-14">
+    <td class="line_number even"><pre>14</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="o">.</span><span class="n">reset</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-15">
+    <td class="line_number odd"><pre>15</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="o">.</span><span class="n">map</span><span class="tx">&nbsp;</span><span class="p">{</span><span class="tx">&nbsp;</span><span class="o">|</span><span class="tx">&nbsp;</span><span class="n">tk</span><span class="tx">&nbsp;</span><span class="o">|</span><span class="tx">&nbsp;</span><span class="n">tk</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">to_i</span><span class="tx">&nbsp;</span><span class="p">}</span><span class="tx">&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-16">
+    <td class="line_number even"><pre>16</pre></td>
+    <td class="code"><pre><span class="c1">#&nbsp;=&gt;&nbsp;[1,&nbsp;2,&nbsp;3]</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612008088-17">
+    <td class="line_number odd"><pre>17</pre></td>
+    <td class="code"><pre></pre></td>
+  </tr>
+</table>
+
+</div>
+<h1 id="section-5">Preparing a Lexer for Parser Input</h1>
+<div class="code-frame">
+  <table class="ruby" id="ruby612064038">
+  <tr class="code_line" id="ruby612064038-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="n">lexer</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="no">Digit</span><span class="o">::</span><span class="no">Lexer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="s2">&quot;</span><span class="s2">123</span><span class="s2">&quot;</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612064038-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="n">tokens</span><span class="tx">&nbsp;</span><span class="o">=</span><span class="tx">&nbsp;</span><span class="no">ANTLR3</span><span class="o">::</span><span class="no">CommonTokenStream</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="tx">&nbsp;</span><span class="n">lexer</span><span class="tx">&nbsp;</span><span class="p">)</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612064038-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="c1">#&nbsp;`tokens'&nbsp;can&nbsp;be&nbsp;passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;of&nbsp;an&nbsp;ANTLR&nbsp;parser&nbsp;for&nbsp;parsing</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612064038-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre></pre></td>
+  </tr>
+</table>
+
+</div>
+<h1 id="section-6">Rule to Method Name Mapping</h1>
+<p>In most usage scenarios, a developer does not need to invoke lexer rule methods directly; most lexer work is done by invoking Lexer#next_token. However, it is important to illustrate how a grammar&#8217;s identifiers are user in the output ruby code. This is an area in which the <code>antlr3</code> package diverges from other <span class="caps">ANTLR</span> target conventions.</p>
+<p>All <span class="caps">ANTLR</span> grammar rules are translated into method definitions. For parsers and tree parsers, the methods share same name as the rule. <span class="caps">ANTLR</span> requires named lexer rules to start with a capital letter. To avoid name conflicts with constants and to support style conventions in ruby, lexer rule names are altered when they become method names in lexer classes.</p>
+<p>Consider the following simple grammar:</p>
+<div class="code-frame">
+  <table class="ANTLR3" id="Variables">
+  <tr class="code_line" id="Variables-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="k">lexer</span><span class="ws">&nbsp;</span><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name">Variables</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Variables-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="k">options&nbsp;{</span><span class="ws">&nbsp;</span><span class="id">language</span><span class="ws">&nbsp;</span><span class="o">=</span><span class="ws">&nbsp;</span><span class="id">Ruby</span><span class="p">;</span><span class="ws">&nbsp;</span><span class="k">}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Variables-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Variables-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="kd">ID</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'a'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'z'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'_'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'a'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'z'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'A'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'Z'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'_'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'0'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'9'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">*</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Variables-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="kd">WHOLE_NUMBER</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'0'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'9'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">+</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Variables-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="kd">SPACE</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'&nbsp;'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'\t'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'\n'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'\r'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">+</span><span class="p">;</span></pre></td>
+  </tr>
+</table>
+
+</div>
+<p>Below is an abridged skeleton of the code generated by <code>antlr4ruby</code>:</p>
+<div class="code-frame">
+  <table class="ruby" id="ruby612154948">
+  <tr class="code_line" id="ruby612154948-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="k">module</span><span class="tx">&nbsp;</span><span class="nn">Variables</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="c1">#...</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="k">class</span><span class="tx">&nbsp;</span><span class="nc">Lexer</span><span class="tx">&nbsp;</span><span class="o">&lt;</span><span class="tx">&nbsp;</span><span class="no">ANTLR3</span><span class="o">::</span><span class="no">Lexer</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="c1">#...</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">def</span><span class="tx">&nbsp;</span><span class="nf">id!</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;recognition&nbsp;logic&nbsp;for&nbsp;ID</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-7">
+    <td class="line_number odd"><pre>07</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-8">
+    <td class="line_number even"><pre>08</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-9">
+    <td class="line_number odd"><pre>09</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">def</span><span class="tx">&nbsp;</span><span class="nf">whole_number!</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-10">
+    <td class="line_number even"><pre>10</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;recognition&nbsp;logic&nbsp;for&nbsp;WHOLE_NUMBER</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-11">
+    <td class="line_number odd"><pre>11</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-12">
+    <td class="line_number even"><pre>12</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-13">
+    <td class="line_number odd"><pre>13</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">def</span><span class="tx">&nbsp;</span><span class="nf">space!</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-14">
+    <td class="line_number even"><pre>14</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;recognition&nbsp;logic&nbsp;for&nbsp;SPACE</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-15">
+    <td class="line_number odd"><pre>15</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-16">
+    <td class="line_number even"><pre>16</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-17">
+    <td class="line_number odd"><pre>17</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">def</span><span class="tx">&nbsp;</span><span class="nf">token!</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-18">
+    <td class="line_number even"><pre>18</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;the&nbsp;auto-generated&nbsp;rule&nbsp;used&nbsp;to&nbsp;pick&nbsp;the&nbsp;lexer&nbsp;rule</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-19">
+    <td class="line_number odd"><pre>19</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-20">
+    <td class="line_number even"><pre>20</pre></td>
+    <td class="code"><pre><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-21">
+    <td class="line_number odd"><pre>21</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-22">
+    <td class="line_number even"><pre>22</pre></td>
+    <td class="code"><pre><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612154948-23">
+    <td class="line_number odd"><pre>23</pre></td>
+    <td class="code"><pre></pre></td>
+  </tr>
+</table>
+
+</div>
+<p>The method naming convention for lexer rule methods works as follows:</p>
+<ol>
+	<li>reformat the name to use a lower case convention:
+	<ol>
+		<li><code>ALL_CAPS_AND_UNDERSCORES</code> names become <code>all_caps_and_underscores</code></li>
+		<li><code>CamelCase</code> names become <code>camel_case</code> names, as in Rails</li>
+	</ol></li>
+	<li>append an exclamation point</li>
+</ol>
+<h2>Rationale For the Lexer Rule Method Naming Convention</h2>
+<p>Clearly there&#8217;s a bit of opinionated design in this naming convention. Ruby does allow method names to begin with a capital letter, as in <code>Kernel#Array</code> or <code>Kernel#String</code>. So why aren&#8217;t lexer rule methods named with the same rule name? Well,</p>
+<ol>
+	<li>methods that begin with capital letters cannot be called privately without arguments or parentheses:</li>
+	<li>token types are implemented as integer constants sharing the lexer rule name.</li>
+</ol>
+<p>Thus, while reading the lexer code, it&#8217;d be easy to misinterpret references to token type <code>X</code> with rule method <code>X()</code>. All generated calls to method <code>X</code> would require extra parentheses, making the code a little messier. Furthermore, while ruby does not impose a specific stylistic convention, the community generally adopts the convention of using <code>snake_case</code> for method names.</p>
+<p>The way other <span class="caps">ANTLR</span> language targets handles the name conflict is to define lexer rule <code>ID</code> with an extra leading lowercase <code>t</code>, making method names <code>tID()</code>. As a developer, I&#8217;m not a fan of name mangling like that and thus I chose to diverge from <span class="caps">ANTLR</span> conventions.</p>
+<p>So why the exclamation point?</p>
+<ol>
+	<li>It prevents lexer rule methods from conflicting with ruby keywords. A lexer rule named <code>FOR</code> or <code>DEF</code> will be defined with method name <code>for!</code> or <code>def!</code>, avoiding potential syntax errors.</li>
+	<li>It allows lexer rule methods to be referenced privately without parentheses, making code a little cleaner. While <code>id</code> may refer to a local variable or a method call, <code>id!</code> always refers to a method call.</li>
+</ol>
+<h2>Important Note About Lexer Rule Names</h2>
+<p>This naming convention for lexer rules could potentially cause a significant bug in the generated code in one particular situation. Consider this grammar:</p>
+<div class="code-frame">
+  <table class="ANTLR3" id="Strings">
+  <tr class="code_line" id="Strings-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="k">lexer</span><span class="ws">&nbsp;</span><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name">Strings</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Strings-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Strings-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="kd">FLOAT</span><span class="p">:</span><span class="ws">&nbsp;&nbsp;&nbsp;</span><a href="#Strings-5"><span class="n">Integer</span></a><span class="ws">&nbsp;</span><span class="s2">'.'</span><span class="ws">&nbsp;</span><a href="#Strings-5"><span class="n">Integer</span></a><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Strings-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="kd">INTEGER</span><span class="p">:</span><span class="ws">&nbsp;</span><a href="#Strings-5"><span class="n">Integer</span></a><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'l'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'L'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Strings-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Strings-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="k">fragment</span><span class="ws">&nbsp;</span><span class="kd">Integer</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'0'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'9'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">+</span><span class="p">;</span></pre></td>
+  </tr>
+</table>
+
+</div>
+<p>The method code is going to look something like:</p>
+<div class="code-frame">
+  <table class="ruby" id="ruby612236458">
+  <tr class="code_line" id="ruby612236458-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">def</span><span class="tx">&nbsp;</span><span class="nf">float!</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;...&nbsp;logic&nbsp;for&nbsp;FLOAT</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">def</span><span class="tx">&nbsp;</span><span class="nf">integer!</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;...&nbsp;logic&nbsp;for&nbsp;INTEGER</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-7">
+    <td class="line_number odd"><pre>07</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-8">
+    <td class="line_number even"><pre>08</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-9">
+    <td class="line_number odd"><pre>09</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">def</span><span class="tx">&nbsp;</span><span class="nf">integer!</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-10">
+    <td class="line_number even"><pre>10</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">#&nbsp;...&nbsp;logic&nbsp;for&nbsp;Integer</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-11">
+    <td class="line_number odd"><pre>11</pre></td>
+    <td class="code"><pre><span class="tx">&nbsp;&nbsp;</span><span class="k">end</span><span class="tx"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="ruby612236458-12">
+    <td class="line_number even"><pre>12</pre></td>
+    <td class="code"><pre></pre></td>
+  </tr>
+</table>
+
+</div>
+<p>Thus the fragment rule Integer&#8217;s method will overwrite the full rule method for <span class="caps">INTEGER</span>. I have seen this sort of convention used in a grammar and, as a result of the lexer rule naming convention, will break the lexer code. This shouldn&#8217;t be a common issue as it&#8217;s not that sensible to have lexer rules &#8220;<span class="caps">INTEGER</span>&#8221; and &#8220;Integer&#8221; exist in the same grammar (&#8220;Integer&#8221; would make more sense as &#8220;<span class="caps">DIGITS</span>&#8221; in this example).</p>
+<p>Currently, <code>antlr4ruby</code> does not detect this problem to issue a warning or do anything to differentiate these names. While I may change the naming convention or  find a way to have <span class="caps">ANTLR</span> issue a warning in the future, be aware that lexer rules are effectively case insensitive as far as code generation is concerned.</p>
+<h1 id="section-7">Lexer Operation and Rule Methods</h1>
+<p>Essentially, a lexer&#8217;s token construction process functions like this:</p>
+<ol>
+	<li>The user calls <code>Lexer#next_token</code>, defined in super-class <code>ANTLR3::Lexer</code>
+	<ul>
+		<li><code>#next_token</code> clears any of lexer&#8217;s internal state information that may remain from prior calls</li>
+		<li>it sets up a <code>rescue</code> block to catch any recognition errors</li>
+		<li>it then calls the special lexer rule method, <code>Lexer#token!</code>, which is automatically generated by <span class="caps">ANTLR</span></li>
+	</ul></li>
+	<li><code>Lexer#token!</code> examines the next few characters in the input stream and attempts to choose the best fit from the lexer rules defined in the grammar.
+	<ul>
+		<li>if a rule is selected, <code>#token!</code> calls the method corresponding to the rule</li>
+		<li>if the current input does not appear to fit any rule, it raises a NoViableAlternative recognition error.</li>
+	</ul></li>
+	<li>The chosen lexer rule method runs the full course of its recognition logic, verifying that the current series of characters conforms to the token type specification.
+	<ul>
+		<li>during this process, the lexer populates its internal state record, recording the token type, the range of text matched, the token channel, the line/column position, any token properties set in action blocks by the developer, as well as called to <code>Lexer#emit</code> or <code>Lexer#skip</code>.</li>
+		<li>if the input doesn&#8217;t fit the type specifications of the rule, the rule method will raise a recognition error of some sort</li>
+		<li>the rule itself does not create a token nor does it return any significant value &#8212; just nil</li>
+	</ul></li>
+	<li>control returns to <code>Lexer#next_token</code> (from step 1)
+	<ul>
+		<li>if a recognition error was raised, control will turn over to error recovery and reporting methods</li>
+		<li>otherwise, if a token was successfully matched, <code>#next_token</code> will build a new token using the settings collected in its internal state and return the new token objects</li>
+	</ul></li>
+</ol>
+<p>Some additional notes on the tokenization process and lexer operation:</p>
+<ul>
+	<li>Lexer rule methods do not make tokens. Calling a lexer rule method alone simply informs the caller whether or not the current input fits the token type specification, depending on whether the method raised a recognition error or not.</li>
+	<li>Handling for recognition errors can be customized by overriding the built-in error-handling methods<sup class="footnote"><a href="#fn1">1</a></sup>.</li>
+	<li>Since the <code>#token!</code> method needs to be able to call a rule method automatically without arguments, normal lexer rules are not allowed to have parameter or return value specifications</li>
+	<li>Only one token can be emitted for each call to <code>#next_token</code>. If a lexer rule explicitly creates multiple tokens using several calls to <code>Lexer#emit(token)</code>, only the last token created will be produced by the lexer.</li>
+</ul>
+<h2>Fragment Rules</h2>
+<p>Your grammar may specify additional lexer rules that function purely as helpers for the main lexer rules. These rules are prefixed with the keyword <code>fragment</code> in the grammar file. They are <strong>not</strong> integrated into the automatically-generated <code>#token!</code> rule method and they do not get associated with a token type constant. As they are not part of the lexer&#8217;s main tokenization procedure and they exist mostly to be referenced by other rules, they are allowed to have parameter and return value specifications associated with them. Otherwise, they follow the same naming conventions and structure of normal lexer rule methods. Here&#8217;s an example of a lexer grammar using fragment rules:</p>
+<div class="code-frame">
+  <div class="code-header">Numbers.g : fragment lexer rule demonstration</div>
+  <table class="ANTLR3" id="Numbers">
+  <tr class="code_line" id="Numbers-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="k">lexer</span><span class="ws">&nbsp;</span><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name">Numbers</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="k">tokens&nbsp;{</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="id">COMPLEX</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="k">}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-7">
+    <td class="line_number odd"><pre>07</pre></td>
+    <td class="code"><pre><span class="kd">FLOAT</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-8">
+    <td class="line_number even"><pre>08</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'.'</span><span class="ws">&nbsp;</span><a href="#Numbers-21"><span class="n">DIGITS</span></a><span class="ws">&nbsp;</span><a href="#Numbers-36"><span class="n">EXP</span></a><span class="o">?</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-9">
+    <td class="line_number odd"><pre>09</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;&nbsp;</span><a href="#Numbers-21"><span class="n">DIGITS</span></a><span class="ws">&nbsp;</span><span class="s2">'.'</span><span class="o">?</span><span class="ws">&nbsp;</span><a href="#Numbers-36"><span class="n">EXP</span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-10">
+    <td class="line_number even"><pre>10</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;&nbsp;</span><a href="#Numbers-21"><span class="n">DIGITS</span></a><span class="ws">&nbsp;</span><span class="s2">'.'</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#Numbers-21"><span class="n">DIGITS</span></a><span class="ws">&nbsp;</span><a href="#Numbers-36"><span class="n">EXP</span></a><span class="o">?</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-11">
+    <td class="line_number odd"><pre>11</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-12">
+    <td class="line_number even"><pre>12</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#Numbers-31"><span class="n">IMAG</span></a><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;COMPLEX&nbsp;}</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-13">
+    <td class="line_number odd"><pre>13</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-14">
+    <td class="line_number even"><pre>14</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-15">
+    <td class="line_number odd"><pre>15</pre></td>
+    <td class="code"><pre><span class="kd">INT</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-16">
+    <td class="line_number even"><pre>16</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'0'</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'x'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'X'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><a href="#Numbers-26"><span class="n">HEX_DIGITS</span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-17">
+    <td class="line_number odd"><pre>17</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><a href="#Numbers-21"><span class="n">DIGITS</span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-18">
+    <td class="line_number even"><pre>18</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><a href="#Numbers-31"><span class="n">IMAG</span></a><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$type</span><span class="kt">&nbsp;=&nbsp;COMPLEX&nbsp;}</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-19">
+    <td class="line_number odd"><pre>19</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-20">
+    <td class="line_number even"><pre>20</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-21">
+    <td class="line_number odd"><pre>21</pre></td>
+    <td class="code"><pre><span class="k">fragment</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-22">
+    <td class="line_number even"><pre>22</pre></td>
+    <td class="code"><pre><span class="kd">DIGITS</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-23">
+    <td class="line_number odd"><pre>23</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'0'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'9'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">+</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-24">
+    <td class="line_number even"><pre>24</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-25">
+    <td class="line_number odd"><pre>25</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-26">
+    <td class="line_number even"><pre>26</pre></td>
+    <td class="code"><pre><span class="k">fragment</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-27">
+    <td class="line_number odd"><pre>27</pre></td>
+    <td class="code"><pre><span class="kd">HEX_DIGITS</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-28">
+    <td class="line_number even"><pre>28</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'0'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'9'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'a'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'f'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'A'</span><span class="ws">&nbsp;</span><span class="o">..</span><span class="ws">&nbsp;</span><span class="s2">'F'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">+</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-29">
+    <td class="line_number odd"><pre>29</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-30">
+    <td class="line_number even"><pre>30</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-31">
+    <td class="line_number odd"><pre>31</pre></td>
+    <td class="code"><pre><span class="k">fragment</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-32">
+    <td class="line_number even"><pre>32</pre></td>
+    <td class="code"><pre><span class="kd">IMAG</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-33">
+    <td class="line_number odd"><pre>33</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'i'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'I'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'j'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'J'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-34">
+    <td class="line_number even"><pre>34</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-35">
+    <td class="line_number odd"><pre>35</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-36">
+    <td class="line_number even"><pre>36</pre></td>
+    <td class="code"><pre><span class="k">fragment</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-37">
+    <td class="line_number odd"><pre>37</pre></td>
+    <td class="code"><pre><span class="kd">EXP</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-38">
+    <td class="line_number even"><pre>38</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'e'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'E'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="ws">&nbsp;</span><span class="p">(</span><span class="ws">&nbsp;</span><span class="s2">'+'</span><span class="ws">&nbsp;</span><span class="p">|</span><span class="ws">&nbsp;</span><span class="s2">'-'</span><span class="ws">&nbsp;</span><span class="p">)</span><span class="o">?</span><span class="ws">&nbsp;</span><a href="#Numbers-21"><span class="n">DIGITS</span></a><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="Numbers-39">
+    <td class="line_number odd"><pre>39</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span></pre></td>
+  </tr>
+</table>
+
+</div>
+<p>This grammar will only produce tokens of type <code>INT</code>, <code>FLOAT</code>, or <code>COMPLEX</code>, as the four additional rules are <code>fragment</code> rules.</p>
+<p class="footnote" id="fn1"><sup>1</sup> I plan on covering error handling in this guide in the future. For the time being, however, the RDoc documentation for <code>ANTLR3::Recognizer</code> and <code>ANTLR3::Lexer</code> should provide insight into ANTLR&#8217;s error-handling mechanisms.</p>
+	</div>
+</div>
+
+<div class="nav">
+	<div class="logo"><span></span></div>
+
+	<ul>
+		<li><a href="#section-1">Overview</a></li>
+		<li><a href="#section-2">Lexer Code and Class Structure</a></li>
+		<li><a href="#section-3">Instantiating Lexers</a></li>
+		<li><a href="#section-4">Fetching Tokens</a></li>
+		<li><a href="#section-5">Preparing a Lexer for Parser Input</a></li>
+		<li><a href="#section-6">Rule to Method Name Mapping</a></li>
+		<li><a href="#section-7">Lexer Operation and Rule Methods</a></li>
+	</ul>
+</div>
+
+<div class="right">
+	<div class="round">		
+		<div class="roundtl"><span></span></div>
+		<div class="roundtr"><span></span></div>
+		<div class="clearer"><span></span></div>
+	</div>
+
+	<div class="subnav">
+		<h1>Contents</h1>
+		<ul>
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./GettingStarted.html">Getting Started</a></li>
+  		<li class="current">Lexers</li>
+      <li><a href="./Parsers.html">Parsers</a></li>
+      <li><a href="./Tokens.html">Tokens</a></li>
+      <li><a href="./ActionBlocks.html">Action Blocks</a></li>
+      <li><a href="./Scopes.html">Scopes</a></li>
+      <li class="todo"><a href="./TreeParsers.html">Tree Parsers</a></li>
+      <li class="todo"><a href="./ASTs.html">Abstract Syntax Trees</a></li>
+      <li><a href="./BuiltInDrivers.html">Built-In Drivers</a></li>
+      <li class="todo"><a href="./TemplateMode.html">Template Mode</a></li>
+      <li class="todo"><a href="./DebugMode.html">Debug Mode</a></li>
+      <li class="todo"><a href="./ProfileMode.html">Profile Mode</a></li>
+      <li class="todo"><a href="./Extras.html">Extras</a></li>
+		</ul>
+		
+    <h1>Project Links</h1>
+		<ul>
+      <li><a href="http://github.com/ohboyohboyohboy/antlr3">GitHub</a></li>
+      <li><a href="http://rubygems.org/gems/antlr3">Gem Cutter</a></li>
+      <li><a href="http://rubyforge.org/projects/antlr3">Rubyforge</a></li>
+      <li><a href="http://github.com/ohboyohboyohboy/antlr3/issues">Bug Reports</a></li>
+		</ul>
+		
+    <h1>External Links</h1>
+		<ul>
+      <li><a href="http://www.antlr.org">ANTLR.org</a></li>
+      <li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+Cheat+Sheet">ANTLR Cheat Sheet</a></li>
+      <li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation">ANTLR Documentation</a></li>
+      <li><a href="http://www.antlr.org/grammar/list">Sample Grammar Exchange</a></li>
+		</ul>
+	</div>
+
+	<div class="round">
+		<div class="roundbl"><span></span></div>
+		<div class="roundbr"><span></span></div>
+		<span class="clearer"></span>
+	</div>
+</div>
+
+<div class="footer">
+	
+  &copy; 2010 <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. <a href="http://templates.arcsin.se">Website template</a> by <a href="http://arcsin.se">Arcsin</a>
+
+</div>
+</body>
+
+</html>

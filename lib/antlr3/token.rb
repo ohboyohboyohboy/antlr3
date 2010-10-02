@@ -101,16 +101,32 @@ module Token
   alias :token_index :index
   alias :token_index= :index=
   
+  #
+  # The match operator has been implemented to match against several different
+  # attributes of a token for convenience in quick scripts
+  #
+  # @example Match against an integer token type constant
+  #   token =~ VARIABLE_NAME   => true/false
+  # @example Match against a token type name as a Symbol
+  #   token =~ :FLOAT          => true/false
+  # @example Match the token text against a Regular Expression
+  #   token =~ /^@[a-z_]\w*$/i
+  # @example Compare the token's text to a string
+  #   token =~ "class"
+  # 
   def =~ obj
     case obj
     when Integer then type == obj
-    when Symbol then name.to_sym == obj
+    when Symbol then name == obj.to_s
     when Regexp then obj =~ text
     when String then text == obj
     else super
     end
   end
   
+  #
+  # Tokens are comparable by their stream index values
+  # 
   def <=> tk2
     index <=> tk2.index
   end
@@ -139,6 +155,10 @@ module Token
     token_name( type )
   end
   
+  def source_name
+    i = input and i.source_name
+  end
+  
   def hidden?
     channel == HIDDEN_CHANNEL
   end
@@ -147,8 +167,28 @@ module Token
     concrete? ? input.substring( start, stop ) : text
   end
   
+  #
+  # Sets the token's channel value to HIDDEN_CHANNEL
+  # 
   def hide!
     self.channel = HIDDEN_CHANNEL
+  end
+  
+  def inspect
+    text_inspect    = text  ? "[#{ text.inspect }] " : ' '
+    text_position   = line > 0  ? "@ line #{ line } col #{ column } " : ''
+    stream_position = start ? "(#{ range.inspect })" : ''
+    
+    front =  index >= 0 ? "#{ index } " : ''
+    rep = front << name << text_inspect <<
+                text_position << stream_position
+    rep.strip!
+    channel == DEFAULT_CHANNEL or rep << " (#{ channel.to_s })"
+    return( rep )
+  end
+  
+  def pretty_print( printer )
+    printer.text( inspect )
   end
   
   def range
@@ -161,23 +201,6 @@ module Token
   
   def to_s
     text.to_s
-  end
-  
-  def inspect
-    text_inspect    = text  ? '[%p] ' % text : ' '
-    text_position   = line != 0  ? '@ line %s col %s ' % [ line, column ] : ''
-    stream_position = start ? '(%s..%s)' % [ start, stop ] : ''
-    
-    front =  index != -1 ? index.to_s << ' ' : ''
-    rep = front << name << text_inspect <<
-                text_position << stream_position
-    rep.strip!
-    channel == DEFAULT_CHANNEL or rep << " (#{ channel.to_s })"
-    return( rep )
-  end
-  
-  def pretty_print( printer )
-    printer.text( inspect )
   end
   
 private
@@ -526,6 +549,7 @@ class TokenScheme < ::Module
     mod.extend( self )
   end
   private :included
+  
   attr_reader :unused, :types
   
   def define_tokens( token_map = {} )

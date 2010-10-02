@@ -1,6 +1,8 @@
 #!/usr/bin/ruby
 # encoding: utf-8
 
+require 'antlr3'
+
 =begin LICENSE
 
 [The "BSD licence"]

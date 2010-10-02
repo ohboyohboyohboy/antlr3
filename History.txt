@@ -1,3 +1,17 @@
+=== 1.8.2 / 10-02-10
+
+* Bug Fix: removed references to Parser#token_stream
+  - changed references to Parser#token_stream to Parser#input in `antlr3/profile.rb' to
+    avoid "private method token_stream called" errors in profile mode
+
+* Minor Enhancement: new samples included with the distribution
+  - added a newly developed `samples/JavaScript.g' file for parsing JavaScript.
+    While not entirely complete and flawless, it does a pretty good job
+    of parsing JavaScript up through Firefox's 1.6 version of the language.
+  - included the `samples/standard' directory with the package distribution,
+    which has been in the development repository for a while, but I never
+    updated the package spec to include these files.
+
 === 1.8.0 / 07-03-10
 
 * Bug Fix / Major Enhancement: made antlr3 compatible with ruby 1.9

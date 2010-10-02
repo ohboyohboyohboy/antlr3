@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<meta name="description" content="description"/>
+	<meta name="keywords" content="keywords"/>
+  <meta name="author" content="Kyle Yetter"/>
+	<link rel="stylesheet" type="text/css" href="stylesheets/article.css" media="screen"/>
+  <link rel="stylesheet" type="text/css" href="stylesheets/ANTLR3.css" media="screen"/>
+
+	<title>ANTLR For Ruby: Scopes</title>
+</head>
+
+<body>
+<div class="left">
+	<div class="header">
+		<h2><span>ANTLR for Ruby</span></h2>
+		<h1>Scopes</h1>
+	</div>
+	<div class="annotation">
+		<div class="author">by <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a></div>
+    <div class="timestamp">updated Saturday, June 12, 2010 at 12:08AM EDT</div>
+	</div>
+	<div class="content">
+<p>The term <i>scope</i> can be a little confusing, as it used to describe a number of different constructs within <span class="caps">ANTLR</span>, each with its own purpose. Furthermore, when the discussion begins to inject the word <i>scope</i> as it is generally understood in theoretical computing, as in &#8220;dynamically-scoped language,&#8221; the term&#8217;s meaning becomes increasingly vague.</p>
+<p>For the purposes of this article, the term <i>scope</i> refers to an abstract data object used to store information during the recognition process. In the ruby source code, scopes are mostly implmented as simple <code>Struct</code> classes. Therefore, references to scope objects in <a href="./ActionBlocks.html">action blocks</a> are <code>Struct</code> objects, which respond to the standard <code>Struct</code> methods.</p>
+<p>There are several different types of scopes in <span class="caps">ANTLR</span> grammars. <strong>Rule</strong> and <strong>global scopes</strong> are general structures that are maintained on a stack to hold arbitrary values; they provide a convenient way to exchange information with other rules. <strong>Return scopes</strong> are used to specify an arbitrary number of return values for a rule. Additionally, they are used provide useful information about the recognition work performed by the rule to an outer rule that referenced it, such as the range of tokens advanced during the rule. Finally, <strong>parameter scopes</strong> refer to the named arguments of a rule.</p>
+<h1 id="section-1">Rule Scopes</h1>
+<div class="code-frame">
+  <table class="ANTLR3" id="IUseARuleScope">
+  <tr class="code_line" id="IUseARuleScope-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="k">parser</span><span class="ws">&nbsp;</span><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name">IUseARuleScope</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="kt">@</span><span class="kt">header</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;require&nbsp;'set'&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="kd">boring_block</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="k">scope</span><span class="ws">&nbsp;</span><span class="scope_definition">{</span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-7">
+    <td class="line_number odd"><pre>07</pre></td>
+    <td class="code"><pre><span class="scope_definition">&nbsp;&nbsp;symbols;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-8">
+    <td class="line_number even"><pre>08</pre></td>
+    <td class="code"><pre><span class="scope_definition">}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-9">
+    <td class="line_number odd"><pre>09</pre></td>
+    <td class="code"><pre><span class="kt">@</span><span class="kt">init</span><span class="ws">&nbsp;</span><span class="kt">{</span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-10">
+    <td class="line_number even"><pre>10</pre></td>
+    <td class="code"><pre><span class="kt">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="si">$boring_block::symbols</span><span class="kt">&nbsp;=&nbsp;Set.new;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-11">
+    <td class="line_number odd"><pre>11</pre></td>
+    <td class="code"><pre><span class="kt">}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-12">
+    <td class="line_number even"><pre>12</pre></td>
+    <td class="code"><pre><span class="kt">@</span><span class="kt">after</span><span class="ws">&nbsp;</span><span class="kt">{</span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-13">
+    <td class="line_number odd"><pre>13</pre></td>
+    <td class="code"><pre><span class="kt">&nbsp;&nbsp;&nbsp;&nbsp;puts(&nbsp;&quot;Found&nbsp;declarations&nbsp;for&nbsp;these&nbsp;variables:&nbsp;&quot;&nbsp;)</span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-14">
+    <td class="line_number even"><pre>14</pre></td>
+    <td class="code"><pre><span class="kt">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="si">$boring_block::symbols</span><span class="kt">.sort.each&nbsp;{&nbsp;|&nbsp;n&nbsp;|&nbsp;puts(&nbsp;&quot;&nbsp;&nbsp;-&nbsp;#{&nbsp;n&nbsp;}&quot;&nbsp;)&nbsp;}</span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-15">
+    <td class="line_number odd"><pre>15</pre></td>
+    <td class="code"><pre><span class="kt">}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-16">
+    <td class="line_number even"><pre>16</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">'{'</span><span class="ws">&nbsp;</span><a href="#IUseARuleScope-18"><span class="n">number_declarations</span></a><span class="o">*</span><span class="ws">&nbsp;</span><a href="#IUseARuleScope-22"><span class="n">assignments</span></a><span class="o">+</span><span class="ws">&nbsp;</span><span class="s2">'}'</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-17">
+    <td class="line_number odd"><pre>17</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-18">
+    <td class="line_number even"><pre>18</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-19">
+    <td class="line_number odd"><pre>19</pre></td>
+    <td class="code"><pre><span class="kd">number_declarations</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-20">
+    <td class="line_number even"><pre>20</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="s2">'int'</span><span class="ws">&nbsp;</span><span class="gr">ID</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$boring_block::symbols</span><span class="kt">.add(&nbsp;</span><span class="si">$ID</span><span class="kt">.text&nbsp;)&nbsp;}</span><span class="ws">&nbsp;</span><span class="s2">';'</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-21">
+    <td class="line_number odd"><pre>21</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-22">
+    <td class="line_number even"><pre>22</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-23">
+    <td class="line_number odd"><pre>23</pre></td>
+    <td class="code"><pre><span class="kd">assignments</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-24">
+    <td class="line_number even"><pre>24</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="gr">ID</span><span class="ws">&nbsp;</span><span class="s2">'='</span><span class="ws">&nbsp;</span><span class="gr">NUM</span><span class="ws">&nbsp;</span><span class="s2">';'</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-25">
+    <td class="line_number odd"><pre>25</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="kt">{</span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-26">
+    <td class="line_number even"><pre>26</pre></td>
+    <td class="code"><pre><span class="kt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="si">$boring_block::symbols</span><span class="kt">.include?(&nbsp;</span><span class="si">$ID</span><span class="kt">.text&nbsp;)&nbsp;or&nbsp;</span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-27">
+    <td class="line_number odd"><pre>27</pre></td>
+    <td class="code"><pre><span class="kt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise(&nbsp;&quot;%p&nbsp;has&nbsp;not&nbsp;been&nbsp;declared&quot;&nbsp;%&nbsp;</span><span class="si">$ID</span><span class="kt">.text&nbsp;)</span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-28">
+    <td class="line_number even"><pre>28</pre></td>
+    <td class="code"><pre><span class="kt">&nbsp;&nbsp;&nbsp;&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="IUseARuleScope-29">
+    <td class="line_number odd"><pre>29</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span></pre></td>
+  </tr>
+</table>
+
+</div>
+<h1 id="section-2">Global / Grammar Scopes</h1>
+<h1 id="section-3">Return Scopes</h1>
+<h1 id="section-4">Parameter Scopes</h1>
+	</div>
+</div>
+
+<div class="nav">
+	<div class="logo"><span></span></div>
+
+	<ul>
+		<li><a href="#section-1">Rule Scopes</a></li>
+		<li><a href="#section-2">Global / Grammar Scopes</a></li>
+		<li><a href="#section-3">Return Scopes</a></li>
+		<li><a href="#section-4">Parameter Scopes</a></li>
+	</ul>
+</div>
+
+<div class="right">
+	<div class="round">		
+		<div class="roundtl"><span></span></div>
+		<div class="roundtr"><span></span></div>
+		<div class="clearer"><span></span></div>
+	</div>
+
+	<div class="subnav">
+		<h1>Contents</h1>
+		<ul>
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./GettingStarted.html">Getting Started</a></li>
+      <li><a href="./Lexers.html">Lexers</a></li>
+      <li><a href="./Parsers.html">Parsers</a></li>
+      <li><a href="./Tokens.html">Tokens</a></li>
+      <li><a href="./ActionBlocks.html">Action Blocks</a></li>
+  		<li class="current">Scopes</li>
+      <li class="todo"><a href="./TreeParsers.html">Tree Parsers</a></li>
+      <li class="todo"><a href="./ASTs.html">Abstract Syntax Trees</a></li>
+      <li><a href="./BuiltInDrivers.html">Built-In Drivers</a></li>
+      <li class="todo"><a href="./TemplateMode.html">Template Mode</a></li>
+      <li class="todo"><a href="./DebugMode.html">Debug Mode</a></li>
+      <li class="todo"><a href="./ProfileMode.html">Profile Mode</a></li>
+      <li class="todo"><a href="./Extras.html">Extras</a></li>
+		</ul>
+		
+    <h1>Project Links</h1>
+		<ul>
+      <li><a href="http://github.com/ohboyohboyohboy/antlr3">GitHub</a></li>
+      <li><a href="http://rubygems.org/gems/antlr3">Gem Cutter</a></li>
+      <li><a href="http://rubyforge.org/projects/antlr3">Rubyforge</a></li>
+      <li><a href="http://github.com/ohboyohboyohboy/antlr3/issues">Bug Reports</a></li>
+		</ul>
+		
+    <h1>External Links</h1>
+		<ul>
+      <li><a href="http://www.antlr.org">ANTLR.org</a></li>
+      <li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+Cheat+Sheet">ANTLR Cheat Sheet</a></li>
+      <li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation">ANTLR Documentation</a></li>
+      <li><a href="http://www.antlr.org/grammar/list">Sample Grammar Exchange</a></li>
+		</ul>
+	</div>
+
+	<div class="round">
+		<div class="roundbl"><span></span></div>
+		<div class="roundbr"><span></span></div>
+		<span class="clearer"></span>
+	</div>
+</div>
+
+<div class="footer">
+	
+  &copy; 2010 <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. <a href="http://templates.arcsin.se">Website template</a> by <a href="http://arcsin.se">Arcsin</a>
+
+</div>
+</body>
+
+</html>

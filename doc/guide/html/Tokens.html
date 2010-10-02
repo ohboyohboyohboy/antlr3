@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<meta name="description" content="description"/>
+	<meta name="keywords" content="keywords"/>
+  <meta name="author" content="Kyle Yetter"/>
+	<link rel="stylesheet" type="text/css" href="stylesheets/article.css" media="screen"/>
+
+	<title>ANTLR For Ruby: Tokens</title>
+</head>
+
+<body>
+<div class="left">
+	<div class="header">
+		<h2><span>ANTLR for Ruby</span></h2>
+		<h1>Tokens</h1>
+	</div>
+	<div class="annotation">
+		<div class="author">by <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a></div>
+    <div class="timestamp">updated Saturday, June 12, 2010 at 01:52AM EDT</div>
+	</div>
+	<div class="content">
+<p><strong>Tokens</strong> are basic currency within your grammar file; each one represents a slice of source code text of a particular <strong>type</strong>. Lexers exist soley to create tokens; parsers exist soley to react when a sequence of tokens fits a specific pattern. Furthermore, as far as <span class="caps">ANTLR</span> is concerned, Abstract Syntax Trees (ASTs) are just tokens that have been organized hierarchically. Since tokens are a crucial aspect of ANTLR&#8217;s recognition semantics, I want to cover their structure and characteristics in Ruby code.</p>
+<p>At a minimum, a token must track:</p>
+<ul>
+	<li>a source string (which may be empty or <code>nil</code>)</li>
+	<li>a type value, which is represented by an integer code</li>
+</ul>
+<p>Moreover, recognition tasks often require additional information associated with tokens:</p>
+<ul>
+	<li>the input stream from which the token was extracted</li>
+	<li>the character index at which the text-slice begins</li>
+	<li>the line and column number where the token string begins</li>
+	<li>a sequence index relative to other tokens extracted from the same input stream</li>
+	<li>secondary categoriztions or flags to convey extra information to the token stream or parser</li>
+</ul>
+<p>In the <code>antlr3</code> runtime library, tokens are implemented as simple data objects which track all of the properties listed above. While you are able to add your own customized token implementation, the <code>Struct</code>-based class, <code>ANTLR3::CommonToken</code>, should track all token data required to perform your recognition task.</p>
+<h1 id="section-1">Token Objects</h1>
+<h2>Attributes</h2>
+<table class="inventory">
+<thead>
+<tr>
+    <th>Name</th>
+    <th>Data Type</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tr class="odd">
+    <td class="attr">type</td>
+    <td><code>Integer</code></td>
+    <td></td>
+</tr>
+<tr class="even">
+    <td class="attr">text</td>
+    <td><code>String</code> or <code>nil</code></td>
+    <td></td>
+</tr>
+<tr class="odd">
+    <td class="attr">input_stream</td>
+    <td><code>ANTLR3::CharacterStream</code></td>
+    <td></td>
+</tr>
+<tr class="even">
+    <td class="attr">start</td>
+    <td><code>Integer</code></td>
+    <td></td>
+</tr>
+<tr class="odd">
+    <td class="attr">stop</td>
+    <td><code>Integer</code></td>
+    <td></td>
+</tr>
+<tr class="even">
+    <td class="attr">index</td>
+    <td><code>Integer</code></td>
+    <td></td>
+</tr>
+<tr class="odd">
+    <td class="attr">channel</td>
+    <td><code>Symbol</code></td>
+    <td></td>
+</tr>
+</table>
+<h1 id="section-2">Providing a Custom Token Implementation</h1>
+<h1 id="section-3">Token Schemes</h1>
+	</div>
+</div>
+
+<div class="nav">
+	<div class="logo"><span></span></div>
+
+	<ul>
+		<li><a href="#section-1">Token Objects</a></li>
+		<li><a href="#section-2">Providing a Custom Token Implementation</a></li>
+		<li><a href="#section-3">Token Schemes</a></li>
+	</ul>
+</div>
+
+<div class="right">
+	<div class="round">		
+		<div class="roundtl"><span></span></div>
+		<div class="roundtr"><span></span></div>
+		<div class="clearer"><span></span></div>
+	</div>
+
+	<div class="subnav">
+		<h1>Contents</h1>
+		<ul>
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./GettingStarted.html">Getting Started</a></li>
+      <li><a href="./Lexers.html">Lexers</a></li>
+      <li><a href="./Parsers.html">Parsers</a></li>
+  		<li class="current">Tokens</li>
+      <li><a href="./ActionBlocks.html">Action Blocks</a></li>
+      <li><a href="./Scopes.html">Scopes</a></li>
+      <li class="todo"><a href="./TreeParsers.html">Tree Parsers</a></li>
+      <li class="todo"><a href="./ASTs.html">Abstract Syntax Trees</a></li>
+      <li><a href="./BuiltInDrivers.html">Built-In Drivers</a></li>
+      <li class="todo"><a href="./TemplateMode.html">Template Mode</a></li>
+      <li class="todo"><a href="./DebugMode.html">Debug Mode</a></li>
+      <li class="todo"><a href="./ProfileMode.html">Profile Mode</a></li>
+      <li class="todo"><a href="./Extras.html">Extras</a></li>
+		</ul>
+		
+    <h1>Project Links</h1>
+		<ul>
+      <li><a href="http://github.com/ohboyohboyohboy/antlr3">GitHub</a></li>
+      <li><a href="http://rubygems.org/gems/antlr3">Gem Cutter</a></li>
+      <li><a href="http://rubyforge.org/projects/antlr3">Rubyforge</a></li>
+      <li><a href="http://github.com/ohboyohboyohboy/antlr3/issues">Bug Reports</a></li>
+		</ul>
+		
+    <h1>External Links</h1>
+		<ul>
+      <li><a href="http://www.antlr.org">ANTLR.org</a></li>
+      <li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+Cheat+Sheet">ANTLR Cheat Sheet</a></li>
+      <li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation">ANTLR Documentation</a></li>
+      <li><a href="http://www.antlr.org/grammar/list">Sample Grammar Exchange</a></li>
+		</ul>
+	</div>
+
+	<div class="round">
+		<div class="roundbl"><span></span></div>
+		<div class="roundbr"><span></span></div>
+		<span class="clearer"></span>
+	</div>
+</div>
+
+<div class="footer">
+	
+  &copy; 2010 <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. <a href="http://templates.arcsin.se">Website template</a> by <a href="http://arcsin.se">Arcsin</a>
+
+</div>
+</body>
+
+</html>
