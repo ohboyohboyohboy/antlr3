@@ -44,6 +44,15 @@ switch.
 module ParserEvents
   include ANTLR3::Debug::ParserEvents
   
+  def self.included( klass )
+    super
+    if klass.is_a?( ::Class )
+      def klass.profile?
+        true
+      end
+    end
+  end
+  
   def initialize( stream, options = {} )
     options[ :debug_listener ] ||= Profiler.new( self )
     super( stream, options )
@@ -319,7 +328,7 @@ class Profiler
     @profile.hidden_characters_matched = hidden_tokens.inject( 0 ) do |count, token|
       count + token.text.length rescue count
     end
-    @profile.characters_matched = ( @last_token || input.tokens.last ).stop + 1
+    @profile.characters_matched = ( @last_token || input.tokens.last ).stop + 1 rescue 0
     write_report
   end
   

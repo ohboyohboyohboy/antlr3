@@ -307,6 +307,10 @@ class Recognizer
       return false
     end
     
+    def profile?
+      return false
+    end
+    
     def Scope( *declarations, &body )
       Scope.new( *declarations, &body )
     end

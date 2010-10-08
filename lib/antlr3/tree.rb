@@ -219,6 +219,7 @@ throughout the AST library:
 =end
 
 module Tree
+  
   #attr_accessor :parent
   attr_accessor :start_index
   attr_accessor :stop_index
@@ -355,8 +356,6 @@ class BaseTree < ::Array
   alias add_children concat
   alias each_child each
   
-  
-  
   def set_child( index, tree )
     return if tree.nil?
     tree.flat_list? and raise ArgumentError, "Can't set single child to a list"
@@ -443,9 +442,6 @@ class BaseTree < ::Array
   
   def root?() @parent.nil? end
   alias leaf? empty?
-  
-  
-  
 end
 
 

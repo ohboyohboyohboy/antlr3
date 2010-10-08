@@ -21,6 +21,7 @@ Hoe.spec "antlr3" do
     "test/unit/test-recognizers.rb",
     "test/unit/test-trees.rb",
     "test/unit/test-exceptions.rb",
+    "test/unit/test-scope.rb",
     "test/unit/test-scheme.rb",
     "test/unit/test-template.rb",
     "test/functional/delegation/import.rb",

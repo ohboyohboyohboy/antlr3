@@ -382,6 +382,7 @@ class ParserMain < Main
       @port = options.fetch( :port, ANTLR3::Debug::DEFAULT_PORT )
       @log  = options.fetch( :log, @error )
     end
+    @profile = ( @parser_class.profile? rescue false )
   end
   
   def setup_options( opt )
@@ -456,6 +457,7 @@ class ParserMain < Main
     # token_stream = CommonTokenStream.new( lexer )
     parser = @parser_class.new( lexer, parser_options )
     result = parser.send( @parser_rule ) and present( result )
+    @profile and puts( parser.generate_report )
   end
   
   def present( return_value )

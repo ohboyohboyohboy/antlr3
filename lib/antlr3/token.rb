@@ -316,19 +316,20 @@ module TokenSource
     return token
   end
   
+  def each
+    block_given? or return enum_for( :each )
+    while token = next_token and token.type != EOF
+      yield( token )
+    end
+    return self
+  end
+
   def to_stream( options = {} )
     if block_given?
       CommonTokenStream.new( self, options ) { | t, stream | yield( t, stream ) }
     else
       CommonTokenStream.new( self, options )
     end
-  end
-  
-  def each
-    block_given? or return enum_for( :each )
-    loop { yield( self.next ) }
-  rescue StopIteration
-    return self
   end
 end
 

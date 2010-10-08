@@ -36,6 +36,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # - ported from the ANTLR3 Python Runtime library by
 #   Kyle Yetter (kcy5b@yahoo.com)
 module ANTLR3
+
+# for compatibility with rubinius, which does not implement StopIteration yet
+unless defined?( StopIteration )
+  StopIteration = Class.new( StandardError )
+end
+
 module Error
 
 =begin rdoc ANTLR3::Error::BacktrackingFailed

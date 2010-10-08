@@ -323,7 +323,7 @@ and do not add any text to the rewrite buffer
         
         if loc.is_a?( Range )
           first, last = loc.first.to_i, loc.last.to_i
-          loc.exlude_end? and last -= 1
+          loc.exclude_end? and last -= 1
           return cast_range( args.unshift( first, last ), extra )
         else
           loc = loc.to_i
