@@ -158,11 +158,10 @@ class GrammarSet
   end
   
   def define_tasks
-    directory( @output_directory )
     file( @antlr_jar )
     
     for grammar in @grammars
-      deps = [ @output_directory, @antlr_jar ]
+      deps = [ @antlr_jar ]
       if  vocab = grammar.token_vocab and
           tfile = find_tokens_file( vocab, grammar )
         file( tfile )
@@ -200,6 +199,8 @@ class GrammarSet
   end
   
   def compile( grammar )
+    dir = output_directory
+    test( ?d, dir ) or FileUtils.mkpath( dir )
     sh( build_command( grammar ) )
   end
   
