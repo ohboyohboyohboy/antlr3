@@ -1,3 +1,15 @@
+=== 1.8.4 / 10-08-10
+
+* 1 Bug Fix
+  - removed directory dependency from tasks created by ANTLR3::Task, which caused
+    compilation to be performed twice in some situations
+
+=== 1.8.3 / 10-08-10
+
+* 2 Bug Fixes
+  - fixed typo in TokenRewriteStream#cast_range
+  - added work-around code to handle the lack of support for StopIteration in Rubinius
+
 === 1.8.2 / 10-02-10
 
 * Bug Fix: removed references to Parser#token_stream
