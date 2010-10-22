@@ -1,108 +1,64 @@
-/**
-[The "BSD licence"]
-Copyright (c) 2010 Kyle Yetter
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
-are met:
-
- 1. Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in the
-    documentation and/or other materials provided with the distribution.
- 3. The name of the author may not be used to endorse or promote products
-    derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
-IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-**/
-
 grammar JavaScript;
 
-options
-{
+options {
   language  = Ruby;
-	output    = AST;
+  output    = AST;
 }
 
 tokens {
-	ABSTRACT='abstract';  GET='get';                POST_DECR;
-	AMP='&';              GOTO='goto';              POST_INCR;
-	AMP_ASGN='&=';        GREATER='>';              PRIVATE='private';
-	AND='&&';             HAT='^';                  PROGRAM;
-	AREF;                 HAT_ASGN='^=';            PROTECTED='protected';
-	ARGUMENTS;            IF='if';                  PUBLIC='public';
-	ARRAY;                IMPLEMENTS='implements';  QMARK='?';
-	AS='as';              IMPORT='import';          RBRACE='}';
-	ASGN='=';             IN='in';                  RBRACK=']';
-	BLOCK;                INCR='++';                REGEX;
-	BOOLEAN='boolean';    INSTANCEOF='instanceof';  RETURN='return';
-	BREAK='break';        INT='int';                RPAREN=')';
-	BYTE='byte';          INTERFACE='interface';    RSHIFT3='>>>';
-	CALL;                 IS='is';                  RSHIFT3_ASGN='>>>=';
-	CASE='case';          LABEL;                    RSHIFT='>>';
-	CATCH='catch';        LBRACE='{';               RSHIFT_ASGN='>>=';
-	CHAR='char';          LBRACK='[';               SEMI=';'; //]
-	CLASS='class';        LEQ='<=';                 SET='set';
-	COLON=':';            LESS='<';                 SHORT='short';
-	COMMA=',';            LET='let';                SLASH;
-	COMMENT;              LINE_COMMENT;             SLASH_ASGN;
-	CONST='const';        LITERAL;                  STAR='*';
-	CONTINUE='continue';  LONG='long';              STAR_ASGN='*=';
-	DEBUGGER='debugger';  LPAREN='(';               STATIC='static';
-	DECR='--';            LSHIFT='<<';              SUPER='super';
-	DEFAULT='default';    LSHIFT_ASGN='<<=';        SWITCH='switch';
-	DELETE='delete';      MINUS='-';                SYNCHRONIZED='synchronized';
-	DO='do';              MINUS_ASGN='-=';          THIS='this';
-	DOT='.';              MOD='%';                  THROW='throw';
-	DOUBLE='double';      MOD_ASGN='%=';            THROWS='throws';
-	EACH='each';          NAMESPACE='namespace';    TILDE='~';
-	ELSE='else';          NATIVE='native';          TRANSIENT='transient';
-	ENUM='enum';          NEQ='!=';                 TRUE='true';
-	EQ='==';              NEQQ='!==';               TRY='try';
-	EQQ='===';            NEW='new';                TYPEOF='typeof';
-	EXPORT='export';      NOT='!';                  UNDEFINED='undefined';
-	EXTENDS='extends';    NULL='null';              USE='use';
-	FALSE='false';        OBJECT;                   VAR='var';
-	FINAL='final';        OR='||';                  VOID='void';
-	FINALLY='finally';    PACKAGE='package';        VOLATILE='volatile';
-	FLOAT='float';        PARAMS;                   WHILE='while';
-	FOR='for';            PIPE='|';                 WITH='with';
-	FOR_IN;               PIPE_ASGN='|=';           YIELD='yield';
-	FUNCTION='function';  PLUS='+';
-	GEQ='>=';             PLUS_ASGN='+=';
+  AMP='&';              HAT='^';                  PROGRAM;
+  AMP_ASGN='&=';        HAT_ASGN='^=';            QMARK='?';
+  AND='&&';             IF='if';                  RBRACE='}';
+  AREF;                 IN='in';                  RBRACK=']';
+  ARGUMENTS;            INCR='++';                REGEX;
+  ARRAY;                INSTANCEOF='instanceof';  RETURN='return';
+  ARROW='->';           ITER;                     RPAREN=')';
+  ASGN='=';             LABEL;                    RSHIFT='>>';
+  BLOCK;                LBRACE='{';               RSHIFT3='>>>';
+  BL_END='end';         LBRACK='[';               RSHIFT3_ASGN='>>>=';
+  BREAK='break';        LEQ='<=';                 RSHIFT_ASGN='>>=';
+  CALL;                 LESS='<';                 SEMI=';';
+  CASE='case';          LET='let';                SET='set';
+  CATCH='catch';        LINE_COMMENT;             SLASH;
+  COLON=':';            LITERAL;                  SLASH_ASGN;
+  COMMA=',';            LPAREN='(';               SPLAT;
+  COMMENT;              LSHIFT='<<';              STAR='*';
+  CONTINUE='continue';  LSHIFT_ASGN='<<=';        STAR_ASGN='*=';
+  DECR='--';            MINUS='-';                SWITCH='switch';
+  DEFAULT='default';    MINUS_ASGN='-=';          THIS='this';
+  DELETE='delete';      MOD='%';                  THROW='throw';
+  DO='do';              MOD_ASGN='%=';            TILDE='~';
+  DOT='.';              NEQ='!=';                 TRUE='true';
+  DO_UNTIL;             NEQQ='!==';               TRY='try';
+  DO_WHILE;             NEW='new';                TYPEOF='typeof';
+  EACH='each';          NOT='!';                  UMINUS;
+  ELSE='else';          NULL='null';              UNDEFINED='undefined';
+  EQ='==';              OBJECT;                   UNLESS='unless';
+  EQQ='===';            OR='||';                  UNTIL='until';
+  FALSE='false';        OR_ASGN='||=';            UPLUS;
+  FINALLY='finally';    PARAMS;                   VAR='var';
+  FOR='for';            PIPE='|';                 VOID='void';
+  FOR_IN;               PIPE_ASGN='|=';           WHILE='while';
+  FUNCTION='function';  PLUS='+';                 WITH='with';
+  GEQ='>=';             PLUS_ASGN='+=';           WORDS;
+  GET='get';            POST_DECR;                YAML;
+  GREATER='>';          POST_INCR;                YIELD='yield';
+  CONST='const';
 }
 
-scope InFor {
-  active;
-}
+scope InFor { active; }
 
 @parser::members {
   
   def auto_semicolon?( error )
-    if ANTLR3::Error::NoViableAlternative === error
-      ( input.position - 1 ).downto( 0 ) do | i |
-        token = input[ i ] or break
-        token.hidden? or break
-        token.type == NEWLINE and return true
-      end
+    if NoViableAlternative === error
+      return( @auto_semicolon = error ) unless same_line?
     end
     return false
   end
   
   def recover( error = $! )
-    auto_semicolon?( error ) and return
+    @auto_semicolon == error and return( @auto_semicolon = nil )
     super
   end
   
@@ -111,35 +67,72 @@ scope InFor {
     super
   end
   
+  def newline?( from = 1 )
+    to = from == -1 ? 1 : from + 1
+    start = @input.future?( from )
+    stop = @input.future?( to )
+    
+    start.upto( stop ) do | i |
+      @input.at( i ).type == NEWLINE and return( true )
+    end
+    
+    return( false )
+  end
+  
+  def same_line?
+    stop  = @input.future? || @input.length
+    start = @input.past?   || 0
+    
+    start.upto( stop ) do | i |
+      @input.at( i ).type == NEWLINE and return( false )
+    end
+    
+    return( true )
+  end
+  
+  def prepend_tree( root, child )
+    child = @adaptor.rule_post_processing( child )
+    root.unshift( child )
+    root.start_index > child.start_index and root.start_index = child.start_index
+    root.stop_index  < child.stop_index  and root.stop_index  = child.stop_index
+    return @adaptor.rule_post_processing( root )
+  end
 }
 
 @lexer::members {
-  attr_accessor :regex_possible
+  attr_accessor :value_expected
   
-  NO_REGEX_FOLLOWS = Set[
+  NO_VALUE_FOLLOWS = Set[
     ID, REGEX, STRING, NUMBER, THIS,
-    TRUE, FALSE, NULL,
-    RPAREN, RBRACK, RBRACE, UNDEFINED
+    TRUE, FALSE, NULL, UNDEFINED,
+    RPAREN, RBRACK, RBRACE,
+    IVAR, DOC, YAML, WORDS
   ]
   
   def next_token
     token = super
     unless token.hidden?
-      @regex_possible =
-        NO_REGEX_FOLLOWS.include?( token.type ) ? false : true
-      @last_type = token.type
+      @value_expected =
+        NO_VALUE_FOLLOWS.include?( token.type ) ? false : true
     end
     return( token )
   end
 }
 
 @lexer::init {
-  @regex_possible = true
-  @last_type = nil
+  @value_expected = true
+  @token_buffer = []
+  @buffer_depth = 0
 }
 
+
+/********************************************************************************
+ ****************************  Top-Level Structure  *****************************
+ ********************************************************************************/
+
 program
-  :  source_elements 
+  : source_elements -> source_elements
+  |                 -> ^( UNDEFINED )
   ;
   
 source_elements
@@ -152,24 +145,36 @@ block
   ;
 
 statement_block
-  : '{'  ( statement_list  )? '}' -> ^( BLOCK statement_list? )
+  : '{'  statement_list? '}' -> ^( BLOCK statement_list? )
   ;
   
 statement_list
-  : statement (  statement )* -> statement+
+  : statement+ -> statement+
   ;
+
+clause
+  : '(' expression_list ')' -> expression_list
+  ;
+
+/********************************************************************************
+ ********************************  Statements  **********************************
+ ********************************************************************************/
 
 statement
   : variable_statement
+  | const_statement
   | empty_statement
+  | ( 'function' )=> function
   | ( ID  ':' )=> labelled_statement
   | ( 'let' )=> let_statement
-	| expression_statement
+  | expression_statement
   | if_statement
-  | iteration_statement
+  | while_statement
+  | do_while_statement
+  | for_loop
   | continue_statement
   | break_statement
-	| yield_statement
+  | yield_statement
   | return_statement
   | with_statement
   | switch_statement
@@ -177,142 +182,106 @@ statement
   | try_statement
   ;
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Simple Statements
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+empty_statement
+  : ';' ->
+  ;
+
+expression_statement
+  : expression_list statement_end!
+  ;
+
+labelled_statement
+  : ID  ':'  block -> ^( LABEL ID block )
+  ;
+
+statement_end
+  : ';'
+  | ( '}' )=>
+  | EOF
+  ;
+
+blank
+  : -> ^( UNDEFINED )
+  ;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Block-ish Statements
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+try_statement
+  : 'try'
+    ( statement_block -> statement_block )
+    ( f=finally_clause     -> { prepend_tree( $f.tree, $tree ) }
+    | ( catch_clause       -> { prepend_tree( $catch_clause.tree, $tree ) } )
+      (  f2=finally_clause -> { prepend_tree( $f2.tree, $tree ) } )?
+    )
+  ;
+
+catch_clause
+  : 'catch'  '('  ID  ')'  statement_block
+    -> ^( 'catch' ID statement_block )
+  ;
+
+finally_clause
+  : 'finally' statement_block
+    -> ^( 'finally' statement_block )
+  ;
+
+with_statement
+  : 'with' clause block -> ^( 'with' clause block )
+  ;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Variable Declarations
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 variable_statement
-  : 'var'  variable_declaration_list statement_end    -> ^( 'var' variable_declaration_list )
+  : 'var'^ variable_declaration_list statement_end!
   ;
-  
+
+const_statement
+  : 'const'^ variable_declaration_list statement_end!
+  ;
+
+let_statement
+  : 'let'^ '('! variable_declaration_list ')'! block
+  ;
+
 variable_declaration_list
-  : variable_declaration (  ','  variable_declaration )*
-    -> variable_declaration+
+  : variable_declaration ( ','! variable_declaration )*
   ;
-  
+
 variable_declaration
   : declaration_target ( '='^  expression )?
   ;
 
 declaration_target
   : '[' declaration_target ( ',' declaration_target )* ']' -> ^( ARRAY declaration_target+ )
-	| '{' declaration_key ( ',' declaration_key )* '}'       -> ^( OBJECT declaration_key+ )
-	| variable_name -> variable_name
-	;
-	
+  | '{' declaration_key ( ',' declaration_key )* '}'       -> ^( OBJECT declaration_key+ )
+  | variable_name -> variable_name
+  ;
+  
 declaration_key
   : property_name ':'^ declaration_target
-	;
-  
-empty_statement
-  : ';' ->
   ;
-  
-expression_statement
-  : expression_list statement_end!  ;
-  
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Branching Statements
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 if_statement
-  : 'if'  '('  expression_list  ')' 
-    when_true=block
-    (  'else'  when_false=block )?
-    -> ^( 'if' expression_list $when_true $when_false? )
+  : 'if'^ clause block ( 'else'! block )?
   ;
 
-let_statement
-  : 'let' '(' variable_declaration_list ')' block
-	  -> ^( 'let' variable_declaration_list block )
-	;
-
-iteration_statement
-  : do_while_statement
-  | while_statement
-	| ( 'for' 'each' '(' )=> for_each_in_statement
-  | ( 'for'  '('  for_in_statement_initialiser_part  'in' )=> for_in_statement
-  | for_statement
-  ;
-  
-do_while_statement
-  : 'do'  block  'while'  '(' expression_list ')' statement_end    -> ^( 'do' expression_list block )
-  ;
-  
-while_statement
-  : 'while'  '('  expression_list  ')'  block
-    -> ^( 'while' expression_list block )
-  ;
-  
-for_statement
-  : 'for' 
-    '('
-    (  for_statement_initialiser_part )?  ';'
-    (  cond=expression_list )?  ';'
-    (  step=expression_list )? 
-    ')' 
-    block
-    -> ^( 'for' for_statement_initialiser_part? $cond? $step? block )
-  ;
-  
-for_statement_initialiser_part
-  scope InFor;
-  @before {
-    $InFor::active = true
-  }
-  @after {
-    $InFor::active = false
-  }
-  : expression_list
-  | 'var'^  variable_declaration_list
-  ;
-
-for_each_in_statement
-  : 'for' 'each' '('  for_in_statement_initialiser_part  'in'  expression  ')'  block
-	  -> ^( 'each' for_in_statement_initialiser_part expression block )
-	;
-  
-for_in_statement
-  : f='for'  '('  for_in_statement_initialiser_part  'in'  expression  ')'  block
-    -> ^( FOR_IN[ $f ] for_in_statement_initialiser_part expression block )
-  ;
-  
-for_in_statement_initialiser_part
-  scope InFor;
-  @before {
-    $InFor::active = true
-  }
-  @after {
-    $InFor::active = false
-  }
-  : 'var'^  variable_declaration
-  | member
-  ;
-
-continue_statement
-  : 'continue'^ ID? statement_end!
-  ;
-
-break_statement
-  : 'break'^ ID? statement_end!
-  ;
-
-return_statement
-  : 'return'^ expression_list? statement_end!
-  ;
-
-yield_statement
-  : 'yield'^ expression_list? statement_end!
-	;
-
-
-with_statement
-  : 'with'  '('  expression_list  ')'  block
-    -> ^( 'with' expression_list block )
-  ;
-
-labelled_statement
-  : ID  ':'  block
-    -> ^( LABEL ID block )
-  ;
-  
 switch_statement
   : 'switch'  '('  expression_list  ')' 
     '{'
-    (  case_clause )*
-    (  default_clause (  case_clause )* )? 
+    ( case_clause )*
+    ( default_clause (  case_clause )* )? 
     '}'
     -> ^( 'switch' expression_list case_clause* default_clause? )
   ;
@@ -324,27 +293,88 @@ case_clause
 default_clause
   : 'default'^  ':'!  statement_list?
   ;
-  
-throw_statement
-  : 'throw'^ expression_list statement_end!
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// While Loops
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+do_while_statement
+  : 'do' block 'while' clause statement_end
+    -> ^( 'do' clause block )
   ;
 
-try_statement
-  : 'try'  ( statement_block -> statement_block ) 
-    ( f=finally_clause -> { $f.tree.unshift( $tree ) }
-    | ( catch_clause -> { $catch_clause.tree.unshift( $tree ) } )
-      (  f2=finally_clause -> { $f2.tree.unshift( $tree ) } )?
-    )
+while_statement
+  : 'while'^ clause block
   ;
-       
-catch_clause
-  : 'catch'  '('  ID  ')'  statement_block
-    -> ^( 'catch' ID statement_block )
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// For Loops
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+for_loop
+  : { @input.peek( 2 ) == EACH }?=> for_each_in_statement
+  | ( 'for'  '('  ~( ')' | ';' | 'in' )*  'in' )=> for_in_statement
+  | for_statement
+  ;
+
+for_statement
+  : 'for'^
+    '('!
+    ( for_statement_initialiser_part | blank ) ';'!
+    ( expression_list | blank )  ';'!
+    ( expression_list | blank )
+    ')'!
+    block
   ;
   
-finally_clause
-  : 'finally' statement_block
-    -> ^( 'finally' statement_block )
+for_statement_initialiser_part
+  scope InFor;
+  @before { $InFor::active = true  }
+  @after  { $InFor::active = false }
+  : expression_list
+  | 'var'^  variable_declaration_list
+  ;
+
+for_each_in_statement
+  : 'for' 'each' '('  for_in_statement_initialiser_part  'in'  expression  ')'  block
+    -> ^( 'each' for_in_statement_initialiser_part expression block )
+  ;
+  
+for_in_statement
+  : f='for'  '('  for_in_statement_initialiser_part  'in'  expression  ')'  block
+    -> ^( FOR_IN[ $f ] for_in_statement_initialiser_part expression block )
+  ;
+  
+for_in_statement_initialiser_part
+  scope InFor;
+  @before { $InFor::active = true  }
+  @after  { $InFor::active = false }
+  : 'var'^  variable_declaration
+  | member
+  ;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Flow Control
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+continue_statement
+  : 'continue'^ ( { same_line? }?=> ID )? statement_end!
+  ;
+
+break_statement
+  : 'break'^ ( { same_line? }?=> ID )? statement_end!
+  ;
+
+return_statement
+  : 'return'^ ( { same_line? }?=> expression_list )? statement_end!
+  ;
+
+yield_statement
+  : 'yield'^ ( { same_line? }?=> expression_list )? statement_end!
+  ;
+  
+throw_statement
+  : 'throw'^ ( { same_line? }?=> expression_list )? statement_end!
   ;
 
 /********************************************************************************
@@ -356,10 +386,10 @@ expression_list
   ;
 
 expression
-  : ( member  assignment_op )=> member  assignment_op^  expression
+  : ( member assignment_op )=> member assignment_op^ expression
   | conditional
   ;
-  
+
 assignment_op
   : '='
   | '*='
@@ -384,11 +414,11 @@ logical_or
   ;
 
 logical_and
-  : bit_or (  '&&'^  bit_or )*
+  : bit_or  ( '&&'^  bit_or )*
   ;
 
 bit_or
-  : bit_xor (  '|'^  bit_xor )*
+  : bit_xor ( '|'^  bit_xor )*
   ;
 
 bit_xor
@@ -433,30 +463,36 @@ mult
   ;
 
 unary
-  : 'delete'^  unary
-  | 'void'^  unary
-  | 'typeof'^  unary
-  | '++'^  unary
-  | '--'^  unary
-  | '+'^  unary
-  | '-'^  unary
-  | '~'^  unary
-  | '!'^  unary
-  | postfix
+  : 'delete' unary   -> ^( 'delete' unary )
+  | 'void'   unary   -> ^( 'void' unary )
+  | 'typeof' unary   -> ^( 'typeof' unary )
+  | '++'     unary   -> ^( '++' unary )
+  | '--'     unary   -> ^( '--' unary )
+  | '+'      unary   -> ^( UPLUS[ '+' ] unary )
+  | '-'      unary   -> ^( UMINUS[ '-' ] unary )
+  | '~'      unary   -> ^( '~' unary )
+  | '!'      unary   -> ^( '!' unary )
+  | postfix          -> postfix
   ;
 
 postfix
   : member
-    ( '++' -> ^( POST_INCR[ '++' ] member )
-    | '--' -> ^( POST_DECR[ '--' ] member )
-    |      -> member
+    ( { same_line? }?=>
+      ( '++' -> ^( POST_INCR[ '++' ] member )
+      | '--' -> ^( POST_DECR[ '--' ] member )
+      )
+    |        -> member
     )
   ;
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Atomic Expressions
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 member
-  : ( receiver  -> receiver )
-    ( accessor  -> { $accessor.tree.unshift( $tree ) }
-    | arguments -> ^( CALL $member arguments )
+  : ( receiver    -> receiver )
+    ( accessor    -> { prepend_tree( $accessor.tree, $tree ) }
+    | arguments   -> ^( CALL $member arguments )
     )*
   ;
   
@@ -466,30 +502,48 @@ accessor
   ;
 
 receiver
-  : primary
-  | function
+  : primary  -> primary
+  | function -> function
   | ( 'new' new_target arguments? )=>
       'new' new_target arguments? -> ^( 'new' new_target arguments? )
   ;
 
 new_target
   : ( receiver -> receiver )
-    ( accessor -> { $accessor.tree.unshift( $tree )  } )*
+    ( accessor -> { prepend_tree( $accessor.tree, $tree )  } )*
   ;
 
 arguments
-  : '('  ')' -> ^( ARGUMENTS )
-  | '('  expression  ( ',' expression  )* ')'
-    -> ^( ARGUMENTS expression+ )
+  : '('  ( expression  ( ',' expression  )* )? ')' -> ^( ARGUMENTS expression* )
   ;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Functions / Blocks
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+function
+  : 'function'^ variable_name? function_parameters statement_block
+  ;
+  
+function_parameters
+  : '(' parameters? ')' -> ^( PARAMS parameters? )
+  ;
+
+parameters
+  : variable_name (  ','  variable_name )* -> variable_name+
+  ;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Literals
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 primary
   : 'this'^
-  | variable_name^
   | 'null'^
   | 'true'^
   | 'false'^
   | 'undefined'^
+  | variable_name^
   | NUMBER^
   | STRING^
   | REGEX^
@@ -498,31 +552,16 @@ primary
   | '('!  expression_list  ')'!
   ;
 
-function
-	: 'function'^  ( ID  )? formal_parameter_list  block
-	;
-  
-formal_parameter_list
-  : '(' (  ID (  ','  ID )* )?  ')'
-    -> ^( PARAMS ID* )
-  ;
-
-literal
-  : 'null'^  | 'true'^  | 'false'^  | NUMBER^  | STRING^  | REGEX^
-  ;
-
-
 array_literal
-  : '['  ']'  -> ^( ARRAY )
-  | '[' expression ( ',' expression?  )* ']' -> ^( ARRAY expression+ )
+  : '[' ']' -> ^( ARRAY )
+  | '[' list_item ( ',' list_item )* ']' -> ^( ARRAY list_item* )
   ;
   
-list_element
-  : ( ',' )=> -> ^( UNDEFINED )
+list_item
+  : ( ',' )=>  -> ^( UNDEFINED )
   | expression -> expression
   ;
   
-
 object_literal
   : '{'  '}' -> ^( OBJECT )
   | '{'  property_definition (  ','  property_definition )* '}'
@@ -530,173 +569,75 @@ object_literal
   ;
 
 property_definition
-  : 'get'^ ID formal_parameter_list block
-	| 'set'^ ID formal_parameter_list block
-	| property_name  ':'^   expression
+  : 'get'^ ID function_parameters block
+  | 'set'^ ID function_parameters block
+  | property_name ':'^ expression
   ;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Names and Words
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 property_name
   : ID
-	| reserved { $reserved.tree.token.type = ID }
-	| STRING
+  | STRING
   | NUMBER
-  ;
-
-statement_end
-  : ';'
-  | ( '}' )=>
-  | EOF
+  | reserved { $reserved.tree.token.type = ID }
   ;
 
 variable_name
   : ID
-	| t=pseudokeyword { $t.tree.token.type = ID }
-	;
+  | t=pseudokeyword { $t.tree.token.type = ID }
+  ;
 
 pseudokeyword
-  : 'abstract'
-  | 'as'
-  | 'boolean'
-  | 'byte'
-  | 'char'
-  | 'class'
-  | 'debugger'
-  | 'double'
-	| 'each'
-  | 'enum'
-  | 'export'
-  | 'extends'
-  | 'final'
-  | 'float'
-	| 'get'
-	| 'set'
-  | 'goto'
-  | 'implements'
-  | 'import'
-  | 'int'
-  | 'interface'
-  | 'is'
-  | 'long'
-  | 'namespace'
-  | 'native'
-  | 'package'
-  | 'private'
-  | 'protected'
-  | 'public'
-  | 'short'
-  | 'static'
-  | 'super'
-  | 'synchronized'
-  | 'throws'
-  | 'transient'
-  | 'use'
-  | 'volatile'
+  : 'each'
+  | 'get'
+  | 'set'
   ;
 
 reserved
-  : 'abstract'
-  | 'as'
-  | 'boolean'
-  | 'break'
-  | 'byte'
-  | 'case'
-  | 'catch'
-  | 'char'
-  | 'class'
-  | 'const'
-  | 'continue'
-  | 'debugger'
-  | 'default'
-  | 'delete'
-  | 'do'
-  | 'double'
-  | 'each'
-  | 'else'
-  | 'enum'
-  | 'export'
-  | 'extends'
-  | 'false'
-  | 'final'
-  | 'finally'
-  | 'float'
-  | 'for'
-  | 'function'
-  | 'get'
-  | 'goto'
-  | 'if'
-  | 'implements'
-  | 'import'
-  | 'in'
-  | 'instanceof'
-  | 'int'
-  | 'interface'
-  | 'is'
-  | 'let'
-  | 'long'
-  | 'namespace'
-  | 'native'
-  | 'new'
-  | 'null'
-  | 'package'
-  | 'private'
-  | 'protected'
-  | 'public'
-  | 'return'
-  | 'set'
-  | 'short'
-  | 'static'
-  | 'super'
-  | 'switch'
-  | 'synchronized'
-  | 'this'
-  | 'throw'
-  | 'throws'
-  | 'transient'
-  | 'true'
-  | 'try'
-  | 'typeof'
-  | 'undefined'
-  | 'use'
-  | 'var'
-  | 'void'
-  | 'volatile'
-  | 'while'
-  | 'with'
-  | 'yield'
+  : 'break'    | 'do'      | 'function'   | 'new'    | 'throw'     | 'until'
+  | 'case'     | 'each'    | 'get'        | 'null'   | 'true'      | 'var'  
+  | 'catch'    | 'else'    | 'if'         | 'return' | 'try'       | 'void' 
+  | 'continue' | 'false'   | 'in'         | 'set'    | 'typeof'    | 'while'
+  | 'default'  | 'finally' | 'instanceof' | 'switch' | 'undefined' | 'with' 
+  | 'delete'   | 'for'     | 'let'        | 'this'   | 'unless'    | 'yield'
   ;
-  
+
 /********************************************************************************
  ***********************************  Lexer  ************************************
  ********************************************************************************/
 
 SLASH
-  : '//' ~( '\n' | '\r' | '\u2028' | '\u2029' )* { skip }
-  | '/*' .* '*/' { skip }
-  | { @regex_possible  }?=> '/' ( ~( '/' | '*' | '\\' | '\r' | '\n' ) | '\\' . ) ( ~( '/' | '\\' | '\n' | '\r' ) | '\\' . )* '/' ( 'a'..'z' )* { $type = REGEX }
-  | { !@regex_possible }?=> '/' ( '=' { $type = SLASH_ASGN } | { $type = SLASH } )
+  : '//' ~( '\n' | '\r' )* { $type = LINE_COMMENT; $channel = HIDDEN }
+  | '/*' .* '*/' { $type = COMMENT; $channel = HIDDEN }
+  | { @value_expected  }?=> '/' ( ~( '/' | '*' | '\\' | '\r' | '\n' ) | '\\' . ) ( ~( '/' | '\\' | '\n' | '\r' ) | '\\' . )* '/' ( 'a'..'z' )* { $type = REGEX }
+  | { !@value_expected }?=> '/' ( '=' { $type = SLASH_ASGN } | { $type = SLASH } )
   ;
 
 STRING
-	: '"'  ( ~( '"'  | '\\' | '\n' | '\r' ) | '\\' . )* '"'
-	| '\'' ( ~( '\'' | '\\' | '\n' | '\r' ) | '\\' . )* '\''
-	;
+  : '\'' ( ~( '\'' | '\\' ) | '\\' . )* '\''
+  | '"'  ( ~( '"'  | '\\' ) | '\\' . )* '"'
+  ;
 
 NUMBER
-	: ('0'..'9')+ '.' ('0'..'9')* ( ('e' | 'E') ('+' | '-')? ('0'..'9')+ )?
-	| '.'? ('0'..'9')+ ( ('e' | 'E') ('+' | '-')? ('0'..'9')+ )?
-	| '0' ('x' | 'X') ( '0'..'9' | 'a'..'f' | 'A'..'F' )+
-	;
+  : ('0'..'9')+ '.' ('0'..'9')* ( ('e' | 'E') ('+' | '-')? ('0'..'9')+ )?
+  | '.'? ('0'..'9')+ ( ('e' | 'E') ('+' | '-')? ('0'..'9')+ )?
+  | '0' ('x' | 'X') ( '0'..'9' | 'a'..'f' | 'A'..'F' )+
+  ;
 
 NEWLINE
-  : ( '\n' | '\r' )+
-    { $channel = HIDDEN }
-	;
+  : ( '\n' | '\r' )+ { $channel = HIDDEN }
+  ;
 
 ID
-	: ( '$' | '_' | 'a'..'z' | 'A'..'Z' )
+  : ( '$' | '_' | 'a'..'z' | 'A'..'Z' )
     ( 'a'..'z' | 'A'..'Z' | '0'..'9' | '_' | '$' )*
-	;
+  ;
 
 WS // Tab, vertical tab, form feed, space, non-breaking space and any other unicode "space separator".
-	: ( '\t' | '\f' | ' ' | '\u00A0' )+	{ $channel = HIDDEN }
-	;
+  : ( '\t' | '\f' | ' ' | '\u00A0' )+  { $channel = HIDDEN }
+  ;
+
+

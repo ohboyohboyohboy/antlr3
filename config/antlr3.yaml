@@ -4,7 +4,7 @@
 #
 name: antlr3
 
-version: "1.8.4"
+version: "1.8.5"
 antlr_version: "3.2.1"
 
 summary: |-

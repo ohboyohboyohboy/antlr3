@@ -377,7 +377,7 @@ class GrammarFile
       depends = shared_depends + depends
       
       target_files.each do | target |
-        file( target => depends ) do
+        file( target => ( depends - [ target ] ) ) do   # prevents recursive .tokens file dependencies
           @group.compile( self )
         end
       end
