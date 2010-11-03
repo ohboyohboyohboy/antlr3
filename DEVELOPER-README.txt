@@ -1,7 +1,8 @@
 ==============================================================================
 Developing / Customizing The ANTLR for Ruby Project
   by Kyle Yetter  <kcy5b@yahoo.com>
-  November 20, 2009
+  Originally Written on November 20, 2009
+  Updated on November 3, 2010
 ==============================================================================
 
 = Just a Quick Note
@@ -25,25 +26,19 @@ Getting Started
 
 = Setting Up the Project
 
-If you haven't already:
-
 1. pull the repository
 
   git clone git://rubyforge.org/antlr3.git
 
-2. from the project's top directory, run the simple setup script
+2. Modify your PATH environmental variable to add the following directories:
   
-  ruby bootstrap.rb
-
-Assuming everything worked without a hitch, modify your
-PATH environmental variable to add the following directories:
-  
-  $base/bin  $base/scripts  $base/vendor/bin
+  $base/bin  $base/scripts  $base/vendor/gems/ruby-1.8/bin
   
 where $base is the absolute path of the project's base directory.
 If you use a bash-flavored shell, you can do this by running:
 
   . ./project-env.sh
+
 
 = External Programs Used By the Project
 
@@ -71,43 +66,24 @@ Development Dependencies / Third-Party Gems
   
 * to allow contributors to take advantage of various useful third party
   libraries for testing, benchmarking, utilities, yada yada yada, the
-  project uses a third-party library, `bundler', to manage a project-specific
+  project uses a third-party library, `isolate', to manage a project-specific
   stash of gems
-  
-* while adding a tad more complexity to the project, this setup offers the
-  advantages of:
-  
-  - not bulking up a developer's system gem repository with libraries
-    he or she may have no use for, slowing everything down
-  - removing interference from gem installations of earlier versions
-    of the antlr3 library, as generated code will always try to
-    activate the antlr3 gem before loading the runtime library
-  
-* the bootstrap.rb script should install bundler in vendor/bundler by importing
-  the library as a git submodule. This can also be done manually via:
-  
-    git submodule init
-    git submodule update vendor/bundler
-  
-* the file config/gemfile specifies the gems to fetch as well as other
-  bundler environment settings -- edit this to add/remove development
-  dependencies
-  
-* the script scripts/gem-bundle.rb runs the gem bundle command to update
-  the project's local gem installations. Running `rake setup' will
-  also check for any necessary gem updates from config/gemfile
+
+* the file config/isolate.rb specifies the gems to fetch -- edit this to 
+  add/remove development dependencies
   
 * the project configuration object, $project, which is defined in
   config/project.rb, handles setting up the load path and loading
-  the bundler environment, which is located at vendor/environment.rb
+  Isolate to set up the rubygems environment
   
-* more info on bundler can be found at the project's homepage:
+* more info on isolate can be found at the project's homepage:
 
-  bundler: http://github.com/wycats/bundler
+  isolate: http://github.com/jbarnette/isolate
 
 ==============================================================================
 Project Layout
 ------------------------------------------------------------------------------
+
 = Top Level
 
 antlr3
@@ -274,15 +250,4 @@ Programs / Utility Scripts
   
   # extract and display a single template definition
   st-group show path/to/Group.stg templateName
-
-= gem-bundle.rb
-
-* only works once the third party bundler library has been pulled
-  by the bootstrap.rb script
-  
-* a script to run the gem bundle command to update the project's
-  isolated gem repository
-  
-* essentially the same as `gem bundle', but sets up the environment
-  so that it should work with older versions of rubygems
 
