@@ -73,63 +73,17 @@ task :boot => %w( update ) do
   $project.load_environment
 end
 
-# task :default => %w( setup )
-# $project.booted? or run_task( :setup )
+# tasks concerning the ANTLR java package
+desc "update the antlr jar if necessary"
+task :antlr do
+  $project.load_task 'antlr'
+end
 
-#if $project.booted?
-  
-  # tasks concerning the ANTLR java package
-  desc "update the antlr jar if necessary"
-  task :antlr do
-    $project.load_task 'antlr'
-  end
-  
-  for task_lib in %w( notes package coverage publish test doc )
-    $project.load_task( task_lib )
-  end
-  
-  desc( "clean up all project by-products" )
-  task :clean => %w( test:clean package:clobber doc:clobber doc:samples:clobber )
-  
-  $project.load_task( 'private/*' )
-  
-  interactive = ( $stdout.tty? && $stdin.tty? )
-  task_list = Rake.application.options.show_tasks
-  
-  #if $project.bundler_stale? and interactive and not task_list
-  #  puts( <<-END.here_indent! )
-  #  | ** Warning **
-  #  | Bundler config `#{ $project.bundler.config }' appears to have been modified recently.
-  #  | Your locally installed gems may be out of date and some tasks may
-  #  | fail due to missing packages.
-  #  |
-  #  | Do you want to run the setup task to update the local gem installations
-  #  | in the vendor directory before continuing? Note: this will access the
-  #  | internet and possibly download new source packages to ./vendor
-  #  | 
-  #  END
-  #  
-  #  if $project.confirm( "Update before continuing?" )
-  #    Rake::Task[ :setup ].invoke
-  #    puts( "-- Successfully updated local gems --" )
-  #  else
-  #    puts( "-- Skipping bundler update --" )
-  #    puts( "** You can run the update manually later via `rake setup'" )
-  #    verbose( false ) { touch( $project.bundler.environment ) }
-  #  end
-  #  puts( "" )
-  #  
-  #end
-  
-#else
-#  
-#  puts( <<-END.here_indent! )
-#  | ** Note **
-#  | The development environment has not been established.
-#  | Thus, most rake tasks will not be active until you run:
-#  | 
-#  |   ruby ./bootstrap.rb
-#  | 
-#  END
-#  
-##end
+for task_lib in %w( notes package coverage publish test doc )
+  $project.load_task( task_lib )
+end
+
+desc( "clean up all project by-products" )
+task :clean => %w( test:clean package:clobber doc:clobber doc:samples:clobber )
+
+$project.load_task( 'private/*' )

@@ -199,8 +199,6 @@ class TestStringStream < Test::Unit::TestCase
 end
 
 class TestFileStream < Test::Unit::TestCase
-  
-  
   def test_no_encoding
     
     path = File.join(File.dirname(__FILE__), 'sample-input/file-stream-1')
@@ -224,20 +222,11 @@ class TestFileStream < Test::Unit::TestCase
     @stream.peek(1).should == ?a.ord
   end
   
-  def test_encoded
-    
-  end
 end
 
-class TestInputStream < Test::Unit::TestCase
-  def test_no_encoding
-    
-  end
-  
-  def test_encoded
-    
-  end
-end
+
+
+
 
 class TestCommonTokenStream < Test::Unit::TestCase
   class MockSource
@@ -418,43 +407,4 @@ class TestCommonTokenStream < Test::Unit::TestCase
 end
 
 
-__END__
-teststreams.py                                | LN  | STATUS
-----------------------------------------------+-----+--------------
-class TestStringStream(unittest.TestCase)     | 009 | [x]
-  def testSize(self)                          | 012 | [x]
-  def testIndex(self)                         | 020 | [x]
-  def testConsume(self)                       | 028 | [x]
-  def testReset(self)                         | 079 | [x]
-  def testLA(self)                            | 094 | [x]
-  def testSubstring(self)                     | 111 | [x]
-  def testSeekForward(self)                   | 122 | [x]
-  def testMark(self)                          | 150 | [x]
-  def testReleaseLast(self)                   | 167 | [x]
-  def testReleaseNested(self)                 | 186 | [x]
-  def testRewindLast(self)                    | 204 | [x]
-  def testRewindNested(self)                  | 223 | [x]
-class TestFileStream(unittest.TestCase)       | 245 | [o]
-  def testNoEncoding(self)                    | 249 | [x]
-  def testEncoded(self)                       | 272 | [ ]
-class TestInputStream(unittest.TestCase)      | 296 | [ ]
-  def testNoEncoding(self)                    | 299 | [ ]
-  def testEncoded(self)                       | 322 | [ ]
-class TestCommonTokenStream(unittest.TestCase)| 345 | [ ]
-  def setUp(self)                             | 348 | [x]
-  def testInit(self)                          | 369 | [x]
-  def testSetTokenSource(self)                | 376 | [x]
-  def testLTEmptySource(self)                 | 385 | [x]
-  def testLT1(self)                           | 394 | [x]
-  def testLT1WithHidden(self)                 | 407 | [x]
-  def testLT2BeyondEnd(self)                  | 424 | [x]
-  def testLTNegative(self)                    | 442 | [x]
-  def testLB1(self)                           | 461 | [x]
-  def testLTZero(self)                        | 479 | [x]
-  def testLBBeyondBegin(self)                 | 496 | [x]
-  def testFillBuffer(self)                    | 523 | [x]
-  def testConsume(self)                       | 551 | [x]
-  def testSeek(self)                          | 579 | [x]
-  def testMarkRewind(self)                    | 604 | [x]
-  def testToString(self)                      | 631 | [x]
 

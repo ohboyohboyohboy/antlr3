@@ -56,7 +56,7 @@ class UnicodeStream < StringStream
   def through( k )
     if k >= 0 then @data[ @position, k ].pack( PACK_MASK ) else
       start = ( @position + k ).at_least( 0 ) # start cannot be negative or index will wrap around
-      @string[ start ... @position ].pack( PACK_MASK )
+      @data[ start ... @position ].pack( PACK_MASK )
     end
   end
   
