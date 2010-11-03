@@ -48,7 +48,7 @@ Main do
       :load_path => [ $project.lib ],
       :functional => test_options,
       :unit => test_options,
-      :profile => { :require => $project.bundler.environment } }
+      :profile => { :require => 'isolate/now' } }
   end
   
   def test_options

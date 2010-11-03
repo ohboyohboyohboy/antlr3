@@ -19,15 +19,6 @@ $proj = $project = Project.load( project_top, config_file ) do
     end
   end
   
-  # run the gem-bundle.rb script to reflect any
-  # changes to config/gemfile
-  def run_bundler
-    script = path( 'scripts', 'gem-bundle.rb' )
-    ENV.temporary( 'RUBYOPT' => '' ) do
-      system %(ruby '#{script}')
-    end
-  end
-  
   # given a list of program names (like `less', `more', ...),
   # return the first program that can be found on the
   # system path or nil if none are found
@@ -117,7 +108,6 @@ $proj = $project = Project.load( project_top, config_file ) do
     end
   end
   
-  
   def package_transform( file_list, mapping_rules )
     file_list.map { | f | package_target_name( f, mapping_rules ) }
   end
@@ -156,8 +146,10 @@ $proj = $project = Project.load( project_top, config_file ) do
   
   def load_environment
     @load_environment ||= begin
-      verify_environment
-      load( bundler.environment )
+      require 'isolate'
+      #require 'rubygems'
+      
+      Isolate.now!( :file => isolate.config )
       
       for lib in environment_require
         begin
@@ -170,59 +162,6 @@ $proj = $project = Project.load( project_top, config_file ) do
       
       true
     end
-  end
-  
-  def has_bundler?
-    bundler.lib?
-  end
-  
-  def verify_environment
-    bundler.lib? or bundler_missing!
-    bundler.environment? or bundler_environment_missing!
-  end
-  
-  def bundler_stale?
-    Kernel.test( ?>, bundler.config, bundler.environment )
-  end
-  
-  def bundler_missing!
-    dir = File.relative_path( bundler.top, base )
-    error!(<<-END.here_indent!, dir, dir)
-    | Unable to load the project environment -- cannot locate bundler library
-    | 
-    | Bundler is an external package used to handle this project's
-    | gem dependencies for its various development tasks and utilities.
-    | The package should be imported into the project tree as a git submodule,
-    | but the submodule does not appear to be initialized.
-    | 
-    | Run the following commands from the project's base directory:
-    | 
-    |   git submodule init
-    |   git submodule update %s
-    | 
-    | Afterward, the full bundler library should appear within %s.
-    | To complete the development environment set up, run:
-    | 
-    |   rake boot
-    | 
-    END
-  end
-  
-  def bundler_environment_missing!
-    error!( <<-END.here_indent!, bundler.environment )
-    | Unable to locate bundler gem environment at %s
-    | To create this file, run:
-    | 
-    |    rake boot
-    | 
-    END
-  end
-  
-  def booted?
-    verify_environment
-    return true
-  rescue Project::Error
-    return false
   end
   
   def confirm( message )
@@ -241,5 +180,5 @@ $proj = $project = Project.load( project_top, config_file ) do
   end
 end
 
-$project.booted? and $project.load_environment
+$project.load_environment
 

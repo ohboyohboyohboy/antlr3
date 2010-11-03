@@ -1,3 +1,3 @@
 #!/bin/sh
 
-export PATH=$(pwd)/bin:$(pwd)/scripts:$(pwd)/vendor/bin:$PATH
+export PATH=$(pwd)/bin:$(pwd)/scripts:$(pwd)/vendor/gems/ruby-1.8/bin:$PATH

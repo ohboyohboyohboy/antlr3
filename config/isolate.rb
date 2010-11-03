@@ -1,3 +1,9 @@
+home = File.expand_path( '../..', __FILE__ )
+gem_home = File.join( home, 'vendor/gems' )
+
+options :path => gem_home
+
+
 # main is a command-line app builder library used in the scripts
 gem "main", "4.2.0"
 
@@ -7,8 +13,7 @@ gem 'highline', "1.5.1"
 # a big bag of bric-a-brac 
 gem "facets", "2.7.0"
 
-gem 'rubyforge'
-gem 'gemcutter'
+gem 'rubyforge', "2.0.4"
 
 gem 'rake', "0.8.7"
 
@@ -25,14 +30,5 @@ gem "ruby-prof", "0.7.3"
 gem "RedCloth", "4.2.2"
 
 # enhanced rdoc
-gem "yard"
+gem "yard", "0.6.1"
 
-# where the gem libs go
-bundle_path '../vendor'
-
-# where the gem executables go
-bin_path '../vendor/bin'
-
-# turns off rubygems in code
-#disable_rubygems
-disable_system_gems

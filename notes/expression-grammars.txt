@@ -1,0 +1,23 @@
+h1. How to Write Operator Hierarchies
+
+h2. Terminology
+
+[tier]:
+  A group of operators with equal precedence. For example, often addition and subtraction
+  (`+' and `-') of terms are of equal precedence. 
+
+
+h2. Binary Operators
+
+h3. Left Associative
+
+tier_name
+  : higher_tier ( ops higher_tier )*
+  ;
+
+
+h3. Right Associative
+
+tier_name
+  : higher_tier ( ops tier_name )*
+  ;

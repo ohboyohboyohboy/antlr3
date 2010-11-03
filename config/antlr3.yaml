@@ -3,7 +3,6 @@
 # project meta-data used for various project tasks like building gem packages
 #
 name: antlr3
-
 version: "1.8.5"
 antlr_version: "3.2.1"
 
@@ -11,7 +10,7 @@ summary: |-
   Fully-featured ruby parser generation for ANTLR version 3.
 author: Kyle Yetter
 email: kcy5b@yahoo.com
-homepage: http://www.ohboyohboyohboy.org/ruby-antlr
+homepage: http://antlr.ohboyohboyohboy.org/
 
 has_rdoc: true
 rubyforge_project: antlr3
@@ -97,12 +96,8 @@ antlr: !pathmap
   targets: java/org/antlr/codegen
   target: java/RubyTarget.java
 
-bundler: !pathmap
-  top: vendor/bundler
-  lib: vendor/bundler/lib
-  plugin: vendor/bundler/lib/rubygems_plugin.rb
-  environment: vendor/environment.rb
-  config: config/gemfile
+isolate: !pathmap
+  config: config/isolate.rb
   gems: vendor/gems
 
 test: !pathmap
@@ -147,11 +142,13 @@ load:
 load_path:
   - lib
   - dev-lib
+  - vendor
 
 system_path:
   - scripts
   - bin
-  - vendor/bin
+  - vendor/gems/ruby-1.8/bin
+
 # these are required after the gem-neutral environment is established
 # via $project.load_environment
 environment_require:

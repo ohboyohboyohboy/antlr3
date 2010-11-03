@@ -6,7 +6,7 @@ if not set -q ANTLR_DEV_MODE
   set -g ANTLR_DEV_MODE true
   
   set -gx ANTLR3_BASE (realpath .)
-  set -gx PATH (realpath ./bin) (realpath ./scripts) (realpath ./vendor/bin) $PATH
+  set -gx PATH (realpath ./bin) (realpath ./scripts) (realpath ./vendor/gems/ruby-1.8/bin) $PATH
   set -gx RUBYLIB (realpath ./lib) $RUBYLIB
   set -gx IRB_EXTRA (realpath ./config/antlr3.rb)
   
