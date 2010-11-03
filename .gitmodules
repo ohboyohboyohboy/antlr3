@@ -1,3 +1,0 @@
-[submodule "vendor/bundler"]
-	path = vendor/bundler
-	url = git://github.com/wycats/bundler.git
