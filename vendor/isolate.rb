@@ -8,7 +8,7 @@ module Isolate
 
   # Duh.
 
-  VERSION = "3.0.0"
+  VERSION = "3.1.0.pre.3"
 
   # Disable Isolate. If a block is provided, isolation will be
   # disabled for the scope of the block.
@@ -70,11 +70,10 @@ module Isolate
   end
 
   # Poke RubyGems, since we've probably monkeyed with a bunch of paths
-  # and suchlike. Clears paths, loaded specs, and source indexes.
+  # and suchlike. Deprecated and scheduled for removal in v4.0.0.
 
   def self.refresh # :nodoc:
-    Gem.loaded_specs.clear
-    Gem.clear_paths
-    Gem.source_index.refresh!
+    $stderr.puts "Deprecated, removal in v4.0.0. Use Gem.refresh."
+    Gem.refresh
   end
 end

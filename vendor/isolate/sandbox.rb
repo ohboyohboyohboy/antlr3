@@ -116,11 +116,12 @@ module Isolate
       fire :disabling
 
       ENV.replace @old_env
-      $LOAD_PATH.replace @old_load_path
 
       @enabled = false
 
-      Isolate.refresh
+      Gem.clear_paths
+      Gem.refresh
+
       fire :disabled
 
       begin; return yield ensure enable end if block_given?
@@ -132,30 +133,20 @@ module Isolate
       return self if enabled?
       fire :enabling
 
-      @old_env       = ENV.to_hash
-      @old_load_path = $LOAD_PATH.dup
-
-      FileUtils.mkdir_p path
-      ENV["GEM_HOME"] = path
-
-      lib = File.expand_path "../..", __FILE__
+      @old_env = ENV.to_hash
 
       unless system?
-        $LOAD_PATH.reject! do |p|
-          p != lib && Gem.path.any? { |gp| p.include?(gp) }
-        end
 
         # HACK: Gotta keep isolate explicitly in the LOAD_PATH in
         # subshells, and the only way I can think of to do that is by
         # abusing RUBYOPT.
 
+        lib = File.expand_path "../..", __FILE__
         dirname = Regexp.escape lib
 
         unless ENV["RUBYOPT"] =~ /\s+-I\s*#{lib}\b/
           ENV["RUBYOPT"] = "#{ENV['RUBYOPT']} -I#{lib}"
         end
-
-        ENV["GEM_PATH"] = path
       end
 
       bin = File.join path, "bin"
@@ -164,10 +155,19 @@ module Isolate
         ENV["PATH"] = [bin, ENV["PATH"]].join File::PATH_SEPARATOR
       end
 
+      paths = (ENV["GEM_PATH"] || "").split File::PATH_SEPARATOR
+      paths.push Gem.dir
+
+      paths.clear unless system?
+      paths.push path
+
+      Gem.clear_paths
+
+      ENV["GEM_HOME"] = path
+      ENV["GEM_PATH"] = paths.uniq.join File::PATH_SEPARATOR
       ENV["ISOLATED"] = path
 
-      Isolate.refresh
-      Gem.path.unshift path if system?
+      Gem.refresh
 
       @enabled = true
       fire :enabled
@@ -222,13 +222,15 @@ module Isolate
         padding = Math.log10(installable.size).to_i + 1
         format  = "[%0#{padding}d/%s] Isolating %s (%s)."
 
+        FileUtils.mkdir_p path
+
         installable.each_with_index do |entry, i|
           log format % [i + 1, installable.size, entry.name, entry.requirement]
           entry.install
-        end
 
-        index.refresh!
-        Gem.source_index.refresh!
+          index.refresh!
+          Gem.source_index.refresh!
+        end
       end
 
       fire :installed

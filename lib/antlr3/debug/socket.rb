@@ -48,7 +48,8 @@ class EventSocketProxy
         port, host = Socket.unpack_sockaddr_in( addr )
         log!( "Accepted connection from %s:%s\n", host, port )
         
-        @connection.setsockopt( Socket::SOL_TCP, Socket::TCP_NODELAY, 1 )
+        proto_number = ( Socket::SOL_TCP rescue 6 )
+        @connection.setsockopt( proto_number, Socket::TCP_NODELAY, 1 )
         
         write( 'ANTLR %s', PROTOCOL_VERSION )
         write( 'grammar %p', @grammar_file_name )
