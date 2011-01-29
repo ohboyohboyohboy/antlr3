@@ -1,0 +1,22 @@
+digraph {
+  ordering=out;
+  ranksep=.4;
+  node [shape=plaintext, fixedsize=true, fontsize=11, fontname="Courier",
+        width=.25, height=.25];
+  edge [arrowsize=.5];
+  n0 [label="and"];
+  n1 [label="or"];
+  n2 [label="and"];
+  n3 [label="a"];
+  n4 [label="b"];
+  n5 [label="c"];
+  n6 [label="not"];
+  n7 [label="d"];
+  n0 -> n1; // "and" -> "or"
+  n1 -> n2; // "or" -> "and"
+  n2 -> n3; // "and" -> "a"
+  n2 -> n4; // "and" -> "b"
+  n1 -> n5; // "or" -> "c"
+  n0 -> n6; // "and" -> "not"
+  n6 -> n7; // "not" -> "d"
+}
