@@ -794,19 +794,18 @@ class CommonTokenStream
       tokens = @token_source.to_a
     end
     
-    @channel_indices = Hash.new { | h, k | h[ k ] = [] }
+    @channel_map = Hash.new { | h, k | h[ k ] = [] }
     
     @last_marker = nil
+    
     @tokens = block_given? ? tokens.select { | t | yield( t, self ) } : tokens
     @tokens.each_with_index do | t, i |
-      @channel_indices[ t.channel ] << i
+      @channel_map[ t.channel ] << t
       t.index = i
     end
-    @position = 
-      if first_token = @tokens.find { |t| t.channel == @channel }
-        @tokens.index( first_token )
-      else @tokens.length
-      end
+    
+    @tokens_on_channel = @channel_map[ @channel ]
+    @cursor = 0
   end
   
   #
@@ -822,15 +821,17 @@ class CommonTokenStream
       @token_source.reset rescue nil
     else @token_source = token_source
     end
+    ( @channel_map ||= Hash.new { | h, k | h[ k ] = [] } ).clear
     @tokens = block_given? ? @token_source.select { |token| yield( token ) } :   
                              @token_source.to_a
-    @tokens.each_with_index { |t, i| t.index = i }
-    @last_marker = nil
-    @position = 
-      if first_token = @tokens.find { |t| t.channel == @channel }
-        @tokens.index( first_token )
-      else @tokens.length
-      end
+    @tokens.each_with_index do | t, i |
+      @channel_map[ t.channel ] << t
+      t.index = i
+    end
+    
+    @tokens_on_channel = @channel_map[ @channel ]
+    @cursor = 0
+    
     return self
   end
   
@@ -839,20 +840,25 @@ class CommonTokenStream
   # 
   def tune_to( channel )
     @channel = channel
+    @tokens_on_channel = @channel_map[ @channel ]
+    @cursor = 0
+    self
+  end
+  
+  def position
+    t = @tokens_on_channel.at( @cursor )
+    t ? t.index : @tokens.length
   end
   
   def token_class
     @token_source.token_class
   rescue NoMethodError
-    @position == -1 and fill_buffer
     @tokens.empty? ? CommonToken : @tokens.first.class
   end
   
   alias index position
   
-  def size
-    @tokens.length
-  end
+  def size() @tokens.length end
   
   alias length size
   
@@ -862,9 +868,7 @@ class CommonTokenStream
   # rewind the stream to its initial state
   # 
   def reset
-    @position = 0
-    @position += 1 while token = @tokens[ @position ] and
-                         token.channel != @channel
+    @cursor = 0
     @last_marker = nil
     return self
   end
@@ -873,14 +877,14 @@ class CommonTokenStream
   # bookmark the current position of the input stream
   # 
   def mark
-    @last_marker = @position
+    @last_marker = @cursor
   end
   
   def release( marker = nil )
     # do nothing
   end
   
-  
+  # FIX
   def rewind( marker = @last_marker, release = true )
     seek( marker )
   end
@@ -889,7 +893,8 @@ class CommonTokenStream
   # saves the current stream position, yields to the block,
   # and then ensures the stream's position is restored before
   # returning the value of the block
-  #  
+  #
+  # - FIX -
   def hold( pos = @position )
     block_given? or return enum_for( :hold, pos )
     begin
@@ -905,10 +910,8 @@ class CommonTokenStream
   # advance the stream one step to the next on-channel token
   # 
   def consume
-    token = @tokens[ @position ] || EOF_TOKEN
-    if @position < @tokens.length
-      @position = future?( 2 ) || @tokens.length
-    end
+    token = @tokens_on_channel.fetch( @cursor, EOF_TOKEN )
+    @cursor < @tokens_on_channel.length and @cursor += 1
     return( token )
   end
   
@@ -917,8 +920,9 @@ class CommonTokenStream
   # note: seek does not check whether or not the
   #       token at the specified position is on-channel,
   #
-  def seek( index )
-    @position = index.to_i.bound( 0, @tokens.length )
+  # - FIX -
+  def seek( cursor_position )
+    @cursor = cursor_position.to_i.bound( 0, @tokens_on_channel.length )
     return self
   end
   
@@ -936,8 +940,16 @@ class CommonTokenStream
   # operates simillarly to #peek, but returns the full token object at look-ahead position +k+
   #
   def look( k = 1 )
-    index = future?( k ) or return nil
-    @tokens.fetch( index, EOF_TOKEN )
+    case k <=> 0
+    when 1
+      index = ( @cursor + k - 1 )
+    when -1
+      index = ( @cursor + k )
+      index < 0 and return( nil )
+    when 0
+      return nil
+    end
+    @tokens_on_channel.fetch( index, EOF_TOKEN )
   end
   
   alias >> look
@@ -949,50 +961,48 @@ class CommonTokenStream
   # returns the index of the on-channel token at look-ahead position +k+ or nil if no other
   # on-channel tokens exist
   # 
-  def future?( k = 1 )
-    @position == -1 and fill_buffer
-    
-    case
-    when k == 0 then nil
-    when k < 0 then past?( -k )
-    when k == 1 then @position
-    else
-      # since the stream only yields on-channel
-      # tokens, the stream can't just go to the
-      # next position, but rather must skip
-      # over off-channel tokens
-      ( k - 1 ).times.inject( @position ) do |cursor, |
-        begin
-          tk = @tokens.at( cursor += 1 ) or return( cursor )
-          # ^- if tk is nil (i.e. i is outside array limits)
-        end until tk.channel == @channel
-        cursor
-      end
-    end
-  end
-  
+  #def future?( k = 1 )
+  #  case
+  #  when k == 0 then nil
+  #  when k < 0  then past?( -k )
+  #  when k == 1 then 
+  #  else
+  #    # since the stream only yields on-channel
+  #    # tokens, the stream can't just go to the
+  #    # next position, but rather must skip
+  #    # over off-channel tokens
+  #    ( k - 1 ).times.inject( @position ) do |cursor, |
+  #      begin
+  #        tk = @tokens.at( cursor += 1 ) or return( cursor )
+  #        # ^- if tk is nil (i.e. i is outside array limits)
+  #      end until tk.channel == @channel
+  #      cursor
+  #    end
+  #  end
+  #end
   #
-  # returns the index of the on-channel token at look-behind position +k+ or nil if no other
-  # on-channel tokens exist before the current token
-  # 
-  def past?( k = 1 )
-    @position == -1 and fill_buffer
-    
-    case
-    when k == 0 then nil
-    when @position - k < 0 then nil
-    else
-      
-      k.times.inject( @position ) do |cursor, |
-        begin
-          cursor <= 0 and return( nil )
-          tk = @tokens.at( cursor -= 1 ) or return( nil )
-        end until tk.channel == @channel
-        cursor
-      end
-      
-    end
-  end
+  ##
+  ## returns the index of the on-channel token at look-behind position +k+ or nil if no other
+  ## on-channel tokens exist before the current token
+  ## 
+  #def past?( k = 1 )
+  #  @position == -1 and fill_buffer
+  #  
+  #  case
+  #  when k == 0 then nil
+  #  when @position - k < 0 then nil
+  #  else
+  #    
+  #    k.times.inject( @position ) do |cursor, |
+  #      begin
+  #        cursor <= 0 and return( nil )
+  #        tk = @tokens.at( cursor -= 1 ) or return( nil )
+  #      end until tk.channel == @channel
+  #      cursor
+  #    end
+  #    
+  #  end
+  #end
   
   #
   # yields each token in the stream (including off-channel tokens)
@@ -1012,9 +1022,7 @@ class CommonTokenStream
   # 
   def each_on_channel( channel = @channel )
     block_given? or return enum_for( :each_on_channel, channel )
-    for token in @tokens
-      token.channel == channel and yield( token )
-    end
+    @channel_map[ channel ].each { | t | yield( t ) }
   end
   
   #
@@ -1027,15 +1035,8 @@ class CommonTokenStream
   # 
   def walk
     block_given? or return enum_for( :walk )
-    initial_position = @position
-    begin
-      while token = look and token.type != EOF
-        consume
-        yield( token )
-      end
-      return self
-    ensure
-      @position = initial_position
+    @tokens_on_channel[ @cursor .. -1 ].each do | t |
+      yield( t )
     end
   end
   
@@ -1050,7 +1051,7 @@ class CommonTokenStream
   def tokens( start = nil, stop = nil )
     stop.nil?  || stop >= @tokens.length and stop = @tokens.length - 1
     start.nil? || stop < 0 and start = 0
-    tokens = @tokens[ start..stop ]
+    tokens = @tokens[ start .. stop ]
     
     if block_given?
       tokens.delete_if { |t| not yield( t ) }
@@ -1074,7 +1075,7 @@ class CommonTokenStream
   ###### Standard Conversion Methods ###############################
   def inspect
     string = "#<%p: @token_source=%p @ %p/%p" %
-      [ self.class, @token_source.class, @position, @tokens.length ]
+      [ self.class, @token_source.class, position, @tokens.length ]
     tk = look( -1 ) and string << " #{ tk.inspect } <--"
     tk = look( 1 ) and string << " --> #{ tk.inspect }"
     string << '>'
