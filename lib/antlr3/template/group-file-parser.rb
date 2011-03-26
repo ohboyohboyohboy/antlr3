@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 #
 # GroupFile.g
-# 
-# Generated using ANTLR version: 3.2.1-SNAPSHOT Jun 18, 2010 05:38:11
-# Ruby runtime library version: 1.7.5
+# --
+# Generated using ANTLR version: 3.2.1-SNAPSHOT Jul 31, 2010 19:34:52
+# Ruby runtime library version: 1.8.8
 # Input grammar file: GroupFile.g
-# Generated at: 2010-07-03 23:15:35
+# Generated at: 2011-03-26 15:54:23
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.7.5):
+Failed to load the ANTLR3 runtime library (version 1.8.8):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '~> 1.7.5' )
+    Gem.activate( 'antlr3', '~> 1.8.8' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -103,7 +103,7 @@ module GroupFile
     include TokenData
 
     begin
-      generated_using( "GroupFile.g", "3.2.1-SNAPSHOT Jun 18, 2010 05:38:11", "1.7.5" )
+      generated_using( "GroupFile.g", "3.2.1-SNAPSHOT Jul 31, 2010 19:34:52", "1.8.8" )
     rescue NoMethodError => error
       # ignore
     end
@@ -130,7 +130,7 @@ module GroupFile
       def unescape( text )
         text.gsub( /\\(?:([abefnrstv])|([0-7]{3})|x([0-9a-fA-F]{2})|(.))/ ) do
           if $1
-            case $1[ 0 ]
+            case $1[0]
             when ?a then "\a"
             when ?b then "\b"
             when ?e then "\e"
@@ -153,7 +153,7 @@ module GroupFile
         when TEMPLATE
           token.text.gsub( /\A<<<\r?\n?|\r?\n?>>>\Z/, '' )
         when STRING
-          unescape( token.text[ 1...-1 ] )
+          unescape( token.text[1...-1] )
         end
       end
       
@@ -227,8 +227,8 @@ module GroupFile
         end # loop for decision 2
 
       rescue ANTLR3::Error::RecognitionError => re
-        report_error( re )
-        recover( re )
+        report_error(re)
+        recover(re)
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -302,8 +302,8 @@ module GroupFile
         end
 
       rescue ANTLR3::Error::RecognitionError => re
-        report_error( re )
-        recover( re )
+        report_error(re)
+        recover(re)
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -388,8 +388,8 @@ module GroupFile
         end
 
       rescue ANTLR3::Error::RecognitionError => re
-        report_error( re )
-        recover( re )
+        report_error(re)
+        recover(re)
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -463,8 +463,8 @@ module GroupFile
 
         end
       rescue ANTLR3::Error::RecognitionError => re
-        report_error( re )
-        recover( re )
+        report_error(re)
+        recover(re)
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -517,8 +517,8 @@ module GroupFile
         end # loop for decision 9
 
       rescue ANTLR3::Error::RecognitionError => re
-        report_error( re )
-        recover( re )
+        report_error(re)
+        recover(re)
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -598,8 +598,8 @@ module GroupFile
 
         end
       rescue ANTLR3::Error::RecognitionError => re
-        report_error( re )
-        recover( re )
+        report_error(re)
+        recover(re)
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
@@ -658,7 +658,7 @@ if __FILE__ == $0 and ARGV.first != '--'
   # GroupFile.g
 
 
-    defined?( ANTLR3::Template::GroupFile::Lexer ) or require 'antlr3/template/group-file'
+    defined?(ANTLR3::Template::GroupFile::Lexer) or require 'antlr3/template/group-file'
     ANTLR3::Template::GroupFile::Parser.main( ARGV )
 
   # - - - - - - end action @parser::main - - - - - - -

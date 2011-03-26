@@ -3,7 +3,7 @@
 
 =begin      ::about::
 author:     Kyle Yetter <kcy5b@yahoo.com>
-created on: October 22, 2010
+created on: October 22, 2011
 purpose:    (program | library | utility script | ?)
 summary:    
 loads:      files required by this

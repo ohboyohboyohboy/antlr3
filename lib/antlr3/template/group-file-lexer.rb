@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 #
 # GroupFile.g
-# 
-# Generated using ANTLR version: 3.2.1-SNAPSHOT Jun 18, 2010 05:38:11
-# Ruby runtime library version: 1.7.5
+# --
+# Generated using ANTLR version: 3.2.1-SNAPSHOT Jul 31, 2010 19:34:52
+# Ruby runtime library version: 1.8.8
 # Input grammar file: GroupFile.g
-# Generated at: 2010-07-03 23:15:35
+# Generated at: 2011-03-26 15:54:23
 # 
 
 # ~~~> start load path setup
@@ -16,7 +16,7 @@ antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' << dir }.join( $/ )
   raise LoadError, <<-END.strip!
   
-Failed to load the ANTLR3 runtime library (version 1.7.5):
+Failed to load the ANTLR3 runtime library (version 1.8.8):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
@@ -46,7 +46,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '~> 1.7.5' )
+    Gem.activate( 'antlr3', '~> 1.8.8' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
@@ -89,7 +89,7 @@ module GroupFile
 
     
     begin
-      generated_using( "GroupFile.g", "3.2.1-SNAPSHOT Jun 18, 2010 05:38:11", "1.7.5" )
+      generated_using( "GroupFile.g", "3.2.1-SNAPSHOT Jul 31, 2010 19:34:52", "1.8.8" )
     rescue NoMethodError => error
       # ignore
     end
@@ -374,7 +374,7 @@ module GroupFile
         case alt_1
         when 1
           # at line 
-          if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek( 1 ) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
+          if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -411,7 +411,7 @@ module GroupFile
       
       # - - - - main rule block - - - -
       # at line 129:5: ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | '_' | 'A' .. 'Z' | '0' .. '9' )*
-      if @input.peek( 1 ) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
+      if @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
         @input.consume
       else
         mse = MismatchedSet( nil )
@@ -432,7 +432,7 @@ module GroupFile
         case alt_2
         when 1
           # at line 
-          if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek( 1 ) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
+          if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -793,7 +793,7 @@ module GroupFile
         case alt_11
         when 1
           # at line 
-          if @input.peek( 1 ).between?( 0x9, 0xa ) || @input.peek( 1 ).between?( 0xc, 0xd ) || @input.peek( 1 ) == 0x20
+          if @input.peek( 1 ).between?( 0x9, 0xa ) || @input.peek( 1 ).between?( 0xc, 0xd ) || @input.peek(1) == 0x20
             @input.consume
           else
             mse = MismatchedSet( nil )
@@ -805,7 +805,7 @@ module GroupFile
 
         else
           match_count_11 > 0 and break
-          eee = EarlyExit( 11 )
+          eee = EarlyExit(11)
 
 
           raise eee
@@ -920,7 +920,7 @@ module GroupFile
                        1, 11, 1, 12, 1, 13, 1, 14, 1, 15, 1, 16, 3, -1, 
                        1, 4, 1, 2, 2, -1, 1, 1 )
       SPECIAL = unpack( 24, -1 )
-      TRANSITION = [ 
+      TRANSITION = [
         unpack( 2, 15, 1, -1, 2, 15, 18, -1, 1, 15, 1, -1, 1, 13, 1, 14, 
                 2, -1, 1, 8, 1, 13, 1, 4, 1, 5, 1, 7, 1, -1, 1, 6, 2, -1, 
                 1, 14, 10, -1, 1, 2, 1, 3, 1, 12, 1, 9, 3, -1, 26, 10, 4, 
@@ -986,3 +986,5 @@ end # module Template
 end # module ANTLR3
 
 # - - - - - - end action @lexer::footer - - - - - - -
+
+

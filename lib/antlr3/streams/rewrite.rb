@@ -4,7 +4,7 @@
 =begin LICENSE
 
 [The "BSD licence"]
-Copyright (c) 2009-2010 Kyle Yetter
+Copyright (c) 2009-2011 Kyle Yetter
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -33,20 +33,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =end
 
 module ANTLR3
-
-=begin rdoc ANTLR3::TokenRewriteStream
-
-TokenRewriteStream is a specialized form of CommonTokenStream that provides simple stream editing functionality. By creating <i>rewrite programs</i>, new text output can be created based upon the tokens in the stream. The basic token stream itself is preserved, and text output is rendered on demand using the #to_s method.
-
-=end
-
-class TokenRewriteStream < CommonTokenStream
-
+module Rewrite
   unless defined?( RewriteOperation )
     RewriteOperation = Struct.new( :stream, :location, :text )
   end
 
-=begin rdoc ANTLR3::TokenRewriteStream::RewriteOperation
+=begin rdoc ANTLR3::Rewrite::RewriteOperation
 
 RewiteOperation objects represent some particular editing command that should
 be executed by a token rewrite stream at some time in future when the stream is
@@ -90,9 +82,8 @@ define specific implementations of stream edits.
       return "(%s @ %p : %p)" % [ name, location, text ]
     end
   end
-  
 
-=begin rdoc ANTLR3::TokenRewriteStream::InsertBefore
+=begin rdoc ANTLR3::Rewrite::InsertBefore
 
 Represents rewrite operation:
 
@@ -115,7 +106,7 @@ text content of the token at index <tt>op.index</tt>
     end
   end
   
-=begin rdoc ANTLR3::TokenRewriteStream::Replace
+=begin rdoc ANTLR3::Rewrite::Replace
 
 Represents rewrite operation:
 
@@ -153,7 +144,7 @@ indexed within the range <tt>op.index .. op.last_index</tt>
     
   end
   
-=begin rdoc ANTLR3::TokenRewriteStream::Delete
+=begin rdoc ANTLR3::Rewrite::Delete
 
 Represents rewrite operation:
 
@@ -360,10 +351,7 @@ and do not add any text to the rewrite buffer
   end
     
   attr_reader :programs
-
-  def initialize( token_source, options = {} )
-    super( token_source, options )
-    
+  def initialize_rewrite
     @programs = Hash.new do |programs, name|
       if name.is_a?( String )
         programs[ name ] = RewriteProgram.new( self, name )
@@ -373,6 +361,8 @@ and do not add any text to the rewrite buffer
     
     @last_rewrite_token_indexes = {}
   end
+  
+  private :initialize_rewrite
   
   def rewrite( program_name = 'default', range = nil )
     program = @programs[ program_name ]
@@ -419,6 +409,25 @@ and do not add any text to the rewrite buffer
     else name = 'default'
     end
     @programs[ name ].execute( *arguments )
+  end
+end
+
+=begin rdoc ANTLR3::TokenRewriteStream
+
+TokenRewriteStream is a specialized form of CommonTokenStream that
+provides simple stream editing functionality. By creating
+<i>rewrite programs</i>, new text output can be created based upon
+the tokens in the stream. The basic token stream itself is preserved,
+and text output is rendered on demand using the #to_s method.
+
+=end
+
+class TokenRewriteStream < CommonTokenStream
+  include Rewrite
+  
+  def initialize( token_source, options = {} )
+    super( token_source, options )
+    initialize_rewrite
   end
 end
 end

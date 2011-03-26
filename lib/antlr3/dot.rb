@@ -4,7 +4,7 @@
 =begin LICENSE
 
 [The "BSD licence"]
-Copyright (c) 2009-2010 Kyle Yetter
+Copyright (c) 2009-2011 Kyle Yetter
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

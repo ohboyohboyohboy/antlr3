@@ -4,7 +4,7 @@
 =begin LICENSE
 
 [The "BSD licence"]
-Copyright (c) 2009-2010 Kyle Yetter
+Copyright (c) 2009-2011 Kyle Yetter
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -793,9 +793,15 @@ class CommonTokenStream
       @source_name = options.fetch( :source_name ) {  @token_source.source_name rescue nil }
       tokens = @token_source.to_a
     end
+    
+    @channel_indices = Hash.new { | h, k | h[ k ] = [] }
+    
     @last_marker = nil
     @tokens = block_given? ? tokens.select { | t | yield( t, self ) } : tokens
-    @tokens.each_with_index { |t, i| t.index = i }
+    @tokens.each_with_index do | t, i |
+      @channel_indices[ t.channel ] << i
+      t.index = i
+    end
     @position = 
       if first_token = @tokens.find { |t| t.channel == @channel }
         @tokens.index( first_token )
