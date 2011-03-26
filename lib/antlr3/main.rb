@@ -145,19 +145,13 @@ class Main
         ANTLR3::FileStream.new( args[ 0 ] )
       else ANTLR3::FileStream.new( @input )
       end
-    case
-    when @ruby_prof
+    if @ruby_prof
       load_ruby_prof
       profile = RubyProf.profile do
         recognize( in_stream )
       end
       printer = RubyProf::FlatPrinter.new( profile )
       printer.print( @output )
-    when @profile
-      require 'profiler'
-      Profiler__.start_profile
-      recognize( in_stream )
-      Profiler__.print_profile
     else
       recognize( in_stream )
     end
@@ -457,7 +451,7 @@ class ParserMain < Main
     # token_stream = CommonTokenStream.new( lexer )
     parser = @parser_class.new( lexer, parser_options )
     result = parser.send( @parser_rule ) and present( result )
-    @profile and puts( parser.generate_report )
+    @profile and puts( parser.profile.generate_report )
   end
   
   def present( return_value )

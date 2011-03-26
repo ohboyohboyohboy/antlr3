@@ -68,7 +68,7 @@ module ParserEvents
   end
   
   def memoize( rule, start_index, success )
-    @debug_listener.memoize( rule, rule_start_index, sucess )
+    @debug_listener.memoize( rule, start_index, success )
     super
   end
 end
