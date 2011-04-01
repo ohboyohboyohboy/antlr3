@@ -4,7 +4,7 @@
 =begin LICENSE
 
 [The "BSD licence"]
-Copyright (c) 2009 Kyle Yetter
+Copyright (c) 2009-2011 Kyle Yetter
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -79,6 +79,13 @@ rescue LoadError
 end
 
 jar = ANTLR3.antlr_jar or fail( "cannot find antlr4ruby's customized ANTLR jar" )
+
+# Convert the Posix path to a proper Windows path, otherwise the Java runtime
+# will not find the antlr Jar file.
+# -- Thanks to Marco Soeima for this fix
+if /mswin32|cygwin|mingw|bccwin/ =~ RUBY_PLATFORM
+  jar = `cygpath -aw #{jar}`.strip
+end
 
 run = proc do | *args |
   exec( 'java', '-jar', jar, *args )

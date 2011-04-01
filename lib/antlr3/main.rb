@@ -80,7 +80,7 @@ module Options
     oparser = OptionParser.new do | o |
       o.separator 'Input Options:'
       
-      o.on( '-i', '--input "text to process"', doc( <<-END ) ) { |val| @input = val }
+      o.on( '-i', '-e', '--input "text to process"', doc( <<-END ) ) { |val| @input = val }
       | a string to use as direct input to the recognizer
       END
       
