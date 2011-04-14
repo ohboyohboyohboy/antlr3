@@ -83,7 +83,7 @@ jar = ANTLR3.antlr_jar or fail( "cannot find antlr4ruby's customized ANTLR jar" 
 # Convert the Posix path to a proper Windows path, otherwise the Java runtime
 # will not find the antlr Jar file.
 # -- Thanks to Marco Soeima for this fix
-if /mswin32|cygwin|mingw|bccwin/ =~ RUBY_PLATFORM
+if /cygwin/i =~ RUBY_PLATFORM
   jar = `cygpath -aw #{jar}`.strip
 end
 
