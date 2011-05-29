@@ -61,37 +61,36 @@ ANTLR provides for other language targets, such as Java and Python. It contains:
 
 1. Write an ANTLR grammar specification for a language
 
-   grammar SomeLanguage;
-   
-   options {
-     language = Ruby;    // <- this option must be set to Ruby
-     output   = AST;
-   }
-   
-   top: expr ( ',' expr )*
-      ;
-    
-   and so on...
+     grammar SomeLanguage;
+     
+     options {
+       language = Ruby;    // <- this option must be set to Ruby
+       output   = AST;
+     }
+     
+     top: expr ( ',' expr )*
+        ;
+      
+     and so on...
    
 
 2. Run the ANTLR tool with the antlr4ruby command to generate output:
    
-   antlr4ruby SomeLanguage.g
-   # creates:
-   #   SomeLanguageParser.rb
-   #   SomeLanguageLexer.rb
-   #   SomeLanguage.g
+     antlr4ruby SomeLanguage.g
+     # creates:
+     #   SomeLanguageParser.rb
+     #   SomeLanguageLexer.rb
+     #   SomeLanguage.g
 
 3. Try out the results directly, if you like:
 
-  # see how the lexer tokenizes some input
-  ruby SomeLanguageLexer.rb < path/to/source-code.xyz
-  
-  # check whether the parser successfully matches some input
-  ruby SomeLanguageParser.rb --rule=top < path/to/source-code.xyz
+      # see how the lexer tokenizes some input
+      ruby SomeLanguageLexer.rb < path/to/source-code.xyz
+      
+      # check whether the parser successfully matches some input
+      ruby SomeLanguageParser.rb --rule=top < path/to/source-code.xyz
 
--> Read up on the package documentation for more specific details
-   about loading the recognizers and using their class definitions
+Read up on the package documentation for more specific details about loading the recognizers and using their class definitions
 
 == ISSUES
 
