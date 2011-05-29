@@ -1,11 +1,10 @@
-==============================================================================
-Developing / Customizing The ANTLR for Ruby Project
+= Developing / Customizing The ANTLR for Ruby Project
+
   by Kyle Yetter  <kcy5b@yahoo.com>
   Originally Written on November 20, 2009
   Updated on November 3, 2010
-==============================================================================
 
-= Just a Quick Note
+== Just a Quick Note
 
 I'd love to keep this all intuitive and straight foward. However,
 this project differs from many typical ruby projects in that it
@@ -20,11 +19,7 @@ do yourself a favor and read through this guide. Feel free to
 drop any other specific questions to me via e-mail and
 I'll try to help you out as I can.
 
-==============================================================================
-Getting Started
-------------------------------------------------------------------------------
-
-= Setting Up the Project
+== Getting Started
 
 1. pull the repository
 
@@ -39,77 +34,74 @@ If you use a bash-flavored shell, you can do this by running:
 
   . ./project-env.sh
 
-
-= External Programs Used By the Project
+== External Programs Used By the Project
 
 general:
-  - git
-  - ruby 1.8.7
-  - ruby 1.9.1 (optional)
-  - java
-  - graphviz (optional)
+
+* git
+* ruby 1.8.7
+* ruby 1.9.1 (optional)
+* java
+* graphviz (optional)
   
 for documentation:
-  - pygmentize (optional)
+
+* pygmentize (optional)
   
 for building ANTLR:
-  - javac
-  - fastjar or jar
 
+* javac
+* fastjar or jar
+* maven 2 (mvn) (optional)
 
-==============================================================================
-Development Dependencies / Third-Party Gems
-------------------------------------------------------------------------------
+== Development Dependencies / Third-Party Gems
 
 * the ANTLR runtime library (everything under lib) has no external
   dependencies (and ideally will stay that way)
   
 * to allow contributors to take advantage of various useful third party
   libraries for testing, benchmarking, utilities, yada yada yada, the
-  project uses a third-party library, `isolate', to manage a project-specific
-  stash of gems
+  project uses a third-party library, ``isolate'', to manage a project-specific stash of gems
 
-* the file config/isolate.rb specifies the gems to fetch -- edit this to 
-  add/remove development dependencies
+* the file *config/isolate.rb* specifies the gems to fetch -- edit this
+  to add/remove development dependencies
   
 * the project configuration object, $project, which is defined in
-  config/project.rb, handles setting up the load path and loading
+  *config/project.rb*, handles setting up the load path and loading
   Isolate to set up the rubygems environment
   
 * more info on isolate can be found at the project's homepage:
 
-  isolate: http://github.com/jbarnette/isolate
+http://github.com/jbarnette/isolate
 
-==============================================================================
-Project Layout
-------------------------------------------------------------------------------
+== Project Layout
 
-= Top Level
+=== Top Level
 
-antlr3
-|-- bin       : contains the antlr4ruby program
-|-- config    : project development configuration scripts and data
-|-- dev-lib   : home of all extra libraries used for development purposes
-|-- doc       : custom documentation
-|-- java      : the modified ANTLR3 jar and RubyTarget.java
-|-- lib       : the ruby ANTLR runtime library
-|-- log       : archived benchmarking data and other project logs
-|-- notes     : random text notes I recorded throughout development
-|-- samples   : ANTLR grammar samples customized for ruby output
-|-- scripts   : development utilities
-|-- templates : the string template files ANTLR uses to write ruby
-|-- test      : a bunch of test code
-`-- vendor    : third party libraries used by the development tools
+  antlr3
+  |-- bin       : contains the antlr4ruby program
+  |-- config    : project development configuration scripts and data
+  |-- dev-lib   : home of all extra libraries used for development purposes
+  |-- doc       : custom documentation
+  |-- java      : the modified ANTLR3 jar and RubyTarget.java
+  |-- lib       : the ruby ANTLR runtime library
+  |-- log       : archived benchmarking data and other project logs
+  |-- notes     : random text notes I recorded throughout development
+  |-- samples   : ANTLR grammar samples customized for ruby output
+  |-- scripts   : development utilities
+  |-- templates : the string template files ANTLR uses to write ruby
+  |-- test      : a bunch of test code
+  `-- vendor    : third party libraries used by the development tools
 
-= Templates
+=== Templates
 
-templates
-|-- Ruby.stg           : all of the core templates for ruby output
-|-- AST.stg            : additional base templates used by tree code
-|-- ASTParser.stg      : more tree template code for AST-building parsers
-|-- ASTTreeParser.stg  : more tree template code for tree parsers
-|-- Dbg.stg            : debug-mode extensions to the core templates
-`-- ASTDbg.stg         : debug-mode extensions to the AST templates
+  templates
+  |-- Ruby.stg           : all of the core templates for ruby output
+  |-- AST.stg            : additional base templates used by tree code
+  |-- ASTParser.stg      : more tree template code for AST-building parsers
+  |-- ASTTreeParser.stg  : more tree template code for tree parsers
+  |-- Dbg.stg            : debug-mode extensions to the core templates
+  `-- ASTDbg.stg         : debug-mode extensions to the AST templates
 
 * These are the String Template group files that ANTLR uses to
   generate ruby code
@@ -122,14 +114,14 @@ templates
   output until the ANTLR jar is updated with the changes. The
   jar can be updated via:
   
-    rake antlr
+  rake antlr
 
-= Testing
+=== Testing
 
-test
-|-- unit        : plain old unit tests for runtime library components
-|-- functional  : tests of the functionality of ANTLR generated code
-`-- performance : specs that are used for benchmarking/profiling
+  test
+  |-- unit        : plain old unit tests for runtime library components
+  |-- functional  : tests of the functionality of ANTLR generated code
+  `-- performance : specs that are used for benchmarking/profiling
 
 * most unit tests and functional tests use a combined test/unit
   and rspec environment; the tests are written as Test::Unit::TestCase
@@ -139,7 +131,7 @@ test
   is a command-line tool that can be used to run tests in an
   `enhanced' fashion
 
-== Functional Tests
+==== Functional Tests
 
 * functional tests are grouped into a number of categories, each of
   which is represented as a subdirectory of test/functional. For
@@ -162,13 +154,12 @@ test
   are only recompiled when their source has changed or updates have been
   made to the ANTLR jar, so subsequent runs are usually pretty quick.
   
-==============================================================================
-Programs / Utility Scripts
-------------------------------------------------------------------------------
+== Programs / Utility Scripts
 
-= antlr4ruby
+=== antlr4ruby
 
 * a very simple script that wraps for the ANTLR3 tool
+
 * currently, it simply finds the absolute path of
   java/antlr-full-3.x.x.jar in the project directory
   and then essentially runs:
@@ -184,7 +175,7 @@ Programs / Utility Scripts
   ANTLR's options and arguments, or read up on the
   ANTLR tool's documentation at http://www.antlr.org
 
-= antlr-tests
+=== antlr-tests
 
 * used to run various types of tests in the project, summarize
   the results in tabular format, and dump enhanced information
@@ -207,7 +198,7 @@ Programs / Utility Scripts
   # run all parser-oriented tests
   antlr-tests functional parser
   
-= grammar-tools
+=== grammar-tools
 
 * a growing number of utilities for viewing properties of ANTLR
   grammar files, refactoring/porting ANTLR grammars for
@@ -231,10 +222,12 @@ Programs / Utility Scripts
   # print out help with a list of commands
   grammar-tools help
 
-= st-group
+=== st-group
 
 * utility commands for working with StringTemplate template group files
+
 * uses the same command style as grammar-tools
+
 * current notable commands:
 
   # break up a large STG file into a directory containing a single .st

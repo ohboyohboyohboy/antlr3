@@ -1,7 +1,9 @@
-ANTLR 3 for Ruby
-    by Kyle Yetter (kcy5b@yahoo.com)
-    http://antlr.ohboyohboyohboy.org
-    http://github.com/ohboyohboyohboy/antlr3
+= ANTLR 3 for Ruby
+
+==== by Kyle Yetter (kcy5b@yahoo.com)
+
+* http://antlr.ohboyohboyohboy.org
+* http://github.com/ohboyohboyohboy/antlr3
 
 == DESCRIPTION:
 

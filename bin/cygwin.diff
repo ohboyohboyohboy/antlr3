@@ -1,0 +1,15 @@
+--- antlr4ruby.bak	2011-03-31 11:09:22.496925400 +0100
++++ antlr4ruby	2011-03-31 11:26:17.930411000 +0100
+@@ -80,6 +80,12 @@
+ 
+ jar = ANTLR3.antlr_jar or fail( "cannot find antlr4ruby's customized ANTLR jar" )
+ 
++# Convert the Posix path to a proper Windows path, otherwise the Java runtime
++# will not find the antlr Jar file.
++if /mswin32|cygwin|mingw|bccwin/ =~ RUBY_PLATFORM
++  jar = `cygpath -aw #{jar}`.strip
++end
++
+ run = proc do | *args |
+   exec( 'java', '-jar', jar, *args )
+ end
