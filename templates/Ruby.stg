@@ -174,7 +174,11 @@ at_exit { <if(grammar.grammarIsRoot)>Parser<else><grammar.name><endif>.main( ARG
 /** How to generate a tree parser; same as parser except the
   * input stream is a different type.
   */
-treeParser(grammar, name, scopes, tokens, tokenNames, globalAction, rules, numRules, bitsets, labelType={<ASTLabelType>}, ASTLabelType="Object", superClass="ANTLR3::TreeParser", members={<actions.treeparser.members>}, filterMode) ::= <<
+treeParser(grammar, name, scopes, tokens, tokenNames, globalAction, rules,
+           numRules, bitsets, labelType={<ASTLabelType>}, ASTLabelType="Object", 
+          superClass={<if(filterMode)><if(buildAST)>ANTLR3::AST::TreeRewriter<else>ANTLR3::AST::TreeFilter<endif><else>ANTLR3::TreeParser<endif>}, 
+          members={<actions.treeparser.members>}, filterMode
+          ) ::= <<
 <if(grammar.grammarIsRoot)><autoloadDelegates()><endif>
 
 class <if(grammar.grammarIsRoot)>TreeParser<else><grammar.name><endif> \< <superClass>

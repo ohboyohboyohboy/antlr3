@@ -47,6 +47,8 @@ module AST
 
 autoload :Wizard, 'antlr3/tree/wizard'
 autoload :Visitor, 'antlr3/tree/visitor'
+autoload :TreeRewriter, 'antlr3/tree/rewriter'
+autoload :TreeFilter, 'antlr3/tree/filter'
 
 ####################################################################################################
 ############################################ Tree Parser ###########################################
@@ -166,10 +168,10 @@ class TreeParser < Recognizer
   
   def error_message( e )
     adaptor = e.input.adaptor
-    e.token = adaptor.token( e.node )
+    e.token = adaptor.token( e.symbol )
     e.token ||= create_token do | tok |
-      tok.type = adaptor.type_of( e.node )
-      tok.text = adaptor.text_of( e.node )
+      tok.type = adaptor.type_of( e.symbol )
+      tok.text = adaptor.text_of( e.symbol )
     end
     return super( e )
   end

@@ -150,7 +150,7 @@ class RecognitionError < StandardError
       @symbol.type
     when AST::TreeNodeStream
       adaptor = @input.adaptor
-      return adaptor.type( @symbol )
+      return adaptor.type_of( @symbol )
     else
       return @symbol
     end
