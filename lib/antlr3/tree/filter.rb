@@ -72,7 +72,7 @@ class TreeFilter <  ANTLR3::TreeParser
       # backtracking_level = 1
       # whichrule.call
       # backtracking_level = 0 
-    rescue ANTLR3::Error::BacktrackingFailed => re
+    rescue ANTLR3::Error::RecognitionError => re
       puts "RecognitionError catched"
     end
   end
