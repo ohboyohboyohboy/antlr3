@@ -10,7 +10,7 @@ require 'spec'
 include ANTLR3
 include ANTLR3::AST
 class TestTreePatternMatching < ANTLR3::Test::Functional
-  Tokens = TokenScheme.build %w(BLOCK METHOD_DECL ID ARG_DECL VAR_DECL ELIST EXPR INT FLOATLITERAL INTLITERAL VOIDLITERAL )
+  Tokens = TokenScheme.build %w(BLOCK METHOD_DECL ID ARG_DECL VAR_DECL ELIST EXPR INT TYPE)
   include Tokens
   
    
@@ -23,8 +23,7 @@ class TestTreePatternMatching < ANTLR3::Test::Functional
       filter = true;
     }
     tokens {
-      BLOCK; METHOD_DECL; ID; ARG_DECL; VAR_DECL; ELIST; EXPR; INT; 
-      FLOATLITERAL; INTLITERAL; VOIDLITERAL;
+      BLOCK; METHOD_DECL; ID; ARG_DECL; VAR_DECL; ELIST; EXPR; INT; TYPE;
     }
 
     @members { include ANTLR3::Test::CaptureOutput }
@@ -38,20 +37,15 @@ class TestTreePatternMatching < ANTLR3::Test::Functional
       ;
 
     enterMethod
-      : ^(METHOD_DECL type ID .*)  { self.capture "method {}"      }
+      : ^(METHOD_DECL TYPE ID .*)  { self.capture "method {"      }
       ;
 
     exitMethod
       : METHOD_DECL { self.capture "}"}
       ;
 
-    type 
-      : FLOATLITERAL
-      | INTLITERAL
-      | VOIDLITERAL
-      ;
     varDeclaration
-      : ^(VAR_DECL type .*)   { self.capture " varDeclaration "}
+      : ^((ARG_DECL|VAR_DECL) TYPE .*)   { self.capture " varDeclaration "}
       ;
 
     idref
@@ -74,12 +68,12 @@ class TestTreePatternMatching < ANTLR3::Test::Functional
     @wizard = Wizard.new( :adaptor => @adaptor, :token_scheme => Tokens )
     
     tree = @wizard.create(<<PATTERN17)
-(nil (VAR_DECL INTLITERAL[int] ID[i] (EXPR INT[9])) )
+(nil (VAR_DECL TYPE ID[i]  (EXPR INT[9]))  (METHOD_DECL TYPE[float] ID[f] (ARG_DECL TYPE[int] ID[x]) (ARG_DECL TYPE[float] ID[y]) (BLOCK (VAR_DECL TYPE[float] ID[i]) (BLOCK (VAR_DECL TYPE[float] ID[z] (EXPR (ID[x])))) (BLOCK (VAR_DECL TYPE[float] ID[z] (EXPR (ID[i]))))      ))) 
 PATTERN17
     nodes = ANTLR3::AST::CommonTreeNodeStream.new( tree )
     #nodes.token_stream = tokens
     walker = DefRef::TreeParser.new( nodes )
     walker.downup(tree)
-    walker.output.should == " varDeclaration "
+    walker.output.should == " varDeclaration method { varDeclaration  varDeclaration block { varDeclaration block { varDeclaration }block { varDeclaration }}}"
   end
 end
