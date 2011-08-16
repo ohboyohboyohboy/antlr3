@@ -10,7 +10,7 @@ require 'spec'
 include ANTLR3
 include ANTLR3::AST
 class TestTreePatternMatching < ANTLR3::Test::Functional
-  Tokens = TokenScheme.build %w(BLOCK METHOD_DECL ID ARG_DECL VAR_DECL ELIST EXPR INT )
+  Tokens = TokenScheme.build %w(BLOCK METHOD_DECL ID ARG_DECL VAR_DECL ELIST EXPR INT FLOATLITERAL INTLITERAL VOIDLITERAL )
   include Tokens
   
    
@@ -23,7 +23,8 @@ class TestTreePatternMatching < ANTLR3::Test::Functional
       filter = true;
     }
     tokens {
-      BLOCK; METHOD_DECL; ID; ARG_DECL; VAR_DECL; ELIST; EXPR; INT;
+      BLOCK; METHOD_DECL; ID; ARG_DECL; VAR_DECL; ELIST; EXPR; INT; 
+      FLOATLITERAL; INTLITERAL; VOIDLITERAL;
     }
 
     @members { include ANTLR3::Test::CaptureOutput }
@@ -45,12 +46,12 @@ class TestTreePatternMatching < ANTLR3::Test::Functional
       ;
 
     type 
-      : 'float'
-      | 'int'
-      | 'void'
+      : FLOATLITERAL
+      | INTLITERAL
+      | VOIDLITERAL
       ;
     varDeclaration
-      : ^(VAR_DECL  ID)   { self.capture " varDeclaration"}
+      : ^(VAR_DECL type .*)   { self.capture " varDeclaration "}
       ;
 
     idref
@@ -73,12 +74,12 @@ class TestTreePatternMatching < ANTLR3::Test::Functional
     @wizard = Wizard.new( :adaptor => @adaptor, :token_scheme => Tokens )
     
     tree = @wizard.create(<<PATTERN17)
-(nil (VAR_DECL  ID[i])  )
+(nil (VAR_DECL INTLITERAL[int] ID[i] (EXPR INT[9])) )
 PATTERN17
     nodes = ANTLR3::AST::CommonTreeNodeStream.new( tree )
     #nodes.token_stream = tokens
     walker = DefRef::TreeParser.new( nodes )
     walker.downup(tree)
-    walker.output.should == "enterBLOCK exitBLOCK "
+    walker.output.should == " varDeclaration "
   end
 end
