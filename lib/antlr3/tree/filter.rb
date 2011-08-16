@@ -51,6 +51,15 @@ dictates the tree traversal strategy. In its simplest form, a pattern
 matcher repeatedly tries to match patterns against subtrees. When it 
 finds a match, the pattern matcher triggers an action or tree rewrite.
 
+
+Basically if you have a tree grammar and filter=true then you will 
+get a downup method, that relies on rules topdown and bottomup. Invoking
+downup() will execute the code for all matching rules in topbottom while
+walking down the tree, then it will match the rules in bottomup when
+traversing the tree upwards.  
+
+ 
+http://www.antlr.org/wiki/display/ANTLR3/Tree+pattern+matching
 =end
 
 
