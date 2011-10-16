@@ -8,7 +8,7 @@ module Isolate
 
   # Duh.
 
-  VERSION = "3.1.0.pre.3"
+  VERSION = "3.2.0"
 
   # Disable Isolate. If a block is provided, isolation will be
   # disabled for the scope of the block.
@@ -19,7 +19,7 @@ module Isolate
 
   # What environment should be isolated? Consults environment
   # variables <tt>ISOLATE_ENV</tt>, <tt>RAILS_ENV</tt>, and
-  # <tt>RACK_ENV</tt>. Defaults to <tt>development"/tt> if none are
+  # <tt>RACK_ENV</tt>. Defaults to <tt>development"</tt> if none are
   # set.
 
   def self.env
@@ -32,6 +32,13 @@ module Isolate
 
   def self.sandbox
     @@sandbox
+  end
+
+  # Set the singleton. Intended for Hoe::Isolate and other tools that
+  # make their own.
+
+  def self.sandbox= o
+    @@sandbox = o
   end
 
   # Declare an isolated RubyGems environment, installed in +path+. Any
@@ -70,10 +77,11 @@ module Isolate
   end
 
   # Poke RubyGems, since we've probably monkeyed with a bunch of paths
-  # and suchlike. Deprecated and scheduled for removal in v4.0.0.
+  # and suchlike. Clears paths, loaded specs, and source indexes.
 
   def self.refresh # :nodoc:
-    $stderr.puts "Deprecated, removal in v4.0.0. Use Gem.refresh."
-    Gem.refresh
+    Gem.loaded_specs.clear
+    Gem.clear_paths
+    Gem::Specification.reset
   end
 end

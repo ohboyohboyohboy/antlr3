@@ -1,12 +1,10 @@
-h1. Overview
-
 A lexer's job is to take a stream of text and chop it up into a sequence of *tokens* -- little strings categorized with type codes like @NUMBER@ or @KEYWORD@. For more information on tokens and their characteristics, read ‹Tokens›.
 
 For a general overview of lexers, check out:
 * "Lexical Analysis (from Wikipedia)":http://en.wikipedia.org/wiki/Lexical_analysis
 * "ANTLRv3 Documentation":http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation
 
-h2. How Lexers Differ from Parsers
+h1. How Lexers Differ from Parsers
 
 I do not intend to cover many details of lexical analysis in this article. However, highlighting a few of the key differences between lexers and parsers should help clarify the documentation below for users who are new to ANTLR. 
 
