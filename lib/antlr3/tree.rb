@@ -980,7 +980,7 @@ class CommonTreeNodeStream
   include TreeNodeStream
   
   attr_accessor :token_stream
-  attr_reader :adaptor, :position
+  attr_reader :adaptor, :position, :last_marker
   
   def initialize( *args )
     options = args.last.is_a?( ::Hash ) ? args.pop : {}
