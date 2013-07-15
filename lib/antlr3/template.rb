@@ -209,9 +209,9 @@ private
 end
 
 class Context
-  VARIABLE_FORM = /^(@)?[a-z_\x80-\xff][\w\x80-\xff]*$/
-  SETTER_FORM = /^([a-z_\x80-\xff][\w\x80-\xff]*)=$/
-  ATTR_FORM = /^[a-z_\x80-\xff][\w\x80-\xff]*$/
+  VARIABLE_FORM = Regexp.new("/^(@)?[a-z_\\x80-\\xff][\w\\x80-\\xff]*$/", nil, 'n')
+  SETTER_FORM = Regexp.new("/^([a-z_\\x80-\\xff][\w\\x80-\\xff]*)=$/", nil, 'n')
+  ATTR_FORM = Regexp.new("/^[a-z_\\x80-\\xff][\w\\x80-\\xff]*$/", nil, 'n')
   
   class << self
     attr_accessor :group, :name, :parameters
