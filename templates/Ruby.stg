@@ -60,7 +60,7 @@ rescue LoadError
   
   # 3: try to activate the antlr3 gem
   begin
-    Gem.activate( 'antlr3', '~> <runtimeLibraryVersion()>' )
+    defined?( gem ) and gem( "antlr3", '~> <runtimeLibraryVersion()>' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end

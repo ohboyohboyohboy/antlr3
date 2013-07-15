@@ -7,7 +7,7 @@ def package_task( config, &build_block )
   package       = $project.package
   pkg_file      = package.name + config.ext
   core_files    = $project.package.files
-  transforms    = config.path_map
+  transforms    = config.relocations
   all_files     = ( core_files + config.files ).to_a
   target        = package.base( pkg_file )
   

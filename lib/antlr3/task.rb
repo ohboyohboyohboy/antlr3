@@ -111,6 +111,10 @@ class CompileTask < Rake::TaskLib
 
 #class CompileTask::GrammarSet
 class GrammarSet
+  if defined?( Rake::DSL )
+    include Rake::DSL
+  end
+  
   attr_accessor :antlr_jar, :debug,
                 :trace, :profile, :compile_options,
                 :java_options
@@ -227,6 +231,10 @@ class GrammarSet
 end
 
 class GrammarFile
+  if defined?( Rake::DSL )
+    include Rake::DSL
+  end
+  
   LANGUAGES = { 
     "ActionScript" => [ ".as" ],
     "CSharp2" => [ ".cs" ],

@@ -168,7 +168,13 @@ class PropertyGroup < ::Hash
       case value
       when YAML::DomainType
         define_special_member( key.to_s, value.type_id, value.value )
-      else define_member( key.to_s, value )
+      else
+        if key.to_s == 'path_map'
+          define_special_member( key.to_s, "pathmap", value )
+        else
+          define_member( key.to_s, value )
+        end
+        
       end
     end
     return( self )
@@ -254,7 +260,7 @@ module PropertyGroup::Expansion
   
   def expand!
     expand_hash( self )
-    expand( @path_map )
+    expand( path_map )
     return( self )
   end
   

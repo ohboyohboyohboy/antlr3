@@ -325,7 +325,7 @@ Main do
         return( self )
       end
       
-      def node_range( node, opts )
+      def node_range( node, opts = nil )
         range = node.token_range
         if opts
           opts[ :leading_whitespace ] and pre = tokens[ range.begin - 1 ] and

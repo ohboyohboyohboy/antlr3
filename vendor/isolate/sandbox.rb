@@ -4,6 +4,7 @@ require "isolate/events"
 require "rbconfig"
 require "rubygems/defaults"
 require "rubygems/uninstaller"
+require "rubygems/deprecate"
 
 module Isolate
 
@@ -12,6 +13,8 @@ module Isolate
 
   class Sandbox
     include Events
+
+    DEFAULT_PATH = "tmp/isolate" # :nodoc:
 
     attr_reader :entries # :nodoc:
     attr_reader :environments # :nodoc:
@@ -83,26 +86,13 @@ module Isolate
     def cleanup # :nodoc:
       fire :cleaning
 
-      installed = index.gems.values.sort
-      legit     = legitimize!
-      extra     = installed - legit
+      gem_dir = Gem.dir
 
-      unless extra.empty?
-        padding = Math.log10(extra.size).to_i + 1
-        format  = "[%0#{padding}d/%s] Nuking %s."
+      global, local = Gem::Specification.partition { |s| s.base_dir != gem_dir }
+      legit = legitimize!
+      extra = (local - legit) + (local & global)
 
-        extra.each_with_index do |e, i|
-          log format % [i + 1, extra.size, e.full_name]
-
-          Gem::DefaultUserInteraction.use_ui Gem::SilentUI.new do
-            Gem::Uninstaller.new(e.name,
-                                 :version     => e.version,
-                                 :ignore      => true,
-                                 :executables => true,
-                                 :install_dir => path).uninstall
-          end
-        end
-      end
+      self.remove(*extra)
 
       fire :cleaned
     end
@@ -116,12 +106,11 @@ module Isolate
       fire :disabling
 
       ENV.replace @old_env
+      $LOAD_PATH.replace @old_load_path
 
       @enabled = false
 
-      Gem.clear_paths
-      Gem.refresh
-
+      Isolate.refresh
       fire :disabled
 
       begin; return yield ensure enable end if block_given?
@@ -133,20 +122,31 @@ module Isolate
       return self if enabled?
       fire :enabling
 
-      @old_env = ENV.to_hash
+      @old_env       = ENV.to_hash
+      @old_load_path = $LOAD_PATH.dup
+
+      path = self.path
+
+      FileUtils.mkdir_p path
+      ENV["GEM_HOME"] = path
 
       unless system?
+        isolate_lib = File.expand_path "../..", __FILE__
+
+        # manually deactivate pre-isolate gems... is this just for 1.9.1?
+        $LOAD_PATH.reject! do |p|
+          p != isolate_lib && Gem.path.any? { |gp| p.include?(gp) }
+        end
 
         # HACK: Gotta keep isolate explicitly in the LOAD_PATH in
         # subshells, and the only way I can think of to do that is by
         # abusing RUBYOPT.
 
-        lib = File.expand_path "../..", __FILE__
-        dirname = Regexp.escape lib
-
-        unless ENV["RUBYOPT"] =~ /\s+-I\s*#{lib}\b/
-          ENV["RUBYOPT"] = "#{ENV['RUBYOPT']} -I#{lib}"
+        unless ENV["RUBYOPT"] =~ /\s+-I\s*#{Regexp.escape isolate_lib}\b/
+          ENV["RUBYOPT"] = "#{ENV['RUBYOPT']} -I#{isolate_lib}"
         end
+
+        ENV["GEM_PATH"] = path
       end
 
       bin = File.join path, "bin"
@@ -155,19 +155,13 @@ module Isolate
         ENV["PATH"] = [bin, ENV["PATH"]].join File::PATH_SEPARATOR
       end
 
-      paths = (ENV["GEM_PATH"] || "").split File::PATH_SEPARATOR
-      paths.push Gem.dir
-
-      paths.clear unless system?
-      paths.push path
-
-      Gem.clear_paths
-
-      ENV["GEM_HOME"] = path
-      ENV["GEM_PATH"] = paths.uniq.join File::PATH_SEPARATOR
       ENV["ISOLATED"] = path
 
-      Gem.refresh
+      if system? then
+        Gem.path.unshift path # HACK: this is just wrong!
+        Gem.path.uniq!        # HACK: needed for the previous line :(
+      end
+      Isolate.refresh
 
       @enabled = true
       fire :enabled
@@ -214,23 +208,19 @@ module Isolate
       fire :installing
 
       installable = entries.select do |e|
-        !Gem.available?(e.name, *e.requirement.as_list) &&
-          e.matches?(environment)
+        !e.specification && e.matches?(environment)
       end
 
       unless installable.empty?
         padding = Math.log10(installable.size).to_i + 1
         format  = "[%0#{padding}d/%s] Isolating %s (%s)."
 
-        FileUtils.mkdir_p path
-
         installable.each_with_index do |entry, i|
           log format % [i + 1, installable.size, entry.name, entry.requirement]
           entry.install
-
-          index.refresh!
-          Gem.source_index.refresh!
         end
+
+        Gem::Specification.reset
       end
 
       fire :installed
@@ -251,7 +241,6 @@ module Isolate
       $stderr.puts s if verbose?
     end
 
-
     def multiruby?
       @options.fetch :multiruby, true
     end
@@ -262,7 +251,7 @@ module Isolate
     end
 
     def path
-      base = @options.fetch :path, "tmp/isolate"
+      base = @options.fetch :path, DEFAULT_PATH
 
       unless @options.key?(:multiruby) && @options[:multiruby] == false
         suffix = "#{Gem.ruby_engine}-#{RbConfig::CONFIG['ruby_version']}"
@@ -270,6 +259,27 @@ module Isolate
       end
 
       File.expand_path base
+    end
+
+    def remove(*extra)
+      unless extra.empty?
+        padding = Math.log10(extra.size).to_i + 1
+        format  = "[%0#{padding}d/%s] Nuking %s."
+
+        extra.each_with_index do |e, i|
+          log format % [i + 1, extra.size, e.full_name]
+
+          Gem::DefaultUserInteraction.use_ui Gem::SilentUI.new do
+            uninstaller =
+              Gem::Uninstaller.new(e.name,
+                                   :version     => e.version,
+                                   :ignore      => true,
+                                   :executables => true,
+                                   :install_dir => e.base_dir)
+            uninstaller.uninstall
+          end
+        end
+      end
     end
 
     def system?
@@ -291,9 +301,20 @@ module Isolate
       specs = []
 
       deps.flatten.each do |dep|
-        spec = index.find_name(dep.name, dep.requirement).last
+        spec = case dep
+               when Gem::Dependency then
+                 begin
+                   dep.to_spec
+                 rescue Gem::LoadError
+                   nil
+                 end
+               when Isolate::Entry then
+                 dep.specification
+               else
+                 raise "unknown dep: #{dep.inspect}"
+               end
 
-        if spec
+        if spec then
           specs.concat legitimize!(spec.runtime_dependencies)
           specs << spec
         end
@@ -301,5 +322,9 @@ module Isolate
 
       specs.uniq
     end
+
+    dep_module = defined?(Gem::Deprecate) ? Gem::Deprecate : Deprecate
+    extend dep_module
+    deprecate :index, :none, 2011, 11
   end
 end

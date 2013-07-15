@@ -30,5 +30,5 @@ gem "ruby-prof", "0.7.3"
 gem "RedCloth", "4.2.2"
 
 # enhanced rdoc
-gem "yard", "0.6.1"
+gem "yard", "0.8.6"
 

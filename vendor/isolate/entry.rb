@@ -1,5 +1,4 @@
 require "isolate/events"
-require "isolate/installer"
 require "rubygems"
 require "rubygems/command"
 require "rubygems/dependency_installer"
@@ -68,7 +67,9 @@ module Isolate
 
     def activate
       fire :activating, :activated do
-        Gem.activate name, *requirement.as_list
+        spec = self.specification
+        raise Gem::LoadError, "Couldn't resolve: #{self}" unless spec
+        spec.activate
       end
     end
 
@@ -80,10 +81,15 @@ module Isolate
 
       begin
         fire :installing, :installed do
-          installer = Isolate::Installer.new @sandbox
 
-          Gem.sources += Array(options[:source]) if options[:source]
+          installer =
+            Gem::DependencyInstaller.new(:development   => false,
+                                         :generate_rdoc => false,
+                                         :generate_ri   => false,
+                                         :install_dir   => @sandbox.path)
+
           Gem::Command.build_args = Array(options[:args]) if options[:args]
+          Gem.sources += Array(options[:source])          if options[:source]
 
           installer.install @file || name, requirement
         end
@@ -106,10 +112,12 @@ module Isolate
       name == spec.name and requirement.satisfied_by? spec.version
     end
 
-    # The Gem::Specification for this entry.
+    # The Gem::Specification for this entry or nil if it isn't resolveable.
 
     def specification
-      Gem.source_index.find_name(name, requirement).first
+      Gem::Specification.find_by_name(name, requirement)
+    rescue Gem::LoadError
+      nil
     end
 
     # Updates this entry's environments, options, and
@@ -125,5 +133,11 @@ module Isolate
 
       self
     end
+
+    def to_s
+      "Entry[#{name.inspect}, #{requirement.to_s.inspect}]"
+    end
+
+    alias :inspect :to_s
   end
 end

@@ -68,7 +68,7 @@ package: !group
     files: !pathlist
       - dev-lib/dist/setup.rb
       - dev-lib/dist/pre-setup.rb
-    path_map:
+    relocations:
       - - lib/antlr3.rb
         - %f.pre
       - - java/*
@@ -83,7 +83,7 @@ package: !group
     dir:    !path pkg/gem
     ext:    .gem
     files:  !pathlist []
-    path_map:
+    relocations:
       - - dev-lib/dist/rakefile
         - rakefile
   
