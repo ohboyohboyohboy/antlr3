@@ -20,31 +20,36 @@ development_dependencies: [rspec]
 requirements: [java]
 required_ruby_version: ">= 1.8.7"
 
-doc: !group
-  yard: !path doc/api
+doc:
+  .type: group
+  yard: path:doc/api
   options:
     - '--incremental'
     - '-r'
     - 'README.txt'
     - '--protected'
     - '--private'
-  files: !pathlist
+  files:
+    .type: pathlist
     include:
       - lib/**/*.rb
     exclude:
       - lib/antlr3/token/*.rb
 
-guide: !group
-  input: !path doc/guide/source
-  output: !path doc/guide/html
+guide:
+  .type: group
+  input: path:doc/guide/source
+  output: path:doc/guide/html
   template: doc/guide/erb/template.erb
   menu: doc/guide/source/guide.yaml
   changelog: doc/guide/source/changelog.yaml
 
-package: !group
-  base: !path pkg
+package:
+  .type: group
+  base: path:pkg
   name: $(name)-$(version)
-  files: !pathlist
+  files:
+    .type: pathlist
     include:
       - bin/antlr4ruby
       - lib/**/*.rb
@@ -55,22 +60,25 @@ package: !group
       - samples/ANTLRv3Grammar.g
       - samples/JavaScript.g
       - samples/standard/**/*
-      - *.txt
+      - "*.txt"
       - java/antlr-full-$(antlr_version).jar
       - java/*.java
       - dev-lib/dist/rakefile
     exclude:
       - DEVELOPER-README.txt
       - lib/antlr3/token/*.rb
-  zip: !group
-    dir:   !path pkg/zip/$(name)-$(version)
+  zip:
+    .type: group
+    dir:   path:pkg/zip/$(name)-$(version)
     ext:   .zip
-    files: !pathlist
-      - dev-lib/dist/setup.rb
-      - dev-lib/dist/pre-setup.rb
+    files:
+      .type: pathlist
+      include: 
+        - dev-lib/dist/setup.rb
+        - dev-lib/dist/pre-setup.rb
     relocations:
       - - lib/antlr3.rb
-        - %f.pre
+        - "%f.pre"
       - - java/*
         - data/antlr4ruby/%f
       - - templates/*
@@ -78,11 +86,14 @@ package: !group
       - - samples/**/*
         - doc/%p
       - - dev-lib/dist/*
-        - %f
-  gem: !group
-    dir:    !path pkg/gem
+        - "%f"
+  gem:
+    .type: group
+    dir:    path:pkg/gem
     ext:    .gem
-    files:  !pathlist []
+    files:
+      .type: pathlist
+      include: []
     relocations:
       - - dev-lib/dist/rakefile
         - rakefile
@@ -90,28 +101,31 @@ package: !group
 #
 # important paths in the project tree
 #
-antlr: !pathmap
+antlr:
+  .type: pathmap
   jar: java/antlr-full-$(antlr_version).jar
   templates: java/org/antlr/codegen/templates/Ruby
   targets: java/org/antlr/codegen
   target: java/RubyTarget.java
 
-isolate: !pathmap
+isolate:
+  .type: pathmap
   config: config/isolate.rb
   gems: vendor/gems
 
-test: !pathmap
+test:
+  .type: pathmap
   unit: test/unit
   functional: test/functional
   performance: test/performance
   log: log/test.log
   results: log
   
-rake_tasks: !path dev-lib/tasks
-dev_lib: !path dev-lib
-lib: !path lib
-java: !path java
-functional_testing: !path test/functional
+rake_tasks: path:dev-lib/tasks
+dev_lib: path:dev-lib
+lib: path:lib
+java: path:java
+functional_testing: path:test/functional
 
 #
 # project file lists for various purposes
@@ -121,17 +135,24 @@ lib_jars:
   - antlr-runtime-$(antlr_version).jar
   - stringtemplate-$(antlr_version).jar
 
-unit_tests: !pathlist
-  - test/unit/*.rb
+unit_tests:
+  .type: pathlist
+  include:
+    - test/unit/*.rb
 
-functional_tests: !pathlist
-  - test/functional/*/*.rb
+functional_tests:
+  .type: pathlist
+  include:
+    - test/functional/*/*.rb
 
-templates: !pathlist
-  - templates/*.stg
+templates:
+  .type: pathlist
+  include:
+    - templates/*.stg
 
-grammars: !pathlist
-  - 
+grammars:
+  .type: pathlist
+  include: []
 
 #
 # project environment setup

@@ -1,5 +1,8 @@
 #!/usr/bin/ruby
-
+# encoding: utf-8
+#
+# author: Kyle Yetter
+#
 
 require 'erb'
 require 'antlr3'
@@ -209,9 +212,21 @@ private
 end
 
 class Context
-  VARIABLE_FORM = Regexp.new("/^(@)?[a-z_\\x80-\\xff][\w\\x80-\\xff]*$/", nil, 'n')
-  SETTER_FORM = Regexp.new("/^([a-z_\\x80-\\xff][\w\\x80-\\xff]*)=$/", nil, 'n')
-  ATTR_FORM = Regexp.new("/^[a-z_\\x80-\\xff][\w\\x80-\\xff]*$/", nil, 'n')
+  VARIABLE_FORM = /^(@)?[a-z_\\x80-\\xff][\w\\x80-\\xff]*$/
+  SETTER_FORM   = /^([a-z_\\x80-\\xff][\w\\x80-\\xff]*)=$/
+  ATTR_FORM     = /^[a-z_\\x80-\\xff][\w\\x80-\\xff]*$/
+  #if RUBY_VERSION =~ /^1\.8(?=\.|$)/
+  #  class_eval( <<-'END' )
+  #    VARIABLE_FORM = /^(@)?[a-z_\\x80-\\xff][\w\\x80-\\xff]*$/
+  #    SETTER_FORM   = /^([a-z_\\x80-\\xff][\w\\x80-\\xff]*)=$/
+  #    ATTR_FORM     = /^[a-z_\\x80-\\xff][\w\\x80-\\xff]*$/
+  #  END
+  #else
+  #  VARIABLE_FORM = Regexp.new( "/^(@)?[a-z_\\x80-\\xff][\w\\x80-\\xff]*$/", nil, 'n' )
+  #  SETTER_FORM   = Regexp.new( "/^([a-z_\\x80-\\xff][\w\\x80-\\xff]*)=$/", nil, 'n' )
+  #  ATTR_FORM     = Regexp.new( "/^[a-z_\\x80-\\xff][\w\\x80-\\xff]*$/", nil, 'n' )
+  #end
+  
   
   class << self
     attr_accessor :group, :name, :parameters

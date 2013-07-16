@@ -18,13 +18,14 @@ gem 'rubyforge', "2.0.4"
 gem 'rake', "0.8.7"
 
 # antlr tests use a rspec environment with a test/unit structure
-gem "rspec", "1.1.11"
+gem "rspec"#, "1.1.11"
 
 # code coverage
 gem "rcov", "0.9.6"
 
+
 # fast code profiling
-gem "ruby-prof", "0.7.3"
+gem "ruby-prof"
 
 # textile markup for documentation
 gem "RedCloth", "4.2.2"

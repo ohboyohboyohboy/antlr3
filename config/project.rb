@@ -165,16 +165,12 @@ class PropertyGroup < ::Hash
   
   def configure( settings )
     for key, value in settings
-      case value
-      when YAML::DomainType
-        define_special_member( key.to_s, value.type_id, value.value )
+      if Hash === value and value.key?( ".type" )
+        define_special_member( key.to_s, value.delete( ".type" ), value )
+      elsif value =~ /^path:(.*)$/
+        define_special_member( key.to_s, "path", $1 )
       else
-        if key.to_s == 'path_map'
-          define_special_member( key.to_s, "pathmap", value )
-        else
-          define_member( key.to_s, value )
-        end
-        
+        define_member( key, value )
       end
     end
     return( self )
@@ -369,7 +365,7 @@ class Project < PropertyGroup
     super( self )
     config = normalize( config )
     config[ 'name' ] ||= File.basename( base )
-    base = base.to_s.dup.freeze
+    base = base.to_s.dup
     define_member( 'base', base )
     
     load_path = config.delete( 'load_path' ) || []
