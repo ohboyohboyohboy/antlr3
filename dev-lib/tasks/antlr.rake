@@ -19,7 +19,7 @@ def jar_file( f, jar_dir, *deps, &action )
   
   if test( ?>, f, $antlr.jar )
     target_file = abs( f.pathmap( "#{ jar_dir }/%f" ) )
-    test( ?d, jar_dir ) or mkpath( jar_dir )
+    test( ?d, jar_dir ) or FileUtils.mkpath( jar_dir )
     cp( f, target_file )
     if f =~ /\.java/
       $jar_files.concat( 

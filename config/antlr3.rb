@@ -32,7 +32,7 @@ $proj = $project = Project.load( project_top, config_file ) do
   # extract the long-form description from the README
   def description
     @description ||= begin
-      readme = File.read( path( 'README.txt' ) )
+      readme = File.read( path( 'README.rdoc' ) )
       md = readme.match( /== DESCRIPTION:(.+?)\n== /m ) or
         fail( "can't find a description section in README.txt" )
       md[1].strip
@@ -48,7 +48,7 @@ $proj = $project = Project.load( project_top, config_file ) do
     )
     
     gem_config = package.gem
-    path_map = gem_config.path_map
+    relocations = gem_config.relocations
     
     Gem::Specification.new do | spec |
       for field in spec_fields
@@ -57,11 +57,11 @@ $proj = $project = Project.load( project_top, config_file ) do
       end
       
       spec.files = package_transform(
-        package.files.to_a + %w( Manifest.txt ), path_map
+        package.files.to_a + %w( Manifest.txt ), relocations
       )
       
       spec.test_files = package_transform(
-        unit_tests.to_a + functional_tests.to_a, path_map
+        unit_tests.to_a + functional_tests.to_a, relocations
       )
       
       spec.executables.push( *executables )
@@ -70,8 +70,7 @@ $proj = $project = Project.load( project_top, config_file ) do
   end
   
   def package_skeleton( package_dir, core_files, support_files, name_map )
-    defined?( Rake ) or require 'rake'
-    
+    defined?( Rake ) or extend_with_rake
     manifest = []
     mappings = []
     
@@ -97,7 +96,7 @@ $proj = $project = Project.load( project_top, config_file ) do
         mkpath( target )
       else
         mkpath( File.dirname( target ) )
-        File.exist?( target ) and rm( target )
+        File.exist?( target ) and rm_f( target )
         safe_ln( file, target )
       end
     end
@@ -177,6 +176,11 @@ $proj = $project = Project.load( project_top, config_file ) do
         puts( "Please answer `yes' or `no'" )
       end
     end
+  end
+  
+  def extend_with_rake
+    require 'rake'
+    extend( RakeFileUtils )
   end
 end
 

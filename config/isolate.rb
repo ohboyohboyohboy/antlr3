@@ -18,7 +18,7 @@ gem 'rubyforge', "2.0.4"
 gem 'rake', "0.8.7"
 
 # antlr tests use a rspec environment with a test/unit structure
-gem "rspec"#, "1.1.11"
+gem "rspec", "1.1.11"
 
 # code coverage
 gem "rcov", "0.9.6"

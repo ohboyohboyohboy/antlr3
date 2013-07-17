@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 $package_targets = []
+include RakeFileUtils
 
 def package_task( config, &build_block )
   package       = $project.package

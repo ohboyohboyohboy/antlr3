@@ -3,7 +3,7 @@
 # project meta-data used for various project tasks like building gem packages
 #
 name: antlr3
-version: "1.8.12"
+version: "1.8.13"
 antlr_version: "3.2.1"
 
 summary: |-
@@ -61,6 +61,7 @@ package:
       - samples/JavaScript.g
       - samples/standard/**/*
       - "*.txt"
+      - "*.rdoc"
       - java/antlr-full-$(antlr_version).jar
       - java/*.java
       - dev-lib/dist/rakefile
