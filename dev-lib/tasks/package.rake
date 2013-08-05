@@ -41,6 +41,8 @@ end
 
 
 namespace :package do
+  require 'rubygems'
+  require 'rubygems/package_task'
   
   package_task( $project.package.zip ) do
     parent, base = File.split( dir )
@@ -55,11 +57,14 @@ namespace :package do
     require 'rubygems/package_task'
     require 'rubygems/builder'
     
+    
     Dir.chdir( dir ) do
       Gem::PackageTask.new( $project.gem_spec ).define
+      
+      run_task( "gem" )
       #Gem::Builder.new( $project.gem_spec ).build
       
-      File.expand_path( file_name )
+      File.expand_path( File.join( 'pkg', file_name ) )
     end
   end
 

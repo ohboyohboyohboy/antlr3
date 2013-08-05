@@ -1,3 +1,8 @@
+=== 1.9.1 / 08-05-13
+
+* Bug Fixes:
+  - fixed runtime library version number in templates
+
 === 1.9.0 / 08-05-13
 
 * Minor Enhancements:

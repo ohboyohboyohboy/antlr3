@@ -85,10 +85,10 @@ update_file( 'lib/$(name)/version.rb' ) do | source |
 end
 
 update_file( 'templates/Ruby.stg' ) do | source |
-  group = StringTemplate::Group.parse( source )
-  template = group.templates[ 'runtimeLibraryVersion' ]
-  template.body_token.text[ template.body ] = next_version.to_s
-  group.source
+  source.sub(
+    /runtimeLibraryVersion\(\) ::= ".*?"/,
+    %(runtimeLibraryVersion() ::= "#{ next_version.to_s }")
+  )
 end
 
 write!

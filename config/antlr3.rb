@@ -35,7 +35,7 @@ $proj = $project = Project.load( project_top, config_file ) do
       readme = File.read( path( 'README.rdoc' ) )
       md = readme.match( /== DESCRIPTION:(.+?)\n== /m ) or
         fail( "can't find a description section in README.txt" )
-      md[1].strip
+      '==' << md[1].strip
     end
   end
   
@@ -44,7 +44,7 @@ $proj = $project = Project.load( project_top, config_file ) do
     require 'rubygems/specification'
     spec_fields = %w(
       name author email has_rdoc rubyforge_project summary
-      version description required_ruby_version homepage
+      version description required_ruby_version homepage license
     )
     
     gem_config = package.gem

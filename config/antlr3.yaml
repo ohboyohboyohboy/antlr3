@@ -3,8 +3,9 @@
 # project meta-data used for various project tasks like building gem packages
 #
 name: antlr3
-version: "1.9.0"
+version: "1.9.1"
 antlr_version: "3.5"
+license: "BSD"
 
 summary: |-
   Fully-featured ruby parser generation for ANTLR version 3.
