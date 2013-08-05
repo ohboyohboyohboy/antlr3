@@ -7,7 +7,9 @@
 
 == DESCRIPTION:
 
-Fully-featured ANTLR 3 parser generation for Ruby.
+Full power of Java's ANTLR 3 language recognition tool brought to Ruby.
+Generate lexers, parsers, tree parsers, source translators, and language analysis
+tools for use in Ruby applications. 
 
 ANTLR (ANother Tool for Language Recognition) is a tool that is used to generate
 code for performing a variety of language recognition tasks: lexing, parsing,

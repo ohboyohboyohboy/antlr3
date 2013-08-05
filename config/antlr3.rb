@@ -35,7 +35,7 @@ $proj = $project = Project.load( project_top, config_file ) do
       readme = File.read( path( 'README.rdoc' ) )
       md = readme.match( /== DESCRIPTION:(.+?)\n== /m ) or
         fail( "can't find a description section in README.txt" )
-      '==' << md[1].strip
+      md[ 1 ].strip.split( /\n\n/ ).first
     end
   end
   

@@ -3,7 +3,7 @@
 # project meta-data used for various project tasks like building gem packages
 #
 name: antlr3
-version: "1.9.1"
+version: "1.9.2"
 antlr_version: "3.5"
 license: "BSD"
 
