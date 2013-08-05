@@ -52,10 +52,13 @@ namespace :package do
   
   package_task( $project.package.gem ) do
     require 'rubygems'
-    require 'rubygems/builder.rb'
+    require 'rubygems/package_task'
+    require 'rubygems/builder'
     
     Dir.chdir( dir ) do
-      Gem::Builder.new( $project.gem_spec ).build
+      Gem::PackageTask.new( $project.gem_spec ).define
+      #Gem::Builder.new( $project.gem_spec ).build
+      
       File.expand_path( file_name )
     end
   end
