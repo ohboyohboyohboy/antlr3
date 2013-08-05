@@ -37,7 +37,7 @@ class Grammar
 end
 
 
-GrammarManager.add_default_compile_option( :debug_st, true )
+#GrammarManager.add_default_compile_option( :debug_st, true )
 
 class Functional
   def self.import( ruby_file )

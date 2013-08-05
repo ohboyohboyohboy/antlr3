@@ -17,6 +17,7 @@ gem 'rubyforge', "2.0.4"
 
 gem 'rake', "0.8.7"
 
+gem "test-unit", "~> 1.2"
 # antlr tests use a rspec environment with a test/unit structure
 gem "rspec", "1.1.11"
 
@@ -31,5 +32,5 @@ gem "ruby-prof"
 gem "RedCloth", "4.2.2"
 
 # enhanced rdoc
-gem "yard", "0.8.6"
+gem "yard"
 

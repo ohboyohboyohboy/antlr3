@@ -327,7 +327,7 @@ private
           bar.step( EXAMPLE_WEIGHT )
         end
       when SECTION
-        pipe.getc == SECTION and break
+        pipe.getc == SECTION and break 
       end
     end
   end

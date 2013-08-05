@@ -1,9 +1,66 @@
-group Ruby implements ANTLRCore;
+group Ruby;
 
 /******************************************************************************
  *********************  M A J O R   C O M P O N E N T S  **********************
  ******************************************************************************/
- 
+
+// System.Boolean.ToString() returns "True" and "False", but the proper C# literals are "true" and "false"
+// The Java version of Boolean returns "true" and "false", so they map to themselves here.
+booleanLiteral ::= [
+    "True":"true",
+    "False":"false",
+    "true":"true",
+    "false":"false",
+    default:"false"
+]
+
+action(name, code) ::= <<
+<if(code)>
+# - - - - @<name> action - - - -
+<code><\n>
+<endif>
+>>
+
+autoloadDelegates() ::= <<
+<if(grammar.directDelegates)>
+<grammar.directDelegates:{it| autoload :<it.name>, "<it.recognizerName>"<\n>}>
+<endif>
+>>
+
+delegateLexerRule(ruleDescriptor) ::= <<
+# delegated lexer rule <ruleDescriptor.name; format="lexerRule"> (<ruleDescriptor.name> in the grammar)
+def <ruleDescriptor.name; format="lexerRule"><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope()> )<endif>
+  <methodCall(del=ruleDescriptor.grammar, n={<ruleDescriptor.name; format="lexerRule">}, args=ruleDescriptor.parameterScope.attributes)>
+end
+>>
+
+rootClassName() ::= <<
+<if(grammar.grammarIsRoot)><grammar.name><else><grammar.composite.rootGrammar.name><endif>::<if(TREE_PARSER)>TreeParser<elseif(PARSER)>Parser<else>Lexer<endif>
+>>
+
+grammarClassName() ::= <<
+<gram.name>::<if(TREE_PARSER)>TreeParser<elseif(PARSER)>Parser<else>Lexer<endif>
+>>
+
+newDelegate(gram) ::= <<
+<gram.name>.new( <trunc(gram.delegators):{p|<p:delegateName()>, }>
+  self, @input, :state => @state<@delegateOptions()>
+)
+>>
+
+placeAction(scope, name) ::= <<
+<if(actions.(scope))>
+<if(actions.(scope).(name))>
+# - - - - - - begin action @<scope>::<name> - - - - - -
+<if(fileName)># <fileName><\n><endif>
+<actions.(scope).(name)>
+# - - - - - - end action @<scope>::<name> - - - - - - -<\n>
+<endif>
+<endif>
+>>
+
+runtimeLibraryVersion() ::= "1.8.1"
+
 /** The overall file structure of a recognizer; stores methods
   * for rules and cyclic DFAs plus support code.
   */
@@ -20,22 +77,22 @@ outputFile(LEXER, PARSER, TREE_PARSER, actionScope, actions, docComment, recogni
 # Ruby runtime library version: <runtimeLibraryVersion()>
 # Input grammar file: <fileName>
 # Generated at: <generatedTimestamp>
-# 
+#
 
-# ~~~\> start load path setup
+# ~~~> start load path setup
 this_directory = File.expand_path( File.dirname( __FILE__ ) )
 $LOAD_PATH.unshift( this_directory ) unless $LOAD_PATH.include?( this_directory )
 
 antlr_load_failed = proc do
   load_path = $LOAD_PATH.map { |dir| '  - ' \<\< dir }.join( $/ )
   raise LoadError, \<\<-END.strip!
-  
+
 Failed to load the ANTLR3 runtime library (version <runtimeLibraryVersion()>):
 
 Ensure the library has been installed on your system and is available
 on the load path. If rubygems is available on your system, this can
 be done with the command:
-  
+
   gem install antlr3
 
 Current load path:
@@ -45,53 +102,86 @@ Current load path:
 end
 
 defined?( ANTLR3 ) or begin
-  
+
   # 1: try to load the ruby antlr3 runtime library from the system path
   require 'antlr3'
-  
+
 rescue LoadError
-  
+
   # 2: try to load rubygems if it isn't already loaded
   defined?( Gem ) or begin
     require 'rubygems'
   rescue LoadError
     antlr_load_failed.call
   end
-  
+
   # 3: try to activate the antlr3 gem
   begin
-    defined?( gem ) and gem( "antlr3", '~> <runtimeLibraryVersion()>' )
+    defined?( gem ) and gem( 'antlr3', '~> <runtimeLibraryVersion()>' )
   rescue Gem::LoadError
     antlr_load_failed.call
   end
-  
+
   require 'antlr3'
-  
+
 end
 # \<~~~ end load path setup
 
-<placeAction(scope="all", name="header")>
-<placeAction(scope=actionScope,name="header")>
+<if(actions.all)>
+<if(actions.all.header)>
+# - - - - - - begin action @all::header - - - - - -
+<if(fileName)># <fileName><\n><endif>
+<actions.all.header>
+# - - - - - - end action @all::header - - - - - - -<\n>
+<endif>
+<endif>
+<if(actions.(actionScope))>
+<if(actions.(actionScope).header)>
+# - - - - - - begin action @<actionScope>::header - - - - - -
+<if(fileName)># <fileName><\n><endif>
+<actions.(actionScope).header>
+# - - - - - - end action @<actionScope>::header - - - - - - -<\n>
+<endif>
+<endif>
 
 <if(recognizer.grammar.grammarIsRoot)>
-<rootGrammarOutputFile()>
+<rootGrammarOutputFile(...)>
 <else>
 <delegateGrammarOutputFile()>
 <endif>
 
-<placeAction(scope=actionScope,name="footer")>
-<placeAction(scope="all", name="footer")>
+<if(actions.(actionScope))>
+<if(actions.(actionScope).footer)>
+# - - - - - - begin action @<actionScope>::footer - - - - - -
+<if(fileName)># <fileName><\n><endif>
+<actions.(actionScope).footer>
+# - - - - - - end action @<actionScope>::footer - - - - - - -<\n>
+<endif>
+<endif>
+<if(actions.all)>
+<if(actions.all.footer)>
+# - - - - - - begin action @all::footer - - - - - -
+<if(fileName)># <fileName><\n><endif>
+<actions.all.footer>
+# - - - - - - end action @all::footer - - - - - - -<\n>
+<endif>
+<endif>
 
+<if(actions.(actionScope))>
 <if(actions.(actionScope).main)>
 if __FILE__ == $0 and ARGV.first != '--'
-  <placeAction(scope=actionScope,name="main")>
+  # - - - - - - begin action @<actionScope>::main - - - - - -
+  <if(fileName)># <fileName><\n><endif>
+  <actions.(actionScope).main>
+  # - - - - - - end action @<actionScope>::main - - - - - - -<\n>
 end
+<endif>
 <endif>
 >>
 
 tokenDataModule() ::= <<
 # TokenData defines all of the token type integer values
-# as constants, which will be included in all 
+# as constants, which will be included in all
 # ANTLR-generated recognizers.
 const_defined?( :TokenData ) or TokenData = ANTLR3::TokenScheme.new
 
@@ -99,7 +189,7 @@ module TokenData
 <if(tokens)>
 
   # define the token constants
-  define_tokens( <tokens:{:<it.name> => <it.type>}; anchor, wrap="\n", separator=", "> )
+  define_tokens( <tokens:{it | :<it.name> => <it.type>}; anchor, wrap="\n", separator=", "> )
 
 <endif>
 <if(tokenNames)>
@@ -110,21 +200,21 @@ module TokenData
   # this is necessary because anonymous tokens, which are
   # created from literal values in the grammar, do not
   # have descriptive names
-  register_names( <tokenNames:{<it>}; separator=", ", anchor, wrap="\n"> )
+  register_names( <tokenNames:{it | <it>}; separator=", ", anchor, wrap="\n"> )
 
 <endif>
-  
-  <placeAction(scope="token",name="scheme")>
-  <placeAction(scope="token",name="members")>
+
+  <placeAction(scope="token", name="scheme",...)>
+  <placeAction(scope="token", name="members",...)>
 end<\n>
 >>
 
 rootGrammarOutputFile() ::= <<
 module <recognizer.grammar.name>
-  <placeAction(scope="module",name="head")>
-  <tokenDataModule()>
+  <placeAction(scope="module", name="head", ...)>
+  <tokenDataModule(...)>
   <recognizer>
-  <placeAction(scope="module",name="foot")>
+  <placeAction(scope="module", name="foot", ...)>
 end
 >>
 
@@ -163,7 +253,7 @@ parser(
 <if(grammar.grammarIsRoot)><autoloadDelegates()><endif>
 
 class <if(grammar.grammarIsRoot)>Parser<else><grammar.name><endif> \< <superClass>
-  <parserBody(inputStreamType="ANTLR3::TokenStream", rewriteElementType="Token", actionScope="parser", ...)>
+  <parserBody(inputStreamType="ANTLR3::TokenStream", rewriteElementType="Token", actionScope="parser", filterMode="false", ...)>
 end # class <if(grammar.grammarIsRoot)>Parser<else><grammar.name><endif> \< <superClass>
 <if(!actions.(actionScope).main)>
 
@@ -174,7 +264,7 @@ at_exit { <if(grammar.grammarIsRoot)>Parser<else><grammar.name><endif>.main( ARG
 /** How to generate a tree parser; same as parser except the
   * input stream is a different type.
   */
-treeParser(grammar, name, scopes, tokens, tokenNames, globalAction, rules, numRules, bitsets, labelType={<ASTLabelType>}, ASTLabelType="Object", superClass="ANTLR3::TreeParser", members={<actions.treeparser.members>}, filterMode) ::= <<
+treeParser(grammar, name, scopes, tokens, tokenNames, globalAction, rules, numRules, bitsets, filterMode, labelType={<ASTLabelType>}, ASTLabelType="Object", superClass="ANTLR3::TreeParser", members={<actions.treeparser.members>}) ::= <<
 <if(grammar.grammarIsRoot)><autoloadDelegates()><endif>
 
 class <if(grammar.grammarIsRoot)>TreeParser<else><grammar.name><endif> \< <superClass>
@@ -186,15 +276,15 @@ at_exit { <if(grammar.grammarIsRoot)>TreeParser<else><grammar.name><endif>.main(
 <endif>
 >>
 
-parserBody(grammar, name, scopes, tokens, tokenNames, rules, numRules, bitsets, inputStreamType, superClass, filterMode, ASTLabelType="Object", labelType, members, rewriteElementType, actionScope) ::= <<
+parserBody(grammar, name, scopes, tokens, tokenNames, rules, numRules, bitsets, inputStreamType, superClass, filterMode, labelType, members, rewriteElementType, actionScope, ASTLabelType="Object") ::= <<
 @grammar_home = <grammar.name>
 <if(!grammar.grammarIsRoot)><autoloadDelegates()><\n><endif>
 <@mixins()>
 
-RULE_METHODS = [ <rules:{r|:<r.ruleName>}; separator=", ", wrap="\n", anchor> ].freeze
+RULE_METHODS = [ <rules:{r |:<r.ruleName>}; wrap, anchor, separator=", "> ].freeze
 
-<scopes:{<if(it.isDynamicGlobalScope)><globalAttributeScopeClass(scope=it)><\n><endif>}>
-<rules:{<ruleAttributeScopeClass(scope=it.ruleDescriptor.ruleScope)>}>
+<scopes:{it|<if(it.isDynamicGlobalScope)><globalAttributeScopeClass(it)><\n><endif>}>
+<rules:{it|<ruleAttributeScopeClass(it.ruleDescriptor.ruleScope)>}>
 <if(grammar.delegators)>
 masters( <grammar.delegators:{d|:<d.name>}; separator=", "> )<\n>
 <endif>
@@ -214,11 +304,11 @@ end
 require '<grammar.composite.rootGrammar.recognizerName>'
 include <grammar.composite.rootGrammar.name>::TokenData<\n><\n>
 <endif>
-<parserConstructor()>
+<parserConstructor(...)>
 <@additionalMembers()>
 <members>
 # - - - - - - - - - - - - Rules - - - - - - - - - - - - -
-<rules:{<it><\n>}>
+<rules:{it | <it><\n>}>
 
 <if(grammar.delegatedRules)>
 # - - - - - - - - - - Delegated Rules - - - - - - - - - - -
@@ -226,17 +316,17 @@ include <grammar.composite.rootGrammar.name>::TokenData<\n><\n>
 <endif>
 <if(cyclicDFAs)>
 # - - - - - - - - - - DFA definitions - - - - - - - - - - -
-<cyclicDFAs:{<cyclicDFA(it)>}>
+<cyclicDFAs:{it | <cyclicDFA(it)>}>
 
 private
 
 def initialize_dfas
   super rescue nil
-  <cyclicDFAs:{<cyclicDFAInit(it)>}>
+  <cyclicDFAs:{it | <cyclicDFAInit(it)>}>
 end
 
 <endif>
-<bitsets:{TOKENS_FOLLOWING_<it.name>_IN_<it.inName>_<it.tokenIndex> = Set[ <it.tokenTypes:{<it>}; separator=", "> ]<\n>}>
+<bitsets:{it|TOKENS_FOLLOWING_<it.name; format="tokenLabel">_IN_<it.inName>_<it.tokenIndex> = Set[ <it.tokenTypes:{it|<it>}; separator=", "> ]<\n>}>
 >>
 
 parserConstructor() ::= <<
@@ -245,8 +335,8 @@ def initialize( <grammar.delegators:{g|<g:delegateName()>, }>input, options = {}
 <if(memoize)><if(grammar.grammarIsRoot)>
   @state.rule_memory = {}
 <endif><endif>
-  <scopes:{<if(it.isDynamicGlobalScope)><globalAttributeScopeStack(scope=it)><\n><endif>}><rules:{<ruleAttributeScopeStack(scope=it.ruleDescriptor.ruleScope)>}>
-  <placeAction(scope=actionScope,name="init")>
+  <scopes:{it|<if(it.isDynamicGlobalScope)><globalAttributeScopeStack(it)><\n><endif>}><rules:{it | <ruleAttributeScopeStack(it.ruleDescriptor.ruleScope)>}>
+  <placeAction(scope=actionScope, name="init", ...)>
   <grammar.delegators:{g|@<g:delegateName()> = <g:delegateName()><\n>}><grammar.directDelegates:{g|@<g:delegateName()> = <newDelegate(g)><\n>}><last(grammar.delegators):{g|@parent = @<g:delegateName()><\n>}><@init()>
 end
 >>
@@ -263,17 +353,17 @@ end
   * need to be in a rule by themselves.
   */
 synpredRule(ruleName, ruleDescriptor, block, description, nakedBlock) ::= <<
-# 
+#
 # syntactic predicate <ruleName>
-# 
+#
 # (in <fileName>)
 # <description>
-# 
+#
 # This is an imaginary rule inserted by ANTLR to
 # implement a syntactic predicate decision
-# 
-def <ruleName><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope(scope=it)> )<endif>
-  <traceIn()><ruleLabelDefs()>
+#
+def <ruleName><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope()> )<endif>
+  <traceIn()><ruleLabelDefs(desc=ruleDescriptor)>
   <block>
 ensure
   <traceOut()>
@@ -285,18 +375,22 @@ end
   * type data aggregates required for multiple return values.
   */
 rule(ruleName, ruleDescriptor, block, emptyRule, description, exceptions, finally, memoize) ::= <<
-<returnScope(scope=ruleDescriptor.returnScope)>
+<returnScope(...)>
 
-# 
+#
 # parser rule <ruleName>
-# 
+#
 # (in <fileName>)
 # <description>
-# 
-def <ruleName><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope(scope=it)> )<endif>
-  <traceIn()><ruleScopeSetUp()><ruleDeclarations()><ruleLabelDefs()><action(name="init", code=ruleDescriptor.actions.init)>
+#
+def <ruleName><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope()> )<endif>
+  <traceIn()>
+  <ruleScopeSetUp(...)>
+  <ruleDeclarations(...)>
+  <ruleLabelDefs(desc=ruleDescriptor)>
+  <action(name="init", code=ruleDescriptor.actions.init)>
   <@body><ruleBody()><@end>
-  
+
   return <ruleReturnValue()>
 end
 <if(ruleDescriptor.modifier)>
@@ -307,8 +401,8 @@ end
 
 delegateRule(ruleDescriptor) ::= <<
 # delegated rule <ruleDescriptor.name>
-def <ruleDescriptor.name><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope(scope=it)> )<endif>
-  <methodCall(del=ruleDescriptor.grammar, n=ruleDescriptor.name, args={<ruleDescriptor.parameterScope.attributes:{<it.name>}>})>
+def <ruleDescriptor.name><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope()> )<endif>
+  <methodCall(del=ruleDescriptor.grammar, n=ruleDescriptor.name, args={<ruleDescriptor.parameterScope.attributes:{it | <it.name>}>})>
 end
 >>
 // HELPERS
@@ -327,16 +421,16 @@ initializeDelegator() ::= <<
 @<g:delegateName()> = <g:delegateName()>
 >>
 
-altSwitchCase() ::= <<
-when <i>
+altSwitchCase(altNum,alt) ::= <<
+when <altNum>
   <@prealt()>
-  <it>
+  <alt>
 >>
 
 blockBody() ::= <<
 <@decision><decision><@end>
 case alt_<decisionNumber>
-<alts:altSwitchCase(); separator="\n">
+<alts:{a | <altSwitchCase(i,a)>}; separator="\n">
 end
 >>
 
@@ -351,35 +445,43 @@ while true # decision <decisionNumber>
   alt_<decisionNumber> = <maxAlt>
   <@decisionBody><decision><@end>
   case alt_<decisionNumber>
-  <alts:altSwitchCase(); separator="\n">
+  <alts:{a | <altSwitchCase(i,a)>}; separator="\n">
   else
     break # out of loop for decision <decisionNumber>
   end
 end # loop for decision <decisionNumber>
 >>
 
-delegateName() ::= <<
-<if(it.label)><it.label; format="label"><else><it.name; format="snakecase"><endif>
+delegateName(d) ::= <<
+<if(d.label)><d.label; format="label"><else><d.name; format="snakecase"><endif>
 >>
 
-element() ::= <<
-<it.el><\n>
+element(e) ::= <<
+<e.el><\n>
 >>
 
 execForcedAction(action) ::= "<action>"
 
-globalAttributeScopeClass(scope) ::= <<
-<if(scope.attributes)>@@<scope.name> = Scope( <scope.attributes:{<it.decl; format="rubyString">}; separator=", "> )<\n><endif>
->>
+globalAttributeScopeClass(scope) ::= <%
+<if(scope)>
+<if(scope.attributes)>
+@@<scope.name> = Scope(
+  <scope.attributes:{it| <it.decl; format="rubyString">}; separator=", "> )<\n>
+<endif>
+<endif>
+%>
 
-globalAttributeScopeStack(scope) ::= <<
-<if(scope.attributes)>@<scope.name>_stack = []<\n><endif>
->>
+globalAttributeScopeStack(scope) ::= <%
+<if(scope)>
+<if(scope.attributes)>@<scope.name>_stack = []<\n>
+<endif>
+<endif>
+%>
 
 noRewrite(rewriteBlockLevel, treeLevel) ::= ""
 
 parameterScope(scope) ::= <<
-<scope.attributes:{<it.decl>}; separator=", ">
+<scope.attributes:{it | <it.decl>}; separator=", ">
 >>
 
 positiveClosureBlockLoop() ::= <<
@@ -388,7 +490,7 @@ while true
   alt_<decisionNumber> = <maxAlt>
   <@decisionBody><decision><@end>
   case alt_<decisionNumber>
-  <alts:altSwitchCase(); separator="\n">
+  <alts:{a | <altSwitchCase(i,a)>}; separator="\n">
   else
     match_count_<decisionNumber> > 0 and break
     <ruleBacktrackFailure()>
@@ -400,11 +502,15 @@ while true
 end<\n>
 >>
 
-returnScope(scope) ::= <<
+returnScope(ruleDescriptor) ::= <%
 <if(ruleDescriptor.hasMultipleReturnValues)>
-<ruleDescriptor:returnStructName(r=it)> = define_return_scope <scope.attributes:{:<it.decl>}; separator=", ">
+<if(ruleDescriptor.returnScope)>
+<returnStructName(r=ruleDescriptor)> = define_return_scope <ruleDescriptor.returnScope.attributes:{it | :<it.decl>}; separator=", ">
+<else>
+<returnStructName(r=ruleDescriptor)> = define_return_scope
 <endif>
->>
+<endif>
+%>
 
 returnStructName(r) ::= "<r.name; format=\"camelcase\">ReturnValue"
 
@@ -432,7 +538,7 @@ begin
 <if(!emptyRule)>
 <if(actions.(actionScope).rulecatch)>
 
-# - - - - - - - - @rulecatch - - - - - - - - 
+# - - - - - - - - @rulecatch - - - - - - - -
 <actions.(actionScope).rulecatch>
 <else>
 rescue ANTLR3::Error::RecognitionError => re
@@ -448,7 +554,7 @@ ensure
 end
 >>
 
-ruleReturnValue() ::= <<
+ruleReturnValue() ::= <%
 <if(!ruleDescriptor.isSynPred)>
 <if(ruleDescriptor.hasReturnValue)>
 <if(ruleDescriptor.hasSingleReturnValue)>
@@ -458,7 +564,7 @@ return_value
 <endif>
 <endif>
 <endif>
->>
+%>
 
 
 ruleDeclarations() ::= <<
@@ -468,7 +574,9 @@ return_value = <returnStructName(r=ruleDescriptor)>.new
 # $rule.start = the first token seen before matching
 return_value.start = @input.look<\n>
 <else>
+<if(ruleDescriptor.returnScope)>
 <ruleDescriptor.returnScope.attributes:{a|<a.name> = <if(a.initValue)><a.initValue><else>nil<endif><\n>}>
+<endif>
 <endif>
 <if(memoize)>
 <ruleDescriptor.name>_start_index = @input.index<\n>
@@ -479,22 +587,21 @@ ruleLabelDef(label) ::= <<
 <label.label.text; format="label"> = nil<\n>
 >>
 
-ruleLabelDefs() ::= <<
+ruleLabelDefs(desc) ::= <<
 <[
-    ruleDescriptor.tokenLabels,
-    ruleDescriptor.tokenListLabels,
-    ruleDescriptor.wildcardTreeLabels,
-    ruleDescriptor.wildcardTreeListLabels,
-    ruleDescriptor.ruleLabels,
-    ruleDescriptor.ruleListLabels
- ]:
- {<it.label.text; format="label"> = nil<\n>}
-><[
-    ruleDescriptor.tokenListLabels,
-    ruleDescriptor.ruleListLabels,
-    ruleDescriptor.wildcardTreeListLabels
-  ]:
-  {list_of_<it.label.text; format="label"> = []<\n>}
+    desc.tokenLabels,
+    desc.tokenListLabels,
+    desc.wildcardTreeLabels,
+    desc.wildcardTreeListLabels,
+    desc.ruleLabels,
+    desc.ruleListLabels
+ ]:{it|<if(it.label)><it.label.text; format="label"> = nil<\n><endif>}
+>
+<[
+    desc.tokenListLabels,
+    desc.ruleListLabels,
+    desc.wildcardTreeListLabels
+  ]:{it|<if(it.label)>list_of_<it.label.text; format="label"> = []<\n><endif>}
 >
 >>
 
@@ -539,11 +646,11 @@ end<\n>
 
 
 ruleScopeSetUp() ::= <<
-<ruleDescriptor.useScopes:{@<it>_stack.push( @@<it>.new )<\n>}><ruleDescriptor.ruleScope:{@<it.name>_stack.push( @@<it.name>.new )<\n>}>
+<ruleDescriptor.useScopes:{it | @<it>_stack.push( @@<it>.new )<\n>}><ruleDescriptor.ruleScope:{it | @<it.name>_stack.push( @@<it.name>.new )<\n>}>
 >>
 
 ruleScopeCleanUp() ::= <<
-<ruleDescriptor.useScopes:{@<it>_stack.pop<\n>}><ruleDescriptor.ruleScope:{@<it.name>_stack.pop<\n>}>
+<ruleDescriptor.useScopes:{it | @<it>_stack.pop<\n>}><ruleDescriptor.ruleScope:{it | @<it.name>_stack.pop<\n>}>
 >>
 
 memoize() ::= <<
@@ -576,7 +683,7 @@ alt_<decisionNumber> = <maxAlt>
 <decls>
 <@decision><decision><@end>
 case alt_<decisionNumber>
-<alts:altSwitchCase(); separator="\n">
+<alts:{a | <altSwitchCase(i,a)>}; separator="\n">
 end
 >>
 
@@ -632,19 +739,19 @@ alt(elements,altNum,description,autoAST,outerAlt,treeLevel,rew) ::= <<
 >>
 
 /** match a token optionally with a label in front */
-tokenRef(token,label,elementIndex,hetero) ::= <<
-<if(label)><label; format="label"> = <endif>match( <token>, TOKENS_FOLLOWING_<token>_IN_<ruleName>_<elementIndex> )
+tokenRef(token,label,elementIndex,terminalOptions) ::= <<
+<if(label)><label; format="label"> = <endif>match( <token; format="tokenLabel">, TOKENS_FOLLOWING_<token; format="tokenLabel">_IN_<ruleName>_<elementIndex> )
 >>
 
 /** ids+=ID */
-tokenRefAndListLabel(token,label,elementIndex,hetero) ::= <<
+tokenRefAndListLabel(token,label,elementIndex,terminalOptions) ::= <<
 <tokenRef(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
 
 /* TRY THIS:
-tokenRefAndListLabel(token,label,elementIndex,hetero) ::= <<
-list_of_<label; format="label"> << match( <token>, TOKENS_FOLLOWING_<token>_IN_<ruleName>_<elementIndex> )
+tokenRefAndListLabel(token,label,elementIndex,terminalOptions) ::= <<
+list_of_<label; format="label"> << match( <token; format="tokenLabel">, TOKENS_FOLLOWING_<token; format="tokenLabel">_IN_<ruleName>_<elementIndex> )
 >>
 */
 
@@ -655,7 +762,7 @@ list_of_<label; format="label"> \<\< <elem><\n>
 listLabel ::= addToList
 
 /** For now, sets are interval tests and must be tested inline */
-matchSet(s,label,elementIndex,postmatchCode) ::= <<
+matchSet(s,label,elementIndex,terminalOptions,postmatchCode) ::= <<
 <if(label)>
 <label; format="label"> = @input.look<\n>
 <endif>
@@ -687,7 +794,7 @@ matchSetAndListLabel(s,label,elementIndex,postmatchCode) ::= <<
 
 matchRuleBlockSet ::= matchSet
 
-wildcard(label,elementIndex) ::= <<
+wildcard(token,label,elementIndex,terminalOptions) ::= <<
 <if(label)>
 <label; format="label"> = @input.look<\n>
 <endif>
@@ -700,7 +807,7 @@ wildcard(label,elementIndex) ::= <<
 >>
 */
 
-wildcardAndListLabel(label,elementIndex) ::= <<
+wildcardAndListLabel(token,label,elementIndex,terminalOptions) ::= <<
 <wildcard(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
@@ -710,7 +817,7 @@ wildcardAndListLabel(label,elementIndex) ::= <<
   * arguments and a return value or values.
   */
 ruleRef(rule,label,elementIndex,args,scope) ::= <<
-@state.following.push( TOKENS_FOLLOWING_<rule.name>_IN_<ruleName>_<elementIndex> )
+@state.following.push( TOKENS_FOLLOWING_<rule.name; format="tokenLabel">_IN_<ruleName>_<elementIndex> )
 <if(label)><label; format="label"> = <endif><methodCall(del=scope, n={<rule.name>}, args=args)>
 @state.following.pop
 >>
@@ -857,7 +964,7 @@ end
 >>
 
 dfaEdgeSwitch(labels, targetState) ::= <<
-when <labels:{<it>}; separator=", "> then <targetState>
+when <labels:{it|<it; format="tokenLabel">}; separator=", "> then <targetState>
 >>
 
 /** The code to initiate execution of a cyclic DFA; this is used
@@ -887,15 +994,15 @@ class DFA<dfa.decisionNumber> \< ANTLR3::DFA
   TRANSITION = [
     <dfa.javaCompressedTransition:{s|unpack( <s; wrap="\n", anchor, separator=", "> )}; separator=",\n">
   ].freeze
-  
+
   ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
-    if a \> 0 and z \< 0
+    if a > 0 and z \< 0
       MAX[ i ] %= 0x10000
     end
   end
-  
+
   @decision = <dfa.decisionNumber>
-  
+
   <@errorMethod()>
 <if(dfa.description)>
 
@@ -935,7 +1042,7 @@ cyclicDFAInit(dfa) ::= <<
   <dfa.specialStateSTs:{state|when <i0>
   <state>}; separator="\n">
   end
-  
+
   if s \< 0
 <if(backtracking)>
     @state.backtracking > 0 and raise ANTLR3::Error::BacktrackingFailed<\n>
@@ -944,7 +1051,7 @@ cyclicDFAInit(dfa) ::= <<
     @dfa<dfa.decisionNumber>.error( nva )
     raise nva
   end
-  
+
   s
 end<\n>
 <else>
@@ -988,15 +1095,15 @@ e
 
 andPredicates(left,right) ::= "( <left> ) and ( <right> )"
 
-orPredicates(operands) ::= "( <first(operands)> )<rest(operands):{o|  or ( <o> )}>"
+orPredicates(operands) ::= "<operands:{o|( <o> )}; separator=\" or \">"
 
 notPredicate(pred) ::= "not ( <pred> )"
 
 evalPredicate(pred,description) ::= "( <pred> )"
 
-evalSynPredicate(pred,description) ::= <<
-syntactic_predicate?( :<pred:{<it>}> )
->>
+evalSynPredicate(pred,description) ::= <%
+syntactic_predicate?( :<pred:{it | <it>}> )
+%>
 
 lookaheadTest(atom, k, atomAsInt) ::= "look_<decisionNumber>_<stateNumber> == <atom>"
 
@@ -1006,23 +1113,23 @@ lookaheadTest(atom, k, atomAsInt) ::= "look_<decisionNumber>_<stateNumber> == <a
   */
 isolatedLookaheadTest(atom, k, atomAsInt) ::= "@input.peek(<k>) == <atom>"
 
-lookaheadRangeTest(lower, upper, k, rangeNumber, lowerAsInt, upperAsInt) ::= <<
+lookaheadRangeTest(lower, upper, k, rangeNumber, lowerAsInt, upperAsInt) ::= <%
 look_<decisionNumber>_<stateNumber>.between?( <lower>, <upper> )
->>
+%>
 
-isolatedLookaheadRangeTest(lower, upper, k, rangeNumber, lowerAsInt, upperAsInt) ::= <<
+isolatedLookaheadRangeTest(lower, upper, k, rangeNumber, lowerAsInt, upperAsInt) ::= <%
 @input.peek( <k> ).between?( <lower>, <upper> )
->>
+%>
 
-setTest(ranges) ::= <<
+setTest(ranges) ::= <%
 <ranges; separator=" || ">
->>
+%>
 
 parameterAttributeRef(attr) ::= "<attr.name>"
 
 parameterSetAttributeRef(attr,expr) ::= "<attr.name> = <expr>"
 
-scopeAttributeRef(scope, attr, index, negIndex) ::= <<
+scopeAttributeRef(scope, attr, index, negIndex) ::= <%
 <if(negIndex)>
 @<scope>_stack[ -<negIndex> ].<attr.name>
 <else>
@@ -1032,10 +1139,10 @@ scopeAttributeRef(scope, attr, index, negIndex) ::= <<
 @<scope>_stack.last.<attr.name>
 <endif>
 <endif>
->>
+%>
 
 
-scopeSetAttributeRef(scope, attr, expr, index, negIndex) ::= <<
+scopeSetAttributeRef(scope, attr, expr, index, negIndex) ::= <%
 <if(negIndex)>
 @<scope>_stack[ -<negIndex> ].<attr.name> = <expr>
 <else>
@@ -1045,7 +1152,7 @@ scopeSetAttributeRef(scope, attr, expr, index, negIndex) ::= <<
 @<scope>_stack.last.<attr.name> = <expr>
 <endif>
 <endif>
->>
+%>
 
 
 /** $x is either global scope or x is rule with dynamic scope;
@@ -1058,29 +1165,29 @@ isolatedDynamicScopeRef(scope) ::= "@<scope>_stack"
 /** reference an attribute of rule; might only have single
   * return value
   */
-ruleLabelRef(referencedRule, scope, attr) ::= <<
+ruleLabelRef(referencedRule, scope, attr) ::= <%
 <if(referencedRule.hasMultipleReturnValues)>
 ( <scope; format="label">.nil? ? nil : <scope; format="label">.<attr.name> )
 <else>
 <scope; format="label">
 <endif>
->>
+%>
 
-returnAttributeRef(ruleDescriptor, attr) ::= <<
+returnAttributeRef(ruleDescriptor, attr) ::= <%
 <if(ruleDescriptor.hasMultipleReturnValues)>
 return_value.<attr.name>
 <else>
 <attr.name>
 <endif>
->>
+%>
 
-returnSetAttributeRef(ruleDescriptor, attr, expr) ::= <<
+returnSetAttributeRef(ruleDescriptor, attr, expr) ::= <%
 <if(ruleDescriptor.hasMultipleReturnValues)>
 return_value.<attr.name> = <expr>
 <else>
 <attr.name> = <expr>
 <endif>
->>
+%>
 
 /** How to translate $tokenLabel */
 tokenLabelRef(label) ::= "<label; format=\"label\">"
@@ -1100,7 +1207,7 @@ ruleLabelPropertyRef_start(scope, attr) ::= "<scope; format=\"label\">.start"
 ruleLabelPropertyRef_stop(scope, attr) ::= "<scope; format=\"label\">.stop"
 ruleLabelPropertyRef_tree(scope, attr) ::= "<scope; format=\"label\">.tree"
 
-ruleLabelPropertyRef_text(scope, attr) ::= <<
+ruleLabelPropertyRef_text(scope, attr) ::= <%
 <if(TREE_PARSER)>
 (
   @input.token_stream.to_s(
@@ -1111,7 +1218,7 @@ ruleLabelPropertyRef_text(scope, attr) ::= <<
 <else>
 ( <scope; format="label"> && @input.to_s( <scope; format="label">.start, <scope; format="label">.stop ) )
 <endif>
->>
+%>
 ruleLabelPropertyRef_st(scope, attr) ::= "( <scope; format=\"label\"> && <scope; format=\"label\">.template )"
 
 /******************************************************************************
@@ -1120,7 +1227,7 @@ ruleLabelPropertyRef_st(scope, attr) ::= "( <scope; format=\"label\"> && <scope;
 
 lexerSynpred(name) ::= ""
 
-lexer(grammar, name, tokens, scopes, rules, numRules, labelType="ANTLR3::Token", filterMode, superClass="ANTLR3::Lexer") ::= <<
+lexer(grammar, name, tokens, scopes, rules, numRules, filterMode, labelType="ANTLR3::Token", superClass="ANTLR3::Lexer") ::= <<
 <if(grammar.grammarIsRoot)><autoloadDelegates()><endif>
 
 class <if(grammar.delegator)><grammar.name><else>Lexer<endif> \< <superClass>
@@ -1132,14 +1239,14 @@ class <if(grammar.delegator)><grammar.name><else>Lexer<endif> \< <superClass>
 <if(filterMode)>
   include ANTLR3::FilterMode<\n>
 <endif>
-  <scopes:{<if(it.isDynamicGlobalScope)><globalAttributeScopeClass(scope=it)><\n><endif>}>
-  
+  <scopes:{it | <if(it.isDynamicGlobalScope)><globalAttributeScopeClass(scope=it)><\n><endif>}>
+
   begin
     generated_using( "<fileName>", "<ANTLRVersion>", "<runtimeLibraryVersion()>" )
   rescue NoMethodError => error
     # ignore
   end
-  
+
   RULE_NAMES   = [ <trunc(rules):{r|"<r.ruleName>"}; separator=", ", wrap="\n", anchor> ].freeze
   RULE_METHODS = [ <trunc(rules):{r|:<r.ruleName; format="lexerRule">}; separator=", ", wrap="\n", anchor> ].freeze
 
@@ -1149,7 +1256,7 @@ class <if(grammar.delegator)><grammar.name><else>Lexer<endif> \< <superClass>
 <if(grammar.directDelegates)>
   imports( <grammar.directDelegates:{d|:<d.name>}; separator=", "> )<\n>
 <endif>
-  
+
   def initialize( <grammar.delegators:{g|<g:delegateName()>, }>input=nil, options = {} )
     super( input, options )
 <if(memoize)>
@@ -1157,25 +1264,25 @@ class <if(grammar.delegator)><grammar.name><else>Lexer<endif> \< <superClass>
     @state.rule_memory = {}<\n>
 <endif>
 <endif>
-    <grammar.delegators:{g|@<g:delegateName()> = <g:delegateName()><\n>}><grammar.directDelegates:{g|@<g:delegateName()> = <newDelegate(g)><\n>}><last(grammar.delegators):{g|@parent = @<g:delegateName()><\n>}><placeAction(scope="lexer",name="init")>
+    <grammar.delegators:{g|@<g:delegateName()> = <g:delegateName()><\n>}><grammar.directDelegates:{g|@<g:delegateName()> = <newDelegate(g)><\n>}><last(grammar.delegators):{g|@parent = @<g:delegateName()><\n>}><placeAction(scope="lexer", name="init", ...)>
   end
-  
-  <placeAction(scope="lexer",name="members")>
-  
+
+  <placeAction(scope="lexer", name="members", ...)>
+
   # - - - - - - - - - - - lexer rules - - - - - - - - - - - -
-  <rules:{<it><\n>}>
+  <rules:{it | <it><\n>}>
 <if(grammar.delegatedRules)>
-  
+
   # - - - - - - - - - - delegated rules - - - - - - - - - - -
   <grammar.delegatedRules:{ruleDescriptor|<delegateLexerRule(ruleDescriptor)><\n><\n>}>
 <endif>
 <if(cyclicDFAs)>
-  
+
   # - - - - - - - - - - DFA definitions - - - - - - - - - - -
   <cyclicDFAs:cyclicDFA()>
-  
+
   private
-  
+
   def initialize_dfas
     super rescue nil
     <cyclicDFAs:cyclicDFAInit()>
@@ -1193,8 +1300,8 @@ at_exit { <if(grammar.delegator)><grammar.name><else>Lexer<endif>.main( ARGV ) }
 lexerRuleLabelDefs() ::= <<
 <if([ruleDescriptor.tokenLabels,ruleDescriptor.tokenListLabels,ruleDescriptor.ruleLabels,ruleDescriptor.charLabels,ruleDescriptor.tokenListLabels,ruleDescriptor.ruleListLabels])>
 # - - - - label initialization - - - -
-<[ruleDescriptor.tokenLabels,ruleDescriptor.tokenListLabels,ruleDescriptor.ruleLabels,ruleDescriptor.charLabels]:{<it.label.text; format="label"> = nil<\n>}>
-<[ruleDescriptor.tokenListLabels,ruleDescriptor.ruleListLabels]:{list_of_<it.label.text; format="label"> = [] unless defined?(list_of_<it.label.text; format="label">)<\n>}>
+<[ruleDescriptor.tokenLabels,ruleDescriptor.tokenListLabels,ruleDescriptor.ruleLabels,ruleDescriptor.charLabels]:{it | <it.label.text; format="label"> = nil<\n>}>
+<[ruleDescriptor.tokenListLabels,ruleDescriptor.ruleListLabels]:{it | list_of_<it.label.text; format="label"> = [] unless defined?(list_of_<it.label.text; format="label">)<\n>}>
 <endif>
 >>
 
@@ -1205,17 +1312,17 @@ lexerRuleLabelDefs() ::= <<
 lexerRule(ruleName,nakedBlock,ruleDescriptor,block,memoize) ::= <<
 # lexer rule <ruleName; format="lexerRule"> (<ruleName>)
 # (in <fileName>)
-def <ruleName; format="lexerRule"><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope(scope=it)> )<endif>
-  <traceIn()><ruleScopeSetUp()><ruleDeclarations()><if(memoize)>
+def <ruleName; format="lexerRule"><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope()> )<endif>
+  <traceIn(...)><ruleScopeSetUp(...)><ruleDeclarations(...)><if(memoize)>
 <if(backtracking)>
-  
+
   # backtracking success
   success = false<\n>
 <endif>
 <endif>
 <if(nakedBlock)>
   <ruleMemoization({<ruleName; format="lexerRule">})><lexerRuleLabelDefs()><action(name="init", code=ruleDescriptor.actions.init)>
-  
+
   # - - - - main rule block - - - -
   <block>
 <else>
@@ -1223,11 +1330,11 @@ def <ruleName; format="lexerRule"><if(ruleDescriptor.parameterScope)>( <ruleDesc
   type = <ruleName>
   channel = ANTLR3::DEFAULT_CHANNEL
   <ruleMemoization(ruleName)><lexerRuleLabelDefs()><action(name="init", code=ruleDescriptor.actions.init)>
-  
+
   # - - - - main rule block - - - -
   <block>
   <ruleCleanUp()>
-  
+
   @state.type = type
   @state.channel = channel
 <(ruleDescriptor.actions.after):execAction()>
@@ -1262,7 +1369,7 @@ tokensRule(ruleName,nakedBlock,args,block,ruleDescriptor) ::= <<
 # main rule used to study the input at the current position,
 # and choose the proper lexer rule to call in order to
 # fetch the next token
-# 
+#
 # usually, you don't make direct calls to this method,
 # but instead use the next_token method, which will
 # build and emit the actual next token
@@ -1376,6 +1483,13 @@ match( ANTLR3::EOF )<\n>
 <endif>
 >>
 
+// used for left-recursive rules
+recRuleDefArg()                       ::= "int <recRuleArg()>"
+recRuleArg()                          ::= "_p"
+recRuleAltPredicate(ruleName,opPrec)  ::= "<recRuleArg()> \<= <opPrec>"
+recRuleSetResultAction()              ::= "root_0=$<ruleName>_primary.tree;"
+recRuleSetReturnAction(src,name)      ::= "$<name>=$<src>.<name>;"
+
 /** $start in parser rule */
 rulePropertyRef_start(scope, attr) ::= "return_value.start"
 
@@ -1413,50 +1527,5 @@ end
 
 codeFileExtension() ::= ".rb"
 
-true()  ::= "true"
-false() ::= "false"
-
-action(name, code) ::= <<
-<if(code)>
-# - - - - @<name> action - - - -
-<code><\n>
-<endif>
->>
-
-autoloadDelegates() ::= <<
-<if(grammar.directDelegates)>
-<grammar.directDelegates:{autoload :<it.name>, "<it.recognizerName>"<\n>}>
-<endif>
->>
-
-delegateLexerRule(ruleDescriptor) ::= <<
-# delegated lexer rule <ruleDescriptor.name; format="lexerRule"> (<ruleDescriptor.name> in the grammar)
-def <ruleDescriptor.name; format="lexerRule"><if(ruleDescriptor.parameterScope)>( <ruleDescriptor.parameterScope:parameterScope(scope=it)> )<endif>
-  <methodCall(del=ruleDescriptor.grammar, n={<ruleDescriptor.name; format="lexerRule">}, args=ruleDescriptor.parameterScope.attributes)>
-end
->>
-
-rootClassName() ::= <<
-<if(grammar.grammarIsRoot)><grammar.name><else><grammar.composite.rootGrammar.name><endif>::<if(TREE_PARSER)>TreeParser<elseif(PARSER)>Parser<else>Lexer<endif>
->>
-
-grammarClassName() ::= <<
-<gram.name>::<if(TREE_PARSER)>TreeParser<elseif(PARSER)>Parser<else>Lexer<endif>
->>
-
-newDelegate(gram) ::= <<
-<gram.name>.new( <trunc(gram.delegators):{p|<p:delegateName()>, }>
-  self, @input, :state => @state<@delegateOptions()>
-)
->>
-
-placeAction(scope, name) ::= <<
-<if(actions.(scope).(name))>
-# - - - - - - begin action @<scope>::<name> - - - - - -
-<if(fileName)># <fileName><\n><endif>
-<actions.(scope).(name)>
-# - - - - - - end action @<scope>::<name> - - - - - - -<\n>
-<endif>
->>
-
-runtimeLibraryVersion() ::= "1.8.13"
+true_value()  ::= "true"
+false_value() ::= "false"

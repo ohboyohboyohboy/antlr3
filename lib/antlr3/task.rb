@@ -35,6 +35,7 @@ TODO: finish documentation
 =end
 
 class CompileTask < Rake::TaskLib
+  defined?( Rake::DSL ) and include( Rake::DSL )
   attr_reader :grammar_sets, :options
   attr_accessor :name
   
@@ -432,6 +433,7 @@ private
 end # class Grammar
 
 class GrammarFile::Imported < GrammarFile
+  defined?( Rake::DSL ) and include( Rake::DSL )
   def initialize( owner, path )
     @owner = owner
     @path = path.to_s

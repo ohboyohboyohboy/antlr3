@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<meta name="description" content="description"/>
+	<meta name="keywords" content="keywords"/>
+  <meta name="author" content="Kyle Yetter"/>
+	<link rel="stylesheet" type="text/css" href="stylesheets/article.css" media="screen"/>
+  <link rel="stylesheet" type="text/css" href="stylesheets/ANTLR3.css" media="screen"/>
+
+	<title>ANTLR For Ruby: Action Blocks</title>
+</head>
+
+<body>
+<div class="left">
+	<div class="header">
+		<h2><span>ANTLR for Ruby</span></h2>
+		<h1>Action Blocks</h1>
+	</div>
+	<div class="annotation">
+		<div class="author">by <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a></div>
+    <div class="timestamp">updated Sunday, August 04, 2013 at 09:59PM EDT</div>
+	</div>
+	<div class="content">
+<p><span class="caps">ANTLR</span> grammars are basically composed of a few different types of optional configuration blocks, several optional <strong>named action blocks</strong>, and a series of grammar <strong>rules</strong>. Rules, in turn, are essentially composed of <strong>alternatives</strong>, <strong>subrules</strong>, <strong>token references</strong>, <strong>rule references</strong>, and <strong>action blocks</strong>.</p>
+<p>Action blocks are snippets of ruby code enclosed in curly braces; they allow a developer to execute arbitrary code at various points of the recognition process. This article covers aspects of referencing rule components within action blocks, syntactic restrictions developers should be aware of when writing code blocks, and the named actions available for use with this <span class="caps">ANTLR</span> target.</p>
+<h1 id="section-1">Action Block Syntax</h1>
+<p><span class="caps">ANTLR</span> is designed allow developers to plug-in implementations for other languages. The tool is designed to parse grammar files without knowledge of the syntax in code blocks; it generally does a good job of extracting source code without knowing how to tokenize the target language, as mainstream programming languages usually share a set of standard lexical conventions. However, as <span class="caps">ANTLR</span> wasn&#8217;t designed with Ruby&#8217;s complicated syntax in mind, occasionally, you may stumble across a frustrating or confusing clash between <span class="caps">ANTLR</span> syntax and Ruby syntax.</p>
+<h2>How <span class="caps">ANTLR</span> Extracts Source Code Blocks</h2>
+<p>Basically, when <span class="caps">ANTLR</span> is lexing the grammar source file, and it hits an open brace <code>{</code>, it tries to skip over every character until it finds what appears to be a matching closing brace <code>}</code>. The action lexer assumes:</p>
+<ol>
+	<li>block comments look like <code>/* ... */</code></li>
+	<li>single-line comments look like <code>// ...&lt;code&gt; (and not &lt;code&gt;# ...</code>, as it is in Ruby)</li>
+	<li>strings are enclosed by single or double quotes: <code>'blah blah'</code> or <code>"blah"</code></li>
+	<li>an open brace <code>{</code> will be closed by <code>}</code></li>
+	<li>a slash <code>\</code> escapes the value of the next character outside of quoted strings</li>
+	<li>any other characters are skipped over until it meets an outer brace <code>}</code></li>
+</ol>
+<p>Additionally, action blocks would not be especially powerful if they were not able to reference contextual information, such as tokens, tree nodes, or parameters, among other objects. Thus, there are two syntactic &#8220;enhancements&#8221; to blocks, both of which clash with Ruby&#8217;s syntax.</p>
+<h2>Global Variables vs. Property/Parameter References</h2>
+<p><span class="caps">ANTLR</span> interprets names prefixed with <code>$</code> are references to rule properties, labels, arguments, return values, <span class="caps">ANTLR</span> scopes, or tokens. Ruby developers understand names prefixed with <code>$</code> as global variables, such as <code>$LOAD_PATH</code>. Thus, <strong>references to global variables must be escaped in code blocks</strong>. <code>$LOAD_PATH</code> must be written as <code>\$LOAD_PATH</code> in a code block, or the <span class="caps">ANTLR</span> tool will think it is a reference to something that does not exist within the grammar specification.</p>
+<div class="code-frame">
+  <table class="ANTLR3" id="DollarSignUsage">
+  <tr class="code_line" id="DollarSignUsage-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name">DollarSignUsage</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="DollarSignUsage-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="DollarSignUsage-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="kd">wrong</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="DollarSignUsage-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="gr">ID</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;</span><span class="si">$global_name</span><span class="kt">&nbsp;=&nbsp;</span><span class="si">$ID</span><span class="kt">.text;&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="DollarSignUsage-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="DollarSignUsage-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="DollarSignUsage-7">
+    <td class="line_number odd"><pre>07</pre></td>
+    <td class="code"><pre><span class="kd">correct</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="DollarSignUsage-8">
+    <td class="line_number even"><pre>08</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="gr">ID</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;\$global_name&nbsp;=&nbsp;</span><span class="si">$ID</span><span class="kt">.text;&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="DollarSignUsage-9">
+    <td class="line_number odd"><pre>09</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span></pre></td>
+  </tr>
+</table>
+
+</div>
+<h2>Template Literals</h2>
+<p><span class="caps">ANTLR</span> features a template output mode, which can be useful for many language translation tasks. It also introduces the idea of &#8220;template literals&#8221; into action blocks, which are used to create anonymous template objects or to reference specific named templates. Refer to the article on <a href="./TemplateMode.html">Template Mode</a> for more information on templates and template literals. However, a developer should be aware that these constructs are introduced with a percent character <code>%</code>. Thus, <strong>anytime a <code>%</code> is used in code, even inside of a quoted string, it must be escaped if it is not part of an actual template literal</strong>.</p>
+<div class="code-frame">
+  <table class="ANTLR3" id="PercentSignUsage">
+  <tr class="code_line" id="PercentSignUsage-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="k">grammar</span><span class="ws">&nbsp;</span><span class="name">PercentSignUsage</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="PercentSignUsage-2">
+    <td class="line_number even"><pre>02</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="PercentSignUsage-3">
+    <td class="line_number odd"><pre>03</pre></td>
+    <td class="code"><pre><span class="kd">wrong</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="PercentSignUsage-4">
+    <td class="line_number even"><pre>04</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="gr">ID</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;puts(&nbsp;&quot;id&nbsp;=&nbsp;%p&quot;&nbsp;%&nbsp;</span><span class="si">$ID</span><span class="kt">&nbsp;)&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="PercentSignUsage-5">
+    <td class="line_number odd"><pre>05</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="PercentSignUsage-6">
+    <td class="line_number even"><pre>06</pre></td>
+    <td class="code"><pre><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="PercentSignUsage-7">
+    <td class="line_number odd"><pre>07</pre></td>
+    <td class="code"><pre><span class="kd">correct</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="PercentSignUsage-8">
+    <td class="line_number even"><pre>08</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">:</span><span class="ws">&nbsp;</span><span class="gr">ID</span><span class="ws">&nbsp;</span><span class="kt">{&nbsp;puts(&nbsp;&quot;id&nbsp;=&nbsp;\%p&quot;&nbsp;\%&nbsp;</span><span class="si">$ID</span><span class="kt">&nbsp;)&nbsp;}</span><span class="ws"></span></pre></td>
+  </tr>
+  <tr class="code_line" id="PercentSignUsage-9">
+    <td class="line_number odd"><pre>09</pre></td>
+    <td class="code"><pre><span class="ws">&nbsp;&nbsp;</span><span class="p">;</span></pre></td>
+  </tr>
+</table>
+
+</div>
+<h1 id="section-2">Referencing Labels, Rule Values, Tokens, and Yada Yada Yada</h1>
+<p>As outlined in <a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+printable+documentation">ANTLR&#8217;s primary documentation</a>, action blocks can access a number of different grammar entities.</p>
+<h2>Token References</h2>
+<div class="code-frame">
+  <table class="ANTLR3" id="<unknown>">
+  <tr class="code_line" id="<unknown>-1">
+    <td class="line_number odd"><pre>01</pre></td>
+    <td class="code"><pre><span class="kd">declr</span><span class="p">:</span><span class="ws">&nbsp;&nbsp;</span><span class="nl">var</span><span class="o">=</span><span class="gr">ID</span><span class="ws">&nbsp;</span><span class="s2">'='</span><span class="ws">&nbsp;</span><span class="gr">INT</span><span class="ws">&nbsp;</span><span class="s2">';'</span><span class="ws">&nbsp;&nbsp;</span><span class="kt">{&nbsp;@variables[&nbsp;</span><span class="si">$var</span><span class="kt">.text&nbsp;]&nbsp;=&nbsp;</span><span class="si">$INT</span><span class="kt">.text.to_i&nbsp;}</span><span class="p">;</span></pre></td>
+  </tr>
+</table>
+
+</div>
+<h2>Rule Value References</h2>
+<table class="inventory">
+<thead>
+<tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tr class="odd">
+    <td><tt>$<em>rule</em>.<b>text</b></tt></td>
+    <td><code>String</code></td>
+    <td>The full text over which the parser advanced during the <em>rule</em>&#8217;s execution</td>
+</tr>
+<tr class="even">
+    <td><tt>$<em>rule</em>.<b>start</b></tt></td>
+    <td><code>ANTLR3::Token</code></td>
+    <td>The first token covered within the span of the <em>rule</em>&#8217;s execution</td>
+</tr>
+<tr class="odd">
+    <td><tt>$<em>rule</em>.<b>stop</b></tt></td>
+    <td><code>ANTLR3::Token</code></td>
+    <td>The last token covered within the span of during the <em>rule</em>&#8217;s execution</td>
+</tr>
+<tr class="even">
+    <td><tt>$<em>rule</em>.<b>tree</b></tt></td>
+    <td><code>ANTLR3::AST::Tree</code></td>
+    <td>The tree node constructed during <em>rule</em>&#8217;s execution</td>
+</tr>
+<tr class="odd">
+    <td><tt>$<em>rule</em>.<b>template</b></tt></td>
+    <td><code>ANTLR3::Template</code></td>
+    <td>The template value constructed during <em>rule</em>&#8217;s execution</td>
+</tr>
+</table>
+	</div>
+</div>
+
+<div class="nav">
+	<div class="logo"><span></span></div>
+
+	<ul>
+		<li><a href="#section-1">Action Block Syntax</a></li>
+		<li><a href="#section-2">Referencing Labels, Rule Values, Tokens, and Yada Yada Yada</a></li>
+	</ul>
+</div>
+
+<div class="right">
+	<div class="round">		
+		<div class="roundtl"><span></span></div>
+		<div class="roundtr"><span></span></div>
+		<div class="clearer"><span></span></div>
+	</div>
+
+	<div class="subnav">
+		<h1>Contents</h1>
+		<ul>
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./GettingStarted.html">Getting Started</a></li>
+      <li><a href="./Lexers.html">Lexers</a></li>
+      <li><a href="./Parsers.html">Parsers</a></li>
+      <li><a href="./Tokens.html">Tokens</a></li>
+  		<li class="current">Action Blocks</li>
+      <li><a href="./Scopes.html">Scopes</a></li>
+      <li class="todo"><a href="./TreeParsers.html">Tree Parsers</a></li>
+      <li class="todo"><a href="./ASTs.html">Abstract Syntax Trees</a></li>
+      <li><a href="./BuiltInDrivers.html">Built-In Drivers</a></li>
+      <li class="todo"><a href="./TemplateMode.html">Template Mode</a></li>
+      <li class="todo"><a href="./DebugMode.html">Debug Mode</a></li>
+      <li class="todo"><a href="./ProfileMode.html">Profile Mode</a></li>
+      <li class="todo"><a href="./Extras.html">Extras</a></li>
+		</ul>
+		
+    <h1>Project Links</h1>
+		<ul>
+      <li><a href="http://github.com/ohboyohboyohboy/antlr3">GitHub</a></li>
+      <li><a href="http://rubygems.org/gems/antlr3">Ruby Gems</a></li>
+      <li><a href="http://rubyforge.org/projects/antlr3">Rubyforge</a></li>
+      <li><a href="http://github.com/ohboyohboyohboy/antlr3/issues">Bug Reports</a></li>
+		</ul>
+		
+    <h1>External Links</h1>
+		<ul>
+      <li><a href="http://www.antlr.org">ANTLR.org</a></li>
+      <li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+Cheat+Sheet">ANTLR Cheat Sheet</a></li>
+      <li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation">ANTLR Documentation</a></li>
+      <li><a href="http://www.antlr.org/grammar/list">Sample Grammar Exchange</a></li>
+		</ul>
+	</div>
+
+	<div class="round">
+		<div class="roundbl"><span></span></div>
+		<div class="roundbr"><span></span></div>
+		<span class="clearer"></span>
+	</div>
+</div>
+
+<div class="footer">
+	
+  &copy; 2010 <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. <a href="http://templates.arcsin.se">Website template</a> by <a href="http://arcsin.se">Arcsin</a>
+
+</div>
+</body>
+
+</html>

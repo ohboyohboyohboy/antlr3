@@ -7,6 +7,8 @@ class Lexer < LoFiLexer::CommonLexer
   keyword( 'group' )
   keyword( 'implements' )
   keyword( 'default' )
+  keyword( 'true' )
+  keyword( 'false' )
   
   rule( :SPACE, /\s+/, :channel => :hidden )
   
@@ -26,6 +28,7 @@ class Lexer < LoFiLexer::CommonLexer
   rule( :DOT, '.' )
   
   delimited( :BIG_STRING, '<<', '>>' )
+  delimited( :BIG_STRING_TRIM, '<%', '%>' )
   delimited( :STRING, '"' )
   delimited( :COMMENT, '/*', '*/' )
   delimited( :COMMENT, '//', "\n" )

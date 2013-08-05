@@ -59,12 +59,10 @@ class TestRuleTracing < ANTLR3::Test::Functional
     lexer = Traced::Lexer.new( '< 1 + 2 + 3 >' )
     parser = Traced::Parser.new lexer
     parser.a
-    lexer.traces.should == [ 
-            '>t__6!', '<t__6!', '>ws!', '<ws!', '>int!', '<int!', '>ws!', '<ws!',
-            '>t__8!', '<t__8!', '>ws!', '<ws!', '>int!', '<int!', '>ws!', '<ws!',
-            '>t__8!', '<t__8!', '>ws!', '<ws!', '>int!', '<int!', '>ws!', '<ws!',
-            '>t__7!', '<t__7!'
-    ]
+    lexer.traces.reject { | i | i =~ /t__/ }.should == %w(
+      >ws! <ws! >int! <int! >ws! <ws! >ws! <ws! >int! <int! >ws!
+      <ws! >ws! <ws! >int! <int! >ws! <ws!
+    )
     parser.traces.should == [ 
       '>a', '>synpred1_Traced', '<synpred1_Traced',
       '>b', '>c', '<c', '>c', '<c', '>c', '<c', '<b', '<a'

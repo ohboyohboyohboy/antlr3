@@ -61,18 +61,18 @@ _last = _save_last_<treeLevel>
 
 >>
 
-tokenRefBang(token,label,elementIndex) ::= <<
+tokenRefBang(token,label,elementIndex,terminalOptions) ::= <<
 _last = @input.look
 <super.tokenRef(...)>
 >>
 
-tokenRef(token,label,elementIndex,hetero) ::= <<
+tokenRef(token,label,elementIndex,terminalOptions) ::= <<
 _last = @input.look
 <super.tokenRef(...)>
 <if(!rewriteMode)>
 <gatedAction({
-<if(hetero)>
-tree_for_<label> = <hetero; format="constantPath">.new( <label; format="label"> )
+<if(terminalOptions.node)>
+tree_for_<label> = <terminalOptions.node; format="constantPath">.new( <label; format="label"> )
 <else>
 tree_for_<label> = @adaptor.copy_node( <label; format="label"> )
 <endif><\n>
@@ -87,18 +87,18 @@ _first_<treeLevel> ||= <label; format="label"><\n>
 
 
 
-tokenRefAndListLabel(token,label,elementIndex,hetero) ::= <<
+tokenRefAndListLabel(token,label,elementIndex,terminalOptions) ::= <<
 <tokenRef(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
 
-tokenRefRuleRoot(token,label,elementIndex,hetero) ::= <<
+tokenRefRuleRoot(token,label,elementIndex,terminalOptions) ::= <<
 _last = @input.look
 <super.tokenRef(...)>
 <if(!rewriteMode)>
 <gatedAction({
-<if(hetero)>
-tree_for_<label> = <hetero; format="constantPath">.new( <label; format="label"> )
+<if(terminalOptions.node)>
+tree_for_<label> = <terminalOptions.node; format="constantPath">.new( <label; format="label"> )
 <else>
 tree_for_<label> = @adaptor.copy_node( <label; format="label"> )
 <endif><\n>
@@ -107,12 +107,12 @@ root_<treeLevel> = @adaptor.become_root( tree_for_<label>, root_<treeLevel> )
 <endif>
 >>
 
-tokenRefRuleRootAndListLabel(token,label,elementIndex,hetero) ::= <<
+tokenRefRuleRootAndListLabel(token,label,elementIndex,terminalOptions) ::= <<
 <tokenRefRuleRoot(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
 
-wildcard(token,label,elementIndex,hetero) ::= <<
+wildcard(token,label,elementIndex,terminalOptions) ::= <<
 _last = @input.look
 <super.wildcard(...)>
 <if(!rewriteMode)>
@@ -127,49 +127,49 @@ _first_<treeLevel> and _first_<treeLevel> = <label; format="label">
 <endif>
 >>
 
-matchSet(s,label,hetero,elementIndex,postmatchCode) ::= <<
+matchSet(s,label,terminalOptions,elementIndex,postmatchCode) ::= <<
 _last = @input.look
-<super.matchSet(..., postmatchCode={
+<super.matchSet(postmatchCode={
 <if(!rewriteMode)>
 <gatedAction({
-<if(hetero)>
-tree_for_<label> = <hetero; format="constantPath">.new( <label; format="label"> )
+<if(terminalOptions.node)>
+tree_for_<label> = <terminalOptions.node; format="constantPath">.new( <label; format="label"> )
 <else>
 tree_for_<label> = @adaptor.copy_node( <label; format="label"> )
 <endif><\n>
 @adaptor.add_child( root_<treeLevel>, tree_for_<label> )
 })>
 <endif>
-})>
+}, ...)>
 >>
 
 
 
-matchRuleBlockSet(s,label,hetero,elementIndex,postmatchCode,treeLevel="0") ::= <<
+matchRuleBlockSet(s,label,terminalOptions,elementIndex,postmatchCode,treeLevel="0") ::= <<
 <matchSet(...)>
-<noRewrite()>
+<noRewrite(...)>
 >>
 
 
 
-matchSetBang(s,label,elementIndex,postmatchCode) ::= <<
+matchSetBang(s,label,terminalOptions,elementIndex,postmatchCode) ::= <<
 _last = @input.look
 <super.matchSet(...)>
 >>
 
-matchSetRuleRoot(s,label,hetero,elementIndex,debug) ::= <<
-<super.matchSet(..., postmatchCode={
+matchSetRuleRoot(s,label,terminalOptions,elementIndex,debug) ::= <<
+<super.matchSet(postmatchCode={
 <if(!rewriteMode)>
 <gatedAction({
-<if(hetero)>
-tree_for_<label> = <hetero; format="constantPath">.new( <label; format="label"> )
+<if(terminalOptions.node)>
+tree_for_<label> = <terminalOptions.node; format="constantPath">.new( <label; format="label"> )
 <else>
 tree_for_<label> = @adaptor.copy_node( <label; format="label"> )
 <endif><\n>
 root_<treeLevel> = @adaptor.become_root( tree_for_<label>, root_<treeLevel> )
 })>
 <endif>
-})>
+}, ...)>
 >>
 
 ruleRef(rule,label,elementIndex,args,scope) ::= <<
@@ -224,13 +224,13 @@ _last = @input.look
 <super.ruleRefRuleRootTrackAndListLabel(...)>
 >>
 
-createRewriteNodeFromElement(token,hetero,scope) ::= <<
-<if(hetero)>
-<hetero; format="constantPath">.new( stream_<token>.next_node )
+createRewriteNodeFromElement(token,args={},terminalOptions={}) ::= <%
+<if(terminalOptions.node)>
+<terminalOptions.node; format="constantPath">.new( stream_<token>.next_node )
 <else>
 stream_<token>.next_node
 <endif>
->>
+%>
 
 ruleCleanUp() ::= <<
 <super.ruleCleanUp()>

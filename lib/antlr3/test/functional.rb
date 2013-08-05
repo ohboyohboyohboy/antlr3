@@ -8,6 +8,7 @@ require 'antlr3/test/call-stack'
 
 require 'test/unit'
 require 'spec'
+require 'spec/interop/test'
 
 module ANTLR3
 module Test

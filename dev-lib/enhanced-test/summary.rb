@@ -10,8 +10,8 @@ Summary = Struct.new(
 )
 
 class Summary
-  FIELDS = members.map { |m| m.to_s }
-  COUNT_FIELDS = members - %w( duration )
+  FIELDS           = members.map { |m| m.to_s }
+  COUNT_FIELDS     = FIELDS - %w( duration )
   UNIT_TEST_FIELDS = members - %w( import_errors syntax_errors compilation_failures )
   
   def self.restore( serialized )
@@ -70,9 +70,8 @@ class Summary
     field = COUNT_FIELDS.reverse.find do | f |
       self[ f ] > 0
     end
-    
     desc, color =
-      DESCRIPTIONS.fetch( field, [ field.to_s, 'blue' ] )
+      DESCRIPTIONS.fetch( field.to_s, [ field.to_s, 'blue' ] )
     with_color and desc = desc.send( color )
     
     return( desc )

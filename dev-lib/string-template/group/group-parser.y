@@ -61,19 +61,22 @@ rule
                       | parameter COMMA parameter_list
   
   parameter           : ID { @member.parameter!(val[0].text) }
-                      | ID ASSIGN STRING {
-                          name = val[0].text; value = val[2].text
-                          @member.parameter!(name, string_literal(value))
-                        }
-                      | ID ASSIGN ANONYMOUS_TEMPLATE {
-                          name = val[0].text; value = val[2].text
-                          @member.parameter!(name, string_literal(value))
-                        }
-  
+                      | ID ASSIGN parameter_value
+                        { @member.parameter!(val[ 0 ].text, val[ 2 ]) }
+                      
+  parameter_value     : TRUE   { true }
+                      | FALSE  { false }
+                      | STRING { string_literal( val[ 0 ].text ) }
+                      | ANONYMOUS_TEMPLATE { string_literal( val[ 0 ].text ) }
+                      
   template_text       : BIG_STRING {
                           @finish = val[0].index
                           val[0]
                         }
+                      | BIG_STRING_TRIM {
+                          @finish = val[0].index
+                          val[0]
+                      }
                       | STRING     {
                           @finish = val[0].index
                           val[0].text
@@ -103,6 +106,8 @@ rule
   key_value           : STRING     { string_literal val[0] }
                       | BIG_STRING { string_literal val[0] }
                       | ID
+                      | TRUE { true }
+                      | FALSE { false }
                       |
 
 ---- header
@@ -176,10 +181,10 @@ def scan
     if token.type == :COMMENT
       @group.add(Comment.new(token.index))
     else
-      yield(token.type, token)
+      yield([token.type, token])
     end
   end
-  yield(false, '$')
+  yield([false, '$'])
 end
 
 def template!

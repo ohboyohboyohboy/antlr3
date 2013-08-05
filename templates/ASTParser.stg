@@ -13,7 +13,7 @@ end
 return_value.tree = @adaptor.create_error_node( @input, return_value.start, @input.look(-1), re )<\n>
 >>
 
-tokenRef(token,label,elementIndex,hetero) ::= <<
+tokenRef(token,label,elementIndex,terminalOptions={}) ::= <<
 <super.tokenRef(...)>
 <gatedAction({
 tree_for_<label> = <createNodeFromToken(...)>
@@ -21,9 +21,9 @@ tree_for_<label> = <createNodeFromToken(...)>
 })>
 >>
 
-tokenRefBang(token,label,elementIndex) ::= "<super.tokenRef(...)>"
+tokenRefBang(token,label,elementIndex,terminalOptions={}) ::= "<super.tokenRef(...)>"
 
-tokenRefRuleRoot(token,label,elementIndex,hetero) ::= <<
+tokenRefRuleRoot(token,label,elementIndex,terminalOptions={}) ::= <<
 <super.tokenRef(...)>
 <gatedAction({
 tree_for_<label> = <createNodeFromToken(...)>
@@ -31,39 +31,39 @@ root_0 = @adaptor.become_root( tree_for_<label>, root_0 )
 })>
 >>
 
-tokenRefBangAndListLabel(token,label,elementIndex,hetero) ::= <<
+tokenRefBangAndListLabel(token,label,elementIndex,terminalOptions={}) ::= <<
 <tokenRefBang(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
 
-tokenRefAndListLabel(token,label,elementIndex,hetero) ::= <<
+tokenRefAndListLabel(token,label,elementIndex,terminalOptions={}) ::= <<
 <tokenRef(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
 
-tokenRefRuleRootAndListLabel(token,label,hetero,elementIndex) ::= <<
+tokenRefRuleRootAndListLabel(token,label,elementIndex,terminalOptions={}) ::= <<
 <tokenRefRuleRoot(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
 
-matchSet(s,label,hetero,elementIndex,postmatchCode) ::= <<
-<super.matchSet(..., postmatchCode={<gatedAction({@adaptor.add_child( root_0, <createNodeFromToken(...)> )})>})>
+matchSet(s,label,elementIndex,postmatchCode,terminalOptions={}) ::= <<
+<super.matchSet(postmatchCode={<gatedAction({@adaptor.add_child( root_0, <createNodeFromToken(...)> )})>}, ...)>
 >>
 
-matchRuleBlockSet(s,label,hetero,elementIndex,postmatchCode,treeLevel="0") ::= <<
+matchRuleBlockSet(s,label,elementIndex,postmatchCode,treeLevel="0",terminalOptions={}) ::= <<
 <matchSet(...)>
 >>
 
 
 
 matchSetBang(s,label,elementIndex,postmatchCode) ::= "<super.matchSet(...)>"
-matchSetRuleRoot(s,label,hetero,elementIndex,debug) ::= <<
+matchSetRuleRoot(s,label,elementIndex,debug,terminalOptions={}) ::= <<
 <if(label)>
 <label; format="label"> = @input.look<\n>
 <endif>
-<super.matchSet(..., postmatchCode={<gatedAction({root_0 = @adaptor.become_root( <createNodeFromToken(...)>, root_0 )})>})>
+<super.matchSet(postmatchCode={<gatedAction({root_0 = @adaptor.become_root( <createNodeFromToken(...)>, root_0 )})>}, ...)>
 >>
-matchSetRuleRootAndListLabel(s,label,hetero,elementIndex,debug) ::= <<
+matchSetRuleRootAndListLabel(s,label,elementIndex,debug,terminalOptions={}) ::= <<
 <matchSetRuleRoot(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
@@ -107,7 +107,7 @@ ruleRefRuleRootAndListLabel(rule,label,elementIndex,args,scope) ::= <<
 <addToList(elem={<label; format="label">.tree},...)>
 >>
 
-wildcard(label,elementIndex) ::= <<
+wildcard(token,label,elementIndex,terminalOptions={}) ::= <<
 <super.wildcard(...)>
 <gatedAction({
 tree_for_<label> = @adaptor.create_with_payload( <label; format="label"> )
@@ -115,9 +115,9 @@ tree_for_<label> = @adaptor.create_with_payload( <label; format="label"> )
 })>
 >>
 
-wildcardBang(label,elementIndex) ::= "<super.wildcard(...)>"
+wildcardBang(token,label,elementIndex,terminalOptions={}) ::= "<super.wildcard(...)>"
 
-wildcardRuleRoot(label,elementIndex) ::= <<
+wildcardRuleRoot(token,label,elementIndex,terminalOptions={}) ::= <<
 <super.wildcard(...)>
 <gatedAction({
 tree_for_<label> = @adaptor.create_with_payload( <label; format="label"> )
@@ -125,13 +125,14 @@ root_0 = @adaptor.become_root( tree_for_<label>, root_0 )
 })>
 >>
 
-createNodeFromToken(label,hetero) ::= <<
-<if(hetero)>
-<hetero; format="constantPath">.new( <label; format="label"> )
+
+createNodeFromToken(label,terminalOptions={}) ::= <%
+<if(terminalOptions.node)>
+<terminalOptions.node; format="constantPath">.new( <label; format="label"> )
 <else>
 @adaptor.create_with_payload( <label; format="label"> )
 <endif>
->>
+%>
 
 ruleCleanUp() ::= <<
 <super.ruleCleanUp()>

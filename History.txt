@@ -1,3 +1,12 @@
+=== 1.9.0 / 08-05-13
+
+* Minor Enhancements:
+  - upgraded bundled ANTLR JAR from v3.2 to v3.5, which was recompiled with Java 6 to avoid Java 7 resolve compatibility issues
+  - thoroughly tested and fixed to function with Ruby 1.9.3
+
+* Known Issues:
+  - Remote socket event debugging in debug mode does not function properly in Ruby 1.9.3 yet
+
 === 1.8.5 / 10-21-10
 
 * 1 Bug Fix

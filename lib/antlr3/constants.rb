@@ -59,10 +59,8 @@ module Constants
   MEMO_RULE_UNKNOWN = -1
   
   # built-in token types used internally by ANTLR3
-  
-  INVALID_TOKEN_TYPE = 0
-  
-  EOF = -1
+  INVALID = INVALID_TOKEN_TYPE = 0
+  EOF     = -1
   
   
   # Imaginary tree-navigation token type indicating the ascent after moving through the
@@ -86,12 +84,10 @@ module Constants
   end
   
   BUILT_IN_TOKEN_NAMES.update( 
-    0 => "<invalid>".freeze, 1 => "<EOR>".freeze, 
-    2 => "<DOWN>".freeze, 3 => "<UP>".freeze, 
+    0  => "<invalid>".freeze, 1 => "<EOR>".freeze,
+    2  => "<DOWN>".freeze,    3 => "<UP>".freeze,
     -1 => "<EOF>".freeze
   )
-  
-  
 end
 
 include Constants

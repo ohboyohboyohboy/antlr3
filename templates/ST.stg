@@ -44,18 +44,18 @@ return_value.template = <a.alt>
 <endif>
 >>
 
-rewriteTemplateAltRest(a) ::= <<
+rewriteTemplateAltRest(a) ::= <%
 <if(a.pred)>
-if <a.pred>
-  # <a.description>
-  return_value.template = <a.alt>
+if <a.pred><\n>
+  # <a.description><\n>
+  return_value.template = <a.alt><\n>
 <else>
-e <! little hack to get if .. elsif .. else block right !>
-  # <a.description>
-  return_value.template = <a.alt>
+e<\n> <! little hack to get if .. elsif .. else block right !>
+  # <a.description><\n>
+  return_value.template = <a.alt><\n>
 end
 <endif>
->>
+%>
 
 replaceTextInLine() ::= <<
 <if(TREE_PARSER)>

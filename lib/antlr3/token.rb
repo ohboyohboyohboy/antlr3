@@ -497,6 +497,15 @@ dynamically-created CommonToken subclass.
 =end
 
 class TokenScheme < ::Module
+  #
+  # introduced due to deprecation warning of Hash#index in Ruby 1.9.3
+  # 
+  if ::Hash.method_defined?( :key )
+    FETCH_KEY = proc { | h, v | h.key( v ) }
+  else
+    FETCH_KEY = proc { | h, v | h.index( v ) }
+  end
+  
   include TokenFactory
   
   def self.new( tk_class = nil, &body )
@@ -640,7 +649,7 @@ class TokenScheme < ::Module
   def []( name_or_value )
     case name_or_value
     when Integer then token_names.fetch( name_or_value, nil )
-    else const_get( name_or_value.to_s ) rescue token_names.index( name_or_value )
+    else const_get( name_or_value.to_s ) rescue FETCH_KEY.call( token_names, name_or_value )
     end
   end
   

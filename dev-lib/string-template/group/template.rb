@@ -4,7 +4,15 @@
 module StringTemplate
 class Group
 class Template < Member
-  Parameter = Struct.new( :name, :value )
+  Parameter = Struct.new( :name, :value ) do
+    def to_s
+      if value.nil?
+        name.to_s
+      else
+        [ name, value.inspect ].join( '=' )
+      end
+    end
+  end
   
   def parameters
     @parameters ||= []

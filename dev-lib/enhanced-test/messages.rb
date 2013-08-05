@@ -8,12 +8,12 @@
 module ANTLR3
 module Test
 module Messages
-  PASSED = ?+
-  PENDING = ?-
-  FAILED = ?!
+  PASSED          = ?+
+  PENDING         = ?-
+  FAILED          = ?!
   GRAMMAR_COMPILE = ?.
-  SECTION = ?%
-  DIVIDER = "\n#{ SECTION.chr * 2 }\n".freeze
+  SECTION         = ?%
+  DIVIDER         = "\n#{ SECTION.chr * 2 }\n".freeze
   
   
   GRAMMAR_WEIGHT = 5

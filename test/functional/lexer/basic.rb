@@ -416,7 +416,7 @@ class LexerTest009 < ANTLR3::Test::Functional
     
     lexer.next_token
     proc { lexer.next_token }.
-    should raise_error( ANTLR3::Error::MismatchedRange ) do |exc|
+    should raise_error( ANTLR3::Error::MismatchedSet ) do |exc|
       exc.min.should == '0'
       exc.max.should == '9'
       exc.unexpected_type.should == 'a'

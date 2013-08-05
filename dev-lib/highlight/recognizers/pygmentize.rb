@@ -131,22 +131,22 @@ private
   end
 
   ESCAPE_MAP = Array.new( 256 ) { |i| i }
-  ESCAPE_MAP[ ?n ] = ?\n
-  ESCAPE_MAP[ ?f ] = ?\f
-  ESCAPE_MAP[ ?r ] = ?\r
-  ESCAPE_MAP[ ?t ] = ?\t
-  ESCAPE_MAP[ ?v ] = ?\v
-  ESCAPE_MAP[ ?a ] = ?\a
-  ESCAPE_MAP[ ?b ] = ?\b
-  ESCAPE_MAP[ ?O ] = 0
-  ESCAPE_MAP[ ?u ] = nil
-  ESCAPE_MAP[ ?x ] = nil
-  ESCAPE_MAP[ ?U ] = nil
-  ?0.upto( ?9 ) { |i| ESCAPE_MAP[ i ] = nil }
+  ESCAPE_MAP[ ?n.ord ] = ?\n.ord
+  ESCAPE_MAP[ ?f.ord ] = ?\f.ord
+  ESCAPE_MAP[ ?r.ord ] = ?\r.ord
+  ESCAPE_MAP[ ?t.ord ] = ?\t.ord
+  ESCAPE_MAP[ ?v.ord ] = ?\v.ord
+  ESCAPE_MAP[ ?a.ord ] = ?\a.ord
+  ESCAPE_MAP[ ?b.ord ] = ?\b.ord
+  ESCAPE_MAP[ ?O.ord ] = 0
+  ESCAPE_MAP[ ?u.ord ] = nil
+  ESCAPE_MAP[ ?x.ord ] = nil
+  ESCAPE_MAP[ ?U.ord ] = nil
+  ?0.upto( ?9 ) { |i| ESCAPE_MAP[ i.ord ] = nil }
   
   def escape
     c = @buffer.getc or raise StopIteration
-    val = ESCAPE_MAP[ c ] and return val
+    val = ESCAPE_MAP[ c.ord ] and return val
     case c
     when ?0..?9
       @buffer.ungetc( c )

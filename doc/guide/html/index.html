@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<meta name="description" content="description"/>
+	<meta name="keywords" content="keywords"/>
+  <meta name="author" content="Kyle Yetter"/>
+	<link rel="stylesheet" type="text/css" href="stylesheets/article.css" media="screen"/>
+
+	<title>ANTLR For Ruby: Home</title>
+</head>
+
+<body>
+<div class="left">
+	<div class="header">
+		<h2><span>ANTLR for Ruby</span></h2>
+		<h1>Guide to ANTLR for Ruby</h1>
+	</div>
+	<div class="annotation">
+		<div class="author">by <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a></div>
+    <div class="timestamp">updated Sunday, August 04, 2013 at 09:59PM EDT</div>
+	</div>
+	<div class="content">
+<p>This is a guide for using the ruby <code>antlr3</code> project. Currently, it&#8217;s a work in progress, so bear with me as I work to cover all of the important details.</p>
+<h1 id="section-1">Scope</h1>
+<p>This guide is not intended to cover ANTLR&#8217;s metalanguage, grammar specifications, or other conceptual aspects of the tool. For a full introduction to <span class="caps">ANTLR</span> and writing grammars, refer to <a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation">ANTLR&#8217;s primary documentation</a>. For the most part, the documentation is written with the assumption that the reader has, at a minimum, basic familiarity with ANTLR&#8217;s grammar language, terminology, and the command line <span class="caps">ANTLR</span> tool.</p>
+<p>This guide targets the particulars of using the <code>antlr3</code> ruby project. It attempts to tailor the general concepts covered in ANTLR&#8217;s Java-oriented documentation for usage in ruby. The guide also attempts to cover all places in which this ruby target diverges from conventions followed by the other language targets.</p>
+<h1 id="section-2">Getting Involved</h1>
+<p>If you have any suggestions, complaints, requests, or compliments about this guide, or the ruby <code>antlr3</code> project in general, feel free to <a href="mailto:kcy5b@yahoo.com">let me know</a>. I have written most of the target code on my own, and thus I have made various design decisions using my own judgment and style preferences. Thus, I am certainly open for discussion, feedback, and collaboration for any developers using this package. Also, if you&#8217;re interested enough to join in on the development work, such as contributing extra features, enhancing the run-time library, writing more test code, or improving on the project documentation, please get in touch.</p>
+<h2>Bug Reports / Issues</h2>
+<p>This software&#8217;s primarily been tested with my own system and configuration (Linux using standard &#8220;matz&#8221; ruby, version 1.8.7). I have tried my best to create a thorough suite of test code, using the Python and Java targets&#8217; extensive test code as a basis and then expanding it to cover issues specific to Ruby. However, given the complexity of the <span class="caps">ANTLR</span> code generation system and the various components of the run-time library, bugs are bound to have been overlooked. More information on issues or general design considerations from users working with other operating systems or alternate flavors or ruby would be incredibly helpful at this stage in the project.</p>
+<p>Open issue reports on the <a href="http://github.com/ohboyohboyohboy/antlr3/issues">github repository</a> page.</p>
+<h1 id="section-3">About <span class="caps">ANTLR</span></h1>
+<h2>What&#8217;s <a href="http://www.antlr.org"><span class="caps">ANTLR</span></a>?</h2>
+<p><b><acronym title="ANother Tool for Language Recognition"><span class="caps">ANTLR</span></acronym></b> is a program that generates code for performing a variety of language recognition tasks: lexing, parsing, abstract syntax tree construction and manipulation, tree structure recognition, and input translation. The tool is similar to other parser generators: <span class="caps">ANTLR</span> takes in a grammar specification and then produces source code that recognizes the language.</p>
+<p>While the tool itself is implemented in Java, it has an extensible design that allows for code generation in other programming languages. To implement an <span class="caps">ANTLR</span> language target, a developer may supply a set of templates written in the <a href="http://www.stringtemplate.org">StringTemplate</a> language. The grammar specification is written in a combination of ANTLR&#8217;s metalanguage and the target programming language.</p>
+<h2>What does it offer over other parser generators?</h2>
+<ul>
+	<li>ANTLR&#8217;s grammar specifications are more human-readable and logical than most other language recognition tools (like <span class="caps">YACC</span>)
+	<ul>
+		<li>it uses its own concept of &#8220;LL(*)&#8221; arbitrary look-ahead to permit a developer to write a language using a structure close to how a person understands the language</li>
+		<li>it uses familiar aspects of <a href="http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form"><span class="caps">EBNF</span></a> and regular expression syntax, such as repetition operators like <code>*</code>, <code>+</code>, and <code>?</code></li>
+	</ul></li>
+	<li>it combines lexer and parser design. You don&#8217;t have to provide your own lexer code (though you still can if you need to)</li>
+	<li>all generated code is object-oriented and organized into classes</li>
+	<li>it is tailored for common language recognition tasks
+	<ul>
+		<li>it features integrated optional Abstract Syntax Tree generation</li>
+		<li>it can generate tree parsers to rewrite, translate, and/or evaluate ASTs</li>
+		<li>it features integrated automatic input translation using templates</li>
+	</ul></li>
+</ul>
+<h1 id="section-4">About the Ruby <code>antlr3</code> Project</h1>
+<h2>What&#8217;s the Ruby <code>antlr3</code> project?</h2>
+<p>It&#8217;s a collection of ruby code and templates, with a dash of Java code, wrapped into a standard <span class="caps">ANTLR</span> package. This package permits Ruby developers to use <span class="caps">ANTLR</span> to generate recognizers written in Ruby.</p>
+<h2>Doesn&#8217;t <span class="caps">ANTLR</span> already have a Ruby target?</h2>
+<p>Yes, it does (well, sort of). With all due respect to the author of the original ruby target, the target only features rudimentary parser/lexer generation, making writing recognizers for more sophisticated languages difficult or even impossible.</p>
+<h2>So how does this project differ from ANTLR&#8217;s default ruby target?</h2>
+<p>This project completely implements all of ANTLR&#8217;s features. It provides all of the features implemented in ANTLR&#8217;s Java and Python targets, including:</p>
+<ul>
+	<li><acronym title="Abstract Syntax Tree"><span class="caps">AST</span></acronym> construction</li>
+	<li>Built-in automatic test scripts to quickly try out your recognizer</li>
+	<li><span class="caps">AST</span> parser generation</li>
+	<li>Debug mode features</li>
+	<li>Grammar profiling features</li>
+	<li>Template output mode (using a variation of <code>ERB</code> instead of <code>StringTemplate</code>)</li>
+	<li>Lexer filter mode</li>
+</ul>
+<h1 id="section-5">Changelog</h1>
+<h2>08/04/13</h2>
+<ul>
+	<li>A little cleanup while reviving the projects &#8212; updates coming soon</li>
+</ul>
+<h2>06/05/10</h2>
+<ul>
+	<li>started <a href="./BuiltInDrivers.html">Built-In Drivers</a> article</li>
+	<li>started <a href="./Tokens.html">Tokens</a> article</li>
+</ul>
+<h2>05/23/10</h2>
+<ul>
+	<li>Created blank  section for general discussion of grammar files</li>
+	<li>Started a  section for a broader overview of what this project&#8217;s used for</li>
+</ul>
+<h2>05/18/10</h2>
+<ul>
+	<li>Started new <a href="./Scopes.html">Scopes</a> article and added a little more material to the <a href="./ActionBlocks.html">Action Blocks</a> article</li>
+</ul>
+	</div>
+</div>
+
+<div class="nav">
+	<div class="logo"><span></span></div>
+
+	<ul>
+		<li><a href="#section-1">Scope</a></li>
+		<li><a href="#section-2">Getting Involved</a></li>
+		<li><a href="#section-3">About <span class="caps">ANTLR</span></a></li>
+		<li><a href="#section-4">About the Ruby <code>antlr3</code> Project</a></li>
+		<li><a href="#section-5">Changelog</a></li>
+	</ul>
+</div>
+
+<div class="right">
+	<div class="round">		
+		<div class="roundtl"><span></span></div>
+		<div class="roundtr"><span></span></div>
+		<div class="clearer"><span></span></div>
+	</div>
+
+	<div class="subnav">
+		<h1>Contents</h1>
+		<ul>
+  		<li class="current">Home</li>
+      <li><a href="./GettingStarted.html">Getting Started</a></li>
+      <li><a href="./Lexers.html">Lexers</a></li>
+      <li><a href="./Parsers.html">Parsers</a></li>
+      <li><a href="./Tokens.html">Tokens</a></li>
+      <li><a href="./ActionBlocks.html">Action Blocks</a></li>
+      <li><a href="./Scopes.html">Scopes</a></li>
+      <li class="todo"><a href="./TreeParsers.html">Tree Parsers</a></li>
+      <li class="todo"><a href="./ASTs.html">Abstract Syntax Trees</a></li>
+      <li><a href="./BuiltInDrivers.html">Built-In Drivers</a></li>
+      <li class="todo"><a href="./TemplateMode.html">Template Mode</a></li>
+      <li class="todo"><a href="./DebugMode.html">Debug Mode</a></li>
+      <li class="todo"><a href="./ProfileMode.html">Profile Mode</a></li>
+      <li class="todo"><a href="./Extras.html">Extras</a></li>
+		</ul>
+		
+    <h1>Project Links</h1>
+		<ul>
+      <li><a href="http://github.com/ohboyohboyohboy/antlr3">GitHub</a></li>
+      <li><a href="http://rubygems.org/gems/antlr3">Ruby Gems</a></li>
+      <li><a href="http://rubyforge.org/projects/antlr3">Rubyforge</a></li>
+      <li><a href="http://github.com/ohboyohboyohboy/antlr3/issues">Bug Reports</a></li>
+		</ul>
+		
+    <h1>External Links</h1>
+		<ul>
+      <li><a href="http://www.antlr.org">ANTLR.org</a></li>
+      <li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+Cheat+Sheet">ANTLR Cheat Sheet</a></li>
+      <li><a href="http://www.antlr.org/wiki/display/ANTLR3/ANTLR+v3+documentation">ANTLR Documentation</a></li>
+      <li><a href="http://www.antlr.org/grammar/list">Sample Grammar Exchange</a></li>
+		</ul>
+	</div>
+
+	<div class="round">
+		<div class="roundbl"><span></span></div>
+		<div class="roundbr"><span></span></div>
+		<span class="clearer"></span>
+	</div>
+</div>
+
+<div class="footer">
+	
+  &copy; 2010 <a href="mailto:kcy5b@yahoo.com">Kyle Yetter</a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. <a href="http://templates.arcsin.se">Website template</a> by <a href="http://arcsin.se">Arcsin</a>
+
+</div>
+</body>
+
+</html>

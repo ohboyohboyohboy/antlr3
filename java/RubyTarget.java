@@ -1,5 +1,5 @@
 /*
- [The "BSD licence"]
+ [The "BSD license"]
  Copyright (c) 2010 Kyle Yetter
  All rights reserved.
 
@@ -28,74 +28,77 @@
 
 package org.antlr.codegen;
 
+import org.antlr.Tool;
+import org.antlr.tool.Grammar;
+import org.stringtemplate.v4.AttributeRenderer;
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroup;
+
 import java.io.IOException;
 import java.util.*;
-
-import org.antlr.Tool;
-import org.antlr.stringtemplate.*;
-import org.antlr.tool.Grammar;
 
 public class RubyTarget extends Target
 {
     /** A set of ruby keywords which are used to escape labels and method names
      *  which will cause parse errors in the ruby source
      */
-    public static final Set rubyKeywords =
-    new HashSet() {
+    public static final Set<String> rubyKeywords =
+    new HashSet<String>() {
         {
-        	add( "alias" );     add( "END" );     add( "retry" );                                                                                                
-        	add( "and" );       add( "ensure" );  add( "return" );                                                                                               
-        	add( "BEGIN" );     add( "false" );   add( "self" );                                                                                                 
-        	add( "begin" );     add( "for" );     add( "super" );                                                                                                
-        	add( "break" );     add( "if" );      add( "then" );                                                                                                 
-        	add( "case" );      add( "in" );      add( "true" );                                                                                                 
-        	add( "class" );     add( "module" );  add( "undef" );                                                                                                
-        	add( "def" );       add( "next" );    add( "unless" );                                                                                               
-        	add( "defined?" );  add( "nil" );     add( "until" );                                                                                                
-        	add( "do" );        add( "not" );     add( "when" );                                                                                                 
-        	add( "else" );      add( "or" );      add( "while" );                                                                                                
-        	add( "elsif" );     add( "redo" );    add( "yield" );                                                                                                
-        	add( "end" );       add( "rescue" );                                                                                                                 
+            add( "alias" );     add( "END" );     add( "retry" );
+            add( "and" );       add( "ensure" );  add( "return" );
+            add( "BEGIN" );     add( "false" );   add( "self" );
+            add( "begin" );     add( "for" );     add( "super" );
+            add( "break" );     add( "if" );      add( "then" );
+            add( "case" );      add( "in" );      add( "true" );
+            add( "class" );     add( "module" );  add( "undef" );
+            add( "def" );       add( "next" );    add( "unless" );
+            add( "defined?" );  add( "nil" );     add( "until" );
+            add( "do" );        add( "not" );     add( "when" );
+            add( "else" );      add( "or" );      add( "while" );
+            add( "elsif" );     add( "redo" );    add( "yield" );
+            add( "end" );       add( "rescue" );
         }
     };
 
-    public static HashMap sharedActionBlocks = new HashMap();
+    public static Map<String, Map<String, Object>> sharedActionBlocks = new HashMap<String, Map<String, Object>>();
 
     public class RubyRenderer implements AttributeRenderer
     {
-    	protected String[] rubyCharValueEscape = new String[256];
-    	
-    	public RubyRenderer() {
-    		for ( int i = 0; i < 16; i++ ) {
-    			rubyCharValueEscape[ i ] = "\\x0" + Integer.toHexString( i );
-    		}
-    		for ( int i = 16; i < 32; i++ ) {
-    			rubyCharValueEscape[ i ] = "\\x" + Integer.toHexString( i );
-    		}
-    		for ( char i = 32; i < 127; i++ ) {
-    			rubyCharValueEscape[ i ] = Character.toString( i );
-    		}
-    		for ( int i = 127; i < 256; i++ ) {
-    			rubyCharValueEscape[ i ] = "\\x" + Integer.toHexString( i );
-    		}
-    		
-    		rubyCharValueEscape['\n'] = "\\n";
-    		rubyCharValueEscape['\r'] = "\\r";
-    		rubyCharValueEscape['\t'] = "\\t";
-    		rubyCharValueEscape['\b'] = "\\b";
-    		rubyCharValueEscape['\f'] = "\\f";
-    		rubyCharValueEscape['\\'] = "\\\\";
-    		rubyCharValueEscape['"'] = "\\\"";
-    	}
-    	
-        public String toString( Object o ) {
-            return o.toString();
+        protected String[] rubyCharValueEscape = new String[256];
+
+        public RubyRenderer() {
+            for ( int i = 0; i < 16; i++ ) {
+                rubyCharValueEscape[ i ] = "\\x0" + Integer.toHexString( i );
+            }
+            for ( int i = 16; i < 32; i++ ) {
+                rubyCharValueEscape[ i ] = "\\x" + Integer.toHexString( i );
+            }
+            for ( char i = 32; i < 127; i++ ) {
+                rubyCharValueEscape[ i ] = Character.toString( i );
+            }
+            for ( int i = 127; i < 256; i++ ) {
+                rubyCharValueEscape[ i ] = "\\x" + Integer.toHexString( i );
+            }
+
+            rubyCharValueEscape['\n'] = "\\n";
+            rubyCharValueEscape['\r'] = "\\r";
+            rubyCharValueEscape['\t'] = "\\t";
+            rubyCharValueEscape['\b'] = "\\b";
+            rubyCharValueEscape['\f'] = "\\f";
+            rubyCharValueEscape['\\'] = "\\\\";
+            rubyCharValueEscape['"'] = "\\\"";
         }
 
-        public String toString( Object o, String formatName ) {
+        @Override
+        public String toString( Object o, String formatName, Locale locale ) {
+            if ( formatName==null ) {
+                return o.toString();
+            }
+            
             String idString = o.toString();
 
-            if ( idString.isEmpty() ) return idString;
+            if ( idString.length() == 0 ) return idString;
 
             if ( formatName.equals( "snakecase" ) ) {
                 return snakecase( idString );
@@ -110,13 +113,15 @@ public class RubyTarget extends Target
             } else if ( formatName.equals( "lexerRule" ) ) {
                 return lexerRule( idString );
             } else if ( formatName.equals( "constantPath" ) ) {
-            	return constantPath( idString );
+                return constantPath( idString );
             } else if ( formatName.equals( "rubyString" ) ) {
                 return rubyString( idString );
             } else if ( formatName.equals( "label" ) ) {
                 return label( idString );
             } else if ( formatName.equals( "symbol" ) ) {
                 return symbol( idString );
+            } else if ( formatName.equals( "tokenLabel" ) ) {
+                return tokenLabel( idString );
             } else {
                 throw new IllegalArgumentException( "Unsupported format name" );
             }
@@ -146,7 +151,7 @@ public class RubyTarget extends Target
             char next;
             char peek;
 
-            if ( value.isEmpty() ) return value;
+            if ( value.length() == 0 ) return value;
             if ( l == 1 ) return value.toLowerCase();
 
             for ( int i = 0; i < cliff; i++ ) {
@@ -209,31 +214,35 @@ public class RubyTarget extends Target
         }
 
         private String lexerRule( String value ) {
-					  // System.out.print( "lexerRule( \"" + value + "\") => " );
+                      // System.out.print( "lexerRule( \"" + value + "\") => " );
             if ( value.equals( "Tokens" ) ) {
-							  // System.out.println( "\"token!\"" );
+                              // System.out.println( "\"token!\"" );
                 return "token!";
             } else {
-							  // String result = snakecase( value ) + "!";
-								// System.out.println( "\"" + result + "\"" );
+                              // String result = snakecase( value ) + "!";
+                                // System.out.println( "\"" + result + "\"" );
                 return ( snakecase( value ) + "!" );
             }
+        }
+        
+        private String tokenLabel( String value ) {
+            return value.replaceAll( "^<|>$", "" );
         }
 
         private String constantPath( String value ) {
             return value.replaceAll( "\\.", "::" );
         }
-        
+
         private String rubyString( String value ) {
-        	StringBuilder output_buffer = new StringBuilder();
-        	int len = value.length(); 
-        	
-        	output_buffer.append( '"' );
-        	for ( int i = 0; i < len; i++ ) {
-        		output_buffer.append( rubyCharValueEscape[ value.charAt( i ) ] );
-        	}
-        	output_buffer.append( '"' );
-        	return output_buffer.toString();
+            StringBuilder output_buffer = new StringBuilder();
+            int len = value.length();
+
+            output_buffer.append( '"' );
+            for ( int i = 0; i < len; i++ ) {
+                output_buffer.append( rubyCharValueEscape[ value.charAt( i ) ] );
+            }
+            output_buffer.append( '"' );
+            return output_buffer.toString();
         }
 
         private String camelcase( String value ) {
@@ -243,7 +252,7 @@ public class RubyTarget extends Target
             char next;
             boolean at_edge = true;
 
-            if ( value.isEmpty() ) return value;
+            if ( value.length() == 0 ) return value;
             if ( cliff == 1 ) return value.toUpperCase();
 
             for ( int i = 0; i < cliff; i++ ) {
@@ -290,7 +299,7 @@ public class RubyTarget extends Target
 
         private String subcamelcase( String value ) {
             value = camelcase( value );
-            if ( value.isEmpty() )
+            if ( value.length() == 0 )
                 return value;
             Character head = Character.toLowerCase( value.charAt( 0 ) );
             String tail = value.substring( 1 );
@@ -298,11 +307,12 @@ public class RubyTarget extends Target
         }
     }
 
-    protected void genRecognizerFile( 
-    		Tool tool,
-    		CodeGenerator generator,
-    		Grammar grammar,
-    		StringTemplate outputFileST
+    @Override
+    protected void genRecognizerFile(
+            Tool tool,
+            CodeGenerator generator,
+            Grammar grammar,
+            ST outputFileST
     ) throws IOException
     {
         /*
@@ -335,21 +345,22 @@ public class RubyTarget extends Target
 
             Kyle Yetter - March 25, 2010
         */
-    	
+
         if ( grammar.type == Grammar.COMBINED ) {
-            Map actions = grammar.getActions();
+            Map<String, Map<String, Object>> actions = grammar.getActions();
             if ( actions.containsKey( "all" ) ) {
                 sharedActionBlocks.put( grammar.name, actions.get( "all" ) );
             }
         } else if ( grammar.implicitLexer ) {
             if ( sharedActionBlocks.containsKey( grammar.name ) ) {
-                Map actions = grammar.getActions();
+                Map<String, Map<String, Object>> actions = grammar.getActions();
                 actions.put( "all", sharedActionBlocks.get( grammar.name ) );
             }
         }
 
-        StringTemplateGroup group = generator.getTemplates();
+        STGroup group = generator.getTemplates();
         RubyRenderer renderer = new RubyRenderer();
+		
         try {
             group.registerRenderer( Class.forName( "java.lang.String" ), renderer );
         } catch ( ClassNotFoundException e ) {
@@ -362,6 +373,7 @@ public class RubyTarget extends Target
         generator.write( outputFileST, fileName );
     }
 
+    @Override
     public String getTargetCharLiteralFromANTLRCharLiteral(
         CodeGenerator generator,
         String literal
@@ -369,7 +381,7 @@ public class RubyTarget extends Target
     {
         int code_point = 0;
         literal = literal.substring( 1, literal.length() - 1 );
-        
+
         if ( literal.charAt( 0 ) == '\\' ) {
             switch ( literal.charAt( 1 ) ) {
                 case    '\\':
@@ -404,16 +416,18 @@ public class RubyTarget extends Target
         } else {
             System.out.println( "2: hey you didn't account for this: \"" + literal + "\"" );
         }
-        
+
         return ( "0x" + Integer.toHexString( code_point ) );
     }
 
+    @Override
     public int getMaxCharValue( CodeGenerator generator )
     {
         // Versions before 1.9 do not support unicode
         return 0xFF;
     }
 
+    @Override
     public String getTokenTypeAsTargetLabel( CodeGenerator generator, int ttype )
     {
         String name = generator.grammar.getTokenDisplayName( ttype );
@@ -423,7 +437,8 @@ public class RubyTarget extends Target
         }
         return name;
     }
-    
+
+    @Override
     public boolean isValidActionScope( int grammarType, String scope ) {
         if ( scope.equals( "all" ) )       {
             return true;
@@ -437,7 +452,7 @@ public class RubyTarget extends Target
         if ( scope.equals( "overrides" ) ) {
             return true;
         }
-				
+
         switch ( grammarType ) {
         case Grammar.LEXER:
             if ( scope.equals( "lexer" ) ) {
@@ -466,6 +481,7 @@ public class RubyTarget extends Target
         return false;
     }
 
+    @Override
     public String encodeIntAsCharEscape( final int v ) {
         final int intValue;
 
@@ -477,135 +493,4 @@ public class RubyTarget extends Target
 
         return String.valueOf( intValue );
     }
-
-    /** Convert from an ANTLR string literal found in a grammar file to
-     *  an equivalent string literal in the target language.  For Java, this
-     *  is the translation 'a\n"' -> "a\n\"".  Expect single quotes
-     *  around the incoming literal.  Just flip the quotes and replace
-     *  double quotes with \"
-       * 
-       *  Note that we have decided to allow poeple to use '\"' without
-       *  penalty, so we must build the target string in a loop as Utils.replae
-       *  cannot handle both \" and " without a lot of messing around.
-       * 
-     */
-    public String getTargetStringLiteralFromANTLRStringLiteral(
-      CodeGenerator generator,
-      String literal)
-    {
-          StringBuilder sb = new StringBuilder();
-          StringBuffer is = new StringBuffer(literal);
-          int lastIndex = is.length() - 1;
-          
-          // Opening quote
-          //
-          sb.append('"');
-          
-          for ( int i = 1; i < lastIndex; i++ ) {
-              if  (is.charAt(i) == '\\') {
-                  // Anything escaped is what it is! We assume that
-                  // people know how to escape characters correctly. However
-                  // we catch anything that does not need an escape in Java (which
-                  // is what the default implementation is dealing with and remove 
-                  // the escape. The C target does this for instance.
-                  //
-                  switch (is.charAt(i+1)) {
-                      // Pass through any escapes that Java also needs
-                      //
-                      case    '"':
-                      case    'n':
-                      case    'r':
-                      case    't':
-                      case    'b':
-                      case    'f':
-                      case    '\\':
-                      case    'u':    // Assume unnnn
-                          sb.append('\\');    // Pass the escape through
-                          break;
-                      default:
-                          // Remove the escape by virtue of not adding it here
-                          // Thus \' becomes ' and so on
-                          //
-                          break;
-                  }
-                  
-                  // Go past the \ character
-                  //
-                  i++;
-              } else {
-                  
-                  // in ruby, double quoted strings have interpolation signifiers that
-                  // will cause a syntax error in the output if they are not properly
-                  // escaped
-                  
-                  if ( is.charAt( i ) == '#' && i < lastIndex - 1 ) {
-                    switch ( is.charAt( i + 1 ) ) {
-                      case '{':
-                      case '@':
-                      case '$':
-                        sb.append('\\');
-                        break;
-                      default:
-                        break;
-                        // pass through
-                    }
-                  } else if (is.charAt(i) == '"') {
-                      sb.append('\\');
-                  }
-                  
-              }
-              // Add in the next character, which may have been escaped
-              //
-              sb.append(is.charAt(i));   
-          }
-          
-          // Append closing " and return
-          //
-          sb.append('"');
-          
-      return sb.toString();
-    }
-
-
-    public String getTargetStringLiteralFromString(String s, boolean quoted) {
-      if ( s == null ) { return null; }
-      
-      StringBuffer buf = new StringBuffer();
-      
-      if ( quoted ) { buf.append('"'); }
-      
-      for ( int i = 0; i < s.length(); i++ ) {
-        int c = s.charAt( i );
-        
-        if ( c != '\'' && // don't escape single quotes in strings for java
-           c < targetCharValueEscape.length &&
-           targetCharValueEscape[c] != null )
-        {
-          buf.append(targetCharValueEscape[c]);
-        }
-        else if ( c == '#' && i < s.length() - 1 )
-        {
-            switch ( s.charAt( i + 1 ) ) {
-              case '{':
-              case '@':
-              case '$':
-                buf.append( "\\#" );
-                break;
-              default:
-                buf.append( '#' );
-                break;
-            }
-        }
-        else
-        {
-          buf.append((char)c);
-        }
-      }
-      if ( quoted ) {
-        buf.append('"');
-      }
-      return buf.toString();
-    }
-
-
 }

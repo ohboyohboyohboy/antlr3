@@ -97,6 +97,7 @@ ARGV.delete( '--keep-classpath' ) or
 if ARGV.include?( '--version' )
   
   puts( "Ruby Target and Runtime Library Version: #{ ANTLR3::VERSION_STRING }" )
+  puts "ANTLR3 Jar Path: #{ jar }"
   run.call( '-version' )
   
 elsif ARGV.include?( '--help' ) or ARGV.include?( '-h' )
@@ -104,6 +105,10 @@ elsif ARGV.include?( '--help' ) or ARGV.include?( '-h' )
   # the ANTLR tool doesn't follow the --help/-h convention
   # -- it provides help only if no arguments are specified
   run.call
+
+elsif ARGV.include?( "--jar-path" )
+  
+  puts "ANTLR3 Jar Path: #{ jar }"
   
 else
   

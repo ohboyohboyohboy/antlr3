@@ -1,7 +1,7 @@
 group Dbg;
 
 /*
- [The "BSD licence"]
+ [The "BSD license"]
  Copyright (c) 2005-2009 Terence Parr
  All rights reserved.
 
@@ -44,11 +44,11 @@ RULE_NAMES = [
 
 @rule.body() ::= <<
 in_rule(grammar_file_name, "<ruleName>") do
-  @debug_listener.location(<ruleDescriptor.tree.line>, <ruleDescriptor.tree.column>)
-  
+  @debug_listener.location(<ruleDescriptor.tree.line>, <ruleDescriptor.tree.charPositionInLine>)
+
   <@super.body()>
-  
-  @debug_listener.location(<ruleDescriptor.EORNode.line>, <ruleDescriptor.EORNode.column>)
+
+  @debug_listener.location(<ruleDescriptor.EORNode.line>, <ruleDescriptor.EORNode.charPositionInLine>)
 end
 >>
 
@@ -143,12 +143,12 @@ end
 >>
 
 
-@altSwitchCase.prealt() ::= "<enterAlt(n=i)>"
+@altSwitchCase.prealt() ::= "<enterAlt(altNum)>"  // altNum is arg of altSwitchCase
 
 
-element() ::= <<
-@debug_listener.location(<it.line>, <it.pos>)
-<super.element()>
+element(e) ::= <<
+@debug_listener.location(<e.line>, <e.pos>)
+<super.element(e)>
 >>
 
 

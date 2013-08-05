@@ -596,7 +596,6 @@ class TestHeterogeneousNodeTypes < ANTLR3::Test::Functional
     tokens = ANTLR3::CommonTokenStream.new( lexer )
     parser = grammar_module::Parser.new( tokens )
     r = parser.send( grammar_rule )
-    
     return( r.tree.inspect rescue '' )
   end
   

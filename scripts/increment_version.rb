@@ -13,7 +13,7 @@ Version = Struct.new( :major, :minor, :patch ) do
   end
   
   def increment!( level = :patch )
-    member = members.index( level.to_s )
+    member = members.map { | m | m.to_s }.index( level.to_s )
     self[ member ] += 1
     for sub in members[ member + 1 .. -1 ]
       self[ sub ] = 0

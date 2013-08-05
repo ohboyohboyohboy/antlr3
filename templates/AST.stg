@@ -20,14 +20,14 @@ ruleDeclarations() ::= <<
 root_0 = nil<\n>
 >>
 
-ruleLabelDefs() ::= <<
-<super.ruleLabelDefs()>
+ruleLabelDefs(desc) ::= <<
+<super.ruleLabelDefs(desc)>
 <[ruleDescriptor.tokenLabels,ruleDescriptor.wildcardTreeLabels,ruleDescriptor.wildcardTreeListLabels,ruleDescriptor.tokenListLabels]
-    :{tree_for_<it.label.text> = nil}; separator="\n">
+    :{it|tree_for_<it.label.text> = nil}; separator="\n">
 <ruleDescriptor.allTokenRefsInAltsWithRewrites
-    :{stream_<it> = ANTLR3::AST::RewriteRule<rewriteElementType>Stream.new( @adaptor, "token <it>" )}; separator="\n">
+    :{it|stream_<it> = ANTLR3::AST::RewriteRule<rewriteElementType>Stream.new( @adaptor, "token <it>" )}; separator="\n">
 <ruleDescriptor.allRuleRefsInAltsWithRewrites
-    :{stream_<it> = ANTLR3::AST::RewriteRuleSubtreeStream.new( @adaptor, "rule <it>" )}; separator="\n">
+    :{it|stream_<it> = ANTLR3::AST::RewriteRuleSubtreeStream.new( @adaptor, "rule <it>" )}; separator="\n">
 >>
 
 alt(elements,altNum,description,autoAST,outerAlt,treeLevel,rew) ::= <<
@@ -38,22 +38,22 @@ root_0 = @adaptor.create_flat_list<\n><\n>
 <elements:element()><rew>
 >>
 
-tokenRefTrack(token,label,elementIndex,hetero) ::= <<
+tokenRefTrack(token,label,elementIndex,terminalOptions={}) ::= <<
 <tokenRefBang(...)>
 <gatedAction({stream_<token>.add( <label; format="label"> )})>
 >>
 
-tokenRefTrackAndListLabel(token,label,elementIndex,hetero) ::= <<
+tokenRefTrackAndListLabel(token,label,elementIndex,terminalOptions={}) ::= <<
 <tokenRefTrack(...)>
 <addToList(elem={<label; format="label">},...)>
 >>
 
-tokenRefRuleRootTrack(token,label,elementIndex,hetero) ::= <<
+tokenRefRuleRootTrack(token,label,elementIndex,terminalOptions={}) ::= <<
 <tokenRefBang(...)>
 <gatedAction({stream_<token>.add( <label; format="label"> )})>
 >>
 
-tokenRefRuleRootTrackAndListLabel(token,label,elementIndex,hetero) ::= <<
+tokenRefRuleRootTrackAndListLabel(token,label,elementIndex,terminalOptions={}) ::= <<
 <tokenRefRuleRootTrack(...)>
 <addToList(elem=label,...)>
 >>
@@ -129,22 +129,22 @@ root_0 = @adaptor.create_flat_list
 
 rewriteCodeLabels() ::= <<
 <referencedTokenLabels:
-{stream_<it> = <rewriteElementType; format="snakecase">_stream( "token <it>", <it; format="label"> )};
+{it | stream_<it> = <rewriteElementType; format="snakecase">_stream( "token <it>", <it; format="label"> )};
 separator="\n">
 <referencedTokenListLabels:
-{stream_<it> = <rewriteElementType; format="snakecase">_stream( "token <it>", list_of_<it; format="label"> )};
+{it | stream_<it> = <rewriteElementType; format="snakecase">_stream( "token <it>", list_of_<it; format="label"> )};
 separator="\n">
 <referencedWildcardLabels:
-{stream_<it> = subtree_stream( "wildcard <it>", <it; format="label"> )};
+{it | stream_<it> = subtree_stream( "wildcard <it>", <it; format="label"> )};
 separator="\n">
 <referencedWildcardListLabels:
-{stream_<it> = subtree_stream( "wildcard <it>", list_of_<it; format="label"> )};
+{it | stream_<it> = subtree_stream( "wildcard <it>", list_of_<it; format="label"> )};
 separator="\n">
 <referencedRuleLabels:
-{stream_<it> = <it; format="label"> ? subtree_stream( "rule <it>", <it; format="label">.tree ) : subtree_stream( "token <it>" )};
+{it | stream_<it> = <it; format="label"> ? subtree_stream( "rule <it>", <it; format="label">.tree ) : subtree_stream( "token <it>" )};
 separator="\n">
 <referencedRuleListLabels:
-{stream_<it> = subtree_stream( "token <it>", list_of_<it; format="label"> )};
+{it | stream_<it> = subtree_stream( "token <it>", list_of_<it; format="label"> )};
 separator="\n">
 >>
 
@@ -191,18 +191,18 @@ end
 <referencedElements:{el|stream_<el>.reset<\n>}>
 >>
 
-rewriteAltRest(a) ::= <<
+rewriteAltRest(a) ::= <%
 <if(a.pred)>
-if <a.pred>
-  # <a.description>
+if <a.pred><\n>
+  # <a.description><\n>
   <a.alt>
 <else>
-e
-  # <a.description>
-  <a.alt>
-end
+e<\n>
+  # <a.description><\n>
+  <a.alt><\n>
+end<\n>
 <endif>
->>
+%>
 
 rewriteAltFirst(a) ::= <<
 <if(a.pred)>
@@ -231,7 +231,7 @@ rewriteElement(e) ::= <<
 <e.el>
 >>
 
-rewriteTokenRef(token,elementIndex,hetero,args) ::= <<
+rewriteTokenRef(token,elementIndex,args,terminalOptions={}) ::= <<
 @adaptor.add_child( root_<treeLevel>, <createRewriteNodeFromElement(...)> )<\n>
 >>
 
@@ -249,15 +249,15 @@ root_<treeLevel> = @adaptor.become_root( stream_<label>.next_node, root_<treeLev
 
 rewriteTokenListLabelRefRoot ::= rewriteTokenLabelRefRoot
 
-rewriteTokenRefRoot(token,elementIndex,hetero,args) ::= <<
+rewriteTokenRefRoot(token,elementIndex,args,terminalOptions={}) ::= <<
 root_<treeLevel> = @adaptor.become_root( <createRewriteNodeFromElement(...)>, root_<treeLevel> )<\n>
 >>
 
-rewriteImaginaryTokenRef(args,token,hetero,elementIndex) ::= <<
+rewriteImaginaryTokenRef(args,token,elementIndex,terminalOptions={}) ::= <<
 @adaptor.add_child( root_<treeLevel>, <createImaginaryNode(tokenType=token, ...)> )<\n>
 >>
 
-rewriteImaginaryTokenRefRoot(args,token,hetero,elementIndex) ::= <<
+rewriteImaginaryTokenRefRoot(args,token,elementIndex,terminalOptions={}) ::= <<
 root_<treeLevel> = @adaptor.become_root( <createImaginaryNode(tokenType=token, ...)>, root_<treeLevel> )<\n>
 >>
 
@@ -303,27 +303,30 @@ rewriteWildcardLabelRef(label) ::= <<
 @adaptor.add_child( root_<treeLevel>, stream_<label>.next_tree )<\n>
 >>
 
-createImaginaryNode(tokenType,hetero,args) ::= <<
-<if(hetero)>
-<hetero; format="constantPath">.new( create_token( <tokenType> )<if(args)>, <args; separator=", "><endif> )
+createImaginaryNode(tokenType,args,terminalOptions={}) ::= <%
+<if(terminalOptions.node)>
+<terminalOptions.node; format="constantPath">.new( create_token( <tokenType> )<if(args)>, <args; separator=", "><endif> )
 <else>
 <if(!args)>@adaptor.create_from_type( <tokenType>, "<tokenType>" )
 <else>@adaptor.create( <tokenType>, <args; separator=", "> )
 <endif>
 <endif>
->>
+%>
 
-createRewriteNodeFromElement(token,hetero,args) ::= <<
-<if(hetero)>
-<hetero; format="constantPath">.new( stream_<token>.next<if(args)>, <args; separator=", "><endif> )
+createRewriteNodeFromElement(token,args,terminalOptions={}) ::= <%
+<if(terminalOptions.node)>
+<terminalOptions.node; format="constantPath">.new( stream_<token>.next<if(args)>, <args; separator=", "><endif> )
 <else>
 <if(args)>
-<if(!rest(args))>@adaptor.create_from_token( <token>, <first(args)> )
-<else><if(!rest(rest(args)))>@adaptor.create_from_token( <token>, <first(args)>, <first(rest(args))> )
+<if(!rest(args))>
+@adaptor.create_from_token( <token>, <first(args)> )
+<else>
+<if(!rest(rest(args)))>
+@adaptor.create_from_token( <token>, <first(args)>, <first(rest(args))> )
 <endif>
 <endif>
 <else>
 stream_<token>.next_node
 <endif>
 <endif>
->>
+%>
