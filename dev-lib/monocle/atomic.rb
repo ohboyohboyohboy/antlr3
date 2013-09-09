@@ -1,4 +1,8 @@
 #!/usr/bin/ruby
+# encoding: ascii
+#
+# author: Kyle Yetter
+#
 
 require 'strscan'
 
@@ -67,7 +71,7 @@ class SingleLine < ::String
       end
     end
     
-  elsif RUBY_VERSION =~ /^1\.9/
+  elsif RUBY_VERSION =~ /^(?:1\.9|2\.)/
     
     def char_byte( n )
       seen = byte = 0

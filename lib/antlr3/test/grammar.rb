@@ -5,7 +5,7 @@ require 'antlr3'
 require 'antlr3/test/core-extensions'
 require 'antlr3/test/call-stack'
 
-if RUBY_VERSION =~ /^1\.9/
+if RUBY_VERSION =~ /^(?:1\.9|2\.)/
   require 'digest/md5'
   MD5 = Digest::MD5
 else

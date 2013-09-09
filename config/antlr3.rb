@@ -145,10 +145,8 @@ $proj = $project = Project.load( project_top, config_file ) do
   
   def load_environment
     @load_environment ||= begin
-      require 'isolate'
-      #require 'rubygems'
-      
-      Isolate.now!( :file => isolate.config )
+      require 'rubygems'
+      require 'bundler/setup'
       
       for lib in environment_require
         begin
@@ -174,6 +172,22 @@ $proj = $project = Project.load( project_top, config_file ) do
         return( false )
       else
         puts( "Please answer `yes' or `no'" )
+      end
+    end
+  end
+  
+  def yaml
+    @yaml ||= begin
+      require 'yaml'
+      case RUBY_VERSION
+      when /^1\.9/
+        YAML::ENGINE.yamler = 'syck'
+        YAML
+      when /^2\./
+        require 'syck'
+        Syck
+      else
+        YAML
       end
     end
   end

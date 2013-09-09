@@ -41,9 +41,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # 
 
 require 'yaml'
-if defined?( YAML::ENGINE ) and YAML::ENGINE.respond_to?( :yamler= )
-  YAML::ENGINE.yamler = 'syck'
-end
+
 
 class << ENV
   

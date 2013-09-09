@@ -59,7 +59,7 @@ placeAction(scope, name) ::= <<
 <endif>
 >>
 
-runtimeLibraryVersion() ::= "1.9.2"
+runtimeLibraryVersion() ::= "1.10.0"
 
 /** The overall file structure of a recognizer; stores methods
   * for rules and cyclic DFAs plus support code.

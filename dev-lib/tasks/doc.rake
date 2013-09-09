@@ -10,6 +10,10 @@ purpose:    rake task
 require 'antlr3/task'
 require 'yard'
 
+class YARD::Rake::YardocTask
+  include Rake::DSL
+end
+
 namespace :doc do
   YARD::Rake::YardocTask.new( 'api' ) do | task |
     task.files.push( *$project.doc.files )

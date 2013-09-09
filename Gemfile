@@ -1,8 +1,4 @@
-home = File.expand_path( '../..', __FILE__ )
-gem_home = File.join( home, 'vendor/gems' )
-
-options :path => gem_home
-
+source "https://rubygems.org"
 
 # main is a command-line app builder library used in the scripts
 gem "main", "4.2.0"
@@ -15,7 +11,7 @@ gem "facets", "2.7.0"
 
 gem 'rubyforge', "2.0.4"
 
-gem 'rake', "0.8.7"
+gem 'rake'
 
 gem "test-unit", "~> 1.2"
 # antlr tests use a rspec environment with a test/unit structure
@@ -23,13 +19,13 @@ gem "rspec", "1.1.11"
 
 # code coverage
 #gem "rcov", "0.9.6"
-
+gem "bundler"
 
 # fast code profiling
 gem "ruby-prof"
 
 # textile markup for documentation
-gem "RedCloth", "4.2.2"
+gem "RedCloth"
 
 # enhanced rdoc
 gem "yard"

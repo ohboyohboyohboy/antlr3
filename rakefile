@@ -5,7 +5,6 @@
 ################################### establish project environment ##################################
 ####################################################################################################
 load './config/antlr3.rb'
-require 'isolate/rake'
 
 #rake = Rake.application
 #def rake.standard_exception_handling

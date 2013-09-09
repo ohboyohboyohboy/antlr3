@@ -141,7 +141,7 @@ class Article
       line_no += 1
       if ( line =~ /^« *(\S+) *(.*)/ ) ... ( line =~ /^»/ )
         if tag.nil? then
-          tag, options = $1, YAML.load( "{ #$2 }" )
+          tag, options = $1, $project.yaml.load( "{ #$2 }" )
           tag = tag.downcase.to_sym
           
           options = options.with_defaults( :line => line_no + 1, :file => relative_file )
@@ -195,7 +195,7 @@ class Article
       )
       CodeFrame.new( tag, content, options )
     when :table
-      Table.new( YAML.load( content ).update( options ) )
+      Table.new( $project.yaml.load( content ).update( options ) )
     end
   end
   

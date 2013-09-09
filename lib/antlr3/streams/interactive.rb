@@ -12,7 +12,7 @@ uses Readline (if available) or standard IO#gets to fetch data on demand.
 
 class InteractiveStringStream < StringStream
   
-  if RUBY_VERSION =~ /^1\.9/
+  if RUBY_VERSION =~ /^(?:1\.9|2\.)/
     
     # creates a new StringStream object where +data+ is the string data to stream.
     # accepts the following options in a symbol-to-value hash:

@@ -27,23 +27,23 @@
 <p>To demonstrate how this built-in driver feature could be used, imagine developing a grammar to recognize <acronym title="Cascading Style Sheets"><span class="caps">CSS</span></acronym>. You have written a combined grammar file, <code>CSS.g</code>, and you have some sample <span class="caps">CSS</span> source code in a file, <code>sample.css</code>.</p>
 <div class="naked-code-frame">
   <div class="code-header">sample.css</div>
-  <table class="generic" id="css22256460">
-  <tr class="code_line" id="css22256460-1">
+  <table class="generic" id="css70001867678020">
+  <tr class="code_line" id="css70001867678020-1">
     <td class="code"><pre><span class="c">/*&nbsp;super&nbsp;grey&nbsp;paragraphs&nbsp;*/</span><span class="tx"></span></pre></td>
   </tr>
-  <tr class="code_line" id="css22256460-2">
+  <tr class="code_line" id="css70001867678020-2">
     <td class="code"><pre><span class="nt">p</span><span class="tx">&nbsp;</span><span class="p">{</span><span class="tx"></span></pre></td>
   </tr>
-  <tr class="code_line" id="css22256460-3">
+  <tr class="code_line" id="css70001867678020-3">
     <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">left</span><span class="o">-</span><span class="k">margin</span><span class="o">:</span><span class="tx">&nbsp;</span><span class="m">10px</span><span class="p">;</span><span class="tx"></span></pre></td>
   </tr>
-  <tr class="code_line" id="css22256460-4">
+  <tr class="code_line" id="css70001867678020-4">
     <td class="code"><pre><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="k">background</span><span class="o">:</span><span class="tx">&nbsp;</span><span class="m">#EEEEEE</span><span class="p">;</span><span class="tx"></span></pre></td>
   </tr>
-  <tr class="code_line" id="css22256460-5">
+  <tr class="code_line" id="css70001867678020-5">
     <td class="code"><pre><span class="p">}</span><span class="tx"></span></pre></td>
   </tr>
-  <tr class="code_line" id="css22256460-6">
+  <tr class="code_line" id="css70001867678020-6">
     <td class="code"><pre></pre></td>
   </tr>
 </table>
@@ -51,8 +51,8 @@
 </div>
 <p>Generate the ruby recognizer files, <code>CSSLexer.rb</code> and <code>CSSParser.rb</code>:</p>
 <div class="naked-code-frame">
-  <table class="generic" id="24216540">
-  <tr class="code_line" id="24216540-1">
+  <table class="generic" id="70001867706960">
+  <tr class="code_line" id="70001867706960-1">
     <td class="code"><pre><span class="gp">~&gt;</span><span class="w">&nbsp;</span><span class="ni">antlr4ruby</span><span class="w">&nbsp;</span><span class="ss">-fo</span><span class="w">&nbsp;</span><span class="nv">CSS</span><span class="w">&nbsp;</span><span class="nv">CSS.g</span></pre></td>
   </tr>
 </table>
@@ -61,65 +61,65 @@
 <p>Now, if you just want to get a quick sense of how the recognizers function, you do not need to go through the extra trouble of writing a driver for the recognizer classes. You can simply run the script with <code>sample.css</code> as an argument:</p>
 <div class="code-frame">
   <div class="code-header">Using the Built-In Lexer Driver Script to See How <code>sample.css</code> Is Tokenized</div>
-  <table class="generic" id="22843580">
-  <tr class="code_line" id="22843580-1">
+  <table class="generic" id="70001867718320">
+  <tr class="code_line" id="70001867718320-1">
     <td class="code"><pre><span class="gp">~&gt;</span><span class="w">&nbsp;</span><span class="ni">ruby</span><span class="w">&nbsp;</span><span class="nv">CSS/CSSLexer.rb</span><span class="w">&nbsp;</span><span class="nv">CSS/sample.css</span><span class="kp"></span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-2">
+  <tr class="code_line" id="70001867718320-2">
     <td class="code"><pre><span class="go">#&nbsp;&nbsp;&nbsp;COMMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;/*&nbsp;super&nbsp;grey&nbsp;paragraphs&nbsp;*/&quot;&nbsp;@&nbsp;line&nbsp;1&nbsp;&nbsp;&nbsp;col&nbsp;0&nbsp;&nbsp;&nbsp;(hidden)</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-3">
+  <tr class="code_line" id="70001867718320-3">
     <td class="code"><pre><span class="go">--&gt;&nbsp;WS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;\n&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;1&nbsp;&nbsp;&nbsp;col&nbsp;27</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-4">
+  <tr class="code_line" id="70001867718320-4">
     <td class="code"><pre><span class="go">--&gt;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;p&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;2&nbsp;&nbsp;&nbsp;col&nbsp;0</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-5">
+  <tr class="code_line" id="70001867718320-5">
     <td class="code"><pre><span class="go">--&gt;&nbsp;WS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;2&nbsp;&nbsp;&nbsp;col&nbsp;1</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-6">
+  <tr class="code_line" id="70001867718320-6">
     <td class="code"><pre><span class="go">--&gt;&nbsp;T__41&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;{&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;2&nbsp;&nbsp;&nbsp;col&nbsp;2</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-7">
+  <tr class="code_line" id="70001867718320-7">
     <td class="code"><pre><span class="go">--&gt;&nbsp;WS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;\n&nbsp;&nbsp;&nbsp;&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;2&nbsp;&nbsp;&nbsp;col&nbsp;3</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-8">
+  <tr class="code_line" id="70001867718320-8">
     <td class="code"><pre><span class="go">--&gt;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;left-margin&quot;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;3&nbsp;&nbsp;&nbsp;col&nbsp;4</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-9">
+  <tr class="code_line" id="70001867718320-9">
     <td class="code"><pre><span class="go">--&gt;&nbsp;T__45&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;:&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;3&nbsp;&nbsp;&nbsp;col&nbsp;15</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-10">
+  <tr class="code_line" id="70001867718320-10">
     <td class="code"><pre><span class="go">--&gt;&nbsp;WS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;3&nbsp;&nbsp;&nbsp;col&nbsp;16</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-11">
+  <tr class="code_line" id="70001867718320-11">
     <td class="code"><pre><span class="go">--&gt;&nbsp;LENGTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;10px&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;3&nbsp;&nbsp;&nbsp;col&nbsp;17</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-12">
+  <tr class="code_line" id="70001867718320-12">
     <td class="code"><pre><span class="go">--&gt;&nbsp;T__38&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;3&nbsp;&nbsp;&nbsp;col&nbsp;21</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-13">
+  <tr class="code_line" id="70001867718320-13">
     <td class="code"><pre><span class="go">--&gt;&nbsp;WS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;\n&nbsp;&nbsp;&nbsp;&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;3&nbsp;&nbsp;&nbsp;col&nbsp;22</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-14">
+  <tr class="code_line" id="70001867718320-14">
     <td class="code"><pre><span class="go">--&gt;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;background&quot;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;4&nbsp;&nbsp;&nbsp;col&nbsp;4</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-15">
+  <tr class="code_line" id="70001867718320-15">
     <td class="code"><pre><span class="go">--&gt;&nbsp;T__45&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;:&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;4&nbsp;&nbsp;&nbsp;col&nbsp;14</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-16">
+  <tr class="code_line" id="70001867718320-16">
     <td class="code"><pre><span class="go">--&gt;&nbsp;WS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;&nbsp;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;4&nbsp;&nbsp;&nbsp;col&nbsp;15</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-17">
+  <tr class="code_line" id="70001867718320-17">
     <td class="code"><pre><span class="go">--&gt;&nbsp;HASH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;#EEEEEE&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;4&nbsp;&nbsp;&nbsp;col&nbsp;16</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-18">
+  <tr class="code_line" id="70001867718320-18">
     <td class="code"><pre><span class="go">--&gt;&nbsp;T__38&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;;&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;4&nbsp;&nbsp;&nbsp;col&nbsp;23</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-19">
+  <tr class="code_line" id="70001867718320-19">
     <td class="code"><pre><span class="go">--&gt;&nbsp;WS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;\n&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;4&nbsp;&nbsp;&nbsp;col&nbsp;24</span></pre></td>
   </tr>
-  <tr class="code_line" id="22843580-20">
+  <tr class="code_line" id="70001867718320-20">
     <td class="code"><pre><span class="go">--&gt;&nbsp;T__42&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;}&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@&nbsp;line&nbsp;5&nbsp;&nbsp;&nbsp;col&nbsp;0</span></pre></td>
   </tr>
 </table>
@@ -128,35 +128,35 @@
 <p>As shown above, the lexer driver will tokenize the input source file and display each token on a single line. You can also try out the parser, though, by default, the output is much more minimal if the source code does not have any recognition errors. However, if the source has improper syntax, the recognition errors will be displayed.</p>
 <div class="code-frame">
   <div class="code-header">Using the Built-In Parser Driver Script to Check Input For Recognition Errors</div>
-  <table class="generic" id="24269340">
-  <tr class="code_line" id="24269340-1">
+  <table class="generic" id="70001867733360">
+  <tr class="code_line" id="70001867733360-1">
     <td class="code"><pre><span class="gp">~&gt;</span><span class="w">&nbsp;</span><span class="ni">ruby</span><span class="w">&nbsp;</span><span class="nv">CSS/CSSParser.rb</span><span class="w">&nbsp;</span><span class="nv">sample.css</span><span class="kp"></span></pre></td>
   </tr>
-  <tr class="code_line" id="24269340-2">
+  <tr class="code_line" id="70001867733360-2">
     <td class="code"><pre><span class="gp">~&gt;</span><span class="w">&nbsp;</span><span class="ni">ruby</span><span class="w">&nbsp;</span><span class="nv">CSS/CSSParser.rb</span><span class="w">&nbsp;</span><span class="ss">-i</span><span class="w">&nbsp;</span><span class="s">&quot;p&nbsp;{&nbsp;/*&nbsp;incomplete&nbsp;*/&quot;</span><span class="kp"></span></pre></td>
   </tr>
-  <tr class="code_line" id="24269340-3">
-    <td class="code"><pre><span class="go">line&nbsp;0:-1&nbsp;mismatched&nbsp;input&nbsp;&quot;&lt;EOF&gt;&quot;&nbsp;expecting&nbsp;'}'</span></pre></td>
+  <tr class="code_line" id="70001867733360-3">
+    <td class="code"><pre><span class="go">line&nbsp;0:-1&nbsp;mismatched&nbsp;input&nbsp;&quot;&lt;EOF&gt;&quot;&nbsp;expecting&nbsp;&#39;}&#39;</span></pre></td>
   </tr>
 </table>
 
 </div>
 <h1 id="section-1">Lexer Drivers</h1>
 <div class="code-frame">
-  <table class="generic" id="23450840">
-  <tr class="code_line" id="23450840-1">
+  <table class="generic" id="70001867736540">
+  <tr class="code_line" id="70001867736540-1">
     <td class="code"><pre><span class="gp">~&gt;</span><span class="w">&nbsp;</span><span class="ni">ruby</span><span class="w">&nbsp;</span><span class="nv">CSS/CSSLexer.rb</span><span class="w">&nbsp;</span><span class="ss">--help</span><span class="kp"></span></pre></td>
   </tr>
-  <tr class="code_line" id="23450840-2">
+  <tr class="code_line" id="70001867736540-2">
     <td class="code"><pre><span class="go">Usage:&nbsp;CSSLexer&nbsp;[options]</span></pre></td>
   </tr>
-  <tr class="code_line" id="23450840-3">
+  <tr class="code_line" id="70001867736540-3">
     <td class="code"><pre><span class="go">Input&nbsp;Options:</span></pre></td>
   </tr>
-  <tr class="code_line" id="23450840-4">
+  <tr class="code_line" id="70001867736540-4">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;-i,&nbsp;--input&nbsp;&quot;text&nbsp;to&nbsp;process&quot;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;string&nbsp;to&nbsp;use&nbsp;as&nbsp;direct&nbsp;input&nbsp;to&nbsp;the&nbsp;recognizer</span></pre></td>
   </tr>
-  <tr class="code_line" id="23450840-5">
+  <tr class="code_line" id="70001867736540-5">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;-I,&nbsp;--interactive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run&nbsp;an&nbsp;interactive&nbsp;session&nbsp;with&nbsp;the&nbsp;recognizer</span></pre></td>
   </tr>
 </table>
@@ -164,35 +164,35 @@
 </div>
 <h1 id="section-2">Parser Drivers</h1>
 <div class="code-frame">
-  <table class="generic" id="21937620">
-  <tr class="code_line" id="21937620-1">
+  <table class="generic" id="70001867744840">
+  <tr class="code_line" id="70001867744840-1">
     <td class="code"><pre><span class="gp">~&gt;</span><span class="w">&nbsp;</span><span class="ni">ruby</span><span class="w">&nbsp;</span><span class="nv">CSS/CSSParser.rb</span><span class="w">&nbsp;</span><span class="ss">--help</span><span class="kp"></span></pre></td>
   </tr>
-  <tr class="code_line" id="21937620-2">
+  <tr class="code_line" id="70001867744840-2">
     <td class="code"><pre><span class="go">Usage:&nbsp;CSSParser&nbsp;[options]</span></pre></td>
   </tr>
-  <tr class="code_line" id="21937620-3">
+  <tr class="code_line" id="70001867744840-3">
     <td class="code"><pre><span class="go">Input&nbsp;Options:</span></pre></td>
   </tr>
-  <tr class="code_line" id="21937620-4">
+  <tr class="code_line" id="70001867744840-4">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;-i,&nbsp;--input&nbsp;&quot;text&nbsp;to&nbsp;process&quot;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;string&nbsp;to&nbsp;use&nbsp;as&nbsp;direct&nbsp;input&nbsp;to&nbsp;the&nbsp;recognizer</span></pre></td>
   </tr>
-  <tr class="code_line" id="21937620-5">
+  <tr class="code_line" id="70001867744840-5">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;-I,&nbsp;--interactive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run&nbsp;an&nbsp;interactive&nbsp;session&nbsp;with&nbsp;the&nbsp;recognizer</span></pre></td>
   </tr>
-  <tr class="code_line" id="21937620-6">
+  <tr class="code_line" id="70001867744840-6">
     <td class="code"><pre><span class="go"></span></pre></td>
   </tr>
-  <tr class="code_line" id="21937620-7">
+  <tr class="code_line" id="70001867744840-7">
     <td class="code"><pre><span class="go">Parser&nbsp;Configuration:</span></pre></td>
   </tr>
-  <tr class="code_line" id="21937620-8">
+  <tr class="code_line" id="70001867744840-8">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--lexer-name&nbsp;CLASS_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;of&nbsp;the&nbsp;lexer&nbsp;class&nbsp;to&nbsp;use</span></pre></td>
   </tr>
-  <tr class="code_line" id="21937620-9">
+  <tr class="code_line" id="70001867744840-9">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--lexer-file&nbsp;PATH_TO_LIBRARY&nbsp;path&nbsp;to&nbsp;library&nbsp;defining&nbsp;the&nbsp;lexer&nbsp;class</span></pre></td>
   </tr>
-  <tr class="code_line" id="21937620-10">
+  <tr class="code_line" id="70001867744840-10">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--rule&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;of&nbsp;the&nbsp;parser&nbsp;rule&nbsp;to&nbsp;execute</span></pre></td>
   </tr>
 </table>
@@ -200,47 +200,47 @@
 </div>
 <h1 id="section-3">Tree Parser Drivers</h1>
 <div class="code-frame">
-  <table class="generic" id="23317160">
-  <tr class="code_line" id="23317160-1">
+  <table class="generic" id="70001867752460">
+  <tr class="code_line" id="70001867752460-1">
     <td class="code"><pre><span class="gp">~&gt;</span><span class="w">&nbsp;</span><span class="ni">ruby</span><span class="w">&nbsp;</span><span class="nv">CSS/CSSWalker.rb</span><span class="w">&nbsp;</span><span class="ss">--help</span><span class="kp"></span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-2">
+  <tr class="code_line" id="70001867752460-2">
     <td class="code"><pre><span class="go">Usage:&nbsp;FlatListWalker&nbsp;[options]</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-3">
+  <tr class="code_line" id="70001867752460-3">
     <td class="code"><pre><span class="go">Input&nbsp;Options:</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-4">
+  <tr class="code_line" id="70001867752460-4">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;-i,&nbsp;--input&nbsp;&quot;text&nbsp;to&nbsp;process&quot;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;string&nbsp;to&nbsp;use&nbsp;as&nbsp;direct&nbsp;input&nbsp;to&nbsp;the&nbsp;recognizer</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-5">
+  <tr class="code_line" id="70001867752460-5">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;-I,&nbsp;--interactive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run&nbsp;an&nbsp;interactive&nbsp;session&nbsp;with&nbsp;the&nbsp;recognizer</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-6">
+  <tr class="code_line" id="70001867752460-6">
     <td class="code"><pre><span class="go"></span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-7">
+  <tr class="code_line" id="70001867752460-7">
     <td class="code"><pre><span class="go">Tree&nbsp;Parser&nbsp;Configuration:</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-8">
+  <tr class="code_line" id="70001867752460-8">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--lexer-name&nbsp;CLASS_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;full&nbsp;name&nbsp;of&nbsp;the&nbsp;lexer&nbsp;class&nbsp;to&nbsp;use</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-9">
+  <tr class="code_line" id="70001867752460-9">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--lexer-file&nbsp;PATH_TO_LIBRARY&nbsp;path&nbsp;to&nbsp;load&nbsp;to&nbsp;make&nbsp;the&nbsp;lexer&nbsp;class&nbsp;available</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-10">
+  <tr class="code_line" id="70001867752460-10">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--parser-name&nbsp;CLASS_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;full&nbsp;name&nbsp;of&nbsp;the&nbsp;parser&nbsp;class&nbsp;to&nbsp;use</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-11">
+  <tr class="code_line" id="70001867752460-11">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--parser-file&nbsp;PATH_TO_LIBRARY</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-12">
+  <tr class="code_line" id="70001867752460-12">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;to&nbsp;load&nbsp;to&nbsp;make&nbsp;the&nbsp;parser&nbsp;class&nbsp;available</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-13">
+  <tr class="code_line" id="70001867752460-13">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--parser-rule&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;of&nbsp;the&nbsp;parser&nbsp;rule&nbsp;to&nbsp;use&nbsp;on&nbsp;the&nbsp;input</span></pre></td>
   </tr>
-  <tr class="code_line" id="23317160-14">
+  <tr class="code_line" id="70001867752460-14">
     <td class="code"><pre><span class="go">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--rule&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;of&nbsp;the&nbsp;rule&nbsp;to&nbsp;invoke&nbsp;in&nbsp;the&nbsp;tree&nbsp;parser</span></pre></td>
   </tr>
 </table>

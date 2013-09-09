@@ -211,8 +211,8 @@ class Item
     @path = path.to_s.freeze
     initialize_command( options )
     environment(
-      'RUBYOPT' => nil,
-      'RUBYLIB' => nil
+      #'RUBYOPT' => nil,
+      #'RUBYLIB' => nil
     )
   end
   

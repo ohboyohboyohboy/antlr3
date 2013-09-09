@@ -103,13 +103,9 @@ shared_examples_for "template groups" do
     for name in TEMPLATE_NAMES
       @group.should respond_to( name )
       @group.should respond_to( "#{ name }!" )
-      if RUBY_VERSION =~ /^1\.9/
-        @group.private_instance_methods.should include name.to_sym
-        @group.private_instance_methods.should include :"#{ name }!"
-      else
-        @group.private_instance_methods.should include name.to_s
-        @group.private_instance_methods.should include "#{ name }!"
-      end
+      private_method_names = @group.private_instance_methods.map { | m | m.to_s }
+      private_method_names.should include name.to_s
+      private_method_names.should include "#{ name }!"
     end
   end
   

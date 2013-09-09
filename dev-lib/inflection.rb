@@ -1,4 +1,8 @@
 #!/usr/bin/ruby
+# encoding: ascii
+#
+# author: Kyle Yetter
+#
 
 
 module Inflection

@@ -96,14 +96,14 @@ class PropertyGroup < ::Hash
   end
   
   def import( path )
-    update( YAML.load_file( path ) )
+    update( $project.yaml.load_file( path ) )
   end
   
   def load( property, path )
     data = File.read( path )
     value = 
       case path
-      when /\.yaml$/i then YAML.load( data )
+      when /\.yaml$/i then $project.yaml.load( data )
       when /\.erb$/i  then ERB.new( data, nil, '%' )
       else data
       end
@@ -226,7 +226,7 @@ class Article < PropertyGroup
       line_no += 1
       if ( line =~ /^« *(\S+) *(.*)/ ) ... ( line =~ /^»/ )
         if tag.nil? then
-          tag, options = $1, YAML.load( "{ #$2 }" )
+          tag, options = $1, $project.yaml.load( "{ #$2 }" )
           tag = tag.downcase.to_sym
           
           options = options.with_defaults( :line => line_no + 1, :file => relative_file )
@@ -280,7 +280,7 @@ class Article < PropertyGroup
       )
       CodeFrame.new( tag, content, options )
     when :table
-      Table.new( YAML.load( content ).update( options ) )
+      Table.new( $project.yaml.load( content ).update( options ) )
     end
   end
   
