@@ -55,8 +55,11 @@ namespace :package do
   package_task( $project.package.gem ) do
     require 'rubygems'
     require 'rubygems/package_task'
-    require 'rubygems/builder'
-    
+    begin
+      require 'rubygems/builder'
+    rescue LoadError
+      nil
+    end
     
     Dir.chdir( dir ) do
       Gem::PackageTask.new( $project.gem_spec ).define

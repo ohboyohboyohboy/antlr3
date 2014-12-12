@@ -49,47 +49,47 @@ tokens {
 scope InFor { active; }
 
 @parser::members {
-  
+
   def auto_semicolon?( error )
     if NoViableAlternative === error
       return( @auto_semicolon = error ) unless same_line?
     end
     return false
   end
-  
+
   def recover( error = $! )
     @auto_semicolon == error and return( @auto_semicolon = nil )
     super
   end
-  
+
   def report_error( error = $! )
     auto_semicolon?( error ) and return
     super
   end
-  
+
   def newline?( from = 1 )
     to = from == -1 ? 1 : from + 1
     start = @input.future?( from )
     stop = @input.future?( to )
-    
+
     start.upto( stop ) do | i |
       @input.at( i ).type == NEWLINE and return( true )
     end
-    
+
     return( false )
   end
-  
+
   def same_line?
     stop  = @input.future? || @input.length
     start = @input.past?   || 0
-    
+
     start.upto( stop ) do | i |
       @input.at( i ).type == NEWLINE and return( false )
     end
-    
+
     return( true )
   end
-  
+
   def prepend_tree( root, child )
     child = @adaptor.rule_post_processing( child )
     root.unshift( child )
@@ -101,14 +101,13 @@ scope InFor { active; }
 
 @lexer::members {
   attr_accessor :value_expected
-  
+
   NO_VALUE_FOLLOWS = Set[
     ID, REGEX, STRING, NUMBER, THIS,
     TRUE, FALSE, NULL, UNDEFINED,
-    RPAREN, RBRACK, RBRACE,
-    IVAR, DOC, YAML, WORDS
+    RPAREN, RBRACK, RBRACE
   ]
-  
+
   def next_token
     token = super
     unless token.hidden?
@@ -134,7 +133,7 @@ program
   : source_elements -> source_elements
   |                 -> ^( UNDEFINED )
   ;
-  
+
 source_elements
   : statement (  statement )*
   ;
@@ -147,7 +146,7 @@ block
 statement_block
   : '{'  statement_list? '}' -> ^( BLOCK statement_list? )
   ;
-  
+
 statement_list
   : statement+ -> statement+
   ;
@@ -182,9 +181,9 @@ statement
   | try_statement
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Simple Statements
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 empty_statement
   : ';' ->
@@ -208,9 +207,9 @@ blank
   : -> ^( UNDEFINED )
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Block-ish Statements
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 try_statement
   : 'try'
@@ -235,9 +234,9 @@ with_statement
   : 'with' clause block -> ^( 'with' clause block )
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Variable Declarations
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 variable_statement
   : 'var'^ variable_declaration_list statement_end!
@@ -264,39 +263,39 @@ declaration_target
   | '{' declaration_key ( ',' declaration_key )* '}'       -> ^( OBJECT declaration_key+ )
   | variable_name -> variable_name
   ;
-  
+
 declaration_key
   : property_name ':'^ declaration_target
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Branching Statements
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if_statement
   : 'if'^ clause block ( 'else'! block )?
   ;
 
 switch_statement
-  : 'switch'  '('  expression_list  ')' 
+  : 'switch'  '('  expression_list  ')'
     '{'
     ( case_clause )*
-    ( default_clause (  case_clause )* )? 
+    ( default_clause (  case_clause )* )?
     '}'
     -> ^( 'switch' expression_list case_clause* default_clause? )
   ;
-  
+
 case_clause
   : 'case'^  expression_list  ':'!  statement_list?
   ;
-  
+
 default_clause
   : 'default'^  ':'!  statement_list?
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // While Loops
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 do_while_statement
   : 'do' block 'while' clause statement_end
@@ -307,9 +306,9 @@ while_statement
   : 'while'^ clause block
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // For Loops
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 for_loop
   : { @input.peek( 2 ) == EACH }?=> for_each_in_statement
@@ -326,7 +325,7 @@ for_statement
     ')'!
     block
   ;
-  
+
 for_statement_initialiser_part
   scope InFor;
   @before { $InFor::active = true  }
@@ -339,12 +338,12 @@ for_each_in_statement
   : 'for' 'each' '('  for_in_statement_initialiser_part  'in'  expression  ')'  block
     -> ^( 'each' for_in_statement_initialiser_part expression block )
   ;
-  
+
 for_in_statement
   : f='for'  '('  for_in_statement_initialiser_part  'in'  expression  ')'  block
     -> ^( FOR_IN[ $f ] for_in_statement_initialiser_part expression block )
   ;
-  
+
 for_in_statement_initialiser_part
   scope InFor;
   @before { $InFor::active = true  }
@@ -353,9 +352,9 @@ for_in_statement_initialiser_part
   | member
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Flow Control
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 continue_statement
   : 'continue'^ ( { same_line? }?=> ID )? statement_end!
@@ -372,7 +371,7 @@ return_statement
 yield_statement
   : 'yield'^ ( { same_line? }?=> expression_list )? statement_end!
   ;
-  
+
 throw_statement
   : 'throw'^ ( { same_line? }?=> expression_list )? statement_end!
   ;
@@ -430,9 +429,9 @@ bit_and
   ;
 
 equality
-  : relation 
-    ( 
-      ( '=='^ | '!='^ | '==='^ | '!=='^ ) 
+  : relation
+    (
+      ( '=='^ | '!='^ | '==='^ | '!=='^ )
       relation
     )*
   ;
@@ -440,7 +439,7 @@ equality
 relation
   : shift (  relation_op^  shift )*
   ;
-  
+
 relation_op
   : '<'
   | '>'
@@ -485,9 +484,9 @@ postfix
     )
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Atomic Expressions
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 member
   : ( receiver    -> receiver )
@@ -495,7 +494,7 @@ member
     | arguments   -> ^( CALL $member arguments )
     )*
   ;
-  
+
 accessor
   : '['  expression  ']' -> ^( AREF[ '[' ] expression )  //]
   |  '.'  property_name  -> ^( '.'  property_name )
@@ -517,14 +516,14 @@ arguments
   : '('  ( expression  ( ',' expression  )* )? ')' -> ^( ARGUMENTS expression* )
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Functions / Blocks
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function
   : 'function'^ variable_name? function_parameters statement_block
   ;
-  
+
 function_parameters
   : '(' parameters? ')' -> ^( PARAMS parameters? )
   ;
@@ -533,9 +532,9 @@ parameters
   : variable_name (  ','  variable_name )* -> variable_name+
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Literals
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 primary
   : 'this'^
@@ -556,12 +555,12 @@ array_literal
   : '[' ']' -> ^( ARRAY )
   | '[' list_item ( ',' list_item )* ']' -> ^( ARRAY list_item* )
   ;
-  
+
 list_item
   : ( ',' )=>  -> ^( UNDEFINED )
   | expression -> expression
   ;
-  
+
 object_literal
   : '{'  '}' -> ^( OBJECT )
   | '{'  property_definition (  ','  property_definition )* '}'
@@ -574,9 +573,9 @@ property_definition
   | property_name ':'^ expression
   ;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Names and Words
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 property_name
   : ID
@@ -598,10 +597,10 @@ pseudokeyword
 
 reserved
   : 'break'    | 'do'      | 'function'   | 'new'    | 'throw'     | 'until'
-  | 'case'     | 'each'    | 'get'        | 'null'   | 'true'      | 'var'  
-  | 'catch'    | 'else'    | 'if'         | 'return' | 'try'       | 'void' 
+  | 'case'     | 'each'    | 'get'        | 'null'   | 'true'      | 'var'
+  | 'catch'    | 'else'    | 'if'         | 'return' | 'try'       | 'void'
   | 'continue' | 'false'   | 'in'         | 'set'    | 'typeof'    | 'while'
-  | 'default'  | 'finally' | 'instanceof' | 'switch' | 'undefined' | 'with' 
+  | 'default'  | 'finally' | 'instanceof' | 'switch' | 'undefined' | 'with'
   | 'delete'   | 'for'     | 'let'        | 'this'   | 'unless'    | 'yield'
   ;
 
@@ -639,5 +638,3 @@ ID
 WS // Tab, vertical tab, form feed, space, non-breaking space and any other unicode "space separator".
   : ( '\t' | '\f' | ' ' | '\u00A0' )+  { $channel = HIDDEN }
   ;
-
-
