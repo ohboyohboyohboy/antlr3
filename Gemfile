@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # main is a command-line app builder library used in the scripts
-gem "main", "4.2.0"
+gem "main", "~> 6.4"
 
 # console based user interface utilities
 gem 'highline', "1.5.1"
