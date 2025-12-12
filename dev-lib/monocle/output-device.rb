@@ -300,7 +300,7 @@ class OutputDevice < DelegateClass( IO )
       case width
       when Symbol, String
         distance_to( width )
-      when Fixnum
+      when Integer
         width.at_least( 0 )
       end
     if width > 0
@@ -373,11 +373,11 @@ private
     @use_color or return ''
     code = ''
     case fg = @foreground_stack.last
-    when Fixnum then code << xterm_color( ?f, fg )
+    when Integer then code << xterm_color( ?f, fg )
     when String, Symbol then code << ansi_color( ?f, fg )
     end
     case bg = @background_stack.last
-    when Fixnum then code << xterm_color( ?b, bg )
+    when Integer then code << xterm_color( ?b, bg )
     when String, Symbol then code << ansi_color( ?b, bg )
     end
     code

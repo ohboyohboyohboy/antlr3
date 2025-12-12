@@ -29,7 +29,7 @@ class Table
     @width = @inner_width = nil
     
     case columns
-    when Fixnum
+    when Integer
       expand_columns( columns )
     when Array
       @item = @item.title_row!( *columns )
