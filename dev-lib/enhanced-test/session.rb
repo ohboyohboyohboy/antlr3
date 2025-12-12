@@ -242,7 +242,7 @@ private
       }
       verbose and puts( "trashing #{ path }" )
       Dir.rmdir( path ) unless dry_run
-    elsif File.exists?( path )
+    elsif File.exist?( path )
       verbose and puts( "trashing #{ path }" )
       File.delete( path ) unless dry_run
     end

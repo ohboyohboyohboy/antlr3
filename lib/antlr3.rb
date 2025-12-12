@@ -156,7 +156,7 @@ module ANTLR3
       )
     end
     
-    File.exists?( path ) ? path : nil
+    File.exist?( path ) ? path : nil
   end
   
   ##############################################################################################
