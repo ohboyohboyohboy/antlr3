@@ -30,6 +30,6 @@ gem "RedCloth"
 # enhanced rdoc
 gem "yard"
 
-if RUBY_VERSION =~ /^2\./
+if RUBY_VERSION >= "1."
   gem "syck"
 end

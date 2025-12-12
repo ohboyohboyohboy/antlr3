@@ -17,7 +17,7 @@ GEM
     ruby-prof (1.6.3)
     rubyforge (2.0.4)
       json_pure (>= 1.1.7)
-    syck (1.4.1)
+    syck (1.5.1.1)
     test-unit (1.2.3)
       hoe (>= 1.5.1)
     yard (0.9.34)

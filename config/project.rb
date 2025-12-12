@@ -168,7 +168,7 @@ class PropertyGroup < ::Hash
     for key, value in settings
       if Hash === value and value.key?( ".type" )
         define_special_member( key.to_s, value.delete( ".type" ), value )
-      elsif value =~ /^path:(.*)$/
+      elsif value.respond_to?(:=~) and value =~ /^path:(.*)$/
         define_special_member( key.to_s, "path", $1 )
       else
         define_member( key, value )
