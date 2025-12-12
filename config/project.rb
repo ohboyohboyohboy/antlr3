@@ -99,13 +99,11 @@ private
       )
       value
     end
-    value.tainted? and result.taint
     return result
   end
 
   def parse_array(value, separator = File::PATH_SEPARATOR, sub_type = String, *args)
     out = value.split(separator).map! do |item|
-      value.tainted? and item.taint
       parse(item, sub_type, *args)
     end
     return out
