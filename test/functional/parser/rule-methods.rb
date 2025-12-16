@@ -123,7 +123,7 @@ class TestRuleVisibility < ANTLR3::Test::Functional
   END
   
   example 'using visibility modifiers on rules' do
-    mname = RUBY_VERSION =~ /^(1\.9|2\.)/ ? proc { | n | n.to_sym } : proc { | n | n.to_s }
+    mname = RUBY_VERSION >= "1.9" ? proc { | n | n.to_sym } : proc { | n | n.to_s }
     
     RuleVisibility::Parser.public_instance_methods.should include( mname[ 'a' ] )
     RuleVisibility::Parser.protected_instance_methods.should include( mname[ 'c' ] )
