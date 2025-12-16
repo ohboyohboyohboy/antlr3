@@ -19,3 +19,4 @@ private/*
 .tdldb.bak
 *.rbc
 docs/guide/*/*.html
+.idea

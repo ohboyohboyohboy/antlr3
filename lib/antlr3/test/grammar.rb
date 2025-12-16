@@ -4,13 +4,7 @@
 require 'antlr3'
 require 'antlr3/test/core-extensions'
 require 'antlr3/test/call-stack'
-
-if RUBY_VERSION =~ /^(?:1\.9|2\.)/
-  require 'digest/md5'
-  MD5 = Digest::MD5
-else
-  require 'md5'
-end
+require 'digest/md5'
 
 module ANTLR3
 module Test
@@ -305,7 +299,7 @@ private
   def write_to_disk
     @path ||= output_directory / @name + '.g'
     test( ?d, output_directory ) or Dir.mkdir( output_directory )
-    unless test( ?f, @path ) and MD5.digest( @source ) == MD5.digest( File.read( @path ) )
+    unless test( ?f, @path ) and Digest::MD5.digest( @source ) == Digest::MD5.digest( File.read( @path ) )
       open( @path, 'w' ) { |f| f.write( @source ) }
     end
   end

@@ -71,7 +71,7 @@ class SingleLine < ::String
       end
     end
     
-  elsif RUBY_VERSION =~ /^(?:1\.9|2\.)/
+  else
     
     def char_byte( n )
       seen = byte = 0
@@ -274,7 +274,7 @@ class Text < Array
   
   def initialize( lines = nil, default = nil )
     case lines
-    when Fixnum
+    when Integer
       if block_given?
         super( lines ) { | i | Line( yield( i ) ) }
       else

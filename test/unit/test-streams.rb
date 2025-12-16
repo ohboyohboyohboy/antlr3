@@ -31,7 +31,7 @@ class TestStringStream < Test::Unit::TestCase
     @stream.index.should == 2
     @stream.column.should == 2
     @stream.line.should == 1
-    
+
     @stream.consume # \n
     @stream.index.should == 3
     @stream.column.should == 0

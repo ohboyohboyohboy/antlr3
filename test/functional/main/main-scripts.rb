@@ -71,6 +71,7 @@ class TestMainUtility < ANTLR3::Test::Functional
     END
     
     LexerMainFromStdIO::Lexer.main( [], :input => input, :output => output )
+
     lines = output.string.split( /\n/ )
     lines.should have( 3 ).things
   end
@@ -87,12 +88,13 @@ class TestMainUtility < ANTLR3::Test::Functional
     
     output = StringIO.new
     input = StringIO.new( 'yada yada' )
-    
-    MainForCombined::Parser.main( 
+
+    MainForCombined::Parser.main(
         %w(--rule r --lexer-name MainForCombined::Lexer),
         :input => input, :output => output )
-    lines = output.string.split( "\n" )
-    lines.should have( 4 ).things
+
+    text_out = output.string
+    text_out.should include(%q[res="yada yada"])
   end
   
   example 'using built-in main to inspect AST constructed by an AST-building parser' do

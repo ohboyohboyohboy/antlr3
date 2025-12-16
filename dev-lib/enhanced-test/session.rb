@@ -242,7 +242,7 @@ private
       }
       verbose and puts( "trashing #{ path }" )
       Dir.rmdir( path ) unless dry_run
-    elsif File.exists?( path )
+    elsif File.exist?( path )
       verbose and puts( "trashing #{ path }" )
       File.delete( path ) unless dry_run
     end
@@ -772,7 +772,7 @@ private
   
 end
 
-ERB.new( <<-'PROF'.chomp!, nil, '%' ).def_method( ProfileTest, 'generate_script( sample )' )
+ERB.new(<<-'PROF'.chomp!, trim_mode: '%').def_method( ProfileTest, 'generate_script( sample )' )
 require 'ruby-prof'
 
 $real_stdout = $stdout.dup
@@ -801,7 +801,7 @@ __END__
 <%= sample.data %>
 PROF
 
-ERB.new( <<-'BENCH', nil, '%' ).def_method( BenchmarkTest, 'generate_script( sample )' )
+ERB.new(<<-'BENCH', trim_mode: '%').def_method( BenchmarkTest, 'generate_script( sample )' )
 $real_stdout = $stdout.dup
 $stdout.reopen( $stderr )
 $progress = proc do | c |

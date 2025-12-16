@@ -166,7 +166,7 @@ class DFA
     END
   end
   
-  if RUBY_VERSION =~ /^(?:1\.9|2\.)/
+  if RUBY_VERSION >= "1.9"
     
     def predict( input )
       mark = input.mark
