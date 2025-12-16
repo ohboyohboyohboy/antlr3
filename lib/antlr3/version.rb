@@ -19,7 +19,7 @@ module ANTLR3
   # The version data for the current state the library itself
   # 
   MAJOR_VERSION = 1
-  MINOR_VERSION = 10
+  MINOR_VERSION = 11
   PATCH_VERSION = 0
   VERSION = [ MAJOR_VERSION, MINOR_VERSION, PATCH_VERSION ]
   VERSION_STRING = VERSION.join( '.' ).freeze
