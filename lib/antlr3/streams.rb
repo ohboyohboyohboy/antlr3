@@ -385,7 +385,7 @@ class StringStream
   attr_reader :data
   attr_reader :string
   
-  if RUBY_VERSION =~ /^(?:1\.9|2\.)/
+  if RUBY_VERSION >= "1.9"
     
     # creates a new StringStream object where +data+ is the string data to stream.
     # accepts the following options in a symbol-to-value hash:
